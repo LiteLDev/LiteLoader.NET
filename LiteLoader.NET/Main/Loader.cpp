@@ -1,12 +1,38 @@
-#pragma unmanaged
 #include "Loader.hpp"
-#include "CLRPluginLoader.hpp"
-#include "Global.hpp"
 #include <LoggerAPI.h>
-#include <Utils/Hash.h>
+#include ".NETGlobal.hpp"
+
+void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
+{
+    for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
+    {
+        try
+        {
+            Assembly::Load(
+                marshalString(iter->string()))
+                ->GetType(TEXT(LLNET_ENTRY_CLASS))
+                ->GetMethod(TEXT(LLNET_ENTRY_METHOD))
+                ->Invoke(nullptr, nullptr);
+            logger.info("Plugin <{}> loaded", iter->filename().string());
+        }
+        catch (System::Exception^ ex)
+        {
+            logger.error("{}", marshalString(ex->Message));
+        }
+        catch (const std::exception& ex)
+        {
+            logger.error("{}", ex.what());
+        }
+        catch (...)
+        {
+            logger.error("QAQ");
+        }
+    }
+}
 
 #pragma unmanaged
-void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger);
+#include "Global.hpp"
+#include <Utils/Hash.h>
 
 #pragma unmanaged
 void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger& logger);
@@ -32,35 +58,6 @@ void LoadMain()
     CheekPluginEntry(assemblies, logger);
 
     LoadPlugins(assemblies, logger);
-}
-
-#pragma unmanaged
-void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
-{
-    ManageCodeInvoker::ClrHost Clr;
-
-    Clr.Init(TEXT(LLNET_CLR_VERSION));
-
-    for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
-    {
-        try
-        {
-            Clr.ExcuteManageCode(
-                iter->wstring().c_str(),
-                TEXT(LLNET_ENTRY_CLASS),
-                TEXT(LLNET_ENTRY_METHOD),
-                TEXT(LLNET_CLR_VERSION));
-            logger.info("Plugin <{}> loaded", iter->filename().string());
-        }
-        catch (const std::exception& ex)
-        {
-            logger.error("{}", ex.what());
-        }
-        catch (...)
-        {
-            logger.error("QAQ");
-        }
-    }
 }
 
 #pragma unmanaged
