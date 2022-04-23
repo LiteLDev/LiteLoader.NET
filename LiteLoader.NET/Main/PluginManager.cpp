@@ -1,6 +1,6 @@
 #include "PluginManager.h"
 #include "../Header/Core/Exceptions.h"
-#include "../../Extra/PluginManager.h"
+#include "../Extra/PluginManager.h"
 
 namespace LLNET
 {

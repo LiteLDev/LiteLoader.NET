@@ -93,6 +93,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Extra\mutex.h" />
+    <ClInclude Include="Extra\PluginManager.h" />
     <ClInclude Include="Header\AllowListAPI.h" />
     <ClInclude Include="Header\Command\Command.hpp" />
     <ClInclude Include="Header\Command\CommandArea.hpp" />
@@ -187,6 +189,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\Loader.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
+    <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
     <ClInclude Include="Tools\PropertryHelper.h" />
@@ -283,6 +286,9 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\LiteLoader.NET.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -46,6 +46,9 @@
     <Filter Include="Kernel\Impl">
       <UniqueIdentifier>{88a6a29d-b91e-4609-a5a5-b03aa1867c09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra">
+      <UniqueIdentifier>{0bbb6bec-5e78-4513-901b-365a767568a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\AABB.cpp">
@@ -590,10 +593,24 @@
     <ClInclude Include="Main\ClassTemplate.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Extra\mutex.h">
+      <Filter>Extra</Filter>
+    </ClInclude>
+    <ClInclude Include="Extra\PluginManager.h">
+      <Filter>Extra</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
       <Filter>Resource</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource\LiteLoader.NET.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

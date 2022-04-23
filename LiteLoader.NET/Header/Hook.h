@@ -100,43 +100,43 @@ namespace LLNET {
 			/// FunctionProtorype = Function Protorype Delegate
 			/// </summary>
 			generic<typename FunctionProtorype>
-			inline static FunctionProtorype SYM(System::String^ fn) {
-				return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str()))));
+			inline static FunctionProtorype SYM(System::String^ sym) {
+				return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str()))));
 			}
 
-			inline static System::IntPtr SYM(System::String^ fn) {
-				return System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str()));
+			inline static System::IntPtr SYM(System::String^ sym) {
+				return System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str()));
 			}
 
 #undef SymCall
 			generic<typename RTN, typename T0>
-			inline static RTN SymCall(System::String^ fn, T0 a0) {
-				return ((RTN(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0);
+			inline static RTN SymCall(System::String^ sym, T0 a0) {
+				return ((RTN(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0);
 			}
 
 			generic<typename RTN, typename T0, typename T1>
-			inline static RTN SymCall(System::String^ fn, T0 a0, T1 a1) {
-				return ((RTN(*)(T0, T1))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0, a1);
+			inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1) {
+				return ((RTN(*)(T0, T1))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2>
-			inline static RTN SymCall(System::String^ fn, T0 a0, T1 a1, T2 a2) {
-				return ((RTN(*)(T0, T1, T2))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0, a1, a2);
+			inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2) {
+				return ((RTN(*)(T0, T1, T2))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
-			inline static RTN SymCall(System::String^ fn, T0 a0, T1 a1, T2 a2, T3 a3) {
-				return ((RTN(*)(T0, T1, T2, T3))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0, a1, a2, a3);
+			inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3) {
+				return ((RTN(*)(T0, T1, T2, T3))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
-			inline static RTN SymCall(System::String^ fn, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-				return ((RTN(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0, a1, a2, a3, a4);
+			inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+				return ((RTN(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-			inline static RTN SymCall(System::String^ fn, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-				return ((RTN(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString<Encoding::E_UTF8>(fn).c_str())))(a0, a1, a2, a3, a4, a5);
+			inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+				return ((RTN(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5);
 			}
 		};
 		public ref class THookRegister {
