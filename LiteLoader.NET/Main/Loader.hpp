@@ -1,11 +1,9 @@
 #pragma once
-#pragma unmanaged
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include "Global.hpp"
 
-#pragma unmanaged
 struct PEHeader
 {
     uint32_t peHeader = 0;
@@ -89,11 +87,9 @@ struct PEHeader
     }
 };
 
-#pragma unmanaged
 namespace Loader
 {
 
-#pragma unmanaged
 }
 
 //	class PluginLoad

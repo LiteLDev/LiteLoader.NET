@@ -13,6 +13,7 @@
     <RootNamespace>Template</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>LiteLoader.NET</ProjectName>
+    <TargetFramework>net6</TargetFramework>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -21,7 +22,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
+    <CLRSupport>NetCore</CLRSupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -184,7 +185,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Server.h" />
     <ClInclude Include="Main\.NETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.h" />
-    <ClInclude Include="Main\CLRPluginLoader.hpp" />
     <ClInclude Include="Main\Config.h" />
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\Loader.hpp" />

@@ -443,9 +443,6 @@
     <ClInclude Include="Header\Server.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Main\CLRPluginLoader.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Main\Global.hpp">
       <Filter>Main</Filter>
     </ClInclude>

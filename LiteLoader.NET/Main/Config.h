@@ -6,8 +6,6 @@
 
 #define LLNET_LOADER_DESCRIPTION "Test Description."
 
-#define LLNET_CLR_VERSION "v4.0.30319"
-
 #define LLNET_ENTRY_CLASS "PluginMain.Plugin"
 
 #define LLNET_ENTRY_METHOD "OnPostInit"
