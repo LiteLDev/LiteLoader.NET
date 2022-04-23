@@ -101,7 +101,9 @@ public:
 };
 #endif // _M_CEE
 
-#ifndef _M_CEE
+#ifndef _MUTEX_
+
+#ifdef _M_CEE
 struct adopt_lock_t { // indicates adopt lock
     explicit adopt_lock_t() = default;
 };
@@ -557,6 +559,8 @@ void(call_once)(once_flag& _Once, _Fn&& _Fx, _Args&&... _Ax) noexcept(
 #undef _WINDOWS_API
 #undef _RENAME_WINDOWS_API
 #endif // _M_CEE
+
+#endif // !_MUTEX_
 
 #ifdef _M_CEE
 enum class cv_status { // names for wait returns
