@@ -1,0 +1,3 @@
+[submodule "LiteLoaderSDK"]
+	path = SDK
+	url = https://github.com/LiteLDev/LiteLoaderSDK.git
