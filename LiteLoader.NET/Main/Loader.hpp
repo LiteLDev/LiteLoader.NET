@@ -51,63 +51,9 @@ struct PEHeader
             return true;
         }
         return false;
-        // std::ifstream ifs(path, std::ios::in | std::ios::binary);
-        // if (ifs.is_open())
-        //{
-        //     ifs.seekg(0x3c, std::ios::beg);
-        //     ifs.read((char*)&peHeader, sizeof(uint32_t));
-
-        //    ifs.seekg(peHeader);
-        //    ifs.read((char*)&peHeaderSignature, sizeof(uint32_t));
-
-        //    ifs.read((char*)&machine, sizeof(uint16_t));
-        //    ifs.read((char*)&sections, sizeof(uint16_t));
-        //    ifs.read((char*)&timestamp, sizeof(uint32_t));
-        //    ifs.read((char*)&pSymbolTable, sizeof(uint32_t));
-        //    ifs.read((char*)&noOfSymbol, sizeof(uint32_t));
-        //    ifs.read((char*)&optionalHeaderSize, sizeof(uint16_t));
-        //    ifs.read((char*)&characteristics, sizeof(uint16_t));
-
-        //    dataDictionaryStart = uint16_t(ifs.tellg()) + 0x60;
-        //    ifs.seekg(dataDictionaryStart);
-        //    for (int i = 0; i < 16; i++)
-        //    {
-        //        ifs.read((char*)&dataDictionaryRVA[i], sizeof(uint32_t));
-        //        ifs.read((char*)&dataDictionarySize[i], sizeof(uint32_t));
-        //    }
-        //    ifs.close();
-        //    return true;
-        //}
-        // else
-        //    return false;
     }
     bool PEHeader::isDotNetAssembly()
     {
         return !bool(dataDictionaryRVA[7]);
     }
 };
-
-namespace Loader
-{
-
-}
-
-//	class PluginLoad
-//{
-//    std::filesystem::path modulePath;
-//    std::filesystem::path assemblyPath;
-//    std::vector<std::filesystem::path> Assembly;
-//    std::wstring CLRVersion;
-//
-// public:
-//    PluginLoad(std::wstring clrVersion, std::string moduleName);
-//
-// private:
-//    void Init(std::string& moduleName);
-//    void LoadAllAssembly(std::string& moduleName);
-//    static void GetAllAssembly(std::filesystem::path const& path,
-//                               std::vector<std::filesystem::path>& assembly,
-//                               std::string& moduleName);
-//    static std::filesystem::path GetModulePath(std::string& moduleName);
-//    static std::pair<bool, uint64_t> has_onPostInit(std::filesystem::path const& path);
-//};

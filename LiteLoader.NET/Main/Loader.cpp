@@ -17,15 +17,17 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
         }
         catch (System::Exception^ ex)
         {
+            logger.error("Uncaught System.Exception Detected!");
             logger.error("{}", marshalString(ex->Message));
         }
         catch (const std::exception& ex)
         {
+            logger.error("Uncaught std::exception Detected!");
             logger.error("{}", ex.what());
         }
         catch (...)
         {
-            logger.error("QAQ");
+            logger.error("Uncaught exception Detected!");
         }
     }
 }
