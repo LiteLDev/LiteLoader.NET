@@ -8,7 +8,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
     {
         try
         {
-            Assembly::Load(
+            Assembly::LoadFrom(
                 marshalString(iter->string()))
                 ->GetType(TEXT(LLNET_ENTRY_CLASS))
                 ->GetMethod(TEXT(LLNET_ENTRY_METHOD))
