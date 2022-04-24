@@ -16,6 +16,12 @@ namespace LLNET {
 			inline static void* dlsym_real(char const* name);
 			inline static System::IntPtr dlsym_real(System::String^ name);
 
+			generic<typename RTN>
+			where RTN : System::ValueType
+				inline static RTN VirtualCall(void const* _this, uintptr_t off) {
+				return (*((RTN(**)(void const*))((uintptr_t*)_this + off)))(_this);
+			}
+
 			generic<typename RTN, typename T0>
 			where RTN : System::ValueType
 				inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0) {
@@ -45,6 +51,14 @@ namespace LLNET {
 			where RTN : System::ValueType
 				inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
 				return (*((RTN(**)(void const*, T0, T1, T2, T3, T4, T5))((uintptr_t*)_this + off)))(_this, a0, a1, a2, a3, a4, a5);
+			}
+
+
+
+			generic<typename RTN>
+			where RTN : System::ValueType
+				inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off) {
+				return (*((RTN(**)(void const*))((uintptr_t*)((void*)_this) + off)))((void*)_this);
 			}
 
 			generic<typename RTN, typename T0>
@@ -109,6 +123,11 @@ namespace LLNET {
 			}
 
 #undef SymCall
+			generic<typename RTN>
+			inline static RTN SymCall(System::String^ sym) {
+				return ((RTN(*)())(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))();
+			}
+
 			generic<typename RTN, typename T0>
 			inline static RTN SymCall(System::String^ sym, T0 a0) {
 				return ((RTN(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0);
