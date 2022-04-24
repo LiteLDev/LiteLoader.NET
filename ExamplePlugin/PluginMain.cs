@@ -1,6 +1,6 @@
 ﻿#region Configs
 
-//#define _LOGGER_ 
+#define _LOGGER_ 
 #define _EVENT_
 
 #endregion
