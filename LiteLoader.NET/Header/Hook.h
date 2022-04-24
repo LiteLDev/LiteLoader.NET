@@ -8,7 +8,7 @@ namespace LLNET {
 	namespace Hook {
 		using LLNET::Core::SecondaryRankPtr;
 
-		public ref class HookAPI sealed
+		public ref class HookAPI abstract
 		{
 		public:
 			inline static int HookFunction(void* oldfunc, void** poutold, void* newfunc);

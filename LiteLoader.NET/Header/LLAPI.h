@@ -111,7 +111,7 @@ private:
 };
 
 public
-ref class LLAPI sealed
+ref class LLAPI abstract
 {
 public:
     static System::String ^ getLoaderVersionString();

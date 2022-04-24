@@ -6,7 +6,7 @@
 namespace LLNET::RemoteCall
 {
 public
-ref class RemoteCallAPI sealed
+ref class RemoteCallAPI abstract
 {
 public:
     delegate String ^ CallbackFn(List<String ^> ^);

@@ -3,7 +3,7 @@
 #include ".NETGlobal.hpp"
 namespace LLNET {
 	using namespace LLNET::LL;
-	private ref class PluginManager sealed
+	private ref class PluginManager abstract
 	{
 	public:
 		using PluginTuple = System::Tuple< Plugin^, Assembly^>;

@@ -21,7 +21,7 @@ public:
 };
 
 public
-ref class ScheduleAPI sealed
+ref class ScheduleAPI abstract
 {
 public:
     delegate void TaskDelegate(void);

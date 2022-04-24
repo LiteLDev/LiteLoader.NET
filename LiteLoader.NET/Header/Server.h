@@ -4,7 +4,7 @@
 namespace LLNET::LL
 {
 public
-ref class ServerAPI sealed
+ref class ServerAPI abstract
 {
 public:
     inline static System::String ^ GetBdsVersion();

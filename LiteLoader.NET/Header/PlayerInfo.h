@@ -2,7 +2,7 @@
 #include <PlayerInfoAPI.h>
 #include "../Main/.NETGlobal.hpp"
 namespace LLNET::PlayerInfo {
-	public ref class PlayerInfoAPI sealed {
+	public ref class PlayerInfoAPI abstract {
 	public:
 		inline static bool Insert(System::String^ name, System::String^ xuid, System::String^ uuid);
 		inline static System::String^ GetXuid(System::String^ name);

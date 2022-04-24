@@ -10,7 +10,7 @@ ref class Player;
 
 namespace LLNET::Helper
 {
-ref class FormPacketHelper sealed
+ref class FormPacketHelper abstract
 {
 public:
     delegate void SimpleFormPacketCallbackHandler(MC::Player ^, int);
