@@ -72,7 +72,9 @@
       <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
     </Link>
     <PreBuildEvent>
-      <Command>if not exist $(SolutionDir)SDK\Lib\bedrock_server_api.lib goto process
+      <Command>copy /Y $(ProjectDir)Extra\Types.hpp $(SolutionDir)SDK\Header\MC\
+
+if not exist $(SolutionDir)SDK\Lib\bedrock_server_api.lib goto process
 if not exist $(SolutionDir)SDK\Lib\bedrock_server_var.lib goto process
 goto end
 
@@ -278,11 +280,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="LiteLoader.NET_CoreLib">
-      <HintPath>..\..\LLNET_LIB\x64\Release\LiteLoader.NET_CoreLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
