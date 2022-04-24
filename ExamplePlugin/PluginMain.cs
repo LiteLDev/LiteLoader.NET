@@ -2,6 +2,8 @@
 
 #define _LOGGER_ 
 #define _EVENT_
+#define _SCHEDULE_
+#define _THOOK_
 
 #endregion
 
@@ -31,6 +33,14 @@ namespace PluginMain
 #if _EVENT_
             ExampleEvent exampleEvent = new();
             exampleEvent.Execute();
+#endif
+#if _SCHEDULE_
+            ExampleSchedule exampleSchedule = new();
+            exampleSchedule.Execute();
+#endif
+#if _THOOK_
+            ExampleThook exampleThook = new();
+            exampleThook.Execute();
 #endif
         }
     }
