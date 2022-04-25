@@ -209,10 +209,10 @@ inline bool Level::RuncmdAs(Player ^ pl, System::String ^ cmd)
 {
     return ::Level::runcmdAs(pl->NativePtr, marshalString<Encoding::E_UTF8>(cmd));
 }
-inline KeyValuePair<bool, System::String ^> Level::RuncmdEx(System::String ^ cmd)
+inline Pair<bool, System::String ^> Level::RuncmdEx(System::String ^ cmd)
 {
     auto& kvpair = ::Level::runcmdEx(marshalString<Encoding::E_UTF8>(cmd));
-    return KeyValuePair<bool, System::String ^>(kvpair.first, marshalString<Encoding::E_UTF8>(kvpair.second));
+    return Pair<bool, System::String ^>(kvpair.first, marshalString<Encoding::E_UTF8>(kvpair.second));
 }
 inline bool Level::Runcmd(System::String ^ cmd)
 {

@@ -8,7 +8,6 @@
 //#define DEBUG
 
 using System::Collections::Generic::Dictionary;
-using System::Collections::Generic::KeyValuePair;
 using System::Collections::Generic::List;
 
 namespace LLNET::Form
@@ -206,7 +205,7 @@ private:
 public
 ref class CustomForm : public FormImpl
 {
-    using kvPair = KeyValuePair<System::String ^, CustomFormElement ^>;
+    using kvPair = Pair<System::String ^, CustomFormElement ^>;
 
 public:
     delegate void Callback(MC::Player ^, Dictionary<System::String ^, CustomFormElement ^> ^);

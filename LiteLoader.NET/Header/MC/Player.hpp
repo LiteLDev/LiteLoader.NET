@@ -54,9 +54,9 @@ public:
     property NetworkIdentifier ^ NetworkIdentifier { MC::NetworkIdentifier ^ get(); };
     property Certificate ^ Certificate { MC::Certificate ^ get(); };
     property Container ^ EnderChestContainer { Container ^ get(); };
-    property KeyValuePair<MC::BlockPos ^, int> RespawnPosition
+    property Pair<MC::BlockPos ^, int> RespawnPosition
     {
-        KeyValuePair<MC::BlockPos ^, int> get();
+        Pair<MC::BlockPos ^, int> get();
     };
     property float AvgPacketLoss
     {

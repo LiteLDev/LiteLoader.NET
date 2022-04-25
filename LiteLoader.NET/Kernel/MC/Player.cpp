@@ -67,10 +67,10 @@ inline Container ^ Player::EnderChestContainer::get()
 {
     return gcnew Container(NativePtr->getEnderChestContainer());
 }
-inline KeyValuePair<BlockPos ^, int> Player::RespawnPosition::get()
+inline Pair<BlockPos ^, int> Player::RespawnPosition::get()
 {
     auto& p = NativePtr->getRespawnPosition();
-    return KeyValuePair<MC::BlockPos ^, int>(
+    return Pair<MC::BlockPos ^, int>(
         gcnew MC::BlockPos(p.first), p.second);
 }
 inline float Player::AvgPacketLoss::get()

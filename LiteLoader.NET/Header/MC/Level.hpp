@@ -91,7 +91,7 @@ public:
 
     // For compatibility
     inline static bool RuncmdAs(Player ^ pl, System::String ^ cmd);
-    inline static KeyValuePair<bool, System::String ^> RuncmdEx(System::String ^ cmd);
+    inline static Pair<bool, System::String ^> RuncmdEx(System::String ^ cmd);
     inline static bool Runcmd(System::String ^ cmd);
 
 #ifdef INCLUDE_MCAPI
