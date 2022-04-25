@@ -1,3 +1,5 @@
+#include "../Header/LLAPI.h"
+
 using System::Attribute;
 using System::AttributeUsageAttribute;
 using System::AttributeTargets;
@@ -11,11 +13,13 @@ namespace LLNET::Core
 		property int Major;
 		property int Minor;
 		property int Revision;
-		LLNETLibraryAttribute(int major, int minor, int revision)
+		property LLNET::LL::Version::Status Status;
+		LLNETLibraryAttribute()
 		{
-			Major = major;
-			Minor = minor;
-			Revision = revision;
+			Major = 0;
+			Minor = 0;
+			Revision = 0;
+			Status = LLNET::LL::Version::Status::Release;
 		}
 	};
 } // namespace LLNET
