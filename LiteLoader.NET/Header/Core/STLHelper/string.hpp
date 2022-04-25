@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Tools/clix.hpp"
-#include "../../Main/ClassTemplate.h"
+#include "../../../Tools/clix.hpp"
+#include "../../../Main/ClassTemplate.h"
 #include <memory>
 
 namespace LLNET::Core::Std

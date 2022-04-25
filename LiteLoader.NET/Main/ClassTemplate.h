@@ -85,6 +85,18 @@ public:
     {
     }
 
+    ClassTemplate(void* p, bool ownsNativeInstance)
+        : ownsNativeInstance(ownsNativeInstance)
+        , nativePtr((NATIVECLASS*)p)
+    {
+    }
+
+    ClassTemplate(void* p)
+        : ownsNativeInstance(false)
+        , nativePtr((NATIVECLASS*)p)
+    {
+    }
+
     ClassTemplate(NATIVECLASS& r)
         : ownsNativeInstance(true)
         , nativePtr(new NATIVECLASS((NATIVECLASS&)r))

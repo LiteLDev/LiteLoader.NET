@@ -15,6 +15,14 @@
     RefClass(NativeClass* p, bool ownsNativeInstance)   \
         : ClassTemplate(p, ownsNativeInstance)          \
     {                                                   \
+    }                                                   \
+    RefClass(void* p)                                   \
+        : ClassTemplate(p)                              \
+    {                                                   \
+    }                                                   \
+    RefClass(void* p, bool ownsNativeInstance)          \
+        : ClassTemplate(p, ownsNativeInstance)          \
+    {                                                   \
     }
 
 #define __ctor_copy(RefClass, NativeClass) \
@@ -52,6 +60,14 @@ public:
     {                                                               \
     }                                                               \
     RefClass(NativeClass* p, bool ownsNativeInstance)               \
+        : BaseClass(p, ownsNativeInstance)                          \
+    {                                                               \
+    }                                                               \
+    RefClass(void* p)                                               \
+        : BaseClass(p)                                              \
+    {                                                               \
+    }                                                               \
+    RefClass(void* p, bool ownsNativeInstance)                      \
         : BaseClass(p, ownsNativeInstance)                          \
     {                                                               \
     }                                                               \

@@ -17,7 +17,6 @@ public:
         Fake = 3
     };
 
-#ifdef INCLUDE_MCAPI
 
     property MC::ActorUniqueID ^ EntityId {
         MC::ActorUniqueID ^ get();
@@ -51,6 +50,10 @@ public:
     static property MC::IdentityDefinition ^ Invalid {
         MC::IdentityDefinition ^ get();
     }
+
+#ifdef INCLUDE_MCAPI
+
+
 #endif // INCLUDE_MCAPI
 };
 } // namespace MC

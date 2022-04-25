@@ -24,10 +24,6 @@ inline void ScoreboardId::Null::set(System::IntPtr p)
 }
 } // namespace MC
 
-
-
-
-#ifdef INCLUDE_MCAPI
 MC::ScoreboardId::ScoreboardId(MC::ScoreboardId ^ _0)
 {
     OwnsNativeInstance = true;
@@ -35,6 +31,11 @@ MC::ScoreboardId::ScoreboardId(MC::ScoreboardId ^ _0)
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(struct ::ScoreboardId*)_0->NativePtr;
     NativePtr = new struct ::ScoreboardId(__arg0);
+}
+
+int MC::ScoreboardId::GetHashCode()
+{
+    return (int)Hash;
 }
 
 MC::ScoreboardId::ScoreboardId(long long _0)
@@ -89,4 +90,8 @@ bool MC::ScoreboardId::IsValid::get()
     auto __ret = ((struct ::ScoreboardId*)NativePtr)->isValid();
     return __ret;
 }
+
+
+#ifdef INCLUDE_MCAPI
+
 #endif // INCLUDE_MCAPI

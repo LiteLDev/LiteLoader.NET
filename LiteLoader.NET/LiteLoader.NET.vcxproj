@@ -121,7 +121,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Command\CommandVersion.hpp" />
     <ClInclude Include="Header\Core\Exceptions.h" />
     <ClInclude Include="Header\Core\SecondaryRankPtr.h" />
-    <ClInclude Include="Header\Core\STLHelper.hpp" />
+    <ClInclude Include="Header\Core\STLHelper\optional.hpp" />
+    <ClInclude Include="Header\Core\STLHelper\string.hpp" />
     <ClInclude Include="Header\DynamicCommand.h" />
     <ClInclude Include="Header\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
@@ -188,6 +189,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\PlayerInfo.h" />
     <ClInclude Include="Header\RemoteCall.h" />
     <ClInclude Include="Header\Schedule.h" />
+    <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
     <ClInclude Include="Header\Server.h" />
     <ClInclude Include="Main\.NETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.h" />
@@ -196,6 +198,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\Loader.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
     <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
     <ClInclude Include="Tools\PropertryHelper.h" />
@@ -276,6 +279,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\PlayerInfo.cpp" />
     <ClCompile Include="Kernel\RemoteCall.cpp" />
     <ClCompile Include="Kernel\Schedule.cpp" />
+    <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
     <ClCompile Include="Kernel\Server.cpp" />
     <ClCompile Include="Main\AssemblyInfo.cpp" />
     <ClCompile Include="Main\LiteLoaderDotNET.cpp" />

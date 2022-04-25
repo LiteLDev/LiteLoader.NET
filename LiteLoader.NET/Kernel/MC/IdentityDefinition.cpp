@@ -4,8 +4,6 @@ namespace MC
 }
 
 
-#ifdef INCLUDE_MCAPI
-
 MC::ActorUniqueID ^ MC::IdentityDefinition::EntityId::get()
 {
     auto& __ret = ((class ::IdentityDefinition*)NativePtr)->getEntityId();
@@ -46,4 +44,9 @@ MC::IdentityDefinition ^ MC::IdentityDefinition::Invalid::get()
 {
     return (&::IdentityDefinition::Invalid == nullptr) ? nullptr : gcnew ::MC::IdentityDefinition((class ::IdentityDefinition*)&::IdentityDefinition::Invalid);
 }
+
+
+#ifdef INCLUDE_MCAPI
+
+
 #endif // INCLUDE_MCAPI

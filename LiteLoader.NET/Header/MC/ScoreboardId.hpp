@@ -4,6 +4,11 @@
 
 namespace MC
 {
+ref class IdentityDefinition;
+}
+
+namespace MC
+{
 public
 ref class ScoreboardId : ClassTemplate<ScoreboardId, ::ScoreboardId>
 {
@@ -23,7 +28,7 @@ public:
         inline void set(System::IntPtr p);
     }
 
-#ifdef INCLUDE_MCAPI
+    int GetHashCode() override;
 
     property unsigned long long Hash
     {
@@ -46,6 +51,9 @@ public:
     virtual bool Equals(::System::Object ^ obj) override;
 
     static operator MC::ScoreboardId ^(long long _0);
+
+#ifdef INCLUDE_MCAPI
+
 
 #endif // INCLUDE_MCAPI
 };

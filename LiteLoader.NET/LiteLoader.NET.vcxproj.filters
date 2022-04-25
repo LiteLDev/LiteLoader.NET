@@ -49,6 +49,15 @@
     <Filter Include="Extra">
       <UniqueIdentifier>{0bbb6bec-5e78-4513-901b-365a767568a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Scoreboard">
+      <UniqueIdentifier>{94d8324f-e456-458a-a527-7017b6101bd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Core\STLHelper">
+      <UniqueIdentifier>{c70e38df-fb90-4464-a5ab-e356cc7c827f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel\Scoreboard">
+      <UniqueIdentifier>{9e803160-8fc8-4610-b8c5-0c124b593efa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\AABB.cpp">
@@ -299,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp">
       <Filter>Kernel\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp">
+      <Filter>Kernel\Scoreboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,9 +575,6 @@
     <ClInclude Include="Header\RemoteCall.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\STLHelper.hpp">
-      <Filter>Header\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -598,6 +607,18 @@
     </ClInclude>
     <ClInclude Include="Extra\PluginManager.h">
       <Filter>Extra</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Scoreboard\Scoreboard.hpp">
+      <Filter>Header\Scoreboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Core\STLHelper\string.hpp">
+      <Filter>Header\Core\STLHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Core\STLHelper\optional.hpp">
+      <Filter>Header\Core\STLHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\ClassTemplateHelper.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

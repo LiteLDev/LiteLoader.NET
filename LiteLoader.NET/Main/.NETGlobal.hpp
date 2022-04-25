@@ -22,6 +22,10 @@
     if (ReferenceEquals(arg, nullptr)) \
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
+#define CLASS \
+public        \
+    ref class
+
 using System::Console;
 using System::GC;
 using System::IntPtr;

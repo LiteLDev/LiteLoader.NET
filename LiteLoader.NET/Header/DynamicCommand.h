@@ -13,7 +13,7 @@
 #include "../Header/MC/Block.hpp"
 #include "../Header/MC/Command.hpp"
 #include "../Header/MC/ActorDefinitionIdentifier.hpp"
-#include "Core/STLHelper.hpp"
+#include "Core/STLHelper/string.hpp"
 #include <MC/JsonHelpers.hpp>
 
 struct __ParameterData : public ::DynamicCommand::ParameterData
