@@ -18,7 +18,7 @@ public:
     static bool HasFunc(String ^ nameSpace, String ^ funcName);
     static bool RemoveFunc(String ^ nameSpace, String ^ funcName);
     static bool RemoveNameSpace(String ^ nameSpace);
-    static bool RemoveFuncs(List<KeyValuePair<String ^, String ^>> ^ funcs);
+    static bool RemoveFuncs(List<Pair<String ^, String ^>> ^ funcs);
 
 public:
     using ValueType = ::RemoteCall::ValueType;

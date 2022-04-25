@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "Global.hpp"
+#include "../Header/Core/Pair.hpp"
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught System.Exception detected!"
 
@@ -31,7 +32,6 @@ using System::GC;
 using System::IntPtr;
 using System::String;
 using System::Collections::Generic::Dictionary;
-using System::Collections::Generic::KeyValuePair;
 using System::Collections::Generic::List;
 using System::Reflection::Assembly;
 using System::Reflection::AssemblyName;
@@ -40,6 +40,7 @@ using System::Runtime::InteropServices::GCHandle;
 using System::Runtime::InteropServices::LayoutKind;
 using System::Runtime::InteropServices::Marshal;
 using System::Runtime::InteropServices::StructLayoutAttribute;
+using LLNET::Core::Pair;
 
 #include "../Tools/clix.hpp"
 using namespace clix;

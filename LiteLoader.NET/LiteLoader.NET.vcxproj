@@ -120,6 +120,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Command\CommandSelector.hpp" />
     <ClInclude Include="Header\Command\CommandVersion.hpp" />
     <ClInclude Include="Header\Core\Exceptions.h" />
+    <ClInclude Include="Header\Core\Pair.hpp" />
     <ClInclude Include="Header\Core\SecondaryRankPtr.h" />
     <ClInclude Include="Header\Core\STLHelper\optional.hpp" />
     <ClInclude Include="Header\Core\STLHelper\string.hpp" />

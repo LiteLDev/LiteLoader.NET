@@ -76,7 +76,7 @@ bool RemoteCallAPI::RemoveNameSpace(String ^ nameSpace)
     return ::RemoteCall::removeNameSpace(marshalString(nameSpace));
 }
 
-bool RemoteCallAPI::RemoveFuncs(List<KeyValuePair<String ^, String ^>> ^ funcs)
+bool RemoteCallAPI::RemoveFuncs(List<Pair<String ^, String ^>> ^ funcs)
 {
     auto count = (size_t)funcs->Count;
     std::vector<std::pair<std::string, std::string>> stdvector;

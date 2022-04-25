@@ -620,6 +620,9 @@
     <ClInclude Include="Tools\ClassTemplateHelper.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Core\Pair.hpp">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

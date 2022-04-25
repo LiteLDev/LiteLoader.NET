@@ -3,57 +3,57 @@
 #include "../Main/.NETGlobal.hpp"
 #include "../Tools/PropertryHelper.h"
 
-#define EventAPIs(RefEvent, NativeEvent)                                                                                                \
-public:                                                                                                                                 \
-    using EventListener = EventListener<NativeEvent>;                                                                                   \
-    using EventTemplate = EventTemplate<RefEvent, NativeEvent>;                                                                         \
-                                                                                                                                        \
-    static EventListener ^ Subscribe(EventHandler ^ callback) {                                                                         \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                             \
-        auto pluginname = assembly->GetName()->FullName;                                                                                \
-        return EventTemplate::subscribe(pluginname, callback);                                                                          \
-    };                                                                                                                                  \
-    static EventListener ^ Subscribe_Ref(EventHandler ^ callback) {                                                                     \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                             \
-        auto pluginname = assembly->GetName()->FullName;                                                                                \
-        return EventTemplate::subscribe_ref(pluginname, callback);                                                                      \
-    };                                                                                                                                  \
-    static void Unsubscribe(EventListener ^ listener)                                                                                   \
-    {                                                                                                                                   \
-        return EventTemplate::unsubscribe(listener);                                                                                    \
-    }                                                                                                                                   \
-    static bool HasListener()                                                                                                           \
-    {                                                                                                                                   \
-        return EventTemplate::hasListener();                                                                                            \
-    }                                                                                                                                   \
-                                                                                                                                        \
-private:                                                                                                                                \
-    static List<KeyValuePair<EventHandler ^, EventListener ^>> ^ eventData = gcnew List<KeyValuePair<EventHandler ^, EventListener ^>>; \
-    static EventHandler ^ pE;                                                                                                           \
-                                                                                                                                        \
-public:                                                                                                                                 \
-    static event EventHandler ^ Event {                                                                                                 \
-        void add(EventHandler ^ p)                                                                                                      \
-        {                                                                                                                               \
-            pE = static_cast<EventHandler ^>(System::Delegate::Combine(pE, p));                                                         \
-            eventData->Add(KeyValuePair<EventHandler ^, EventListener ^>(p, Subscribe(p)));                                             \
-        }                                                                                                                               \
-        void remove(EventHandler ^ p)                                                                                                   \
-        {                                                                                                                               \
-            pE = static_cast<EventHandler ^>(System::Delegate::Remove(pE, p));                                                          \
-            auto count = eventData->Count;                                                                                              \
-            for (int i = 0; i < count; ++i)                                                                                             \
-            {                                                                                                                           \
-                auto % pair = eventData[i];                                                                                             \
-                if (pair.Key->Equals(p))                                                                                                \
-                {                                                                                                                       \
-                    Unsubscribe(pair.Value);                                                                                            \
-                    eventData->Remove(pair);                                                                                            \
-                }                                                                                                                       \
-            }                                                                                                                           \
-        }                                                                                                                               \
-    };                                                                                                                                  \
-                                                                                                                                        \
+#define EventAPIs(RefEvent, NativeEvent)                                                                                \
+public:                                                                                                                 \
+    using EventListener = EventListener<NativeEvent>;                                                                   \
+    using EventTemplate = EventTemplate<RefEvent, NativeEvent>;                                                         \
+                                                                                                                        \
+    static EventListener ^ Subscribe(EventHandler ^ callback) {                                                         \
+        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                             \
+        auto pluginname = assembly->GetName()->FullName;                                                                \
+        return EventTemplate::subscribe(pluginname, callback);                                                          \
+    };                                                                                                                  \
+    static EventListener ^ Subscribe_Ref(EventHandler ^ callback) {                                                     \
+        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                             \
+        auto pluginname = assembly->GetName()->FullName;                                                                \
+        return EventTemplate::subscribe_ref(pluginname, callback);                                                      \
+    };                                                                                                                  \
+    static void Unsubscribe(EventListener ^ listener)                                                                   \
+    {                                                                                                                   \
+        return EventTemplate::unsubscribe(listener);                                                                    \
+    }                                                                                                                   \
+    static bool HasListener()                                                                                           \
+    {                                                                                                                   \
+        return EventTemplate::hasListener();                                                                            \
+    }                                                                                                                   \
+                                                                                                                        \
+private:                                                                                                                \
+    static List<Pair<EventHandler ^, EventListener ^>> ^ eventData = gcnew List<Pair<EventHandler ^, EventListener ^>>; \
+    static EventHandler ^ pE;                                                                                           \
+                                                                                                                        \
+public:                                                                                                                 \
+    static event EventHandler ^ Event {                                                                                 \
+        void add(EventHandler ^ p)                                                                                      \
+        {                                                                                                               \
+            pE = static_cast<EventHandler ^>(System::Delegate::Combine(pE, p));                                         \
+            eventData->Add(Pair<EventHandler ^, EventListener ^>(p, Subscribe(p)));                                     \
+        }                                                                                                               \
+        void remove(EventHandler ^ p)                                                                                   \
+        {                                                                                                               \
+            pE = static_cast<EventHandler ^>(System::Delegate::Remove(pE, p));                                          \
+            auto count = eventData->Count;                                                                              \
+            for (int i = 0; i < count; ++i)                                                                             \
+            {                                                                                                           \
+                auto % pair = eventData[i];                                                                             \
+                if (pair.Key->Equals(p))                                                                                \
+                {                                                                                                       \
+                    Unsubscribe(pair.Value);                                                                            \
+                    eventData->Remove(pair);                                                                            \
+                }                                                                                                       \
+            }                                                                                                           \
+        }                                                                                                               \
+    };                                                                                                                  \
+                                                                                                                        \
 private:
 
 #include "MC/AABB.hpp"
