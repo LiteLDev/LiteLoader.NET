@@ -623,6 +623,9 @@
     <ClInclude Include="Header\Core\Pair.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Core\STLHelper\vector.hpp">
+      <Filter>Header\Core\STLHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
