@@ -24,6 +24,8 @@ public:
     inline static ItemStack ^ Create();
     inline static ItemStack ^ Create(String ^ type, int count);
     inline static ItemStack ^ Create(CompoundTag ^ tag);
+    inline static ItemStack ^ Create(short itemId, int aux);
+    inline static ItemStack ^ Create(short itemId, int aux,int count);
     inline static ItemStack ^ FromItemInstance(ItemInstance ^ ins);
 
     inline ItemStack ^ Clone_s();
