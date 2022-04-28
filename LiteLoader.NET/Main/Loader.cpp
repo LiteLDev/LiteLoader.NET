@@ -15,10 +15,15 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
                 ->Invoke(nullptr, nullptr);
             logger.info("Plugin <{}> loaded", iter->filename().string());
         }
-        catch (System::Exception^ ex)
+        catch (System::Reflection::TargetInvocationException ^ ex)
         {
-            logger.error("Uncaught System.Exception Detected!");
-            logger.error("{}", marshalString(ex->Message));
+            logger.error("Uncaught " + marshalString(ex->InnerException->GetType()->ToString()) + " Detected!");
+            logger.error("{}", marshalString(ex->InnerException->ToString()));
+        }
+        catch (System::Exception ^ ex)
+        {
+            logger.error("Uncaught " + marshalString(ex->GetType()->ToString()) + " Detected!");
+            logger.error("{}", marshalString(ex->ToString()));
         }
         catch (const std::exception& ex)
         {

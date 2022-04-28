@@ -75,7 +75,8 @@ public:
     {
         return {(bpos1.x + bpos2.x) / 2, (bpos1.y + bpos2.y) / 2, (bpos1.z + bpos2.z) / 2};
     }
-//ignored with /clr
+
+// ignored with /clr
 #ifndef _M_CEE
     LIAPI AABB toAABB() const;
 #endif // !_M_CEE
@@ -484,8 +485,13 @@ template <typename T1>
 class WildcardCommandSelector;
 
 //enum
-enum class ContainerType : char
+class CodeBuilder
 {
+public:
+    enum ProtocolVersion;
+};
+
+enum class ContainerType : char {
     INVENTORY              = -1,
     NONE                   = -9,
     CONTAINER              = 0,
