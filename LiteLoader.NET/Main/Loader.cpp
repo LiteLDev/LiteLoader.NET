@@ -122,7 +122,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
                 else
                 {
                     iter = assemblyPaths.erase(iter);
-                    logger.warn("Cannot find plugin entry!   At <{}>", iter->filename().string());
+                    // logger.warn("Cannot find plugin entry!   At <{}>", iter->filename().string());
                 }
                 fclose(dllFile);
             }
