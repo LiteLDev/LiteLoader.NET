@@ -17,12 +17,12 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
         }
         catch (System::Reflection::TargetInvocationException ^ ex)
         {
-            logger.error("Uncaught " + marshalString(ex->InnerException->GetType()->ToString()) + " Detected!");
+            logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
             logger.error("{}", marshalString(ex->InnerException->ToString()));
         }
         catch (System::Exception ^ ex)
         {
-            logger.error("Uncaught " + marshalString(ex->GetType()->ToString()) + " Detected!");
+            logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
             logger.error("{}", marshalString(ex->ToString()));
         }
         catch (const std::exception& ex)
