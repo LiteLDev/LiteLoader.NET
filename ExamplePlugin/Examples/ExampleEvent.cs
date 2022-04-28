@@ -23,7 +23,7 @@ namespace ExamplePlugin.Examples
             //using lambda expression
             PlayerJoinEvent.Subscribe(ev =>
             {
-                logger.warn.WriteLine(ev.mPlayer.BlockPos);
+                logger.warn.WriteLine(ev.Player.BlockPos);
                 return true;
             });
 
@@ -42,13 +42,13 @@ namespace ExamplePlugin.Examples
             //Subscribe an cpp reference event
             PlayerChatEvent.Subscribe_Ref(ev =>
             {
-                logger.warn.WriteLine(ev.mMessage);
-                ev.mMessage = "New Message";
+                logger.warn.WriteLine(ev.Message);
+                ev.Message = "New Message";
                 return true;
             });
             PlayerChatEvent.Subscribe_Ref(ev =>
             {
-                logger.warn.WriteLine(ev.mMessage);
+                logger.warn.WriteLine(ev.Message);
                 return false;
             });
 
@@ -95,8 +95,8 @@ namespace ExamplePlugin.Examples
 
         bool PlayerJoinEventCallback(PlayerJoinEvent ev)
         {
-            logger.info.WriteLine(ev.mPlayer.Name);
-            logger.info.WriteLine(ev.mPlayer.IP);
+            logger.info.WriteLine(ev.Player.Name);
+            logger.info.WriteLine(ev.Player.IP);
 
             //return false to intercept event
             return true;

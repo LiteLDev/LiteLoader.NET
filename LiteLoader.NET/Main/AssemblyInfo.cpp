@@ -7,7 +7,7 @@ using namespace System::Runtime::InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly:AssemblyTitle(LLNET_LOADER_NAME)];
-[assembly:AssemblyDescription("A Light-Weight .NET Plugin Loader with LiteLoaderBDS")] ;
+[assembly:AssemblyDescription(".NET development platform for LiteLoaderBDS")] ;
 [assembly:AssemblyConfiguration("")] ;
 [assembly:AssemblyCompany("LiteLoader Developer")] ;
 [assembly:AssemblyProduct(LLNET_LOADER_NAME)] ;
@@ -33,5 +33,5 @@ using namespace System::Runtime::InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly:AssemblyVersion("2.2.0.*")];
-[assembly:AssemblyFileVersion("2.2.0.0")] ;
+[assembly:AssemblyVersion("2.2.1.*")];
+[assembly:AssemblyFileVersion("2.2.1.0")] ;

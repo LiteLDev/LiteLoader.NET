@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,2,0,0
- PRODUCTVERSION 2,2,0,0
+ FILEVERSION 2,2,1,0
+ PRODUCTVERSION 2,2,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -67,14 +67,14 @@ BEGIN
     BEGIN
         BLOCK "080404b0"
         BEGIN
-            VALUE "CompanyName", "TODO: <公司名>"
-            VALUE "FileDescription", "TODO: <文件说明>"
-            VALUE "FileVersion", "2.2.0.0"
-            VALUE "InternalName", "LiteLoader.NET"
-            VALUE "LegalCopyright", "Copyright (C) 2022"
-            VALUE "OriginalFilename", "LiteLoader.NET"
-            VALUE "ProductName", "TODO: <产品名>"
-            VALUE "ProductVersion", "2.2.0.0"
+            VALUE "CompanyName", "LiteLoaderDev"
+            VALUE "FileDescription", ".NET development platform for LiteLoaderBDS"
+            VALUE "FileVersion", "2.2.1.0"
+            VALUE "InternalName", "LiteLoader.NET.dll"
+            VALUE "LegalCopyright", "LiteLoader Developer"
+            VALUE "OriginalFilename", "LiteLoader.NET.dll"
+            VALUE "ProductName", "LiteLoader.NET"
+            VALUE "ProductVersion", "2.2.1.0"
         END
     END
     BLOCK "VarFileInfo"
