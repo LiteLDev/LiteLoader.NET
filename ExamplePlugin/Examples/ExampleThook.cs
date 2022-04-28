@@ -34,7 +34,7 @@ namespace ExamplePlugin.Examples
 
         class FuenaceBlock_SetLit_Hook : THookBase<SetLit>
         {
-            static Logger logger = new("ExampleHook");
+            static readonly Logger logger = new("ExampleHook");
 
             //Hook Function
             IntPtr SetLitHookFunction(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6)

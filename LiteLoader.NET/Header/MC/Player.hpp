@@ -35,6 +35,13 @@ public:
     property String ^ Name { String ^ get(); };
     property String ^ RealName { String ^ get(); };
     property System::String ^ Uuid { String ^ get(); };
+    property String ^ IP { String ^ get(); };
+    property String ^ LanguageCode { String ^ get(); };
+    property String ^ ServerAddress { String ^ get(); };
+    property NetworkIdentifier ^ NetworkIdentifier { MC::NetworkIdentifier ^ get(); };
+    property Certificate ^ Certificate { MC::Certificate ^ get(); };
+    property Container ^ EnderChestContainer { Container ^ get(); };
+
     property unsigned char ClientSubId
     {
         unsigned char get();
@@ -48,12 +55,6 @@ public:
     {
         int get();
     }
-    property String ^ IP { String ^ get(); };
-    property String ^ LanguageCode { String ^ get(); };
-    property String ^ ServerAddress { String ^ get(); };
-    property NetworkIdentifier ^ NetworkIdentifier { MC::NetworkIdentifier ^ get(); };
-    property Certificate ^ Certificate { MC::Certificate ^ get(); };
-    property Container ^ EnderChestContainer { Container ^ get(); };
     property Pair<MC::BlockPos ^, int> RespawnPosition
     {
         Pair<MC::BlockPos ^, int> get();

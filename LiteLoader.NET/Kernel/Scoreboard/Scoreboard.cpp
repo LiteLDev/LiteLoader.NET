@@ -14,7 +14,7 @@ array<char> ^ ScoreInfo::Filler::get()
 void ScoreInfo::Filler::set(array<char> ^ value)
 {
     if (value->Length != 16)
-        throw gcnew System::Exception;
+        throw gcnew System::IndexOutOfRangeException;
     pin_ptr<char> p = &value[0];
     memcpy(NativePtr->filler, p, 16);
 }
@@ -33,10 +33,12 @@ ScoreboardId ^ Scoreboard::CreateScoreboardId(String ^ a0)
 {
     return gcnew ScoreboardId((::ScoreboardId&)NativePtr->createScoreboardId(marshalString(a0)));
 }
-ScoreboardId ^ Scoreboard::CreateScoreboardId(Player ^ player) {
+ScoreboardId ^ Scoreboard::CreateScoreboardId(Player ^ player)
+{
     return gcnew ScoreboardId((::ScoreboardId&)NativePtr->createScoreboardId(*player->NativePtr));
 }
-Objective ^ Scoreboard::NewObjective(String ^ objname, String ^ displayName) {
+Objective ^ Scoreboard::NewObjective(String ^ objname, String ^ displayName)
+{
     return gcnew Objective(::Scoreboard::newObjective(marshalString(objname), marshalString(displayName)));
 }
 bool Scoreboard::RemoveFromObjective(String ^ objname, String ^ displayName)

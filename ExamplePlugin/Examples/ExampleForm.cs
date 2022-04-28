@@ -24,7 +24,7 @@ namespace ExamplePlugin.Examples
             //Set form callback
             simpleForm.callback = (pl, val) =>
             {
-                logger.info.WriteLine("PlayerNAme:{0}", pl.Name);
+                logger.info.WriteLine("PlayerName:{0}", pl.Name);
                 logger.info.WriteLine("buttonVal:{0}", val);
             };
 
@@ -32,8 +32,6 @@ namespace ExamplePlugin.Examples
             MC.Level.GetAllPlayers().ForEach(player =>
             {
                 simpleForm.sendTo(player);
-
-                int i;
             });
         }
     }

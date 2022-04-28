@@ -336,7 +336,7 @@ Class PlayerChangeDimEvent
 
 public:
     Property_Ptr(MC, Player, mPlayer, Player);
-    Property(int, mToDimensionId, ToDimension);
+    Property(int, mToDimensionId, ToDimensionId);
 };
 
 Class PlayerJumpEvent
@@ -986,6 +986,17 @@ public:
     Property_String(otherInfo, OtherInfo);
     Property_String(pluginExtention, PluginExtention);
     Property(bool, success, Success);
+};
+
+Class MobSpawnEvent
+    : public EventTemplate<MobSpawnEvent, ::Event::MobSpawnEvent>
+{
+    EventAPIs(MobSpawnEvent, ::Event::MobSpawnEvent);
+
+public:
+    Property_String(mTypeName, TypeName);
+    Property_Instance(MC, Vec3, mPos, Pos);
+    Property(int, mDimensionId, DimensionId);
 };
 
 } // namespace LLNET::Event
