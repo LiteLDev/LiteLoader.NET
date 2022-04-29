@@ -15,10 +15,15 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
                 ->Invoke(nullptr, nullptr);
             logger.info("Plugin <{}> loaded", iter->filename().string());
         }
-        catch (System::Exception^ ex)
+        catch (System::Reflection::TargetInvocationException ^ ex)
         {
-            logger.error("Uncaught System.Exception Detected!");
-            logger.error("{}", marshalString(ex->Message));
+            logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
+            logger.error("{}", marshalString(ex->InnerException->ToString()));
+        }
+        catch (System::Exception ^ ex)
+        {
+            logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
+            logger.error("{}", marshalString(ex->ToString()));
         }
         catch (const std::exception& ex)
         {
@@ -117,7 +122,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
                 else
                 {
                     iter = assemblyPaths.erase(iter);
-                    logger.warn("Cannot find plugin entry!   At <{}>", iter->filename().string());
+                    // logger.warn("Cannot find plugin entry!   At <{}>", iter->filename().string());
                 }
                 fclose(dllFile);
             }
