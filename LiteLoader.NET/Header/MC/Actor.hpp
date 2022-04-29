@@ -15,6 +15,7 @@ ref class BlockPos;
 ref struct Tick;
 ref class ItemStack;
 ref class MobEffectInstance;
+ref class Level;
 } // namespace MC
 
 #include "BlockInstance.hpp"
@@ -52,6 +53,7 @@ public:
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient, bool showParticles);
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient);
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level);
+    inline bool Rename(System::String ^ name);
 
     property UserEntityIdentifierComponent ^ UserEntityIdentifierComponent { MC::UserEntityIdentifierComponent ^ get(); };
     property CompoundTag ^ Nbt {CompoundTag ^ get();void set(CompoundTag ^); };
@@ -61,11 +63,11 @@ public:
     property Vec3 ^ Position { Vec3 ^ get(); };
     property BlockSource ^ Blocksource { BlockSource ^ get(); };
     property Vec2 ^ Direction { Vec2 ^ get(); };
-    // property ActorUniqueID ^ ActorUniqueId { ActorUniqueID ^ get(); };
+    property ActorUniqueID ^ ActorUniqueId { ActorUniqueID ^ get(); };
     property Vec3 ^ CameraPos { Vec3 ^ get(); };
     property Tick ^ LastTick { Tick ^ get(); };
     property ItemStack ^ HandSlot { ItemStack ^ get(); };
-    inline bool Rename(System::String ^ name);
+    property MC::Level ^ Level { MC::Level ^ get(); };
 
     property bool IsSimulatedPlayer
     {

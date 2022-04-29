@@ -12,6 +12,7 @@
 #include "../../Header/MC/CompoundTag.hpp"
 #include "../../Header/MC/MobEffectInstance.hpp"
 #include "../../Header/MC/AABB.hpp"
+#include "../../Header/MC/Level.hpp"
 
 namespace MC
 {
@@ -35,10 +36,10 @@ inline Vec2 ^ Actor::Direction::get()
     return gcnew Vec2(NativePtr->getDirection());
 }
 
-//inline ActorUniqueID ^ Actor::ActorUniqueId::get()
-//{
-//    return gcnew ActorUniqueID(NativePtr->getActorUniqueId());
-//}
+inline ActorUniqueID ^ Actor::ActorUniqueId::get()
+{
+    return gcnew ActorUniqueID(NativePtr->getActorUniqueId());
+}
 
 inline Vec3 ^ Actor::CameraPos::get()
 {
@@ -48,6 +49,11 @@ inline Vec3 ^ Actor::CameraPos::get()
 inline Tick ^ Actor::LastTick::get()
 {
     return gcnew Tick(NativePtr->getLastTick());
+}
+
+inline MC::Level ^ Actor::Level::get()
+{
+    return gcnew MC::Level(&NativePtr->getLevel());
 }
 
 inline List<System::String ^> ^ Actor::GetAllTags()
