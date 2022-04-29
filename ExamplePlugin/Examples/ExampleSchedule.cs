@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//using Schedule Namespace
-using LLNET.Schedule;
+﻿//using Schedule Namespace
 using LLNET.Logger;
+using LLNET.Schedule;
 
 namespace ExamplePlugin.Examples
 {
     public class ExampleSchedule : IExample
     {
-        static readonly Logger logger = new("ExampleSchedule");
+        private static readonly Logger logger = new("ExampleSchedule");
         public void Execute()
         {
             // Delay this callback to next game tick (20 ticks = 1 second)
@@ -38,7 +32,7 @@ namespace ExamplePlugin.Examples
 
             // Delay first call to callback for 20 ticks
             // then schedule this callback once per 60 ticks (20 ticks = 1 second)
-            var sche = ScheduleAPI.DelayRepeat(() =>
+            ScheduleTask sche = ScheduleAPI.DelayRepeat(() =>
             {
                 logger.error.WriteLine("hello");
             }, 40, 60);

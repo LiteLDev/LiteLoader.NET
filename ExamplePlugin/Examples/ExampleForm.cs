@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//using Form Namesapce
+﻿//using Form Namesapce
 using LLNET.Form;
 using LLNET.Logger;
 
@@ -12,7 +6,7 @@ namespace ExamplePlugin.Examples
 {
     public class ExampleForm : IExample
     {
-        static readonly Logger logger = new("ExampleForm");
+        private static readonly Logger logger = new("ExampleForm");
         public void Execute()
         {
             //Create a simple form

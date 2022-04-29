@@ -1,11 +1,5 @@
 ﻿//#define LAMBDA
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 //using Hook Namespace
 using LLNET.Hook;
 using LLNET.Logger;
@@ -26,18 +20,17 @@ namespace ExamplePlugin.Examples
         //Declare function prototype
 
         //IDA: struct BlockActor *__fastcall FurnaceBlock::setLit(char a1, BlockSource *a2, const struct BlockPos *a3, unsigned int a4, __int64 a5, __int64 a6)
-        delegate IntPtr SetLit(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6);
+        private delegate IntPtr SetLit(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6);
 
 
         //Setup Hook Symbol
         [HookSymbol("?setLit@FurnaceBlock@@SAX_NAEAVBlockSource@@AEBVBlockPos@@W4BlockActorType@@AEBVBlock@@4@Z")]
-
-        class FuenaceBlock_SetLit_Hook : THookBase<SetLit>
+        private class FuenaceBlock_SetLit_Hook : THookBase<SetLit>
         {
-            static readonly Logger logger = new("ExampleHook");
+            private static readonly Logger logger = new("ExampleHook");
 
             //Hook Function
-            IntPtr SetLitHookFunction(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6)
+            private IntPtr SetLitHookFunction(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6)
             {
 
                 MC.BlockSource source = new(blockSource);

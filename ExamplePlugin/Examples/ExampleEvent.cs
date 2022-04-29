@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//using Event Namespace
+﻿//using Event Namespace
 using LLNET.Event;
 using LLNET.Logger;
 
@@ -12,7 +6,7 @@ namespace ExamplePlugin.Examples
 {
     internal class ExampleEvent : IExample
     {
-        static Logger logger = new("ExampleEvent");
+        private static readonly Logger logger = new("ExampleEvent");
         public void Execute()
         {
             //Subscribe an event with Callback function
@@ -93,7 +87,7 @@ namespace ExamplePlugin.Examples
 
         }
 
-        bool PlayerJoinEventCallback(PlayerJoinEvent ev)
+        private bool PlayerJoinEventCallback(PlayerJoinEvent ev)
         {
             logger.info.WriteLine(ev.Player.Name);
             logger.info.WriteLine(ev.Player.IP);

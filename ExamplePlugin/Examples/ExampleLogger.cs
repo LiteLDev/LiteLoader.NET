@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//using Logger Namespace
+﻿//using Logger Namespace
 using LLNET.Logger;
 
 namespace ExamplePlugin.Examples
@@ -14,7 +8,7 @@ namespace ExamplePlugin.Examples
         /// <summary>
         /// Create A Logger Instance
         /// </summary>
-        readonly Logger logger = new("ExampleLogger");
+        private readonly Logger logger = new("ExampleLogger");
 
         public void Execute()
         {
