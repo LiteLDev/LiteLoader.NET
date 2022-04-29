@@ -31,9 +31,9 @@ public:
     inline Button(System::String ^ text, System::String ^ image);
     inline Button(System::String ^ text);
     inline ~Button();
-    inline void setText(System::String ^ _text);
-    inline void setImage(System::String ^ _image);
-    inline void setCallback(ButtonCallback ^ _callback);
+    inline void SetText(System::String ^ _text);
+    inline void SetImage(System::String ^ _image);
+    inline void SetCallback(ButtonCallback ^ _callback);
 
 private:
     delegate void _ButtonCallback(::Player*);
@@ -63,11 +63,11 @@ public:
     System::String ^ name;
     System::String ^ value;
     Type type{};
-    inline void setName(System::String ^ _name);
-    inline virtual Type getType() abstract = 0;
-    inline System::String ^ getString();
-    inline int getNumber();
-    inline bool getBool();
+    inline void SetName(System::String ^ _name);
+    inline virtual Type GetType() abstract = 0;
+    inline System::String ^ GetString();
+    inline int GetNumber();
+    inline bool GetBool();
 };
 
 public
@@ -78,8 +78,8 @@ public:
 
 public:
     inline Label(System::String ^ name, System::String ^ text);
-    inline Type getType() override;
-    inline void setText(System::String ^ _text);
+    inline Type GetType() override;
+    inline void SetText(System::String ^ _text);
 };
 
 public
@@ -90,10 +90,10 @@ public:
     inline Input(System::String ^ name, System::String ^ title, System::String ^ placeholder, System::String ^ def);
     inline Input(System::String ^ name, System::String ^ title, System::String ^ placeholder);
     inline Input(System::String ^ name, System::String ^ title);
-    inline Type getType() override;
-    inline void setTitle(System::String ^ _title);
-    inline void setPlaceHolder(System::String ^ _placeholder);
-    inline void setDefault(System::String ^ _def);
+    inline Type GetType() override;
+    inline void SetTitle(System::String ^ _title);
+    inline void SetPlaceHolder(System::String ^ _placeholder);
+    inline void SetDefault(System::String ^ _def);
 };
 
 public
@@ -107,9 +107,9 @@ public:
 public:
     inline Toggle(System::String ^ name, System::String ^ title, bool def);
     inline Toggle(System::String ^ name, System::String ^ title);
-    inline Type getType() override;
-    inline void setTitle(System::String ^ _title);
-    inline void setDefault(bool _def);
+    inline Type GetType() override;
+    inline void SetTitle(System::String ^ _title);
+    inline void SetDefault(bool _def);
 };
 
 public
@@ -123,11 +123,11 @@ public:
 public:
     inline Dropdown(System::String ^ name, System::String ^ title, List<System::String ^> ^ options, int defId);
     inline Dropdown(System::String ^ name, System::String ^ title, List<System::String ^> ^ options);
-    inline Type getType() override;
-    inline void setTitle(System::String ^ _title);
-    inline void setOptions(List<System::String ^> ^ _options);
-    inline void addOption(System::String ^ option);
-    inline void setDefault(int defId);
+    inline Type GetType() override;
+    inline void SetTitle(System::String ^ _title);
+    inline void SetOptions(List<System::String ^> ^ _options);
+    inline void AddOption(System::String ^ option);
+    inline void SetDefault(int defId);
 };
 
 public
@@ -141,12 +141,12 @@ public:
     inline Slider(System::String ^ name, System::String ^ title, int min, int max, int step, int def);
     inline Slider(System::String ^ name, System::String ^ title, int min, int max, int step);
     inline Slider(System::String ^ name, System::String ^ title, int min, int max);
-    inline Type getType() override;
-    inline void setTitle(System::String ^ _title);
-    inline void setMin(int _min);
-    inline void setMax(int _max);
-    inline void setStep(int _step);
-    inline void setDefault(int _def);
+    inline Type GetType() override;
+    inline void SetTitle(System::String ^ _title);
+    inline void SetMin(int _min);
+    inline void SetMax(int _max);
+    inline void SetStep(int _step);
+    inline void SetDefault(int _def);
 };
 
 public
@@ -160,11 +160,11 @@ public:
 public:
     inline StepSlider(System::String ^ name, System::String ^ title, List<System::String ^> ^ options, int defId);
     inline StepSlider(System::String ^ name, System::String ^ title, List<System::String ^> ^ options);
-    inline Type getType() override;
-    inline void setTitle(System::String ^ _title);
-    inline void setOptions(List<System::String ^> ^ _options);
-    inline void addOption(System::String ^ option);
-    inline void setDefault(int defId);
+    inline Type GetType() override;
+    inline void SetTitle(System::String ^ _title);
+    inline void SetOptions(List<System::String ^> ^ _options);
+    inline void AddOption(System::String ^ option);
+    inline void SetDefault(int defId);
 };
 
 //////////////////////////////// Forms ////////////////////////////////
@@ -186,14 +186,14 @@ public:
 public:
     SimpleForm(System::String ^ title, System::String ^ content);
     ~SimpleForm();
-    inline SimpleForm ^ setTitle(System::String ^ title);
-    inline SimpleForm ^ cstContent(System::String ^ content);
-    inline SimpleForm ^ addButton(System::String ^ text, System::String ^ image, Button::ButtonCallback ^ callback);
-    inline SimpleForm ^ addButton(System::String ^ text, System::String ^ image);
-    inline SimpleForm ^ addButton(System::String ^ text);
-    inline SimpleForm ^ append(Button ^ element);
-    bool sendTo(MC::Player ^ _player, Callback ^ _callback);
-    bool sendTo(MC::Player ^ player);
+    inline SimpleForm ^ SetTitle(System::String ^ title);
+    inline SimpleForm ^ CstContent(System::String ^ content);
+    inline SimpleForm ^ AddButton(System::String ^ text, System::String ^ image, Button::ButtonCallback ^ callback);
+    inline SimpleForm ^ AddButton(System::String ^ text, System::String ^ image);
+    inline SimpleForm ^ AddButton(System::String ^ text);
+    inline SimpleForm ^ Append(Button ^ element);
+    bool SendTo(MC::Player ^ _player, Callback ^ _callback);
+    bool SendTo(MC::Player ^ player);
 
 private:
     delegate void _Callback(::Player*, int);
@@ -233,15 +233,15 @@ public:
     bool sendTo(MC::Player ^ player, Callback ^ callback);
     inline bool sendTo(MC::Player ^ player);
 
-    inline CustomFormElement::Type getType(int index);
+    inline CustomFormElement::Type GetType(int index);
 
-    inline System::String ^ getString(System::String const ^ name);
-    inline int getNumber(System::String const ^ name);
-    inline bool getBool(System::String const ^ name);
-    inline System::String ^ getString(int index);
-    inline int getNumber(int index);
-    inline bool getBool(int index);
+    inline System::String ^ GetString(System::String const ^ name);
+    inline int GetNumber(System::String const ^ name);
+    inline bool GetBool(System::String const ^ name);
+    inline System::String ^ GetString(int index);
+    inline int GetNumber(int index);
+    inline bool GetBool(int index);
 
-    inline void setValue(int index, System::String ^ value);
+    inline void SetValue(int index, System::String ^ value);
 };
 } // namespace LLNET::Form

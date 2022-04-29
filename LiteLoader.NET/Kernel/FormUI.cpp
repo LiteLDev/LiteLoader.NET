@@ -31,15 +31,15 @@ inline Button::~Button()
     }
 }
 
-inline void Button::setText(System::String ^ _text)
+inline void Button::SetText(System::String ^ _text)
 {
     this->text = _text;
 }
-inline void Button::setImage(System::String ^ _image)
+inline void Button::SetImage(System::String ^ _image)
 {
     this->image = _image;
 }
-inline void Button::setCallback(ButtonCallback ^ _callback)
+inline void Button::SetCallback(ButtonCallback ^ _callback)
 {
     this->callback = _callback;
 }
@@ -64,22 +64,22 @@ Button::NativeCallback Button::ToNativeCallback()
     return pfunc;
 }
 
-inline void CustomFormElement::setName(System::String ^ _name)
+inline void CustomFormElement::SetName(System::String ^ _name)
 {
     this->name = _name;
 }
 
-inline System::String ^ CustomFormElement::getString()
+inline System::String ^ CustomFormElement::GetString()
 {
     return this->value;
 }
 
-inline int CustomFormElement::getNumber()
+inline int CustomFormElement::GetNumber()
 {
     return System::Convert::ToInt32(value);
 }
 
-bool CustomFormElement::getBool()
+bool CustomFormElement::GetBool()
 {
     if (System::String::IsNullOrEmpty(value) || value == "0" || value == "false" || value == "False" || value == "FALSE")
         return false;
@@ -90,15 +90,15 @@ bool CustomFormElement::getBool()
 inline Label::Label(System::String ^ name, System::String ^ text)
     : text(text)
 {
-    setName(name);
+    SetName(name);
 }
 
-inline Label::Type Label::getType()
+inline Label::Type Label::GetType()
 {
     return Type::Label;
 }
 
-inline void Label::setText(System::String ^ _text)
+inline void Label::SetText(System::String ^ _text)
 {
     this->text = _text;
 }
@@ -109,7 +109,7 @@ inline Input::Input(System::String ^ name, System::String ^ title, System::Strin
     , placeholder(placeholder)
     , def(def)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Input::Input(System::String ^ name, System::String ^ title, System::String ^ placeholder)
@@ -117,7 +117,7 @@ inline Input::Input(System::String ^ name, System::String ^ title, System::Strin
     , placeholder(placeholder)
     , def("")
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Input::Input(System::String ^ name, System::String ^ title)
@@ -125,25 +125,25 @@ inline Input::Input(System::String ^ name, System::String ^ title)
     , placeholder("")
     , def("")
 {
-    setName(name);
+    SetName(name);
 }
 
-inline Input::Type Input::getType()
+inline Input::Type Input::GetType()
 {
     return Type::Input;
 }
 
-inline void Input::setTitle(System::String ^ _title)
+inline void Input::SetTitle(System::String ^ _title)
 {
     this->title = _title;
 }
 
-inline void Input::setPlaceHolder(System::String ^ _placeholder)
+inline void Input::SetPlaceHolder(System::String ^ _placeholder)
 {
     this->placeholder = _placeholder;
 }
 
-inline void Input::setDefault(System::String ^ _def)
+inline void Input::SetDefault(System::String ^ _def)
 {
     this->def = _def;
 }
@@ -153,27 +153,27 @@ inline Toggle::Toggle(System::String ^ name, System::String ^ title, bool def)
     : title(title)
     , def(def)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Toggle::Toggle(System::String ^ name, System::String ^ title)
     : title(title)
     , def(false)
 {
-    setName(name);
+    SetName(name);
 }
 
-inline Toggle::Type Toggle::getType()
+inline Toggle::Type Toggle::GetType()
 {
     return Type::Toggle;
 }
 
-inline void Toggle::setTitle(System::String ^ _title)
+inline void Toggle::SetTitle(System::String ^ _title)
 {
     this->title = _title;
 }
 
-inline void Toggle::setDefault(bool _def)
+inline void Toggle::SetDefault(bool _def)
 {
     this->def = _def;
 }
@@ -184,7 +184,7 @@ inline Dropdown::Dropdown(System::String ^ name, System::String ^ title, List<Sy
     , options(options)
     , def(defId)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Dropdown::Dropdown(System::String ^ name, System::String ^ title, List<System::String ^> ^ options)
@@ -192,30 +192,30 @@ inline Dropdown::Dropdown(System::String ^ name, System::String ^ title, List<Sy
     , options(options)
     , def(0)
 {
-    setName(name);
+    SetName(name);
 }
 
-inline Dropdown::Type Dropdown::getType()
+inline Dropdown::Type Dropdown::GetType()
 {
     return Type::Dropdown;
 }
 
-inline void Dropdown::setTitle(System::String ^ _title)
+inline void Dropdown::SetTitle(System::String ^ _title)
 {
     this->title = _title;
 }
 
-inline void Dropdown::setOptions(List<System::String ^> ^ _options)
+inline void Dropdown::SetOptions(List<System::String ^> ^ _options)
 {
     this->options = _options;
 }
 
-inline void Dropdown::addOption(System::String ^ option)
+inline void Dropdown::AddOption(System::String ^ option)
 {
     if (options != nullptr) options->Add(option);
 }
 
-inline void Dropdown::setDefault(int defId)
+inline void Dropdown::SetDefault(int defId)
 {
     this->def = defId;
 }
@@ -228,7 +228,7 @@ inline Slider::Slider(System::String ^ name, System::String ^ title, int min, in
     , step(step)
     , def(def)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Slider::Slider(System::String ^ name, System::String ^ title, int min, int max, int step)
@@ -238,7 +238,7 @@ inline Slider::Slider(System::String ^ name, System::String ^ title, int min, in
     , step(step)
     , def(0)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline Slider::Slider(System::String ^ name, System::String ^ title, int min, int max)
@@ -248,35 +248,35 @@ inline Slider::Slider(System::String ^ name, System::String ^ title, int min, in
     , step(1)
     , def(0)
 {
-    setName(name);
+    SetName(name);
 }
 
-inline Slider::Type Slider::getType()
+inline Slider::Type Slider::GetType()
 {
     return Type::Slider;
 }
 
-inline void Slider::setTitle(System::String ^ _title)
+inline void Slider::SetTitle(System::String ^ _title)
 {
     this->title = _title;
 }
 
-inline void Slider::setMin(int _min)
+inline void Slider::SetMin(int _min)
 {
     this->min = _min;
 }
 
-inline void Slider::setMax(int _max)
+inline void Slider::SetMax(int _max)
 {
     this->max = _max;
 }
 
-inline void Slider::setStep(int _step)
+inline void Slider::SetStep(int _step)
 {
     this->step = _step;
 }
 
-inline void Slider::setDefault(int _def)
+inline void Slider::SetDefault(int _def)
 {
     this->def = _def;
 }
@@ -287,7 +287,7 @@ inline StepSlider::StepSlider(System::String ^ name, System::String ^ title, Lis
     , options(options)
     , def(defId)
 {
-    setName(name);
+    SetName(name);
 }
 
 inline StepSlider::StepSlider(System::String ^ name, System::String ^ title, List<System::String ^> ^ options)
@@ -295,30 +295,30 @@ inline StepSlider::StepSlider(System::String ^ name, System::String ^ title, Lis
     , options(options)
     , def(0)
 {
-    setName(name);
+    SetName(name);
 }
 
-inline StepSlider::Type StepSlider::getType()
+inline StepSlider::Type StepSlider::GetType()
 {
     return Type::StepSlider;
 }
 
-inline void StepSlider::setTitle(System::String ^ _title)
+inline void StepSlider::SetTitle(System::String ^ _title)
 {
     this->title = _title;
 }
 
-inline void StepSlider::setOptions(List<System::String ^> ^ _options)
+inline void StepSlider::SetOptions(List<System::String ^> ^ _options)
 {
     this->options = _options;
 }
 
-inline void StepSlider::addOption(System::String ^ option)
+inline void StepSlider::AddOption(System::String ^ option)
 {
     if (options != nullptr) options->Add(option);
 }
 
-inline void StepSlider::setDefault(int defId)
+inline void StepSlider::SetDefault(int defId)
 {
     this->def = defId;
 }
@@ -332,40 +332,40 @@ SimpleForm::SimpleForm(System::String ^ title, System::String ^ content)
     gchList = gcnew List<GCHandle>;
 }
 
-inline SimpleForm ^ SimpleForm::append(Button ^ element)
+inline SimpleForm ^ SimpleForm::Append(Button ^ element)
 {
     elements->Add((SimpleFormElement ^) element);
     return this;
 }
 
-inline SimpleForm ^ SimpleForm::setTitle(System::String ^ title)
+inline SimpleForm ^ SimpleForm::SetTitle(System::String ^ title)
 {
     this->title = title;
     return this;
 }
 
-inline SimpleForm ^ SimpleForm::cstContent(System::String ^ content)
+inline SimpleForm ^ SimpleForm::CstContent(System::String ^ content)
 {
     this->content = content;
     return this;
 }
 
-inline SimpleForm ^ SimpleForm::addButton(System::String ^ text, System::String ^ image, Button::ButtonCallback ^ callback)
+inline SimpleForm ^ SimpleForm::AddButton(System::String ^ text, System::String ^ image, Button::ButtonCallback ^ callback)
 {
-    return append(gcnew Button(text, image, callback));
+    return Append(gcnew Button(text, image, callback));
 }
 
-inline SimpleForm ^ SimpleForm::addButton(System::String ^ text, System::String ^ image)
+inline SimpleForm ^ SimpleForm::AddButton(System::String ^ text, System::String ^ image)
 {
-    return append(gcnew Button(text, image));
+    return Append(gcnew Button(text, image));
 }
 
-inline SimpleForm ^ SimpleForm::addButton(System::String ^ text)
+inline SimpleForm ^ SimpleForm::AddButton(System::String ^ text)
 {
-    return append(gcnew Button(text));
+    return Append(gcnew Button(text));
 }
 
-bool SimpleForm::sendTo(MC::Player ^ _player, Callback ^ _callback)
+bool SimpleForm::SendTo(MC::Player ^ _player, Callback ^ _callback)
 {
     callback = _callback == nullptr ? callback : _callback;
     typedef void (*FnPtr)(::Player*, int);
@@ -391,10 +391,10 @@ null:
     return simpleform.sendTo(_player->NativePtr, pfunc);
 }
 
-inline bool SimpleForm::sendTo(MC::Player ^ player)
+inline bool SimpleForm::SendTo(MC::Player ^ player)
 {
     ::Form::SimpleForm simpleform(marshalString<Encoding::E_UTF8>(title), marshalString<Encoding::E_UTF8>(content));
-    return sendTo(player, nullptr);
+    return SendTo(player, nullptr);
 }
 
 SimpleForm::~SimpleForm()
@@ -567,7 +567,7 @@ bool CustomForm::sendTo(MC::Player ^ player, Callback ^ _callback)
     for each (auto var in elements)
     {
         auto p = var.Value;
-        switch (p->getType())
+        switch (p->GetType())
         {
             case Form::CustomFormElement::Type::Label:
                 ret->append(::Form::Label(
@@ -632,58 +632,58 @@ inline bool CustomForm::sendTo(MC::Player ^ player)
     return sendTo(player, nullptr);
 }
 
-inline CustomFormElement::Type CustomForm::getType(int index)
+inline CustomFormElement::Type CustomForm::GetType(int index)
 {
-    return CustomFormElement::Type(elements[index].Value->getType());
+    return CustomFormElement::Type(elements[index].Value->GetType());
 }
 
-inline System::String ^ CustomForm::getString(System::String const ^ name)
+inline System::String ^ CustomForm::GetString(System::String const ^ name)
 {
     for each (auto % var in elements)
     {
         if (var.Key == name)
         {
-            return var.Value->getString();
+            return var.Value->GetString();
         }
     }
     return "";
 }
-inline int CustomForm::getNumber(System::String const ^ name)
+inline int CustomForm::GetNumber(System::String const ^ name)
 {
     for each (auto % var in elements)
     {
         if (var.Key == name)
         {
-            return var.Value->getNumber();
+            return var.Value->GetNumber();
         }
     }
     return 0;
 }
-inline bool CustomForm::getBool(System::String const ^ name)
+inline bool CustomForm::GetBool(System::String const ^ name)
 {
     for each (auto % var in elements)
     {
         if (var.Key == name)
         {
-            return var.Value->getBool();
+            return var.Value->GetBool();
         }
     }
     return false;
 }
-inline System::String ^ CustomForm::getString(int index)
+inline System::String ^ CustomForm::GetString(int index)
 {
-    return elements[index].Value->getString();
+    return elements[index].Value->GetString();
 }
-inline int CustomForm::getNumber(int index)
+inline int CustomForm::GetNumber(int index)
 {
-    return elements[index].Value->getNumber();
+    return elements[index].Value->GetNumber();
 }
-inline bool CustomForm::getBool(int index)
+inline bool CustomForm::GetBool(int index)
 {
-    return elements[index].Value->getBool();
+    return elements[index].Value->GetBool();
 }
 
-inline void CustomForm::setValue(int index, System::String ^ value)
+inline void CustomForm::SetValue(int index, System::String ^ value)
 {
     elements[index].Value->value = value;
 }
