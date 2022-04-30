@@ -18,17 +18,17 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
         catch (System::Reflection::TargetInvocationException ^ ex)
         {
             logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
-            logger.error("{}", marshalString(ex->InnerException->ToString()));
+            logger.error(marshalString(ex->InnerException->ToString()));
         }
         catch (System::Exception ^ ex)
         {
             logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
-            logger.error("{}", marshalString(ex->ToString()));
+            logger.error(marshalString(ex->ToString()));
         }
         catch (const std::exception& ex)
         {
             logger.error("Uncaught std::exception Detected!");
-            logger.error("{}", ex.what());
+            logger.error(ex.what());
         }
         catch (...)
         {
@@ -76,7 +76,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
     {
         info.read(*iter);
 
-        if (info.isDotNetAssembly())
+        if (info.isDotNETAssembly())
         {
             auto dllFile = fopen(iter->string().c_str(), "r");
             if (dllFile != nullptr)

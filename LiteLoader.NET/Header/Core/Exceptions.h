@@ -2,32 +2,32 @@
 namespace LLNET::Core
 {
 public
-ref class LiteLoaderDotNetException
+ref class LiteLoaderDotNETException
     : public System::ApplicationException
 {
 public:
-    LiteLoaderDotNetException()
+    LiteLoaderDotNETException()
         : ApplicationException()
     {
     }
 };
 public
 ref class HookFailedException
-    : public LiteLoaderDotNetException
+    : public LiteLoaderDotNETException
 {
 public:
     HookFailedException()
-        : LiteLoaderDotNetException()
+        : LiteLoaderDotNETException()
     {
     }
 };
 public
 ref class NativePluginException
-    : public LiteLoaderDotNetException
+    : public LiteLoaderDotNETException
 {
 public:
     NativePluginException()
-        : LiteLoaderDotNetException()
+        : LiteLoaderDotNETException()
     {
     }
 };

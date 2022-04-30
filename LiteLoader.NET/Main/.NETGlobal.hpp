@@ -5,18 +5,22 @@
 #include "Global.hpp"
 #include "../Header/Core/Pair.hpp"
 
-#define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught System.Exception detected!"
+#define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
-#define CATCH                                                        \
-    catch (System::Exception ^ ex)                                   \
-    {                                                                \
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE); \
-        System::Console::WriteLine(ex->Message);                     \
-    }                                                                \
-    catch (...)                                                      \
-    {                                                                \
-        System::Console::WriteLine("Uncaught exception detected!");  \
-        throw;                                                       \
+#define CATCH                                                                                   \
+    catch (System::Exception ^ ex)                                                              \
+    {                                                                                           \
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString()); \
+        System::Console::WriteLine(ex->ToString());                                             \
+    }                                                                                           \
+    catch (const std::exception& ex)                                                            \
+    {                                                                                           \
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "std::exception");          \
+        System::Console::WriteLine(marshalString(ex.what()));                                   \
+    }                                                                                           \
+    catch (...)                                                                                 \
+    {                                                                                           \
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");               \
     }
 
 #define NULL_ARGS_CHEEK(arg)           \

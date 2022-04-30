@@ -1,4 +1,4 @@
-﻿using namespace System::Reflection;
+using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 
@@ -7,13 +7,13 @@ using namespace System::Runtime::InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly:AssemblyTitle(LLNET_LOADER_NAME)];
-[assembly:AssemblyDescription(".NET development platform for LiteLoaderBDS")] ;
-[assembly:AssemblyConfiguration("")] ;
-[assembly:AssemblyCompany("LiteLoader Developer")] ;
-[assembly:AssemblyProduct(LLNET_LOADER_NAME)] ;
-[assembly:AssemblyCopyright("Copyright (c) 2020-2022 LiteLoaderBDS Developers")] ;
-[assembly:AssemblyTrademark("")] ;
-[assembly:AssemblyCulture("")] ;
+[assembly:AssemblyDescription(LLNET_LOADER_DESCRIPTION)];
+[assembly:AssemblyConfiguration("")];
+[assembly:AssemblyCompany("LiteLoader Developer")];
+[assembly:AssemblyProduct(LLNET_LOADER_NAME)];
+[assembly:AssemblyCopyright("Copyright (c) 2020-2022 LiteLoaderBDS Developers")];
+[assembly:AssemblyTrademark("")];
+[assembly:AssemblyCulture("")];
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
 //对 COM 组件不可见。如果需要从 COM 访问此程序集中的类型
@@ -21,7 +21,7 @@ using namespace System::Runtime::InteropServices;
 [assembly:ComVisible(false)];
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly:Guid("992AD8D6-3EC3-27B3-5138-9DBE0F04ADE9")]
+[assembly:Guid("992AD8D6-3EC3-27B3-5138-9DBE0F04ADE9")];
 
 // 程序集的版本信息由下列四个值组成:
 //
@@ -34,4 +34,4 @@ using namespace System::Runtime::InteropServices;
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly:AssemblyVersion("2.2.1.*")];
-[assembly:AssemblyFileVersion("2.2.1.0")] ;
+[assembly:AssemblyFileVersion("2.2.1.0")];
