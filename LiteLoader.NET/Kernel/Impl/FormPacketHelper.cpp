@@ -9,15 +9,17 @@ unsigned int FormPacketHelper::NewFormId()
 
 NativeCallbackConvertHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFormPacketCallbackHandler, void, ::Player* pl, int a1)
 {
+    auto player = gcnew MC::Player(pl);
     try
     {
-        delfunc(gcnew MC::Player(pl), a1);
+        delfunc(player, a1);
     }
     catch (System::Exception ^ ex)
     {
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
+    delete player;
 }
 
 void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPacketCallbackHandler ^ callback)
@@ -29,15 +31,17 @@ void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPa
 
 NativeCallbackConvertHelper(ModalFormPacketCallback, FormPacketHelper::ModalFormPacketCallbackHandler, void, ::Player* pl, bool a1)
 {
+    auto player = gcnew MC::Player(pl);
     try
     {
-        delfunc(gcnew MC::Player(pl), a1);
+        delfunc(player, a1);
     }
     catch (System::Exception ^ ex)
     {
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
+    delete player;
 }
 
 void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPacketCallbackHandler ^ callback)
@@ -49,16 +53,17 @@ void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPack
 
 NativeCallbackConvertHelper(CustomFormPacketCallback, FormPacketHelper::CustomFormPacketCallbackHandler, void, ::Player* pl, std::string a1)
 {
+    auto player = gcnew MC::Player(pl);
     try
     {
-        delfunc(gcnew MC::Player(pl), marshalString(a1));
+        delfunc(player, marshalString(a1));
     }
     catch (System::Exception ^ ex)
     {
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
-    delete this;
+    delete player;
 }
 
 void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPacketCallbackHandler ^ callback)
