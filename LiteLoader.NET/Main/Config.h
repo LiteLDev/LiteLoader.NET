@@ -4,13 +4,13 @@
 
 #define LLNET_LOADER_NAME_WITH_EXTENSION "LiteLoader.NET.dll"
 
-#define LLNET_LOADER_DESCRIPTION "Test Description."
+#define LLNET_LOADER_DESCRIPTION ".NET development platform for LiteLoaderBDS"
 
 #define LLNET_ENTRY_CLASS "PluginMain.Plugin"
 
 #define LLNET_ENTRY_METHOD "OnPostInit"
 
-#define LLNET_PLUGINS_LOAD_DIR "./plugins"
+#define LLNET_PLUGINS_LOAD_DIR "plugins"
 
 #define LITELOADER_CONFIG_FILE "plugins/LiteLoader/LiteLoader.json"
 
