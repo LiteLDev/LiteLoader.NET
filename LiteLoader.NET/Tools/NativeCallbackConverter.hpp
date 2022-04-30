@@ -28,6 +28,10 @@ ref class NativeCallbackHandler
  * class_name:
  *    GCHandle gch:防止回收.Net回调委托的handle
  *    callback_delegate^ delfunc:.Net回调委托
+ * 
+ * Ps:
+ * 稳定性未知，且转换器实例的回收会导致.Net委托实例的释放与Native函数指针的失效
+ * 等待稳定性测试.jpg
  */
 #define NativeCallbackConvertHelper(class_name, callback_delegate, ret, ...)                                                                        \
                                                                                                                                                     \
