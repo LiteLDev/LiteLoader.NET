@@ -23,26 +23,58 @@ ref class Button : public SimpleFormElement
 {
 public:
     delegate void ButtonCallback(MC::Player ^);
-    System::String ^ text, ^image;
+
+private:
+    String ^ text, ^image;
     ButtonCallback ^ callback;
 
+
 public:
-    inline Button(System::String ^ text, System::String ^ image, ButtonCallback ^ callback);
-    inline Button(System::String ^ text, System::String ^ image);
-    inline Button(System::String ^ text);
+    property String ^ Text {
+        String ^ get() {
+            return text;
+        };
+        void set(String ^ value)
+        {
+            text = value;
+        }
+    };
+    property String ^ Image {
+        String ^ get() {
+            return image;
+        };
+        void set(String ^ value)
+        {
+            image = value;
+        }
+    };
+    property ButtonCallback ^ Callback {
+        ButtonCallback ^ get() {
+            return callback;
+        };
+        void set(ButtonCallback ^ value)
+        {
+            callback = value;
+        }
+    };
+
+public:
+    inline Button(String ^ text, String ^ image, ButtonCallback ^ callback);
+    inline Button(String ^ text, String ^ image);
+    inline Button(String ^ text);
     inline ~Button();
-    inline void SetText(System::String ^ _text);
-    inline void SetImage(System::String ^ _image);
+    inline void SetText(String ^ _text);
+    inline void SetImage(String ^ _image);
     inline void SetCallback(ButtonCallback ^ _callback);
 
 private:
-    delegate void _ButtonCallback(::Player*);
-    typedef void (*NativeCallback)(::Player*);
-    void NATIVECALLBACK callbackfunc(::Player* p);
+    delegate void delButtonCallback(::Player*);
+    typedef void (*pButtonCallback)(::Player*);
+    void NATIVECALLBACK CallbackFn(::Player* p);
     GCHandle gch;
 
 public:
-    NativeCallback ToNativeCallback();
+    pButtonCallback ToNativeCallback();
 };
 
 //////////////////////////////// Custom Form Elements ////////////////////////////////
@@ -60,12 +92,46 @@ public:
         Slider,
         StepSlider
     };
-    System::String ^ name;
-    System::String ^ value;
+
+private:
+    String ^ name;
+    String ^ value;
     Type type{};
-    inline void SetName(System::String ^ _name);
+
+public:
+    property String ^ Name {
+        String ^ get() {
+            return name;
+        };
+        void set(String ^ value)
+        {
+            name = value;
+        }
+    };
+    property String ^ Value {
+        String ^ get() {
+            return value;
+        };
+        void set(String ^ value)
+        {
+            value = value;
+        }
+    };
+    property Type ElementType
+    {
+        Type get()
+        {
+            return type;
+        };
+        void set(Type value)
+        {
+            type = value;
+        }
+    };
+
+    inline void SetName(String ^ _name);
     inline virtual Type GetType() abstract = 0;
-    inline System::String ^ GetString();
+    inline String ^ GetString();
     inline int GetNumber();
     inline bool GetBool();
 };
@@ -73,76 +139,268 @@ public:
 public
 ref class Label : public CustomFormElement
 {
-public:
-    System::String ^ text;
+private:
+    String ^ text;
 
 public:
-    inline Label(System::String ^ name, System::String ^ text);
+    property String ^ Text {
+        String ^ get() {
+            return text;
+        };
+        void set(String ^ value)
+        {
+            text = value;
+        }
+    };
+
+
+public:
+    inline Label(String ^ name, String ^ text);
     inline Type GetType() override;
-    inline void SetText(System::String ^ _text);
+    inline void SetText(String ^ _text);
 };
 
 public
 ref class Input : public CustomFormElement
 {
+private:
+    String ^ title, ^placeholder, ^def, ^data;
+
 public:
-    System::String ^ title, ^placeholder, ^def, ^data;
-    inline Input(System::String ^ name, System::String ^ title, System::String ^ placeholder, System::String ^ def);
-    inline Input(System::String ^ name, System::String ^ title, System::String ^ placeholder);
-    inline Input(System::String ^ name, System::String ^ title);
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property String ^ Placeholder {
+        String ^ get() {
+            return placeholder;
+        };
+        void set(String ^ value)
+        {
+            placeholder = value;
+        }
+    };
+    property String ^ Def {
+        String ^ get() {
+            return def;
+        };
+        void set(String ^ value)
+        {
+            def = value;
+        }
+    };
+    property String ^ Data {
+        String ^ get() {
+            return data;
+        };
+        void set(String ^ value)
+        {
+            data = value;
+        }
+    };
+
+    inline Input(String ^ name, String ^ title, String ^ placeholder, String ^ def);
+    inline Input(String ^ name, String ^ title, String ^ placeholder);
+    inline Input(String ^ name, String ^ title);
     inline Type GetType() override;
-    inline void SetTitle(System::String ^ _title);
-    inline void SetPlaceHolder(System::String ^ _placeholder);
-    inline void SetDefault(System::String ^ _def);
+    inline void SetTitle(String ^ _title);
+    inline void SetPlaceHolder(String ^ _placeholder);
+    inline void SetDefault(String ^ _def);
 };
 
 public
 ref class Toggle : public CustomFormElement
 {
-public:
+private:
     using DataType = bool;
-    System::String ^ title;
+    String ^ title;
     bool def, data;
 
 public:
-    inline Toggle(System::String ^ name, System::String ^ title, bool def);
-    inline Toggle(System::String ^ name, System::String ^ title);
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property bool Def
+    {
+        bool get()
+        {
+            return def;
+        };
+        void set(bool value)
+        {
+            def = value;
+        }
+    };
+    property bool Data
+    {
+        bool get()
+        {
+            return data;
+        };
+        void set(bool value)
+        {
+            data = value;
+        }
+    };
+
+public:
+    inline Toggle(String ^ name, String ^ title, bool def);
+    inline Toggle(String ^ name, String ^ title);
     inline Type GetType() override;
-    inline void SetTitle(System::String ^ _title);
+    inline void SetTitle(String ^ _title);
     inline void SetDefault(bool _def);
 };
 
 public
 ref class Dropdown : public CustomFormElement
 {
-public:
-    System::String ^ title;
-    List<System::String ^> ^ options;
+private:
+    String ^ title;
+    List<String ^> ^ options;
     int def, data{};
 
 public:
-    inline Dropdown(System::String ^ name, System::String ^ title, List<System::String ^> ^ options, int defId);
-    inline Dropdown(System::String ^ name, System::String ^ title, List<System::String ^> ^ options);
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property List<String ^> ^ Options {
+        List<String ^> ^ get() {
+            return options;
+        };
+        void set(List<String ^> ^ value)
+        {
+            options = value;
+        }
+    };
+    property int Def
+    {
+        int get()
+        {
+            return def;
+        };
+        void set(int value)
+        {
+            def = value;
+        }
+    };
+    property int Data
+    {
+        int get()
+        {
+            return data;
+        };
+        void set(int value)
+        {
+            data = value;
+        }
+    };
+
+public:
+    inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options, int defId);
+    inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options);
     inline Type GetType() override;
-    inline void SetTitle(System::String ^ _title);
-    inline void SetOptions(List<System::String ^> ^ _options);
-    inline void AddOption(System::String ^ option);
+    inline void SetTitle(String ^ _title);
+    inline void SetOptions(List<String ^> ^ _options);
+    inline void AddOption(String ^ option);
     inline void SetDefault(int defId);
 };
 
 public
 ref class Slider : public CustomFormElement
 {
-public:
-    System::String ^ title;
+private:
+    String ^ title;
     int min, max, step, def, data{};
 
 public:
-    inline Slider(System::String ^ name, System::String ^ title, int min, int max, int step, int def);
-    inline Slider(System::String ^ name, System::String ^ title, int min, int max, int step);
-    inline Slider(System::String ^ name, System::String ^ title, int min, int max);
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property int Min
+    {
+        int get()
+        {
+            return min;
+        };
+        void set(int value)
+        {
+            min = value;
+        }
+    };
+    property int Max
+    {
+        int get()
+        {
+            return max;
+        };
+        void set(int value)
+        {
+            max = value;
+        }
+    };
+    property int Step
+    {
+        int get()
+        {
+            return step;
+        };
+        void set(int value)
+        {
+            step = value;
+        }
+    };
+    property int Def
+    {
+        int get()
+        {
+            return def;
+        };
+        void set(int value)
+        {
+            def = value;
+        }
+    };
+    property int Data
+    {
+        int get()
+        {
+            return data;
+        };
+        void set(int value)
+        {
+            data = value;
+        }
+    };
+
+public:
+    inline Slider(String ^ name, String ^ title, int min, int max, int step, int def);
+    inline Slider(String ^ name, String ^ title, int min, int max, int step);
+    inline Slider(String ^ name, String ^ title, int min, int max);
     inline Type GetType() override;
-    inline void SetTitle(System::String ^ _title);
+    inline void SetTitle(String ^ _title);
     inline void SetMin(int _min);
     inline void SetMax(int _max);
     inline void SetStep(int _step);
@@ -152,18 +410,60 @@ public:
 public
 ref class StepSlider : public CustomFormElement
 {
-public:
-    System::String ^ title;
-    List<System::String ^> ^ options;
+private:
+    String ^ title;
+    List<String ^> ^ options;
     int def, data{};
 
 public:
-    inline StepSlider(System::String ^ name, System::String ^ title, List<System::String ^> ^ options, int defId);
-    inline StepSlider(System::String ^ name, System::String ^ title, List<System::String ^> ^ options);
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property List<String ^> ^ Options {
+        List<String ^> ^ get() {
+            return options;
+        };
+        void set(List<String ^> ^ value)
+        {
+            options = value;
+        }
+    };
+    property int Def
+    {
+        int get()
+        {
+            return def;
+        };
+        void set(int value)
+        {
+            def = value;
+        }
+    };
+    property int Data
+    {
+        int get()
+        {
+            return data;
+        };
+        void set(int value)
+        {
+            data = value;
+        }
+    };
+
+public:
+    inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options, int defId);
+    inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options);
     inline Type GetType() override;
-    inline void SetTitle(System::String ^ _title);
-    inline void SetOptions(List<System::String ^> ^ _options);
-    inline void AddOption(System::String ^ option);
+    inline void SetTitle(String ^ _title);
+    inline void SetOptions(List<String ^> ^ _options);
+    inline void AddOption(String ^ option);
     inline void SetDefault(int defId);
 };
 
@@ -179,18 +479,18 @@ ref class SimpleForm : public FormImpl
 {
 public:
     delegate void Callback(MC::Player ^, int);
-    System::String ^ title, ^content;
+    String ^ title, ^content;
     List<SimpleFormElement ^> ^ elements;
     Callback ^ callback;
 
 public:
-    SimpleForm(System::String ^ title, System::String ^ content);
+    SimpleForm(String ^ title, String ^ content);
     ~SimpleForm();
-    inline SimpleForm ^ SetTitle(System::String ^ title);
-    inline SimpleForm ^ CstContent(System::String ^ content);
-    inline SimpleForm ^ AddButton(System::String ^ text, System::String ^ image, Button::ButtonCallback ^ callback);
-    inline SimpleForm ^ AddButton(System::String ^ text, System::String ^ image);
-    inline SimpleForm ^ AddButton(System::String ^ text);
+    inline SimpleForm ^ SetTitle(String ^ title);
+    inline SimpleForm ^ CstContent(String ^ content);
+    inline SimpleForm ^ AddButton(String ^ text, String ^ image, Button::ButtonCallback ^ callback);
+    inline SimpleForm ^ AddButton(String ^ text, String ^ image);
+    inline SimpleForm ^ AddButton(String ^ text);
     inline SimpleForm ^ Append(Button ^ element);
     bool SendTo(MC::Player ^ _player, Callback ^ _callback);
     bool SendTo(MC::Player ^ player);
@@ -205,16 +505,16 @@ private:
 public
 ref class CustomForm : public FormImpl
 {
-    using kvPair = Pair<System::String ^, CustomFormElement ^>;
+    using kvPair = Pair<String ^, CustomFormElement ^>;
 
 public:
-    delegate void Callback(MC::Player ^, Dictionary<System::String ^, CustomFormElement ^> ^);
-    System::String ^ title;
+    delegate void Callback(MC::Player ^, Dictionary<String ^, CustomFormElement ^> ^);
+    String ^ title;
     List<kvPair> ^ elements;
     Callback ^ callback = nullptr;
 
 public:
-    CustomForm(System::String ^ title);
+    CustomForm(String ^ title);
     ~CustomForm();
 
     inline CustomForm ^ append(CustomFormElement ^ element);
@@ -224,24 +524,24 @@ private:
     void NATIVECALLBACK sendFunc(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
     ::Form::CustomForm* GenerateNativeForm();
     ::Form::CustomForm* nativeform = nullptr;
-    Dictionary<System::String ^, CustomFormElement ^> ^ CallbackDictionary = nullptr;
+    Dictionary<String ^, CustomFormElement ^> ^ CallbackDictionary = nullptr;
     bool isFormGenerated = false;
     bool isDictionaryGenerated = false;
     List<GCHandle> ^ gchList;
 
 public:
-    bool sendTo(MC::Player ^ player, Callback ^ callback);
-    inline bool sendTo(MC::Player ^ player);
+    bool SendTo(MC::Player ^ player, Callback ^ callback);
+    inline bool SendTo(MC::Player ^ player);
 
     inline CustomFormElement::Type GetType(int index);
 
-    inline System::String ^ GetString(System::String const ^ name);
-    inline int GetNumber(System::String const ^ name);
-    inline bool GetBool(System::String const ^ name);
-    inline System::String ^ GetString(int index);
+    inline String ^ GetString(String const ^ name);
+    inline int GetNumber(String const ^ name);
+    inline bool GetBool(String const ^ name);
+    inline String ^ GetString(int index);
     inline int GetNumber(int index);
     inline bool GetBool(int index);
 
-    inline void SetValue(int index, System::String ^ value);
+    inline void SetValue(int index, String ^ value);
 };
 } // namespace LLNET::Form
