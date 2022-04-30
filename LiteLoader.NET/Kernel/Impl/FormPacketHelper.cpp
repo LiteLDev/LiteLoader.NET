@@ -11,14 +11,13 @@ NativeCallbackConvertHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFo
 {
     try
     {
-        delfunc(nullptr, a1);
+        delfunc(gcnew MC::Player(pl), a1);
     }
     catch (System::Exception ^ ex)
     {
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
-    delete this;
 }
 
 void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPacketCallbackHandler ^ callback)
@@ -32,14 +31,13 @@ NativeCallbackConvertHelper(ModalFormPacketCallback, FormPacketHelper::ModalForm
 {
     try
     {
-        delfunc(nullptr, a1);
+        delfunc(gcnew MC::Player(pl), a1);
     }
     catch (System::Exception ^ ex)
     {
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
-    delete this;
 }
 
 void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPacketCallbackHandler ^ callback)
@@ -53,7 +51,7 @@ NativeCallbackConvertHelper(CustomFormPacketCallback, FormPacketHelper::CustomFo
 {
     try
     {
-        delfunc(nullptr, marshalString(a1));
+        delfunc(gcnew MC::Player(pl), marshalString(a1));
     }
     catch (System::Exception ^ ex)
     {

@@ -9,11 +9,27 @@ constexpr size_t do_hash()
 
 using CHash = size_t;
 
-public ref class NativeCallbackHandler
+public
+ref class NativeCallbackHandler
 {
 };
 
-#define NativeCallbackConvertHelper(class_name, callback_delegate, ret, ...)                                                                      \
+/**
+ * .Net-Native回调转换工具
+ *
+ * class_name          : 类名   方便调用
+ * callback_delegate   : .Net委托类型
+ * ret                 : Native回调函数返回类型
+ * ...                 : Native回调函数参数列表
+ *
+ * ====================API======================
+ * 
+ * class_name::Create(dlegate^ callback) :返回包含Native函数指针与转换器实例的Pair
+ * class_name:
+ *    GCHandle gch:防止回收.Net回调委托的handle
+ *    callback_delegate^ delfunc:.Net回调委托
+ */
+#define NativeCallbackConvertHelper(class_name, callback_delegate, ret, ...)                                                                        \
                                                                                                                                                     \
     template <CHash, CHash>                                                                                                                         \
     ref class NativeCallbackTemplate;                                                                                                               \
@@ -31,12 +47,12 @@ public ref class NativeCallbackHandler
         callback_delegate ^ delfunc;                                                                                                                \
                                                                                                                                                     \
     public:                                                                                                                                         \
-        value class Pair                                                                                                                            \
+        value class __Pair                                                                                                                            \
         {                                                                                                                                           \
         public:                                                                                                                                     \
             pCallback pCallbackFn;                                                                                                                  \
             NativeCallbackTemplate ^ converter;                                                                                                     \
-            Pair(pCallback p, NativeCallbackTemplate ^ obj)                                                                                         \
+            __Pair(pCallback p, NativeCallbackTemplate ^ obj)                                                                                         \
                 : pCallbackFn(p)                                                                                                                    \
                 , converter(obj)                                                                                                                    \
             {                                                                                                                                       \
@@ -67,13 +83,13 @@ public ref class NativeCallbackHandler
         ret NATIVECALLBACK NativeCallbackFunc(__VA_ARGS__);                                                                                         \
                                                                                                                                                     \
     public:                                                                                                                                         \
-        static Pair Create(callback_delegate ^ callback)                                                                                            \
+        static __Pair Create(callback_delegate ^ callback)                                                                                            \
         {                                                                                                                                           \
             auto instance = gcnew NativeCallbackTemplate(callback);                                                                                 \
             delCallback ^ del = gcnew delCallback(instance, &NativeCallbackFunc);                                                                   \
             instance->gch = GCHandle::Alloc(del);                                                                                                   \
             auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
-            return Pair(p, instance);                                                                                                               \
+            return __Pair(p, instance);                                                                                                               \
         }                                                                                                                                           \
     };                                                                                                                                              \
                                                                                                                                                     \
