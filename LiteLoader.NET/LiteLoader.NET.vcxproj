@@ -72,10 +72,7 @@
       <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y $(SolutionDir)SDK\Header\MC\Types.hpp $(ProjectDir)
-copy /Y $(ProjectDir)Extra\Types.hpp $(SolutionDir)SDK\Header\MC\ 
-
-if not exist $(SolutionDir)SDK\Lib\bedrock_server_api.lib goto process
+      <Command>if not exist $(SolutionDir)SDK\Lib\bedrock_server_api.lib goto process
 if not exist $(SolutionDir)SDK\Lib\bedrock_server_var.lib goto process
 goto end
 
@@ -91,10 +88,7 @@ LibraryBuilder.exe -o ..\Lib\
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y $(ProjectDir)Types.hpp $(SolutionDir)SDK\Header\MC\ 
-del $(ProjectDir)Types.hpp
-
-if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
+      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
 copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
 )</Command>
     </PostBuildEvent>

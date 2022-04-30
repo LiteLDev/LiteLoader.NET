@@ -11,93 +11,60 @@ bool ActorDamageSource::IsEntitySource::get()
 {
     return NativePtr->isEntitySource();
 }
-} // namespace MC
-
-#ifdef INCLUDE_MCAPI
-
-void MC::ActorDamageSource::UnkVfn8()
+void MC::ActorDamageSource::UnkVfn11()
 {
-    ((class ::ActorDamageSource*)NativePtr)->__unk_vfn_8();
+    NativePtr->__unk_vfn_11();
 }
-
-void MC::ActorDamageSource::UnkVfn9()
+void MC::ActorDamageSource::UnkVfn12()
 {
-    ((class ::ActorDamageSource*)NativePtr)->__unk_vfn_9();
+    NativePtr->__unk_vfn_12();
 }
-
-MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::System::String ^ _0)
+MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::System::String ^ causeName)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto __ret = ::ActorDamageSource::lookupCause(__arg0);
-    return (MC::ActorDamageCause)__ret;
+    return (MC::ActorDamageCause)::ActorDamageSource::lookupCause(marshalString(causeName));
 }
-
-::System::String ^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause _0)
+::System::String ^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause cause)
 {
-    auto __arg0 = (::ActorDamageCause)_0;
-    auto& __ret = ::ActorDamageSource::lookupCauseName(__arg0);
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return marshalString(::ActorDamageSource::lookupCauseName((::ActorDamageCause)cause));
 }
-
 bool MC::ActorDamageSource::IsChildEntitySource::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->isChildEntitySource();
-    return __ret;
+    return NativePtr->isChildEntitySource();
 }
-
 bool MC::ActorDamageSource::IsBlockSource::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->isBlockSource();
-    return __ret;
+    return NativePtr->isBlockSource();
 }
-
 bool MC::ActorDamageSource::IsFire::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->isFire();
-    return __ret;
+    return NativePtr->isFire();
 }
-
 bool MC::ActorDamageSource::IsCreative::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getIsCreative();
-    return __ret;
+    return NativePtr->getIsCreative();
 }
-
 bool MC::ActorDamageSource::IsWorldBuilder::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getIsWorldBuilder();
-    return __ret;
+    return NativePtr->getIsWorldBuilder();
 }
-
 bool MC::ActorDamageSource::DamagingEntityIsCreative::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getDamagingEntityIsCreative();
-    return __ret;
+    return NativePtr->getDamagingEntityIsCreative();
 }
-
 bool MC::ActorDamageSource::DamagingEntityIsWorldBuilder::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getDamagingEntityIsWorldBuilder();
-    return __ret;
+    return NativePtr->getDamagingEntityIsWorldBuilder();
 }
-
 MC::ActorUniqueID ^ MC::ActorDamageSource::DamagingEntityUniqueID::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getDamagingEntityUniqueID();
-    auto ____ret = new struct ::ActorUniqueID(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+    return gcnew ::MC::ActorUniqueID(new struct ::ActorUniqueID(NativePtr->getDamagingEntityUniqueID()), true);
 }
-
 MC::ActorDamageCause MC::ActorDamageSource::Cause::get()
 {
-    auto __ret = ((class ::ActorDamageSource*)NativePtr)->getCause();
-    return (MC::ActorDamageCause)__ret;
+    return (MC::ActorDamageCause)NativePtr->getCause();
 }
-
-void MC::ActorDamageSource::Cause::set(MC::ActorDamageCause _0)
+void MC::ActorDamageSource::Cause::set(MC::ActorDamageCause cause)
 {
-    auto __arg0 = (::ActorDamageCause)_0;
-    ((class ::ActorDamageSource*)NativePtr)->setCause(__arg0);
+    NativePtr->setCause((::ActorDamageCause)cause);
 }
-
-#endif // INCLUDE_MCAPI
+} // namespace MC

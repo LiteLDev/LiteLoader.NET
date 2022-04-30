@@ -438,6 +438,9 @@ enum class ActorDamageCause : int
     Lightning = 0x18,
     Charging = 0x19,
     Temperature = 0x1A,
+    Freeze = 0x1B,
+    Stalactite = 0x1C,
+    Stalagmite = 0x1D,
     All = 0x1F,
     None = -0x01,
 };
@@ -458,9 +461,9 @@ enum class PlayerScoreSetFunction : char
 };
 
 public
-enum class ContainerID : int8_t
+enum class ContainerID : uint8_t
 {
-    Invalid = -1,
+    Invalid = 0xff,
     Inventory = 0,
     First = 1,
     Last = 100,
@@ -658,6 +661,10 @@ enum class MinecraftPacketIds : int
     PlayerStartItemCooldown = 0xB0,
     ScriptMessage = 0xB1,
     CodeBuilderSource = 0xB2,
+    TickingAreasLoadStatus = 0xB3,
+    DimensionData = 0xB4,
+    AgentActionEvent = 0xB5,
+    ChangeMobProperty = 0xB6
 };
 
 public

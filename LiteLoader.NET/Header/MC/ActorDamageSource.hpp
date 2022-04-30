@@ -22,8 +22,6 @@ public:
         bool get();
     }
 
-#ifdef INCLUDE_MCAPI
-
     property bool IsChildEntitySource
     {
         bool get();
@@ -69,14 +67,12 @@ public:
         void set(MC::ActorDamageCause);
     }
 
-    virtual void UnkVfn8();
+    virtual void UnkVfn11();
 
-    virtual void UnkVfn9();
+    virtual void UnkVfn12();
 
     static MC::ActorDamageCause LookupCause(::System::String ^ _0);
 
     static ::System::String ^ LookupCauseName(MC::ActorDamageCause _0);
-
-#endif // INCLUDE_MCAPI
 };
 } // namespace MC
