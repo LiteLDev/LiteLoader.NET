@@ -80,15 +80,15 @@ namespace clix {
 
     // Direction of the marshaling process
     enum MarshalingDirection {
-      CxxFromNet,
-      NetFromCxx
+      CppFromNET,
+      NETFromCpp
     };
 
     // The actual marshaling code
     template<MarshalingDirection direction> struct StringMarshaler;
 
     // Marshals to .NET from C++ strings
-    template<> struct StringMarshaler<NetFromCxx> {
+    template<> struct StringMarshaler<NETFromCpp> {
 
       template<Encoding encoding, typename SourceType>
       static System::String ^marshal(const SourceType &string) {
@@ -133,7 +133,7 @@ namespace clix {
     };
 
     // Marshals to C++ strings from .NET
-    template<> struct StringMarshaler<CxxFromNet> {
+    template<> struct StringMarshaler<CppFromNET> {
 
       template<Encoding encoding, typename SourceType>
       static typename detail::StringTypeSelector<encoding>::Type marshal(
@@ -201,7 +201,7 @@ namespace clix {
 
     // Pass on the call to our nifty template routines
     return detail::StringMarshaler<
-      detail::IfManaged<SourceType>::Result ? detail::CxxFromNet : detail::NetFromCxx
+      detail::IfManaged<SourceType>::Result ? detail::CppFromNET : detail::NETFromCpp
     >::marshal<encoding, SourceType>(string);
 
   }

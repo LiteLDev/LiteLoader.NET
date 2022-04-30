@@ -13,7 +13,7 @@ namespace ExamplePlugin.Examples
             SimpleForm simpleForm = new("ExampleForm", "A Example Form");
 
             //Append an simple button
-            simpleForm.append(new Button("Button1"));
+            simpleForm.Append(new Button("Button1"));
 
             //Set form callback
             simpleForm.callback = (pl, val) =>
@@ -25,7 +25,7 @@ namespace ExamplePlugin.Examples
             //Send form to player
             MC.Level.GetAllPlayers().ForEach(player =>
             {
-                simpleForm.sendTo(player);
+                simpleForm.SendTo(player);
             });
         }
     }

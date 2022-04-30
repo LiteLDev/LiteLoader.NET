@@ -52,7 +52,7 @@ struct PEHeader
         }
         return false;
     }
-    bool PEHeader::isDotNetAssembly()
+    bool PEHeader::isDotNETAssembly()
     {
         return !bool(dataDictionaryRVA[7]);
     }

@@ -1,6 +1,6 @@
 #pragma once
 #include <RemoteCallAPI.h>
-#include "../Main/.NetGlobal.hpp"
+#include "../Main/.NETGlobal.hpp"
 #include "../Tools/NativeCallbackConverter.hpp"
 
 namespace LLNET::RemoteCall
@@ -22,7 +22,7 @@ public:
 
 public:
     using ValueType = ::RemoteCall::ValueType;
-    //·ÀÖ¹gc»ØÊÕ
+    //é˜²æ­¢gcå›žæ”¶
     static Dictionary<uint64_t, NativeCallbackHandler ^> ^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler ^>;
 
 private:
