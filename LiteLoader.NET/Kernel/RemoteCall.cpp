@@ -16,7 +16,7 @@ NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, Remot
     }
     catch (System::Exception ^ ex)
     {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE);
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
         return "";
     }

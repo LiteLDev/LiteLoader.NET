@@ -15,7 +15,7 @@ NativeCallbackConvertHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFo
     }
     catch (System::Exception ^ ex)
     {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE);
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
     delete this;
@@ -36,7 +36,7 @@ NativeCallbackConvertHelper(ModalFormPacketCallback, FormPacketHelper::ModalForm
     }
     catch (System::Exception ^ ex)
     {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE);
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
     delete this;
@@ -57,7 +57,7 @@ NativeCallbackConvertHelper(CustomFormPacketCallback, FormPacketHelper::CustomFo
     }
     catch (System::Exception ^ ex)
     {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE);
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
         System::Console::WriteLine(ex->Message);
     }
     delete this;
