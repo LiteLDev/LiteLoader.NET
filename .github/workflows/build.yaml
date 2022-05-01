@@ -1,0 +1,112 @@
+name: Build
+
+on: [ push, pull_request ]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: .
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+
+    # - name: Get information from Version.h file (TODO)
+    #   working-directory: ${{env.GITHUB_WORKSPACE}}
+    #   id: ver
+    #   run: |
+    #     pwd
+    #   shell: bash
+
+    - name: Download Server
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        mkdir -p SDK/Tools/Server
+        # ServerLink=$(cat 'Scripts/LINK.txt')
+        ServerLink=https://minecraft.azureedge.net/bin-win/bedrock-server-1.18.31.04.zip
+        curl -L -o SDK/Tools/Server/server.zip "$ServerLink"
+        unzip SDK/Tools/Server/server.zip -d SDK/Tools/Server/ > /dev/null
+      shell: bash
+
+    - name: Build Library
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        cd SDK\Tools
+        LibraryBuilder.exe -o ..\Lib Server
+      shell: cmd
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: copy dll and pdb files
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        mkdir output/
+        mkdir output/RELEASE/
+        mkdir output/RELEASE/lib
+        cp -f x64/Release/Ijwhost.dll output/RELEASE/lib/Ijwhost.dll
+        cp -f x64/Release/LiteLoader.NET.deps.json output/RELEASE/LiteLoader.NET.deps.json
+        cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader.NET.dll
+        mkdir output/PDB/
+        cp -f x64/Release/*.pdb output/PDB/
+        # mkdir output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
+        # cp -r Data/* output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
+      shell: bash
+
+    - name: Pack Release
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        Compress-Archive -Path output\RELEASE\ LiteLoader.NET.zip
+        Compress-Archive -Path output\PDB\ PDB.zip
+
+    - name: Prepare for creating Release
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      id: rel
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+          echo ::set-output name=tag::${GITHUB_REF#refs/tags/*}
+          mv LiteLoader.NET.zip LiteLoader.NET-${GITHUB_REF#refs/tags/*}.zip
+          mv PDB.zip PDB-${GITHUB_REF#refs/tags/*}.zip
+      shell: bash
+
+    - name: Upload Release
+      uses: actions/upload-artifact@v3
+      with:
+        name: LiteLoader.NET-actions-${{ github.run_number }}
+        path: ${{ github.workspace }}\output\RELEASE
+
+    - name: Upload PDB
+      uses: actions/upload-artifact@v3
+      with:
+        name: PDB-actions-${{ github.run_number }}
+        path: ${{ github.workspace }}\output\PDB
+
+    - name: Create New Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        # body_path: ${{ github.workspace }}\CHANGELOG.txt
+        files: |
+          ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
+          ${{ github.workspace }}\output\PDB-${{ steps.rel.outputs.tag }}.zip
+      env:
+        GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
