@@ -10,12 +10,13 @@ namespace ExamplePlugin.Examples
         private static readonly Logger logger = new("ExampleCommand");
         public void Execute()
         {
-            DynamicCommandInstance instance = DynamicCommand.CreateCommand("test", ".NET test command");
+            DynamicCommandInstance instance = DynamicCommand.CreateCommand("test", ".NET test command", CommandPermissionLevel.Any);
             instance.SetAlias("aliafortest");
+            instance.AddOverload(new List<string>());
             instance.SetCallback((cmd, origin, output, results) =>
             {
                 Level.BroadcastText("hihi!", TextType.RAW);
-                logger.info.WriteLine("commmand callback");
+                output.Success("successful");
             });
             DynamicCommand.Setup(instance);
         }
