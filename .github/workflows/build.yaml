@@ -107,6 +107,6 @@ jobs:
         # body_path: ${{ github.workspace }}\CHANGELOG.txt
         files: |
           ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
-          ${{ github.workspace }}\output\PDB-${{ steps.rel.outputs.tag }}.zip
+          ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
       env:
         GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
