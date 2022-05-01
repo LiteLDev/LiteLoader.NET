@@ -415,7 +415,7 @@ namespace LLNET::Logger {
             auto name = Assembly::GetCallingAssembly()->GetName()->Name;
             LoggerManager::WriteLine(LoggerManager::OutputStreamType::error, "", nullptr);
             System::Console::ForegroundColor = System::ConsoleColor::Red;
-            System::Console::WriteLine("   Uncaught System.Exception Detected!\n   In Plugin:{0}\n   Info:{1}", name, e->ToString());
+            System::Console::WriteLine("   Uncaught {0} Detected!\n   In Plugin:{1}\n   Info:{2}", e->GetType()->ToString(), name, e->ToString());
             System::Console::ForegroundColor = System::ConsoleColor::White;
         }
         finally 
