@@ -1,9 +1,10 @@
 ﻿#region Configs
 
-#define _LOGGER_ 
+#define _LOGGER_
 #define _EVENT_
 #define _SCHEDULE_
 #define _THOOK_
+#define _COMMAND_
 
 #endregion
 
@@ -24,12 +25,10 @@ namespace PluginMain
         /// </summary>
         public static void OnPostInit()
         {
-
 #if _LOGGER_
             ExampleLogger exampleLogger = new();
             exampleLogger.Execute();
 #endif
-
 #if _EVENT_
             ExampleEvent exampleEvent = new();
             exampleEvent.Execute();
@@ -41,6 +40,10 @@ namespace PluginMain
 #if _THOOK_
             ExampleThook exampleThook = new();
             exampleThook.Execute();
+#endif
+#if _COMMAND_
+            ExampleCommand exampleCommand = new();
+            exampleCommand.Execute();
 #endif
         }
     }

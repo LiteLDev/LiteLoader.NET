@@ -3,6 +3,7 @@
 //using Hook Namespace
 using LLNET.Hook;
 using LLNET.Logger;
+using MC;
 
 namespace ExamplePlugin.Examples
 {
@@ -33,8 +34,8 @@ namespace ExamplePlugin.Examples
             private IntPtr SetLitHookFunction(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6)
             {
 
-                MC.BlockSource source = new(blockSource);
-                MC.BlockPos pos = new(blockPos);
+                BlockSource source = new(blockSource);
+                BlockPos pos = new(blockPos);
 
                 //BlockPos as string
                 logger.error.WriteLine(pos);

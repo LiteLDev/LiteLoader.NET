@@ -1,6 +1,7 @@
 ﻿//using Form Namesapce
 using LLNET.Form;
 using LLNET.Logger;
+using MC;
 
 namespace ExamplePlugin.Examples
 {
@@ -13,7 +14,7 @@ namespace ExamplePlugin.Examples
             SimpleForm simpleForm = new("ExampleForm", "A Example Form");
 
             //Append an simple button
-            simpleForm.Append(new Button("Button1"));
+            simpleForm.Append(new("Button1"));
 
             //Set form callback
             simpleForm.callback = (pl, val) =>
@@ -23,7 +24,7 @@ namespace ExamplePlugin.Examples
             };
 
             //Send form to player
-            MC.Level.GetAllPlayers().ForEach(player =>
+            Level.GetAllPlayers().ForEach(player =>
             {
                 simpleForm.SendTo(player);
             });
