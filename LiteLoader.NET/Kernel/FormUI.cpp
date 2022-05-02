@@ -376,6 +376,7 @@ NativeCallbackConvertHelper(SimpleFormCallbackHelper, SimpleForm::Callback, void
         delfunc(player, a0);
     }
     CATCH
+    delete player;
 }
 
 

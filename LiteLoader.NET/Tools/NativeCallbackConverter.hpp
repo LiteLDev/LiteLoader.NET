@@ -14,7 +14,6 @@ ref class NativeCallbackHandler
 {
     virtual ~NativeCallbackHandler()
     {
-        Console::WriteLine("QAQ");
     }
 };
 
