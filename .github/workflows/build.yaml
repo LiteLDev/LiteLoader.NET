@@ -110,3 +110,14 @@ jobs:
           ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
       env:
         GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
+
+    - name: Update Template
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        git clone https://github.com/StarsDream00/PluginTemplate.NET.git
+        cp -f x64/Release/LiteLoader.NET.dll PluginTemplate.NET/Lib/LiteLoader.NET.dll
+        cd PluginTemplate.NET
+        git commit -a Lib/LiteLoader.NET.dll -m "Update LLNET"
+        git push
+      shell: bash
