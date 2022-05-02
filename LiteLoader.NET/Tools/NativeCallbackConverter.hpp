@@ -12,6 +12,10 @@ using CHash = size_t;
 public
 ref class NativeCallbackHandler
 {
+    virtual ~NativeCallbackHandler()
+    {
+        Console::WriteLine("QAQ");
+    }
 };
 
 /**
@@ -23,12 +27,12 @@ ref class NativeCallbackHandler
  * ...                 : Native回调函数参数列表
  *
  * ====================API======================
- * 
+ *
  * class_name::Create(dlegate^ callback) :返回包含Native函数指针与转换器实例的Pair
  * class_name:
  *    GCHandle gch:防止回收.Net回调委托的handle
  *    callback_delegate^ delfunc:.Net回调委托
- * 
+ *
  * Ps:
  * 稳定性未知，且转换器实例的回收会导致.Net委托实例的释放与Native函数指针的失效
  * 等待稳定性测试.jpg
@@ -51,12 +55,12 @@ ref class NativeCallbackHandler
         callback_delegate ^ delfunc;                                                                                                                \
                                                                                                                                                     \
     public:                                                                                                                                         \
-        value class __Pair                                                                                                                            \
+        value class __Pair                                                                                                                          \
         {                                                                                                                                           \
         public:                                                                                                                                     \
             pCallback pCallbackFn;                                                                                                                  \
             NativeCallbackTemplate ^ converter;                                                                                                     \
-            __Pair(pCallback p, NativeCallbackTemplate ^ obj)                                                                                         \
+            __Pair(pCallback p, NativeCallbackTemplate ^ obj)                                                                                       \
                 : pCallbackFn(p)                                                                                                                    \
                 , converter(obj)                                                                                                                    \
             {                                                                                                                                       \
@@ -87,13 +91,13 @@ ref class NativeCallbackHandler
         ret NATIVECALLBACK NativeCallbackFunc(__VA_ARGS__);                                                                                         \
                                                                                                                                                     \
     public:                                                                                                                                         \
-        static __Pair Create(callback_delegate ^ callback)                                                                                            \
+        static __Pair Create(callback_delegate ^ callback)                                                                                          \
         {                                                                                                                                           \
             auto instance = gcnew NativeCallbackTemplate(callback);                                                                                 \
             delCallback ^ del = gcnew delCallback(instance, &NativeCallbackFunc);                                                                   \
             instance->gch = GCHandle::Alloc(del);                                                                                                   \
             auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
-            return __Pair(p, instance);                                                                                                               \
+            return __Pair(p, instance);                                                                                                             \
         }                                                                                                                                           \
     };                                                                                                                                              \
                                                                                                                                                     \

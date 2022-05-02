@@ -3,7 +3,7 @@
 #include "MC/ServerPlayer.hpp"
 #include "MC/Player.hpp"
 
-#include <MC/RedStoneWireBlock.hpp>
+#include "../Tools/NativeCallbackConverter.hpp"
 
 //#define DEBUG
 
@@ -63,9 +63,9 @@ public:
     inline Button(String ^ text, String ^ image);
     inline Button(String ^ text);
     inline ~Button();
-    inline void SetText(String ^ _text);
-    inline void SetImage(String ^ _image);
-    inline void SetCallback(ButtonCallback ^ _callback);
+    inline void SetText(String ^ text);
+    inline void SetImage(String ^ image);
+    inline void SetCallback(ButtonCallback ^ callback);
 
 private:
     delegate void delButtonCallback(::Player*);
@@ -208,9 +208,9 @@ public:
     inline Input(String ^ name, String ^ title, String ^ placeholder);
     inline Input(String ^ name, String ^ title);
     inline Type GetType() override;
-    inline void SetTitle(String ^ _title);
-    inline void SetPlaceHolder(String ^ _placeholder);
-    inline void SetDefault(String ^ _def);
+    inline void SetTitle(String ^ title);
+    inline void SetPlaceHolder(String ^ placeholder);
+    inline void SetDefault(String ^ def);
 };
 
 public
@@ -258,8 +258,8 @@ public:
     inline Toggle(String ^ name, String ^ title, bool def);
     inline Toggle(String ^ name, String ^ title);
     inline Type GetType() override;
-    inline void SetTitle(String ^ _title);
-    inline void SetDefault(bool _def);
+    inline void SetTitle(String ^ title);
+    inline void SetDefault(bool def);
 };
 
 public
@@ -316,8 +316,8 @@ public:
     inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options, int defId);
     inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options);
     inline Type GetType() override;
-    inline void SetTitle(String ^ _title);
-    inline void SetOptions(List<String ^> ^ _options);
+    inline void SetTitle(String ^ title);
+    inline void SetOptions(List<String ^> ^ options);
     inline void AddOption(String ^ option);
     inline void SetDefault(int defId);
 };
@@ -400,11 +400,11 @@ public:
     inline Slider(String ^ name, String ^ title, int min, int max, int step);
     inline Slider(String ^ name, String ^ title, int min, int max);
     inline Type GetType() override;
-    inline void SetTitle(String ^ _title);
-    inline void SetMin(int _min);
-    inline void SetMax(int _max);
-    inline void SetStep(int _step);
-    inline void SetDefault(int _def);
+    inline void SetTitle(String ^ title);
+    inline void SetMin(int min);
+    inline void SetMax(int max);
+    inline void SetStep(int step);
+    inline void SetDefault(int def);
 };
 
 public
@@ -461,8 +461,8 @@ public:
     inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options, int defId);
     inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options);
     inline Type GetType() override;
-    inline void SetTitle(String ^ _title);
-    inline void SetOptions(List<String ^> ^ _options);
+    inline void SetTitle(String ^ title);
+    inline void SetOptions(List<String ^> ^ options);
     inline void AddOption(String ^ option);
     inline void SetDefault(int defId);
 };
@@ -485,6 +485,7 @@ public:
 
 public:
     SimpleForm(String ^ title, String ^ content);
+    !SimpleForm();
     ~SimpleForm();
     inline SimpleForm ^ SetTitle(String ^ title);
     inline SimpleForm ^ CstContent(String ^ content);
@@ -492,13 +493,13 @@ public:
     inline SimpleForm ^ AddButton(String ^ text, String ^ image);
     inline SimpleForm ^ AddButton(String ^ text);
     inline SimpleForm ^ Append(Button ^ element);
-    bool SendTo(MC::Player ^ _player, Callback ^ _callback);
+    bool SendTo(MC::Player ^ player, Callback ^ callback);
     bool SendTo(MC::Player ^ player);
 
 private:
     delegate void _Callback(::Player*, int);
     void NATIVECALLBACK sendToFunc(::Player* p, int a);
-    List<GCHandle> ^ gchList;
+    List<NativeCallbackHandler ^>^ callbackHandlerList;
 };
 
 
@@ -517,7 +518,7 @@ public:
     CustomForm(String ^ title);
     ~CustomForm();
 
-    inline CustomForm ^ append(CustomFormElement ^ element);
+    inline CustomForm ^ Append(CustomFormElement ^ element);
 
 private:
     delegate void de_sendFunc(::Player*, std::map<string, std::shared_ptr<::Form::CustomFormElement>>);

@@ -1,5 +1,7 @@
 #include "../Header/FormUI.hpp"
 
+
+
 namespace LLNET::Form
 {
 inline Button::Button(String ^ text, String ^ image, ButtonCallback ^ callback)
@@ -31,17 +33,17 @@ inline Button::~Button()
     }
 }
 
-inline void Button::SetText(String ^ _text)
+inline void Button::SetText(String ^ text)
 {
-    this->text = _text;
+    this->text = text;
 }
-inline void Button::SetImage(String ^ _image)
+inline void Button::SetImage(String ^ image)
 {
-    this->image = _image;
+    this->image = image;
 }
-inline void Button::SetCallback(ButtonCallback ^ _callback)
+inline void Button::SetCallback(ButtonCallback ^ callback)
 {
-    this->callback = _callback;
+    this->callback = callback;
 }
 
 void NATIVECALLBACK Button::CallbackFn(::Player* p)
@@ -133,19 +135,19 @@ inline Input::Type Input::GetType()
     return Type::Input;
 }
 
-inline void Input::SetTitle(String ^ _title)
+inline void Input::SetTitle(String ^ title)
 {
-    this->title = _title;
+    this->title = title;
 }
 
-inline void Input::SetPlaceHolder(String ^ _placeholder)
+inline void Input::SetPlaceHolder(String ^ placeholder)
 {
-    this->placeholder = _placeholder;
+    this->placeholder = placeholder;
 }
 
-inline void Input::SetDefault(String ^ _def)
+inline void Input::SetDefault(String ^ def)
 {
-    this->def = _def;
+    this->def = def;
 }
 
 
@@ -168,14 +170,14 @@ inline Toggle::Type Toggle::GetType()
     return Type::Toggle;
 }
 
-inline void Toggle::SetTitle(String ^ _title)
+inline void Toggle::SetTitle(String ^ title)
 {
-    this->title = _title;
+    this->title = title;
 }
 
-inline void Toggle::SetDefault(bool _def)
+inline void Toggle::SetDefault(bool def)
 {
-    this->def = _def;
+    this->def = def;
 }
 
 
@@ -200,14 +202,14 @@ inline Dropdown::Type Dropdown::GetType()
     return Type::Dropdown;
 }
 
-inline void Dropdown::SetTitle(String ^ _title)
+inline void Dropdown::SetTitle(String ^ title)
 {
-    this->title = _title;
+    this->title = title;
 }
 
-inline void Dropdown::SetOptions(List<String ^> ^ _options)
+inline void Dropdown::SetOptions(List<String ^> ^ options)
 {
-    this->options = _options;
+    this->options = options;
 }
 
 inline void Dropdown::AddOption(String ^ option)
@@ -256,29 +258,29 @@ inline Slider::Type Slider::GetType()
     return Type::Slider;
 }
 
-inline void Slider::SetTitle(String ^ _title)
+inline void Slider::SetTitle(String ^ title)
 {
-    this->title = _title;
+    this->title = title;
 }
 
-inline void Slider::SetMin(int _min)
+inline void Slider::SetMin(int min)
 {
-    this->min = _min;
+    this->min = min;
 }
 
-inline void Slider::SetMax(int _max)
+inline void Slider::SetMax(int max)
 {
-    this->max = _max;
+    this->max = max;
 }
 
-inline void Slider::SetStep(int _step)
+inline void Slider::SetStep(int step)
 {
-    this->step = _step;
+    this->step = step;
 }
 
-inline void Slider::SetDefault(int _def)
+inline void Slider::SetDefault(int def)
 {
-    this->def = _def;
+    this->def = def;
 }
 
 
@@ -303,14 +305,14 @@ inline StepSlider::Type StepSlider::GetType()
     return Type::StepSlider;
 }
 
-inline void StepSlider::SetTitle(String ^ _title)
+inline void StepSlider::SetTitle(String ^ title)
 {
-    this->title = _title;
+    this->title = title;
 }
 
-inline void StepSlider::SetOptions(List<String ^> ^ _options)
+inline void StepSlider::SetOptions(List<String ^> ^ options)
 {
-    this->options = _options;
+    this->options = options;
 }
 
 inline void StepSlider::AddOption(String ^ option)
@@ -329,7 +331,7 @@ SimpleForm::SimpleForm(String ^ title, String ^ content)
     , content(content)
 {
     elements = gcnew List<SimpleFormElement ^>;
-    gchList = gcnew List<GCHandle>;
+    callbackHandlerList = gcnew List<NativeCallbackHandler ^>;
 }
 
 inline SimpleForm ^ SimpleForm::Append(Button ^ element)
@@ -365,50 +367,65 @@ inline SimpleForm ^ SimpleForm::AddButton(String ^ text)
     return Append(gcnew Button(text));
 }
 
-bool SimpleForm::SendTo(MC::Player ^ _player, Callback ^ _callback)
+
+NativeCallbackConvertHelper(SimpleFormCallbackHelper, SimpleForm::Callback, void, ::Player* pl, int a0)
 {
-    callback = _callback == nullptr ? callback : _callback;
-    typedef void (*FnPtr)(::Player*, int);
+    auto player = gcnew MC::Player(pl);
+    try
+    {
+        delfunc(player, a0);
+    }
+    CATCH
+}
+
+
+bool SimpleForm::SendTo(MC::Player ^ player, Callback ^ callback)
+{
+    this->callback = callback == nullptr ? this->callback : callback;
+
     ::Form::SimpleForm::Callback pfunc = nullptr;
-    if (callback == nullptr)
+    if (this->callback == nullptr)
     {
         pfunc = ::Form::SimpleForm::Callback();
         goto null;
     }
-    auto defunc = gcnew _Callback(this, &SimpleForm::sendToFunc);
-    gchList->Add(GCHandle::Alloc(defunc));
-    pfunc = static_cast<FnPtr>(
-        Marshal::GetFunctionPointerForDelegate(defunc).ToPointer());
+
+    {
+        auto pair = SimpleFormCallbackHelper::Create(this->callback);
+        pfunc = pair.pCallbackFn;
+        callbackHandlerList->Add(pair.converter);
+    }
+
 null:
-    ::Form::SimpleForm simpleform(marshalString<Encoding::E_UTF8>(title), marshalString<Encoding::E_UTF8>(content));
+    ::Form::SimpleForm simpleform(marshalString(title), marshalString(content));
     for each (auto var in elements)
     {
         auto _var = ((Button ^) var);
-        ::Form::Button button(marshalString<Encoding::E_UTF8>(_var->Text), marshalString<Encoding::E_UTF8>(_var->Image), _var->ToNativeCallback());
+        ::Form::Button button(marshalString(_var->Text), marshalString(_var->Image), _var->ToNativeCallback());
         simpleform.append(button);
     }
 
-    return simpleform.sendTo(_player->NativePtr, pfunc);
+    return simpleform.sendTo(player->NativePtr, pfunc);
 }
 
 inline bool SimpleForm::SendTo(MC::Player ^ player)
 {
-    ::Form::SimpleForm simpleform(marshalString<Encoding::E_UTF8>(title), marshalString<Encoding::E_UTF8>(content));
+    ::Form::SimpleForm simpleform(marshalString(title), marshalString(content));
     return SendTo(player, nullptr);
+}
+
+SimpleForm::!SimpleForm()
+{
+    for each (NativeCallbackHandler ^ var in callbackHandlerList)
+    {
+        delete var;
+    }
+    delete elements;
 }
 
 SimpleForm::~SimpleForm()
 {
-    for each (GCHandle % var in gchList)
-    {
-        if (var.IsAllocated)
-        {
-            var.Free();
-        }
-    }
-    delete elements;
-    delete callback;
-    delete gchList;
+    this->!SimpleForm();
 }
 
 inline void NATIVECALLBACK SimpleForm::sendToFunc(::Player* p, int a)
@@ -426,7 +443,7 @@ CustomForm::CustomForm(String ^ title)
     elements = gcnew List<kvPair>;
 }
 
-inline CustomForm ^ CustomForm::append(CustomFormElement ^ element)
+inline CustomForm ^ CustomForm::Append(CustomFormElement ^ element)
 {
     isFormGenerated = false;
     isDictionaryGenerated = false;
@@ -465,66 +482,66 @@ void NATIVECALLBACK CustomForm::sendFunc(::Player* p, std::map<string, std::shar
                 case ::Form::CustomFormElement::Type::Label:
                 {
                     auto label = gcnew Label(
-                        marshalString<Encoding::E_UTF8>(((::Form::Label*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::Label*)iter->second.get())->text));
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), label);
+                        marshalString(((::Form::Label*)iter->second.get())->name),
+                        marshalString(((::Form::Label*)iter->second.get())->text));
+                    CallbackDictionary->Add(marshalString(iter->first), label);
                 }
                 break;
                 case ::Form::CustomFormElement::Type::Input:
                 {
                     auto input = gcnew Input(
-                        marshalString<Encoding::E_UTF8>(((::Form::Input*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::Input*)iter->second.get())->title),
-                        marshalString<Encoding::E_UTF8>(((::Form::Input*)iter->second.get())->placeholder),
-                        marshalString<Encoding::E_UTF8>(((::Form::Input*)iter->second.get())->def));
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), input);
+                        marshalString(((::Form::Input*)iter->second.get())->name),
+                        marshalString(((::Form::Input*)iter->second.get())->title),
+                        marshalString(((::Form::Input*)iter->second.get())->placeholder),
+                        marshalString(((::Form::Input*)iter->second.get())->def));
+                    CallbackDictionary->Add(marshalString(iter->first), input);
                 }
                 break;
                 case ::Form::CustomFormElement::Type::Toggle:
                 {
                     auto toggle = gcnew Toggle(
-                        marshalString<Encoding::E_UTF8>(((::Form::Toggle*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::Toggle*)iter->second.get())->title),
+                        marshalString(((::Form::Toggle*)iter->second.get())->name),
+                        marshalString(((::Form::Toggle*)iter->second.get())->title),
                         ((::Form::Toggle*)iter->second.get())->def);
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), toggle);
+                    CallbackDictionary->Add(marshalString(iter->first), toggle);
                 }
                 break;
                 case ::Form::CustomFormElement::Type::Dropdown:
                 {
                     auto dropdownSysList = gcnew List<String ^>;
                     for each (auto& var in ((::Form::Dropdown*)iter->second.get())->options)
-                        dropdownSysList->Add(marshalString<Encoding::E_UTF8>(var));
+                        dropdownSysList->Add(marshalString(var));
                     auto dropdown = gcnew Dropdown(
-                        marshalString<Encoding::E_UTF8>(((::Form::Dropdown*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::Dropdown*)iter->second.get())->title),
+                        marshalString(((::Form::Dropdown*)iter->second.get())->name),
+                        marshalString(((::Form::Dropdown*)iter->second.get())->title),
                         dropdownSysList,
                         ((::Form::Dropdown*)iter->second.get())->def);
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), dropdown);
+                    CallbackDictionary->Add(marshalString(iter->first), dropdown);
                 }
                 break;
                 case ::Form::CustomFormElement::Type::Slider:
                 {
                     auto slider = gcnew Slider(
-                        marshalString<Encoding::E_UTF8>(((::Form::Slider*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::Slider*)iter->second.get())->title),
+                        marshalString(((::Form::Slider*)iter->second.get())->name),
+                        marshalString(((::Form::Slider*)iter->second.get())->title),
                         ((::Form::Slider*)iter->second.get())->minValue,
                         ((::Form::Slider*)iter->second.get())->maxValue,
                         ((::Form::Slider*)iter->second.get())->step,
                         ((::Form::Slider*)iter->second.get())->def);
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), slider);
+                    CallbackDictionary->Add(marshalString(iter->first), slider);
                 }
                 break;
                 case ::Form::CustomFormElement::Type::StepSlider:
                 {
                     auto stepsliderSysList = gcnew List<String ^>;
                     for each (auto& var in ((::Form::StepSlider*)iter->second.get())->options)
-                        stepsliderSysList->Add(marshalString<Encoding::E_UTF8>(var));
+                        stepsliderSysList->Add(marshalString(var));
                     auto stepslider = gcnew StepSlider(
-                        marshalString<Encoding::E_UTF8>(((::Form::StepSlider*)iter->second.get())->name),
-                        marshalString<Encoding::E_UTF8>(((::Form::StepSlider*)iter->second.get())->title),
+                        marshalString(((::Form::StepSlider*)iter->second.get())->name),
+                        marshalString(((::Form::StepSlider*)iter->second.get())->title),
                         stepsliderSysList,
                         ((::Form::StepSlider*)iter->second.get())->def);
-                    CallbackDictionary->Add(marshalString<Encoding::E_UTF8>(iter->first), stepslider);
+                    CallbackDictionary->Add(marshalString(iter->first), stepslider);
                 }
                 break;
             }
@@ -563,7 +580,7 @@ bool CustomForm::SendTo(MC::Player ^ player, Callback ^ _callback)
 ::Form::CustomForm* CustomForm::GenerateNativeForm()
 {
 
-    auto ret = new ::Form::CustomForm(marshalString<Encoding::E_UTF8>(title));
+    auto ret = new ::Form::CustomForm(marshalString(title));
     for each (auto var in elements)
     {
         auto p = var.Value;
@@ -571,38 +588,38 @@ bool CustomForm::SendTo(MC::Player ^ player, Callback ^ _callback)
         {
             case Form::CustomFormElement::Type::Label:
                 ret->append(::Form::Label(
-                    marshalString<Encoding::E_UTF8>(((Label ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((Label ^) p)->Text)));
+                    marshalString(((Label ^) p)->Name),
+                    marshalString(((Label ^) p)->Text)));
                 break;
             case Form::CustomFormElement::Type::Input:
                 ret->append(::Form::Input(
-                    marshalString<Encoding::E_UTF8>(((Input ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((Input ^) p)->Title),
-                    marshalString<Encoding::E_UTF8>(((Input ^) p)->Placeholder),
-                    marshalString<Encoding::E_UTF8>(((Input ^) p)->Def)));
+                    marshalString(((Input ^) p)->Name),
+                    marshalString(((Input ^) p)->Title),
+                    marshalString(((Input ^) p)->Placeholder),
+                    marshalString(((Input ^) p)->Def)));
                 break;
             case Form::CustomFormElement::Type::Toggle:
                 ret->append(::Form::Toggle(
-                    marshalString<Encoding::E_UTF8>(((Toggle ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((Toggle ^) p)->Title),
+                    marshalString(((Toggle ^) p)->Name),
+                    marshalString(((Toggle ^) p)->Title),
                     ((Toggle ^) p)->Def));
                 break;
             case Form::CustomFormElement::Type::Dropdown:
             {
                 std::vector<std::string> stdvector(((Dropdown ^) p)->Options->Count);
                 for (int i = 0, len = ((Dropdown ^) p)->Options->Count; i < len; ++i)
-                    stdvector[i] = std::move(marshalString<Encoding::E_UTF8>(((Dropdown ^) p)->Options[i]));
+                    stdvector[i] = std::move(marshalString(((Dropdown ^) p)->Options[i]));
                 ret->append(::Form::Dropdown(
-                    marshalString<Encoding::E_UTF8>(((Dropdown ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((Dropdown ^) p)->Title),
+                    marshalString(((Dropdown ^) p)->Name),
+                    marshalString(((Dropdown ^) p)->Title),
                     stdvector,
                     ((Dropdown ^) p)->Def));
             }
             break;
             case Form::CustomFormElement::Type::Slider:
                 ret->append(::Form::Slider(
-                    marshalString<Encoding::E_UTF8>(((Slider ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((Slider ^) p)->Title),
+                    marshalString(((Slider ^) p)->Name),
+                    marshalString(((Slider ^) p)->Title),
                     ((Slider ^) p)->Min,
                     ((Slider ^) p)->Max,
                     ((Slider ^) p)->Step,
@@ -612,10 +629,10 @@ bool CustomForm::SendTo(MC::Player ^ player, Callback ^ _callback)
             {
                 std::vector<std::string> stdvector(((StepSlider ^) p)->Options->Count);
                 for (int i = 0, len = ((StepSlider ^) p)->Options->Count; i < len; ++i)
-                    stdvector[i] = std::move(marshalString<Encoding::E_UTF8>(((StepSlider ^) p)->Options[i]));
+                    stdvector[i] = std::move(marshalString(((StepSlider ^) p)->Options[i]));
                 ret->append(::Form::StepSlider(
-                    marshalString<Encoding::E_UTF8>(((StepSlider ^) p)->Name),
-                    marshalString<Encoding::E_UTF8>(((StepSlider ^) p)->Title),
+                    marshalString(((StepSlider ^) p)->Name),
+                    marshalString(((StepSlider ^) p)->Title),
                     stdvector,
                     ((StepSlider ^) p)->Def));
             }
