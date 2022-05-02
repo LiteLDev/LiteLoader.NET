@@ -90,8 +90,3 @@ bool MC::ScoreboardId::IsValid::get()
     auto __ret = ((struct ::ScoreboardId*)NativePtr)->isValid();
     return __ret;
 }
-
-
-#ifdef INCLUDE_MCAPI
-
-#endif // INCLUDE_MCAPI

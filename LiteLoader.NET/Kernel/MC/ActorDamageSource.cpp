@@ -21,11 +21,11 @@ void MC::ActorDamageSource::UnkVfn12()
 }
 MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::System::String ^ causeName)
 {
-    return (MC::ActorDamageCause)::ActorDamageSource::lookupCause(marshalString(causeName));
+    return MC::ActorDamageCause(::ActorDamageSource::lookupCause(marshalString(causeName)));
 }
-::System::String ^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause cause)
+System::String ^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause cause)
 {
-    return marshalString(::ActorDamageSource::lookupCauseName((::ActorDamageCause)cause));
+    return marshalString(::ActorDamageSource::lookupCauseName(::ActorDamageCause(cause)));
 }
 bool MC::ActorDamageSource::IsChildEntitySource::get()
 {
@@ -61,10 +61,10 @@ MC::ActorUniqueID ^ MC::ActorDamageSource::DamagingEntityUniqueID::get()
 }
 MC::ActorDamageCause MC::ActorDamageSource::Cause::get()
 {
-    return (MC::ActorDamageCause)NativePtr->getCause();
+    return MC::ActorDamageCause(NativePtr->getCause());
 }
 void MC::ActorDamageSource::Cause::set(MC::ActorDamageCause cause)
 {
-    NativePtr->setCause((::ActorDamageCause)cause);
+    NativePtr->setCause(::ActorDamageCause(cause));
 }
 } // namespace MC

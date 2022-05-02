@@ -73,6 +73,6 @@ public:
 
     static MC::ActorDamageCause LookupCause(::System::String ^ _0);
 
-    static ::System::String ^ LookupCauseName(MC::ActorDamageCause _0);
+    static System::String ^ LookupCauseName(MC::ActorDamageCause _0);
 };
 } // namespace MC
