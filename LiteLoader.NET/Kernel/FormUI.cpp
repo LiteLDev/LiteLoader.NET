@@ -28,7 +28,7 @@ inline Button::!Button()
 {
     for each (auto var in handlers)
     {
-        delete handlers;
+        delete var;
     }
 }
 
