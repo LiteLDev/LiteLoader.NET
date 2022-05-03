@@ -10,11 +10,8 @@ constexpr size_t do_hash()
 using CHash = size_t;
 
 public
-ref class NativeCallbackHandler
+interface class NativeCallbackHandler : System::IDisposable
 {
-    virtual ~NativeCallbackHandler()
-    {
-    }
 };
 
 /**

@@ -4,6 +4,7 @@
 #include "MC/Player.hpp"
 
 #include "../Tools/NativeCallbackConverter.hpp"
+#include "../Main/ClassTemplate.h"
 
 //#define DEBUG
 
@@ -62,19 +63,18 @@ public:
     inline Button(String ^ text, String ^ image, ButtonCallback ^ callback);
     inline Button(String ^ text, String ^ image);
     inline Button(String ^ text);
+    inline !Button();
     inline ~Button();
     inline void SetText(String ^ text);
     inline void SetImage(String ^ image);
     inline void SetCallback(ButtonCallback ^ callback);
 
-private:
-    delegate void delButtonCallback(::Player*);
-    typedef void (*pButtonCallback)(::Player*);
-    void NATIVECALLBACK CallbackFn(::Player* p);
-    GCHandle gch;
-
 public:
+    typedef void (*pButtonCallback)(::Player*);
     pButtonCallback ToNativeCallback();
+
+private:
+    List<NativeCallbackHandler ^> ^ handlers = gcnew List<NativeCallbackHandler ^>;
 };
 
 //////////////////////////////// Custom Form Elements ////////////////////////////////
@@ -96,7 +96,7 @@ public:
 private:
     String ^ name;
     String ^ value;
-    Type type{};
+    Type type;
 
 public:
     property String ^ Name {
@@ -470,18 +470,58 @@ public:
 //////////////////////////////// Forms ////////////////////////////////
 
 public
-ref class FormImpl
+interface class FormImpl
 {
 };
 
 public
-ref class SimpleForm : public FormImpl
+ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
 {
 public:
-    delegate void Callback(MC::Player ^, int);
+    delegate void SimpleFormCallback(MC::Player ^, int);
+
+private:
     String ^ title, ^content;
-    List<SimpleFormElement ^> ^ elements;
-    Callback ^ callback;
+    List<SimpleFormElement ^> ^ elements = gcnew List<SimpleFormElement ^>;
+    SimpleFormCallback ^ callback;
+
+public:
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property String ^ Content {
+        String ^ get() {
+            return content;
+        };
+        void set(String ^ value)
+        {
+            content = value;
+        }
+    };
+    property List<SimpleFormElement ^> ^ Elements {
+        List<SimpleFormElement ^> ^ get() {
+            return elements;
+        };
+        void set(List<SimpleFormElement ^> ^ value)
+        {
+            elements = value;
+        }
+    };
+    property SimpleFormCallback ^ Callback {
+        SimpleFormCallback ^ get() {
+            return callback;
+        };
+        void set(SimpleFormCallback ^ value)
+        {
+            callback = value;
+        }
+    };
 
 public:
     SimpleForm(String ^ title, String ^ content);
@@ -493,45 +533,74 @@ public:
     inline SimpleForm ^ AddButton(String ^ text, String ^ image);
     inline SimpleForm ^ AddButton(String ^ text);
     inline SimpleForm ^ Append(Button ^ element);
-    bool SendTo(MC::Player ^ player, Callback ^ callback);
+    bool SendTo(MC::Player ^ player, SimpleFormCallback ^ callback);
     bool SendTo(MC::Player ^ player);
 
 private:
-    delegate void _Callback(::Player*, int);
-    void NATIVECALLBACK sendToFunc(::Player* p, int a);
-    List<NativeCallbackHandler ^>^ callbackHandlerList;
+    List<NativeCallbackHandler ^> ^ handlers = gcnew List<NativeCallbackHandler ^>;
 };
 
 
 public
-ref class CustomForm : public FormImpl
+ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
 {
     using kvPair = Pair<String ^, CustomFormElement ^>;
 
 public:
-    delegate void Callback(MC::Player ^, Dictionary<String ^, CustomFormElement ^> ^);
+    delegate void CustomFormCallback(MC::Player ^, Dictionary<String ^, CustomFormElement ^> ^);
     String ^ title;
-    List<kvPair> ^ elements;
-    Callback ^ callback = nullptr;
+    List<kvPair> ^ elements = gcnew List<kvPair>;
+    CustomFormCallback ^ callback;
+
+public:
+    property String ^ Title {
+        String ^ get() {
+            return title;
+        };
+        void set(String ^ value)
+        {
+            title = value;
+        }
+    };
+    property List<kvPair> ^ Elements {
+        List<kvPair> ^ get() {
+            return elements;
+        };
+        void set(List<kvPair> ^ value)
+        {
+            elements = value;
+        }
+    };
+    property CustomFormCallback ^ Callback {
+        CustomFormCallback ^ get() {
+            return callback;
+        };
+        void set(CustomFormCallback ^ value)
+        {
+            callback = value;
+        }
+    };
 
 public:
     CustomForm(String ^ title);
+    !CustomForm();
     ~CustomForm();
 
     inline CustomForm ^ Append(CustomFormElement ^ element);
 
 private:
-    delegate void de_sendFunc(::Player*, std::map<string, std::shared_ptr<::Form::CustomFormElement>>);
-    void NATIVECALLBACK sendFunc(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
-    ::Form::CustomForm* GenerateNativeForm();
-    ::Form::CustomForm* nativeform = nullptr;
+    delegate void delSendCallback(::Player*, std::map<string, std::shared_ptr<::Form::CustomFormElement>>);
+    void NATIVECALLBACK NativeFormSendCallback(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
+
+    void GenerateNativeForm();
     Dictionary<String ^, CustomFormElement ^> ^ CallbackDictionary = nullptr;
-    bool isFormGenerated = false;
     bool isDictionaryGenerated = false;
-    List<GCHandle> ^ gchList;
+    bool isFormGenerated = false;
+
+    List<NativeCallbackHandler ^> ^ handlers = gcnew List<NativeCallbackHandler ^>;
 
 public:
-    bool SendTo(MC::Player ^ player, Callback ^ callback);
+    bool SendTo(MC::Player ^ player, CustomFormCallback ^ callback);
     inline bool SendTo(MC::Player ^ player);
 
     inline CustomFormElement::Type GetType(int index);
@@ -544,5 +613,19 @@ public:
     inline bool GetBool(int index);
 
     inline void SetValue(int index, String ^ value);
+
+private:
+    inline ::Form::Label _Marshal(Label ^ arg);
+    inline ::Form::Input _Marshal(Input ^ arg);
+    inline ::Form::Toggle _Marshal(Toggle ^ arg);
+    inline ::Form::Slider _Marshal(Slider ^ arg);
+    inline ::Form::Dropdown _Marshal(Dropdown ^ arg);
+    inline ::Form::StepSlider _Marshal(StepSlider ^ arg);
+    inline Label ^ _Marshal(::Form::Label const& arg);
+    inline Input ^ _Marshal(::Form::Input const& arg);
+    inline Toggle ^ _Marshal(::Form::Toggle const& arg);
+    inline Slider ^ _Marshal(::Form::Slider const& arg);
+    inline Dropdown ^ _Marshal(::Form::Dropdown const& arg);
+    inline StepSlider ^ _Marshal(::Form::StepSlider const& arg);
 };
 } // namespace LLNET::Form
