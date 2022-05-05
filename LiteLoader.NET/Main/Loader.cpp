@@ -4,6 +4,7 @@
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
+    size_t count = 0;
     for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
     {
         try
@@ -14,6 +15,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
                 ->GetMethod(TEXT(LLNET_ENTRY_METHOD))
                 ->Invoke(nullptr, nullptr);
             logger.info("Plugin <{}> loaded", iter->filename().string());
+            ++count;
         }
         catch (System::Reflection::TargetInvocationException ^ ex)
         {
@@ -35,6 +37,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
             logger.error("Uncaught exception Detected!");
         }
     }
+    logger.info << count << " plugin(s) loaded" << logger.endl;
 }
 
 #pragma unmanaged
