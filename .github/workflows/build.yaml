@@ -108,6 +108,7 @@ jobs:
         files: |
           ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
           ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
+        prerelease: true
       env:
         GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
 
