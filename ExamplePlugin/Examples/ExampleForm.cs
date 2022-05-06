@@ -13,6 +13,7 @@ namespace ExamplePlugin.Examples
         //Create a simple form
         private static readonly SimpleForm simpleForm = new("ExampleForm", "A Example Form");
 
+        //Create a custom form
         private static readonly CustomForm customForm = new("CustomFormTitle");
 
         static ExampleForm()
@@ -30,17 +31,27 @@ namespace ExamplePlugin.Examples
 
 
 
-
+            //add label
             customForm.Append(new Label("LabelName", "LabelTitle"));
+
+            //add input
             customForm.Append(new Input("InputName", "InputTitle"));
+
+            //add toggle
             customForm.Append(new Toggle("ToggleName", "ToggleTitle"));
+
+            //add slider
             customForm.Append(new Slider("SliderName", "SliderTitle", 0, 100));
+
+            //add dropdown
             customForm.Append(new Dropdown("DropdownName", "DropdownTitle", new()
             {
                 "DropDown-1",
                 "DropDown-2",
                 "DropDown-3"
             }));
+
+            //add stepslider
             customForm.Append(new StepSlider("StepSlider", "TestStepSlider", new()
             {
                 "StepSlider-1",
