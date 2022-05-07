@@ -57,8 +57,8 @@ public:
         MC::MinecraftPacketIds get();
     }
 
-    property ::System::String ^ Name {
-        ::System::String ^ get();
+    property ::String^ Name {
+        ::String^ get();
     };
 
     virtual bool DisallowBatching();

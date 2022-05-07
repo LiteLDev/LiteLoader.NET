@@ -56,11 +56,11 @@ inline MC::Level ^ Actor::Level::get()
     return gcnew MC::Level(&NativePtr->getLevel());
 }
 
-inline List<System::String ^> ^ Actor::GetAllTags()
+inline List<String^> ^ Actor::GetAllTags()
 {
     std::vector<std::string>& stdTags = NativePtr->getAllTags();
     auto len = stdTags.size();
-    auto Tags = gcnew List<System::String ^>(int(len));
+    auto Tags = gcnew List<String^>(int(len));
     for (auto i = 0; i < len; i++)
     {
         Tags[i] = marshalString<Encoding::E_UTF8>(stdTags[i]);
@@ -162,7 +162,7 @@ inline bool Actor::StopFire()
 {
     return NativePtr->stopFire();
 }
-inline bool Actor::HasTag(System::String ^ tag)
+inline bool Actor::HasTag(String^ tag)
 {
     return NativePtr->hasTag(marshalString<Encoding::E_UTF8>(tag));
 }
@@ -178,7 +178,7 @@ inline ItemStack ^ Actor::HandSlot::get()
 {
     return gcnew ItemStack(NativePtr->getHandSlot());
 }
-inline bool Actor::Rename(System::String ^ name)
+inline bool Actor::Rename(String^ name)
 {
     return NativePtr->rename(marshalString<Encoding::E_UTF8>(name));
 }
@@ -766,7 +766,7 @@ void MC::Actor::StopSwimming()
     ((class ::Actor*)NativePtr)->stopSwimming();
 }
 
-void MC::Actor::BuildDebugInfo(::System::String ^ _0)
+void MC::Actor::BuildDebugInfo(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->buildDebugInfo(__arg0);
@@ -840,10 +840,10 @@ void MC::Actor::UnkVfn221()
 //    ((class ::Actor*)NativePtr)->__unk_vfn_222();
 //}
 
-void MC::Actor::GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0)
+void MC::Actor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0)
 {
     auto _tmp_0 = std::vector<::std::string>();
-    for each (::System::String ^ _element in _0)
+    for each (::String^ _element in _0)
     {
         auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
         _tmp_0.push_back(_marshalElement);
@@ -1007,7 +1007,7 @@ void MC::Actor::SendDirtyActorData()
     ((class ::Actor*)NativePtr)->_sendDirtyActorData();
 }
 
-void MC::Actor::AddDefinitionGroup(::System::String ^ _0)
+void MC::Actor::AddDefinitionGroup(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->addDefinitionGroup(__arg0);
@@ -1021,14 +1021,14 @@ void MC::Actor::AddEffect(MC::MobEffectInstance ^ _0)
     ((class ::Actor*)NativePtr)->addEffect(__arg0);
 }
 
-bool MC::Actor::AddTag(::System::String ^ _0)
+bool MC::Actor::AddTag(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->addTag(__arg0);
     return __ret;
 }
 
-void MC::Actor::BuildDebugGroupInfo(::System::String ^ _0)
+void MC::Actor::BuildDebugGroupInfo(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->buildDebugGroupInfo(__arg0);
@@ -1230,7 +1230,7 @@ bool MC::Actor::HasBeenHurtByMobInLastTicks(int _0)
     return __ret;
 }
 
-bool MC::Actor::HasDefinitionGroup(::System::String ^ _0)
+bool MC::Actor::HasDefinitionGroup(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->hasDefinitionGroup(__arg0);
@@ -1451,7 +1451,7 @@ void MC::Actor::RemovePersistingTrade()
     ((class ::Actor*)NativePtr)->removePersistingTrade();
 }
 
-bool MC::Actor::RemoveTag(::System::String ^ _0)
+bool MC::Actor::RemoveTag(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->removeTag(__arg0);
@@ -1468,7 +1468,7 @@ void MC::Actor::ResetRegion()
     ((class ::Actor*)NativePtr)->resetRegion();
 }
 
-void MC::Actor::SendActorDefinitionEventTriggered(::System::String ^ _0)
+void MC::Actor::SendActorDefinitionEventTriggered(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->sendActorDefinitionEventTriggered(__arg0);
@@ -1802,13 +1802,13 @@ void MC::Actor::Invisible::set(bool _0)
     ((class ::Actor*)NativePtr)->setInvisible(_0);
 }
 
-::System::String ^ MC::Actor::NameTag::get()
+::String^ MC::Actor::NameTag::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->getNameTag();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::Actor::NameTag::set(::System::String ^ _0)
+void MC::Actor::NameTag::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->setNameTag(__arg0);
@@ -1820,19 +1820,19 @@ unsigned long long MC::Actor::NameTagAsHash::get()
     return __ret;
 }
 
-::System::String ^ MC::Actor::FormattedNameTag::get()
+::String^ MC::Actor::FormattedNameTag::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getFormattedNameTag();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::Actor::ScoreTag::get()
+::String^ MC::Actor::ScoreTag::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->getScoreTag();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::Actor::ScoreTag::set(::System::String ^ _0)
+void MC::Actor::ScoreTag::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->setScoreTag(__arg0);
@@ -3103,7 +3103,7 @@ int MC::Actor::MAX_BYTE_CHARGE_AMOUNT::get()
     return ::Actor::MAX_BYTE_CHARGE_AMOUNT;
 }
 
-::System::String ^ MC::Actor::RIDING_TAG::get()
+::String^ MC::Actor::RIDING_TAG::get()
 {
     return clix::marshalString<clix::E_UTF8>(::Actor::RIDING_TAG);
 }

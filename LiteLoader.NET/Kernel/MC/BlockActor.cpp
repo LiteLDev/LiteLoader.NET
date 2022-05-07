@@ -54,10 +54,10 @@ void MC::BlockActor::UnkVfn16()
     ((class ::BlockActor*)NativePtr)->__unk_vfn_16();
 }
 
-void MC::BlockActor::GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0, MC::BlockPos ^ _1)
+void MC::BlockActor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1)
 {
     auto _tmp_0 = std::vector<::std::string>();
-    for each (::System::String ^ _element in _0)
+    for each (::String^ _element in _0)
     {
         auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
         _tmp_0.push_back(_marshalElement);
@@ -129,19 +129,19 @@ bool MC::BlockActor::HasAlphaLayer::get()
     return __ret;
 }
 
-::System::String ^ MC::BlockActor::CustomName::get()
+::String^ MC::BlockActor::CustomName::get()
 {
     auto& __ret = ((class ::BlockActor*)NativePtr)->getCustomName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::BlockActor::CustomName::set(::System::String ^ _0)
+void MC::BlockActor::CustomName::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::BlockActor*)NativePtr)->setCustomName(__arg0);
 }
 
-::System::String ^ MC::BlockActor::Name::get()
+::String^ MC::BlockActor::Name::get()
 {
     auto __ret = ((class ::BlockActor*)NativePtr)->getName();
     return clix::marshalString<clix::E_UTF8>(__ret);

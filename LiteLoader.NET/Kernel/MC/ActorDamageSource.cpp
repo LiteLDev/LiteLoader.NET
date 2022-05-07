@@ -19,11 +19,11 @@ void MC::ActorDamageSource::UnkVfn12()
 {
     NativePtr->__unk_vfn_12();
 }
-MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::System::String ^ causeName)
+MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::String^ causeName)
 {
     return MC::ActorDamageCause(::ActorDamageSource::lookupCause(marshalString(causeName)));
 }
-System::String ^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause cause)
+String^ MC::ActorDamageSource::LookupCauseName(MC::ActorDamageCause cause)
 {
     return marshalString(::ActorDamageSource::lookupCauseName(::ActorDamageCause(cause)));
 }

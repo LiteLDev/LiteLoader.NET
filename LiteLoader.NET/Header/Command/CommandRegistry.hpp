@@ -35,8 +35,8 @@ public:
         Internal = 5,
     };
 
-    void RegisterCommand(System::String ^ cmd,
-                               System::String ^ describe,
+    void RegisterCommand(String^ cmd,
+                               String^ describe,
                                CommandPermissionLevel cmdLevel)
     {
         NativePtr->registerCommand(

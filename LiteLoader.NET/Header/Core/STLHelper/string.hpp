@@ -107,7 +107,7 @@ public:
         NativePtr = new std::string;
         OwnsNativeInstance = true;
     }
-    string(System::String ^ str)
+    string(String^ str)
     {
         NativePtr = new std::string(marshalString<Encoding::E_UTF8>(str));
         OwnsNativeInstance = true;

@@ -287,17 +287,17 @@ public:
         __ctor_all(ParameterData, ::DynamicCommand::ParameterData);
 
         inline static ParameterData ^ Create(ParameterData ^ data);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions, System::String ^ identifier, MC::CommandParameterOption parameterOption);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions, System::String ^ identifier);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, bool optional);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, System::String ^ enumOptions, System::String ^ identifier, MC::CommandParameterOption parameterOption);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, System::String ^ enumOptions, System::String ^ identifier);
-        inline static ParameterData ^ Create(System::String ^ name, ParameterType type, System::String ^ enumOptions);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, bool optional, String^ enumOptions);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, bool optional);
+        inline static ParameterData ^ Create(String^ name, ParameterType type);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier);
+        inline static ParameterData ^ Create(String^ name, ParameterType type, String^ enumOptions);
         MC::CommandParameterData ^ MakeParameterData();
         inline void SetOptional(bool optional);
-        inline bool SetEnumOptions(System::String ^ enumOptions);
+        inline bool SetEnumOptions(String^ enumOptions);
     };
     /*virtual void execute(class CommandOrigin const& origin, class CommandOutput& output);*/
     inline static DynamicCommandInstance ^ CreateCommand(String ^ name, String ^ description, MC::CommandPermissionLevel permission, MC::CommandFlag ^ flag1, MC::CommandFlag ^ flag2, IntPtr handler);

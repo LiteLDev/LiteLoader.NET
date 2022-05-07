@@ -19,7 +19,7 @@ ref class Container;
 ref class Dimension;
 ref class Player;
 ref class Actor;
-}
+} // namespace MC
 
 namespace MC
 {
@@ -44,13 +44,13 @@ public:
     inline static void ForEachPlayer(Callback ^ callback);
     inline static List<Player ^> ^ GetAllPlayers();
     /// name or xuid
-    inline static Player ^ GetPlayer(System::String ^ _info);
+    inline static Player ^ GetPlayer(String ^ info);
     /// UniqueID
     inline static Player ^ GetPlayer(ActorUniqueID ^ id);
     inline static Actor ^ GetEntity(ActorUniqueID ^ id);
     inline static List<Actor ^> ^ GetAllEntities(int dimId);
     inline static List<Actor ^> ^ GetAllEntities();
-    inline static Actor ^ SpawnMob(Vec3 ^ pos, int dimId, System::String ^ typeName);
+    inline static Actor ^ SpawnMob(Vec3 ^ pos, int dimId, String ^ typeName);
     inline static Actor ^ SpawnItem(Vec3 ^ pos, int dimId, ItemStack ^ item);
     inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);
     inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak);
@@ -65,13 +65,13 @@ public:
     inline static BlockActor ^ GetBlockEntity(BlockPos ^ pos, int dimId);
     inline static BlockActor ^ GetBlockEntity(BlockPos ^ pos, BlockSource ^ blockSource);
     inline static bool SetBlock(BlockPos ^ pos, int dim, Block ^ block);
-    inline static bool SetBlock(BlockPos ^ pos, int dim, System::String ^ name, unsigned short tileData);
+    inline static bool SetBlock(BlockPos ^ pos, int dim, String ^ name, unsigned short tileData);
     inline static bool SetBlock(BlockPos ^ pos, int dim, CompoundTag ^ nbt);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool);
     inline static bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
-    inline static void SpawnParticleEffect(System::String ^ type, Vec3 ^ pos, Dimension ^ a2);
-    inline static void SpawnParticleEffect(System::String ^ type, Actor ^ a1, Vec3 ^ a2);
+    inline static void SpawnParticleEffect(String ^ type, Vec3 ^ pos, Dimension ^ a2);
+    inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 ^ a2);
     inline static bool HasContainer(Vec3 ^ pos, int dim);
     inline static Container ^ GetContainer(Vec3 ^ pos, int dim);
 
@@ -85,19 +85,16 @@ public:
     inline static BlockPalette ^ GetBlockPalette();
     inline static Dimension ^ GetDimension(AutomaticID<Dimension ^, int> ^ a0);
     inline static Actor ^ GetDamageSourceEntity(ActorDamageSource ^ ads);
-    inline static void BroadcastText(System::String ^ text, TextType type);
-    inline static void BroadcastTitle(System::String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
+    inline static void BroadcastText(String ^ text, TextType type);
+    inline static void BroadcastTitle(String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
     inline static void SendPacketForAllPlayer(Packet ^ pkt);
 
     // For compatibility
-    inline static bool RuncmdAs(Player ^ pl, System::String ^ cmd);
-    inline static Pair<bool, System::String ^> RuncmdEx(System::String ^ cmd);
-    inline static bool Runcmd(System::String ^ cmd);
+    inline static bool RuncmdAs(Player ^ pl, String ^ cmd);
+    inline static Pair<bool, String ^> RuncmdEx(String ^ cmd);
+    inline static bool Runcmd(String ^ cmd);
 
-#ifdef INCLUDE_MCAPI
-    // property MC::PlayerCapabilities::ISharedController ^ Capabilities {
-    //     MC::PlayerCapabilities::ISharedController ^ get();
-    // }
+#ifdef MANUAL_MAINTENANCE
 
     property double TickDeltaTime
     {
@@ -131,6 +128,13 @@ public:
         float get();
     }
 
+#endif // MANUAL_MAINTENANCE
+
+
+#ifdef INCLUDE_MCAPI
+    // property MC::PlayerCapabilities::ISharedController ^ Capabilities {
+    //     MC::PlayerCapabilities::ISharedController ^ get();
+    // }
 #endif // INCLUDE_MCAPI
 };
 } // namespace MC

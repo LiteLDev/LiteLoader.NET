@@ -15,7 +15,7 @@ ref class FormPacketHelper abstract
 public:
     delegate void SimpleFormPacketCallbackHandler(MC::Player ^, int);
     delegate void ModalFormPacketCallbackHandler(MC::Player ^, bool);
-    delegate void CustomFormPacketCallbackHandler(MC::Player ^, System::String ^);
+    delegate void CustomFormPacketCallbackHandler(MC::Player ^, String^);
 
     static unsigned int NewFormId();
 

@@ -89,13 +89,13 @@ void MC::ItemStack::SetNull()
     ((class ::ItemStack*)NativePtr)->setNull();
 }
 
-::System::String ^ MC::ItemStack::ToString()
+::String^ MC::ItemStack::ToString()
 {
     auto __ret = ((class ::ItemStack*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::ItemStack::ToDebugString()
+::String^ MC::ItemStack::ToDebugString()
 {
     auto __ret = ((class ::ItemStack*)NativePtr)->toDebugString();
     return clix::marshalString<clix::E_UTF8>(__ret);

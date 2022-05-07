@@ -49,16 +49,16 @@ using LLNET::Core::Pair;
 #include "../Tools/clix.hpp"
 using namespace clix;
 
-inline System::String ^ marshalString(std::string const& str) {
+inline String^ marshalString(std::string const& str) {
     return marshalString<Encoding::E_UTF8>(str);
 };
 
-inline std::string marshalString(System::String ^ str)
+inline std::string marshalString(String^ str)
 {
     return marshalString<Encoding::E_UTF8>(str);
 }
 
-inline uint64_t do_Hash(System::String ^ str)
+inline uint64_t do_Hash(String^ str)
 {
     uint64_t rval = 0;
     for (int i = 0; i < str->Length; ++i)

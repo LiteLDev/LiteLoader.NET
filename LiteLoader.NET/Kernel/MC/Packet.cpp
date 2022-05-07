@@ -76,7 +76,7 @@ MC::MinecraftPacketIds MC::Packet::Id::get()
     return (MC::MinecraftPacketIds)__ret;
 }
 
-::System::String ^ MC::Packet::Name::get()
+::String^ MC::Packet::Name::get()
 {
     auto __ret = ((class ::Packet*)NativePtr)->getName();
     return clix::marshalString<clix::E_UTF8>(__ret);

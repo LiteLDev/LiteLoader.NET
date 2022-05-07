@@ -7,8 +7,8 @@ public
 ref class ServerAPI abstract
 {
 public:
-    inline static System::String ^ GetBdsVersion();
+    inline static String^ GetBdsVersion();
     inline static int GetServerProtocolVersion();
-    inline static bool SetServerMotd(System::String ^ d);
+    inline static bool SetServerMotd(String^ d);
 };
 } // namespace LLNET::LL

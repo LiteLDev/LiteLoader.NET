@@ -18,3 +18,5 @@
 
 //#define INCLUDE_MCAPI
 
+#define MANUAL_MAINTENANCE
+

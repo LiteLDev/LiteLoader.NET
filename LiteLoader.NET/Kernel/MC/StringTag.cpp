@@ -2,7 +2,7 @@
 namespace MC
 {
 
-inline System::String ^ StringTag::Value()
+inline String^ StringTag::Value()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->value());
 }
@@ -18,12 +18,12 @@ inline StringTag ^ StringTag::Create()
     return gcnew StringTag(::StringTag::create().release(), true);
 }
 
-inline bool StringTag::Set(System::String ^ val)
+inline bool StringTag::Set(String^ val)
 {
     return NativePtr->set(marshalString<Encoding::E_UTF8>(val));
 }
 
-inline System::String ^ StringTag::Get()
+inline String^ StringTag::Get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->get());
 }
@@ -36,7 +36,7 @@ void MC::StringTag::DeleteChildren()
     ((class ::StringTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::StringTag::ToString()
+::String^ MC::StringTag::ToString()
 {
     auto __ret = ((class ::StringTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -63,7 +63,7 @@ unsigned long long MC::StringTag::hash()
     return __ret;
 }
 
-MC::StringTag::StringTag(::System::String ^ _0)
+MC::StringTag::StringTag(::String^ _0)
     : MC::Tag((::Tag*)nullptr)
 {
     OwnsNativeInstance = true;

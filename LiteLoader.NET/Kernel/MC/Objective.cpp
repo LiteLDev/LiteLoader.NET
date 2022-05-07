@@ -3,23 +3,23 @@
 namespace MC
 {
 
-inline bool Objective::SetDisplay(System::String ^ slotName, ObjectiveSortOrder sort)
+inline bool Objective::SetDisplay(String^ slotName, ObjectiveSortOrder sort)
 {
     return NativePtr->setDisplay(marshalString<Encoding::E_UTF8>(slotName), ::ObjectiveSortOrder(sort));
 }
 } // namespace MC
 
 #ifdef INCLUDE_MCAPI
-::System::String ^ MC::Objective::DisplayName::get()
+::String^ MC::Objective::DisplayName::get()
 {
     auto& __ret = ((class ::Objective*)NativePtr)->getDisplayName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-::System::String ^ MC::Objective::Name::get()
+::String^ MC::Objective::Name::get()
 {
     auto& __ret = ((class ::Objective*)NativePtr)->getName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 ::System::Collections::Generic::List<MC::ScoreboardId ^> ^ MC::Objective::Players::get()

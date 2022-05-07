@@ -41,7 +41,7 @@ void MC::IntArrayTag::DeleteChildren()
     ((class ::IntArrayTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::IntArrayTag::ToString()
+::String^ MC::IntArrayTag::ToString()
 {
     auto __ret = ((class ::IntArrayTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

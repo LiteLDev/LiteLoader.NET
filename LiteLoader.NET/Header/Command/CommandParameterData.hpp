@@ -151,7 +151,7 @@ public:
     inline static CommandParameterData ^ Create() {
         return gcnew CommandParameterData(::CommandParameterData());
     } inline static CommandParameterData
-        ^ Create(typeid_t<CommandRegistry ^> tid, ParseFn parser, System::String ^ describe, CommandParameterDataType type, System::String ^ enumName, int offset, bool optional, int flag_offset) {
+        ^ Create(typeid_t<CommandRegistry ^> tid, ParseFn parser, String^ describe, CommandParameterDataType type, String^ enumName, int offset, bool optional, int flag_offset) {
               return gcnew CommandParameterData(::CommandParameterData(
                   ::typeid_t<::CommandRegistry>(tid.value),
                   *parser.p,

@@ -50,11 +50,11 @@
     }
 
 #define Property_String(nativeName, name)                              \
-    property System::String ^ name {                                   \
-        inline System::String ^ get() {                                \
+    property String^ name {                                   \
+        inline String^ get() {                                \
             return marshalString<Encoding::E_UTF8>(_this->nativeName); \
         } inline void                                                  \
-            set(System::String ^ arg)                                  \
+            set(String^ arg)                                  \
         {                                                              \
             _this->nativeName = marshalString<Encoding::E_UTF8>(arg);  \
         }                                                              \
@@ -93,8 +93,8 @@
     }
 
 #define Property_String_ReadOnly(nativeName, name) \
-    property System::String ^ name {               \
-        inline System::String ^ get() {            \
+    property String^ name {               \
+        inline String^ get() {            \
             return toSysString(_this->nativeName); \
         }                                          \
     }

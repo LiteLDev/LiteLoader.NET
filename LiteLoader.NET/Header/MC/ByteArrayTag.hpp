@@ -28,7 +28,7 @@ public:
 
     virtual void DeleteChildren() override;
 
-    virtual ::System::String ^ ToString() override;
+    virtual ::String^ ToString() override;
 
     virtual MC::Tag::Type GetId();
 

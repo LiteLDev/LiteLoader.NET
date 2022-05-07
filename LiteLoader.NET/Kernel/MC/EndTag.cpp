@@ -31,7 +31,7 @@ void MC::EndTag::DeleteChildren()
     ((class ::EndTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::EndTag::ToString()
+::String^ MC::EndTag::ToString()
 {
     auto __ret = ((class ::EndTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

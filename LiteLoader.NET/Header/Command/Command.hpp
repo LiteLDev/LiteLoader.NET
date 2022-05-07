@@ -174,6 +174,6 @@ protected:
     };
 
 public:
-    //System::String ^ GetCommandName();
+    //String^ GetCommandName();
 };
 } // namespace MC

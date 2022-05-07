@@ -16,12 +16,12 @@ public:
     __ctor_all(ActorDefinitionIdentifier, ::ActorDefinitionIdentifier);
 
     static ActorDefinitionIdentifier ^ Create();
-    static ActorDefinitionIdentifier ^ Create(System::String ^ ns, System::String ^ identifier, System::String ^ event, System::String ^ fullname, HashedString ^ canonicalHash);
+    static ActorDefinitionIdentifier ^ Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash);
 
-    property System::String ^ NS {System::String^ get(); void set(System::String^ ns); };
-    property System::String ^ Identifier {System::String^ get(); void set(System::String^ identifier); };
-    property System::String ^ Event {System::String^ get(); void set(System::String^ event); };
-    property System::String ^ Fullname {System::String^ get(); void set(System::String^ fullname); };
+    property String^ NS {System::String^ get(); void set(System::String^ ns); };
+    property String^ Identifier {System::String^ get(); void set(System::String^ identifier); };
+    property String^ Event {System::String^ get(); void set(System::String^ event); };
+    property String^ Fullname {System::String^ get(); void set(System::String^ fullname); };
     property HashedString ^ CanonicalHash {HashedString^ get(); void set(HashedString^ canonicalHash); };
 
 #ifdef INCLUDE_MCAPI
@@ -29,25 +29,25 @@ public:
 
     ActorDefinitionIdentifier(MC::ActorDefinitionIdentifier ^ _0);
 
-    ActorDefinitionIdentifier(::System::String ^ _0);
+    ActorDefinitionIdentifier(::String^ _0);
 
-    ActorDefinitionIdentifier(::System::String ^ _0, ::System::String ^ _1, ::System::String ^ _2);
+    ActorDefinitionIdentifier(::String^ _0, ::String^ _1, ::String^ _2);
 
 
-    property ::System::String ^
+    property ::String^
         CanonicalName {
-            ::System::String ^ get();
+            ::String^ get();
         };
 
-    property ::System::String ^
+    property ::String^
         InitEvent {
-            ::System::String ^ get();
-            void set(::System::String ^);
+            ::String^ get();
+            void set(::String^);
         };
 
-    property ::System::String ^
+    property ::String^
         Namespace {
-            ::System::String ^ get();
+            ::String^ get();
         };
 
     property bool IsEmpty
@@ -62,9 +62,9 @@ public:
 
     void Clear();
 
-    void Initialize(::System::String ^ _0, ::System::String ^ _1, ::System::String ^ _2);
+    void Initialize(::String^ _0, ::String^ _1, ::String^ _2);
 
-    void Initialize(::System::String ^ _0);
+    void Initialize(::String^ _0);
 
     static bool operator==(MC::ActorDefinitionIdentifier ^ __op, MC::ActorDefinitionIdentifier ^ _0);
 

@@ -22,7 +22,7 @@ NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, Remot
     }
 }
 
-bool RemoteCallAPI::ExportFunc(System::String ^ nameSpace, System::String ^ funcName, CallbackFn ^ callback)
+bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn ^ callback)
 {
     NULL_ARGS_CHEEK(nameSpace);
     NULL_ARGS_CHEEK(funcName);
@@ -33,7 +33,7 @@ bool RemoteCallAPI::ExportFunc(System::String ^ nameSpace, System::String ^ func
     return ::RemoteCall::exportFunc(marshalString<Encoding::E_UTF8>(nameSpace), marshalString<Encoding::E_UTF8>(funcName), pair.pCallbackFn, MODULE);
 }
 
-bool RemoteCallAPI::ExportFunc(System::String ^ nameSpace, System::String ^ funcName, CallbackFn ^ callback, System::IntPtr handler)
+bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn ^ callback, System::IntPtr handler)
 {
     NULL_ARGS_CHEEK(nameSpace);
     NULL_ARGS_CHEEK(funcName);
@@ -44,7 +44,7 @@ bool RemoteCallAPI::ExportFunc(System::String ^ nameSpace, System::String ^ func
     return ::RemoteCall::exportFunc(marshalString<Encoding::E_UTF8>(nameSpace), marshalString<Encoding::E_UTF8>(funcName), pair.pCallbackFn, (HMODULE)(void*)handler);
 }
 
-RemoteCallAPI::CallbackFn ^ RemoteCallAPI::ImportFunc(System::String ^ nameSpace, System::String ^ funcName)
+RemoteCallAPI::CallbackFn ^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
 {
     NULL_ARGS_CHEEK(nameSpace);
     NULL_ARGS_CHEEK(funcName);

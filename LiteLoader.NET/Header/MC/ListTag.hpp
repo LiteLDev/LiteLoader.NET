@@ -38,7 +38,7 @@ public:
     inline void AddInt64(__int64 v);
     inline void AddFloat(float v);
     inline void AddDouble(double v);
-    inline void AddString(System::String ^ v);
+    inline void AddString(String^ v);
     inline void AddByteArray(TagMemoryChunk ^ byteArr);
     inline void AddByteArray(array<char> ^ data /*, size_t size*/);
     inline void AddIntArray(TagMemoryChunk ^ intArr);
@@ -53,7 +53,7 @@ public:
 
     virtual void DeleteChildren() override;
 
-    virtual ::System::String ^ ToString() override;
+    virtual ::String^ ToString() override;
 
     virtual MC::Tag::Type GetId();
 
@@ -71,7 +71,7 @@ public:
 
     int GetInt(int _0);
 
-    ::System::String ^ GetString(int _0);
+    ::String^ GetString(int _0);
 
     void PopBack();
 

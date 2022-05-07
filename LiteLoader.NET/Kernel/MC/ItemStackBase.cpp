@@ -26,13 +26,13 @@ void MC::ItemStackBase::SetNull()
     ((class ::ItemStackBase*)NativePtr)->setNull();
 }
 
-::System::String ^ MC::ItemStackBase::ToString()
+::String^ MC::ItemStackBase::ToString()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::ItemStackBase::ToDebugString()
+::String^ MC::ItemStackBase::ToDebugString()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->toDebugString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -213,10 +213,10 @@ void MC::ItemStackBase::Set(int _0)
     ((class ::ItemStackBase*)NativePtr)->set(_0);
 }
 
-void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::List<::System::String ^> ^ _0)
+void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::List<::String^> ^ _0)
 {
     auto _tmp_0 = std::vector<::std::string>();
-    for each (::System::String ^ _element in _0)
+    for each (::String^ _element in _0)
     {
         auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
         _tmp_0.push_back(_marshalElement);
@@ -246,7 +246,7 @@ bool MC::ItemStackBase::ShouldVanish()
     return __ret;
 }
 
-bool MC::ItemStackBase::IsValidComponent(::System::String ^ _0)
+bool MC::ItemStackBase::IsValidComponent(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ::ItemStackBase::isValidComponent(__arg0);
@@ -276,7 +276,7 @@ int MC::ItemStackBase::BaseRepairCost::get()
     return __ret;
 }
 
-::System::String ^ MC::ItemStackBase::CategoryName::get()
+::String^ MC::ItemStackBase::CategoryName::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getCategoryName();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -289,13 +289,13 @@ MC::Mce::Color ^ MC::ItemStackBase::Color::get()
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Mce::Color((class ::mce::Color*)____ret, true);
 }
 
-::System::String ^ MC::ItemStackBase::CustomName::get()
+::String^ MC::ItemStackBase::CustomName::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getCustomName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-void MC::ItemStackBase::CustomName::set(::System::String ^ _0)
+void MC::ItemStackBase::CustomName::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::ItemStackBase*)NativePtr)->setCustomName(__arg0);
@@ -312,13 +312,13 @@ void MC::ItemStackBase::DamageValue::set(short _0)
     ((class ::ItemStackBase*)NativePtr)->setDamageValue(_0);
 }
 
-::System::String ^ MC::ItemStackBase::DescriptionId::get()
+::String^ MC::ItemStackBase::DescriptionId::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::ItemStackBase::EffectName::get()
+::String^ MC::ItemStackBase::EffectName::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getEffectName();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -330,7 +330,7 @@ int MC::ItemStackBase::EnchantValue::get()
     return __ret;
 }
 
-::System::String ^ MC::ItemStackBase::HoverName::get()
+::String^ MC::ItemStackBase::HoverName::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getHoverName();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -360,13 +360,13 @@ unsigned char MC::ItemStackBase::MaxStackSize::get()
     return __ret;
 }
 
-::System::String ^ MC::ItemStackBase::Name::get()
+::String^ MC::ItemStackBase::Name::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::ItemStackBase::RawNameId::get()
+::String^ MC::ItemStackBase::RawNameId::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getRawNameId();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -521,37 +521,37 @@ bool MC::ItemStackBase::IsWearableItem::get()
     return __ret;
 }
 
-::System::String ^ MC::ItemStackBase::TAG_CAN_DESTROY::get()
+::String^ MC::ItemStackBase::TAG_CAN_DESTROY::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_CAN_DESTROY);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_CAN_PLACE_ON::get()
+::String^ MC::ItemStackBase::TAG_CAN_PLACE_ON::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_CAN_PLACE_ON);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_DISPLAY::get()
+::String^ MC::ItemStackBase::TAG_DISPLAY::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_DISPLAY);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_DISPLAY_NAME::get()
+::String^ MC::ItemStackBase::TAG_DISPLAY_NAME::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_DISPLAY_NAME);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_ENCHANTS::get()
+::String^ MC::ItemStackBase::TAG_ENCHANTS::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_ENCHANTS);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_LORE::get()
+::String^ MC::ItemStackBase::TAG_LORE::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_LORE);
 }
 
-::System::String ^ MC::ItemStackBase::TAG_REPAIR_COST::get()
+::String^ MC::ItemStackBase::TAG_REPAIR_COST::get()
 {
     return clix::marshalString<clix::E_UTF8>(::ItemStackBase::TAG_REPAIR_COST);
 }

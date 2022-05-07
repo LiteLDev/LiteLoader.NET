@@ -29,7 +29,7 @@ inline DynamicCommand::Result ^ DynamicCommand::Result::Create()
 {
     return gcnew Result(::DynamicCommand::Result());
 }
-System::String ^ DynamicCommand::Result::EnumValue::get()
+String^ DynamicCommand::Result::EnumValue::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getEnumValue());
 }
@@ -37,11 +37,11 @@ DynamicCommand::ParameterType DynamicCommand::Result::GetParameterType()
 {
     return ParameterType(NativePtr->getType());
 }
-System::String ^ DynamicCommand::Result::Name::get()
+String^ DynamicCommand::Result::Name::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getName());
 }
-System::String ^ DynamicCommand::Result::toDebugString()
+String^ DynamicCommand::Result::toDebugString()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->toDebugString());
 }
@@ -162,7 +162,7 @@ inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(Par
 {
     return gcnew ParameterData(::DynamicCommand::ParameterData(data));
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions, System::String ^ identifier, MC::CommandParameterOption parameterOption)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
 {
     return gcnew ParameterData(::DynamicCommand::ParameterData(
         marshalString<Encoding::E_UTF8>(name),
@@ -172,23 +172,23 @@ inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(Sys
         marshalString<Encoding::E_UTF8>(identifier),
         ::CommandParameterOption(parameterOption)));
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions, System::String ^ identifier)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier)
 {
     return Create(name, type, optional, enumOptions, identifier, MC::CommandParameterOption::None);
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, bool optional, System::String ^ enumOptions)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions)
 {
     return Create(name, type, optional, enumOptions, "");
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, bool optional)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional)
 {
     return Create(name, type, optional, "");
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type)
 {
     return Create(name, type, false);
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, System::String ^ enumOptions, System::String ^ identifier, MC::CommandParameterOption parameterOption)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
 {
     return gcnew ParameterData(::DynamicCommand::ParameterData(
         marshalString<Encoding::E_UTF8>(name),
@@ -197,11 +197,11 @@ inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(Sys
         marshalString<Encoding::E_UTF8>(identifier),
         ::CommandParameterOption(parameterOption)));
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, System::String ^ enumOptions, System::String ^ identifier)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier)
 {
     return Create(name, type, enumOptions, identifier, MC::CommandParameterOption::None);
 }
-inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(System::String ^ name, ParameterType type, System::String ^ enumOptions)
+inline DynamicCommand::ParameterData ^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions)
 {
     return Create(name, type, enumOptions, "");
 }
@@ -213,7 +213,7 @@ inline void DynamicCommand::ParameterData::SetOptional(bool optional)
 {
     return NativePtr->setOptional(optional);
 }
-inline bool DynamicCommand::ParameterData::SetEnumOptions(System::String ^ enumOptions)
+inline bool DynamicCommand::ParameterData::SetEnumOptions(String^ enumOptions)
 {
     return NativePtr->setEnumOptions(marshalString<Encoding::E_UTF8>(enumOptions));
 }

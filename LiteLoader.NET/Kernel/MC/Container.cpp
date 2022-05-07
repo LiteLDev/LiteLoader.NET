@@ -6,7 +6,7 @@
 namespace MC
 {
 
-inline System::String ^ Container::GetTypeName()
+inline String^ Container::GetTypeName()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getTypeName());
 }
@@ -96,7 +96,7 @@ void MC::Container::SetContainerMoved()
     ((class ::Container*)NativePtr)->setContainerMoved();
 }
 
-void MC::Container::SetCustomName(::System::String ^ _0)
+void MC::Container::SetCustomName(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Container*)NativePtr)->setCustomName(__arg0);
@@ -112,18 +112,18 @@ void MC::Container::InitRuntimeId()
     ((class ::Container*)NativePtr)->initRuntimeId();
 }
 
-MC::ContainerType MC::Container::GetContainerTypeId(::System::String ^ _0)
+MC::ContainerType MC::Container::GetContainerTypeId(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ::Container::getContainerTypeId(__arg0);
     return (MC::ContainerType)__ret;
 }
 
-::System::String ^ MC::Container::GetContainerTypeName(MC::ContainerType _0)
+::String^ MC::Container::GetContainerTypeName(MC::ContainerType _0)
 {
     auto __arg0 = (::ContainerType)_0;
     auto& __ret = ::Container::getContainerTypeName(__arg0);
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 int MC::Container::ContainerSize::get()

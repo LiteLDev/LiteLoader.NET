@@ -14,16 +14,16 @@ ref class Objective : ClassTemplate<Objective, ::Objective>
 {
 public:
     __ctor(Objective, ::Objective);
-    inline bool SetDisplay(System::String ^ slotName, ObjectiveSortOrder sort);
+    inline bool SetDisplay(String^ slotName, ObjectiveSortOrder sort);
 
 #ifdef INCLUDE_MCAPI
-    property ::System::String ^ DisplayName {
-        ::System::String ^ get();
+    property ::String^ DisplayName {
+        ::String^ get();
     }
 
-        property ::System::String ^
+        property ::String^
         Name {
-            ::System::String ^ get();
+            ::String^ get();
         }
 
         property ::System::Collections::Generic::List<MC::ScoreboardId ^> ^

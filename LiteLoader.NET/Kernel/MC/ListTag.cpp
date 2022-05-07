@@ -121,7 +121,7 @@ void MC::ListTag::DeleteChildren()
     ((class ::ListTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::ListTag::ToString()
+::String^ MC::ListTag::ToString()
 {
     auto __ret = ((class ::ListTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -178,10 +178,10 @@ int MC::ListTag::GetInt(int _0)
     return __ret;
 }
 
-::System::String ^ MC::ListTag::GetString(int _0)
+::String^ MC::ListTag::GetString(int _0)
 {
     auto& __ret = ((class ::ListTag*)NativePtr)->getString(_0);
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 void MC::ListTag::PopBack()

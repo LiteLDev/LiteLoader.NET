@@ -47,9 +47,9 @@ inline List<Player ^> ^ Level::GetAllPlayers()
         ret->Add(gcnew Player(var));
     return ret;
 }
-inline Player ^ Level::GetPlayer(System::String ^ _info)
+inline Player ^ Level::GetPlayer(String^ info)
 {
-    return gcnew Player(::Level::getPlayer(marshalString<Encoding::E_UTF8>(_info)));
+    return gcnew Player(::Level::getPlayer(marshalString<Encoding::E_UTF8>(info)));
 }
 inline Player ^ Level::GetPlayer(ActorUniqueID ^ id)
 {
@@ -75,7 +75,7 @@ inline List<Actor ^> ^ Level::GetAllEntities()
         ret->Add(gcnew Actor(var));
     return ret;
 }
-inline Actor ^ Level::SpawnMob(Vec3 ^ pos, int dimId, System::String ^ typeName)
+inline Actor ^ Level::SpawnMob(Vec3 ^ pos, int dimId, String^ typeName)
 {
     return gcnew Actor(::Level::spawnMob(
         *pos, dimId, marshalString<Encoding::E_UTF8>(typeName)));
@@ -129,7 +129,7 @@ inline bool Level::SetBlock(BlockPos ^ pos, int dim, Block ^ block)
 {
     return ::Level::setBlock(pos, dim, block);
 }
-inline bool Level::SetBlock(BlockPos ^ pos, int dim, System::String ^ name, unsigned short tileData)
+inline bool Level::SetBlock(BlockPos ^ pos, int dim, String^ name, unsigned short tileData)
 {
     return ::Level::setBlock(pos, dim, marshalString<Encoding::E_UTF8>(name), tileData);
 }
@@ -149,11 +149,11 @@ inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2)
 {
     return ::Level::destroyBlock(bs, pos, a2);
 }
-inline void Level::SpawnParticleEffect(System::String ^ type, Vec3 ^ pos, Dimension ^ a2)
+inline void Level::SpawnParticleEffect(String^ type, Vec3 ^ pos, Dimension ^ a2)
 {
     ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2);
 }
-inline void Level::SpawnParticleEffect(System::String ^ type, Actor ^ a1, Vec3 ^ a2)
+inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 ^ a2)
 {
     ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), a1, a2);
 }
@@ -193,11 +193,11 @@ inline Actor ^ Level::GetDamageSourceEntity(ActorDamageSource ^ ads)
 {
     return gcnew Actor(::Level::getDamageSourceEntity(ads));
 }
-inline void Level::BroadcastText(System::String ^ text, TextType type)
+inline void Level::BroadcastText(String^ text, TextType type)
 {
     ::Level::broadcastText(marshalString<Encoding::E_UTF8>(text), ::TextType(type));
 }
-inline void Level::BroadcastTitle(System::String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration)
+inline void Level::BroadcastTitle(String^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration)
 {
     ::Level::broadcastTitle(marshalString<Encoding::E_UTF8>(text), ::TitleType(Type), FadeInDuration, RemainDuration, FadeOutDuration);
 }
@@ -205,46 +205,37 @@ inline void Level::SendPacketForAllPlayer(Packet ^ pkt)
 {
     ::Level::sendPacketForAllPlayer(pkt);
 }
-inline bool Level::RuncmdAs(Player ^ pl, System::String ^ cmd)
+inline bool Level::RuncmdAs(Player ^ pl, String^ cmd)
 {
     return ::Level::runcmdAs(pl->NativePtr, marshalString<Encoding::E_UTF8>(cmd));
 }
-inline Pair<bool, System::String ^> Level::RuncmdEx(System::String ^ cmd)
+inline Pair<bool, String^> Level::RuncmdEx(String^ cmd)
 {
     auto& kvpair = ::Level::runcmdEx(marshalString<Encoding::E_UTF8>(cmd));
-    return Pair<bool, System::String ^>(kvpair.first, marshalString<Encoding::E_UTF8>(kvpair.second));
+    return Pair<bool, String^>(kvpair.first, marshalString<Encoding::E_UTF8>(kvpair.second));
 }
-inline bool Level::Runcmd(System::String ^ cmd)
+inline bool Level::Runcmd(String^ cmd)
 {
     return ::Level::runcmd(marshalString<Encoding::E_UTF8>(cmd));
 }
 } // namespace MC
 
 
+#ifdef MANUAL_MAINTENANCE
 
-#ifdef INCLUDE_MCAPI
 unsigned int MC::Level::CreateRandomSeed()
 {
-    auto __ret = ::Level::createRandomSeed();
-    return __ret;
+    return ::Level::createRandomSeed();
 }
-
-//MC::PlayerCapabilities::ISharedController ^ MC::Level::Capabilities::get()
-//{
-//    auto& __ret = ((class ::Level*)NativePtr)->getCapabilities();
-//    return (MC::PlayerCapabilities::ISharedController ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::PlayerCapabilities::ISharedController((struct ::PlayerCapabilities::ISharedController*)&__ret));
-//}
 
 double MC::Level::TickDeltaTime::get()
 {
-    auto __ret = ((class ::Level*)NativePtr)->getTickDeltaTime();
-    return __ret;
+    return NativePtr->getTickDeltaTime();
 }
 
 bool MC::Level::Use3DBiomeMaps::get()
 {
-    auto __ret = ((class ::Level*)NativePtr)->use3DBiomeMaps();
-    return __ret;
+    return NativePtr->use3DBiomeMaps();
 }
 
 float MC::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK::get()
@@ -266,4 +257,16 @@ float MC::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK::get()
 {
     return ::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK;
 }
+
+#endif // MANUAL_MAINTENANCE
+
+
+
+
+#ifdef INCLUDE_MCAPI
+// MC::PlayerCapabilities::ISharedController ^ MC::Level::Capabilities::get()
+//{
+//     auto& __ret = ((class ::Level*)NativePtr)->getCapabilities();
+//     return (MC::PlayerCapabilities::ISharedController ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::PlayerCapabilities::ISharedController((struct ::PlayerCapabilities::ISharedController*)&__ret));
+// }
 #endif // INCLUDE_MCAPI

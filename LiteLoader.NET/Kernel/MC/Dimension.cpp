@@ -65,7 +65,7 @@ float MC::Dimension::GetTimeOfDay(float _0)
 //    return __ret;
 //}
 
-void MC::Dimension::OnStaticTickingAreaAdded(::System::String ^ _0)
+void MC::Dimension::OnStaticTickingAreaAdded(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Dimension*)NativePtr)->onStaticTickingAreaAdded(__arg0);

@@ -34,14 +34,14 @@ public:
         bool get();
     }
 
-    property ::System::String ^ CustomName {
-        ::System::String ^ get();
-        void set(::System::String ^);
+    property ::String^ CustomName {
+        ::String^ get();
+        void set(::String^);
     }
 
-        property ::System::String ^
+        property ::String^
         Name {
-            ::System::String ^ get();
+            ::String^ get();
         }
 
         property int RepairCost
@@ -77,7 +77,7 @@ public:
 
     virtual void UnkVfn16();
 
-    virtual void GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0, MC::BlockPos ^ _1);
+    virtual void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1);
 
     virtual void UnkVfn28();
 

@@ -23,7 +23,7 @@ public:
 
     inline static CommandOutputParameter ^ Create(CommandSelectorResults<::Actor> ^ cr);
     inline static CommandOutputParameter ^ Create(CommandSelectorResults<::Player> ^ cr);
-    inline static CommandOutputParameter ^ Create(System::String ^ str);
+    inline static CommandOutputParameter ^ Create(String^ str);
     inline static CommandOutputParameter ^ Create(List<Player ^> ^ pllist);
     inline static CommandOutputParameter ^ Create(List<Actor ^> ^ aclist);
     inline static CommandOutputParameter ^ Create(List<String ^> ^ strlist);

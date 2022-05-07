@@ -36,7 +36,7 @@ void MC::ByteTag::DeleteChildren()
     ((class ::ByteTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::ByteTag::ToString()
+::String^ MC::ByteTag::ToString()
 {
     auto __ret = ((class ::ByteTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

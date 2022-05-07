@@ -57,8 +57,8 @@ public:
         bool get();
     }
 
-    property ::System::String ^ DescriptionId {
-        ::System::String ^ get();
+    property ::String^ DescriptionId {
+        ::String^ get();
     };
 
     property float DurationModifier
@@ -71,8 +71,8 @@ public:
         unsigned int get();
     }
 
-    property ::System::String ^ ResourceName {
-        ::System::String ^ get();
+    property ::String^ ResourceName {
+        ::String^ get();
     };
 
     property bool IsHarmful
@@ -87,9 +87,9 @@ public:
 
     static MC::MobEffect ^ GetById(int _0);
 
-    static MC::MobEffect ^ GetByName(::System::String ^ _0);
+    static MC::MobEffect ^ GetByName(::String^ _0);
 
-    static ::System::String ^ GetNameById(int _0);
+    static ::String^ GetNameById(int _0);
 
     static void ShutdownEffects();
 

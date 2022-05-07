@@ -90,7 +90,7 @@ inline ActorRuntimeID::operator long long()
 } // namespace MC
 
 
-MC::Mce::Color ^ MC::Mce::Color::FromHexString(::System::String ^ _0)
+MC::Mce::Color ^ MC::Mce::Color::FromHexString(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ::mce::Color::fromHexString(__arg0);
@@ -127,7 +127,7 @@ int MC::Mce::Color::ToARGB()
     return __ret;
 }
 
-::System::String ^ MC::Mce::Color::ToHexString()
+::String^ MC::Mce::Color::ToHexString()
 {
     auto __ret = ((class ::mce::Color*)NativePtr)->toHexString();
     return clix::marshalString<clix::E_UTF8>(__ret);

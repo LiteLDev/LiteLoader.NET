@@ -40,7 +40,7 @@ void MC::DoubleTag::DeleteChildren()
     ((class ::DoubleTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::DoubleTag::ToString()
+::String^ MC::DoubleTag::ToString()
 {
     auto __ret = ((class ::DoubleTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

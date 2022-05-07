@@ -60,7 +60,7 @@ public:
     inline IntArrayTag ^ AsIntArrayTag();
     inline CompoundTag ^ AsCompoundTag();
 
-    inline System::String ^ ToJson(int formatIndent);
+    inline String^ ToJson(int formatIndent);
 
 #ifdef INCLUDE_MCAPI
 
@@ -76,14 +76,14 @@ public:
 
     virtual void DeleteChildren();
 
-    virtual ::System::String ^ ToString() override;
+    virtual ::String^ ToString() override;
 
     virtual bool Equals(MC::Tag ^ _0);
 
-    static ::System::String ^ GetTagName(MC::Tag::Type _0);
+    static ::String^ GetTagName(MC::Tag::Type _0);
 
-    static property ::System::String ^ NullString {
-        ::System::String ^ get();
+    static property ::String^ NullString {
+        ::String^ get();
     }
 #endif // INCLUDE_MCAPI
 };

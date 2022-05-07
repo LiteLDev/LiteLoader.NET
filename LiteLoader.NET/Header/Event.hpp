@@ -183,7 +183,7 @@ private:
         typedef bool (*NativeCallbackFunc_ref)(const NATIVEEVENT& ev);
 
     public:
-        EventCallBack(System::String ^ pluginName, EventHandler ^ callback, bool isRef)
+        EventCallBack(String^ pluginName, EventHandler ^ callback, bool isRef)
             : delfunc(callback)
         {
             switch (isRef)
@@ -231,12 +231,12 @@ private:
     };
 
 protected:
-    inline static EventListener<NATIVEEVENT> ^ subscribe(System::String ^ pluginName, EventHandler ^ callback) {
+    inline static EventListener<NATIVEEVENT> ^ subscribe(String^ pluginName, EventHandler ^ callback) {
         auto c = gcnew EventCallBack(pluginName, callback, false);
         GC::KeepAlive(c);
         return c->Listener;
     };
-    inline static EventListener<NATIVEEVENT> ^ subscribe_ref(System::String ^ pluginName, EventHandler ^ callback) {
+    inline static EventListener<NATIVEEVENT> ^ subscribe_ref(String^ pluginName, EventHandler ^ callback) {
         auto c = gcnew EventCallBack(pluginName, callback, true);
         GC::KeepAlive(c);
         return c->Listener;

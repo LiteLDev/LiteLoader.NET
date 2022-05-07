@@ -41,7 +41,7 @@ void MC::Int64Tag::DeleteChildren()
     ((class ::Int64Tag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::Int64Tag::ToString()
+::String^ MC::Int64Tag::ToString()
 {
     auto __ret = ((class ::Int64Tag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

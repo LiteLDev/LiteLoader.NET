@@ -48,7 +48,7 @@ void MC::ByteArrayTag::DeleteChildren()
     ((class ::ByteArrayTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::ByteArrayTag::ToString()
+::String^ MC::ByteArrayTag::ToString()
 {
     auto __ret = ((class ::ByteArrayTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

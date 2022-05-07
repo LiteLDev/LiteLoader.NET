@@ -9,15 +9,15 @@ enum CommandOutputType;
 
 namespace MC
 {
-inline void CommandOutput::AddMessage(System::String ^ str)
+inline void CommandOutput::AddMessage(String^ str)
 {
     NativePtr->addMessage(marshalString<Encoding::E_UTF8>(str));
 }
-inline void CommandOutput::Success(System::String ^ str)
+inline void CommandOutput::Success(String^ str)
 {
     NativePtr->success(marshalString<Encoding::E_UTF8>(str));
 }
-inline void CommandOutput::Error(System::String ^ str)
+inline void CommandOutput::Error(String^ str)
 {
     NativePtr->error(marshalString<Encoding::E_UTF8>(str));
 }
@@ -26,12 +26,12 @@ inline CommandOutput ^ CommandOutput::Create(CommandOutput ^ co)
     return gcnew CommandOutput(::CommandOutput(co));
 }
 
-inline void CommandOutput::AddToResultList(System::String ^ str0, System::String ^ str1)
+inline void CommandOutput::AddToResultList(String^ str0, String^ str1)
 {
     NativePtr->addToResultList(marshalString<Encoding::E_UTF8>(str0), marshalString<Encoding::E_UTF8>(str1));
 }
 
-inline void CommandOutput::AddToResultList(System::String ^ str, Actor ^ ac)
+inline void CommandOutput::AddToResultList(String^ str, Actor ^ ac)
 {
     NativePtr->addToResultList(marshalString<Encoding::E_UTF8>(str), ac);
 }
@@ -41,7 +41,7 @@ inline bool CommandOutput::IsEmpty::get()
     return NativePtr->empty();
 }
 
-inline void CommandOutput::Error(System::String ^ str, List<CommandOutputParameter ^> ^ coplist)
+inline void CommandOutput::Error(String^ str, List<CommandOutputParameter ^> ^ coplist)
 {
     auto len = coplist->Count;
     std::vector<::CommandOutputParameter> stdvector;
@@ -50,7 +50,7 @@ inline void CommandOutput::Error(System::String ^ str, List<CommandOutputParamet
     NativePtr->error(marshalString<Encoding::E_UTF8>(str), stdvector);
 }
 
-inline void CommandOutput::ForceOutput(System::String ^ str, List<CommandOutputParameter ^> ^ coplist)
+inline void CommandOutput::ForceOutput(String^ str, List<CommandOutputParameter ^> ^ coplist)
 {
     auto len = coplist->Count;
     std::vector<::CommandOutputParameter> stdvector;
@@ -98,7 +98,7 @@ inline void CommandOutput::SetHasPlayerText()
     NativePtr->setHasPlayerText();
 }
 
-inline void CommandOutput::Success(System::String ^ str, List<CommandOutputParameter ^> ^ coplist)
+inline void CommandOutput::Success(String^ str, List<CommandOutputParameter ^> ^ coplist)
 {
     auto len = coplist->Count;
     std::vector<::CommandOutputParameter> stdvector;

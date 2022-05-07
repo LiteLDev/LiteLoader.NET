@@ -13,7 +13,7 @@ MC::MobEffect ^ MC::MobEffect::GetById(int _0)
     return (__ret == nullptr) ? nullptr : gcnew ::MC::MobEffect((class ::MobEffect*)__ret);
 }
 
-MC::MobEffect ^ MC::MobEffect::GetByName(::System::String ^ _0)
+MC::MobEffect ^ MC::MobEffect::GetByName(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ::MobEffect::getByName(__arg0);
@@ -21,7 +21,7 @@ MC::MobEffect ^ MC::MobEffect::GetByName(::System::String ^ _0)
     return (__ret == nullptr) ? nullptr : gcnew ::MC::MobEffect((class ::MobEffect*)__ret);
 }
 
-::System::String ^ MC::MobEffect::GetNameById(int _0)
+::String^ MC::MobEffect::GetNameById(int _0)
 {
     auto __ret = ::MobEffect::getNameById(_0);
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -38,10 +38,10 @@ bool MC::MobEffect::IsInstantaneous::get()
     return __ret;
 }
 
-::System::String ^ MC::MobEffect::DescriptionId::get()
+::String^ MC::MobEffect::DescriptionId::get()
 {
     auto& __ret = ((class ::MobEffect*)NativePtr)->getDescriptionId();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 float MC::MobEffect::DurationModifier::get()
@@ -56,10 +56,10 @@ unsigned int MC::MobEffect::Id::get()
     return __ret;
 }
 
-::System::String ^ MC::MobEffect::ResourceName::get()
+::String^ MC::MobEffect::ResourceName::get()
 {
     auto& __ret = ((class ::MobEffect*)NativePtr)->getResourceName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 bool MC::MobEffect::IsHarmful::get()

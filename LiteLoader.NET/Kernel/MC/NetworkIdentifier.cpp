@@ -1,7 +1,7 @@
 #include "../../Header/MC/NetworkIdentifier.hpp"
 namespace MC
 {
-inline System::String ^ NetworkIdentifier::IP::get()
+inline String^ NetworkIdentifier::IP::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getIP());
 }

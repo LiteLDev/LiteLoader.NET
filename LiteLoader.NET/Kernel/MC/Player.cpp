@@ -15,15 +15,15 @@
 namespace MC
 {
 
-inline System::String ^ Player::Name::get()
+inline String^ Player::Name::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getName());
 }
-inline System::String ^ Player::RealName::get()
+inline String^ Player::RealName::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getRealName());
 }
-inline System::String ^ Player::Uuid::get()
+inline String^ Player::Uuid::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getUuid());
 }
@@ -31,7 +31,7 @@ inline unsigned char Player::ClientSubId::get()
 {
     return NativePtr->getClientSubId();
 }
-inline System::String ^ Player::DeviceTypeName::get()
+inline String^ Player::DeviceTypeName::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getDeviceTypeName());
 }
@@ -43,15 +43,15 @@ inline int Player::LastPing::get()
 {
     return NativePtr->getLastPing();
 }
-inline System::String ^ Player::IP::get()
+inline String^ Player::IP::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getIP());
 }
-inline System::String ^ Player::LanguageCode::get()
+inline String^ Player::LanguageCode::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getLanguageCode());
 }
-inline System::String ^ Player::ServerAddress::get()
+inline String^ Player::ServerAddress::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getServerAddress());
 }
@@ -77,7 +77,7 @@ inline float Player::AvgPacketLoss::get()
 {
     return NativePtr->getAvgPacketLoss();
 }
-inline System::String ^ Player::ClientId::get()
+inline String^ Player::ClientId::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getClientId());
 }
@@ -89,7 +89,7 @@ inline bool Player::IsOP::get()
 {
     return NativePtr->isOP();
 }
-inline bool Player::Kick(System::String ^ msg)
+inline bool Player::Kick(String^ msg)
 {
     return NativePtr->kick(marshalString<Encoding::E_UTF8>(msg));
 }
@@ -99,11 +99,11 @@ inline bool Player::CrashClient()
 }
 
 /// <param name="type">:default = TextType::RAW</param>
-inline bool Player::SendText(System::String ^ text, TextType type)
+inline bool Player::SendText(String^ text, TextType type)
 {
     return NativePtr->sendText(marshalString<Encoding::E_UTF8>(text), ::TextType(type));
 }
-inline bool Player::TalkAs(System::String ^ msg)
+inline bool Player::TalkAs(String^ msg)
 {
     return NativePtr->talkAs(marshalString<Encoding::E_UTF8>(msg));
 }
@@ -111,21 +111,21 @@ inline bool Player::GiveItem(ItemStack ^ item)
 {
     return NativePtr->giveItem(item->NativePtr);
 }
-inline int Player::ClearItem(System::String ^ typeName)
+inline int Player::ClearItem(String^ typeName)
 {
     return NativePtr->clearItem(marshalString<Encoding::E_UTF8>(typeName));
 }
-inline bool Player::Runcmd(System::String ^ cmd)
+inline bool Player::Runcmd(String^ cmd)
 {
     return NativePtr->runcmd(marshalString<Encoding::E_UTF8>(cmd));
 }
-inline bool Player::TransferServer(System::String ^ address, unsigned short port)
+inline bool Player::TransferServer(String^ address, unsigned short port)
 {
     return NativePtr->transferServer(marshalString<Encoding::E_UTF8>(address), port);
 }
 
-inline bool Player::SetSidebar(System::String ^ title,
-                               List<System::Tuple<System::String ^, int> ^> ^ data,
+inline bool Player::SetSidebar(String^ title,
+                               List<System::Tuple<String^, int> ^> ^ data,
                                ObjectiveSortOrder sortOrder)
 {
     auto len = data->Count;
@@ -162,34 +162,34 @@ inline bool Player::RefreshAttributes(List<Attribute ^> ^ attributes)
     return NativePtr->refreshAttributes(stdvector);
 }
 
-inline int Player::GetScore(System::String ^ key)
+inline int Player::GetScore(String^ key)
 {
     return NativePtr->getScore(marshalString<Encoding::E_UTF8>(key));
 }
-inline bool Player::SetScore(System::String ^ key, int value)
+inline bool Player::SetScore(String^ key, int value)
 {
     return NativePtr->setScore(marshalString<Encoding::E_UTF8>(key), value);
 }
-inline bool Player::AddScore(System::String ^ key, int value)
+inline bool Player::AddScore(String^ key, int value)
 {
     return NativePtr->addScore(marshalString<Encoding::E_UTF8>(key), value);
 }
-inline bool Player::ReduceScore(System::String ^ key, int value)
+inline bool Player::ReduceScore(String^ key, int value)
 {
     return NativePtr->reduceScore(marshalString<Encoding::E_UTF8>(key), value);
 }
-inline bool Player::DeleteScore(System::String ^ key)
+inline bool Player::DeleteScore(String^ key)
 {
     return NativePtr->deleteScore(marshalString<Encoding::E_UTF8>(key));
 }
 
 // Packet
 /// <param name="Type">:default = TextType::RAW</param>
-inline bool Player::SendTextPacket(System::String ^ text, TextType Type)
+inline bool Player::SendTextPacket(String^ text, TextType Type)
 {
     return NativePtr->sendText(marshalString<Encoding::E_UTF8>(text), ::TextType(Type));
 }
-inline bool Player::SendTitlePacket(System::String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration)
+inline bool Player::SendTitlePacket(String^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration)
 {
     return NativePtr->sendTitlePacket(marshalString<Encoding::E_UTF8>(text), ::TitleType(Type), FadeInDuration, RemainDuration, FadeOutDuration);
 }
@@ -198,11 +198,11 @@ inline bool Player::SendNotePacket(unsigned int tone)
     return NativePtr->sendNotePacket(tone);
 }
 /// <param name="EntityUniqueID">:default = -1</param>
-inline bool Player::SendSpawnParticleEffectPacket(Vec3 ^ spawnPos, int dimid, System::String ^ ParticleName, int64_t EntityUniqueID)
+inline bool Player::SendSpawnParticleEffectPacket(Vec3 ^ spawnPos, int dimid, String^ ParticleName, int64_t EntityUniqueID)
 {
     return NativePtr->sendSpawnParticleEffectPacket(*spawnPos, dimid, marshalString<Encoding::E_UTF8>(ParticleName), EntityUniqueID);
 }
-/*bad*/ inline bool Player::SendPlaySoundPacket(System::String ^ SoundName, Vec3 ^ Position, float Volume, float Pitch)
+/*bad*/ inline bool Player::SendPlaySoundPacket(String^ SoundName, Vec3 ^ Position, float Volume, float Pitch)
 {
     return NativePtr->sendPlaySoundPacket(marshalString<Encoding::E_UTF8>(SoundName), *Position, Volume, Pitch);
 }
@@ -230,11 +230,11 @@ inline bool Player::SendSpawnParticleEffectPacket(Vec3 ^ spawnPos, int dimid, Sy
 //	return NativePtr->sendAddEntityPacket(runtimeID, marshalString<Encoding::E_UTF8>(entityType), *pos->Translate(), *rotation->Translate(), stdvector);
 // }
 
-inline bool Player::SendTransferPacket(System::String ^ address, short port)
+inline bool Player::SendTransferPacket(String^ address, short port)
 {
     return NativePtr->sendTransferPacket(marshalString<Encoding::E_UTF8>(address), port);
 }
-inline bool Player::SendSetDisplayObjectivePacket(System::String ^ title, System::String ^ name, char sortOrder)
+inline bool Player::SendSetDisplayObjectivePacket(String^ title, String^ name, char sortOrder)
 {
     return NativePtr->sendSetDisplayObjectivePacket(marshalString<Encoding::E_UTF8>(title), marshalString<Encoding::E_UTF8>(name), sortOrder);
 }
@@ -247,28 +247,28 @@ inline bool Player::SendSetScorePacket(char type, List<ScorePacketInfo ^> ^ data
     return NativePtr->sendSetScorePacket(type, stdvector);
 }
 /// <param name="overlay">:default = 0</param>
-inline bool Player::SendBossEventPacket(BossEvent type, System::String ^ name, float percent, BossEventColour colour, int overlay)
+inline bool Player::SendBossEventPacket(BossEvent type, String^ name, float percent, BossEventColour colour, int overlay)
 {
     return NativePtr->sendBossEventPacket(::BossEvent(type), marshalString<Encoding::E_UTF8>(name), percent, ::BossEventColour(colour), overlay);
 }
-inline bool Player::SendCommandRequestPacket(System::String ^ cmd)
+inline bool Player::SendCommandRequestPacket(String^ cmd)
 {
     return NativePtr->sendCommandRequestPacket(marshalString<Encoding::E_UTF8>(cmd));
 }
-inline bool Player::SendTextTalkPacket(System::String ^ msg)
+inline bool Player::SendTextTalkPacket(String^ msg)
 {
     return NativePtr->sendTextTalkPacket(marshalString<Encoding::E_UTF8>(msg));
 }
 
-inline bool Player::SendRawFormPacket(unsigned formId, System::String ^ data)
+inline bool Player::SendRawFormPacket(unsigned formId, String^ data)
 {
     return NativePtr->sendRawFormPacket(formId, marshalString<Encoding::E_UTF8>(data));
 }
 inline bool Player::SendSimpleFormPacket(
-    System::String ^ title,
-    System::String ^ content,
-    List<System::String ^> ^ buttons,
-    List<System::String ^> ^ images,
+    String^ title,
+    String^ content,
+    List<String^> ^ buttons,
+    List<String^> ^ images,
     callBackFunc_int ^ callback)
 {
     auto len1 = buttons->Count;
@@ -290,10 +290,10 @@ inline bool Player::SendSimpleFormPacket(
         __funcptr);
 }
 inline bool Player::SendModalFormPacket(
-    System::String ^ title,
-    System::String ^ content,
-    System::String ^ button1,
-    System::String ^ button2,
+    String^ title,
+    String^ content,
+    String^ button1,
+    String^ button2,
     callBackFunc_bool ^ callback)
 {
     GCHandle gch = GCHandle::Alloc(callback);
@@ -314,7 +314,7 @@ delegate void callBackFunc_String(std::string);
 /// <param name="callback"></param>
 /// <returns></returns>
 inline bool Player::SendCustomFormPacket(
-    System::String ^ data,
+    String^ data,
     callBackFunc_String ^ callback)
 {
     GCHandle gch = GCHandle::Alloc(callback);
@@ -328,10 +328,10 @@ inline bool Player::IsValid(Player ^ player)
     return ::Player::isValid(player->NativePtr);
 }
 
-bool Player::SendModalForm(System::String ^ title,
-                           System::String ^ content,
-                           System::String ^ button1,
-                           System::String ^ button2,
+bool Player::SendModalForm(String^ title,
+                           String^ content,
+                           String^ button1,
+                           String^ button2,
                            ModalForm_callback ^ func)
 {
     GCHandle gch = GCHandle::Alloc(func);
@@ -344,10 +344,10 @@ bool Player::SendModalForm(System::String ^ title,
         pfunc);
 }
 
-bool Player::SendSimpleForm(System::String ^ title,
-                            System::String ^ content,
-                            List<System::String ^> ^ buttons,
-                            List<System::String ^> ^ images,
+bool Player::SendSimpleForm(String^ title,
+                            String^ content,
+                            List<String^> ^ buttons,
+                            List<String^> ^ images,
                             SimpleForm_callback ^ callback)
 {
     GCHandle gch = GCHandle::Alloc(callback);
@@ -377,7 +377,7 @@ inline void NATIVECALLBACK Player::CustomForm_Func(std::string str)
     CATCH
 }
 
-bool Player::SendCustomForm(System::String ^ json,
+bool Player::SendCustomForm(String^ json,
                             CustomForm_callback ^ callback)
 {
     __func = callback;

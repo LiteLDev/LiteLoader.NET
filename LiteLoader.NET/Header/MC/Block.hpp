@@ -57,9 +57,9 @@ public:
         MC::Block ^ get();
     }
 
-        property ::System::String ^
+        property ::String^
         DescriptionId {
-            ::System::String ^ get();
+            ::String^ get();
         }
 
         property float DestroySpeed
@@ -256,9 +256,9 @@ public:
         bool get();
     }
 
-    ::System::String ^ BuildDescriptionId();
+    ::String^ BuildDescriptionId();
 
-    ::System::String ^ BuildDescriptionName();
+    ::String^ BuildDescriptionName();
 
     void CacheComponentData();
 
@@ -274,7 +274,7 @@ public:
 
     bool CanInstatick();
 
-    void GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0, MC::BlockPos ^ _1);
+    void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1);
 
     MC::AABB ^ GetVisualShape(MC::AABB ^ _0, bool _1);
 
@@ -296,14 +296,14 @@ public:
 
     bool ShouldRandomTickExtraLayer();
 
-    ::System::String ^ ToDebugString();
+    ::String^ ToDebugString();
 
     MC::Block ^ TryGetInfested();
 
     MC::Block ^ TryGetUninfested();
 
-    static property ::System::String ^ BLOCK_DESCRIPTION_PREFIX {
-        ::System::String ^ get();
+    static property ::String^ BLOCK_DESCRIPTION_PREFIX {
+        ::String^ get();
     }
 
         static property float SIZE_OFFSET

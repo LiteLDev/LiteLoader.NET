@@ -246,7 +246,7 @@ void MC::Mob::StopRiding(bool _0, bool _1, bool _2)
     ((class ::Mob*)NativePtr)->stopRiding(_0, _1, _2);
 }
 
-void MC::Mob::BuildDebugInfo(::System::String ^ _0)
+void MC::Mob::BuildDebugInfo(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Mob*)NativePtr)->buildDebugInfo(__arg0);
@@ -565,7 +565,7 @@ MC::AABB ^ MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB ^ _0, MC::Vec3 ^ _1)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)____ret, true);
 }
 
-void MC::Mob::AddSpeedModifier(MC::Mce::UUID ^ _0, ::System::String ^ _1, float _2)
+void MC::Mob::AddSpeedModifier(MC::Mce::UUID ^ _0, ::String^ _1, float _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");

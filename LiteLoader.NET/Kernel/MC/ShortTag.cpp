@@ -41,7 +41,7 @@ void MC::ShortTag::DeleteChildren()
     ((class ::ShortTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::ShortTag::ToString()
+::String^ MC::ShortTag::ToString()
 {
     auto __ret = ((class ::ShortTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

@@ -16,7 +16,7 @@ ref class Container : ClassTemplate<Container, ::Container>
 public:
     __ctor(Container, ::Container);
 
-    inline System::String ^ GetTypeName();
+    inline String^ GetTypeName();
     inline bool AddItem_s(ItemStack ^ item);
     inline bool AddItemToFirstEmptySlot_s(ItemStack ^ item);
     inline bool RemoveItem_s(int slot, unsigned int number);
@@ -82,15 +82,15 @@ public:
 
     virtual void SetContainerMoved();
 
-    virtual void SetCustomName(::System::String ^ _0);
+    virtual void SetCustomName(::String^ _0);
 
     virtual void UnkVfn31();
 
     void InitRuntimeId();
 
-    static MC::ContainerType GetContainerTypeId(::System::String ^ _0);
+    static MC::ContainerType GetContainerTypeId(::String^ _0);
 
-    static ::System::String ^ GetContainerTypeName(MC::ContainerType _0);
+    static ::String^ GetContainerTypeName(MC::ContainerType _0);
 
 #endif // INCLUDE_MCAPI
 };

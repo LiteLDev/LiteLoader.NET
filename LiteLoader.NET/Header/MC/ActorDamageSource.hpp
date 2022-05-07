@@ -71,8 +71,8 @@ public:
 
     virtual void UnkVfn12();
 
-    static MC::ActorDamageCause LookupCause(::System::String ^ _0);
+    static MC::ActorDamageCause LookupCause(::String^ _0);
 
-    static System::String ^ LookupCauseName(MC::ActorDamageCause _0);
+    static String^ LookupCauseName(MC::ActorDamageCause _0);
 };
 } // namespace MC

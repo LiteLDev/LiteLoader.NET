@@ -22,9 +22,9 @@ public:
         MC::ActorUniqueID ^ get();
     }
 
-        property ::System::String ^
+        property ::String^
         FakePlayerName {
-            ::System::String ^ get();
+            ::String^ get();
         }
 
         property MC::IdentityDefinition::Type IdentityType

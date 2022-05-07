@@ -83,7 +83,7 @@ void FormPacketHelper::SetCustomFormBuilderData(unsigned formId, Form::CustomFor
     throw gcnew System::NotImplementedException();
 }
 
-void FormPacketHelper::HandleFormPacket(MC::Player ^ player, unsigned formId, System::String ^ data)
+void FormPacketHelper::HandleFormPacket(MC::Player ^ player, unsigned formId, String^ data)
 {
     throw gcnew System::NotImplementedException();
 }

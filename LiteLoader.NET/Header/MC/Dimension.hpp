@@ -81,7 +81,7 @@ public:
 
     // bool IsChunkKnown(MC::ChunkPos ^ _0);
 
-    void OnStaticTickingAreaAdded(::System::String ^ _0);
+    void OnStaticTickingAreaAdded(::String^ _0);
 
     void RemoveActorByID(MC::ActorUniqueID ^ _0);
 

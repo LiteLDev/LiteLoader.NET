@@ -16,8 +16,8 @@ public:
         long long get();
     }
 
-    property ::System::String ^ IdentityPublicKey {
-        ::System::String ^ get();
+    property ::String^ IdentityPublicKey {
+        ::String^ get();
     }
 
         property long long NotBeforeDate
@@ -30,7 +30,7 @@ public:
         bool get();
     }
 
-    ::System::String ^ ToString() override;
+    ::String^ ToString() override;
 
     bool Validate(long long _0);
 #endif // INCLUDE_MCAPI

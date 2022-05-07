@@ -4,35 +4,35 @@
 
 namespace MC
 {
-inline System::String ^ ActorDefinitionIdentifier::NS::get()
+inline String^ ActorDefinitionIdentifier::NS::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->ns);
 }
-inline void ActorDefinitionIdentifier::NS::set(System::String ^ ns)
+inline void ActorDefinitionIdentifier::NS::set(String^ ns)
 {
     NativePtr->ns = marshalString<Encoding::E_UTF8>(ns);
 }
-inline System::String ^ ActorDefinitionIdentifier::Identifier::get()
+inline String^ ActorDefinitionIdentifier::Identifier::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->identifier);
 }
-inline void ActorDefinitionIdentifier::Identifier::set(System::String ^ identifier)
+inline void ActorDefinitionIdentifier::Identifier::set(String^ identifier)
 {
     NativePtr->identifier = marshalString<Encoding::E_UTF8>(identifier);
 }
-inline System::String ^ ActorDefinitionIdentifier::Event::get()
+inline String^ ActorDefinitionIdentifier::Event::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->event);
 }
-inline void ActorDefinitionIdentifier::Event::set(System::String ^ event)
+inline void ActorDefinitionIdentifier::Event::set(String^ event)
 {
     NativePtr->event = marshalString<Encoding::E_UTF8>(event);
 }
-inline System::String ^ ActorDefinitionIdentifier::Fullname::get()
+inline String^ ActorDefinitionIdentifier::Fullname::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->fullname);
 }
-inline void ActorDefinitionIdentifier::Fullname::set(System::String ^ fullname)
+inline void ActorDefinitionIdentifier::Fullname::set(String^ fullname)
 {
     NativePtr->fullname = marshalString<Encoding::E_UTF8>(fullname);
 }
@@ -48,7 +48,7 @@ ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create()
 {
     return gcnew ActorDefinitionIdentifier(::ActorDefinitionIdentifier{});
 }
-ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create(System::String ^ ns, System::String ^ identifier, System::String ^ event, System::String ^ fullname, HashedString ^ canonicalHash)
+ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash)
 {
     ::ActorDefinitionIdentifier adi{};
     adi.ns = marshalString<Encoding::E_UTF8>(ns);
@@ -72,7 +72,7 @@ MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(MC::ActorDefinitionIden
     NativePtr = new struct ::ActorDefinitionIdentifier(__arg0);
 }
 
-MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(::System::String ^ _0)
+MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(::String^ _0)
 {
     OwnsNativeInstance = true;
     auto ___arg0 = clix::marshalString<clix::E_UTF8>(_0);
@@ -80,7 +80,7 @@ MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(::System::String ^ _0)
     NativePtr = new struct ::ActorDefinitionIdentifier(__arg0);
 }
 
-MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(::System::String ^ _0, ::System::String ^ _1, ::System::String ^ _2)
+MC::ActorDefinitionIdentifier::ActorDefinitionIdentifier(::String^ _0, ::String^ _1, ::String^ _2)
 {
     OwnsNativeInstance = true;
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
@@ -94,7 +94,7 @@ void MC::ActorDefinitionIdentifier::Clear()
     ((struct ::ActorDefinitionIdentifier*)NativePtr)->clear();
 }
 
-void MC::ActorDefinitionIdentifier::Initialize(::System::String ^ _0, ::System::String ^ _1, ::System::String ^ _2)
+void MC::ActorDefinitionIdentifier::Initialize(::String^ _0, ::String^ _1, ::String^ _2)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);
@@ -102,7 +102,7 @@ void MC::ActorDefinitionIdentifier::Initialize(::System::String ^ _0, ::System::
     ((struct ::ActorDefinitionIdentifier*)NativePtr)->initialize(__arg0, __arg1, __arg2);
 }
 
-void MC::ActorDefinitionIdentifier::Initialize(::System::String ^ _0)
+void MC::ActorDefinitionIdentifier::Initialize(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((struct ::ActorDefinitionIdentifier*)NativePtr)->initialize(__arg0);
@@ -125,28 +125,28 @@ bool MC::ActorDefinitionIdentifier::Equals(::System::Object ^ obj)
     return this == safe_cast<MC::ActorDefinitionIdentifier ^>(obj);
 }
 
-::System::String ^ MC::ActorDefinitionIdentifier::CanonicalName::get()
+::String^ MC::ActorDefinitionIdentifier::CanonicalName::get()
 {
     auto& __ret = ((struct ::ActorDefinitionIdentifier*)NativePtr)->getCanonicalName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-::System::String ^ MC::ActorDefinitionIdentifier::InitEvent::get()
+::String^ MC::ActorDefinitionIdentifier::InitEvent::get()
 {
     auto& __ret = ((struct ::ActorDefinitionIdentifier*)NativePtr)->getInitEvent();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::ActorDefinitionIdentifier::InitEvent::set(::System::String ^ _0)
+void MC::ActorDefinitionIdentifier::InitEvent::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((struct ::ActorDefinitionIdentifier*)NativePtr)->setInitEvent(__arg0);
 }
 
-::System::String ^ MC::ActorDefinitionIdentifier::Namespace::get()
+::String^ MC::ActorDefinitionIdentifier::Namespace::get()
 {
     auto& __ret = ((struct ::ActorDefinitionIdentifier*)NativePtr)->getNamespace();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 bool MC::ActorDefinitionIdentifier::IsEmpty::get()

@@ -18,7 +18,7 @@ public:
 
 #ifdef INCLUDE_MCAPI
 
-    ScorePacketInfo(MC::ScoreboardId ^ s, ::System::String ^ obj_name, MC::IdentityDefinition::Type type, unsigned int num, ::System::String ^ fake);
+    ScorePacketInfo(MC::ScoreboardId ^ s, ::String^ obj_name, MC::IdentityDefinition::Type type, unsigned int num, ::String^ fake);
 
     ScorePacketInfo(MC::ScorePacketInfo ^ _0);
 
@@ -27,9 +27,9 @@ public:
         void set(MC::ScoreboardId ^);
     };
 
-    property ::System::String ^ ObjName {
-        ::System::String ^ get();
-        void set(::System::String ^);
+    property ::String^ ObjName {
+        ::String^ get();
+        void set(::String^);
     };
 
     property unsigned int Score
@@ -55,9 +55,9 @@ public:
         void set(MC::ActorUniqueID ^);
     };
 
-    property ::System::String ^ FakeName {
-        ::System::String ^ get();
-        void set(::System::String ^);
+    property ::String^ FakeName {
+        ::String^ get();
+        void set(::String^);
     };
 
 #endif // INCLUDE_MCAPI

@@ -46,13 +46,13 @@ inline void Block::Nbt::set(CompoundTag ^ nbt)
 
 #ifdef INCLUDE_MCAPI
 
-::System::String ^ MC::Block::BuildDescriptionId()
+::String^ MC::Block::BuildDescriptionId()
 {
     auto __ret = ((class ::Block*)NativePtr)->buildDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::System::String ^ MC::Block::BuildDescriptionName()
+::String^ MC::Block::BuildDescriptionName()
 {
     auto __ret = ((class ::Block*)NativePtr)->buildDescriptionName();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -105,10 +105,10 @@ bool MC::Block::CanInstatick()
     return __ret;
 }
 
-void MC::Block::GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0, MC::BlockPos ^ _1)
+void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1)
 {
     auto _tmp_0 = std::vector<::std::string>();
-    for each (::System::String ^ _element in _0)
+    for each (::String^ _element in _0)
     {
         auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
         _tmp_0.push_back(_marshalElement);
@@ -202,7 +202,7 @@ bool MC::Block::ShouldRandomTickExtraLayer()
     return __ret;
 }
 
-::System::String ^ MC::Block::ToDebugString()
+::String^ MC::Block::ToDebugString()
 {
     auto __ret = ((class ::Block*)NativePtr)->toDebugString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -252,7 +252,7 @@ MC::Block ^ MC::Block::DefaultState::get()
     return (MC::Block ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Block((class ::Block*)&__ret));
 }
 
-::System::String ^ MC::Block::DescriptionId::get()
+::String^ MC::Block::DescriptionId::get()
 {
     auto __ret = ((class ::Block*)NativePtr)->getDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -475,7 +475,7 @@ bool MC::Block::PushesUpFallingBlocks::get()
     return __ret;
 }
 
-::System::String ^ MC::Block::BLOCK_DESCRIPTION_PREFIX::get()
+::String^ MC::Block::BLOCK_DESCRIPTION_PREFIX::get()
 {
     return clix::marshalString<clix::E_UTF8>(::Block::BLOCK_DESCRIPTION_PREFIX);
 }

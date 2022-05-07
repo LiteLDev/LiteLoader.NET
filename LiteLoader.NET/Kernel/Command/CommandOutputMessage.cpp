@@ -8,7 +8,7 @@ inline CommandOutputMessage ^ MC::CommandOutputMessage::Create(CommandOutputMess
 {
     return gcnew CommandOutputMessage(*(cm->NativePtr));
 }
-inline CommandOutputMessage ^ CommandOutputMessage::Create(int _EnumCommandOutputMessageType, System::String ^ a0, List<System::String ^> ^ a1)
+inline CommandOutputMessage ^ CommandOutputMessage::Create(int _EnumCommandOutputMessageType, String^ a0, List<String^> ^ a1)
 {
     int len = a1->Count;
     std::vector<std::string> stdvector((int)len);
@@ -18,15 +18,15 @@ inline CommandOutputMessage ^ CommandOutputMessage::Create(int _EnumCommandOutpu
     /*::CommandOutputMessageType(_EnumCommandOutputMessageType), marshalString<Encoding::E_UTF8>(a0), std::move(stdvector))*/
 }
 
-inline System::String ^ CommandOutputMessage::GetMessageId()
+inline String^ CommandOutputMessage::GetMessageId()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getMessageId());
 }
-inline List<System::String ^> ^ CommandOutputMessage::GetParams()
+inline List<String^> ^ CommandOutputMessage::GetParams()
 {
     auto& stdvector = NativePtr->getParams();
     auto len = (int)stdvector.size();
-    auto ret = gcnew List<System::String ^>(len);
+    auto ret = gcnew List<String^>(len);
     for (int i = 0; i < len; ++i)
         ret[i] = marshalString<Encoding::E_UTF8>(stdvector[i]);
     return ret;

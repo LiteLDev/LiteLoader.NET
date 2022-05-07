@@ -53,9 +53,9 @@ public:
 
     int ToARGB();
 
-    ::System::String ^ ToHexString();
+    ::String^ ToHexString();
 
-    static Color ^ FromHexString(::System::String ^ _0);
+    static Color ^ FromHexString(::String^ _0);
 
     static property Color ^ NIL {
         Color ^ get();

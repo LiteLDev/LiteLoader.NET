@@ -4,7 +4,7 @@
 
 #include "../../Header/MC/ScoreboardId.hpp"
 
-MC::ScorePacketInfo::ScorePacketInfo(MC::ScoreboardId ^ s, ::System::String ^ obj_name, MC::IdentityDefinition::Type type, unsigned int num, ::System::String ^ fake)
+MC::ScorePacketInfo::ScorePacketInfo(MC::ScoreboardId ^ s, ::String^ obj_name, MC::IdentityDefinition::Type type, unsigned int num, ::String^ fake)
 {
     OwnsNativeInstance = true;
     auto __arg0 = (struct ::ScoreboardId*)s->NativePtr;
@@ -35,12 +35,12 @@ void MC::ScorePacketInfo::Sid::set(MC::ScoreboardId ^ value)
     ((struct ::ScorePacketInfo*)NativePtr)->sid = *(struct ::ScoreboardId*)value->NativePtr;
 }
 
-::System::String ^ MC::ScorePacketInfo::ObjName::get()
+::String^ MC::ScorePacketInfo::ObjName::get()
 {
     return clix::marshalString<clix::E_UTF8>(NativePtr->obj_name);
 }
 
-void MC::ScorePacketInfo::ObjName::set(::System::String ^ value)
+void MC::ScorePacketInfo::ObjName::set(::String^ value)
 {
     ((struct ::ScorePacketInfo*)NativePtr)->obj_name = clix::marshalString<clix::E_UTF8>(value);
 }
@@ -87,12 +87,12 @@ void MC::ScorePacketInfo::Aid::set(MC::ActorUniqueID ^ value)
     ((struct ::ScorePacketInfo*)NativePtr)->aid = *(struct ::ActorUniqueID*)value->NativePtr;
 }
 
-::System::String ^ MC::ScorePacketInfo::FakeName::get()
+::String^ MC::ScorePacketInfo::FakeName::get()
 {
     return clix::marshalString<clix::E_UTF8>(NativePtr->fake_name);
 }
 
-void MC::ScorePacketInfo::FakeName::set(::System::String ^ value)
+void MC::ScorePacketInfo::FakeName::set(::String^ value)
 {
     ((struct ::ScorePacketInfo*)NativePtr)->fake_name = clix::marshalString<clix::E_UTF8>(value);
 }

@@ -13,12 +13,12 @@ public:
 
     HashedString(MC::HashedString ^ _0);
 
-    HashedString(::System::String ^ _0);
+    HashedString(::String^ _0);
 
-    HashedString(unsigned long long _0, ::System::String ^ _1);
+    HashedString(unsigned long long _0, ::String^ _1);
 
-    property ::System::String ^ CStr {
-        ::System::String ^ get();
+    property ::String^ CStr {
+        ::String^ get();
     };
 
     property bool Empty
@@ -31,8 +31,8 @@ public:
         unsigned long long get();
     }
 
-    property ::System::String ^ String {
-        ::System::String ^ get();
+    property ::String^ String {
+        ::String^ get();
     };
 
     property bool IsEmpty
@@ -56,7 +56,7 @@ public:
 
     //static void BindType();
 
-    static unsigned long long ComputeHash(::System::String ^ _0);
+    static unsigned long long ComputeHash(::String^ _0);
 
     static property MC::HashedString ^ DefaultErrorValue {
         MC::HashedString ^ get();

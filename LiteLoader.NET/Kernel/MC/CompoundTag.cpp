@@ -29,11 +29,11 @@ inline CompoundTag ^ CompoundTag::Create()
     return gcnew CompoundTag(::CompoundTag::create().release(), true);
 }
 
-inline Dictionary<System::String ^, CompoundTagVariant ^> ^ CompoundTag::Value()
+inline Dictionary<String^, CompoundTagVariant ^> ^ CompoundTag::Value()
 {
-    Dictionary<System::String ^, CompoundTagVariant ^> ^ ret;
+    Dictionary<String^, CompoundTagVariant ^> ^ ret;
     auto& stdmap = NativePtr->value();
-    ret = gcnew Dictionary<System::String ^, CompoundTagVariant ^>(int(stdmap.size()));
+    ret = gcnew Dictionary<String^, CompoundTagVariant ^>(int(stdmap.size()));
     for (auto iter = stdmap.begin(); iter != stdmap.end(); ++iter)
         ret->Add(
             marshalString<Encoding::E_UTF8>((*iter).first),
@@ -42,83 +42,83 @@ inline Dictionary<System::String ^, CompoundTagVariant ^> ^ CompoundTag::Value()
 }
 
 // put value
-inline void CompoundTag::PutEnd(System::String ^ key)
+inline void CompoundTag::PutEnd(String^ key)
 {
     NativePtr->putEnd(marshalString<Encoding::E_UTF8>(key));
 }
 
-inline double ^ CompoundTag::PutDouble(System::String ^ key, double val)
+inline double ^ CompoundTag::PutDouble(String^ key, double val)
 {
     return NativePtr->putDouble(marshalString<Encoding::E_UTF8>(key), val);
 }
 
-inline void CompoundTag::PutByteArray(System::String ^ key, array<char> ^ data /*, size_t size*/)
+inline void CompoundTag::PutByteArray(String^ key, array<char> ^ data /*, size_t size*/)
 {
     pin_ptr<char> p_ptr = &data[0];
     NativePtr->putByteArray(marshalString<Encoding::E_UTF8>(key), (char*)p_ptr, data->Length);
 }
 
-inline void CompoundTag::PutIntArray(System::String ^ key, array<int> ^ data /*, size_t size*/)
+inline void CompoundTag::PutIntArray(String^ key, array<int> ^ data /*, size_t size*/)
 {
     pin_ptr<int> p_ptr = &data[0];
     NativePtr->putIntArray(marshalString<Encoding::E_UTF8>(key), (int*)p_ptr, data->Length);
 }
 
-inline TagMemoryChunk ^ CompoundTag::PutIntArray(System::String ^ key, TagMemoryChunk ^ val)
+inline TagMemoryChunk ^ CompoundTag::PutIntArray(String^ key, TagMemoryChunk ^ val)
 {
     return gcnew TagMemoryChunk(
         NativePtr->putIntArray(marshalString<Encoding::E_UTF8>(key), val));
 }
 
 // get value
-inline double CompoundTag::GetDouble(System::String ^ key)
+inline double CompoundTag::GetDouble(String^ key)
 {
     return NativePtr->getDouble(marshalString<Encoding::E_UTF8>(key));
 }
 
-inline TagMemoryChunk const ^ CompoundTag::GetIntArray(System::String ^ key)
+inline TagMemoryChunk const ^ CompoundTag::GetIntArray(String^ key)
 {
     return gcnew TagMemoryChunk(::TagMemoryChunk(NativePtr->getIntArray(marshalString<Encoding::E_UTF8>(key))));
 }
 
 // get tag
-inline ByteTag const ^ CompoundTag::GetByteTag(System::String ^ key)
+inline ByteTag const ^ CompoundTag::GetByteTag(String^ key)
 {
     return gcnew ByteTag((::ByteTag*)NativePtr->getByteTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline ShortTag const ^ CompoundTag::GetShortTag(System::String ^ key)
+inline ShortTag const ^ CompoundTag::GetShortTag(String^ key)
 {
     return gcnew ShortTag((::ShortTag*)NativePtr->getShortTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline FloatTag const ^ CompoundTag::GetFloatTag(System::String ^ key)
+inline FloatTag const ^ CompoundTag::GetFloatTag(String^ key)
 {
     return gcnew FloatTag((::FloatTag*)NativePtr->getFloatTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline DoubleTag const ^ CompoundTag::GetDoubleTag(System::String ^ key)
+inline DoubleTag const ^ CompoundTag::GetDoubleTag(String^ key)
 {
     return gcnew DoubleTag((::DoubleTag*)NativePtr->getDoubleTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline ByteArrayTag const ^ CompoundTag::GetByteArrayTag(System::String ^ key)
+inline ByteArrayTag const ^ CompoundTag::GetByteArrayTag(String^ key)
 {
     return gcnew ByteArrayTag((::ByteArrayTag*)NativePtr->getByteArrayTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline StringTag const ^ CompoundTag::GetStringTag(System::String ^ key)
+inline StringTag const ^ CompoundTag::GetStringTag(String^ key)
 {
     return gcnew StringTag((::StringTag*)NativePtr->getStringTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline IntArrayTag const ^ CompoundTag::GetIntArrayTag(System::String ^ key)
+inline IntArrayTag const ^ CompoundTag::GetIntArrayTag(String^ key)
 {
     return gcnew IntArrayTag((::IntArrayTag*)NativePtr->getIntArrayTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline ListTag const ^ CompoundTag::GetListTag(System::String ^ key)
+inline ListTag const ^ CompoundTag::GetListTag(String^ key)
 {
     return gcnew ListTag((::ListTag*)NativePtr->getListTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline CompoundTag ^ CompoundTag::GetCompoundTag(System::String ^ key)
+inline CompoundTag ^ CompoundTag::GetCompoundTag(String^ key)
 {
     return gcnew CompoundTag((::CompoundTag*)NativePtr->getCompoundTag(marshalString<Encoding::E_UTF8>(key)));
 }
-inline Tag ^ CompoundTag::operator[](System::String ^ key)
+inline Tag ^ CompoundTag::operator[](String^ key)
 {
     return gcnew Tag((*NativePtr)[marshalString<Encoding::E_UTF8>(key)]);
 }
@@ -174,19 +174,19 @@ inline CompoundTag ^ CompoundTag::FromPlayer(Player ^ player)
     return gcnew CompoundTag(::CompoundTag::fromPlayer(player->NativePtr).release(), true);
 }
 
-inline System::String ^ CompoundTag::ToSNBT()
+inline String^ CompoundTag::ToSNBT()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->toSNBT());
 }
-inline System::String ^ CompoundTag::ToBinaryNBT(bool isLittleEndian)
+inline String^ CompoundTag::ToBinaryNBT(bool isLittleEndian)
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->toBinaryNBT(isLittleEndian));
 }
-inline System::String ^ CompoundTag::ToBinaryNBT()
+inline String^ CompoundTag::ToBinaryNBT()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->toBinaryNBT());
 }
-inline CompoundTag ^ CompoundTag::FromSNBT(System::String ^ snbt)
+inline CompoundTag ^ CompoundTag::FromSNBT(String^ snbt)
 {
     return gcnew CompoundTag(::CompoundTag::fromSNBT(marshalString<Encoding::E_UTF8>(snbt)).release(), true);
 }
@@ -219,7 +219,7 @@ void MC::CompoundTag::DeleteChildren()
     ((class ::CompoundTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::CompoundTag::ToString()
+::String^ MC::CompoundTag::ToString()
 {
     auto __ret = ((class ::CompoundTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -259,14 +259,14 @@ void MC::CompoundTag::Clear()
     ((class ::CompoundTag*)NativePtr)->clear();
 }
 
-bool MC::CompoundTag::Contains(::System::String ^ _0)
+bool MC::CompoundTag::Contains(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->contains(__arg0);
     return __ret;
 }
 
-bool MC::CompoundTag::Contains(::System::String ^ _0, MC::Tag::Type _1)
+bool MC::CompoundTag::Contains(::String^ _0, MC::Tag::Type _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __arg1 = (enum ::Tag::Type)_1;
@@ -282,7 +282,7 @@ void MC::CompoundTag::DeepCopy(MC::CompoundTag ^ _0)
     ((class ::CompoundTag*)NativePtr)->deepCopy(__arg0);
 }
 
-MC::Tag ^ MC::CompoundTag::Get(::System::String ^ _0)
+MC::Tag ^ MC::CompoundTag::Get(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->get(__arg0);
@@ -290,21 +290,21 @@ MC::Tag ^ MC::CompoundTag::Get(::System::String ^ _0)
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Tag((class ::Tag*)__ret);
 }
 
-bool MC::CompoundTag::GetBoolean(::System::String ^ _0)
+bool MC::CompoundTag::GetBoolean(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getBoolean(__arg0);
     return __ret;
 }
 
-unsigned char MC::CompoundTag::GetByte(::System::String ^ _0)
+unsigned char MC::CompoundTag::GetByte(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getByte(__arg0);
     return __ret;
 }
 
-MC::CompoundTag ^ MC::CompoundTag::GetCompound(::System::String ^ _0)
+MC::CompoundTag ^ MC::CompoundTag::GetCompound(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getCompound(__arg0);
@@ -312,42 +312,42 @@ MC::CompoundTag ^ MC::CompoundTag::GetCompound(::System::String ^ _0)
     return (__ret == nullptr) ? nullptr : gcnew ::MC::CompoundTag((class ::CompoundTag*)__ret);
 }
 
-float MC::CompoundTag::GetFloat(::System::String ^ _0)
+float MC::CompoundTag::GetFloat(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getFloat(__arg0);
     return __ret;
 }
 
-int MC::CompoundTag::GetInt(::System::String ^ _0)
+int MC::CompoundTag::GetInt(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getInt(__arg0);
     return __ret;
 }
 
-long long MC::CompoundTag::GetInt64(::System::String ^ _0)
+long long MC::CompoundTag::GetInt64(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getInt64(__arg0);
     return __ret;
 }
 
-short MC::CompoundTag::GetShort(::System::String ^ _0)
+short MC::CompoundTag::GetShort(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getShort(__arg0);
     return __ret;
 }
 
-::System::String ^ MC::CompoundTag::GetString(::System::String ^ _0)
+::String^ MC::CompoundTag::GetString(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->getString(__arg0);
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-MC::Tag ^ MC::CompoundTag::Put(::System::String ^ _0, MC::Tag ^ _1)
+MC::Tag ^ MC::CompoundTag::Put(::String^ _0, MC::Tag ^ _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     if (ReferenceEquals(_1, nullptr))
@@ -357,20 +357,20 @@ MC::Tag ^ MC::CompoundTag::Put(::System::String ^ _0, MC::Tag ^ _1)
     return (MC::Tag ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Tag((class ::Tag*)&__ret));
 }
 
-void MC::CompoundTag::PutBoolean(::System::String ^ _0, bool _1)
+void MC::CompoundTag::PutBoolean(::String^ _0, bool _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::CompoundTag*)NativePtr)->putBoolean(__arg0, _1);
 }
 
-unsigned char MC::CompoundTag::PutByte(::System::String ^ _0, unsigned char _1)
+unsigned char MC::CompoundTag::PutByte(::String^ _0, unsigned char _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putByte(__arg0, _1);
     return (unsigned char)(__ret);
 }
 
-MC::CompoundTag ^ MC::CompoundTag::PutCompound(::System::String ^ _0, MC::CompoundTag ^ _1)
+MC::CompoundTag ^ MC::CompoundTag::PutCompound(::String^ _0, MC::CompoundTag ^ _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     if (ReferenceEquals(_1, nullptr))
@@ -379,50 +379,50 @@ MC::CompoundTag ^ MC::CompoundTag::PutCompound(::System::String ^ _0, MC::Compou
     return __ret == nullptr ? nullptr : gcnew ::MC::CompoundTag(__ret);
 }
 
-float MC::CompoundTag::PutFloat(::System::String ^ _0, float _1)
+float MC::CompoundTag::PutFloat(::String^ _0, float _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putFloat(__arg0, _1);
     return (float)(__ret);
 }
 
-int MC::CompoundTag::PutInt(::System::String ^ _0, int _1)
+int MC::CompoundTag::PutInt(::String^ _0, int _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt(__arg0, _1);
     return (int)(__ret);
 }
 
-long long MC::CompoundTag::PutInt64(::System::String ^ _0, long long _1)
+long long MC::CompoundTag::PutInt64(::String^ _0, long long _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt64(__arg0, _1);
     return (long long)(__ret);
 }
 
-short MC::CompoundTag::PutShort(::System::String ^ _0, short _1)
+short MC::CompoundTag::PutShort(::String^ _0, short _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putShort(__arg0, _1);
     return (short)(__ret);
 }
 
-::System::String ^ MC::CompoundTag::PutString(::System::String ^ _0, ::System::String ^ _1)
+::String^ MC::CompoundTag::PutString(::String^ _0, ::String^ _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putString(__arg0, __arg1);
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-bool MC::CompoundTag::Remove(::System::String ^ _0)
+bool MC::CompoundTag::Remove(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::CompoundTag*)NativePtr)->remove(__arg0);
     return __ret;
 }
 
-void MC::CompoundTag::Rename(::System::String ^ _0, ::System::String ^ _1)
+void MC::CompoundTag::Rename(::String^ _0, ::String^ _1)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);

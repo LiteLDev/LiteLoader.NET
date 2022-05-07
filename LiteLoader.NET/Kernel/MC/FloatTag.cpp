@@ -41,7 +41,7 @@ void MC::FloatTag::DeleteChildren()
     ((class ::FloatTag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::FloatTag::ToString()
+::String^ MC::FloatTag::ToString()
 {
     auto __ret = ((class ::FloatTag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);

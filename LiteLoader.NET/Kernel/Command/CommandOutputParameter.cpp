@@ -13,7 +13,7 @@ inline CommandOutputParameter ^ CommandOutputParameter::Create(CommandSelectorRe
     return gcnew CommandOutputParameter(::CommandOutputParameter(cr));
 }
 
-inline CommandOutputParameter ^ CommandOutputParameter::Create(System::String ^ str)
+inline CommandOutputParameter ^ CommandOutputParameter::Create(String^ str)
 {
     return gcnew CommandOutputParameter(::CommandOutputParameter(marshalString<Encoding::E_UTF8>(str)));
 }

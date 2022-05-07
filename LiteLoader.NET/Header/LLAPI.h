@@ -45,8 +45,8 @@ public:
     ::LL::Version* ToPointer();
     System::IntPtr ToIntPtr();
 
-    System::String ^ ToString() override;
-    static Version ^ parse(System::String ^ str);
+    String^ ToString() override;
+    static Version ^ parse(String^ str);
 
 private:
     ::LL::Version* _this;
@@ -95,7 +95,7 @@ public:
 
     // Get a Function by Symbol String
     generic<typename TDelegate>
-        where TDelegate : System::Delegate inline TDelegate GetFunction(System::String ^ functionName)
+        where TDelegate : System::Delegate inline TDelegate GetFunction(String^ functionName)
     {
         if (_this->handler == NULL)
             return TDelegate();
@@ -114,31 +114,31 @@ public
 ref class LLAPI abstract
 {
 public:
-    static System::String ^ getLoaderVersionString();
+    static String^ getLoaderVersionString();
     static Version ^ getLoaderVersion();
     static bool isDebugMode();
 
-    static System::String ^ getDataPath(System::String ^ pluginName);
+    static String^ getDataPath(String^ pluginName);
 
-    inline static bool registerPlugin(System::String ^ name, System::String ^ introduction, Version ^ version);
-    inline static bool registerPlugin(System::String ^ name, System::String ^ introduction, Version ^ version,
-                                      System::String ^ git, System::String ^ license, System::String ^ website);
-    inline static bool registerPlugin(System::String ^ name, System::String ^ introduction, Version ^ version,
+    inline static bool registerPlugin(String^ name, String^ introduction, Version ^ version);
+    inline static bool registerPlugin(String^ name, String^ introduction, Version ^ version,
+                                      String^ git, String^ license, String^ website);
+    inline static bool registerPlugin(String^ name, String^ introduction, Version ^ version,
                                       Dictionary<String ^, String ^> ^ others);
 
-    inline static Plugin ^ getPlugin(System::String ^ name);
-    inline static Plugin ^ getPlugin(System::String ^ name, bool includeNativePlugin);
-    inline static Plugin ^ getPlugin(System::String ^ name, bool includeNativePlugin, bool includeScriptPlugin);
+    inline static Plugin ^ getPlugin(String^ name);
+    inline static Plugin ^ getPlugin(String^ name, bool includeNativePlugin);
+    inline static Plugin ^ getPlugin(String^ name, bool includeNativePlugin, bool includeScriptPlugin);
     inline static Plugin ^ getPlugin(System::IntPtr % handler);
-    inline static Assembly ^ getPluginAssembly(System::String ^ name);
+    inline static Assembly ^ getPluginAssembly(String^ name);
     inline static Assembly ^ getPluginAssembly(Plugin ^ plugin);
 
     inline static Dictionary<String ^, Plugin ^> ^ getAllPlugins(bool includeNativePlugin, bool includeScriptPlugin);
     inline static Dictionary<String ^, Plugin ^> ^ getAllPlugins(bool includeNativePlugin);
     inline static Dictionary<String ^, Plugin ^> ^ getAllPlugins();
 
-    inline static bool hasPlugin(System::String ^ name, bool includeNativePlugin, bool includeScriptPlugin);
-    inline static bool hasPlugin(System::String ^ name, bool includeNativePlugin);
-    inline static bool hasPlugin(System::String ^ name);
+    inline static bool hasPlugin(String^ name, bool includeNativePlugin, bool includeScriptPlugin);
+    inline static bool hasPlugin(String^ name, bool includeNativePlugin);
+    inline static bool hasPlugin(String^ name);
 };
 } // namespace LLNET::LL

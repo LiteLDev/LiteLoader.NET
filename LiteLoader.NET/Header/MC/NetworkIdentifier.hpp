@@ -9,13 +9,13 @@ ref class NetworkIdentifier : ClassTemplate<NetworkIdentifier, ::NetworkIdentifi
 {
 public:
     __ctor(NetworkIdentifier, ::NetworkIdentifier);
-    property System::String ^ IP { String ^ get(); }
+    property String^ IP { String ^ get(); }
 
 #ifdef INCLUDE_MCAPI
     // NetworkIdentifier(MC::RakNet::RakNetGUID ^ _0);
 
-    property ::System::String ^ Address {
-        ::System::String ^ get();
+    property ::String^ Address {
+        ::String^ get();
     }
 
         property unsigned long long Hash
@@ -32,7 +32,7 @@ public:
 
     virtual bool Equals(::System::Object ^ obj) override;
 
-    ::System::String ^ ToString() override;
+    ::String^ ToString() override;
 
     // static operator MC::NetworkIdentifier ^(MC::RakNet::RakNetGUID ^ _0);
 #endif // INCLUDE_MCAPI

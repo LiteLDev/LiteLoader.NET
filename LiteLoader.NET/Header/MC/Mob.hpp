@@ -440,7 +440,7 @@ public:
 
     virtual void StopRiding(bool _0, bool _1, bool _2) override;
 
-    virtual void BuildDebugInfo(::System::String ^ _0) override;
+    virtual void BuildDebugInfo(::String^ _0) override;
 
     virtual void Swing() override;
 
@@ -552,7 +552,7 @@ public:
 
     virtual MC::AABB ^ GetAdjustedAABBForSpawnCheck(MC::AABB ^ _0, MC::Vec3 ^ _1);
 
-    void AddSpeedModifier(MC::Mce::UUID ^ _0, ::System::String ^ _1, float _2);
+    void AddSpeedModifier(MC::Mce::UUID ^ _0, ::String^ _1, float _2);
 
     // void CreateAI(::System::Collections::Generic::List<MC::GoalDefinition ^> ^ _0);
 

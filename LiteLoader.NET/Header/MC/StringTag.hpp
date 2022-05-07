@@ -9,20 +9,20 @@ ref class StringTag : public Tag
 public:
     __ctor_base(StringTag, ::StringTag, Tag);
 
-    inline System::String ^ Value();
+    inline String^ Value();
     inline StringTag ^ operator=(std::string val);
     inline static StringTag ^ Create();
-    inline bool Set(System::String ^ val);
-    inline System::String ^ Get();
+    inline bool Set(String^ val);
+    inline String^ Get();
 
 #ifdef INCLUDE_MCAPI
-    StringTag(::System::String ^ _0);
+    StringTag(::String^ _0);
 
     StringTag();
 
     virtual void DeleteChildren() override;
 
-    virtual ::System::String ^ ToString() override;
+    virtual ::String^ ToString() override;
 
     virtual MC::Tag::Type GetId();
 

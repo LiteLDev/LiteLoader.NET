@@ -29,7 +29,7 @@ ref class Actor : ClassTemplate<Actor, ::Actor>
 public:
     __ctor(Actor, ::Actor);
 
-    inline List<System::String ^> ^ GetAllTags();
+    inline List<String^> ^ GetAllTags();
     inline BlockInstance ^ GetBlockFromViewVector();
     inline BlockInstance ^ GetBlockFromViewVector(bool includeLiquid);
     inline BlockInstance ^ GetBlockFromViewVector(bool includeLiquid, bool solidOnly);
@@ -45,7 +45,7 @@ public:
     inline Actor ^ GetActorFromViewVector(float maxDistance);
     inline bool SetOnFire(int time, bool isEffect);
     inline bool StopFire();
-    inline bool HasTag(System::String ^ tag);
+    inline bool HasTag(String^ tag);
     inline bool HurtEntity(float damage);
     inline bool Teleport(Vec3 ^ pos, int dimid);
     inline bool RefreshActorData();
@@ -53,13 +53,13 @@ public:
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient, bool showParticles);
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient);
     inline bool AddEffect(MobEffect::EffectType type, int tick, int level);
-    inline bool Rename(System::String ^ name);
+    inline bool Rename(String^ name);
 
     property UserEntityIdentifierComponent ^ UserEntityIdentifierComponent { MC::UserEntityIdentifierComponent ^ get(); };
     property CompoundTag ^ Nbt {CompoundTag ^ get();void set(CompoundTag ^); };
     property BlockPos ^ BlockPos { MC::BlockPos ^ get(); };
     property BlockInstance ^ BlockStandingOn { BlockInstance ^ get(); };
-    property System::String ^ TypeName { System::String ^ get(); };
+    property String^ TypeName { String^ get(); };
     property Vec3 ^ Position { Vec3 ^ get(); };
     property BlockSource ^ Blocksource { BlockSource ^ get(); };
     property Vec2 ^ Direction { Vec2 ^ get(); };
@@ -139,9 +139,9 @@ public:
         void set(bool);
     }
 
-    property ::System::String ^ NameTag {
-        ::System::String ^ get();
-        void set(::System::String ^);
+    property ::String^ NameTag {
+        ::String^ get();
+        void set(::String^);
     }
 
         property unsigned long long NameTagAsHash
@@ -149,14 +149,14 @@ public:
         unsigned long long get();
     }
 
-    property ::System::String ^ FormattedNameTag {
-        ::System::String ^ get();
+    property ::String^ FormattedNameTag {
+        ::String^ get();
     }
 
-        property ::System::String ^
+        property ::String^
         ScoreTag {
-            ::System::String ^ get();
-            void set(::System::String ^);
+            ::String^ get();
+            void set(::String^);
         }
 
         property bool IsInWater
@@ -1178,7 +1178,7 @@ public:
 
     virtual void StopSwimming();
 
-    virtual void BuildDebugInfo(::System::String ^ _0);
+    virtual void BuildDebugInfo(::String^ _0);
 
     virtual void Heal(int _0);
 
@@ -1200,7 +1200,7 @@ public:
 
     virtual void UnkVfn222();
 
-    virtual void GetDebugText(::System::Collections::Generic::List<::System::String ^> ^ _0);
+    virtual void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0);
 
     virtual float GetPassengerYRotation(MC::Actor ^ _0);
 
@@ -1258,13 +1258,13 @@ public:
 
     void SendDirtyActorData();
 
-    void AddDefinitionGroup(::System::String ^ _0);
+    void AddDefinitionGroup(::String^ _0);
 
     void AddEffect(MC::MobEffectInstance ^ _0);
 
-    bool AddTag(::System::String ^ _0);
+    bool AddTag(::String^ _0);
 
-    void BuildDebugGroupInfo(::System::String ^ _0);
+    void BuildDebugGroupInfo(::String^ _0);
 
     MC::Vec3 ^ BuildForward();
 
@@ -1320,7 +1320,7 @@ public:
 
     bool HasBeenHurtByMobInLastTicks(int _0);
 
-    bool HasDefinitionGroup(::System::String ^ _0);
+    bool HasDefinitionGroup(::String^ _0);
 
     bool HasEffect(MC::MobEffect ^ _0);
 
@@ -1384,13 +1384,13 @@ public:
 
     void RemovePersistingTrade();
 
-    bool RemoveTag(::System::String ^ _0);
+    bool RemoveTag(::String^ _0);
 
     void ResetClientAnimations();
 
     void ResetRegion();
 
-    void SendActorDefinitionEventTriggered(::System::String ^ _0);
+    void SendActorDefinitionEventTriggered(::String^ _0);
 
     void SendMotionToServer();
 
@@ -1492,8 +1492,8 @@ public:
         int get();
     }
 
-    static property ::System::String ^ RIDING_TAG {
-        ::System::String ^ get();
+    static property ::String^ RIDING_TAG {
+        ::String^ get();
     }
 
         static property int TOTAL_AIR_SUPPLY

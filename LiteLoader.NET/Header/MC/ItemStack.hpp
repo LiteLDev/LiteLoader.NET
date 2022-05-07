@@ -67,9 +67,9 @@ public:
 
     virtual void SetNull() override;
 
-    virtual ::System::String ^ ToString() override;
+    virtual ::String^ ToString() override;
 
-    virtual ::System::String ^ ToDebugString() override;
+    virtual ::String^ ToDebugString() override;
 
     // void Autoclassinit2(unsigned long long _0);
 

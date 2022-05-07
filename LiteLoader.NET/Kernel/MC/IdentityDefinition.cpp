@@ -10,10 +10,10 @@ MC::ActorUniqueID ^ MC::IdentityDefinition::EntityId::get()
     return (MC::ActorUniqueID ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)&__ret));
 }
 
-::System::String ^ MC::IdentityDefinition::FakePlayerName::get()
+::String^ MC::IdentityDefinition::FakePlayerName::get()
 {
     auto& __ret = ((class ::IdentityDefinition*)NativePtr)->getFakePlayerName();
-    return (::System::String ^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
 MC::IdentityDefinition::Type MC::IdentityDefinition::IdentityType::get()

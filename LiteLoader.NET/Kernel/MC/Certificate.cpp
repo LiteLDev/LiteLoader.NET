@@ -7,7 +7,7 @@ namespace MC
 
 #ifdef INCLUDE_MCAPI
 
-::System::String ^ MC::Certificate::ToString()
+::String^ MC::Certificate::ToString()
 {
     auto __ret = ((class ::Certificate*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -25,7 +25,7 @@ long long MC::Certificate::ExpirationDate::get()
     return __ret;
 }
 
-::System::String ^ MC::Certificate::IdentityPublicKey::get()
+::String^ MC::Certificate::IdentityPublicKey::get()
 {
     auto __ret = ((class ::Certificate*)NativePtr)->getIdentityPublicKey();
     return clix::marshalString<clix::E_UTF8>(__ret);

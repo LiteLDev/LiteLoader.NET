@@ -151,7 +151,7 @@ int MC::MobEffectInstance::Amplifier::get()
     return __ret;
 }
 
-::System::String ^ MC::MobEffectInstance::DisplayName::get()
+::String^ MC::MobEffectInstance::DisplayName::get()
 {
     auto __ret = ((class ::MobEffectInstance*)NativePtr)->getDisplayName();
     return clix::marshalString<clix::E_UTF8>(__ret);

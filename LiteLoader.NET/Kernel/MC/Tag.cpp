@@ -20,7 +20,7 @@ Tag::Type Tag::TagType::get()
     return Type(NativePtr->getTagType());
 }
 
-inline System::String ^ Tag::ToJson(int formatIndent)
+inline String^ Tag::ToJson(int formatIndent)
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->toJson(formatIndent));
 }
@@ -94,7 +94,7 @@ void MC::Tag::DeleteChildren()
     ((class ::Tag*)NativePtr)->deleteChildren();
 }
 
-::System::String ^ MC::Tag::ToString()
+::String^ MC::Tag::ToString()
 {
     auto __ret = ((class ::Tag*)NativePtr)->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
@@ -109,7 +109,7 @@ bool MC::Tag::Equals(MC::Tag ^ _0)
     return __ret;
 }
 
-::System::String ^ MC::Tag::GetTagName(MC::Tag::Type _0)
+::String^ MC::Tag::GetTagName(MC::Tag::Type _0)
 {
     auto __arg0 = (enum ::Tag::Type)_0;
     auto __ret = ::Tag::getTagName(__arg0);
@@ -128,7 +128,7 @@ unsigned long long MC::Tag::Hash::get()
     return __ret;
 }
 
-::System::String ^ MC::Tag::NullString::get()
+::String^ MC::Tag::NullString::get()
 {
     return clix::marshalString<clix::E_UTF8>(::Tag::NullString);
 }

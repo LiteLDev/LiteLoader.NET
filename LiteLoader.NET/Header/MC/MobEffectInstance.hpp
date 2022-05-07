@@ -39,8 +39,8 @@ public:
         int get();
     }
 
-    property ::System::String ^ DisplayName {
-        ::System::String ^ get();
+    property ::String^ DisplayName {
+        ::String^ get();
     }
 
         property int Duration
