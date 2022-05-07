@@ -152,26 +152,26 @@ public:
                 NativePtr->Perm = value;
             }
         }
-        property array<IntPtr> ^ Fake_vtbl {
-            array<IntPtr> ^ get() {
-                auto ret = gcnew array<IntPtr>(26);
-                for (int i = 0; i < 26; i++)
-                {
-                    ret[i] = IntPtr(NativePtr->fake_vtbl[i]);
-                }
-                return ret;
-            };
-            void set(array<IntPtr> ^ value)
-            {
-                NULL_ARGS_CHEEK(value);
-                if (value->Length != 26)
-                    throw gcnew System::Exception;
-                for (int i = 0; i < 26; i++)
-                {
-                    NativePtr->fake_vtbl[i] = (void*)value[i];
-                }
-            }
-        };
+        //property array<IntPtr> ^ Fake_vtbl {
+        //    array<IntPtr> ^ get() {
+        //        auto ret = gcnew array<IntPtr>(26);
+        //        for (int i = 0; i < 26; i++)
+        //        {
+        //            ret[i] = IntPtr(NativePtr->fake_vtbl[i]);
+        //        }
+        //        return ret;
+        //    };
+        //    void set(array<IntPtr> ^ value)
+        //    {
+        //        NULL_ARGS_CHEEK(value);
+        //        if (value->Length != 26)
+        //            throw gcnew System::Exception;
+        //        for (int i = 0; i < 26; i++)
+        //        {
+        //            NativePtr->fake_vtbl[i] = (void*)value[i];
+        //        }
+        //    }
+        //};
         //ServerCommandOrigin()
         //{
         //    NativePtr = new ::Level::ServerCommandOrigin;
