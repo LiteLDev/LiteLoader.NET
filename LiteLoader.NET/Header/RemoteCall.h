@@ -1,4 +1,10 @@
 #pragma once
+
+
+//#define REMOTECALL_FIXED
+
+#ifdef REMOTECALL_FIXED
+
 #include <RemoteCallAPI.h>
 #include "../Main/.NETGlobal.hpp"
 #include "../Tools/NativeCallbackConverter.hpp"
@@ -41,7 +47,7 @@ private:
                 stdvector.emplace_back(marshalString(list[i]));
             }
             auto ret = (*pFunc)(stdvector);
-            return marshalString(ret);
+            //return marshalString(ret);
         };
         CallbackWarpper(::RemoteCall::CallbackFn* p)
             : pFunc(p)
@@ -56,3 +62,5 @@ private:
     };
 };
 } // namespace LLNET::RemoteCall
+
+#endif // REMOTECALL_FIXED

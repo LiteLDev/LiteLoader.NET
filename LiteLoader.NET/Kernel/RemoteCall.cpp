@@ -1,3 +1,6 @@
+
+#ifdef REMOTECALL_FIXED
+
 #include "../Header/RemoteCall.h"
 namespace LLNET::RemoteCall
 {
@@ -49,7 +52,7 @@ RemoteCallAPI::CallbackFn ^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^
     NULL_ARGS_CHEEK(nameSpace);
     NULL_ARGS_CHEEK(funcName);
 
-    auto pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
+    auto pfunc = (::RemoteCall::CallbackFn)::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
     return CallbackWarpper::Create(pfunc);
 }
 
@@ -97,3 +100,5 @@ bool RemoteCallAPI::RemoveFuncs(List<Pair<String ^, String ^>> ^ funcs)
 
 
 } // namespace LLNET::RemoteCall
+
+#endif
