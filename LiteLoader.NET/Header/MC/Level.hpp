@@ -89,10 +89,102 @@ public:
     inline static void BroadcastTitle(String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
     inline static void SendPacketForAllPlayer(Packet ^ pkt);
 
+
+    ref class ServerCommandOrigin : ClassTemplate<ServerCommandOrigin, ::Level::ServerCommandOrigin>
+    {
+    public:
+        property IntPtr MyVTBL
+        {
+            IntPtr get()
+            {
+                return IntPtr(NativePtr->myVTBL);
+            };
+            void set(IntPtr value)
+            {
+                NULL_ARGS_CHEEK(value);
+                NativePtr->myVTBL = (void*)value;
+            };
+        };
+        property array<IntPtr> ^ UUID {
+            array<IntPtr> ^ get() {
+                auto ret = gcnew array<IntPtr>(2);
+                ret[0] = IntPtr(NativePtr->UUID[0]);
+                ret[1] = IntPtr(NativePtr->UUID[1]);
+                return ret;
+            };
+            void set(array<IntPtr> ^ value)
+            {
+                NULL_ARGS_CHEEK(value);
+                if (value->Length != 2)
+                    throw gcnew System::Exception;
+                NativePtr->UUID[0] = (void*)value[0];
+                NativePtr->UUID[1] = (void*)value[1];
+            }
+        };
+        property IntPtr ServerLevel
+        {
+            IntPtr get()
+            {
+                return IntPtr(NativePtr->lvl);
+            };
+            void set(IntPtr value)
+            {
+                NativePtr->lvl = (::ServerLevel*)(void*)value;
+            };
+        };
+        property String ^ Name {
+            String ^ get() {
+                return marshalString(NativePtr->Name);
+            };
+            void set(String ^ value)
+            {
+                NativePtr->Name = marshalString(value);
+            };
+        };
+        property unsigned char Perm
+        {
+            unsigned char get()
+            {
+                return NativePtr->Perm;
+            }
+            void set(unsigned char value)
+            {
+                NativePtr->Perm = value;
+            }
+        }
+        property array<IntPtr> ^ Fake_vtbl {
+            array<IntPtr> ^ get() {
+                auto ret = gcnew array<IntPtr>(26);
+                for (int i = 0; i < 26; i++)
+                {
+                    ret[i] = IntPtr(NativePtr->fake_vtbl[i]);
+                }
+                return ret;
+            };
+            void set(array<IntPtr> ^ value)
+            {
+                NULL_ARGS_CHEEK(value);
+                if (value->Length != 26)
+                    throw gcnew System::Exception;
+                for (int i = 0; i < 26; i++)
+                {
+                    NativePtr->fake_vtbl[i] = (void*)value[i];
+                }
+            }
+        };
+        //ServerCommandOrigin()
+        //{
+        //    NativePtr = new ::Level::ServerCommandOrigin;
+        //    OwnsNativeInstance = true;
+        //}
+    };
+
+
     // For compatibility
     inline static bool RuncmdAs(Player ^ pl, String ^ cmd);
     inline static Pair<bool, String ^> RuncmdEx(String ^ cmd);
     inline static bool Runcmd(String ^ cmd);
+
 
 #ifdef MANUAL_MAINTENANCE
 
