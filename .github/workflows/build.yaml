@@ -115,8 +115,8 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       run: |
         git clone https://github.com/StarsDream00/LiteLoader.NETSDK.git
-        cp -f x64/Release/LiteLoader.NET.dll PluginTemplate.NET/Lib/LiteLoader.NET.dll
-        cd PluginTemplate.NET
+        cp -f x64/Release/LiteLoader.NET.dll LiteLoader.NETSDK/LiteLoader.NET.dll
+        cd LiteLoader.NETSDK
         git commit -a . -m "Update SDK"
         git push
       shell: bash
