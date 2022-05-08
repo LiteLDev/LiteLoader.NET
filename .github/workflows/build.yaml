@@ -110,13 +110,13 @@ jobs:
       env:
         GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
 
-    - name: Update Template
+    - name: Update SDK
       working-directory: ${{env.GITHUB_WORKSPACE}}
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        git clone https://github.com/StarsDream00/PluginTemplate.NET.git
+        git clone https://github.com/StarsDream00/LiteLoader.NETSDK.git
         cp -f x64/Release/LiteLoader.NET.dll PluginTemplate.NET/Lib/LiteLoader.NET.dll
         cd PluginTemplate.NET
-        git commit -a Lib/LiteLoader.NET.dll -m "Update LLNET"
+        git commit -a . -m "Update SDK"
         git push
       shell: bash
