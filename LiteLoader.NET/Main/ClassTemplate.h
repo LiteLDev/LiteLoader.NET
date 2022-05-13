@@ -41,6 +41,11 @@ public:
         }
     }
 
+    static property size_t NativeClassSize
+    {
+        return sizeof(NATIVECLASS);
+    }
+
 public:
     ClassTemplate()
         : ownsNativeInstance(false)
