@@ -43,7 +43,10 @@ public:
 
     static property size_t NativeClassSize
     {
-        return sizeof(NATIVECLASS);
+        size_t get()
+           {
+               return sizeof(NATIVECLASS);
+           }
     }
 
 public:
