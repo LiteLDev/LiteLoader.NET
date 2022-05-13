@@ -26,6 +26,14 @@ public:
         }
     }
 
+    property System::IntPtr IntPtr
+    {
+        System::IntPtr get()
+        {
+            return System::IntPtr(nativePtr);
+        }
+    }
+
     property bool OwnsNativeInstance
     {
     public:
@@ -44,9 +52,9 @@ public:
     static property size_t NativeClassSize
     {
         size_t get()
-           {
-               return sizeof(NATIVECLASS);
-           }
+        {
+            return sizeof(NATIVECLASS);
+        }
     }
 
 public:
