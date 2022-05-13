@@ -26,7 +26,7 @@ public:
         }
     }
 
-    property System::IntPtr IntPtr
+    property System::IntPtr Intptr
     {
         System::IntPtr get()
         {
