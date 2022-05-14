@@ -25,7 +25,8 @@ NativeCallbackConvertHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFo
 void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPacketCallbackHandler ^ callback)
 {
     auto % pair = SimpleFormPacketCallback::Create(callback);
-    ::SetSimpleFormPacketCallback(formId, pair.pCallbackFn);
+    auto pfunc = pair.pCallbackFn;
+    ::SetSimpleFormPacketCallback(formId, pfunc);
     GC::KeepAlive(pair.converter);
 }
 
@@ -47,7 +48,8 @@ NativeCallbackConvertHelper(ModalFormPacketCallback, FormPacketHelper::ModalForm
 void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPacketCallbackHandler ^ callback)
 {
     auto % pair = ModalFormPacketCallback::Create(callback);
-    ::SetModalFormPacketCallback(formId, pair.pCallbackFn);
+    auto pfunc = pair.pCallbackFn;
+    ::SetModalFormPacketCallback(formId, pfunc);
     GC::KeepAlive(pair.converter);
 }
 
@@ -69,7 +71,8 @@ NativeCallbackConvertHelper(CustomFormPacketCallback, FormPacketHelper::CustomFo
 void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPacketCallbackHandler ^ callback)
 {
     auto % pair = CustomFormPacketCallback::Create(callback);
-    ::SetCustomFormPacketCallback(formId, pair.pCallbackFn);
+    auto pfunc = pair.pCallbackFn; 
+    ::SetCustomFormPacketCallback(formId, pfunc);
     GC::KeepAlive(pair.converter);
 }
 
