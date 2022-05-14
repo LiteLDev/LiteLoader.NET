@@ -60,7 +60,6 @@ jobs:
         mkdir output/RELEASE/
         mkdir output/RELEASE/lib
         cp -f x64/Release/Ijwhost.dll output/RELEASE/lib/Ijwhost.dll
-        cp -f x64/Release/LiteLoader.NET.deps.json output/RELEASE/LiteLoader.NET.deps.json
         cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader.NET.runtimeconfig.json
         cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader.NET.dll
         mkdir output/PDB/
@@ -100,7 +99,18 @@ jobs:
 
     - name: Create New Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'pre')
+      with:
+        # body_path: ${{ github.workspace }}\CHANGELOG.txt
+        files: |
+          ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
+          ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
+      env:
+        GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
+
+    - name: Create New PreRelease
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/') && contains(github.ref, 'pre')
       with:
         # body_path: ${{ github.workspace }}\CHANGELOG.txt
         files: |
