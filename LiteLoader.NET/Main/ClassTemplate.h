@@ -49,13 +49,7 @@ public:
         }
     }
 
-    static property size_t NativeClassSize
-    {
-        size_t get()
-        {
-            return sizeof(NATIVECLASS);
-        }
-    }
+    static const size_t NativeClassSize = sizeof(NATIVECLASS);
 
 public:
     ClassTemplate()

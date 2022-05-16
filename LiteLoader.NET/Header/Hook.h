@@ -19,21 +19,21 @@ namespace LLNET {
             generic<typename RTN>
             where RTN : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off) {
-                return (*((RTN(**)(void const*))(*(uintptr_t*)_this + off)))(_this);
+                return (*(RTN(**)(void const*))(*(uintptr_t*)_this + off))(_this);
             }
 
             generic<typename RTN, typename T0>
             where RTN : System::ValueType
                 where T0 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0) {
-                return (*((RTN(**)(void const*, T0))(*(uintptr_t*)_this + off)))(_this, a0);
+                return (*(RTN(**)(void const*, T0))(*(uintptr_t*)_this + off))(_this, a0);
             }
             generic<typename RTN, typename T0, typename T1>
             where RTN : System::ValueType
                 where T0 : System::ValueType
                     where T1 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1) {
-                return (*((RTN(**)(void const*, T0, T1))(*(uintptr_t*)_this + off)))(_this, a0, a1);
+                return (*(RTN(**)(void const*, T0, T1))(*(uintptr_t*)_this + off))(_this, a0, a1);
             }
             generic<typename RTN, typename T0, typename T1, typename T2>
             where RTN : System::ValueType
@@ -41,7 +41,7 @@ namespace LLNET {
                     where T1 : System::ValueType
                         where T2 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
-                return (*((RTN(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2);
+                return (*(RTN(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this + off))(_this, a0, a1, a2);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
             where RTN : System::ValueType
@@ -50,7 +50,7 @@ namespace LLNET {
                         where T2 : System::ValueType
                             where T3 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
             where RTN : System::ValueType
@@ -60,7 +60,7 @@ namespace LLNET {
                             where T3 : System::ValueType
                                 where T4 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3, a4);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
             where RTN : System::ValueType
@@ -71,38 +71,38 @@ namespace LLNET {
                                 where T4 : System::ValueType
                                     where T5 : System::ValueType
                 inline static RTN VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3, a4, a5);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4, a5);
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            inline static void VirtualCall(void const* _this, uintptr_t off) {
-                return (*((void(**)(void const*))(*(uintptr_t*)_this + off)))(_this);
+            inline static void Virtual_Call(void const* _this, uintptr_t off) {
+                return (*(void(**)(void const*))(*(uintptr_t*)_this + off))(_this);
             }
 
             generic< typename T0>
             where T0 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0) {
-                return (*((void(**)(void const*, T0))(*(uintptr_t*)_this + off)))(_this, a0);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0) {
+                return (*(void(**)(void const*, T0))(*(uintptr_t*)_this + off))(_this, a0);
             }
             generic< typename T0, typename T1>
             where T0 : System::ValueType
                 where T1 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1) {
-                return (*((void(**)(void const*, T0, T1))(*(uintptr_t*)_this + off)))(_this, a0, a1);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1) {
+                return (*(void(**)(void const*, T0, T1))(*(uintptr_t*)_this + off))(_this, a0, a1);
             }
             generic< typename T0, typename T1, typename T2>
             where T0 : System::ValueType
                 where T1 : System::ValueType
                     where T2 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
-                return (*((void(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
+                return (*(void(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this + off))(_this, a0, a1, a2);
             }
             generic< typename T0, typename T1, typename T2, typename T3>
             where T0 : System::ValueType
                 where T1 : System::ValueType
                     where T2 : System::ValueType
                         where T3 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
-                return (*((void(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
+                return (*(void(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3);
             }
             generic< typename T0, typename T1, typename T2, typename T3, typename T4>
             where T0 : System::ValueType
@@ -110,8 +110,8 @@ namespace LLNET {
                     where T2 : System::ValueType
                         where T3 : System::ValueType
                             where T4 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-                return (*((void(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3, a4);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+                return (*(void(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4);
             }
             generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
             where T0 : System::ValueType
@@ -120,8 +120,8 @@ namespace LLNET {
                         where T3 : System::ValueType
                             where T4 : System::ValueType
                                 where T5 : System::ValueType
-                inline static void VirtualCall(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-                return (*((void(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this + off)))(_this, a0, a1, a2, a3, a4, a5);
+                inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+                return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4, a5);
             }
 
 
@@ -129,21 +129,21 @@ namespace LLNET {
         generic<typename RTN>
             where RTN : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off) {
-                return (*((RTN(**)(void const*))(*(uintptr_t*)(void*)_this + off)))((void*)_this);
+                return (*(RTN(**)(void const*))(*(uintptr_t*)(void*)_this + off))((void*)_this);
             }
 
             generic<typename RTN, typename T0>
             where RTN : System::ValueType
                 where T0 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0) {
-                return (*((RTN(**)(void const*, T0))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0);
+                return (*(RTN(**)(void const*, T0))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0);
             }
             generic<typename RTN, typename T0, typename T1>
             where RTN : System::ValueType
                 where T0 : System::ValueType
                     where T1 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1) {
-                return (*((RTN(**)(void const*, T0, T1))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1);
+                return (*(RTN(**)(void const*, T0, T1))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1);
             }
             generic<typename RTN, typename T0, typename T1, typename T2>
             where RTN : System::ValueType
@@ -151,7 +151,7 @@ namespace LLNET {
                     where T1 : System::ValueType
                         where T2 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
-                return (*((RTN(**)(void const*, T0, T1, T2))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2);
+                return (*(RTN(**)(void const*, T0, T1, T2))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
             where RTN : System::ValueType
@@ -160,7 +160,7 @@ namespace LLNET {
                         where T2 : System::ValueType
                             where T3 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
             where RTN : System::ValueType
@@ -170,7 +170,7 @@ namespace LLNET {
                             where T3 : System::ValueType
                                 where T4 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3, a4);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4);
             }
             generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
             where RTN : System::ValueType
@@ -181,38 +181,38 @@ namespace LLNET {
                                 where T4 : System::ValueType
                                     where T5 : System::ValueType
                 inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-                return (*((RTN(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3, a4, a5);
+                return (*(RTN(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4, a5);
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            inline static void VirtualCall(System::IntPtr _this, uintptr_t off) {
-                return (*((void(**)(void const*))(*(uintptr_t*)(void*)_this + off)))((void*)_this);
+            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off) {
+                return (*(void(**)(void const*))(*(uintptr_t*)(void*)_this + off))((void*)_this);
             }
 
             generic< typename T0>
             where T0 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0) {
-                return (*((void(**)(void const*, T0))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0) {
+                return (*(void(**)(void const*, T0))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0);
             }
             generic< typename T0, typename T1>
             where T0 : System::ValueType
                 where T1 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1) {
-                return (*((void(**)(void const*, T0, T1))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1) {
+                return (*(void(**)(void const*, T0, T1))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1);
             }
             generic< typename T0, typename T1, typename T2>
             where T0 : System::ValueType
                 where T1 : System::ValueType
                     where T2 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
-                return (*((void(**)(void const*, T0, T1, T2))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
+                return (*(void(**)(void const*, T0, T1, T2))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2);
             }
             generic< typename T0, typename T1, typename T2, typename T3>
             where T0 : System::ValueType
                 where T1 : System::ValueType
                     where T2 : System::ValueType
                         where T3 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
-                return (*((void(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
+                return (*(void(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3);
             }
             generic< typename T0, typename T1, typename T2, typename T3, typename T4>
             where T0 : System::ValueType
@@ -220,8 +220,8 @@ namespace LLNET {
                     where T2 : System::ValueType
                         where T3 : System::ValueType
                             where T4 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-                return (*((void(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3, a4);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+                return (*(void(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4);
             }
             generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
             where T0 : System::ValueType
@@ -230,8 +230,8 @@ namespace LLNET {
                         where T3 : System::ValueType
                             where T4 : System::ValueType
                                 where T5 : System::ValueType
-                inline static void VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-                return (*((void(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)(void*)_this + off)))((void*)_this, a0, a1, a2, a3, a4, a5);
+                inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+                return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4, a5);
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             inline static System::IntPtr const dAccess(System::IntPtr ptr, uintptr_t off) {
@@ -335,20 +335,20 @@ namespace LLNET {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-            inline static void SymCall(System::String^ sym) {
+            inline static void Sym_Call(System::String^ sym) {
                 return ((void(*)())(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))();
             }
 
             generic<typename T0>
             where T0 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0) {
+            inline static void Sym_Call(System::String^ sym, T0 a0) {
                 return ((void(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0);
             }
 
             generic<typename T0, typename T1>
             where T0 : System::ValueType
                 where T1 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0, T1 a1) {
+            inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1) {
                 return ((void(*)(T0, T1))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1);
             }
 
@@ -356,7 +356,7 @@ namespace LLNET {
             where T0 : System::ValueType
                 where T1 : System::ValueType
                     where T2 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2) {
+            inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2) {
                 return ((void(*)(T0, T1, T2))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2);
             }
 
@@ -365,7 +365,7 @@ namespace LLNET {
                 where T1 : System::ValueType
                     where T2 : System::ValueType
                         where T3 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3) {
+            inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3) {
                 return ((void(*)(T0, T1, T2, T3))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3);
             }
 
@@ -375,7 +375,7 @@ namespace LLNET {
                     where T2 : System::ValueType
                         where T3 : System::ValueType
                             where T4 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+            inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
                 return ((void(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4);
             }
 
@@ -386,7 +386,7 @@ namespace LLNET {
                         where T3 : System::ValueType
                             where T4 : System::ValueType
                                 where T5 : System::ValueType
-            inline static void SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+            inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
                 return ((void(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5);
             }
 

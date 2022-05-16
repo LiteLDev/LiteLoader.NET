@@ -212,6 +212,11 @@ inline bool Actor::AddEffect(MobEffect::EffectType type, int tick, int level)
 }
 } // namespace MC
 
+#ifdef MANUAL_MAINTENANCE
+
+#endif // MANUAL_MAINTENANCE
+
+
 #ifdef INCLUDE_MCAPI
 
 void MC::Actor::SetLastHurtMob(MC::Actor ^ _0)

@@ -187,5 +187,10 @@ public:
         NativePtr->assign(*obj->NativePtr);
         return this;
     };
+
+    String ^ ToString() override
+    {
+        return marshalString(*NativePtr);
+    }
 };
 } // namespace LLNET::Core::Std

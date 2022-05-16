@@ -86,6 +86,11 @@ public:
         bool get();
     }
 
+    #ifdef MANUAL_MAINTENANCE
+
+#endif // MANUAL_MAINTENANCE
+
+
 #ifdef INCLUDE_MCAPI
 
 
