@@ -67,7 +67,6 @@ public:
     virtual ~ClassTemplate()
     {
         this->!ClassTemplate();
-        System::GC::SuppressFinalize(this);
     }
 
 public:

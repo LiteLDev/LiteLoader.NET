@@ -23,7 +23,7 @@
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");               \
     }
 
-#define NULL_ARGS_CHEEK(arg)           \
+#define NULL_ARG_CHEEK(arg)           \
     if (ReferenceEquals(arg, nullptr)) \
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 

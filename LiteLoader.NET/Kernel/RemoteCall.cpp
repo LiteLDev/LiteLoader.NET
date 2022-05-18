@@ -1,7 +1,7 @@
+#include "../Header/RemoteCall.h"
 
 #ifdef REMOTECALL_FIXED
 
-#include "../Header/RemoteCall.h"
 namespace LLNET::RemoteCall
 {
 NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, RemoteCallAPI::ValueType, std::vector<RemoteCallAPI::ValueType> vec)
@@ -10,12 +10,13 @@ NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, Remot
     List<String ^> ^ arg = gcnew List<String ^>(size);
     for each (auto& item in vec)
     {
-        arg->Add(marshalString<Encoding::E_UTF8>(item));
+        //arg->Add(marshalString(item));
+        throw gcnew System::NotImplementedException;
     }
     try
     {
         auto ret = delfunc(arg);
-        return marshalString<Encoding::E_UTF8>(ret);
+        return marshalString(ret);
     }
     catch (System::Exception ^ ex)
     {
@@ -27,33 +28,39 @@ NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, Remot
 
 bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn ^ callback)
 {
-    NULL_ARGS_CHEEK(nameSpace);
-    NULL_ARGS_CHEEK(funcName);
-    NULL_ARGS_CHEEK(callback);
+    NULL_ARG_CHEEK(nameSpace);
+    NULL_ARG_CHEEK(funcName);
+    NULL_ARG_CHEEK(callback);
 
     auto pair = ExportFuncCallback::Create(callback);
     CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler ^) pair.converter);
-    return ::RemoteCall::exportFunc(marshalString<Encoding::E_UTF8>(nameSpace), marshalString<Encoding::E_UTF8>(funcName), pair.pCallbackFn, MODULE);
+    return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, MODULE);
 }
 
 bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn ^ callback, System::IntPtr handler)
 {
-    NULL_ARGS_CHEEK(nameSpace);
-    NULL_ARGS_CHEEK(funcName);
-    NULL_ARGS_CHEEK(callback);
+    NULL_ARG_CHEEK(nameSpace);
+    NULL_ARG_CHEEK(funcName);
+    NULL_ARG_CHEEK(callback);
 
     auto pair = ExportFuncCallback::Create(callback);
     CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler ^) pair.converter);
-    return ::RemoteCall::exportFunc(marshalString<Encoding::E_UTF8>(nameSpace), marshalString<Encoding::E_UTF8>(funcName), pair.pCallbackFn, (HMODULE)(void*)handler);
+    return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, (HMODULE)(void*)handler);
+}
+
+NativeCallbackConvertHelper(RemoteCallHelper, RemoteCallAPI::CallbackFn, ::RemoteCall::ValueType, std::vector<::RemoteCall::ValueType> vec)
+{
+    throw gcnew System::NotImplementedException;
 }
 
 RemoteCallAPI::CallbackFn ^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
 {
-    NULL_ARGS_CHEEK(nameSpace);
-    NULL_ARGS_CHEEK(funcName);
+    NULL_ARG_CHEEK(nameSpace);
+    NULL_ARG_CHEEK(funcName);
+
+    throw gcnew System::NotImplementedException;
 
     auto pfunc = (::RemoteCall::CallbackFn)::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
-    return CallbackWarpper::Create(pfunc);
 }
 
 bool RemoteCallAPI::HasFunc(String ^ nameSpace, String ^ funcName)

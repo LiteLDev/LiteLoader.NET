@@ -95,6 +95,9 @@ interface class NativeCallbackHandler : System::IDisposable
             auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
             return __Pair(p, instance);                                                                                                             \
         }                                                                                                                                           \
+        inline static callback_delegate ^ Create(pCallback ptr) {                                                                                   \
+            return static_cast<callback_delegate ^>(Marshal::GetDelegateForFunctionPointer(System::IntPtr(ptr), callback_delegate::typeid));        \
+        }                                                                                                                                           \
     };                                                                                                                                              \
                                                                                                                                                     \
     ref class class_name : public NativeCallbackTemplate<do_hash(#class_name) ^ do_hash(#ret), do_hash(#callback_delegate) ^ do_hash(#__VA_ARGS__)> \
