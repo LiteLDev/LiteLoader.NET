@@ -2,7 +2,6 @@
 #include <HookAPI.h>
 #include "../Main/.NETGlobal.hpp"
 #include "../Header/Core/SecondaryRankPtr.h"
-#include "../Header/Core/Exceptions.h"
 
 namespace LLNET {
     namespace Hook {

@@ -4,6 +4,7 @@
 
 #include "Global.hpp"
 #include "../Header/Core/Pair.hpp"
+#include "../Header/Core/Exceptions.h"
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 

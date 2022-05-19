@@ -10,7 +10,6 @@ NativeCallbackConvertHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, Remot
     List<String ^> ^ arg = gcnew List<String ^>(size);
     for each (auto& item in vec)
     {
-        //arg->Add(marshalString(item));
         throw gcnew System::NotImplementedException;
     }
     try
