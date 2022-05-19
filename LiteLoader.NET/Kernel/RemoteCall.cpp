@@ -21,7 +21,7 @@ namespace LLNET::RemoteCall
 		{
 			System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
 			System::Console::WriteLine(ex->Message);
-			return "";
+			return ::RemoteCall::ValueType();
 		}
 	}
 
