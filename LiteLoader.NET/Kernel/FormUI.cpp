@@ -50,7 +50,7 @@ inline void Button::SetCallback(ButtonCallback ^ callback)
     this->callback = callback;
 }
 
-NativeCallbackConvertHelper(ButtonCallbackHelper, Button::ButtonCallback, void, ::Player* pl)
+DelegateToNativeHelper(ButtonCallbackHelper, Button::ButtonCallback, void, ::Player* pl)
 {
     auto player = gcnew MC::Player(pl);
 
@@ -373,7 +373,7 @@ inline SimpleForm ^ SimpleForm::AddButton(String ^ text)
 }
 
 
-NativeCallbackConvertHelper(SimpleFormCallbackHelper, SimpleForm::SimpleFormCallback, void, ::Player* pl, int a0)
+DelegateToNativeHelper(SimpleFormCallbackHelper, SimpleForm::SimpleFormCallback, void, ::Player* pl, int a0)
 {
     auto player = gcnew MC::Player(pl);
     try

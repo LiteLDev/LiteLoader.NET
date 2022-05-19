@@ -23,31 +23,6 @@
 
 namespace LLNET::RemoteCall
 {
-	public
-	ref class RemoteCallAPI abstract
-	{
-	public:
-		delegate String^ CallbackFn(List<String^>^);
-		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
-		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
-
-		static CallbackFn^ ImportFunc(String^ nameSpace, String^ funcName);
-
-		static bool HasFunc(String^ nameSpace, String^ funcName);
-		static bool RemoveFunc(String^ nameSpace, String^ funcName);
-		static bool RemoveNameSpace(String^ nameSpace);
-		static bool RemoveFuncs(List<Pair<String^, String^>>^ funcs);
-
-	public:
-		using ValueType = ::RemoteCall::ValueType;
-		//防止gc回收
-		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;
-	};
-} // namespace LLNET::RemoteCall
-
-
-namespace LLNET::RemoteCall
-{
 
 
 	interface class IValue
@@ -70,6 +45,11 @@ namespace LLNET::RemoteCall
 		MC::CompoundTag^ Get() {
 			return gcnew MC::CompoundTag(NativePtr->get<CompoundTag*>());
 		}
+	internal:
+		NbtType(::RemoteCall::NbtType const& v)
+			:ClassTemplate(new ::RemoteCall::NbtType(v), true)
+		{
+		}
 	};
 
 	public
@@ -84,6 +64,11 @@ namespace LLNET::RemoteCall
 		MC::ItemStack^ Get() {
 			return gcnew MC::ItemStack(NativePtr->get<::ItemStack*>());
 		}
+	internal:
+		ItemType(::RemoteCall::ItemType const& v)
+			:ClassTemplate(new ::RemoteCall::ItemType(v), true)
+		{
+		}
 	};
 
 	public
@@ -91,6 +76,11 @@ namespace LLNET::RemoteCall
 	{
 		BlockType(MC::BlockInstance^ block)
 			: ClassTemplate(new ::RemoteCall::BlockType(*block->NativePtr), true)
+		{
+		}
+	internal:
+		BlockType(::RemoteCall::BlockType const& v)
+			:ClassTemplate(new ::RemoteCall::BlockType(v), true)
 		{
 		}
 	};
@@ -133,6 +123,11 @@ namespace LLNET::RemoteCall
 		NumberType(unsigned char v)
 			: i(static_cast<__int64>(v))
 			, f(static_cast<double>(v)) {};
+	internal:
+		NumberType(__int64 i, double f)
+			: i(i), f(f) {};
+
+	public:
 
 		generic<typename T>
 		T Get()
@@ -204,7 +199,7 @@ namespace LLNET::RemoteCall
 		{
 		}
 		Value(BlockType^ blockType)
-			: ClassTemplate(new _T(*blockType->NativePtr))
+			: ClassTemplate(new _T(*blockType->NativePtr), true)
 		{
 		}
 		Value(NbtType^ nbtType)
@@ -216,8 +211,168 @@ namespace LLNET::RemoteCall
 		}
 	internal:
 		Value(::RemoteCall::Value const& v)
-			:ClassTemplate(new _T(v), true) 
+			:ClassTemplate(new _T(v), true)
 		{
+		}
+	public:
+		enum class InstanceType {
+			Null = 0,
+			NumberType = 1,
+			Player = 2,
+			Actor = 3,
+			BlockActor = 4,
+			Container = 5,
+			Vec3 = 6,
+			BlockPos = 7,
+			ItemType = 8,
+			BlockType = 9,
+			NbtType = 10
+		};
+	public:
+		property InstanceType Type {
+			InstanceType get() {
+				return InstanceType(NativePtr->index());
+			}
+		}
+
+		bool IsNull() {
+			return NativePtr->index() == (size_t)InstanceType::Null;
+		}
+
+		bool AsNumberType([System::Runtime::InteropServices::Out] NumberType% v) {
+			v = NumberType();
+			if (NativePtr->index() != (size_t)InstanceType::NumberType)
+				return false;
+			auto& _v = std::get<::RemoteCall::NumberType>(*NativePtr);
+			v = NumberType(*(__int64*)&_v, *(double*)(((uintptr_t)&_v) + sizeof(__int64)));
+			return true;
+		}
+
+		bool AsPlayer([System::Runtime::InteropServices::Out] MC::Player^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::Player)
+				return false;
+			v = gcnew MC::Player(std::get<::Player*>(*NativePtr));
+			return true;
+		}
+
+		bool AsActor([System::Runtime::InteropServices::Out] MC::Actor^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::Actor)
+				return false;
+			v = gcnew MC::Actor(std::get<::Actor*>(*NativePtr));
+			return true;
+		}
+
+		bool AsBlockActor([System::Runtime::InteropServices::Out] MC::BlockActor^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::BlockActor)
+				return false;
+			v = gcnew MC::BlockActor(std::get<::BlockActor*>(*NativePtr));
+			return true;
+		}
+
+		bool AsContainer([System::Runtime::InteropServices::Out] MC::Container^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::Container)
+				return false;
+			v = gcnew MC::Container(std::get<::Container*>(*NativePtr));
+			return true;
+		}
+
+		bool AsVec3([System::Runtime::InteropServices::Out] MC::Vec3^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::Vec3)
+				return false;
+			v = gcnew MC::Vec3(std::get<::Vec3>(*NativePtr));
+			return true;
+		}
+
+		bool AsBlockPos([System::Runtime::InteropServices::Out] MC::BlockPos^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::BlockPos)
+				return false;
+			v = gcnew MC::BlockPos(std::get<::BlockPos>(*NativePtr));
+			return true;
+		}
+
+		bool AsItemType([System::Runtime::InteropServices::Out] ItemType^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::ItemType)
+				return false;
+			v = gcnew ItemType(std::get<::RemoteCall::ItemType>(*NativePtr));
+			return true;
+		}
+
+		bool AsNbtType([System::Runtime::InteropServices::Out] NbtType^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::NbtType)
+				return false;
+			v = gcnew NbtType(std::get<::RemoteCall::NbtType>(*NativePtr));
+			return true;
+		}
+
+		bool AsContainer([System::Runtime::InteropServices::Out] BlockType^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::BlockType)
+				return false;
+			v = gcnew BlockType(std::get<::RemoteCall::BlockType>(*NativePtr));
+			return true;
+		}
+	public:
+		Value^ operator=(nullptr_t null) {
+			*NativePtr = null;
+			return this;
+		}
+
+		Value^ operator=(NumberType v) {
+			*NativePtr = v.operator ::RemoteCall::NumberType();
+			return this;
+		}
+
+		Value^ operator=(MC::Player^ player) {
+			*NativePtr = player->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(MC::Actor^ actor) {
+			*NativePtr = actor->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(MC::BlockActor^ blockActor) {
+			*NativePtr = blockActor->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(MC::Container^ container) {
+			*NativePtr = container->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(MC::Vec3^ vec3) {
+			*NativePtr = *vec3->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(MC::BlockPos^ blockPos) {
+			*NativePtr = *blockPos->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(ItemType^ itemType) {
+			*NativePtr = *itemType->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(BlockType^ blockType) {
+			*NativePtr = *blockType->NativePtr;
+			return this;
+		}
+
+		Value^ operator=(NbtType^ nbtType) {
+			*NativePtr = *nbtType->NativePtr;
+			return this;
 		}
 	};
 
@@ -408,6 +563,61 @@ namespace LLNET::RemoteCall
 	};
 
 
+} // namespace LLNET::RemoteCall
+
+
+namespace LLNET::RemoteCall
+{
+	public
+	ref class RemoteCallAPI abstract
+	{
+	public:
+		delegate ValueType^ CallbackFn(List<ValueType^>^);
+		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
+		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
+
+		static CallbackFn^ ImportFunc(String^ nameSpace, String^ funcName);
+
+		static bool HasFunc(String^ nameSpace, String^ funcName);
+		static bool RemoveFunc(String^ nameSpace, String^ funcName);
+		static bool RemoveNameSpace(String^ nameSpace);
+		static bool RemoveFuncs(List<Pair<String^, String^>>^ funcs);
+
+	public:
+		//防止gc回收
+		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;
+
+	private:
+		ref class RemoteCallHelper
+		{
+		private:
+			::RemoteCall::CallbackFn const* pFunc;
+			ValueType^ Invoke(List<ValueType^>^ list) {
+				NULL_ARG_CHEEK(list);
+
+				auto count = (size_t)list->Count;
+				std::vector<::RemoteCall::ValueType> stdvector;
+				stdvector.resize(count);
+				for (auto i = 0; i < count; ++i)
+				{
+					stdvector.emplace_back(*list[i]->NativePtr);
+				}
+				auto ret = (*pFunc)(stdvector);
+				return gcnew ValueType(ret);
+			};
+			RemoteCallHelper(::RemoteCall::CallbackFn const* p)
+				: pFunc(p)
+			{
+			}
+
+		public:
+			static Pair<RemoteCallHelper^, CallbackFn^> Create(::RemoteCall::CallbackFn const* p) {
+				auto instance = gcnew RemoteCallHelper(p);
+				return Pair< RemoteCallHelper^, CallbackFn^>(instance, gcnew CallbackFn(instance, &RemoteCallHelper::Invoke));
+			}
+		};
+
+	};
 } // namespace LLNET::RemoteCall
 
 #endif // REMOTECALL_FIXED

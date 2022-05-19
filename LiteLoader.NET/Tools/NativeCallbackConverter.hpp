@@ -33,7 +33,7 @@ interface class NativeCallbackHandler : System::IDisposable
  * 稳定性未知，且转换器实例的回收会导致.Net委托实例的释放与Native函数指针的失效
  * 等待稳定性测试.jpg
  */
-#define NativeCallbackConvertHelper(class_name, callback_delegate, ret, ...)                                                                        \
+#define DelegateToNativeHelper(class_name, callback_delegate, ret, ...)                                                                             \
                                                                                                                                                     \
     template <CHash, CHash>                                                                                                                         \
     ref class NativeCallbackTemplate;                                                                                                               \
@@ -94,9 +94,6 @@ interface class NativeCallbackHandler : System::IDisposable
             instance->gch = GCHandle::Alloc(del);                                                                                                   \
             auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
             return __Pair(p, instance);                                                                                                             \
-        }                                                                                                                                           \
-        inline static callback_delegate ^ Create(pCallback ptr) {                                                                                   \
-            return static_cast<callback_delegate ^>(Marshal::GetDelegateForFunctionPointer(System::IntPtr(ptr), callback_delegate::typeid));        \
         }                                                                                                                                           \
     };                                                                                                                                              \
                                                                                                                                                     \

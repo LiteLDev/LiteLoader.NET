@@ -7,7 +7,7 @@ unsigned int FormPacketHelper::NewFormId()
     return ::NewFormId();
 }
 
-NativeCallbackConvertHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFormPacketCallbackHandler, void, ::Player* pl, int a1)
+DelegateToNativeHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFormPacketCallbackHandler, void, ::Player* pl, int a1)
 {
     auto player = gcnew MC::Player(pl);
     try
@@ -30,7 +30,7 @@ void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPa
     GC::KeepAlive(pair.converter);
 }
 
-NativeCallbackConvertHelper(ModalFormPacketCallback, FormPacketHelper::ModalFormPacketCallbackHandler, void, ::Player* pl, bool a1)
+DelegateToNativeHelper(ModalFormPacketCallback, FormPacketHelper::ModalFormPacketCallbackHandler, void, ::Player* pl, bool a1)
 {
     auto player = gcnew MC::Player(pl);
     try
@@ -53,7 +53,7 @@ void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPack
     GC::KeepAlive(pair.converter);
 }
 
-NativeCallbackConvertHelper(CustomFormPacketCallback, FormPacketHelper::CustomFormPacketCallbackHandler, void, ::Player* pl, std::string a1)
+DelegateToNativeHelper(CustomFormPacketCallback, FormPacketHelper::CustomFormPacketCallbackHandler, void, ::Player* pl, std::string a1)
 {
     auto player = gcnew MC::Player(pl);
     try
