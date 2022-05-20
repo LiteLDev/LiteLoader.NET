@@ -216,17 +216,19 @@ namespace LLNET::RemoteCall
 		}
 	public:
 		enum class InstanceType {
-			Null = 0,
-			NumberType = 1,
-			Player = 2,
-			Actor = 3,
-			BlockActor = 4,
-			Container = 5,
-			Vec3 = 6,
-			BlockPos = 7,
-			ItemType = 8,
-			BlockType = 9,
-			NbtType = 10
+			Bool = 0,
+			String = 1,
+			Null = 2,
+			NumberType = 3,
+			Player = 4,
+			Actor = 5,
+			BlockActor = 6,
+			Container = 7,
+			Vec3 = 8,
+			BlockPos = 9,
+			ItemType = 10,
+			BlockType = 11,
+			NbtType = 12
 		};
 	public:
 		property InstanceType Type {
@@ -237,6 +239,21 @@ namespace LLNET::RemoteCall
 
 		bool IsNull() {
 			return NativePtr->index() == (size_t)InstanceType::Null;
+		}
+
+		bool AsBool([System::Runtime::InteropServices::Out] bool% v) {
+			if (NativePtr->index() != (size_t)InstanceType::Bool)
+				return false;
+			v = std::get<bool>(*NativePtr);
+			return true;
+		}
+
+		bool AsString([System::Runtime::InteropServices::Out] String^% v) {
+			if (NativePtr->index() != (size_t)InstanceType::String)
+				return false;
+			auto& _v = std::get<std::string>(*NativePtr);
+			v = marshalString(_v);
+			return true;
 		}
 
 		bool AsNumberType([System::Runtime::InteropServices::Out] NumberType% v) {
@@ -320,8 +337,9 @@ namespace LLNET::RemoteCall
 			return true;
 		}
 	public:
-		Value^ operator=(nullptr_t null) {
-			*NativePtr = null;
+
+		Value^ SetNull() {
+			*NativePtr = nullptr_t(nullptr);
 			return this;
 		}
 
@@ -377,12 +395,12 @@ namespace LLNET::RemoteCall
 	};
 
 	public
-	ref class ValueType : ClassTemplate<ValueType, ::RemoteCall::ValueType>
+	ref class Value_Type : ClassTemplate<Value_Type, ::RemoteCall::ValueType>
 	{
 		using _T = ::RemoteCall::ValueType;
 
 	public:
-		ValueType()
+		Value_Type()
 			: ClassTemplate(new _T(), true)
 		{
 		}
@@ -390,15 +408,15 @@ namespace LLNET::RemoteCall
 		/// Copy
 		/// </summary>
 		/// <param name="v"></param>
-		ValueType(ValueType% v)
+		Value_Type(Value_Type% v)
 			: ClassTemplate(new _T(*v.NativePtr), true)
 		{
 		}
-		ValueType(Value^ v)
+		Value_Type(Value^ v)
 			: ClassTemplate(new _T(*v->NativePtr), true)
 		{
 		}
-		ValueType(array<ValueType^>^ v)
+		Value_Type(array<Value_Type^>^ v)
 		{
 			auto len = (int)v->Length;
 			std::vector<_T> vec;
@@ -410,7 +428,7 @@ namespace LLNET::RemoteCall
 			NativePtr = new _T(std::move(vec));
 			OwnsNativeInstance = true;
 		}
-		ValueType(List<ValueType^>^ v)
+		Value_Type(List<Value_Type^>^ v)
 		{
 			auto len = v->Count;
 			std::vector<_T> vec;
@@ -422,7 +440,7 @@ namespace LLNET::RemoteCall
 			NativePtr = new _T(std::move(vec));
 			OwnsNativeInstance = true;
 		}
-		ValueType(Dictionary<String^, ValueType^>^ v)
+		Value_Type(Dictionary<String^, Value_Type^>^ v)
 		{
 			auto len = v->Count;
 			std::unordered_map<std::string, _T> umap;
@@ -436,18 +454,18 @@ namespace LLNET::RemoteCall
 			NativePtr = new _T(std::move(umap));
 			OwnsNativeInstance = true;
 		}
-		ValueType^ Clone() {
-			return gcnew ValueType(*this);
+		Value_Type^ Clone() {
+			return gcnew Value_Type(*this);
 		};
 	internal:
-		ValueType(::RemoteCall::ValueType const& v)
+		Value_Type(::RemoteCall::ValueType const& v)
 			:ClassTemplate(new _T(v), true)
 		{
 		}
 
 	public:
-		using __ObjectType = Dictionary< String^, ValueType^>;
-		using __ArrayType = List<ValueType^>;
+		using __ObjectType = Dictionary< String^, Value_Type^>;
+		using __ArrayType = List<Value_Type^>;
 
 		enum class InstanceType : size_t
 		{
@@ -471,28 +489,28 @@ namespace LLNET::RemoteCall
 		ref class ObjectType : IValueType
 		{
 		public:
-			ObjectType(Dictionary<String^, ValueType^>^ v)
+			ObjectType(Dictionary<String^, Value_Type^>^ v)
 				: value(v)
 			{
 			}
-			operator Dictionary<String^, ValueType^> ^ () {
+			operator Dictionary<String^, Value_Type^> ^ () {
 				return value;
 			};
-			Dictionary<String^, ValueType^>^ value;
+			Dictionary<String^, Value_Type^>^ value;
 		};
 
 		[RemoteCallValueType(InstanceType::ArrayType)]
 		ref class ArrayType : IValueType
 		{
 		public:
-			ArrayType(List<ValueType^>^ v)
+			ArrayType(List<Value_Type^>^ v)
 				:value(v)
 			{
 			}
-			operator List<ValueType^> ^ () {
+			operator List<Value_Type^> ^ () {
 				return value;
 			}
-			List<ValueType^>^ value;
+			List<Value_Type^>^ value;
 		};
 
 	public:
@@ -548,7 +566,7 @@ namespace LLNET::RemoteCall
 		static __ObjectType^ Parse(::RemoteCall::ValueType::ObjectType const& val) {
 			auto ret = gcnew __ObjectType;
 			for (auto& [k, v] : val) {
-				ret->Add(marshalString(k), gcnew ValueType(v));
+				ret->Add(marshalString(k), gcnew Value_Type(v));
 			}
 			return ret;
 		}
@@ -556,7 +574,7 @@ namespace LLNET::RemoteCall
 			auto len = (int)v.size();
 			auto ret = gcnew __ArrayType(len);
 			for (auto& i : v) {
-				ret->Add(gcnew ValueType(i));
+				ret->Add(gcnew Value_Type(i));
 			}
 			return ret;
 		}
@@ -572,7 +590,7 @@ namespace LLNET::RemoteCall
 	ref class RemoteCallAPI abstract
 	{
 	public:
-		delegate ValueType^ CallbackFn(List<ValueType^>^);
+		delegate Value_Type^ CallbackFn(List<Value_Type^>^);
 		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
 		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
 
@@ -583,6 +601,70 @@ namespace LLNET::RemoteCall
 		static bool RemoveNameSpace(String^ nameSpace);
 		static bool RemoveFuncs(List<Pair<String^, String^>>^ funcs);
 
+		generic<typename TDelegate>
+		where TDelegate:System::Delegate
+			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
+		{
+			return RemoteCallFunctionManager::_ExportAs<TDelegate>(nameSpace, funcName, f);
+		}
+	internal:
+		ref class RemoteCallFunctionManager sealed {
+		public:
+			generic<typename TDelegate>
+			where TDelegate : System::Delegate
+				static bool _ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
+			{
+				auto func = gcnew Function(nameSpace, funcName, f);
+				auto ret = ExportFunc(nameSpace, funcName, gcnew CallbackFn(func, Function::Invoke));
+				if (ret)
+				{
+					RemoteCallFunction->Add(func);
+				}
+				return ret;
+			}
+		private:
+			ref class Function {
+			public:
+				Function(String^ nameSpace, String^ funcName, System::Delegate^ f)
+					:NameSpace(nameSpace), FuncName(funcName), delfunc(f)
+				{
+				}
+
+				String^ NameSpace;
+				String^ FuncName;
+				System::Delegate^ delfunc;
+			public:
+				Value_Type^ Invoke(List<Value_Type^>^ args) {
+
+				}
+			};
+		private:
+			static bool IsElementType(System::Type^ type) {
+				for each (auto var in Simple_ElementType) {
+					if (type == var)
+						return true;
+				}
+				return false;
+			}
+			static List<Function^>^ RemoteCallFunction = gcnew List<Function^>;
+			static array<System::Type^>^ Simple_ElementType = gcnew array<System::Type^>
+			{
+				void::typeid,
+					bool::typeid,
+					String::typeid,
+					NumberType::typeid,
+					MC::Player::typeid,
+					MC::Actor::typeid,
+					MC::BlockActor::typeid,
+					MC::Container::typeid,
+					MC::Vec3::typeid,
+					MC::BlockPos::typeid,
+					ItemType::typeid,
+					BlockType::typeid,
+					NbtType::typeid
+			};
+		};
+
 	public:
 		//防止gc回收
 		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;
@@ -592,7 +674,7 @@ namespace LLNET::RemoteCall
 		{
 		private:
 			::RemoteCall::CallbackFn const* pFunc;
-			ValueType^ Invoke(List<ValueType^>^ list) {
+			Value_Type^ Invoke(List<Value_Type^>^ list) {
 				NULL_ARG_CHEEK(list);
 
 				auto count = (size_t)list->Count;
@@ -603,7 +685,7 @@ namespace LLNET::RemoteCall
 					stdvector.emplace_back(*list[i]->NativePtr);
 				}
 				auto ret = (*pFunc)(stdvector);
-				return gcnew ValueType(ret);
+				return gcnew Value_Type(ret);
 			};
 			RemoteCallHelper(::RemoteCall::CallbackFn const* p)
 				: pFunc(p)
