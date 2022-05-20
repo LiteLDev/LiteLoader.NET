@@ -7,10 +7,10 @@ namespace LLNET::RemoteCall
 	DelegateToNativeHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, ::RemoteCall::ValueType, std::vector<::RemoteCall::ValueType> vec)
 	{
 		auto size = (int)vec.size();
-		auto arg = gcnew List<ValueType^>(size);
+		auto arg = gcnew List<Value_Type^>(size);
 		for (auto& item : vec)
 		{
-			arg->Add(gcnew ValueType(item));
+			arg->Add(gcnew Value_Type(item));
 		}
 		try
 		{
