@@ -4,7 +4,6 @@
 
 namespace MC
 {
-ref class Attribute;
 ref class NetworkIdentifier;
 ref class Certificate;
 ref struct ScorePacketInfo;
@@ -14,6 +13,8 @@ ref class Mob;
 ref class Container;
 ref class ItemStack;
 ref class CompoundTag;
+ref class Attribute;
+
 } // namespace MC
 
 namespace MC

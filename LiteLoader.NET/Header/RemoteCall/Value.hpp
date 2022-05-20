@@ -223,6 +223,16 @@ namespace LLNET::RemoteCall {
 			return this;
 		}
 
+		Value^ operator=(bool v) {
+			*NativePtr = v;
+			return this;
+		}
+
+		Value^ operator=(String^ v) {
+			*NativePtr = marshalString(v);
+			return this;
+		}
+
 		Value^ operator=(NumberType v) {
 			*NativePtr = v._toNative();
 			return this;

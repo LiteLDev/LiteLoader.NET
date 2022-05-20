@@ -22,12 +22,11 @@ namespace ExamplePlugin.Examples
             RemoteCallAPI.ExportFunc(".NET", "ExampleCall", (args) =>
             {
 
-                args[0].Get<Value>().AsNumberType(out var Number);
-                var a1 = Number.Get<int>();
+                int a1 = args[0];
 
-                args[1].Get<Value>().AsBool(out var a2);
+                bool a2 = args[1];
 
-                var list = args[2].Get<Value_Type.ArrayType>();
+                var list = args[2].Get<ArrayType>();
                 List<string> strArr = new(list.value.Count);
                 foreach (var item in list.value)
                 {
@@ -45,7 +44,7 @@ namespace ExamplePlugin.Examples
                 logger.info.WriteLine($"a2:{a2}");
                 logger.info.WriteLine($"strArr< count:{strArr.Count},str:{builder}>");
 
-                return new(new Value(0.0));
+                return 0.0;
             });
         }
     }

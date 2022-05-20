@@ -79,4 +79,54 @@ namespace LLNET::RemoteCall {
 		{
 		}
 	};
+
+
+
+	ref class Valuetype;
+
+	enum class InstanceType : size_t
+	{
+		Value = 0,
+		ObjectType = 1,
+		ArrayType = 2,
+	};
+
+	[System::AttributeUsage(System::AttributeTargets::Class)]
+	public ref class RemoteCallValueTypeAttribute : System::Attribute
+	{
+	public:
+		InstanceType type;
+		RemoteCallValueTypeAttribute(InstanceType t)
+			: type(t)
+		{
+		}
+	};
+
+	[RemoteCallValueType(InstanceType::ObjectType)]
+	public ref class ObjectType : IValueType
+	{
+	public:
+		ObjectType(Dictionary<String^, Valuetype^>^ v)
+			: value(v)
+		{
+		}
+		operator Dictionary<String^, Valuetype^> ^ () {
+			return value;
+		};
+		Dictionary<String^, Valuetype^>^ value;
+	};
+
+	[RemoteCallValueType(InstanceType::ArrayType)]
+	public ref class ArrayType : IValueType
+	{
+	public:
+		ArrayType(List<Valuetype^>^ v)
+			:value(v)
+		{
+		}
+		operator List<Valuetype^> ^ () {
+			return value;
+		}
+		List<Valuetype^>^ value;
+	};
 }
