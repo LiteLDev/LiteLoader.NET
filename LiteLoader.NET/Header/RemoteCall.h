@@ -615,7 +615,7 @@ namespace LLNET::RemoteCall
 				static bool _ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
 			{
 				auto func = gcnew Function(nameSpace, funcName, f);
-				auto ret = ExportFunc(nameSpace, funcName, gcnew CallbackFn(func, Function::Invoke));
+				auto ret = ExportFunc(nameSpace, funcName, gcnew CallbackFn(func, &Function::Invoke));
 				if (ret)
 				{
 					RemoteCallFunction->Add(func);
@@ -635,7 +635,7 @@ namespace LLNET::RemoteCall
 				System::Delegate^ delfunc;
 			public:
 				Value_Type^ Invoke(List<Value_Type^>^ args) {
-
+					throw gcnew System::NotImplementedException;
 				}
 			};
 		private:

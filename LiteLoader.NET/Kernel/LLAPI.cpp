@@ -92,32 +92,32 @@ LLNET::LL::Version^ LLNET::LL::Version::parse(System::String^ str)
     return gcnew Version(::LL::Version::parse(marshalString<Encoding::E_UTF8>(str)));
 }
 
-System::String^ LLNET::LL::LLAPI::getLoaderVersionString()
+System::String^ LLNET::LL::LLAPI::GetLoaderVersionString()
 {
     return marshalString<Encoding::E_UTF8>(::LL::getLoaderVersionString());
 }
 
-LLNET::LL::Version^ LLNET::LL::LLAPI::getLoaderVersion()
+LLNET::LL::Version^ LLNET::LL::LLAPI::GetLoaderVersion()
 {
     return gcnew Version(::LL::getLoaderVersion());
 }
 
-bool LLNET::LL::LLAPI::isDebugMode()
+bool LLNET::LL::LLAPI::IsDebugMode()
 {
     return ::LL::isDebugMode();
 }
 
-System::String^ LLNET::LL::LLAPI::getDataPath(System::String^ pluginName)
+System::String^ LLNET::LL::LLAPI::GetDataPath(System::String^ pluginName)
 {
     return marshalString<Encoding::E_UTF8>(::LL::getDataPath(marshalString<Encoding::E_UTF8>(pluginName)));
 }
 
-inline bool LLNET::LL::LLAPI::registerPlugin(System::String^ name, System::String^ introduction, Version^ version)
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String^ name, System::String^ introduction, Version^ version)
 {
     return PluginManager::registerPlugin(name, introduction, version, nullptr, Assembly::GetCallingAssembly());
 }
 
-inline bool LLNET::LL::LLAPI::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, System::String^ git, System::String^ license, System::String^ website)
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String^ name, System::String^ introduction, Version^ version, System::String^ git, System::String^ license, System::String^ website)
 {
     auto others = gcnew Dictionary<String^, String^>;
     if (!String::IsNullOrEmpty(git)) others->Add("Git", git);
@@ -126,69 +126,69 @@ inline bool LLNET::LL::LLAPI::registerPlugin(System::String^ name, System::Strin
     return PluginManager::registerPlugin(name, introduction, version, others, Assembly::GetCallingAssembly());
 }
 
-inline bool LLNET::LL::LLAPI::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<String^, String^>^ others)
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<String^, String^>^ others)
 {
     return PluginManager::registerPlugin(name, introduction, version, others, Assembly::GetCallingAssembly());
 }
 
-inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::getPlugin(System::String^ name)
+inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::String^ name)
 {
     return PluginManager::getPlugin(name, true, true);
 }
 
-inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::getPlugin(System::String^ name, bool includeNativePlugin)
+inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::String^ name, bool includeNativePlugin)
 {
     return PluginManager::getPlugin(name, includeNativePlugin, true);
 }
 
-inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::getPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
+inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
 {
     return PluginManager::getPlugin(name, includeNativePlugin, includeScriptPlugin);
 }
 
-inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::getPlugin(System::IntPtr% handler)
+inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::IntPtr% handler)
 {
     return PluginManager::getPlugin(handler);
 }
 
-inline Assembly^ LLNET::LL::LLAPI::getPluginAssembly(System::String^ name)
+inline Assembly^ LLNET::LL::LLAPI::GetPluginAssembly(System::String^ name)
 {
     return PluginManager::getPluginAssembly(name);
 }
 
-inline Assembly^ LLNET::LL::LLAPI::getPluginAssembly(Plugin^ plugin)
+inline Assembly^ LLNET::LL::LLAPI::GetPluginAssembly(Plugin^ plugin)
 {
     return PluginManager::getPluginAssembly(plugin);
 }
 
-inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::getAllPlugins(bool includeNativePlugin, bool includeScriptPlugin)
+inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::GetAllPlugins(bool includeNativePlugin, bool includeScriptPlugin)
 {
     return PluginManager::getAllPlugins(includeNativePlugin, includeScriptPlugin);
 }
 
-inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::getAllPlugins(bool includeNativePlugin)
+inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::GetAllPlugins(bool includeNativePlugin)
 {
-    return getAllPlugins(includeNativePlugin, true);
+    return GetAllPlugins(includeNativePlugin, true);
 }
 
-inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::getAllPlugins()
+inline Dictionary<String^, LLNET::LL::Plugin^>^ LLNET::LL::LLAPI::GetAllPlugins()
 {
-    return getAllPlugins(true, true);
+    return GetAllPlugins(true, true);
 }
 
-inline bool LLNET::LL::LLAPI::hasPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
+inline bool LLNET::LL::LLAPI::HasPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
 {
     return PluginManager::hasPlugin(name, includeNativePlugin, includeScriptPlugin);
 }
 
-inline bool LLNET::LL::LLAPI::hasPlugin(System::String^ name, bool includeNativePlugin)
+inline bool LLNET::LL::LLAPI::HasPlugin(System::String^ name, bool includeNativePlugin)
 {
-    return hasPlugin(name, includeNativePlugin, true);
+    return HasPlugin(name, includeNativePlugin, true);
 }
 
-inline bool LLNET::LL::LLAPI::hasPlugin(System::String^ name)
+inline bool LLNET::LL::LLAPI::HasPlugin(System::String^ name)
 {
-    return hasPlugin(name, true, true);
+    return HasPlugin(name, true, true);
 }
 
 bool LLNET::LL::Plugin::IsManagedPlugin()
