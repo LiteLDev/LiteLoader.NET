@@ -55,6 +55,9 @@
     <Filter Include="Kernel\Scoreboard">
       <UniqueIdentifier>{9e803160-8fc8-4610-b8c5-0c124b593efa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\RemoteCall">
+      <UniqueIdentifier>{f29925e2-3ac2-401d-874c-62721b378bbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\AABB.cpp">
@@ -569,9 +572,6 @@
     <ClInclude Include="Header\Core\SecondaryRankPtr.h">
       <Filter>Header\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -622,6 +622,27 @@
     </ClInclude>
     <ClInclude Include="Header\Core\STLHelper\vector.hpp">
       <Filter>Header\Core\STLHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\RemoteCall.h">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\NumberType.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\include.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Interfaces.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ExtendType.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Value.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ValueType.hpp">
+      <Filter>Header\RemoteCall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

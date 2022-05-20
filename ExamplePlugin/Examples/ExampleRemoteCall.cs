@@ -45,7 +45,7 @@ namespace ExamplePlugin.Examples
                 logger.info.WriteLine($"a2:{a2}");
                 logger.info.WriteLine($"strArr< count:{strArr.Count},str:{builder}>");
 
-                return new Value_Type(new Value(new NumberType(0.0)));
+                return new(new Value(0.0));
             });
         }
     }

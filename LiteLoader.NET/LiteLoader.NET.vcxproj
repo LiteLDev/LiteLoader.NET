@@ -183,7 +183,13 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\Vec3.hpp" />
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
     <ClInclude Include="Header\PlayerInfo.h" />
-    <ClInclude Include="Header\RemoteCall.h" />
+    <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
+    <ClInclude Include="Header\RemoteCall\include.hpp" />
+    <ClInclude Include="Header\RemoteCall\Interfaces.hpp" />
+    <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
+    <ClInclude Include="Header\RemoteCall\RemoteCall.h" />
+    <ClInclude Include="Header\RemoteCall\Value.hpp" />
+    <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.h" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
     <ClInclude Include="Header\Server.h" />

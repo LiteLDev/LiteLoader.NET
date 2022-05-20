@@ -1,16 +1,13 @@
-#include "../Header/RemoteCall.h"
-
-#ifdef REMOTECALL_FIXED
-
+#include "../Header/RemoteCall/RemoteCall.h"
 namespace LLNET::RemoteCall
 {
 	DelegateToNativeHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, ::RemoteCall::ValueType, std::vector<::RemoteCall::ValueType> vec)
 	{
 		auto size = (int)vec.size();
-		auto arg = gcnew List<Value_Type^>(size);
+		auto arg = gcnew List<Valuetype^>(size);
 		for (auto& item : vec)
 		{
-			arg->Add(gcnew Value_Type(item));
+			arg->Add(gcnew Valuetype(item));
 		}
 		try
 		{
@@ -102,5 +99,3 @@ namespace LLNET::RemoteCall
 
 
 } // namespace LLNET::RemoteCall
-
-#endif
