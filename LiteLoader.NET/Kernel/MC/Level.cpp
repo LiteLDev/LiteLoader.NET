@@ -97,6 +97,10 @@ inline MapItemSavedData ^ Level::GetMapSavedData(ActorUniqueID ^ a0)
 {
     return gcnew MapItemSavedData(::Level::getMapSavedData(*a0));
 }
+inline Actor^ Level::CloneMob(Vec3^ pos, int dimid, Actor^ ac)
+{
+    return gcnew Actor(::Level::cloneMob(pos->operator ::Vec3 & (), dimid, ac->NativePtr));
+}
 inline Block ^ Level::GetBlock(BlockPos ^ pos, int dimId)
 {
     return gcnew Block(::Level::getBlock(pos->NativePtr, dimId));

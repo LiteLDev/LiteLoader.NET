@@ -55,6 +55,7 @@ public:
     inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);
     inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak);
     inline static MapItemSavedData ^ GetMapSavedData(ActorUniqueID ^ a0);
+    inline static Actor^ CloneMob(Vec3^ pos, int dimid, Actor^ ac);
 
     // Block
     inline static Block ^ GetBlock(BlockPos ^ pos, int dimId);
