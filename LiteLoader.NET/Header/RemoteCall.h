@@ -167,7 +167,7 @@ namespace LLNET::RemoteCall
 		{
 		}
 		Value(NumberType num)
-			: ClassTemplate(new _T(num.operator ::RemoteCall::NumberType()), true)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
 		{
 		}
 		Value(MC::Player^ player)
@@ -344,7 +344,7 @@ namespace LLNET::RemoteCall
 		}
 
 		Value^ operator=(NumberType v) {
-			*NativePtr = v.operator ::RemoteCall::NumberType();
+			*NativePtr = ::RemoteCall::NumberType(v);
 			return this;
 		}
 
