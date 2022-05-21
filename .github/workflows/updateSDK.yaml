@@ -8,15 +8,17 @@ on:
 jobs:
   update:
     runs-on: macos-latest
-    
+
     steps:
-    
+
     - name: Checkout
       uses: actions/checkout@v3
-      
+      with:
+        ref: beta
+
     - name: Update SDK
       run: git submodule update --init --recursive --remote
-      
+
     - name: Push
       run: |
         git config --global user.name "github-actions[bot]"
