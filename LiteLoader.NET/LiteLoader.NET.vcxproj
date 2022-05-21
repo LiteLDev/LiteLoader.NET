@@ -70,6 +70,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PreBuildEvent>
       <Command>if not exist $(SolutionDir)SDK\Lib\bedrock_server_api.lib goto process

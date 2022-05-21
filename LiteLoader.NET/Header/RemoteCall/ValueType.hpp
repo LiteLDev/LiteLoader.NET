@@ -10,6 +10,7 @@ namespace LLNET::RemoteCall {
 		using _TValue = ::RemoteCall::Value;
 
 	public:
+#pragma region ctor
 		Valuetype()
 			: ClassTemplate(new _T(), true)
 		{
@@ -123,11 +124,12 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new _T(v), true)
 		{
 		}
-
+#pragma endregion
 	public:
 		using __ObjectType = Dictionary< String^, Valuetype^>;
 		//operator
 		using __ArrayType = List<Valuetype^>;
+#pragma region operator
 	public:
 		static operator Valuetype ^ (Value^ v) {
 			return gcnew Valuetype(v);
@@ -142,188 +144,120 @@ namespace LLNET::RemoteCall {
 			return gcnew Valuetype(v);
 		}
 
+	internal:
+
+		template<typename T>
+		static array<T>^ _arrayCast(ArrayType^ arr) {
+			auto len = arr->value->Count;
+			auto ret = gcnew array<T>(len);
+			for (int i = 0; i < len; ++i) {
+				ret[i] = static_cast<T>(list->value[i]);
+			}
+			return ret;
+		}
+	public:
 
 
-		static operator Valuetype ^ (bool v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (String^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (NumberType v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::Player^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::Actor^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::BlockActor^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::Container^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::Vec3^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (MC::BlockPos^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (ItemType^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (BlockType^ v) {
-			return gcnew Valuetype(v);
-		}
-		static operator Valuetype ^ (NbtType^ v) {
-			return gcnew Valuetype(v);
+		static operator Dictionary<String^, Valuetype^> ^ (Valuetype^ v) {
+			ObjectType^ dic;
+			if (!v->AsObjectType(dic))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			return dic->value;
 		}
 
-		static operator Valuetype ^ (double v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (float v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (__int64 v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (int v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (short v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (char v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (unsigned __int64 v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (unsigned int v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (unsigned short v) {
-			return gcnew Valuetype(gcnew Value(v));
-		}
-		static operator Valuetype ^ (signed char v) {
-			return gcnew Valuetype(gcnew Value(v));
+		static operator List<Valuetype^> ^ (Valuetype^ v) {
+			ArrayType^ arr;
+			if (!v->AsArrayType(arr))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			return arr->value;
 		}
 
+		static operator Value^ (Valuetype^ v) {
+			Value^ val;
+			if (!v->AsValue(val))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			return val;
+		}
+
+#define ElementType2Valuetype_Implicit(type)	\
+		static operator Valuetype ^ (type v) {	\
+			return gcnew Valuetype(v);			\
+		}
+
+		ElementType2Valuetype_Implicit(bool);
+		ElementType2Valuetype_Implicit(String^);
+		ElementType2Valuetype_Implicit(NumberType);
+		ElementType2Valuetype_Implicit(MC::Player^);
+		ElementType2Valuetype_Implicit(MC::Actor^);
+		ElementType2Valuetype_Implicit(MC::BlockActor^);
+		ElementType2Valuetype_Implicit(MC::Container^);
+		ElementType2Valuetype_Implicit(MC::Vec3^);
+		ElementType2Valuetype_Implicit(MC::BlockPos^);
+		ElementType2Valuetype_Implicit(ItemType^);
+		ElementType2Valuetype_Implicit(BlockType^);
+		ElementType2Valuetype_Implicit(NbtType^);
 
 
-		static operator bool(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (bool)val;
-		}
-		static operator String ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (String^)val;
-		}
-		static operator Valuetype ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (Valuetype^)val;
-		}
-		static operator MC::Player ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::Player^)val;
-		}
-		static operator MC::Actor ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::Actor^)val;
-		}
-		static operator MC::BlockActor ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::BlockActor^)val;
-		}
-		static operator MC::Container ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::Container^)val;
-		}
-		static operator MC::Vec3 ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::Vec3^)val;
-		}
-		static operator MC::BlockPos ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (MC::BlockPos^)val;
-		}
-		static operator ItemType ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (ItemType^)val;
-		}
-		static operator BlockType ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (BlockType^)val;
-		}
-		static operator NbtType ^ (Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (NbtType^)val;
-		}
-		static operator double(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (double)val;
-		}
-		static operator float(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (float)val;
-		}
-		static operator __int64(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (__int64)val;
-		}
-		static operator int(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (int)val;
-		}
-		static operator short(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (short)val;
-		}
-		static operator char(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (char)val;
-		}
-		static operator unsigned __int64(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (unsigned __int64)val;
-		}
-		static operator unsigned int(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (unsigned int)val;
-		}
-		static operator unsigned short(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (unsigned short)val;
-		}
-		static operator signed char(Valuetype^ v) {
-			Value^ val;
-			v->AsValue(val);
-			return (char)val;
-		}
+#define NumberType2Valuetype_Implicit(type)	\
+        static operator Valuetype ^(type v) {		\
+            return gcnew Valuetype(gcnew Value(v));	\
+        }
+
+		NumberType2Valuetype_Implicit(double);
+		NumberType2Valuetype_Implicit(float);
+		NumberType2Valuetype_Implicit(__int64);
+		NumberType2Valuetype_Implicit(int);
+		NumberType2Valuetype_Implicit(short);
+		NumberType2Valuetype_Implicit(char);
+		NumberType2Valuetype_Implicit(unsigned __int64);
+		NumberType2Valuetype_Implicit(unsigned int);
+		NumberType2Valuetype_Implicit(unsigned short);
+		NumberType2Valuetype_Implicit(signed char);
+
+
+#define Valuetype2ElementType_Implicit(type)		\
+        static operator type(Valuetype ^ v) {	\
+            Value ^ val;						\
+            v->AsValue(val);					\
+            return (type)val;					\
+        }
+
+		Valuetype2ElementType_Implicit(bool);
+		Valuetype2ElementType_Implicit(String^);
+		Valuetype2ElementType_Implicit(NumberType);
+		Valuetype2ElementType_Implicit(MC::Player^);
+		Valuetype2ElementType_Implicit(MC::Actor^);
+		Valuetype2ElementType_Implicit(MC::BlockActor^);
+		Valuetype2ElementType_Implicit(MC::Container^);
+		Valuetype2ElementType_Implicit(MC::Vec3^);
+		Valuetype2ElementType_Implicit(MC::BlockPos^);
+		Valuetype2ElementType_Implicit(ItemType^);
+		Valuetype2ElementType_Implicit(BlockType^);
+		Valuetype2ElementType_Implicit(NbtType^);
+		Valuetype2ElementType_Implicit(double);
+		Valuetype2ElementType_Implicit(float);
+		Valuetype2ElementType_Implicit(__int64);
+		Valuetype2ElementType_Implicit(int);
+		Valuetype2ElementType_Implicit(short);
+		Valuetype2ElementType_Implicit(char);
+		Valuetype2ElementType_Implicit(unsigned __int64);
+		Valuetype2ElementType_Implicit(unsigned int);
+		Valuetype2ElementType_Implicit(unsigned short);
+		Valuetype2ElementType_Implicit(signed char);
+
+#pragma endregion
+		//generic<typename T> where T : IValueType
+		//	static operator array<T> ^ (Valuetype^ v) {
+		//	ArrayType^ list;
+		//	if (!v->AsArrayType(list))
+		//		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		//	auto len = list->value->Count;
+		//	auto ret = gcnew array<T>(len);
+		//	for (int i = 0; i < len; ++i) {
+		//		ret[i] = T(list->value[i]);
+		//	}
+		//	return ret;
+		//}
 	public:
 		generic<typename T> where T : IValueType
 			T Get()

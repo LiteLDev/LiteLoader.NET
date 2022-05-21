@@ -26,9 +26,9 @@ namespace ExamplePlugin.Examples
 
                 bool a2 = args[1];
 
-                var list = args[2].Get<ArrayType>();
-                List<string> strArr = new(list.value.Count);
-                foreach (var item in list.value)
+                List<Valuetype> list = args[2];
+                List<string> strArr = new(list.Count);
+                foreach (var item in list)
                 {
                     item.Get<Value>().AsString(out var str);
                     strArr.Add(str);
