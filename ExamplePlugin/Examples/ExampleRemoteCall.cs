@@ -23,10 +23,9 @@ namespace ExamplePlugin.Examples
             {
 
                 int a1 = args[0];
-
                 bool a2 = args[1];
-
                 List<Valuetype> list = args[2];
+
                 List<string> strArr = new(list.Count);
                 foreach (var item in list)
                 {

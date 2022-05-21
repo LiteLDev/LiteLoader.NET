@@ -172,7 +172,7 @@ namespace LLNET::RemoteCall {
 			return arr->value;
 		}
 
-		static operator Value^ (Valuetype^ v) {
+		static operator Value ^ (Valuetype^ v) {
 			Value^ val;
 			if (!v->AsValue(val))
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
@@ -212,7 +212,7 @@ namespace LLNET::RemoteCall {
 		NumberType2Valuetype_Implicit(unsigned __int64);
 		NumberType2Valuetype_Implicit(unsigned int);
 		NumberType2Valuetype_Implicit(unsigned short);
-		NumberType2Valuetype_Implicit(signed char);
+		NumberType2Valuetype_Implicit(unsigned char);
 
 
 #define Valuetype2ElementType_Implicit(type)		\
@@ -243,7 +243,43 @@ namespace LLNET::RemoteCall {
 		Valuetype2ElementType_Implicit(unsigned __int64);
 		Valuetype2ElementType_Implicit(unsigned int);
 		Valuetype2ElementType_Implicit(unsigned short);
-		Valuetype2ElementType_Implicit(signed char);
+		Valuetype2ElementType_Implicit(unsigned char);
+
+
+#define Valuetype2List_Implicit(type)						\
+		static operator List<type> ^ (Valuetype^ v) {		\
+			auto list = (List<Valuetype^>^)(v);				\
+			auto ret = gcnew List<type>(list->Count);	\
+			for each (auto var in list)						\
+			{												\
+				ret->Add((type)var);						\
+			}												\
+			return ret;										\
+		}
+
+
+		Valuetype2List_Implicit(String^);
+		Valuetype2List_Implicit(MC::Player^);
+		Valuetype2List_Implicit(MC::Actor^);
+		Valuetype2List_Implicit(MC::BlockActor^);
+		Valuetype2List_Implicit(MC::Container^);
+		Valuetype2List_Implicit(MC::Vec3^);
+		Valuetype2List_Implicit(MC::BlockPos^);
+		Valuetype2List_Implicit(ItemType^);
+		Valuetype2List_Implicit(BlockType^);
+		Valuetype2List_Implicit(NbtType^);
+		Valuetype2List_Implicit(bool);
+		Valuetype2List_Implicit(NumberType);
+		Valuetype2List_Implicit(double);
+		Valuetype2List_Implicit(float);
+		Valuetype2List_Implicit(__int64);
+		Valuetype2List_Implicit(int);
+		Valuetype2List_Implicit(short);
+		Valuetype2List_Implicit(char);
+		Valuetype2List_Implicit(unsigned __int64);
+		Valuetype2List_Implicit(unsigned int);
+		Valuetype2List_Implicit(unsigned short);
+		Valuetype2List_Implicit(unsigned char);
 
 #pragma endregion
 		//generic<typename T> where T : IValueType

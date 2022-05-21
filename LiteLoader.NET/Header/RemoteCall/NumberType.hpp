@@ -38,7 +38,7 @@ namespace LLNET::RemoteCall {
 		NumberType(unsigned short v)
 			: i(static_cast<__int64>(v))
 			, f(static_cast<double>(v)) {};
-		NumberType(signed char v)
+		NumberType(unsigned char v)
 			: i(static_cast<__int64>(v))
 			, f(static_cast<double>(v)) {};
 	internal:
@@ -73,7 +73,7 @@ namespace LLNET::RemoteCall {
 		static operator NumberType(unsigned short v) {
 			return NumberType(v);
 		}
-		static operator NumberType(signed char v) {
+		static operator NumberType(unsigned char v) {
 			return NumberType(v);
 		}
 		static operator double(NumberType v) {
@@ -103,7 +103,7 @@ namespace LLNET::RemoteCall {
 		static operator unsigned short(NumberType v) {
 			return static_cast<unsigned short>(v.i);
 		}
-		static operator signed char(NumberType v) {
+		static operator unsigned char(NumberType v) {
 			return static_cast<unsigned char>(v.i);
 		}
 		//method
@@ -124,7 +124,7 @@ namespace LLNET::RemoteCall {
 		short AsShort(NumberType v) {
 			return static_cast<short>(v.i);
 		}
-		char AsByte(NumberType v) {
+		char AsSByte(NumberType v) {
 			return static_cast<char>(v.i);
 		}
 		unsigned __int64 AsUInt64(NumberType v) {
@@ -136,7 +136,7 @@ namespace LLNET::RemoteCall {
 		unsigned short AsUShort(NumberType v) {
 			return static_cast<unsigned short>(v.i);
 		}
-		signed char AsSByte(NumberType v) {
+		unsigned char AsByte(NumberType v) {
 			return static_cast<unsigned char>(v.i);
 		}
 

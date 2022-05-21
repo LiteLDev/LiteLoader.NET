@@ -17,3 +17,4 @@
 #define NumberType2Valuetype_Implicit(type) static operator Valuetype ^(type v) { return gcnew Valuetype(gcnew Value(v)); }
 #define Valuetype2ElementType(type) static operator type(Valuetype ^ v) { Value ^ val; v->AsValue(val); return (type)val; }
 #define Valuetype2ElementType_Implicit(type) static operator type(Valuetype ^ v) { Value ^ val; v->AsValue(val); return (type)val; }
+#define Valuetype2List_Implicit(type) static operator List<type> ^ (Valuetype^ v) { auto list = (List<Valuetype^>^)(v); auto ret = gcnew List<type>(list->Count); for each (auto var in list) { ret->Add((type)var); } return ret; }

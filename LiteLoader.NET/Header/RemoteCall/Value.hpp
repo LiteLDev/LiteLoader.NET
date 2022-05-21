@@ -323,64 +323,76 @@ namespace LLNET::RemoteCall {
 
 		static operator bool(Value^ v) {
 			bool ret;
-			v->AsBool(ret);
+			if (!v->AsBool(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator String ^ (Value^ v) {
 
 			String^ ret;
-			v->AsString(ret);
+			if (!v->AsString(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator NumberType (Value^ v) {
 			NumberType ret;
-			v->AsNumberType(ret);
+			if (!v->AsNumberType(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Player ^ (Value^ v) {
 
 			MC::Player^ ret;
-			v->AsPlayer(ret);
+			if (!v->AsPlayer(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Actor ^ (Value^ v) {
 			MC::Actor^ ret;
-			v->AsActor(ret);
+			if (!v->AsActor(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::BlockActor ^ (Value^ v) {
 			MC::BlockActor^ ret;
-			v->AsBlockActor(ret);
+			if (!v->AsBlockActor(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Container ^ (Value^ v) {
 			MC::Container^ ret;
-			v->AsContainer(ret);
+			if (!v->AsContainer(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Vec3 ^ (Value^ v) {
 			MC::Vec3^ ret;
-			v->AsVec3(ret);
+			if (!v->AsVec3(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::BlockPos ^ (Value^ v) {
 			MC::BlockPos^ ret;
-			v->AsBlockPos(ret);
+			if (!v->AsBlockPos(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator ItemType ^ (Value^ v) {
 			ItemType^ ret;
-			v->AsItemType(ret);
+			if (!v->AsItemType(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator BlockType ^ (Value^ v) {
 			BlockType^ ret;
-			v->AsBlockType(ret);
+			if (!v->AsBlockType(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator NbtType ^ (Value^ v) {
 			NbtType^ ret;
-			v->AsNbtType(ret);
+			if (!v->AsNbtType(ret))
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
 	};
