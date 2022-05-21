@@ -24,14 +24,7 @@ namespace ExamplePlugin.Examples
 
                 int a1 = args[0];
                 bool a2 = args[1];
-                List<Valuetype> list = args[2];
-
-                List<string> strArr = new(list.Count);
-                foreach (var item in list)
-                {
-                    item.Get<Value>().AsString(out var str);
-                    strArr.Add(str);
-                }
+                List<string> strArr = args[2];
 
                 StringBuilder builder = new();
                 foreach(var item in strArr)

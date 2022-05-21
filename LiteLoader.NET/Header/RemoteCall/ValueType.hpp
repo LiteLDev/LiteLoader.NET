@@ -249,7 +249,7 @@ namespace LLNET::RemoteCall {
 #define Valuetype2List_Implicit(type)						\
 		static operator List<type> ^ (Valuetype^ v) {		\
 			auto list = (List<Valuetype^>^)(v);				\
-			auto ret = gcnew List<type>(list->Count);	\
+			auto ret = gcnew List<type>(list->Count);		\
 			for each (auto var in list)						\
 			{												\
 				ret->Add((type)var);						\
