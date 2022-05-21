@@ -1,10 +1,11 @@
 ﻿#region Configs
 
-#define _LOGGER_
-#define _EVENT_
-#define _SCHEDULE_
-#define _THOOK_
-#define _COMMAND_
+//#define _LOGGER_
+//#define _EVENT_
+//#define _SCHEDULE_
+//#define _THOOK_
+//#define _COMMAND_
+#define _REMOTECALL_
 
 #endregion
 
@@ -44,6 +45,10 @@ namespace PluginMain
 #if _COMMAND_
             ExampleCommand exampleCommand = new();
             exampleCommand.Execute();
+#endif
+#if _REMOTECALL_
+            ExampleRemoteCall exampleRemoteCall = new();
+            exampleRemoteCall.Execute();
 #endif
         }
     }

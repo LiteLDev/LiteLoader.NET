@@ -10,7 +10,6 @@ namespace LLNET::RemoteCall {
 		using _TValue = ::RemoteCall::Value;
 
 	public:
-#pragma region ctor
 		Valuetype()
 			: ClassTemplate(new _T(), true)
 		{
@@ -51,6 +50,33 @@ namespace LLNET::RemoteCall {
 			NativePtr = new _T(std::move(vec));
 			OwnsNativeInstance = true;
 		}
+
+
+		Valuetype(List<String^>^ v)
+		{
+			auto len = v->Count;
+			std::vector<_T> vec;
+			vec.resize(len);
+			for (int i = 0; i < len; i++)
+			{
+				vec.emplace_back(marshalString(v[i]));
+			}
+			NativePtr = new _T(std::move(vec));
+			OwnsNativeInstance = true;
+		}
+		Valuetype(List<NumberType>^ v)
+		{
+			auto len = v->Count;
+			std::vector<_T> vec;
+			vec.resize(len);
+			for (int i = 0; i < len; i++)
+			{
+				vec.emplace_back(v[i]._toNative());
+			}
+			NativePtr = new _T(std::move(vec));
+			OwnsNativeInstance = true;
+		}
+
 		Valuetype(Dictionary<String^, Valuetype^>^ v)
 		{
 			auto len = v->Count;
@@ -124,12 +150,9 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new _T(v), true)
 		{
 		}
-#pragma endregion
 	public:
 		using __ObjectType = Dictionary< String^, Valuetype^>;
-		//operator
 		using __ArrayType = List<Valuetype^>;
-#pragma region operator
 	public:
 		static operator Valuetype ^ (Value^ v) {
 			return gcnew Valuetype(v);
@@ -142,18 +165,6 @@ namespace LLNET::RemoteCall {
 		}
 		static operator Valuetype ^ (Dictionary<String^, Valuetype^>^ v) {
 			return gcnew Valuetype(v);
-		}
-
-	internal:
-
-		template<typename T>
-		static array<T>^ _arrayCast(ArrayType^ arr) {
-			auto len = arr->value->Count;
-			auto ret = gcnew array<T>(len);
-			for (int i = 0; i < len; ++i) {
-				ret[i] = static_cast<T>(list->value[i]);
-			}
-			return ret;
 		}
 	public:
 
@@ -178,6 +189,100 @@ namespace LLNET::RemoteCall {
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return val;
 		}
+
+#define ctor_List_NumberType(type)				\
+		Valuetype(List<type>^ v)				\
+		{										\
+			auto len = v->Count;				\
+			std::vector<_T> vec;				\
+			vec.resize(len);					\
+			for (int i = 0; i < len; i++)		\
+			{									\
+				vec.emplace_back(v[i]);			\
+			}									\
+			NativePtr = new _T(std::move(vec));	\
+			OwnsNativeInstance = true;			\
+		};
+
+		ctor_List_NumberType(bool);
+		ctor_List_NumberType(double);
+		ctor_List_NumberType(float);
+		ctor_List_NumberType(__int64);
+		ctor_List_NumberType(int);
+		ctor_List_NumberType(short);
+		ctor_List_NumberType(char);
+		ctor_List_NumberType(unsigned __int64);
+		ctor_List_NumberType(unsigned int);
+		ctor_List_NumberType(unsigned short);
+		ctor_List_NumberType(unsigned char);
+
+
+#define ctor_List_RefType_Ptr(type)					\
+		Valuetype(List<type>^ v)					\
+		{											\
+			auto len = v->Count;					\
+			std::vector<_T> vec;					\
+			vec.resize(len);						\
+			for (int i = 0; i < len; i++)			\
+			{										\
+				vec.emplace_back(v[i]->NativePtr);	\
+			}										\
+			NativePtr = new _T(std::move(vec));		\
+			OwnsNativeInstance = true;				\
+		};
+#define ctor_List_RefType_Instance(type)			\
+		Valuetype(List<type>^ v)					\
+		{											\
+			auto len = v->Count;					\
+			std::vector<_T> vec;					\
+			vec.resize(len);						\
+			for (int i = 0; i < len; i++)			\
+			{										\
+				vec.emplace_back(*v[i]->NativePtr);	\
+			}										\
+			NativePtr = new _T(std::move(vec));		\
+			OwnsNativeInstance = true;				\
+		};
+
+
+		ctor_List_RefType_Ptr(MC::Player^);
+		ctor_List_RefType_Ptr(MC::Actor^);
+		ctor_List_RefType_Ptr(MC::BlockActor^);
+		ctor_List_RefType_Ptr(MC::Container^);
+
+		ctor_List_RefType_Instance(MC::Vec3^);
+		ctor_List_RefType_Instance(MC::BlockPos^);
+		ctor_List_RefType_Instance(ItemType^);
+		ctor_List_RefType_Instance(BlockType^);
+		ctor_List_RefType_Instance(NbtType^);
+
+#define List_Type2Valuetype(type)					\
+		static operator Valuetype^ (List<type>^ v) {	\
+			return gcnew Valuetype(v);					\
+		};
+
+		List_Type2Valuetype(double);
+		List_Type2Valuetype(float);
+		List_Type2Valuetype(__int64);
+		List_Type2Valuetype(int);
+		List_Type2Valuetype(short);
+		List_Type2Valuetype(char);
+		List_Type2Valuetype(unsigned __int64);
+		List_Type2Valuetype(unsigned int);
+		List_Type2Valuetype(unsigned short);
+		List_Type2Valuetype(unsigned char);
+		List_Type2Valuetype(bool);
+		List_Type2Valuetype(NumberType);
+		List_Type2Valuetype(String^);
+		List_Type2Valuetype(MC::Player^);
+		List_Type2Valuetype(MC::Actor^);
+		List_Type2Valuetype(MC::BlockActor^);
+		List_Type2Valuetype(MC::Container^);
+		List_Type2Valuetype(MC::Vec3^);
+		List_Type2Valuetype(MC::BlockPos^);
+		List_Type2Valuetype(ItemType^);
+		List_Type2Valuetype(BlockType^);
+		List_Type2Valuetype(NbtType^);
 
 #define ElementType2Valuetype_Implicit(type)	\
 		static operator Valuetype ^ (type v) {	\
@@ -281,19 +386,17 @@ namespace LLNET::RemoteCall {
 		Valuetype2List_Implicit(unsigned short);
 		Valuetype2List_Implicit(unsigned char);
 
-#pragma endregion
-		//generic<typename T> where T : IValueType
-		//	static operator array<T> ^ (Valuetype^ v) {
-		//	ArrayType^ list;
-		//	if (!v->AsArrayType(list))
-		//		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
-		//	auto len = list->value->Count;
-		//	auto ret = gcnew array<T>(len);
-		//	for (int i = 0; i < len; ++i) {
-		//		ret[i] = T(list->value[i]);
-		//	}
-		//	return ret;
-		//}
+
+#define List2Valuetype_Implicit(type)						\
+		static operator Valuetype^ ( List<type> ^ v) {		\
+			auto list = (List<Valuetype^>^)(v);				\
+			auto ret = gcnew List<type>(list->Count);		\
+			for each (auto var in list)						\
+			{												\
+				ret->Add((type)var);						\
+			}												\
+			return ret;										\
+		}
 	public:
 		generic<typename T> where T : IValueType
 			T Get()

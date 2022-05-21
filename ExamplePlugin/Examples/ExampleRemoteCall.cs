@@ -26,18 +26,20 @@ namespace ExamplePlugin.Examples
                 bool a2 = args[1];
                 List<string> strArr = args[2];
 
-                StringBuilder builder = new();
-                foreach(var item in strArr)
-                {
-                    builder.Append(item).Append(' ');
-                }
-
                 logger.info.WriteLine($"a1:{a1}");
                 logger.info.WriteLine($"a2:{a2}");
-                logger.info.WriteLine($"strArr< count:{strArr.Count},str:{builder}>");
+
+                for (var i = 0; i<strArr.Count; ++i)
+                {
+                    logger.info.WriteLine($"strArr[{i}]<{strArr[i]}>");
+                }
 
                 return 0.0;
             });
+
+            var func = RemoteCallAPI.ImportFunc(".NET", "ExampleCall");
+
+            logger.info.WriteLine($"ReturnVal:{func(new() { 1, false, new List<string> { "1", "2", "3" } })}");
         }
     }
 }

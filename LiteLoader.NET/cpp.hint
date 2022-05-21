@@ -18,3 +18,9 @@
 #define Valuetype2ElementType(type) static operator type(Valuetype ^ v) { Value ^ val; v->AsValue(val); return (type)val; }
 #define Valuetype2ElementType_Implicit(type) static operator type(Valuetype ^ v) { Value ^ val; v->AsValue(val); return (type)val; }
 #define Valuetype2List_Implicit(type) static operator List<type> ^ (Valuetype^ v) { auto list = (List<Valuetype^>^)(v); auto ret = gcnew List<type>(list->Count); for each (auto var in list) { ret->Add((type)var); } return ret; }
+#define ctor_NumberType(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(v[i]); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
+#define ctor_List_NumberType(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(v[i]); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
+#define List_NumberType2Valuetype(type) static operator Valuetype^ (List<type>^ v) { return gcnew Valuetype(v); };
+#define ctor_List_RefType_Ptr(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(v[i]->NativePtr); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
+#define ctor_List_RefType_Instance(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(*v[i]->NativePtr); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
+#define List_Type2Valuetype(type) static operator Valuetype^ (List<type>^ v) { return gcnew Valuetype(v); };
