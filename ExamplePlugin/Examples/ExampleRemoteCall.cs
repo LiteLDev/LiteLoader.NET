@@ -15,31 +15,52 @@ namespace ExamplePlugin.Examples
 
         static readonly Logger logger = new("ExampleRemoteCall");
 
+        static void Test(bool val)
+        {
+            logger.warn.WriteLine(val);
+        }
+
         public void Execute()
         {
             //double ExampleCall(int a1,bool a2,List<string> strArr)
 
-            RemoteCallAPI.ExportFunc(".NET", "ExampleCall", (args) =>
+            var succeed = RemoteCallAPI.ExportFunc(".NET", "ExampleCall", (args) =>
             {
 
-                int a1 = args[0];
-                bool a2 = args[1];
-                List<string> strArr = args[2];
+                var a = args[0];
 
-                logger.info.WriteLine($"a1:{a1}");
-                logger.info.WriteLine($"a2:{a2}");
+                Test(a.AsValue(out var val0));
+                Test(val0.AsNumberType(out var number0));
+                var a1 = number0.AsInt();
 
-                for (var i = 0; i<strArr.Count; ++i)
-                {
-                    logger.info.WriteLine($"strArr[{i}]<{strArr[i]}>");
-                }
+                var b = args[1];
 
-                return 0.0;
+                Test(b.AsValue(out var val1));
+                Test(val1.AsBool(out var a2));
+
+
+
+                //List<string> strArr = args[2];
+
+                //logger.info.WriteLine($"a1:{a1}");
+                //logger.info.WriteLine($"a2:{a2}");
+
+                //for (var i = 0; i<strArr.Count; ++i)
+                //{
+                //    logger.info.WriteLine($"strArr[{i}]<{strArr[i]}>");
+                //}
+
+                var ret = new Valuetype(233);
+                return ret;
             });
 
-            var func = RemoteCallAPI.ImportFunc(".NET", "ExampleCall");
+            logger.warn.WriteLine(succeed);
 
-            logger.info.WriteLine($"ReturnVal:{func(new() { 1, false, new List<string> { "1", "2", "3" } })}");
+            var func = RemoteCallAPI.ImportFunc(".NET", "ExampleCall");
+            var ret = func(new() { 123456, true, 233.0 });
+            double d = ret;
+
+            logger.info.WriteLine($"ReturnVal:{d}");
         }
     }
 }

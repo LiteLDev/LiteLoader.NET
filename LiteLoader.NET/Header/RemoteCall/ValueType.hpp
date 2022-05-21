@@ -320,7 +320,7 @@ namespace LLNET::RemoteCall {
 		NumberType2Valuetype_Implicit(unsigned char);
 
 
-#define Valuetype2ElementType_Implicit(type)		\
+#define Valuetype2ElementType_Implicit(type)	\
         static operator type(Valuetype ^ v) {	\
             Value ^ val;						\
             v->AsValue(val);					\
@@ -339,16 +339,22 @@ namespace LLNET::RemoteCall {
 		Valuetype2ElementType_Implicit(ItemType^);
 		Valuetype2ElementType_Implicit(BlockType^);
 		Valuetype2ElementType_Implicit(NbtType^);
-		Valuetype2ElementType_Implicit(double);
-		Valuetype2ElementType_Implicit(float);
-		Valuetype2ElementType_Implicit(__int64);
-		Valuetype2ElementType_Implicit(int);
-		Valuetype2ElementType_Implicit(short);
-		Valuetype2ElementType_Implicit(char);
-		Valuetype2ElementType_Implicit(unsigned __int64);
-		Valuetype2ElementType_Implicit(unsigned int);
-		Valuetype2ElementType_Implicit(unsigned short);
-		Valuetype2ElementType_Implicit(unsigned char);
+
+#define Valuetype2SimpleType_Implicit(type)		\
+		static operator type(Valuetype^ v) {	\
+			return (type)(NumberType)v;			\
+		};
+
+		Valuetype2SimpleType_Implicit(double);
+		Valuetype2SimpleType_Implicit(float);
+		Valuetype2SimpleType_Implicit(__int64);
+		Valuetype2SimpleType_Implicit(int);
+		Valuetype2SimpleType_Implicit(short);
+		Valuetype2SimpleType_Implicit(char);
+		Valuetype2SimpleType_Implicit(unsigned __int64);
+		Valuetype2SimpleType_Implicit(unsigned int);
+		Valuetype2SimpleType_Implicit(unsigned short);
+		Valuetype2SimpleType_Implicit(unsigned char);
 
 
 #define Valuetype2List_Implicit(type)						\
@@ -488,6 +494,43 @@ namespace LLNET::RemoteCall {
 				ret->Add(gcnew Valuetype(i));
 			}
 			return ret;
+		}
+	public:
+		virtual String^ ToString() override {
+			auto type = InstanceType(NativePtr->value.index());
+
+			String^ info = nullptr;
+			switch (type)
+			{
+			case InstanceType::Value:
+			{
+				Value^ val;
+				this->AsValue(val);
+				info = "Value" + L',' + val->ToString();
+
+			}
+			break;
+			case InstanceType::ArrayType:
+			{
+				ArrayType^ arr;
+				this->AsArrayType(arr);
+				info = "ArrayType" + L',' + arr->ToString();
+			}
+			break;
+			case InstanceType::ObjectType:
+			{
+				ObjectType^ obj;
+				this->AsObjectType(obj);
+				info = "ObjectType" + L',' + obj->ToString();
+			}
+			break;
+			}
+			return info;
+		}
+		property InstanceType Type {
+			InstanceType get() {
+				return InstanceType(NativePtr->value.index());
+			}
 		}
 	};
 }

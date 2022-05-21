@@ -109,35 +109,35 @@ namespace LLNET::RemoteCall {
 		//method
 	public:
 
-		double AsDouble(NumberType v) {
-			return static_cast<double>(v.f);
+		double AsDouble() {
+			return static_cast<double>(f);
 		}
-		float AsFloat(NumberType v) {
-			return static_cast<float>(v.f);
+		float AsFloat() {
+			return static_cast<float>(f);
 		}
-		__int64 AsInt64(NumberType v) {
-			return static_cast<__int64>(v.i);
+		__int64 AsInt64() {
+			return static_cast<__int64>(i);
 		}
-		int AsInt(NumberType v) {
-			return static_cast<int>(v.i);
+		int AsInt() {
+			return static_cast<int>(i);
 		}
-		short AsShort(NumberType v) {
-			return static_cast<short>(v.i);
+		short AsShort() {
+			return static_cast<short>(i);
 		}
-		char AsSByte(NumberType v) {
-			return static_cast<char>(v.i);
+		char AsSByte() {
+			return static_cast<char>(i);
 		}
-		unsigned __int64 AsUInt64(NumberType v) {
-			return static_cast<unsigned __int64>(v.i);
+		unsigned __int64 AsUInt64() {
+			return static_cast<unsigned __int64>(i);
 		}
-		unsigned int AsUInt(NumberType v) {
-			return static_cast<unsigned int>(v.i);
+		unsigned int AsUInt() {
+			return static_cast<unsigned int>(i);
 		}
-		unsigned short AsUShort(NumberType v) {
-			return static_cast<unsigned short>(v.i);
+		unsigned short AsUShort() {
+			return static_cast<unsigned short>(i);
 		}
-		unsigned char AsByte(NumberType v) {
-			return static_cast<unsigned char>(v.i);
+		unsigned char AsByte() {
+			return static_cast<unsigned char>(i);
 		}
 
 		generic<typename T>
@@ -152,6 +152,10 @@ namespace LLNET::RemoteCall {
 		::RemoteCall::NumberType _toNative()
 		{
 			return ::RemoteCall::NumberType{ i, f };
+		}
+	public:
+		virtual String^ ToString() override {
+			return L'<' + f.ToString() + L',' + i.ToString() + L'>';
 		}
 	};
 }

@@ -12,6 +12,7 @@ namespace LLNET::RemoteCall
 		try
 		{
 			auto ret = delfunc(arg);
+			Console::WriteLine(ret->ToString());
 			return *ret->NativePtr;
 		}
 		catch (System::Exception^ ex)
@@ -49,7 +50,7 @@ namespace LLNET::RemoteCall
 		NULL_ARG_CHEEK(nameSpace);
 		NULL_ARG_CHEEK(funcName);
 
-		auto pfunc = &::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
+		auto& pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
 		auto pair = RemoteCallHelper::Create(pfunc);
 		GC::KeepAlive(pair.Key);
 		return pair.Value;

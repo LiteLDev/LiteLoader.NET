@@ -395,5 +395,108 @@ namespace LLNET::RemoteCall {
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
+
+#define Value2SimpleType_Implicit(type)												\
+		static operator type(Value^ v) {											\
+			if(v->NativePtr->index() != (size_t)InstanceType::NumberType)			\
+				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;			\
+			return std::get<::RemoteCall::NumberType>(*v->NativePtr).get<type>();	\
+		};
+
+		Value2SimpleType_Implicit(double);
+		Value2SimpleType_Implicit(float);
+		Value2SimpleType_Implicit(__int64);
+		Value2SimpleType_Implicit(int);
+		Value2SimpleType_Implicit(short);
+		Value2SimpleType_Implicit(char);
+		Value2SimpleType_Implicit(unsigned __int64);
+		Value2SimpleType_Implicit(unsigned int);
+		Value2SimpleType_Implicit(unsigned short);
+		Value2SimpleType_Implicit(unsigned char);
+
+	public:
+		virtual String^ ToString() override {
+			auto type = InstanceType(NativePtr->index());
+			String^ info;
+			switch (type)
+			{
+			case LLNET::RemoteCall::Value::InstanceType::Bool:
+				info = std::get<bool>(*NativePtr).ToString();
+				break;
+			case LLNET::RemoteCall::Value::InstanceType::String:
+				info = marshalString(std::get<std::string>(*NativePtr));
+				break;
+			case LLNET::RemoteCall::Value::InstanceType::Null:
+				info = "Null";
+				break;
+			case LLNET::RemoteCall::Value::InstanceType::NumberType:
+			{
+				auto& number = std::get<::RemoteCall::NumberType>(*NativePtr);
+				info = String::Format("<{0},{1}>", number.f, number.i);
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::Player:
+			{
+				auto p = std::get<::Player*>(*NativePtr);
+				info = String::Format("{0},{1}", marshalString(p->getRealName()), marshalString(p->getPos().toString()));
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::Actor:
+			{
+				auto p = std::get<::Actor*>(*NativePtr);
+				info = String::Format("{0},{1}", marshalString(p->getTypeName()), marshalString(p->getPos().toString()));
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::BlockActor:
+			{
+				auto p = std::get<::BlockActor*>(*NativePtr);
+				info = String::Format("{0},{1}", marshalString(p->getName()), marshalString(p->getPosition().toString()));
+
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::Container:
+			{
+				auto p = std::get<::Container*>(*NativePtr);
+				info = String::Format("{0},{1}", marshalString(p->getTypeName()), MC::ContainerType(p->getContainerType()));
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::Vec3:
+			{
+				auto& vec3 = std::get<::Vec3>(*NativePtr);
+				info = marshalString(vec3.toString());
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::BlockPos:
+			{
+				auto& pos = std::get<::BlockPos>(*NativePtr);
+				info = marshalString(pos.toString());
+				break;
+			}
+			case LLNET::RemoteCall::Value::InstanceType::ItemType:
+			{
+				ItemType^ item;
+				this->AsItemType(item);
+				info = item->ToString();
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::BlockType:
+			{
+				BlockType^ block;
+				this->AsBlockType(block);
+				info = block->ToString();
+			}
+			break;
+			case LLNET::RemoteCall::Value::InstanceType::NbtType:
+			{
+				NbtType^ nbt;
+				this->AsNbtType(nbt);
+				info = nbt->ToString();
+			}
+			break;
+			default:
+				break;
+			}
+			return type.ToString() + L',' + info;
+		}
 	};
 }

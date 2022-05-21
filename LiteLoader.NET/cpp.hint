@@ -24,3 +24,6 @@
 #define ctor_List_RefType_Ptr(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(v[i]->NativePtr); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
 #define ctor_List_RefType_Instance(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec.emplace_back(*v[i]->NativePtr); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
 #define List_Type2Valuetype(type) static operator Valuetype^ (List<type>^ v) { return gcnew Valuetype(v); };
+#define NULL_ARG_CHEEK(arg) if (ReferenceEquals(arg, nullptr)) throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
+#define Value2SimpleType_Implicit(type) static operator type(Value^ v) { if(v->NativePtr->index() != (size_t)InstanceType::NumberType) throw gcnew LLNET::Core::InvalidRemoteCallTypeException; return std::get<type>(*v->NativePtr); };
+#define Valuetype2SimpleType_Implicit(type) static operator type(Valuetype^ v) { return (type)(NumberType)v; };

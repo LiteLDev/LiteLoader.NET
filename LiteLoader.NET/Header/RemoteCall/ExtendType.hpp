@@ -28,6 +28,10 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new ::RemoteCall::NbtType(v), true)
 		{
 		}
+	public:
+		virtual String^ ToString() override {
+			return marshalString(NativePtr->get<::CompoundTag*>()->toSNBT());
+		}
 	};
 
 	public
@@ -54,6 +58,11 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new ::RemoteCall::ItemType(v), true)
 		{
 		}
+	public:
+		virtual String^ ToString() override {
+			auto p = NativePtr->get<ItemStack*>();
+			return String::Format("{0},{1}", marshalString(p->getTypeName()), p->getCount());
+		}
 	};
 
 	public
@@ -77,6 +86,11 @@ namespace LLNET::RemoteCall {
 		BlockType(::RemoteCall::BlockType const& v)
 			:ClassTemplate(new ::RemoteCall::BlockType(v), true)
 		{
+		}
+	public:
+		virtual String^ ToString() override {
+			auto& p = NativePtr->get<::BlockInstance>();
+			return String::Format("{0},{1}", marshalString(p.getBlock()->getTypeName()), marshalString(p.getPosition().toString()));
 		}
 	};
 
@@ -114,6 +128,10 @@ namespace LLNET::RemoteCall {
 			return value;
 		};
 		Dictionary<String^, Valuetype^>^ value;
+	public:
+		virtual String^ ToString() override {
+			return value->Count.ToString();
+		}
 	};
 
 	[RemoteCallValueType(InstanceType::ArrayType)]
@@ -128,5 +146,9 @@ namespace LLNET::RemoteCall {
 			return value;
 		}
 		List<Valuetype^>^ value;
+	public:
+		virtual String^ ToString() override {
+			return value->Count.ToString();
+		}
 	};
 }

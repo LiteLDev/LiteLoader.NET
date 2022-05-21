@@ -97,21 +97,23 @@ namespace LLNET::RemoteCall
 
 				auto count = (size_t)list->Count;
 				std::vector<::RemoteCall::ValueType> stdvector;
-				stdvector.resize(count);
 				for (auto i = 0; i < count; ++i)
 				{
 					stdvector.emplace_back(*list[i]->NativePtr);
 				}
-				auto ret = (*pFunc)(stdvector);
+				auto& ret = (*pFunc)(stdvector);
 				return gcnew Valuetype(ret);
 			};
-			RemoteCallHelper(::RemoteCall::CallbackFn const* p)
-				: pFunc(p)
+			RemoteCallHelper(::RemoteCall::CallbackFn const& p)
+				: pFunc(new ::RemoteCall::CallbackFn(std::move(p)))
 			{
+			}
+			~RemoteCallHelper() {
+				delete pFunc;
 			}
 
 		public:
-			static Pair<RemoteCallHelper^, CallbackFn^> Create(::RemoteCall::CallbackFn const* p) {
+			static Pair<RemoteCallHelper^, CallbackFn^> Create(::RemoteCall::CallbackFn const& p) {
 				auto instance = gcnew RemoteCallHelper(p);
 				return Pair< RemoteCallHelper^, CallbackFn^>(instance, gcnew CallbackFn(instance, &RemoteCallHelper::Invoke));
 			}
