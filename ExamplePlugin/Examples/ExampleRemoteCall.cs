@@ -26,38 +26,19 @@ namespace ExamplePlugin.Examples
 
             var succeed = RemoteCallAPI.ExportFunc(".NET", "ExampleCall", (args) =>
             {
+                string a1 = args[0];
+                bool a2 = args[1];
+                double a3 = args[2];
 
-                var a = args[0];
+                logger.warn.WriteLine($"a1:{a1},a2:{a2},a3:{a3}");
 
-                Test(a.AsValue(out var val0));
-                Test(val0.AsNumberType(out var number0));
-                var a1 = number0.AsInt();
-
-                var b = args[1];
-
-                Test(b.AsValue(out var val1));
-                Test(val1.AsBool(out var a2));
-
-
-
-                //List<string> strArr = args[2];
-
-                //logger.info.WriteLine($"a1:{a1}");
-                //logger.info.WriteLine($"a2:{a2}");
-
-                //for (var i = 0; i<strArr.Count; ++i)
-                //{
-                //    logger.info.WriteLine($"strArr[{i}]<{strArr[i]}>");
-                //}
-
-                var ret = new Valuetype(233);
-                return ret;
+                return 233;
             });
 
             logger.warn.WriteLine(succeed);
 
             var func = RemoteCallAPI.ImportFunc(".NET", "ExampleCall");
-            var ret = func(new() { 123456, true, 233.0 });
+            var ret = func(new() { "string", true, 233.33 });
             double d = ret;
 
             logger.info.WriteLine($"ReturnVal:{d}");

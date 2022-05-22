@@ -12,10 +12,6 @@ namespace LLNET::RemoteCall {
 
 		//ctor
 	public:
-		Value()
-			: ClassTemplate(new _T(), true)
-		{
-		}
 		/// <summary>
 		/// Copy
 		/// </summary>
@@ -24,7 +20,7 @@ namespace LLNET::RemoteCall {
 			: ClassTemplate(new _T(*val.NativePtr), true)
 		{
 		}
-		Value(bool b)
+		explicit Value(bool b)
 			:ClassTemplate(new _T(b), true)
 		{
 		}
@@ -32,8 +28,8 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new _T(marshalString(str)), true)
 		{
 		}
-		Value(nullptr_t null)
-			: ClassTemplate(new _T(null), true)
+		Value()
+			: ClassTemplate(new _T(nullptr_t(nullptr)), true)
 		{
 		}
 		Value(NumberType num)
@@ -74,6 +70,46 @@ namespace LLNET::RemoteCall {
 		}
 		Value(NbtType^ nbtType)
 			: ClassTemplate(new _T(*nbtType->NativePtr), true)
+		{
+		}
+		Value(double num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(float num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(__int64 num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(int num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(short num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(char num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(unsigned __int64 num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(unsigned int num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(unsigned short num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
+		{
+		}
+		Value(unsigned char num)
+			: ClassTemplate(new _T(::RemoteCall::NumberType(num)), true)
 		{
 		}
 		Value^ Clone() {
@@ -496,7 +532,7 @@ namespace LLNET::RemoteCall {
 			default:
 				break;
 			}
-			return type.ToString() + L',' + info;
+			return String::Format("InstanceType:{0},{1}", type, info);
 		}
 	};
 }

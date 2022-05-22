@@ -12,7 +12,6 @@ namespace LLNET::RemoteCall
 		try
 		{
 			auto ret = delfunc(arg);
-			Console::WriteLine(ret->ToString());
 			return *ret->NativePtr;
 		}
 		catch (System::Exception^ ex)

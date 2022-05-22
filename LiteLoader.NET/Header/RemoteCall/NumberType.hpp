@@ -41,9 +41,11 @@ namespace LLNET::RemoteCall {
 		NumberType(unsigned char v)
 			: i(static_cast<__int64>(v))
 			, f(static_cast<double>(v)) {};
-	internal:
 		NumberType(__int64 i, double f)
 			: i(i), f(f) {};
+	internal:
+		NumberType(::RemoteCall::NumberType const& v)
+			:i(v.i), f(v.f) {};
 		//opeator
 	public:
 		static operator NumberType(double v) {

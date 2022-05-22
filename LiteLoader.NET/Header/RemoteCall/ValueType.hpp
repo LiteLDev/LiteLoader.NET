@@ -92,7 +92,7 @@ namespace LLNET::RemoteCall {
 			OwnsNativeInstance = true;
 		}
 
-		Valuetype(bool v)
+		explicit Valuetype(bool v)
 			:ClassTemplate(new _T(v), true)
 		{
 		}
@@ -506,7 +506,7 @@ namespace LLNET::RemoteCall {
 			{
 				Value^ val;
 				this->AsValue(val);
-				info = "Value" + L',' + val->ToString();
+				info = "<" + "Value" + L',' + val->ToString() + ">";
 
 			}
 			break;
@@ -514,14 +514,14 @@ namespace LLNET::RemoteCall {
 			{
 				ArrayType^ arr;
 				this->AsArrayType(arr);
-				info = "ArrayType" + L',' + arr->ToString();
+				info = "<" + "ArrayType" + L',' + arr->ToString() + ">";
 			}
 			break;
 			case InstanceType::ObjectType:
 			{
 				ObjectType^ obj;
 				this->AsObjectType(obj);
-				info = "ObjectType" + L',' + obj->ToString();
+				info = "<" + "ObjectType" + L',' + obj->ToString() + ">";
 			}
 			break;
 			}
