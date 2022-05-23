@@ -1,5 +1,7 @@
 #include "../Header/FormUI.hpp"
 
+#include "../Header/MC/Player.hpp"
+
 
 namespace LLNET::Form
 {
@@ -562,7 +564,6 @@ void CustomForm::GenerateNativeForm()
             case Form::CustomFormElement::Type::Dropdown:
             {
                 std::vector<std::string> stdvector;
-                stdvector.resize(static_cast<Dropdown ^>(p)->Options->Count);
                 for each (auto var in static_cast<Dropdown ^>(p)->Options)
                 {
                     stdvector.emplace_back(marshalString(var));
@@ -577,7 +578,6 @@ void CustomForm::GenerateNativeForm()
             case Form::CustomFormElement::Type::StepSlider:
             {
                 std::vector<std::string> stdvector;
-                stdvector.resize(static_cast<StepSlider ^>(p)->Options->Count);
                 for each (auto var in static_cast<StepSlider ^>(p)->Options)
                 {
                     stdvector.emplace_back(marshalString(var));
@@ -692,7 +692,6 @@ inline ::Form::Dropdown CustomForm::_Marshal(Dropdown ^ arg)
 {
     std::vector<std::string> stdvector;
 
-    stdvector.resize(arg->Options->Count);
 
     for each (auto option in arg->Options)
     {
@@ -710,7 +709,6 @@ inline ::Form::StepSlider CustomForm::_Marshal(StepSlider ^ arg)
 {
     std::vector<std::string> stdvector;
 
-    stdvector.resize(arg->Options->Count);
 
     for each (auto option in arg->Options)
     {

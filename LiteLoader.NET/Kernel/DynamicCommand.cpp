@@ -73,7 +73,6 @@ inline DynamicCommandInstance ^ DynamicCommand::CreateCommand(String ^ name, Str
         for each (auto % map in enums)
         {
             std::vector<std::string> vector;
-            vector.resize((int)map.Value->Count);
             for each (auto vec in map.Value)
             {
                 vector.emplace_back(marshalString<Encoding::E_UTF8>(vec));
@@ -89,7 +88,6 @@ inline DynamicCommandInstance ^ DynamicCommand::CreateCommand(String ^ name, Str
         for each (auto var in overloads)
         {
             std::vector<std::string> vector;
-            vector.resize((size_t)var->Count);
             for each (auto vec in var)
             {
                 vector.emplace_back(marshalString<Encoding::E_UTF8>(vec));
@@ -524,7 +522,6 @@ inline String ^ DynamicCommandInstance::SetSoftEnum(String ^ name, List<String ^
 inline bool DynamicCommandInstance::AddSoftEnumValues(String ^ name, List<String ^> ^ values)
 {
     std::vector<std::string> stdvector;
-    stdvector.resize((size_t)values->Count);
     for each (auto var in values)
         stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
     return (*NativePtr).addSoftEnumValues(marshalString<Encoding::E_UTF8>(name), stdvector);
@@ -533,7 +530,6 @@ inline bool DynamicCommandInstance::AddSoftEnumValues(String ^ name, List<String
 inline bool DynamicCommandInstance::RemoveSoftEnumValues(String ^ name, List<String ^> ^ values)
 {
     std::vector<std::string> stdvector;
-    stdvector.resize((size_t)values->Count);
     for each (auto var in values)
         stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
     return (*NativePtr).addSoftEnumValues(marshalString<Encoding::E_UTF8>(name), stdvector);

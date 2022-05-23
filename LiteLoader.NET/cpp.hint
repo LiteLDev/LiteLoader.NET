@@ -30,3 +30,8 @@
 #define ctor_List_SimpleType(type) Valuetype(List<type>^ v) { auto len = v->Count; std::vector<_T> vec; vec.resize(len); for (int i = 0; i < len; i++) { vec[i] = (v[i]); } NativePtr = new _T(std::move(vec)); OwnsNativeInstance = true; };
 #define SimpleType2Valuetype_Implicit(type) static operator Valuetype ^(type v) { return gcnew Valuetype(gcnew Value(v)); }
 #define ctor_SimpleType(type) Valuetype(type v) :ClassTemplate(new _T(v), true) {};
+#define ctor_Dictionary_NumberType(type) Valuetype(Dictionary<String^, type>^ v) { auto len = v->Count; ::RemoteCall::ValueType::ObjectType umap; for each (auto var in v) { umap.emplace(marshalString(var.Key), var.Value); } NativePtr = new _T(std::move(umap)); OwnsNativeInstance = true; };
+#define ctor_Dictionary_RefType_Ptr(type) Valuetype(Dictionary<String^, MC::Player^>^ v) { auto len = v->Count; ::RemoteCall::ValueType::ObjectType umap; for each (auto var in v) { umap.emplace(marshalString(var.Key), _TValue(var.Value->NativePtr)); } NativePtr = new _T(std::move(umap)); OwnsNativeInstance = true; };
+#define ctor_Dictionary_RefType_Instance(type) Valuetype(Dictionary<String^, type>^ v) { auto len = v->Count; ::RemoteCall::ValueType::ObjectType umap; for each (auto var in v) { umap.emplace(marshalString(var.Key), _TValue(*(var.Value->NativePtr))); } NativePtr = new _T(std::move(umap)); OwnsNativeInstance = true; };
+#define Dictionary_Type2Valuetype(type) static operator Valuetype^ (Dictionary<String^,type>^ v) { return gcnew Valuetype(v); };
+#define NATIVECALLBACK

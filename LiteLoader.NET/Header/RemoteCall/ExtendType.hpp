@@ -101,8 +101,8 @@ namespace LLNET::RemoteCall {
 	enum class InstanceType : size_t
 	{
 		Value = 0,
-		ObjectType = 1,
-		ArrayType = 2,
+		ArrayType = 1,
+		ObjectType = 2,
 	};
 
 	[System::AttributeUsage(System::AttributeTargets::Class)]

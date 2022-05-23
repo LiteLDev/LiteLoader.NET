@@ -30,7 +30,6 @@ namespace LLNET::RemoteCall {
 		{
 			auto len = (int)v->Length;
 			std::vector<_T> vec;
-			vec.resize(len);
 			for (int i = 0; i < len; i++)
 			{
 				vec.emplace_back(*v[i]->NativePtr);
@@ -42,7 +41,6 @@ namespace LLNET::RemoteCall {
 		{
 			auto len = v->Count;
 			std::vector<_T> vec;
-			vec.resize(len);
 			for (int i = 0; i < len; i++)
 			{
 				vec.emplace_back(*v[i]->NativePtr);
@@ -56,7 +54,6 @@ namespace LLNET::RemoteCall {
 		{
 			auto len = v->Count;
 			std::vector<_T> vec;
-			vec.resize(len);
 			for (int i = 0; i < len; i++)
 			{
 				vec.emplace_back(marshalString(v[i]));
@@ -68,7 +65,6 @@ namespace LLNET::RemoteCall {
 		{
 			auto len = v->Count;
 			std::vector<_T> vec;
-			vec.resize(len);
 			for (int i = 0; i < len; i++)
 			{
 				vec.emplace_back(v[i]._toNative());
@@ -195,7 +191,6 @@ namespace LLNET::RemoteCall {
 		{										\
 			auto len = v->Count;				\
 			std::vector<_T> vec;				\
-			vec.resize(len);					\
 			for (int i = 0; i < len; i++)		\
 			{									\
 				vec.emplace_back(v[i]);			\
@@ -222,7 +217,6 @@ namespace LLNET::RemoteCall {
 		{											\
 			auto len = v->Count;					\
 			std::vector<_T> vec;					\
-			vec.resize(len);						\
 			for (int i = 0; i < len; i++)			\
 			{										\
 				vec.emplace_back(v[i]->NativePtr);	\
@@ -235,7 +229,6 @@ namespace LLNET::RemoteCall {
 		{											\
 			auto len = v->Count;					\
 			std::vector<_T> vec;					\
-			vec.resize(len);						\
 			for (int i = 0; i < len; i++)			\
 			{										\
 				vec.emplace_back(*v[i]->NativePtr);	\
@@ -256,7 +249,7 @@ namespace LLNET::RemoteCall {
 		ctor_List_RefType_Instance(BlockType^);
 		ctor_List_RefType_Instance(NbtType^);
 
-#define List_Type2Valuetype(type)					\
+#define List_Type2Valuetype(type)						\
 		static operator Valuetype^ (List<type>^ v) {	\
 			return gcnew Valuetype(v);					\
 		};
@@ -393,16 +386,123 @@ namespace LLNET::RemoteCall {
 		Valuetype2List_Implicit(unsigned char);
 
 
-#define List2Valuetype_Implicit(type)						\
-		static operator Valuetype^ ( List<type> ^ v) {		\
-			auto list = (List<Valuetype^>^)(v);				\
-			auto ret = gcnew List<type>(list->Count);		\
-			for each (auto var in list)						\
-			{												\
-				ret->Add((type)var);						\
-			}												\
-			return ret;										\
-		}
+		Valuetype(Dictionary<String^, String^>^ v)
+		{
+			auto len = v->Count;
+			::RemoteCall::ValueType::ObjectType umap;
+			for each (auto var in v)
+			{
+				umap.emplace(marshalString(var.Key), marshalString(var.Value));
+			}
+			NativePtr = new _T(std::move(umap));
+			OwnsNativeInstance = true;
+		};
+
+		Valuetype(Dictionary<String^, NumberType>^ v)
+		{
+			auto len = v->Count;
+			::RemoteCall::ValueType::ObjectType umap;
+			for each (auto var in v)
+			{
+				umap.emplace(marshalString(var.Key), var.Value._toNative());
+			}
+			NativePtr = new _T(std::move(umap));
+			OwnsNativeInstance = true;
+		};
+
+#define ctor_Dictionary_NumberType(type)							\
+		Valuetype(Dictionary<String^, type>^ v)						\
+		{															\
+			auto len = v->Count;									\
+			::RemoteCall::ValueType::ObjectType umap;				\
+			for each (auto var in v)								\
+			{														\
+				umap.emplace(marshalString(var.Key), var.Value);	\
+			}														\
+			NativePtr = new _T(std::move(umap));					\
+			OwnsNativeInstance = true;								\
+		};
+
+		ctor_Dictionary_NumberType(bool);
+		ctor_Dictionary_NumberType(double);
+		ctor_Dictionary_NumberType(float);
+		ctor_Dictionary_NumberType(__int64);
+		ctor_Dictionary_NumberType(int);
+		ctor_Dictionary_NumberType(short);
+		ctor_Dictionary_NumberType(char);
+		ctor_Dictionary_NumberType(unsigned __int64);
+		ctor_Dictionary_NumberType(unsigned int);
+		ctor_Dictionary_NumberType(unsigned short);
+		ctor_Dictionary_NumberType(unsigned char);
+
+
+#define ctor_Dictionary_RefType_Ptr(type)												\
+		Valuetype(Dictionary<String^, type>^ v)											\
+		{																				\
+			auto len = v->Count;														\
+			::RemoteCall::ValueType::ObjectType umap;									\
+			for each (auto var in v)													\
+			{																			\
+				umap.emplace(marshalString(var.Key), var.Value->NativePtr);				\
+			}																			\
+			NativePtr = new _T(std::move(umap));										\
+			OwnsNativeInstance = true;													\
+		};
+
+#define ctor_Dictionary_RefType_Instance(type)											\
+		Valuetype(Dictionary<String^, type>^ v)											\
+		{																				\
+			auto len = v->Count;														\
+			::RemoteCall::ValueType::ObjectType umap;									\
+			for each (auto var in v)													\
+			{																			\
+				umap.emplace(marshalString(var.Key), *(var.Value->NativePtr));			\
+			}																			\
+			NativePtr = new _T(std::move(umap));										\
+			OwnsNativeInstance = true;													\
+		};
+
+		ctor_Dictionary_RefType_Ptr(MC::Player^);
+		ctor_Dictionary_RefType_Ptr(MC::Actor^);
+		ctor_Dictionary_RefType_Ptr(MC::BlockActor^);
+		ctor_Dictionary_RefType_Ptr(MC::Container^);
+
+		ctor_Dictionary_RefType_Instance(MC::Vec3^);
+		ctor_Dictionary_RefType_Instance(MC::BlockPos^);
+		ctor_Dictionary_RefType_Instance(ItemType^);
+		ctor_Dictionary_RefType_Instance(BlockType^);
+		ctor_Dictionary_RefType_Instance(NbtType^);
+
+
+#define Dictionary_Type2Valuetype(type)								\
+		static operator Valuetype^ (Dictionary<String^,type>^ v) {	\
+			return gcnew Valuetype(v);								\
+		};
+
+		Dictionary_Type2Valuetype(double);
+		Dictionary_Type2Valuetype(float);
+		Dictionary_Type2Valuetype(__int64);
+		Dictionary_Type2Valuetype(int);
+		Dictionary_Type2Valuetype(short);
+		Dictionary_Type2Valuetype(char);
+		Dictionary_Type2Valuetype(unsigned __int64);
+		Dictionary_Type2Valuetype(unsigned int);
+		Dictionary_Type2Valuetype(unsigned short);
+		Dictionary_Type2Valuetype(unsigned char);
+		Dictionary_Type2Valuetype(bool);
+		Dictionary_Type2Valuetype(NumberType);
+		Dictionary_Type2Valuetype(String^);
+		Dictionary_Type2Valuetype(MC::Player^);
+		Dictionary_Type2Valuetype(MC::Actor^);
+		Dictionary_Type2Valuetype(MC::BlockActor^);
+		Dictionary_Type2Valuetype(MC::Container^);
+		Dictionary_Type2Valuetype(MC::Vec3^);
+		Dictionary_Type2Valuetype(MC::BlockPos^);
+		Dictionary_Type2Valuetype(ItemType^);
+		Dictionary_Type2Valuetype(BlockType^);
+		Dictionary_Type2Valuetype(NbtType^);
+
+
 	public:
 		generic<typename T> where T : IValueType
 			T Get()

@@ -20,6 +20,13 @@ namespace ExamplePlugin.Examples
             logger.warn.WriteLine(val);
         }
 
+        delegate List<Dictionary<string, List<Dictionary<string, bool>>>> TEST();
+
+        List<Dictionary<string, List<Dictionary<string, bool>>>> Test()
+        {
+            return null;
+        }
+
         public void Execute()
         {
             //double ExampleCall(int a1,bool a2,List<string> strArr)
@@ -28,7 +35,7 @@ namespace ExamplePlugin.Examples
             {
                 string a1 = args[0];
                 bool a2 = args[1];
-                double a3 = args[2];
+                List<string> a3 = args[2];
 
                 logger.warn.WriteLine($"a1:{a1},a2:{a2},a3:{a3}");
 
@@ -38,10 +45,13 @@ namespace ExamplePlugin.Examples
             logger.warn.WriteLine(succeed);
 
             var func = RemoteCallAPI.ImportFunc(".NET", "ExampleCall");
-            var ret = func(new() { "string", true, 233.33 });
+            var ret = func(new() { "string", true, new List<string> { "str1", "str2", "str3" } });
             double d = ret;
 
             logger.info.WriteLine($"ReturnVal:{d}");
+
+
+            RemoteCallAPI.ExportAs<TEST>(".NET", "ExortAsTest", Test);
         }
     }
 }

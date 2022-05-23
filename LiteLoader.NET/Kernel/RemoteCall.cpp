@@ -82,7 +82,6 @@ namespace LLNET::RemoteCall
 	{
 		auto count = (size_t)funcs->Count;
 		std::vector<std::pair<std::string, std::string>> stdvector;
-		stdvector.resize(count);
 		for each (auto % item in funcs)
 		{
 			stdvector.emplace_back(marshalString(item.Key), marshalString(item.Value));

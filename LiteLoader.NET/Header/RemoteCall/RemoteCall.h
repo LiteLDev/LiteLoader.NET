@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ValueType.hpp"
+#include "ExportAs.hpp"
 
 namespace LLNET::RemoteCall
 {
@@ -21,10 +21,7 @@ namespace LLNET::RemoteCall
 
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
-			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
-		{
-			return RemoteCallFunctionManager::_ExportAs<TDelegate>(nameSpace, funcName, f);
-		}
+			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate f);
 	internal:
 		ref class RemoteCallFunctionManager sealed {
 		public:
@@ -120,4 +117,15 @@ namespace LLNET::RemoteCall
 		};
 
 	};
+
+
+
+	generic<typename TDelegate>
+	where TDelegate:System::Delegate
+		inline bool RemoteCallAPI::ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
+	{
+		throw gcnew System::NotImplementedException;
+		ExportRegister::RegisterFunction<TDelegate>(nameSpace, funcName, f);
+		return true;
+	}
 } // namespace LLNET::RemoteCall
