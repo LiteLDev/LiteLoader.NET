@@ -124,8 +124,6 @@ namespace LLNET::RemoteCall
 	where TDelegate:System::Delegate
 		inline bool RemoteCallAPI::ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
 	{
-		throw gcnew System::NotImplementedException;
-		ExportRegister::RegisterFunction<TDelegate>(nameSpace, funcName, f);
-		return true;
+		return RemoteCallFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, f);
 	}
 } // namespace LLNET::RemoteCall
