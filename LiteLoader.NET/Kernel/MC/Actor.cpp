@@ -13,6 +13,7 @@
 #include "../../Header/MC/MobEffectInstance.hpp"
 #include "../../Header/MC/AABB.hpp"
 #include "../../Header/MC/Level.hpp"
+#include "../../Header/MC/Player.hpp"
 
 namespace MC
 {
@@ -214,15 +215,13 @@ inline bool Actor::AddEffect(MobEffect::EffectType type, int tick, int level)
 
 #ifdef MANUAL_MAINTENANCE
 
-#endif // MANUAL_MAINTENANCE
-
-
-#ifdef INCLUDE_MCAPI
-
-void MC::Actor::SetLastHurtMob(MC::Actor ^ _0)
+bool MC::Actor::Teleport(MC::Vec3^ to, int dimID, float x, float y)
 {
-    auto __arg0 = (class ::Actor*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setLastHurtMob(__arg0);
+    if (ReferenceEquals(to, nullptr))
+        throw gcnew ::System::ArgumentNullException("to", "Cannot be null because it is passed by value.");
+    auto __arg0 = *(class ::Vec3*)to->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->teleport(__arg0, dimID, x, y);
+    return __ret;
 }
 
 void MC::Actor::OutOfWorld()
@@ -230,54 +229,14 @@ void MC::Actor::OutOfWorld()
     ((class ::Actor*)NativePtr)->outOfWorld();
 }
 
-void MC::Actor::ServerInitItemStackIds()
-{
-    ((class ::Actor*)NativePtr)->_serverInitItemStackIds();
-}
-
 void MC::Actor::DoInitialMove()
 {
     ((class ::Actor*)NativePtr)->_doInitialMove();
 }
 
-void MC::Actor::Reset()
+void MC::Actor::ResetUserPos(bool _0)
 {
-    ((class ::Actor*)NativePtr)->reset();
-}
-
-void MC::Actor::Remove()
-{
-    ((class ::Actor*)NativePtr)->remove();
-}
-
-MC::Vec3 ^ MC::Actor::GetPosExtrapolated(float _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getPosExtrapolated(_0);
-    auto ____ret = new class ::Vec3(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
-}
-
-void MC::Actor::SetRot(MC::Vec2 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setRot(__arg0);
-}
-
-void MC::Actor::Move(MC::Vec3 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->move(__arg0);
-}
-
-MC::Vec3 ^ MC::Actor::GetInterpolatedRidingPosition(float _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRidingPosition(_0);
-    auto ____ret = new class ::Vec3(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+    ((class ::Actor*)NativePtr)->resetUserPos(_0);
 }
 
 float MC::Actor::GetInterpolatedBodyRot(float _0)
@@ -298,68 +257,17 @@ float MC::Actor::GetInterpolatedBodyYaw(float _0)
     return __ret;
 }
 
-float MC::Actor::GetInterpolatedWalkAnimSpeed(float _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedWalkAnimSpeed(_0);
-    return __ret;
-}
-
-MC::Vec3 ^ MC::Actor::GetInterpolatedRidingOffset(float _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0);
-    auto ____ret = new class ::Vec3(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
-}
-
-void MC::Actor::UpdateEntityInside(MC::AABB ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->updateEntityInside(__arg0);
-}
-
-void MC::Actor::UpdateEntityInside()
-{
-    ((class ::Actor*)NativePtr)->updateEntityInside();
-}
-
-//void MC::Actor::UnkVfn41()
+//void MC::Actor::UnkVfn40()
 //{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_41();
+//    ((class ::Actor*)NativePtr)->__unk_vfn_40();
 //}
 
-void MC::Actor::TeleportTo(MC::Vec3 ^ _0, bool _1, int _2, int _3)
+void MC::Actor::TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
     ((class ::Actor*)NativePtr)->teleportTo(__arg0, _1, _2, _3);
-}
-
-bool MC::Actor::TryTeleportTo(MC::Vec3 ^ _0, bool _1, bool _2, int _3, int _4)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    auto __ret = ((class ::Actor*)NativePtr)->tryTeleportTo(__arg0, _1, _2, _3, _4);
-    return __ret;
-}
-
-void MC::Actor::ChorusFruitTeleport(MC::Vec3 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->chorusFruitTeleport(__arg0);
-}
-
-void MC::Actor::LerpMotion(MC::Vec3 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->lerpMotion(__arg0);
 }
 
 void MC::Actor::NormalTick()
@@ -377,15 +285,7 @@ void MC::Actor::VehicleTick()
     ((class ::Actor*)NativePtr)->vehicleTick();
 }
 
-void MC::Actor::PositionPassenger(MC::Actor ^ _0, float _1)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->positionPassenger(__arg0, _1);
-}
-
-bool MC::Actor::StartRiding(MC::Actor ^ _0)
+bool MC::Actor::StartRiding(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -394,7 +294,7 @@ bool MC::Actor::StartRiding(MC::Actor ^ _0)
     return __ret;
 }
 
-void MC::Actor::AddPassenger(MC::Actor ^ _0)
+void MC::Actor::AddPassenger(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -402,7 +302,366 @@ void MC::Actor::AddPassenger(MC::Actor ^ _0)
     ((class ::Actor*)NativePtr)->addPassenger(__arg0);
 }
 
-void MC::Actor::FlagPassengerToRemove(MC::Actor ^ _0)
+//void MC::Actor::UnkVfn61()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_61();
+//}
+//
+//void MC::Actor::UnkVfn68()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_68();
+//}
+//
+//void MC::Actor::UnkVfn82()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_82();
+//}
+
+bool MC::Actor::CanInteractWithOtherEntitiesInGame()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canInteractWithOtherEntitiesInGame();
+    return __ret;
+}
+
+//void MC::Actor::UnkVfn88()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_88();
+//}
+
+void MC::Actor::PlayerTouch(MC::Player^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Player*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->playerTouch(__arg0);
+}
+
+//void MC::Actor::UnkVfn95()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_95();
+//}
+//
+//void MC::Actor::UnkVfn98()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_98();
+//}
+//
+//void MC::Actor::UnkVfn105()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_105();
+//}
+//
+//void MC::Actor::UnkVfn107()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_107();
+//}
+//
+//void MC::Actor::UnkVfn108()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_108();
+//}
+//
+//void MC::Actor::UnkVfn109()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_109();
+//}
+
+bool MC::Actor::IsValidTarget(MC::Actor^ _0)
+{
+    auto __arg0 = (class ::Actor*)_0->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->isValidTarget(__arg0);
+    return __ret;
+}
+
+bool MC::Actor::Attack(MC::Actor^ _0, MC::ActorDamageCause _1)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto __arg0 = _0->NativePtr;
+    auto __arg1 = (::ActorDamageCause)_1;
+    auto __ret = ((class ::Actor*)NativePtr)->attack(*__arg0, __arg1);
+    return __ret;
+}
+
+void MC::Actor::OnTame()
+{
+    ((class ::Actor*)NativePtr)->onTame();
+}
+
+void MC::Actor::OnFailedTame()
+{
+    ((class ::Actor*)NativePtr)->onFailedTame();
+}
+
+void MC::Actor::VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    if (ReferenceEquals(_1, nullptr))
+        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg1 = *(class ::Vec3*)_1->NativePtr;
+    ((class ::Actor*)NativePtr)->vehicleLanded(__arg0, __arg1);
+}
+
+void MC::Actor::AnimateHurt()
+{
+    ((class ::Actor*)NativePtr)->animateHurt();
+}
+
+bool MC::Actor::DoFireHurt(int _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->doFireHurt(_0);
+    return __ret;
+}
+
+void MC::Actor::AwardKillScore(MC::Actor^ _0, int _1)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->awardKillScore(__arg0, _1);
+}
+
+bool MC::Actor::CanFreeze()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canFreeze();
+    return __ret;
+}
+
+bool MC::Actor::CanChangeDimensions()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canChangeDimensions();
+    return __ret;
+}
+
+//void MC::Actor::UnkVfn181()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_181();
+//}
+
+bool MC::Actor::CanBePulledIntoVehicle()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canBePulledIntoVehicle();
+    return __ret;
+}
+
+//void MC::Actor::UnkVfn195()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_195();
+//}
+
+bool MC::Actor::CanSynchronizeNewEntity()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canSynchronizeNewEntity();
+    return __ret;
+}
+
+void MC::Actor::StopRiding(bool _0, bool _1, bool _2)
+{
+    ((class ::Actor*)NativePtr)->stopRiding(_0, _1, _2);
+}
+
+void MC::Actor::BuildDebugInfo(::System::String^ _0)
+{
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    ((class ::Actor*)NativePtr)->buildDebugInfo(__arg0);
+}
+
+void MC::Actor::Swing()
+{
+    ((class ::Actor*)NativePtr)->swing();
+}
+
+//void MC::Actor::UnkVfn220()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_220();
+//}
+//
+//void MC::Actor::UnkVfn221()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_221();
+//}
+
+void MC::Actor::SetAuxValue(int _0)
+{
+    ((class ::Actor*)NativePtr)->setAuxValue(_0);
+}
+
+void MC::Actor::StopSpinAttack()
+{
+    ((class ::Actor*)NativePtr)->stopSpinAttack();
+}
+
+//void MC::Actor::UnkVfn246()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_246();
+//}
+//
+//void MC::Actor::UnkVfn249()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_249();
+//}
+
+void MC::Actor::Kill()
+{
+    ((class ::Actor*)NativePtr)->kill();
+}
+
+bool MC::Actor::ShouldDropDeathLoot()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->shouldDropDeathLoot();
+    return __ret;
+}
+
+//void MC::Actor::UnkVfn261()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_261();
+//}
+
+void MC::Actor::AddAdditionalSaveData(MC::CompoundTag^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->addAdditionalSaveData(__arg0);
+}
+
+//void MC::Actor::UnkVfn269()
+//{
+//    ((class ::Actor*)NativePtr)->__unk_vfn_269();
+//}
+
+void MC::Actor::RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->_removePassenger(__arg0, _1, _2, _3);
+}
+
+void MC::Actor::OnSizeUpdated()
+{
+    ((class ::Actor*)NativePtr)->_onSizeUpdated();
+}
+
+void MC::Actor::SetLastHurtMob(MC::Actor^ _0)
+{
+    auto __arg0 = (class ::Actor*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setLastHurtMob(__arg0);
+}
+
+void MC::Actor::ServerInitItemStackIds()
+{
+    ((class ::Actor*)NativePtr)->_serverInitItemStackIds();
+}
+
+void MC::Actor::Reset()
+{
+    ((class ::Actor*)NativePtr)->reset();
+}
+
+void MC::Actor::Remove()
+{
+    ((class ::Actor*)NativePtr)->remove();
+}
+
+MC::Vec3^ MC::Actor::GetPosExtrapolated(float _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getPosExtrapolated(_0);
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+}
+
+void MC::Actor::SetRot(MC::Vec2^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setRot(__arg0);
+}
+
+void MC::Actor::Move(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->move(__arg0);
+}
+
+MC::Vec3^ MC::Actor::GetInterpolatedRidingPosition(float _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRidingPosition(_0);
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+}
+
+float MC::Actor::GetInterpolatedWalkAnimSpeed(float _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedWalkAnimSpeed(_0);
+    return __ret;
+}
+
+MC::Vec3^ MC::Actor::GetInterpolatedRidingOffset(float _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0);
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+}
+
+void MC::Actor::UpdateEntityInside()
+{
+    ((class ::Actor*)NativePtr)->updateEntityInside();
+}
+
+void MC::Actor::UpdateEntityInside(MC::AABB^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::AABB*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->updateEntityInside(__arg0);
+}
+
+bool MC::Actor::CanDisableShield()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canDisableShield();
+    return __ret;
+}
+
+bool MC::Actor::TryTeleportTo(MC::Vec3^ _0, bool _1, bool _2, int _3, int _4)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->tryTeleportTo(__arg0, _1, _2, _3, _4);
+    return __ret;
+}
+
+void MC::Actor::ChorusFruitTeleport(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->chorusFruitTeleport(__arg0);
+}
+
+void MC::Actor::LerpMotion(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->lerpMotion(__arg0);
+}
+
+void MC::Actor::PositionPassenger(MC::Actor^ _0, float _1)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->positionPassenger(__arg0, _1);
+}
+
+void MC::Actor::FlagPassengerToRemove(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -410,7 +669,7 @@ void MC::Actor::FlagPassengerToRemove(MC::Actor ^ _0)
     ((class ::Actor*)NativePtr)->flagPassengerToRemove(__arg0);
 }
 
-bool MC::Actor::Intersects(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
+bool MC::Actor::Intersects(MC::Vec3^ _0, MC::Vec3^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -428,60 +687,37 @@ bool MC::Actor::CanShowNameTag()
     return __ret;
 }
 
-void MC::Actor::UnkVfn61()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_61();
-}
-
 void MC::Actor::SetNameTagVisible(bool _0)
 {
     ((class ::Actor*)NativePtr)->setNameTagVisible(_0);
 }
-
-void MC::Actor::UnkVfn68()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_68();
-}
-
-//void MC::Actor::SetBlockMovementSlowdownMultiplier(MC::Vec3 ^ _0)
-//{
-//    if (ReferenceEquals(_0, nullptr))
-//        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-//    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-//    ((class ::Actor*)NativePtr)->setBlockMovementSlowdownMultiplier(__arg0);
-//}
 
 void MC::Actor::ResetBlockMovementSlowdownMultiplier()
 {
     ((class ::Actor*)NativePtr)->resetBlockMovementSlowdownMultiplier();
 }
 
-MC::Vec3 ^ MC::Actor::GetHeadLookVector(float _0)
+MC::Vec3^ MC::Actor::GetHeadLookVector(float _0)
 {
     auto __ret = ((class ::Actor*)NativePtr)->getHeadLookVector(_0);
     auto ____ret = new class ::Vec3(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-void MC::Actor::UnkVfn82()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_82();
-}
-
-bool MC::Actor::CanSee(MC::Actor ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-    auto __ret = ((class ::Actor*)NativePtr)->canSee(__arg0);
-    return __ret;
-}
-
-bool MC::Actor::CanSee(MC::Vec3 ^ _0)
+bool MC::Actor::CanSee(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->canSee(__arg0);
+    return __ret;
+}
+
+bool MC::Actor::CanSee(MC::Actor^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Actor*)NativePtr)->canSee(__arg0);
     return __ret;
 }
@@ -498,11 +734,6 @@ float MC::Actor::GetBrightness(float _0)
     return __ret;
 }
 
-//void MC::Actor::UnkVfn87()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_87();
-//}
-
 void MC::Actor::OnAboveBubbleColumn(bool _0)
 {
     ((class ::Actor*)NativePtr)->onAboveBubbleColumn(_0);
@@ -513,61 +744,14 @@ void MC::Actor::OnInsideBubbleColumn(bool _0)
     ((class ::Actor*)NativePtr)->onInsideBubbleColumn(_0);
 }
 
-//void MC::Actor::UnkVfn94()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_94();
-//}
-//
-//void MC::Actor::UnkVfn97()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_97();
-//}
-//
-//void MC::Actor::UnkVfn104()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_104();
-//}
-//
-//void MC::Actor::UnkVfn106()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_106();
-//}
-
-void MC::Actor::UnkVfn107()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_107();
-}
-
-void MC::Actor::UnkVfn108()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_108();
-}
-
-bool MC::Actor::CanAttack(MC::Actor ^ _0, bool _1)
+bool MC::Actor::CanAttack(MC::Actor^ _0, bool _1)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Actor*)NativePtr)->canAttack(__arg0, _1);
     return __ret;
 }
 
-bool MC::Actor::IsValidTarget(MC::Actor ^ _0)
-{
-    auto __arg0 = (class ::Actor*)_0->NativePtr;
-    auto __ret = ((class ::Actor*)NativePtr)->isValidTarget(__arg0);
-    return __ret;
-}
-
-bool MC::Actor::Attack(MC::Actor ^ _0, MC::ActorDamageCause _1)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-    auto __arg1 = (::ActorDamageCause)_1;
-    auto __ret = ((class ::Actor*)NativePtr)->attack(__arg0, __arg1);
-    return __ret;
-}
-
-void MC::Actor::PerformRangedAttack(MC::Actor ^ _0, float _1)
+void MC::Actor::PerformRangedAttack(MC::Actor^ _0, float _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -575,40 +759,12 @@ void MC::Actor::PerformRangedAttack(MC::Actor ^ _0, float _1)
     ((class ::Actor*)NativePtr)->performRangedAttack(__arg0, _1);
 }
 
-//void MC::Actor::AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0)
-//{
-//    int __arg0 = _0;
-//    ((class ::Actor*)NativePtr)->adjustDamageAmount(__arg0);
-//    _0 = __arg0;
-//}
-
-void MC::Actor::SetOwner(MC::ActorUniqueID ^ _0)
+void MC::Actor::SetOwner(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
     auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
     ((class ::Actor*)NativePtr)->setOwner(__arg0);
-}
-
-void MC::Actor::OnTame()
-{
-    ((class ::Actor*)NativePtr)->onTame();
-}
-
-void MC::Actor::OnFailedTame()
-{
-    ((class ::Actor*)NativePtr)->onFailedTame();
-}
-
-void MC::Actor::VehicleLanded(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec3*)_1->NativePtr;
-    ((class ::Actor*)NativePtr)->vehicleLanded(__arg0, __arg1);
 }
 
 bool MC::Actor::ShouldRender()
@@ -620,17 +776,6 @@ bool MC::Actor::ShouldRender()
 void MC::Actor::PlayAmbientSound()
 {
     ((class ::Actor*)NativePtr)->playAmbientSound();
-}
-
-void MC::Actor::AnimateHurt()
-{
-    ((class ::Actor*)NativePtr)->animateHurt();
-}
-
-bool MC::Actor::DoFireHurt(int _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->doFireHurt(_0);
-    return __ret;
 }
 
 void MC::Actor::OnLightningHit()
@@ -648,20 +793,12 @@ void MC::Actor::Despawn()
     ((class ::Actor*)NativePtr)->despawn();
 }
 
-void MC::Actor::Killed(MC::Actor ^ _0)
+void MC::Actor::Killed(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Actor*)_0->NativePtr;
     ((class ::Actor*)NativePtr)->killed(__arg0);
-}
-
-void MC::Actor::AwardKillScore(MC::Actor ^ _0, int _1)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->awardKillScore(__arg0, _1);
 }
 
 bool MC::Actor::ConsumeTotem()
@@ -670,35 +807,35 @@ bool MC::Actor::ConsumeTotem()
     return __ret;
 }
 
+bool MC::Actor::Save(MC::CompoundTag^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->save(__arg0);
+    return __ret;
+}
+
+void MC::Actor::SaveWithoutId(MC::CompoundTag^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->saveWithoutId(__arg0);
+}
+
 void MC::Actor::ThawFreezeEffect()
 {
     ((class ::Actor*)NativePtr)->thawFreezeEffect();
 }
 
-bool MC::Actor::CanFreeze()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canFreeze();
-    return __ret;
-}
-
-void MC::Actor::HandleInsidePortal(MC::BlockPos ^ _0)
+void MC::Actor::HandleInsidePortal(MC::BlockPos^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
     ((class ::Actor*)NativePtr)->handleInsidePortal(__arg0);
 }
-
-bool MC::Actor::CanChangeDimensions()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canChangeDimensions();
-    return __ret;
-}
-
-//void MC::Actor::UnkVfn182()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_182();
-//}
 
 void MC::Actor::CheckFallDamage(float _0, bool _1)
 {
@@ -720,7 +857,7 @@ void MC::Actor::OnSynchedDataUpdate(int _0)
     ((class ::Actor*)NativePtr)->onSynchedDataUpdate(_0);
 }
 
-bool MC::Actor::CanAddPassenger(MC::Actor ^ _0)
+bool MC::Actor::CanAddPassenger(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -728,17 +865,6 @@ bool MC::Actor::CanAddPassenger(MC::Actor ^ _0)
     auto __ret = ((class ::Actor*)NativePtr)->canAddPassenger(__arg0);
     return __ret;
 }
-
-bool MC::Actor::CanBePulledIntoVehicle()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canBePulledIntoVehicle();
-    return __ret;
-}
-
-//void MC::Actor::UnkVfn196()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_196();
-//}
 
 void MC::Actor::TickLeash()
 {
@@ -748,17 +874,6 @@ void MC::Actor::TickLeash()
 void MC::Actor::SendMotionPacketIfNeeded()
 {
     ((class ::Actor*)NativePtr)->sendMotionPacketIfNeeded();
-}
-
-bool MC::Actor::CanSynchronizeNewEntity()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canSynchronizeNewEntity();
-    return __ret;
-}
-
-void MC::Actor::StopRiding(bool _0, bool _1, bool _2)
-{
-    ((class ::Actor*)NativePtr)->stopRiding(_0, _1, _2);
 }
 
 void MC::Actor::StartSwimming()
@@ -771,24 +886,12 @@ void MC::Actor::StopSwimming()
     ((class ::Actor*)NativePtr)->stopSwimming();
 }
 
-void MC::Actor::BuildDebugInfo(::String^ _0)
-{
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    ((class ::Actor*)NativePtr)->buildDebugInfo(__arg0);
-}
-
 void MC::Actor::Heal(int _0)
 {
     ((class ::Actor*)NativePtr)->heal(_0);
 }
 
-bool MC::Actor::CanBeAffected(int _0)
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canBeAffected(_0);
-    return __ret;
-}
-
-bool MC::Actor::CanBeAffected(MC::MobEffectInstance ^ _0)
+bool MC::Actor::CanBeAffected(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -797,7 +900,13 @@ bool MC::Actor::CanBeAffected(MC::MobEffectInstance ^ _0)
     return __ret;
 }
 
-bool MC::Actor::CanBeAffectedByArrow(MC::MobEffectInstance ^ _0)
+bool MC::Actor::CanBeAffected(int _0)
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canBeAffected(_0);
+    return __ret;
+}
+
+bool MC::Actor::CanBeAffectedByArrow(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -806,7 +915,7 @@ bool MC::Actor::CanBeAffectedByArrow(MC::MobEffectInstance ^ _0)
     return __ret;
 }
 
-void MC::Actor::OnEffectAdded(MC::MobEffectInstance ^ _0)
+void MC::Actor::OnEffectAdded(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -814,7 +923,7 @@ void MC::Actor::OnEffectAdded(MC::MobEffectInstance ^ _0)
     ((class ::Actor*)NativePtr)->onEffectAdded(__arg0);
 }
 
-void MC::Actor::OnEffectUpdated(MC::MobEffectInstance ^ _0)
+void MC::Actor::OnEffectUpdated(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -822,7 +931,7 @@ void MC::Actor::OnEffectUpdated(MC::MobEffectInstance ^ _0)
     ((class ::Actor*)NativePtr)->onEffectUpdated(__arg0);
 }
 
-void MC::Actor::OnEffectRemoved(MC::MobEffectInstance ^ _0)
+void MC::Actor::OnEffectRemoved(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -830,25 +939,18 @@ void MC::Actor::OnEffectRemoved(MC::MobEffectInstance ^ _0)
     ((class ::Actor*)NativePtr)->onEffectRemoved(__arg0);
 }
 
-void MC::Actor::Swing()
+void MC::Actor::OpenContainerComponent(MC::Player^ _0)
 {
-    ((class ::Actor*)NativePtr)->swing();
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Player*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->openContainerComponent(__arg0);
 }
 
-void MC::Actor::UnkVfn221()
-{
-    ((class ::Actor*)NativePtr)->__unk_vfn_221();
-}
-
-//void MC::Actor::UnkVfn222()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_222();
-//}
-
-void MC::Actor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0)
+void MC::Actor::GetDebugText(::System::Collections::Generic::List<::System::String^>^ _0)
 {
     auto _tmp_0 = std::vector<::std::string>();
-    for each (::String^ _element in _0)
+    for each (::System::String ^ _element in _0)
     {
         auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
         _tmp_0.push_back(_marshalElement);
@@ -857,18 +959,13 @@ void MC::Actor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _
     ((class ::Actor*)NativePtr)->getDebugText(__arg0);
 }
 
-float MC::Actor::GetPassengerYRotation(MC::Actor ^ _0)
+float MC::Actor::GetPassengerYRotation(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Actor*)NativePtr)->getPassengerYRotation(__arg0);
     return __ret;
-}
-
-void MC::Actor::SetAuxValue(int _0)
-{
-    ((class ::Actor*)NativePtr)->setAuxValue(_0);
 }
 
 void MC::Actor::SetSize(float _0, float _1)
@@ -897,35 +994,9 @@ void MC::Actor::StartSpinAttack()
     ((class ::Actor*)NativePtr)->startSpinAttack();
 }
 
-void MC::Actor::StopSpinAttack()
-{
-    ((class ::Actor*)NativePtr)->stopSpinAttack();
-}
-
-//void MC::Actor::UnkVfn242()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_242();
-//}
-
 void MC::Actor::ReloadLootTable()
 {
     ((class ::Actor*)NativePtr)->reloadLootTable();
-}
-
-//void MC::Actor::UnkVfn245()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_245();
-//}
-
-void MC::Actor::Kill()
-{
-    ((class ::Actor*)NativePtr)->kill();
-}
-
-bool MC::Actor::ShouldDropDeathLoot()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->shouldDropDeathLoot();
-    return __ret;
 }
 
 bool MC::Actor::ShouldTick()
@@ -951,27 +1022,17 @@ bool MC::Actor::ShouldTryMakeStepSound()
     return __ret;
 }
 
-//void MC::Actor::UnkVfn257()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_257();
-//}
-
 void MC::Actor::MarkHurt()
 {
     ((class ::Actor*)NativePtr)->markHurt();
 }
-
-//void MC::Actor::UnkVfn265()
-//{
-//    ((class ::Actor*)NativePtr)->__unk_vfn_265();
-//}
 
 void MC::Actor::CheckInsideBlocks(float _0)
 {
     ((class ::Actor*)NativePtr)->checkInsideBlocks(_0);
 }
 
-void MC::Actor::PushOutOfBlocks(MC::Vec3 ^ _0)
+void MC::Actor::PushOutOfBlocks(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -994,17 +1055,11 @@ void MC::Actor::UpdateInsideBlock()
     ((class ::Actor*)NativePtr)->updateInsideBlock();
 }
 
-void MC::Actor::RemovePassenger(MC::ActorUniqueID ^ _0, bool _1, bool _2, bool _3)
+bool MC::Actor::SetNbt(MC::CompoundTag^ nbt)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->_removePassenger(__arg0, _1, _2, _3);
-}
-
-void MC::Actor::OnSizeUpdated()
-{
-    ((class ::Actor*)NativePtr)->_onSizeUpdated();
+    auto __arg0 = (class ::CompoundTag*)nbt->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->setNbt(__arg0);
+    return __ret;
 }
 
 void MC::Actor::SendDirtyActorData()
@@ -1012,13 +1067,13 @@ void MC::Actor::SendDirtyActorData()
     ((class ::Actor*)NativePtr)->_sendDirtyActorData();
 }
 
-void MC::Actor::AddDefinitionGroup(::String^ _0)
+void MC::Actor::AddDefinitionGroup(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->addDefinitionGroup(__arg0);
 }
 
-void MC::Actor::AddEffect(MC::MobEffectInstance ^ _0)
+void MC::Actor::AddEffect(MC::MobEffectInstance^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1026,20 +1081,20 @@ void MC::Actor::AddEffect(MC::MobEffectInstance ^ _0)
     ((class ::Actor*)NativePtr)->addEffect(__arg0);
 }
 
-bool MC::Actor::AddTag(::String^ _0)
+bool MC::Actor::AddTag(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->addTag(__arg0);
     return __ret;
 }
 
-void MC::Actor::BuildDebugGroupInfo(::String^ _0)
+void MC::Actor::BuildDebugGroupInfo(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->buildDebugGroupInfo(__arg0);
 }
 
-MC::Vec3 ^ MC::Actor::BuildForward()
+MC::Vec3^ MC::Actor::BuildForward()
 {
     auto __ret = ((class ::Actor*)NativePtr)->buildForward();
     auto ____ret = new class ::Vec3(__ret);
@@ -1056,7 +1111,7 @@ void MC::Actor::CacheComponentData()
     ((class ::Actor*)NativePtr)->cacheComponentData();
 }
 
-float MC::Actor::CalculateAttackDamage(MC::Actor ^ _0)
+float MC::Actor::CalculateAttackDamage(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1089,7 +1144,7 @@ bool MC::Actor::CanDescendBlockBelowByCrouching()
     return __ret;
 }
 
-bool MC::Actor::CanMate(MC::Actor ^ _0)
+bool MC::Actor::CanMate(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1098,9 +1153,20 @@ bool MC::Actor::CanMate(MC::Actor ^ _0)
     return __ret;
 }
 
+bool MC::Actor::CanSeeDaylight()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canSeeDaylight();
+    return __ret;
+}
+
 void MC::Actor::CelebrateHunt(int _0, bool _1)
 {
     ((class ::Actor*)NativePtr)->celebrateHunt(_0, _1);
+}
+
+void MC::Actor::CheckForPropertyUpdate()
+{
+    ((class ::Actor*)NativePtr)->checkForPropertyUpdate();
 }
 
 void MC::Actor::ClearFishingHookID()
@@ -1108,12 +1174,21 @@ void MC::Actor::ClearFishingHookID()
     ((class ::Actor*)NativePtr)->clearFishingHookID();
 }
 
+bool MC::Actor::CloserThan(MC::Actor^ _0, float _1)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
+    auto __ret = ((class ::Actor*)NativePtr)->closerThan(__arg0, _1);
+    return __ret;
+}
+
 void MC::Actor::DeregisterTagsFromLevelCache()
 {
     ((class ::Actor*)NativePtr)->deregisterTagsFromLevelCache();
 }
 
-float MC::Actor::DistanceSqrToBlockPosCenter(MC::BlockPos ^ _0)
+float MC::Actor::DistanceSqrToBlockPosCenter(MC::BlockPos^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1122,7 +1197,7 @@ float MC::Actor::DistanceSqrToBlockPosCenter(MC::BlockPos ^ _0)
     return __ret;
 }
 
-float MC::Actor::DistanceTo(MC::Actor ^ _0)
+float MC::Actor::DistanceTo(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1131,7 +1206,7 @@ float MC::Actor::DistanceTo(MC::Actor ^ _0)
     return __ret;
 }
 
-float MC::Actor::DistanceTo(MC::Vec3 ^ _0)
+float MC::Actor::DistanceTo(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1140,7 +1215,7 @@ float MC::Actor::DistanceTo(MC::Vec3 ^ _0)
     return __ret;
 }
 
-float MC::Actor::DistanceToSqr(MC::Actor ^ _0)
+float MC::Actor::DistanceToSqr(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1149,7 +1224,7 @@ float MC::Actor::DistanceToSqr(MC::Actor ^ _0)
     return __ret;
 }
 
-float MC::Actor::DistanceToSqr(MC::Vec3 ^ _0)
+float MC::Actor::DistanceToSqr(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1163,7 +1238,7 @@ void MC::Actor::DropLeash(bool _0, bool _1)
     ((class ::Actor*)NativePtr)->dropLeash(_0, _1);
 }
 
-MC::BlockPos ^ MC::Actor::GetBlockPosCurrentlyStandingOn(MC::Actor ^ _0)
+MC::BlockPos^ MC::Actor::GetBlockPosCurrentlyStandingOn(MC::Actor^ _0)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Actor*)NativePtr)->getBlockPosCurrentlyStandingOn(__arg0);
@@ -1171,7 +1246,7 @@ MC::BlockPos ^ MC::Actor::GetBlockPosCurrentlyStandingOn(MC::Actor ^ _0)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
 }
 
-MC::MobEffectInstance ^ MC::Actor::GetEffect(MC::MobEffect ^ _0)
+MC::MobEffectInstance^ MC::Actor::GetEffect(MC::MobEffect^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1181,7 +1256,7 @@ MC::MobEffectInstance ^ MC::Actor::GetEffect(MC::MobEffect ^ _0)
     return (__ret == nullptr) ? nullptr : gcnew ::MC::MobEffectInstance((class ::MobEffectInstance*)__ret);
 }
 
-bool MC::Actor::GetFirstAvailableSeatPos(MC::Actor ^ _0, MC::Vec3 ^ _1)
+bool MC::Actor::GetFirstAvailableSeatPos(MC::Actor^ _0, MC::Vec3^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1193,21 +1268,21 @@ bool MC::Actor::GetFirstAvailableSeatPos(MC::Actor ^ _0, MC::Vec3 ^ _1)
     return __ret;
 }
 
-MC::Vec3 ^ MC::Actor::GetInterpolatedPosition(float _0)
+MC::Vec3^ MC::Actor::GetInterpolatedPosition(float _0)
 {
     auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedPosition(_0);
     auto ____ret = new class ::Vec3(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-MC::Vec2 ^ MC::Actor::GetInterpolatedRotation(float _0)
+MC::Vec2^ MC::Actor::GetInterpolatedRotation(float _0)
 {
     auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRotation(_0);
     auto ____ret = new class ::Vec2(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
 }
 
-int MC::Actor::GetPassengerIndex(MC::Actor ^ _0)
+int MC::Actor::GetPassengerIndex(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1222,7 +1297,7 @@ float MC::Actor::GetSwimAmount(float _0)
     return __ret;
 }
 
-MC::Vec3 ^ MC::Actor::GetViewVector(float _0)
+MC::Vec3^ MC::Actor::GetViewVector(float _0)
 {
     auto __ret = ((class ::Actor*)NativePtr)->getViewVector(_0);
     auto ____ret = new class ::Vec3(__ret);
@@ -1235,14 +1310,14 @@ bool MC::Actor::HasBeenHurtByMobInLastTicks(int _0)
     return __ret;
 }
 
-bool MC::Actor::HasDefinitionGroup(::String^ _0)
+bool MC::Actor::HasDefinitionGroup(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->hasDefinitionGroup(__arg0);
     return __ret;
 }
 
-bool MC::Actor::HasEffect(MC::MobEffect ^ _0)
+bool MC::Actor::HasEffect(MC::MobEffect^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1267,7 +1342,7 @@ bool MC::Actor::IsInsideBorderBlock(float _0)
     return __ret;
 }
 
-bool MC::Actor::IsPassenger(MC::ActorUniqueID ^ _0)
+bool MC::Actor::IsPassenger(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1276,7 +1351,7 @@ bool MC::Actor::IsPassenger(MC::ActorUniqueID ^ _0)
     return __ret;
 }
 
-bool MC::Actor::IsPassenger(MC::Actor ^ _0)
+bool MC::Actor::IsPassenger(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1285,7 +1360,7 @@ bool MC::Actor::IsPassenger(MC::Actor ^ _0)
     return __ret;
 }
 
-bool MC::Actor::IsRiding(MC::Actor ^ _0)
+bool MC::Actor::IsRiding(MC::Actor^ _0)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Actor*)NativePtr)->isRiding(__arg0);
@@ -1298,7 +1373,7 @@ bool MC::Actor::IsRiding()
     return __ret;
 }
 
-void MC::Actor::LerpTo(MC::Vec3 ^ _0, MC::Vec2 ^ _1, int _2)
+void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, int _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1309,7 +1384,7 @@ void MC::Actor::LerpTo(MC::Vec3 ^ _0, MC::Vec2 ^ _1, int _2)
     ((class ::Actor*)NativePtr)->lerpTo(__arg0, __arg1, _2);
 }
 
-void MC::Actor::LerpTo(MC::Vec3 ^ _0, MC::Vec2 ^ _1, float _2, int _3)
+void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, float _2, int _3)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1320,7 +1395,7 @@ void MC::Actor::LerpTo(MC::Vec3 ^ _0, MC::Vec2 ^ _1, float _2, int _3)
     ((class ::Actor*)NativePtr)->lerpTo(__arg0, __arg1, _2, _3);
 }
 
-void MC::Actor::LerpToRotation(MC::Vec2 ^ _0, int _1)
+void MC::Actor::LerpToRotation(MC::Vec2^ _0, int _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1328,7 +1403,7 @@ void MC::Actor::LerpToRotation(MC::Vec2 ^ _0, int _1)
     ((class ::Actor*)NativePtr)->lerpToRotation(__arg0, _1);
 }
 
-void MC::Actor::MigrateUniqueID(MC::ActorUniqueID ^ _0)
+void MC::Actor::MigrateUniqueID(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -1336,7 +1411,7 @@ void MC::Actor::MigrateUniqueID(MC::ActorUniqueID ^ _0)
     ((class ::Actor*)NativePtr)->migrateUniqueID(__arg0);
 }
 
-void MC::Actor::MoveBBs(MC::Vec3 ^ _0)
+void MC::Actor::MoveBBs(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1349,7 +1424,7 @@ void MC::Actor::MoveRelative(float _0, float _1, float _2, float _3)
     ((class ::Actor*)NativePtr)->moveRelative(_0, _1, _2, _3);
 }
 
-void MC::Actor::MoveTo(MC::Vec3 ^ _0, MC::Vec2 ^ _1)
+void MC::Actor::MoveTo(MC::Vec3^ _0, MC::Vec2^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1377,7 +1452,7 @@ bool MC::Actor::OnHoverableBlock()
     return __ret;
 }
 
-void MC::Actor::OnOnewayCollision(MC::AABB ^ _0)
+void MC::Actor::OnOnewayCollision(MC::AABB^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1385,7 +1460,7 @@ void MC::Actor::OnOnewayCollision(MC::AABB ^ _0)
     ((class ::Actor*)NativePtr)->onOnewayCollision(__arg0);
 }
 
-bool MC::Actor::operator==(MC::Actor ^ __op, MC::Actor ^ _0)
+bool MC::Actor::operator==(MC::Actor^ __op, MC::Actor^ _0)
 {
     bool __opNull = ReferenceEquals(__op, nullptr);
     bool _0Null = ReferenceEquals(_0, nullptr);
@@ -1397,9 +1472,9 @@ bool MC::Actor::operator==(MC::Actor ^ __op, MC::Actor ^ _0)
     return __ret;
 }
 
-bool MC::Actor::Equals(::System::Object ^ obj)
+bool MC::Actor::Equals(::System::Object^ obj)
 {
-    return this == safe_cast<MC::Actor ^>(obj);
+    return this == safe_cast<MC::Actor^>(obj);
 }
 
 void MC::Actor::PositionAllPassengers()
@@ -1407,7 +1482,7 @@ void MC::Actor::PositionAllPassengers()
     ((class ::Actor*)NativePtr)->positionAllPassengers();
 }
 
-bool MC::Actor::PullInEntity(MC::Actor ^ _0)
+bool MC::Actor::PullInEntity(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1426,11 +1501,6 @@ void MC::Actor::Reload()
     ((class ::Actor*)NativePtr)->reload();
 }
 
-//void MC::Actor::ReloadProperties()
-//{
-//    ((class ::Actor*)NativePtr)->reloadProperties();
-//}
-
 void MC::Actor::RemoveAllEffects()
 {
     ((class ::Actor*)NativePtr)->removeAllEffects();
@@ -1439,6 +1509,12 @@ void MC::Actor::RemoveAllEffects()
 void MC::Actor::RemoveAllPassengers(bool _0, bool _1)
 {
     ((class ::Actor*)NativePtr)->removeAllPassengers(_0, _1);
+}
+
+void MC::Actor::RemoveDefinitionGroup(::System::String^ _0)
+{
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    ((class ::Actor*)NativePtr)->removeDefinitionGroup(__arg0);
 }
 
 void MC::Actor::RemoveEffect(int _0)
@@ -1456,7 +1532,7 @@ void MC::Actor::RemovePersistingTrade()
     ((class ::Actor*)NativePtr)->removePersistingTrade();
 }
 
-bool MC::Actor::RemoveTag(::String^ _0)
+bool MC::Actor::RemoveTag(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     auto __ret = ((class ::Actor*)NativePtr)->removeTag(__arg0);
@@ -1473,7 +1549,15 @@ void MC::Actor::ResetRegion()
     ((class ::Actor*)NativePtr)->resetRegion();
 }
 
-void MC::Actor::SendActorDefinitionEventTriggered(::String^ _0)
+void MC::Actor::SaveEntityFlags(MC::CompoundTag^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->saveEntityFlags(__arg0);
+}
+
+void MC::Actor::SendActorDefinitionEventTriggered(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->sendActorDefinitionEventTriggered(__arg0);
@@ -1487,22 +1571,6 @@ void MC::Actor::SendMotionToServer()
 void MC::Actor::SerializationSetHealth(int _0)
 {
     ((class ::Actor*)NativePtr)->serializationSetHealth(_0);
-}
-
-void MC::Actor::SetAABB(MC::AABB ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setAABB(__arg0);
-}
-
-void MC::Actor::SetAABBDim(MC::Vec2 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setAABBDim(__arg0);
 }
 
 void MC::Actor::SetCanClimb(bool _0)
@@ -1520,7 +1588,7 @@ void MC::Actor::SetDancing(bool _0)
     ((class ::Actor*)NativePtr)->setDancing(_0);
 }
 
-void MC::Actor::SetFishingHookID(MC::ActorUniqueID ^ _0)
+void MC::Actor::SetFishingHookID(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -1528,7 +1596,7 @@ void MC::Actor::SetFishingHookID(MC::ActorUniqueID ^ _0)
     ((class ::Actor*)NativePtr)->setFishingHookID(__arg0);
 }
 
-void MC::Actor::SetInLove(MC::Actor ^ _0)
+void MC::Actor::SetInLove(MC::Actor^ _0)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     ((class ::Actor*)NativePtr)->setInLove(__arg0);
@@ -1539,7 +1607,7 @@ void MC::Actor::SetInterpolation(bool _0)
     ((class ::Actor*)NativePtr)->setInterpolation(_0);
 }
 
-void MC::Actor::SetLastHitBB(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
+void MC::Actor::SetLastHitBB(MC::Vec3^ _0, MC::Vec3^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1555,7 +1623,7 @@ void MC::Actor::SetPersistent()
     ((class ::Actor*)NativePtr)->setPersistent();
 }
 
-void MC::Actor::SetPosDirectLegacy(MC::Vec3 ^ _0)
+void MC::Actor::SetPosDirectLegacy(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1563,15 +1631,7 @@ void MC::Actor::SetPosDirectLegacy(MC::Vec3 ^ _0)
     ((class ::Actor*)NativePtr)->setPosDirectLegacy(__arg0);
 }
 
-void MC::Actor::SetPosPrev(MC::Vec3 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setPosPrev(__arg0);
-}
-
-void MC::Actor::SetPreviousPosRot(MC::Vec3 ^ _0, MC::Vec2 ^ _1)
+void MC::Actor::SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1602,7 +1662,7 @@ void MC::Actor::SetTempted(bool _0)
     ((class ::Actor*)NativePtr)->setTempted(_0);
 }
 
-void MC::Actor::SetVelocity(MC::Vec3 ^ _0)
+void MC::Actor::SetVelocity(MC::Vec3^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1636,7 +1696,7 @@ void MC::Actor::SpawnTamingParticles(bool _0)
     ((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
 }
 
-void MC::Actor::TeleportPassengersTo(MC::Vec3 ^ _0, int _1, int _2)
+void MC::Actor::TeleportPassengersTo(MC::Vec3^ _0, int _1, int _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1644,16 +1704,11 @@ void MC::Actor::TeleportPassengersTo(MC::Vec3 ^ _0, int _1, int _2)
     ((class ::Actor*)NativePtr)->teleportPassengersTo(__arg0, _1, _2);
 }
 
-//void MC::Actor::TickBlockDamage()
-//{
-//    ((class ::Actor*)NativePtr)->tickBlockDamage();
-//}
-
-//::System::Collections::Generic::List<MC::ItemDescriptor ^> ^ MC::Actor::TryGetEquippableSlotAllowedItems(int _0)
+//::System::Collections::Generic::List<MC::ItemDescriptor^>^ MC::Actor::TryGetEquippableSlotAllowedItems(int _0)
 //{
 //    auto __ret = ((class ::Actor*)NativePtr)->tryGetEquippableSlotAllowedItems(_0);
 //    if (__ret == nullptr) return nullptr;
-//    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ItemDescriptor ^>();
+//    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ItemDescriptor^>();
 //    auto __list0 = *__ret;
 //    for (auto _element : __list0)
 //    {
@@ -1707,7 +1762,7 @@ bool MC::Actor::WasLoadedFromNBTThisFrame()
     return __ret;
 }
 
-MC::Vec2 ^ MC::Actor::GetInterpolatedRotation(MC::Vec2 ^ _0, MC::Vec2 ^ _1, float _2)
+MC::Vec2^ MC::Actor::GetInterpolatedRotation(MC::Vec2^ _0, MC::Vec2^ _1, float _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1720,7 +1775,7 @@ MC::Vec2 ^ MC::Actor::GetInterpolatedRotation(MC::Vec2 ^ _0, MC::Vec2 ^ _1, floa
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
 }
 
-MC::Vec3 ^ MC::Actor::GetViewVector(MC::Vec2 ^ _0, MC::Vec2 ^ _1, float _2)
+MC::Vec3^ MC::Actor::GetViewVector(MC::Vec2^ _0, MC::Vec2^ _1, float _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -1733,24 +1788,24 @@ MC::Vec3 ^ MC::Actor::GetViewVector(MC::Vec2 ^ _0, MC::Vec2 ^ _1, float _2)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-int MC::Actor::OnDeathExperience::get()
+MC::Vec3^ MC::Actor::FeetPosition::get()
 {
-    auto __ret = ((class ::Actor*)NativePtr)->getOnDeathExperience();
-    return __ret;
+    auto __ret = ((class ::Actor*)NativePtr)->getFeetPosition();
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-MC::Vec3 ^ MC::Actor::Pos::get()
+::System::Collections::Generic::List<::System::String^>^ MC::Actor::AllTags::get()
 {
-    auto& __ret = ((class ::Actor*)NativePtr)->getPos();
-    return (MC::Vec3 ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)&__ret));
-}
-
-void MC::Actor::Pos::set(MC::Vec3 ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setPos(__arg0);
+    auto __ret = ((class ::Actor*)NativePtr)->getAllTags();
+    auto _tmp__ret = gcnew ::System::Collections::Generic::List<::System::String^>();
+    auto __list0 = __ret;
+    for (auto& _element : __list0)
+    {
+        auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
+        _tmp__ret->Add(_marshalElement);
+    }
+    return _tmp__ret;
 }
 
 bool MC::Actor::IsRuntimePredictedMovementEnabled::get()
@@ -1759,23 +1814,242 @@ bool MC::Actor::IsRuntimePredictedMovementEnabled::get()
     return __ret;
 }
 
-MC::Vec3 ^ MC::Actor::PosOld::get()
-{
-    auto& __ret = ((class ::Actor*)NativePtr)->getPosOld();
-    return (MC::Vec3 ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)&__ret));
-}
-
-MC::Vec3 ^ MC::Actor::FiringPos::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getFiringPos();
-    auto ____ret = new class ::Vec3(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
-}
-
 float MC::Actor::YawSpeedInDegreesPerSecond::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getYawSpeedInDegreesPerSecond();
     return __ret;
+}
+
+float MC::Actor::CameraOffset::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getCameraOffset();
+    return __ret;
+}
+
+bool MC::Actor::IsImmobile::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isImmobile();
+    return __ret;
+}
+
+bool MC::Actor::IsPickable::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isPickable();
+    return __ret;
+}
+
+bool MC::Actor::Sleeping::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isSleeping();
+    return __ret;
+}
+
+void MC::Actor::Sleeping::set(bool _0)
+{
+    ((class ::Actor*)NativePtr)->setSleeping(_0);
+}
+
+bool MC::Actor::IsBlocking::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isBlocking();
+    return __ret;
+}
+
+bool MC::Actor::IsAlive::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isAlive();
+    return __ret;
+}
+
+bool MC::Actor::IsSurfaceMob::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isSurfaceMob();
+    return __ret;
+}
+
+MC::Actor^ MC::Actor::Target::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getTarget();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+}
+
+void MC::Actor::Target::set(MC::Actor^ _0)
+{
+    auto __arg0 = (class ::Actor*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setTarget(__arg0);
+}
+
+MC::Actor^ MC::Actor::FindAttackTarget::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->findAttackTarget();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+}
+
+bool MC::Actor::CanPowerJump::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->canPowerJump();
+    return __ret;
+}
+
+void MC::Actor::CanPowerJump::set(bool _0)
+{
+    ((class ::Actor*)NativePtr)->setCanPowerJump(_0);
+}
+
+bool MC::Actor::IsJumping::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isJumping();
+    return __ret;
+}
+
+MC::ActorUniqueID^ MC::Actor::SourceUniqueID::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getSourceUniqueID();
+    auto ____ret = new struct ::ActorUniqueID(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+}
+
+int MC::Actor::PortalWaitTime::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getPortalWaitTime();
+    return __ret;
+}
+
+MC::ActorUniqueID^ MC::Actor::ControllingPlayer::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getControllingPlayer();
+    auto ____ret = new struct ::ActorUniqueID(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+}
+
+bool MC::Actor::InCaravan::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->inCaravan();
+    return __ret;
+}
+
+int MC::Actor::DeathTime::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getDeathTime();
+    return __ret;
+}
+
+float MC::Actor::YHeadRot::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getYHeadRot();
+    return __ret;
+}
+
+void MC::Actor::YHeadRot::set(float _0)
+{
+    ((class ::Actor*)NativePtr)->setYHeadRot(_0);
+}
+
+float MC::Actor::YHeadRotO::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
+    return __ret;
+}
+
+bool MC::Actor::IsWorldBuilder::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isWorldBuilder();
+    return __ret;
+}
+
+bool MC::Actor::IsCreative::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isCreative();
+    return __ret;
+}
+
+bool MC::Actor::IsAdventure::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isAdventure();
+    return __ret;
+}
+
+bool MC::Actor::IsSurvival::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isSurvival();
+    return __ret;
+}
+
+bool MC::Actor::IsSpectator::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isSpectator();
+    return __ret;
+}
+
+MC::Mob^ MC::Actor::LastHurtByMob::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getLastHurtByMob();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob((class ::Mob*)__ret);
+}
+
+void MC::Actor::LastHurtByMob::set(MC::Mob^ _0)
+{
+    auto __arg0 = (class ::Mob*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setLastHurtByMob(__arg0);
+}
+
+MC::Player^ MC::Actor::LastHurtByPlayer::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getLastHurtByPlayer();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Player((class ::Player*)__ret);
+}
+
+void MC::Actor::LastHurtByPlayer::set(MC::Player^ _0)
+{
+    auto __arg0 = (class ::Player*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setLastHurtByPlayer(__arg0);
+}
+
+MC::Mob^ MC::Actor::LastHurtMob::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getLastHurtMob();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob((class ::Mob*)__ret);
+}
+
+MC::Vec3^ MC::Actor::Pos::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getPos();
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+}
+
+void MC::Actor::Pos::set(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setPos(__arg0);
+}
+
+MC::Vec3^ MC::Actor::PosPrev::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getPosPrev();
+    return (MC::Vec3^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*) & __ret));
+}
+
+void MC::Actor::PosPrev::set(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setPosPrev(__arg0);
+}
+
+MC::Vec3^ MC::Actor::FiringPos::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getFiringPos();
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
 bool MC::Actor::IsFireImmune::get()
@@ -1807,13 +2081,13 @@ void MC::Actor::Invisible::set(bool _0)
     ((class ::Actor*)NativePtr)->setInvisible(_0);
 }
 
-::String^ MC::Actor::NameTag::get()
+::System::String^ MC::Actor::NameTag::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->getNameTag();
-    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::System::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::Actor::NameTag::set(::String^ _0)
+void MC::Actor::NameTag::set(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->setNameTag(__arg0);
@@ -1825,19 +2099,19 @@ unsigned long long MC::Actor::NameTagAsHash::get()
     return __ret;
 }
 
-::String^ MC::Actor::FormattedNameTag::get()
+::System::String^ MC::Actor::FormattedNameTag::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getFormattedNameTag();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-::String^ MC::Actor::ScoreTag::get()
+::System::String^ MC::Actor::ScoreTag::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->getScoreTag();
-    return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
+    return (::System::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-void MC::Actor::ScoreTag::set(::String^ _0)
+void MC::Actor::ScoreTag::set(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Actor*)NativePtr)->setScoreTag(__arg0);
@@ -1867,12 +2141,6 @@ bool MC::Actor::IsOverWater::get()
     return __ret;
 }
 
-float MC::Actor::CameraOffset::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getCameraOffset();
-    return __ret;
-}
-
 float MC::Actor::ShadowHeightOffs::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getShadowHeightOffs();
@@ -1885,33 +2153,10 @@ float MC::Actor::ShadowRadius::get()
     return __ret;
 }
 
-bool MC::Actor::IsImmobile::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isImmobile();
-    return __ret;
-}
-
 bool MC::Actor::IsSilent::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isSilent();
     return __ret;
-}
-
-bool MC::Actor::IsPickable::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isPickable();
-    return __ret;
-}
-
-bool MC::Actor::Sleeping::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isSleeping();
-    return __ret;
-}
-
-void MC::Actor::Sleeping::set(bool _0)
-{
-    ((class ::Actor*)NativePtr)->setSleeping(_0);
 }
 
 bool MC::Actor::Sneaking::get()
@@ -1923,18 +2168,6 @@ bool MC::Actor::Sneaking::get()
 void MC::Actor::Sneaking::set(bool _0)
 {
     ((class ::Actor*)NativePtr)->setSneaking(_0);
-}
-
-bool MC::Actor::IsBlocking::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isBlocking();
-    return __ret;
-}
-
-bool MC::Actor::IsAlive::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isAlive();
-    return __ret;
 }
 
 bool MC::Actor::IsOnFire::get()
@@ -1949,36 +2182,10 @@ bool MC::Actor::IsOnHotBlock::get()
     return __ret;
 }
 
-bool MC::Actor::IsSurfaceMob::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isSurfaceMob();
-    return __ret;
-}
-
 bool MC::Actor::IsAffectedByWaterBottle::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isAffectedByWaterBottle();
     return __ret;
-}
-
-MC::Actor ^ MC::Actor::Target::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getTarget();
-    if (__ret == nullptr) return nullptr;
-    return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
-}
-
-void MC::Actor::Target::set(MC::Actor ^ _0)
-{
-    auto __arg0 = (class ::Actor*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setTarget(__arg0);
-}
-
-MC::Actor ^ MC::Actor::FindAttackTarget::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->findAttackTarget();
-    if (__ret == nullptr) return nullptr;
-    return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
 }
 
 int MC::Actor::EquipmentCount::get()
@@ -2027,23 +2234,6 @@ void MC::Actor::Standing::set(bool _0)
     ((class ::Actor*)NativePtr)->setStanding(_0);
 }
 
-bool MC::Actor::CanPowerJump::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->canPowerJump();
-    return __ret;
-}
-
-void MC::Actor::CanPowerJump::set(bool _0)
-{
-    ((class ::Actor*)NativePtr)->setCanPowerJump(_0);
-}
-
-bool MC::Actor::IsJumping::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isJumping();
-    return __ret;
-}
-
 bool MC::Actor::Enchanted::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isEnchanted();
@@ -2061,26 +2251,6 @@ float MC::Actor::PickRadius::get()
     return __ret;
 }
 
-::System::Collections::Generic::List<MC::ItemStack ^> ^ MC::Actor::AllArmor::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getAllArmor();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ItemStack ^>();
-    auto __list0 = __ret;
-    for (auto _element : __list0)
-    {
-        auto _marshalElement = (_element == nullptr) ? nullptr : gcnew ::MC::ItemStack((class ::ItemStack*)_element);
-        _tmp__ret->Add(_marshalElement);
-    }
-    return _tmp__ret;
-}
-
-MC::ActorUniqueID ^ MC::Actor::SourceUniqueID::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getSourceUniqueID();
-    auto ____ret = new struct ::ActorUniqueID(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
-}
-
 bool MC::Actor::IsWearingLeatherArmor::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isWearingLeatherArmor();
@@ -2093,34 +2263,9 @@ int MC::Actor::PortalCooldown::get()
     return __ret;
 }
 
-int MC::Actor::PortalWaitTime::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getPortalWaitTime();
-    return __ret;
-}
-
-MC::ActorUniqueID ^ MC::Actor::ControllingPlayer::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getControllingPlayer();
-    auto ____ret = new struct ::ActorUniqueID(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
-}
-
-bool MC::Actor::InCaravan::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->inCaravan();
-    return __ret;
-}
-
 bool MC::Actor::IsClientSide::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isClientSide();
-    return __ret;
-}
-
-int MC::Actor::DeathTime::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->getDeathTime();
     return __ret;
 }
 
@@ -2136,27 +2281,9 @@ float MC::Actor::MapDecorationRotation::get()
     return __ret;
 }
 
-float MC::Actor::YHeadRot::get()
+bool MC::Actor::IsAttackableGamemode::get()
 {
-    auto __ret = ((class ::Actor*)NativePtr)->getYHeadRot();
-    return __ret;
-}
-
-bool MC::Actor::IsWorldBuilder::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isWorldBuilder();
-    return __ret;
-}
-
-bool MC::Actor::IsCreative::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isCreative();
-    return __ret;
-}
-
-bool MC::Actor::IsAdventure::get()
-{
-    auto __ret = ((class ::Actor*)NativePtr)->isAdventure();
+    auto __ret = ((class ::Actor*)NativePtr)->isAttackableGamemode();
     return __ret;
 }
 
@@ -2177,14 +2304,21 @@ bool MC::Actor::UpdateWaterState::get()
     return __ret;
 }
 
-MC::Vec3 ^ MC::Actor::RandomHeartPos::get()
+MC::Vec3^ MC::Actor::PosOld::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getPosOld();
+    auto ____ret = new class ::Vec3(__ret);
+    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+}
+
+MC::Vec3^ MC::Actor::RandomHeartPos::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->_randomHeartPos();
     auto ____ret = new class ::Vec3(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-MC::Vec3 ^ MC::Actor::CalcCenterPos::get()
+MC::Vec3^ MC::Actor::CalcCenterPos::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->calcCenterPos();
     auto ____ret = new class ::Vec3(__ret);
@@ -2202,16 +2336,44 @@ void MC::Actor::CanFly::set(bool _0)
     ((class ::Actor*)NativePtr)->setCanFly(_0);
 }
 
+MC::AABB^ MC::Actor::AABB::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getAABB();
+    return (MC::AABB^)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*) & __ret));
+}
+
+void MC::Actor::AABB::set(MC::AABB^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::AABB*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setAABB(__arg0);
+}
+
+MC::Vec2^ MC::Actor::AABBDim::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getAABBDim();
+    return (MC::Vec2^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*) & __ret));
+}
+
+void MC::Actor::AABBDim::set(MC::Vec2^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setAABBDim(__arg0);
+}
+
 int MC::Actor::ActiveEffectCount::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getActiveEffectCount();
     return __ret;
 }
 
-::System::Collections::Generic::List<MC::MobEffectInstance ^> ^ MC::Actor::AllEffects::get()
+::System::Collections::Generic::List<MC::MobEffectInstance^>^ MC::Actor::AllEffects::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->getAllEffects();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::MobEffectInstance ^>();
+    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::MobEffectInstance^>();
     auto __list0 = __ret;
     for (auto _element : __list0)
     {
@@ -2219,17 +2381,17 @@ int MC::Actor::ActiveEffectCount::get()
         auto _marshalElement = (___element == nullptr) ? nullptr : gcnew ::MC::MobEffectInstance((class ::MobEffectInstance*)___element, true);
         _tmp__ret->Add(_marshalElement);
     }
-    return (::System::Collections::Generic::List<MC::MobEffectInstance ^> ^)(_tmp__ret);
+    return (::System::Collections::Generic::List<MC::MobEffectInstance^>^)(_tmp__ret);
 }
 
-MC::BlockPos ^ MC::Actor::BlockTarget::get()
+MC::BlockPos^ MC::Actor::BlockTarget::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getBlockTarget();
     auto ____ret = new class ::BlockPos(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
 }
 
-void MC::Actor::BlockTarget::set(MC::BlockPos ^ _0)
+void MC::Actor::BlockTarget::set(MC::BlockPos^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -2282,7 +2444,7 @@ float MC::Actor::CurrentSwimAmount::get()
     return __ret;
 }
 
-MC::Actor ^ MC::Actor::FirstPassenger::get()
+MC::Actor^ MC::Actor::FirstPassenger::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getFirstPassenger();
     if (__ret == nullptr) return nullptr;
@@ -2315,6 +2477,17 @@ int MC::Actor::HurtTime::get()
 void MC::Actor::HurtTime::set(int _0)
 {
     ((class ::Actor*)NativePtr)->setHurtTime(_0);
+}
+
+bool MC::Actor::IsExperienceDropEnabled::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getIsExperienceDropEnabled();
+    return __ret;
+}
+
+void MC::Actor::IsExperienceDropEnabled::set(bool _0)
+{
+    ((class ::Actor*)NativePtr)->setIsExperienceDropEnabled(_0);
 }
 
 int MC::Actor::JumpDuration::get()
@@ -2364,14 +2537,14 @@ unsigned long long MC::Actor::LastHurtTimestamp::get()
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Actor::LeashHolder::get()
+MC::ActorUniqueID^ MC::Actor::LeashHolder::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getLeashHolder();
     auto ____ret = new struct ::ActorUniqueID(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
 }
 
-void MC::Actor::LeashHolder::set(MC::ActorUniqueID ^ _0)
+void MC::Actor::LeashHolder::set(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -2390,10 +2563,10 @@ void MC::Actor::LimitedLifetimeTicks::set(int _0)
     ((class ::Actor*)NativePtr)->setLimitedLifetimeTicks(_0);
 }
 
-//::System::Collections::Generic::List<MC::ActorLink ^> ^ MC::Actor::Links::get()
+//::System::Collections::Generic::List<MC::ActorLink^>^ MC::Actor::Links::get()
 //{
 //    auto __ret = ((class ::Actor*)NativePtr)->getLinks();
-//    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ActorLink ^>();
+//    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ActorLink^>();
 //    auto __list0 = __ret;
 //    for (auto _element : __list0)
 //    {
@@ -2421,7 +2594,20 @@ int MC::Actor::MaxHealth::get()
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Actor::OwnerId::get()
+int MC::Actor::OnDeathExperience::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getOnDeathExperience();
+    return __ret;
+}
+
+MC::Mob^ MC::Actor::Owner::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getOwner();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob((class ::Mob*)__ret);
+}
+
+MC::ActorUniqueID^ MC::Actor::OwnerId::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getOwnerId();
     auto ____ret = new struct ::ActorUniqueID(__ret);
@@ -2434,27 +2620,54 @@ int MC::Actor::PersistingTradeRiches::get()
     return __ret;
 }
 
+MC::Player^ MC::Actor::PlayerOwner::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->getPlayerOwner();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Player((class ::Player*)__ret);
+}
+
+MC::Vec3^ MC::Actor::PosDelta::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getPosDelta();
+    return (MC::Vec3^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*) & __ret));
+}
+
+void MC::Actor::PosDelta::set(MC::Vec3^ _0)
+{
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setPosDelta(__arg0);
+}
+
+MC::Vec3^ MC::Actor::PosDeltaNonConst::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getPosDeltaNonConst();
+    return (MC::Vec3^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*) & __ret));
+}
+
 float MC::Actor::Radius::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getRadius();
     return __ret;
 }
 
-MC::Vec2 ^ MC::Actor::Rotation::get()
+MC::Vec2^ MC::Actor::Rotation::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getRotation();
     auto ____ret = new class ::Vec2(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
 }
 
-MC::ActorRuntimeID ^ MC::Actor::RuntimeID::get()
+MC::ActorRuntimeID^ MC::Actor::RuntimeID::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getRuntimeID();
     auto ____ret = new class ::ActorRuntimeID(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorRuntimeID((class ::ActorRuntimeID*)____ret, true);
 }
 
-void MC::Actor::RuntimeID::set(MC::ActorRuntimeID ^ _0)
+void MC::Actor::RuntimeID::set(MC::ActorRuntimeID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -2523,7 +2736,7 @@ void MC::Actor::StructuralIntegrity::set(int _0)
     ((class ::Actor*)NativePtr)->setStructuralIntegrity(_0);
 }
 
-MC::ActorUniqueID ^ MC::Actor::TargetId::get()
+MC::ActorUniqueID^ MC::Actor::TargetId::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getTargetId();
     auto ____ret = new struct ::ActorUniqueID(__ret);
@@ -2541,13 +2754,26 @@ void MC::Actor::TradeInterest::set(bool _0)
     ((class ::Actor*)NativePtr)->setTradeInterest(_0);
 }
 
-MC::ActorUniqueID ^ MC::Actor::UniqueID::get()
+MC::Player^ MC::Actor::TradingPlayer::get()
 {
-    auto& __ret = ((class ::Actor*)NativePtr)->getUniqueID();
-    return (MC::ActorUniqueID ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)&__ret));
+    auto __ret = ((class ::Actor*)NativePtr)->getTradingPlayer();
+    if (__ret == nullptr) return nullptr;
+    return (__ret == nullptr) ? nullptr : gcnew ::MC::Player((class ::Player*)__ret);
 }
 
-void MC::Actor::UniqueID::set(MC::ActorUniqueID ^ _0)
+void MC::Actor::TradingPlayer::set(MC::Player^ _0)
+{
+    auto __arg0 = (class ::Player*)_0->NativePtr;
+    ((class ::Actor*)NativePtr)->setTradingPlayer(__arg0);
+}
+
+MC::ActorUniqueID^ MC::Actor::UniqueID::get()
+{
+    auto& __ret = ((class ::Actor*)NativePtr)->getUniqueID();
+    return (MC::ActorUniqueID^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*) & __ret));
+}
+
+void MC::Actor::UniqueID::set(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -2566,21 +2792,21 @@ void MC::Actor::Variant::set(int _0)
     ((class ::Actor*)NativePtr)->setVariant(_0);
 }
 
-MC::Actor ^ MC::Actor::Vehicle::get()
+MC::Actor^ MC::Actor::Vehicle::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getVehicle();
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
 }
 
-MC::Actor ^ MC::Actor::VehicleRoot::get()
+MC::Actor^ MC::Actor::VehicleRoot::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getVehicleRoot();
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
 }
 
-MC::ActorRuntimeID ^ MC::Actor::VehicleRuntimeID::get()
+MC::ActorRuntimeID^ MC::Actor::VehicleRuntimeID::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->getVehicleRuntimeID();
     auto ____ret = new class ::ActorRuntimeID(__ret);
@@ -2908,6 +3134,17 @@ void MC::Actor::MovedToLimbo::set(bool _0)
     ((class ::Actor*)NativePtr)->setMovedToLimbo(_0);
 }
 
+bool MC::Actor::MovedToUnloadedChunk::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isMovedToUnloadedChunk();
+    return __ret;
+}
+
+void MC::Actor::MovedToUnloadedChunk::set(bool _0)
+{
+    ((class ::Actor*)NativePtr)->setMovedToUnloadedChunk(_0);
+}
+
 bool MC::Actor::Moving::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isMoving();
@@ -2996,6 +3233,12 @@ bool MC::Actor::IsSheared::get()
     return __ret;
 }
 
+bool MC::Actor::IsSoulSpeedEnchantActive::get()
+{
+    auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
+    return __ret;
+}
+
 bool MC::Actor::IsStackable::get()
 {
     auto __ret = ((class ::Actor*)NativePtr)->isStackable();
@@ -3077,10 +3320,10 @@ void MC::Actor::Walker::set(bool _0)
     ((class ::Actor*)NativePtr)->setWalker(_0);
 }
 
-MC::ActorUniqueID ^ MC::Actor::LovePartnerId::get()
+MC::ActorUniqueID^ MC::Actor::LovePartnerId::get()
 {
     auto& __ret = ((class ::Actor*)NativePtr)->lovePartnerId();
-    return (MC::ActorUniqueID ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)&__ret));
+    return (MC::ActorUniqueID^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*) & __ret));
 }
 
 float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
@@ -3093,9 +3336,14 @@ float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE::get()
     return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE;
 }
 
-MC::Vec3 ^ MC::Actor::LAVA_AABB_SHRINK_AMOUNT::get()
+float MC::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET::get()
 {
-    return (&::Actor::LAVA_AABB_SHRINK_AMOUNT == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)&::Actor::LAVA_AABB_SHRINK_AMOUNT);
+    return ::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET;
+}
+
+MC::Vec3^ MC::Actor::LAVA_AABB_SHRINK_AMOUNT::get()
+{
+    return (&::Actor::LAVA_AABB_SHRINK_AMOUNT == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*) & ::Actor::LAVA_AABB_SHRINK_AMOUNT);
 }
 
 float MC::Actor::LAVA_FLOW_STRENGTH_MULTIPLIER::get()
@@ -3108,7 +3356,12 @@ int MC::Actor::MAX_BYTE_CHARGE_AMOUNT::get()
     return ::Actor::MAX_BYTE_CHARGE_AMOUNT;
 }
 
-::String^ MC::Actor::RIDING_TAG::get()
+int MC::Actor::PLAYER_HURT_EXPERIENCE_TIME::get()
+{
+    return ::Actor::PLAYER_HURT_EXPERIENCE_TIME;
+}
+
+::System::String^ MC::Actor::RIDING_TAG::get()
 {
     return clix::marshalString<clix::E_UTF8>(::Actor::RIDING_TAG);
 }
@@ -3118,14 +3371,13 @@ int MC::Actor::TOTAL_AIR_SUPPLY::get()
     return ::Actor::TOTAL_AIR_SUPPLY;
 }
 
-MC::Vec3 ^ MC::Actor::WATER_AABB_SHRINK_AMOUNT::get()
+MC::Vec3^ MC::Actor::WATER_AABB_SHRINK_AMOUNT::get()
 {
-    return (&::Actor::WATER_AABB_SHRINK_AMOUNT == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)&::Actor::WATER_AABB_SHRINK_AMOUNT);
+    return (&::Actor::WATER_AABB_SHRINK_AMOUNT == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*) & ::Actor::WATER_AABB_SHRINK_AMOUNT);
 }
 
 float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
 {
     return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
 }
-
-#endif // INCLUDE_MCAPI
+#endif // MANUAL_MAINTENANCE

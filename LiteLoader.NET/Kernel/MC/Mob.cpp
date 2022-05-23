@@ -7,12 +7,13 @@ inline bool Mob::RefreshInventory()
 }
 } // namespace MC
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 
 #include "../../Header/MC/Vec3.hpp"
 #include "../../Header/MC/BlockPos.hpp"
 #include "../../Header/MC/AABB.hpp"
 #include "../../Header/MC/ItemStack.hpp"
+#include "../../Header/MC/Player.hpp"
 
 void MC::Mob::OutOfWorld()
 {
@@ -22,6 +23,11 @@ void MC::Mob::OutOfWorld()
 void MC::Mob::DoInitialMove()
 {
     ((class ::Mob*)NativePtr)->_doInitialMove();
+}
+
+void MC::Mob::ResetUserPos(bool _0)
+{
+    ((class ::Mob*)NativePtr)->resetUserPos(_0);
 }
 
 float MC::Mob::GetInterpolatedBodyRot(float _0)
@@ -42,12 +48,12 @@ float MC::Mob::GetInterpolatedBodyYaw(float _0)
     return __ret;
 }
 
-void MC::Mob::UnkVfn41()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_41();
-}
+//void MC::Mob::UnkVfn40()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_40();
+//}
 
-void MC::Mob::TeleportTo(MC::Vec3 ^ _0, bool _1, int _2, int _3)
+void MC::Mob::TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -70,7 +76,7 @@ void MC::Mob::VehicleTick()
     ((class ::Mob*)NativePtr)->vehicleTick();
 }
 
-bool MC::Mob::StartRiding(MC::Actor ^ _0)
+bool MC::Mob::StartRiding(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -79,7 +85,7 @@ bool MC::Mob::StartRiding(MC::Actor ^ _0)
     return __ret;
 }
 
-void MC::Mob::AddPassenger(MC::Actor ^ _0)
+void MC::Mob::AddPassenger(MC::Actor^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -87,64 +93,78 @@ void MC::Mob::AddPassenger(MC::Actor ^ _0)
     ((class ::Mob*)NativePtr)->addPassenger(__arg0);
 }
 
-void MC::Mob::UnkVfn61()
+//void MC::Mob::UnkVfn61()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_61();
+//}
+//
+//void MC::Mob::UnkVfn68()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_68();
+//}
+//
+//void MC::Mob::UnkVfn82()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_82();
+//}
+
+bool MC::Mob::CanInteractWithOtherEntitiesInGame()
 {
-    ((class ::Mob*)NativePtr)->__unk_vfn_61();
+    auto __ret = ((class ::Mob*)NativePtr)->canInteractWithOtherEntitiesInGame();
+    return __ret;
 }
 
-void MC::Mob::UnkVfn68()
+//void MC::Mob::UnkVfn88()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_88();
+//}
+
+void MC::Mob::PlayerTouch(MC::Player^ _0)
 {
-    ((class ::Mob*)NativePtr)->__unk_vfn_68();
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::Player*)_0->NativePtr;
+    ((class ::Mob*)NativePtr)->playerTouch(__arg0);
 }
 
-void MC::Mob::UnkVfn82()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_82();
-}
+//void MC::Mob::UnkVfn95()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_95();
+//}
+//
+//void MC::Mob::UnkVfn98()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_98();
+//}
+//
+//void MC::Mob::UnkVfn105()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_105();
+//}
+//
+//void MC::Mob::UnkVfn107()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_107();
+//}
+//
+//void MC::Mob::UnkVfn108()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_108();
+//}
+//
+//void MC::Mob::UnkVfn109()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_109();
+//}
 
-void MC::Mob::UnkVfn87()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_87();
-}
-
-void MC::Mob::UnkVfn94()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_94();
-}
-
-void MC::Mob::UnkVfn97()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_97();
-}
-
-void MC::Mob::UnkVfn104()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_104();
-}
-
-void MC::Mob::UnkVfn106()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_106();
-}
-
-void MC::Mob::UnkVfn107()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_107();
-}
-
-void MC::Mob::UnkVfn108()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_108();
-}
-
-bool MC::Mob::IsValidTarget(MC::Actor ^ _0)
+bool MC::Mob::IsValidTarget(MC::Actor^ _0)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     auto __ret = ((class ::Mob*)NativePtr)->isValidTarget(__arg0);
     return __ret;
 }
 
-bool MC::Mob::Attack(MC::Actor ^ _0, MC::ActorDamageCause _1)
+bool MC::Mob::Attack(MC::Actor^ _0, MC::ActorDamageCause _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -152,13 +172,6 @@ bool MC::Mob::Attack(MC::Actor ^ _0, MC::ActorDamageCause _1)
     auto __arg1 = (::ActorDamageCause)_1;
     auto __ret = ((class ::Mob*)NativePtr)->attack(__arg0, __arg1);
     return __ret;
-}
-
-void MC::Mob::AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0)
-{
-    int __arg0 = _0;
-    ((class ::Mob*)NativePtr)->adjustDamageAmount(__arg0);
-    _0 = __arg0;
 }
 
 void MC::Mob::OnTame()
@@ -177,7 +190,7 @@ bool MC::Mob::canPowerJump()
     return __ret;
 }
 
-void MC::Mob::VehicleLanded(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
+void MC::Mob::VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -199,7 +212,7 @@ bool MC::Mob::DoFireHurt(int _0)
     return __ret;
 }
 
-void MC::Mob::AwardKillScore(MC::Actor ^ _0, int _1)
+void MC::Mob::AwardKillScore(MC::Actor^ _0, int _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -219,10 +232,10 @@ bool MC::Mob::CanChangeDimensions()
     return __ret;
 }
 
-void MC::Mob::UnkVfn182()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_182();
-}
+//void MC::Mob::UnkVfn181()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_181();
+//}
 
 bool MC::Mob::CanBePulledIntoVehicle()
 {
@@ -230,10 +243,10 @@ bool MC::Mob::CanBePulledIntoVehicle()
     return __ret;
 }
 
-void MC::Mob::UnkVfn196()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_196();
-}
+//void MC::Mob::UnkVfn195()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_195();
+//}
 
 bool MC::Mob::CanSynchronizeNewEntity()
 {
@@ -246,7 +259,7 @@ void MC::Mob::StopRiding(bool _0, bool _1, bool _2)
     ((class ::Mob*)NativePtr)->stopRiding(_0, _1, _2);
 }
 
-void MC::Mob::BuildDebugInfo(::String^ _0)
+void MC::Mob::BuildDebugInfo(::System::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
     ((class ::Mob*)NativePtr)->buildDebugInfo(__arg0);
@@ -257,15 +270,15 @@ void MC::Mob::Swing()
     ((class ::Mob*)NativePtr)->swing();
 }
 
-void MC::Mob::UnkVfn221()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_221();
-}
-
-void MC::Mob::UnkVfn222()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_222();
-}
+//void MC::Mob::UnkVfn220()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_220();
+//}
+//
+//void MC::Mob::UnkVfn221()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_221();
+//}
 
 void MC::Mob::SetAuxValue(int _0)
 {
@@ -277,15 +290,15 @@ void MC::Mob::StopSpinAttack()
     ((class ::Mob*)NativePtr)->stopSpinAttack();
 }
 
-void MC::Mob::UnkVfn242()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_242();
-}
-
-void MC::Mob::UnkVfn245()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_245();
-}
+//void MC::Mob::UnkVfn246()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_246();
+//}
+//
+//void MC::Mob::UnkVfn249()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_249();
+//}
 
 void MC::Mob::Kill()
 {
@@ -298,17 +311,25 @@ bool MC::Mob::ShouldDropDeathLoot()
     return __ret;
 }
 
-void MC::Mob::UnkVfn257()
+//void MC::Mob::UnkVfn261()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_261();
+//}
+
+void MC::Mob::AddAdditionalSaveData(MC::CompoundTag^ _0)
 {
-    ((class ::Mob*)NativePtr)->__unk_vfn_257();
+    if (ReferenceEquals(_0, nullptr))
+        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    ((class ::Mob*)NativePtr)->addAdditionalSaveData(__arg0);
 }
 
-void MC::Mob::UnkVfn265()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_265();
-}
+//void MC::Mob::UnkVfn269()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_269();
+//}
 
-void MC::Mob::RemovePassenger(MC::ActorUniqueID ^ _0, bool _1, bool _2, bool _3)
+void MC::Mob::RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -321,12 +342,12 @@ void MC::Mob::OnSizeUpdated()
     ((class ::Mob*)NativePtr)->_onSizeUpdated();
 }
 
-void MC::Mob::UnkVfn274()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_274();
-}
+//void MC::Mob::UnkVfn278()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_278();
+//}
 
-void MC::Mob::Knockback(MC::Actor ^ _0, int _1, float _2, float _3, float _4, float _5, float _6)
+void MC::Mob::Knockback(MC::Actor^ _0, int _1, float _2, float _3, float _4, float _5, float _6)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     ((class ::Mob*)NativePtr)->knockback(__arg0, _1, _2, _3, _4, _5, _6);
@@ -337,7 +358,7 @@ void MC::Mob::SpawnAnim()
     ((class ::Mob*)NativePtr)->spawnAnim();
 }
 
-int MC::Mob::GetMeleeWeaponDamageBonus(MC::Mob ^ _0)
+float MC::Mob::GetMeleeWeaponDamageBonus(MC::Mob^ _0)
 {
     auto __arg0 = (class ::Mob*)_0->NativePtr;
     auto __ret = ((class ::Mob*)NativePtr)->getMeleeWeaponDamageBonus(__arg0);
@@ -364,7 +385,7 @@ void MC::Mob::PushActors()
     ((class ::Mob*)NativePtr)->pushActors();
 }
 
-void MC::Mob::LookAt(MC::Actor ^ _0, float _1, float _2)
+void MC::Mob::LookAt(MC::Actor^ _0, float _1, float _2)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     ((class ::Mob*)NativePtr)->lookAt(__arg0, _1, _2);
@@ -388,19 +409,19 @@ float MC::Mob::GetAttackAnim(float _0)
     return __ret;
 }
 
-void MC::Mob::UnkVfn303()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_303();
-}
+//void MC::Mob::UnkVfn307()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_307();
+//}
 
-bool MC::Mob::IsAlliedTo(MC::Mob ^ _0)
+bool MC::Mob::IsAlliedTo(MC::Mob^ _0)
 {
     auto __arg0 = (class ::Mob*)_0->NativePtr;
     auto __ret = ((class ::Mob*)NativePtr)->isAlliedTo(__arg0);
     return __ret;
 }
 
-bool MC::Mob::DoHurtTarget(MC::Actor ^ _0, MC::ActorDamageCause _1)
+bool MC::Mob::DoHurtTarget(MC::Actor^ _0, MC::ActorDamageCause _1)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     auto __arg1 = (::ActorDamageCause)_1;
@@ -408,17 +429,17 @@ bool MC::Mob::DoHurtTarget(MC::Actor ^ _0, MC::ActorDamageCause _1)
     return __ret;
 }
 
-void MC::Mob::UnkVfn307()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_307();
-}
+//void MC::Mob::UnkVfn311()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_311();
+//}
 
 void MC::Mob::LeaveCaravan()
 {
     ((class ::Mob*)NativePtr)->leaveCaravan();
 }
 
-void MC::Mob::JoinCaravan(MC::Mob ^ _0)
+void MC::Mob::JoinCaravan(MC::Mob^ _0)
 {
     auto __arg0 = (class ::Mob*)_0->NativePtr;
     ((class ::Mob*)NativePtr)->joinCaravan(__arg0);
@@ -455,7 +476,7 @@ bool MC::Mob::CreateAIGoals()
     return __ret;
 }
 
-void MC::Mob::OnBorn(MC::Actor ^ _0, MC::Actor ^ _1)
+void MC::Mob::OnBorn(MC::Actor^ _0, MC::Actor^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -466,13 +487,13 @@ void MC::Mob::OnBorn(MC::Actor ^ _0, MC::Actor ^ _1)
     ((class ::Mob*)NativePtr)->onBorn(__arg0, __arg1);
 }
 
-void MC::Mob::AttackAnimation(MC::Actor ^ _0, float _1)
+void MC::Mob::AttackAnimation(MC::Actor^ _0, float _1)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     ((class ::Mob*)NativePtr)->attackAnimation(__arg0, _1);
 }
 
-float MC::Mob::GetWalkTargetValue(MC::BlockPos ^ _0)
+float MC::Mob::GetWalkTargetValue(MC::BlockPos^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -487,10 +508,10 @@ bool MC::Mob::CanExistWhenDisallowMob()
     return __ret;
 }
 
-void MC::Mob::UnkVfn338()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_338();
-}
+//void MC::Mob::UnkVfn345()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_345();
+//}
 
 void MC::Mob::AscendLadder()
 {
@@ -547,12 +568,12 @@ void MC::Mob::UpdateGliding()
     ((class ::Mob*)NativePtr)->updateGliding();
 }
 
-void MC::Mob::UnkVfn354()
-{
-    ((class ::Mob*)NativePtr)->__unk_vfn_354();
-}
+//void MC::Mob::UnkVfn359()
+//{
+//    ((class ::Mob*)NativePtr)->__unk_vfn_359();
+//}
 
-MC::AABB ^ MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB ^ _0, MC::Vec3 ^ _1)
+MC::AABB^ MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB^ _0, MC::Vec3^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -565,7 +586,12 @@ MC::AABB ^ MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB ^ _0, MC::Vec3 ^ _1)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)____ret, true);
 }
 
-void MC::Mob::AddSpeedModifier(MC::Mce::UUID ^ _0, ::String^ _1, float _2)
+void MC::Mob::EndJump()
+{
+    ((class ::Mob*)NativePtr)->_endJump();
+}
+
+void MC::Mob::AddSpeedModifier(MC::Mce::UUID^ _0, ::System::String^ _1, float _2)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -574,7 +600,7 @@ void MC::Mob::AddSpeedModifier(MC::Mce::UUID ^ _0, ::String^ _1, float _2)
     ((class ::Mob*)NativePtr)->addSpeedModifier(__arg0, __arg1, _2);
 }
 
-//void MC::Mob::CreateAI(::System::Collections::Generic::List<MC::GoalDefinition ^> ^ _0)
+//void MC::Mob::CreateAI(::System::Collections::Generic::List<MC::GoalDefinition^>^ _0)
 //{
 //    auto _tmp_0 = std::vector<::GoalDefinition>();
 //    for each (MC::GoalDefinition ^ _element in _0)
@@ -588,7 +614,7 @@ void MC::Mob::AddSpeedModifier(MC::Mce::UUID ^ _0, ::String^ _1, float _2)
 //    ((class ::Mob*)NativePtr)->createAI(__arg0);
 //}
 
-void MC::Mob::EmitJumpPreventedEvent(MC::BlockPos ^ _0)
+void MC::Mob::EmitJumpPreventedEvent(MC::BlockPos^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -606,7 +632,7 @@ void MC::Mob::OnPlayerJump(int _0)
     ((class ::Mob*)NativePtr)->onPlayerJump(_0);
 }
 
-void MC::Mob::RemoveSpeedModifier(MC::Mce::UUID ^ _0)
+void MC::Mob::RemoveSpeedModifier(MC::Mce::UUID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -639,16 +665,6 @@ void MC::Mob::SetNaturallySpawned(bool _0)
     ((class ::Mob*)NativePtr)->setNaturallySpawned(_0);
 }
 
-void MC::Mob::SetPassengerLockedBodyRot(float _0)
-{
-    ((class ::Mob*)NativePtr)->setPassengerLockedBodyRot(_0);
-}
-
-void MC::Mob::SetPassengerRotLimit(float _0)
-{
-    ((class ::Mob*)NativePtr)->setPassengerRotLimit(_0);
-}
-
 void MC::Mob::SetSpeedModifier(float _0)
 {
     ((class ::Mob*)NativePtr)->setSpeedModifier(_0);
@@ -662,11 +678,6 @@ void MC::Mob::SetSurfaceMob(bool _0)
 void MC::Mob::SetXxa(float _0)
 {
     ((class ::Mob*)NativePtr)->setXxa(_0);
-}
-
-void MC::Mob::SetYHeadRot(float _0)
-{
-    ((class ::Mob*)NativePtr)->setYHeadRot(_0);
 }
 
 void MC::Mob::SetYya(float _0)
@@ -743,20 +754,20 @@ bool MC::Mob::SurfaceMob::get()
     return __ret;
 }
 
-MC::Actor ^ MC::Mob::Target::get()
+MC::Actor^ MC::Mob::Target::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getTarget();
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
 }
 
-void MC::Mob::Target::set(MC::Actor ^ _0)
+void MC::Mob::Target::set(MC::Actor^ _0)
 {
     auto __arg0 = (class ::Actor*)_0->NativePtr;
     ((class ::Mob*)NativePtr)->setTarget(__arg0);
 }
 
-MC::Actor ^ MC::Mob::FindAttackTarget::get()
+MC::Actor^ MC::Mob::FindAttackTarget::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->findAttackTarget();
     if (__ret == nullptr) return nullptr;
@@ -769,7 +780,7 @@ bool MC::Mob::Jumping::get()
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Mob::SourceUniqueID::get()
+MC::ActorUniqueID^ MC::Mob::SourceUniqueID::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getSourceUniqueID();
     auto ____ret = new struct ::ActorUniqueID(__ret);
@@ -782,7 +793,7 @@ int MC::Mob::PortalWaitTime::get()
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Mob::ControllingPlayer::get()
+MC::ActorUniqueID^ MC::Mob::ControllingPlayer::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getControllingPlayer();
     auto ____ret = new struct ::ActorUniqueID(__ret);
@@ -807,6 +818,17 @@ float MC::Mob::YHeadRot::get()
     return __ret;
 }
 
+void MC::Mob::YHeadRot::set(float _0)
+{
+    ((class ::Mob*)NativePtr)->setYHeadRot(_0);
+}
+
+float MC::Mob::YHeadRotO::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getYHeadRotO();
+    return __ret;
+}
+
 bool MC::Mob::IsWorldBuilder::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->isWorldBuilder();
@@ -822,6 +844,18 @@ bool MC::Mob::IsCreative::get()
 bool MC::Mob::IsAdventure::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->isAdventure();
+    return __ret;
+}
+
+bool MC::Mob::IsSurvival::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->isSurvival();
+    return __ret;
+}
+
+bool MC::Mob::IsSpectator::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->isSpectator();
     return __ret;
 }
 
@@ -907,7 +941,7 @@ bool MC::Mob::HasCaravanTail::get()
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Mob::CaravanHead::get()
+MC::ActorUniqueID^ MC::Mob::CaravanHead::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getCaravanHead();
     auto ____ret = new struct ::ActorUniqueID(__ret);
@@ -926,13 +960,19 @@ float MC::Mob::ArmorCoverPercentage::get()
     return __ret;
 }
 
+int MC::Mob::ToughnessValue::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getToughnessValue();
+    return __ret;
+}
+
 int MC::Mob::ClearEquipment::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->clearEquipment();
     return __ret;
 }
 
-::System::Collections::Generic::List<int> ^ MC::Mob::AllArmorID::get()
+::System::Collections::Generic::List<int>^ MC::Mob::AllArmorID::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getAllArmorID();
     auto _tmp__ret = gcnew ::System::Collections::Generic::List<int>();
@@ -940,32 +980,6 @@ int MC::Mob::ClearEquipment::get()
     for (auto _element : __list0)
     {
         auto _marshalElement = _element;
-        _tmp__ret->Add(_marshalElement);
-    }
-    return _tmp__ret;
-}
-
-::System::Collections::Generic::List<MC::ItemStack ^> ^ MC::Mob::AllHand::get()
-{
-    auto __ret = ((class ::Mob*)NativePtr)->getAllHand();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ItemStack ^>();
-    auto __list0 = __ret;
-    for (auto _element : __list0)
-    {
-        auto _marshalElement = (_element == nullptr) ? nullptr : gcnew ::MC::ItemStack((class ::ItemStack*)_element);
-        _tmp__ret->Add(_marshalElement);
-    }
-    return _tmp__ret;
-}
-
-::System::Collections::Generic::List<MC::ItemStack ^> ^ MC::Mob::AllEquipment::get()
-{
-    auto __ret = ((class ::Mob*)NativePtr)->getAllEquipment();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ItemStack ^>();
-    auto __list0 = __ret;
-    for (auto _element : __list0)
-    {
-        auto _marshalElement = (_element == nullptr) ? nullptr : gcnew ::MC::ItemStack((class ::ItemStack*)_element);
         _tmp__ret->Add(_marshalElement);
     }
     return _tmp__ret;
@@ -1000,7 +1014,7 @@ bool MC::Mob::DiscardFriction::get()
     return __ret;
 }
 
-MC::BlockPos ^ MC::Mob::BoundOrigin::get()
+MC::BlockPos^ MC::Mob::BoundOrigin::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getBoundOrigin();
     auto ____ret = new class ::BlockPos(__ret);
@@ -1024,7 +1038,7 @@ void MC::Mob::EatCounter::set(int _0)
     ((class ::Mob*)NativePtr)->setEatCounter(_0);
 }
 
-MC::Mob ^ MC::Mob::FirstCaravanHead::get()
+MC::Mob^ MC::Mob::FirstCaravanHead::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getFirstCaravanHead();
     if (__ret == nullptr) return nullptr;
@@ -1059,17 +1073,24 @@ int MC::Mob::GlidingTicks::get()
     return __ret;
 }
 
+float MC::Mob::JumpEffectAmplifierValue::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getJumpEffectAmplifierValue();
+    return __ret;
+}
+
 float MC::Mob::JumpMultiplier::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getJumpMultiplier();
     return __ret;
 }
 
-MC::Mob::JumpPreventionResult ^ MC::Mob::JumpPrevention::get()
-{
-    auto __ret = &((class ::Mob*)NativePtr)->getJumpPrevention();
-    return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob::JumpPreventionResult((struct ::Mob::JumpPreventionResult*)__ret, false);
-}
+//MC::Mob::JumpPreventionResult^ MC::Mob::JumpPrevention::get()
+//{
+//    auto __ret = ((class ::Mob*)NativePtr)->getJumpPrevention();
+//    auto ____ret = new struct ::Mob::JumpPreventionResult(__ret);
+//    return (____ret == nullptr) ? nullptr : gcnew ::MC::Mob::JumpPreventionResult((struct ::Mob::JumpPreventionResult*)____ret, true);
+//}
 
 float MC::Mob::MovementComponentCurrentSpeed::get()
 {
@@ -1088,20 +1109,53 @@ int MC::Mob::NoActionTime::get()
     return __ret;
 }
 
+float MC::Mob::PassengerLockedBodyRot::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getPassengerLockedBodyRot();
+    return __ret;
+}
+
+void MC::Mob::PassengerLockedBodyRot::set(float _0)
+{
+    ((class ::Mob*)NativePtr)->setPassengerLockedBodyRot(_0);
+}
+
+float MC::Mob::PassengerRotLimit::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getPassengerRotLimit();
+    return __ret;
+}
+
+void MC::Mob::PassengerRotLimit::set(float _0)
+{
+    ((class ::Mob*)NativePtr)->setPassengerRotLimit(_0);
+}
+
 int MC::Mob::RollCounter::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getRollCounter();
     return __ret;
 }
 
-MC::ActorUniqueID ^ MC::Mob::TargetCaptain::get()
+float MC::Mob::SwimSpeedMultiplier::get()
+{
+    auto __ret = ((class ::Mob*)NativePtr)->getSwimSpeedMultiplier();
+    return __ret;
+}
+
+void MC::Mob::SwimSpeedMultiplier::set(float _0)
+{
+    ((class ::Mob*)NativePtr)->setSwimSpeedMultiplier(_0);
+}
+
+MC::ActorUniqueID^ MC::Mob::TargetCaptain::get()
 {
     auto __ret = ((class ::Mob*)NativePtr)->getTargetCaptain();
     auto ____ret = new struct ::ActorUniqueID(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
 }
 
-void MC::Mob::TargetCaptain::set(MC::ActorUniqueID ^ _0)
+void MC::Mob::TargetCaptain::set(MC::ActorUniqueID^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
@@ -1199,24 +1253,24 @@ void MC::Mob::Rolling::set(bool _0)
     ((class ::Mob*)NativePtr)->setRolling(_0);
 }
 
-int MC::Mob::ABSORPTION_FACTOR_MAX::get()
-{
-    return ::Mob::ABSORPTION_FACTOR_MAX;
-}
-
-int MC::Mob::ABSORPTION_FACTOR_MIN::get()
-{
-    return ::Mob::ABSORPTION_FACTOR_MIN;
-}
-
 int MC::Mob::ARMOR_DAMAGE_DIVISOR::get()
 {
     return ::Mob::ARMOR_DAMAGE_DIVISOR;
 }
 
+float MC::Mob::ARMOR_PROTECTION_DIVIDER::get()
+{
+    return ::Mob::ARMOR_PROTECTION_DIVIDER;
+}
+
 float MC::Mob::ASCEND_BLOCK_BY_JUMPING_SPEED::get()
 {
     return ::Mob::ASCEND_BLOCK_BY_JUMPING_SPEED;
+}
+
+float MC::Mob::BASE_ARMOR_TOUGHNESS::get()
+{
+    return ::Mob::BASE_ARMOR_TOUGHNESS;
 }
 
 float MC::Mob::DEFAULT_GRAVITY::get()
@@ -1249,6 +1303,21 @@ float MC::Mob::LADDER_CLIMB_SPEED::get()
     return ::Mob::LADDER_CLIMB_SPEED;
 }
 
+float MC::Mob::MAX_ARMOR::get()
+{
+    return ::Mob::MAX_ARMOR;
+}
+
+float MC::Mob::MIN_ARMOR_RATIO::get()
+{
+    return ::Mob::MIN_ARMOR_RATIO;
+}
+
+float MC::Mob::NUM_ARMOR_ITEMS::get()
+{
+    return ::Mob::NUM_ARMOR_ITEMS;
+}
+
 float MC::Mob::PLAYER_SWIMMING_SURFACE_OFFSET::get()
 {
     return ::Mob::PLAYER_SWIMMING_SURFACE_OFFSET;
@@ -1262,6 +1331,11 @@ int MC::Mob::REMOVE_PASSENGERS_DELAY::get()
 float MC::Mob::SLOW_FALL_GRAVITY::get()
 {
     return ::Mob::SLOW_FALL_GRAVITY;
+}
+
+int MC::Mob::SPAWN_XP_DELAY::get()
+{
+    return ::Mob::SPAWN_XP_DELAY;
 }
 
 int MC::Mob::TOTAL_ROLL_STEPS::get()
