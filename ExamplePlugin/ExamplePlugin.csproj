@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Reference Include="LiteLoader.NET">
-      <HintPath>..\x64\Debug\LiteLoader.NET.dll</HintPath>
+      <HintPath>..\x64\Release\LiteLoader.NET.dll</HintPath>
     </Reference>
   </ItemGroup>
 
