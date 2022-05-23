@@ -36,6 +36,7 @@ public:
     property String ^ Name { String ^ get(); };
     property String ^ RealName { String ^ get(); };
     property String^ Uuid { String ^ get(); };
+    property String^ Xuid { String^ get(); };
     property String ^ IP { String ^ get(); };
     property String ^ LanguageCode { String ^ get(); };
     property String ^ ServerAddress { String ^ get(); };
@@ -88,7 +89,7 @@ public:
     inline bool RemoveSidebar();
     inline CompoundTag ^ GetNbt();
     inline bool SetNbt(CompoundTag ^ nbt);
-    inline bool RefreshAttribute(Attribute ^ attribute);
+    inline bool RefreshAttribute(Attribute^ attribute);
     inline bool RefreshAttributes(List<Attribute ^> ^ attributes);
 
     inline int GetScore(String^ key);

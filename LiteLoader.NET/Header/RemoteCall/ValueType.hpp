@@ -502,6 +502,69 @@ namespace LLNET::RemoteCall {
 		Dictionary_Type2Valuetype(BlockType^);
 		Dictionary_Type2Valuetype(NbtType^);
 
+#define	Valuetype2Dictionary_SimpleType(type)																							\
+		static operator Dictionary<String^, type> ^ (Valuetype^ v) {																	\
+			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(v->NativePtr->value);											\
+			auto ret = gcnew Dictionary<String^, type>((int)umap.size());																\
+			for (auto& [k, _v] : umap) {																								\
+				ret->Add(marshalString(k), std::get<::RemoteCall::NumberType>(std::get<::RemoteCall::Value>(_v.value)).get<type>());	\
+			}																															\
+			return ret;																													\
+		};
+
+		Valuetype2Dictionary_SimpleType(double);
+		Valuetype2Dictionary_SimpleType(float);
+		Valuetype2Dictionary_SimpleType(__int64);
+		Valuetype2Dictionary_SimpleType(int);
+		Valuetype2Dictionary_SimpleType(short);
+		Valuetype2Dictionary_SimpleType(char);
+		Valuetype2Dictionary_SimpleType(unsigned __int64);
+		Valuetype2Dictionary_SimpleType(unsigned int);
+		Valuetype2Dictionary_SimpleType(unsigned short);
+		Valuetype2Dictionary_SimpleType(unsigned char);
+		Valuetype2Dictionary_SimpleType(bool);
+
+#define	Valuetype2Dictionary_PtrType(type,ptrType)																		\
+		static operator Dictionary<String^, type^> ^ (Valuetype^ v) {													\
+			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(v->NativePtr->value);							\
+			auto ret = gcnew Dictionary<String^, type^>((int)umap.size());												\
+			for (auto& [k, _v] : umap) {																				\
+				ret->Add(marshalString(k), gcnew type(std::get<ptrType*>(std::get<::RemoteCall::Value>(_v.value))));	\
+			}																											\
+			return ret;																									\
+		};
+
+		Valuetype2Dictionary_PtrType(MC::Player, ::Player);
+		Valuetype2Dictionary_PtrType(MC::Actor, ::Actor);
+		Valuetype2Dictionary_PtrType(MC::BlockActor, ::BlockActor);
+		Valuetype2Dictionary_PtrType(MC::Container, ::Container);
+
+#define	Valuetype2Dictionary_InstanceType(type,instanceType)																\
+		static operator Dictionary<String^, type^> ^ (Valuetype^ v) {														\
+			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(v->NativePtr->value);								\
+			auto ret = gcnew Dictionary<String^, type^>((int)umap.size());													\
+			for (auto& [k, _v] : umap) {																					\
+				ret->Add(marshalString(k), gcnew type(std::get<instanceType>(std::get<::RemoteCall::Value>(_v.value))));	\
+			}																												\
+			return ret;																										\
+		};
+
+		Valuetype2Dictionary_InstanceType(MC::Vec3, ::Vec3);
+		Valuetype2Dictionary_InstanceType(MC::BlockPos, ::BlockPos);
+		Valuetype2Dictionary_InstanceType(ItemType, ::RemoteCall::ItemType);
+		Valuetype2Dictionary_InstanceType(BlockType, ::RemoteCall::BlockType);
+		Valuetype2Dictionary_InstanceType(NbtType, ::RemoteCall::NbtType);
+
+		static operator Dictionary<String^, String^> ^ (Valuetype^ v) {
+
+			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(v->NativePtr->value);
+			auto ret = gcnew Dictionary<String^, String^>((int)umap.size());
+			for (auto& [k, _v] : umap) {
+
+				ret->Add(marshalString(k), marshalString(std::get<std::string>(std::get<::RemoteCall::Value>(_v.value))));
+			}
+			return ret;
+		};
 
 	public:
 		generic<typename T> where T : IValueType

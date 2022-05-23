@@ -27,6 +27,10 @@ inline String^ Player::Uuid::get()
 {
     return marshalString<Encoding::E_UTF8>(NativePtr->getUuid());
 }
+inline String^ Player::Xuid::get()
+{
+    return marshalString<Encoding::E_UTF8>(NativePtr->getXuid());
+}
 inline unsigned char Player::ClientSubId::get()
 {
     return NativePtr->getClientSubId();

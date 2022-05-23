@@ -6,6 +6,8 @@ namespace LLNET::RemoteCall {
 	public
 	ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>, IValue
 	{
+		__ctor_copy(NbtType, ::RemoteCall::NbtType);
+		__ctor_move(NbtType, ::RemoteCall::NbtType);
 	public:
 		NbtType(MC::CompoundTag^ tag)
 			: ClassTemplate(new ::RemoteCall::NbtType(tag->NativePtr), true)
@@ -37,6 +39,8 @@ namespace LLNET::RemoteCall {
 	public
 	ref class ItemType : ClassTemplate<ItemType, ::RemoteCall::ItemType>, IValue
 	{
+		__ctor_copy(ItemType, ::RemoteCall::ItemType);
+		__ctor_move(ItemType, ::RemoteCall::ItemType);
 	public:
 		ItemType(MC::ItemStack^ item)
 			: ClassTemplate(new ::RemoteCall::ItemType(item->NativePtr), true)
@@ -68,6 +72,9 @@ namespace LLNET::RemoteCall {
 	public
 	ref class BlockType : ClassTemplate<BlockType, ::RemoteCall::BlockType>, IValue
 	{
+		__ctor_copy(BlockType, ::RemoteCall::BlockType);
+		__ctor_move(BlockType, ::RemoteCall::BlockType);
+
 		BlockType(MC::BlockInstance^ block)
 			: ClassTemplate(new ::RemoteCall::BlockType(*block->NativePtr), true)
 		{
