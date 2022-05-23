@@ -51,7 +51,7 @@ namespace ExamplePlugin.Examples
             logger.info.WriteLine($"ReturnVal:{d}");
 
 
-            RemoteCallAPI.ExportAs<TEST>(".NET", "ExortAsTest", Test);
+            //RemoteCallAPI.ExportAs<TEST>(".NET", "ExortAsTest", Test);
         }
     }
 }

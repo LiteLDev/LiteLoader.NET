@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LiteLoader.NET\LiteLoader.NET.vcxproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="LiteLoader.NET">
       <HintPath>..\x64\Debug\LiteLoader.NET.dll</HintPath>
     </Reference>
