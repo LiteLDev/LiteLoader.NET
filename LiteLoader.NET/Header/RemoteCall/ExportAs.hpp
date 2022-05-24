@@ -3,13 +3,12 @@
 
 namespace LLNET::RemoteCall {
 
-	generic<typename RTN>
-	delegate RTN ImportDelegate_0();
-	generic<typename RTN, typename T0>
-	delegate RTN ImportDelegate_0(T0);
-	generic<typename RTN, typename T0, typename T1>
-	delegate RTN ImportDelegate_0(T0, T1);
-
+	//generic<typename RTN>
+	//delegate RTN ImportDelegate_0();
+	//generic<typename RTN, typename T0>
+	//delegate RTN ImportDelegate_0(T0);
+	//generic<typename RTN, typename T0, typename T1>
+	//delegate RTN ImportDelegate_0(T0, T1);
 
 	ref class RemoteCallFunctionRegister {
 	internal:

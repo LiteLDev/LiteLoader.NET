@@ -3,44 +3,41 @@
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
 
-void LoadLibraries(std::vector<std::filesystem::path> const& libraryPath, Logger& logger) {
-	for (auto& path : libraryPath) {
-		try
-		{
-			auto assembly = Assembly::LoadFrom(marshalString(path.string()));
-			logger.info("Library <{}> loaded", path.filename().string());
+Logger* plogger = nullptr;
 
-			auto attributes = assembly->GetCustomAttributes(LLNET::Core::LLNETLibraryAttribute::typeid, false);
-			if (attributes->Length > 0) {
-				auto attr = static_cast<LLNET::Core::LLNETLibraryAttribute^>(attributes[0]);
-				logger.info("{} {}.{}.{}-{} loaded.", attr->Major, attr->Minor, attr->Revision, marshalString(attr->Status.ToString()));
-				if (!String::IsNullOrWhiteSpace(attr->Desc))
-					logger.info("<{}> : {}", path.filename().string(), marshalString(attr->Desc));
-			}
-		}
-		catch (System::BadImageFormatException^)
-		{
-			continue;
-		}
-		catch (System::Reflection::TargetInvocationException^ ex)
-		{
-			logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
-			logger.error(marshalString(ex->InnerException->ToString()));
-		}
-		catch (System::Exception^ ex)
-		{
-			logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
-			logger.error(marshalString(ex->ToString()));
-		}
-		catch (const std::exception& ex)
-		{
-			logger.error("Uncaught std::exception Detected!");
-			logger.error(ex.what());
-		}
-		catch (...)
-		{
-			logger.error("Uncaught exception Detected!");
-		}
+System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
+
+void Init(Logger& logger)
+{
+	plogger = &logger;
+	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
+}
+
+System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) {
+	try
+	{
+		System::Reflection::AssemblyName assemblyName(args->Name);
+		if (assemblyName.Name == LLNET_LOADER_NAME)
+			return System::Reflection::Assembly::GetExecutingAssembly();
+
+		return System::Reflection::Assembly::LoadFrom(System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll"));
+	}
+	catch (System::Exception^ ex)
+	{
+		plogger->error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
+		plogger->error(marshalString(ex->ToString()));
+		throw;
+	}
+	catch (const std::exception& ex)
+	{
+		plogger->error("Uncaught std::exception Detected!");
+		plogger->error(ex.what());
+		throw;
+	}
+	catch (...)
+	{
+		plogger->error("Uncaught exception Detected!");
+		throw;
 	}
 }
 
@@ -93,20 +90,8 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 void LoadMain()
 {
 	Logger logger(LLNET_LOADER_NAME);
-	logger.info("Loading libraries...");
-	std::vector<std::filesystem::path> libraries;
-	std::filesystem::directory_iterator libfiles(LITELOADER_LIBRARY_DIR);
-	
-	for (auto& libfile : libfiles) {
-		auto& libPath = libfile.path();
-		if (libPath.extension() == ".dll")
-		{
-			if (libPath.filename() == LLNET_LOADER_NAME_WITH_EXTENSION)
-				continue;
-			libraries.emplace_back(libPath);
-		}
-	}
-	LoadLibraries(libraries, logger);
+
+	Init(logger);
 
 	logger.info("Loading plugins...");
 	std::filesystem::directory_iterator files(LLNET_PLUGINS_LOAD_DIR);

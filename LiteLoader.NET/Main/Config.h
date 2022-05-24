@@ -14,7 +14,7 @@
 
 #define LITELOADER_CONFIG_FILE "plugins/LiteLoader/LiteLoader.json"
 
-#define LITELOADER_LIBRARY_DIR "plugins/lib/"
+#define LITELOADER_LIBRARY_DIR "plugins/lib"
 
 #define LITELOADER_VERSION LL::getLoaderVersion()
 
