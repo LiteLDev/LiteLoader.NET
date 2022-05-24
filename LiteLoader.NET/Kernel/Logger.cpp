@@ -266,7 +266,7 @@ bool LoggerManager::setFile(LoggerID id, nullptr_t)
 
 
 jmp:
-	return plogger->setFile(0);
+	return plogger->setFile(nullptr);
 }
 
 
@@ -308,15 +308,15 @@ namespace LLNET::Logger {
 
 	void Logger::OutputStream::WriteLine(System::String^ string)
 	{
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OSTYPE(int(type)), marshal_as<std::wstring>(string));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshal_as<std::wstring>(string));
 	}
 	void Logger::OutputStream::WriteLine(System::String^ format, ...array<System::Object^>^ args)
 	{
 		auto str = System::String::Format(format, (array<System::Object^>^)args);
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OSTYPE(int(type)), marshal_as<std::wstring>(str));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshal_as<std::wstring>(str));
 	}
 	void Logger::OutputStream::WriteLine(System::Object^ obj) {
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OSTYPE(int(type)), marshal_as<std::wstring>(obj->ToString()));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshal_as<std::wstring>(obj->ToString()));
 	}
 
 	inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Boolean val)
@@ -420,11 +420,11 @@ namespace LLNET::Logger {
 		return os;
 	}
 
-	inline System::String^ Logger::title::get() {
+	inline System::String^ Logger::Title::get() {
 		return marshalString<Encoding::E_UTF8>(LoggerManager::GetTitle(id));
 	}
 
-	inline void Logger::title::set(System::String^ _title) {
+	inline void Logger::Title::set(System::String^ _title) {
 		LoggerManager::SetTitle(id, marshalString<Encoding::E_UTF8>(_title));
 	}
 
