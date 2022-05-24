@@ -263,6 +263,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\PlayerInfo.h" />
     <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
+    <ClInclude Include="Header\RemoteCall\ImportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\include.hpp" />
     <ClInclude Include="Header\RemoteCall\Interfaces.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />

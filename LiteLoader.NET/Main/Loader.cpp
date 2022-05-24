@@ -3,42 +3,20 @@
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
 
-Logger* plogger = nullptr;
 
 System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
 
 void Init(Logger& logger)
 {
-	plogger = &logger;
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 }
 
 System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) {
-	try
-	{
-		System::Reflection::AssemblyName assemblyName(args->Name);
-		if (assemblyName.Name == LLNET_LOADER_NAME)
-			return System::Reflection::Assembly::GetExecutingAssembly();
+	System::Reflection::AssemblyName assemblyName(args->Name);
+	if (assemblyName.Name == LLNET_LOADER_NAME)
+		return System::Reflection::Assembly::GetExecutingAssembly();
 
-		return System::Reflection::Assembly::LoadFrom(System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll"));
-	}
-	catch (System::Exception^ ex)
-	{
-		plogger->error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
-		plogger->error(marshalString(ex->ToString()));
-		throw;
-	}
-	catch (const std::exception& ex)
-	{
-		plogger->error("Uncaught std::exception Detected!");
-		plogger->error(ex.what());
-		throw;
-	}
-	catch (...)
-	{
-		plogger->error("Uncaught exception Detected!");
-		throw;
-	}
+	return System::Reflection::Assembly::LoadFrom(System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll"));
 }
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)

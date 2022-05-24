@@ -647,6 +647,9 @@
     <ClInclude Include="Header\RemoteCall\ExportAs.hpp">
       <Filter>Header\RemoteCall</Filter>
     </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ImportAs.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
