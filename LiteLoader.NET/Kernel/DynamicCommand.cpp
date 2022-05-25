@@ -563,25 +563,6 @@ namespace LLNET::DynamicCommand
 		return (*NativePtr).hasRegistered();
 	}
 
-	Dictionary<String^, DynamicCommand::ParameterPtr^>^ DynamicCommandInstance::ParameterPtrs::get()
-	{
-		auto& umap = NativePtr->parameterPtrs;
-		auto ret = gcnew Dictionary<String^, DynamicCommand::ParameterPtr^>((int)umap.size());
-		for (auto& [k, v] : umap) {
-			ret->Add(marshalString(k), gcnew DynamicCommand::ParameterPtr(v));
-		}
-		return ret;
-	}
-
-	void DynamicCommandInstance::ParameterPtrs::set(Dictionary<String^, DynamicCommand::ParameterPtr^>^ value) {
-		std::unordered_map<std::string, ::DynamicCommand::ParameterPtr> umap;
-		for each (auto var in value)
-		{
-			umap.emplace(marshalString(var.Key), *var.Value->NativePtr);
-		}
-		NativePtr->parameterPtrs = std::move(umap);
-	}
-
 	//List<String^>^ DynamicCommandInstance::EnumNames::get() {
 	//	auto& vec = NativePtr->enumNames;
 	//	auto ret = gcnew List<String^>((int)vec.size());

@@ -16,6 +16,20 @@ inline BlockInstance ^ BlockInstance::CreateBlockinstance(MC::Block ^ block, Blo
         ::BlockInstance::createBlockInstance(block, *pos, dimId));
 }
 
+BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos^ pos, int dimid)
+{
+    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, *pos->NativePtr, dimid));
+}
+
+BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos^ pos)
+{
+    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, *pos->NativePtr, 0));
+}
+
+BlockInstance^ BlockInstance::Create()
+{
+    return gcnew BlockInstance(::BlockInstance());
+}
 
 inline Block ^ BlockInstance::Block::get()
 {
@@ -89,6 +103,10 @@ inline ItemStack ^ BlockInstance::BlockDrops::get()
 inline bool BlockInstance::IsNull::get()
 {
     return NativePtr->isNull();
+}
+
+inline short BlockInstance::BlockId::get() {
+    return NativePtr->getBlock()->getId();
 }
 
 inline bool BlockInstance::operator==(BlockInstance ^ a, BlockInstance ^ b)

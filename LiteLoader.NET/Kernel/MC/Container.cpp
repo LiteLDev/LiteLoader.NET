@@ -123,6 +123,11 @@ MC::ContainerType MC::Container::GetContainerTypeId(::System::String^ _0)
 	return marshalString(::Container::getContainerTypeName((::ContainerType)_0));
 }
 
+String^ MC::Container::TypeName::get() 
+{
+	return GetTypeName();
+}
+
 List<MC::ItemStack^>^ MC::Container::AllSlots::get()
 {
 	auto& vec = NativePtr->getAllSlots();
