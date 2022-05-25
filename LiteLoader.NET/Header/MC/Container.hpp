@@ -33,9 +33,9 @@ namespace MC
             ::System::String^ get();
         }
 
-        property ::System::Collections::Generic::List<MC::ItemStack^>^ AllSlots
+        property List<MC::ItemStack^>^ AllSlots
         {
-            ::System::Collections::Generic::List<MC::ItemStack^>^ get();
+            List<MC::ItemStack^>^ get();
         }
 
         property int Size
@@ -53,9 +53,9 @@ namespace MC
             int get();
         }
 
-        property ::System::Collections::Generic::List<MC::ItemStack^>^ SlotCopies
+        property List<MC::ItemStack^>^ SlotCopies
         {
-            ::System::Collections::Generic::List<MC::ItemStack^>^ get();
+            List<MC::ItemStack^>^ get();
         }
 
         property bool HasCustomName

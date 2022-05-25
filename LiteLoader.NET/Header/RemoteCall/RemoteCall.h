@@ -166,42 +166,6 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>(instance, &ImportFunctionRegister::ImportFunc_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>::Invoke);
 		}
-
-	internal:
-		ref class RemoteCallFunctionManager sealed {
-		public:
-			generic<typename TDelegate>
-			where TDelegate : System::Delegate
-				static bool _ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
-			{
-				auto func = gcnew Function(nameSpace, funcName, f);
-				auto ret = ExportFunc(nameSpace, funcName, gcnew CallbackFn(func, &Function::Invoke));
-				if (ret)
-				{
-					RemoteCallFunction->Add(func);
-				}
-				return ret;
-			}
-		private:
-			ref class Function {
-			public:
-				Function(String^ nameSpace, String^ funcName, System::Delegate^ f)
-					:NameSpace(nameSpace), FuncName(funcName), delfunc(f)
-				{
-				}
-
-				String^ NameSpace;
-				String^ FuncName;
-				System::Delegate^ delfunc;
-			public:
-				Valuetype^ Invoke(List<Valuetype^>^ args) {
-					throw gcnew System::NotImplementedException;
-				}
-			};
-		private:
-			static List<Function^>^ RemoteCallFunction = gcnew List<Function^>;
-		};
-
 	public:
 		//防止gc回收
 		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;
