@@ -49,88 +49,7 @@ namespace LLNET::RemoteCall {
 
 
 	ref class ImportFunctionRegister {
-		//static RemoteCallHandler_void_0^ RegisterFunction(String^ nameSpace, String^ funcName) {
 
-		//}
-		//generic<typename T0>
-		//static RemoteCallHandler_void_1<T0>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1>
-		//static RemoteCallHandler_void_2 <T0, T1>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2>
-		//static RemoteCallHandler_void_3 <T0, T1, T2>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3>
-		//static RemoteCallHandler_void_4 <T0, T1, T2, T3>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3, typename T4>
-		//static RemoteCallHandler_void_5 <T0, T1, T2, T3, T4>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-		//static RemoteCallHandler_void_6 <T0, T1, T2, T3, T4, T5>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-		//static RemoteCallHandler_void_7 <T0, T1, T2, T3, T4, T5, T6>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-		//static RemoteCallHandler_void_8 <T0, T1, T2, T3, T4, T5, T6, T7>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-		//static RemoteCallHandler_void_9 <T0, T1, T2, T3, T4, T5, T6, T7, T8>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-
-
-
-		//generic<typename RTN>
-		//static RemoteCallHandler_0 <RTN>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0>
-		//static RemoteCallHandler_1 <RTN, T0>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1>
-		//static RemoteCallHandler_2 <RTN, T0, T1>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2>
-		//static RemoteCallHandler_3 <RTN, T0, T1, T2>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
-		//static RemoteCallHandler_4 <RTN, T0, T1, T2, T3>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
-		//static RemoteCallHandler_5 <RTN, T0, T1, T2, T3, T4>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-		//static RemoteCallHandler_6 <RTN, T0, T1, T2, T3, T4, T5>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-		//static RemoteCallHandler_7 <RTN, T0, T1, T2, T3, T4, T5, T6>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-		//static RemoteCallHandler_8 <RTN, T0, T1, T2, T3, T4, T5, T6, T7>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
-		//generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-		//static RemoteCallHandler_9 <RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>^ RegisterFunction(String^ nameSpace, String^ funcName) {
-
-		//}
 	public:
 		ref class ImportFuncBase abstract {
 		public:
@@ -397,7 +316,7 @@ namespace LLNET::RemoteCall {
 
 	internal:
 		static FunctionInfo^ _tryPraseFunctionInfo(System::Type^ returnType, ...array<System::Type^>^ types);
-		inline static ::RemoteCall::ValueType _parseParamter(FunctionInfo::TypeInfo const% info, Object^ val);
+		inline static ::RemoteCall::ValueType _parseParameter(FunctionInfo::TypeInfo const% info, Object^ val);
 		inline static Object^ _parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val);
 	};
 }
@@ -409,26 +328,26 @@ namespace LLNET::RemoteCall {
 			returnType = void::typeid;
 		auto ret = gcnew ExportFunctionRegister::FunctionInfo();
 		ret->returnType = ExportFunctionRegister::_generateTypeInfo(returnType);
-		ret->paramters = gcnew array<ExportFunctionRegister::FunctionInfo::TypeInfo>(types->Length);
+		ret->parameters = gcnew array<ExportFunctionRegister::FunctionInfo::TypeInfo>(types->Length);
 		for (int i = 0; i < types->Length; ++i)
 		{
-			ret->paramters[i] = ExportFunctionRegister::_generateTypeInfo(types[i]);
+			ret->parameters[i] = ExportFunctionRegister::_generateTypeInfo(types[i]);
 		}
 		return ret;
 	}
-	inline ::RemoteCall::ValueType LLNET::RemoteCall::ImportFunctionRegister::_parseParamter(FunctionInfo::TypeInfo const% info, Object^ val)
+	inline ::RemoteCall::ValueType LLNET::RemoteCall::ImportFunctionRegister::_parseParameter(FunctionInfo::TypeInfo const% info, Object^ val)
 	{
 		return std::move(ExportFunctionRegister::_parseReturnVal(info, val));
 	}
 	inline System::Object^ LLNET::RemoteCall::ImportFunctionRegister::_parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
 	{
-		return ExportFunctionRegister::_parseParamter(info, val);
+		return ExportFunctionRegister::_parseParameter(info, val);
 	}
 	System::Object^ ImportFunctionRegister::ImportFuncBase::_Invoke(...array<Object^>^ args)
 	{
 		std::vector<::RemoteCall::ValueType> vec;
 		for (int i = 0; i < args->Length; ++i) {
-			vec.emplace_back(_parseParamter(info->paramters[i], args[i]));
+			vec.emplace_back(_parseParameter(info->parameters[i], args[i]));
 		}
 		auto ret = (*pfunc)(vec);
 		return _parseReturnVal(info->returnType, ret);

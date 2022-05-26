@@ -401,8 +401,6 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>(instance, &ImportFunctionRegister::ImportFunc_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>::Invoke);
 		}
-
-
 	public:
 		//防止gc回收
 		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;

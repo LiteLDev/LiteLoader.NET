@@ -49,7 +49,7 @@ namespace LLNET::RemoteCall {
 				array<TypeInfo>^ genericArgs;
 			};
 			TypeInfo returnType;
-			array<TypeInfo>^ paramters;
+			array<TypeInfo>^ parameters;
 		};
 		ref class ExportFunc {
 			String^ nameSpace;
@@ -59,18 +59,25 @@ namespace LLNET::RemoteCall {
 			GCHandle gch;
 		private:
 			inline ExportFunc(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del);
+
 			inline NATIVECALLBACK::RemoteCall::ValueType _nativeFunc(std::vector<::RemoteCall::ValueType> vec);
 		public:
 			static Pair<ExportFunc^, delNative^> Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del);
-			virtual String^ ToString() override {
+
+			virtual String^ ToString() override 
+			{
 				return String::Format("NameSpace:{0},FunctionName:{1}", nameSpace, funcName);
 			}
 		};
 
 		static Pair<bool, ValidType> _tryGetValidType(System::Type^ t);
+
 		static FunctionInfo::TypeInfo _generateTypeInfo(System::Type^ t);
-		static Object^ _parseParamter(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val);
+
+		static Object^ _parseParameter(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val);
+
 		static ::RemoteCall::ValueType _parseReturnVal(FunctionInfo::TypeInfo const% info, Object^ val);
+
 		static List<ExportFunc^>^ ExportFunctions = gcnew List<ExportFunc^>;
 	public:
 		generic<typename TDelegate>
@@ -83,10 +90,10 @@ namespace LLNET::RemoteCall {
 			auto funcinfo = gcnew FunctionInfo;
 			auto method = func->Method;
 			auto params = method->GetParameters();
-			funcinfo->paramters = gcnew array<FunctionInfo::TypeInfo>(params->Length);
+			funcinfo->parameters = gcnew array<FunctionInfo::TypeInfo>(params->Length);
 			funcinfo->returnType = _generateTypeInfo(method->ReturnType);
 			for (int i = 0; i < params->Length; ++i) {
-				funcinfo->paramters[i] = _generateTypeInfo(params[i]->ParameterType);
+				funcinfo->parameters[i] = _generateTypeInfo(params[i]->ParameterType);
 			}
 
 			auto exportfunc = ExportFunc::Create(nameSpace, funcName, funcinfo, func);
@@ -208,7 +215,7 @@ namespace LLNET::RemoteCall {
 
 		return ret;
 	}
-	inline System::Object^ ExportFunctionRegister::_parseParamter(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
+	inline System::Object^ ExportFunctionRegister::_parseParameter(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
 	{
 
 #define _VALUE std::get<::RemoteCall::Value>(val.value)
@@ -314,7 +321,7 @@ namespace LLNET::RemoteCall {
 			auto ret = System::Activator::CreateInstance(info._type, gcnew array<System::Object^>{(int)vec.size()});
 			auto addMethod = info._type->GetMethod("Add");
 			for (auto& val : vec) {
-				addMethod->Invoke(ret, gcnew array<System::Object^>{_parseParamter(info.genericArgs[0], val)});
+				addMethod->Invoke(ret, gcnew array<System::Object^>{_parseParameter(info.genericArgs[0], val)});
 			}
 			return ret;
 		}
@@ -324,7 +331,7 @@ namespace LLNET::RemoteCall {
 			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(val.value);
 			auto ret = gcnew Dictionary<String^, Object^>((int)umap.size());
 			for (auto& val : umap) {
-				ret->Add(marshalString(val.first), _parseParamter(info.genericArgs[1], val.second));
+				ret->Add(marshalString(val.first), _parseParameter(info.genericArgs[1], val.second));
 			}
 			return ret;
 		}
@@ -447,10 +454,10 @@ namespace LLNET::RemoteCall {
 		return Pair<ExportFunc^, delNative^>(instance, delnative);
 	}
 	inline NATIVECALLBACK::RemoteCall::ValueType ExportFunctionRegister::ExportFunc::_nativeFunc(std::vector<::RemoteCall::ValueType> vec) {
-		auto args = gcnew array<Object^>(info->paramters->Length);
-		for (int i = 0; i < info->paramters->Length; ++i)
+		auto args = gcnew array<Object^>(info->parameters->Length);
+		for (int i = 0; i < info->parameters->Length; ++i)
 		{
-			args[i] = _parseParamter(info->paramters[i], vec[i]);
+			args[i] = _parseParameter(info->parameters[i], vec[i]);
 		}
 
 		auto ret = func->DynamicInvoke(args);
