@@ -4,32 +4,126 @@
 
 namespace LLNET::RemoteCall
 {
-	public
-	ref class RemoteCallAPI abstract
+	/// <summary>
+	/// ========Remote Call API========
+	/// <para>　</para>
+	/// <para>Mainly designed for scripting engines</para>
+	/// <para>Please call it in MC_SERVER thread or in ScheduleAPI</para>
+	/// </summary>
+	public ref class RemoteCallAPI abstract
 	{
 	public:
+		/// <summary>
+		/// Remote call function prototype.
+		/// </summary>
 		delegate Valuetype^ CallbackFn(List<Valuetype^>^);
+
+
+		/// <summary>
+		/// <para>Export a function with NameSpace, function name.</para>
+		/// <para>　</para>
+		/// <para>example:</para>
+		/// <para>　<code>ExportFunc(".NET","ExampleFunction",(args) => { });</code></para>
+		/// <para></para>
+		/// </summary>
+		/// <param name="nameSpace">－Export Function NameSpace</param>
+		/// <param name="funcName">－Export Function Name</param>
+		/// <param name="fn">－Export Function</param>
+		/// <returns>－Is The Export Successful</returns>
 		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
+
+
+		/// <summary>
+		/// <para>Export a function with NameSpace, function name, and plugin handler.</para>
+		/// <para>　</para>
+		/// <para>example:</para>
+		/// <para>　<code>ExportFunc(".NET","ExampleFunction",(args) => { });</code></para>
+		/// <para></para>
+		/// </summary>
+		/// <param name="nameSpace">－Export Function NameSpace</param>
+		/// <param name="funcName">－Export Function Name</param>
+		/// <param name="fn">－Export Function</param>
+		/// <param name="handler">－Plugin Handler</param>
+		/// <returns>－Is The Export Successful</returns>
 		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
 
+
+		/// <summary>
+		/// Import a function with NameSpace, function name.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Funcrion Name</param>
+		/// <returns>－Imported function.</returns>
 		static CallbackFn^ ImportFunc(String^ nameSpace, String^ funcName);
 
+
+		/// <summary>
+		/// Determine if this function has been exported.
+		/// </summary>
+		/// <param name="nameSpace">－Function NameSpace</param>
+		/// <param name="funcName">－Function Name</param>
+		/// <returns></returns>
 		static bool HasFunc(String^ nameSpace, String^ funcName);
+
+
+		/// <summary>
+		/// Remove exported function by NameSpace and function name.
+		/// </summary>
+		/// <param name="nameSpace">－Function NameSpace</param>
+		/// <param name="funcName">－Function Name</param>
+		/// <returns></returns>
 		static bool RemoveFunc(String^ nameSpace, String^ funcName);
 		static bool RemoveNameSpace(String^ nameSpace);
 		static bool RemoveFuncs(List<Pair<String^, String^>>^ funcs);
 
+
+		/// <summary>
+		/// Export a function as a function porotype.
+		/// <para>　</para>
+		///	<para>
+		/// <example>
+		/// <para>Example:</para>
+		/// <code>
+		/// delegate bool Example(int a1, string str, List&lt;double&gt; doubleList);
+		/// <para>　</para>
+		/// <para>ExportAs(".NET","ExampleFunction",(a1,str,doubleList)=>{</para>
+		/// <para>return true;</para>
+		/// <para>});</para>
+		/// </code>
+		///	</example>
+		/// </para>
+		/// </summary>
+		/// <typeparam name="TDelegate">－Function Porotype</typeparam>
+		/// <param name="nameSpace">－Export Function NameSpace</param>
+		/// <param name="funcName">－Export Function Name</param>
+		/// <param name="fn">－Export Function</param>
+		/// <returns>－Is The Export Successful</returns>
+		/// <exception cref="InvalidRemoteCallTypeException"></exception>
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
-			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate f);
+			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn);
 
 
+		/// <summary>
+		/// Import a function that has no parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		static RemoteCallHandler_void_0^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_0(nameSpace, funcName);
 			if (!*instance->pfunc)
 				return nullptr;
 			return gcnew RemoteCallHandler_void_0(instance, &ImportFunctionRegister::ImportFunc_void_0::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has a single parameter and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0>
 		static RemoteCallHandler_void_1<T0>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_1<T0>(nameSpace, funcName);
@@ -37,6 +131,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_1<T0>(instance, &ImportFunctionRegister::ImportFunc_void_1<T0>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has two parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1>
 		static RemoteCallHandler_void_2 <T0, T1>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_2<T0, T1>(nameSpace, funcName);
@@ -44,6 +146,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_2<T0, T1>(instance, &ImportFunctionRegister::ImportFunc_void_2<T0, T1>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has three parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2>
 		static RemoteCallHandler_void_3 <T0, T1, T2>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_3<T0, T1, T2>(nameSpace, funcName);
@@ -51,6 +161,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_3<T0, T1, T2>(instance, &ImportFunctionRegister::ImportFunc_void_3<T0, T1, T2>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has four parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3>
 		static RemoteCallHandler_void_4 <T0, T1, T2, T3>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_4<T0, T1, T2, T3>(nameSpace, funcName);
@@ -58,6 +176,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_4<T0, T1, T2, T3>(instance, &ImportFunctionRegister::ImportFunc_void_4<T0, T1, T2, T3>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has five parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3, typename T4>
 		static RemoteCallHandler_void_5 <T0, T1, T2, T3, T4>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_5<T0, T1, T2, T3, T4>(nameSpace, funcName);
@@ -65,6 +191,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_5<T0, T1, T2, T3, T4>(instance, &ImportFunctionRegister::ImportFunc_void_5<T0, T1, T2, T3, T4>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has six parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
 		static RemoteCallHandler_void_6 <T0, T1, T2, T3, T4, T5>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_6<T0, T1, T2, T3, T4, T5>(nameSpace, funcName);
@@ -72,6 +206,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_6<T0, T1, T2, T3, T4, T5>(instance, &ImportFunctionRegister::ImportFunc_void_6<T0, T1, T2, T3, T4, T5>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has seven parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 		static RemoteCallHandler_void_7 <T0, T1, T2, T3, T4, T5, T6>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_7<T0, T1, T2, T3, T4, T5, T6>(nameSpace, funcName);
@@ -79,6 +221,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_7<T0, T1, T2, T3, T4, T5, T6>(instance, &ImportFunctionRegister::ImportFunc_void_7<T0, T1, T2, T3, T4, T5, T6>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has eight parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 		static RemoteCallHandler_void_8 <T0, T1, T2, T3, T4, T5, T6, T7>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_8<T0, T1, T2, T3, T4, T5, T6, T7>(nameSpace, funcName);
@@ -86,6 +236,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_void_8<T0, T1, T2, T3, T4, T5, T6, T7>(instance, &ImportFunctionRegister::ImportFunc_void_8<T0, T1, T2, T3, T4, T5, T6, T7>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has nine parameters and does not return a value.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 		static RemoteCallHandler_void_9 <T0, T1, T2, T3, T4, T5, T6, T7, T8>^ Import_As(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_void_9<T0, T1, T2, T3, T4, T5, T6, T7, T8>(nameSpace, funcName);
@@ -95,7 +253,12 @@ namespace LLNET::RemoteCall
 		}
 
 
-
+		/// <summary>
+		/// Import a function that has no parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN>
 		static RemoteCallHandler_0 <RTN>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_0<RTN>(nameSpace, funcName);
@@ -103,6 +266,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_0<RTN>(instance, &ImportFunctionRegister::ImportFunc_0<RTN>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has one parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0>
 		static RemoteCallHandler_1 <RTN, T0>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_1<RTN, T0>(nameSpace, funcName);
@@ -110,6 +281,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_1<RTN, T0>(instance, &ImportFunctionRegister::ImportFunc_1<RTN, T0>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has two parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1>
 		static RemoteCallHandler_2 <RTN, T0, T1>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_2<RTN, T0, T1>(nameSpace, funcName);
@@ -117,6 +296,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_2<RTN, T0, T1>(instance, &ImportFunctionRegister::ImportFunc_2<RTN, T0, T1>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has three parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2>
 		static RemoteCallHandler_3 <RTN, T0, T1, T2>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_3<RTN, T0, T1, T2>(nameSpace, funcName);
@@ -124,6 +311,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_3<RTN, T0, T1, T2>(instance, &ImportFunctionRegister::ImportFunc_3<RTN, T0, T1, T2>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has four parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
 		static RemoteCallHandler_4 <RTN, T0, T1, T2, T3>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_4<RTN, T0, T1, T2, T3>(nameSpace, funcName);
@@ -131,6 +326,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_4<RTN, T0, T1, T2, T3>(instance, &ImportFunctionRegister::ImportFunc_4<RTN, T0, T1, T2, T3>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has five parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
 		static RemoteCallHandler_5 <RTN, T0, T1, T2, T3, T4>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_5<RTN, T0, T1, T2, T3, T4>(nameSpace, funcName);
@@ -138,6 +341,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_5<RTN, T0, T1, T2, T3, T4>(instance, &ImportFunctionRegister::ImportFunc_5<RTN, T0, T1, T2, T3, T4>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has six parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
 		static RemoteCallHandler_6 <RTN, T0, T1, T2, T3, T4, T5>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_6<RTN, T0, T1, T2, T3, T4, T5>(nameSpace, funcName);
@@ -145,6 +356,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_6<RTN, T0, T1, T2, T3, T4, T5>(instance, &ImportFunctionRegister::ImportFunc_6<RTN, T0, T1, T2, T3, T4, T5>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has seven parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 		static RemoteCallHandler_7 <RTN, T0, T1, T2, T3, T4, T5, T6>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_7<RTN, T0, T1, T2, T3, T4, T5, T6>(nameSpace, funcName);
@@ -152,6 +371,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_7<RTN, T0, T1, T2, T3, T4, T5, T6>(instance, &ImportFunctionRegister::ImportFunc_7<RTN, T0, T1, T2, T3, T4, T5, T6>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has eight parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 		static RemoteCallHandler_8 <RTN, T0, T1, T2, T3, T4, T5, T6, T7>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_8<RTN, T0, T1, T2, T3, T4, T5, T6, T7>(nameSpace, funcName);
@@ -159,6 +386,14 @@ namespace LLNET::RemoteCall
 				return nullptr;
 			return gcnew RemoteCallHandler_8<RTN, T0, T1, T2, T3, T4, T5, T6, T7>(instance, &ImportFunctionRegister::ImportFunc_8<RTN, T0, T1, T2, T3, T4, T5, T6, T7>::Invoke);
 		}
+
+
+		/// <summary>
+		/// Import a function that has nine parameters and returns a value of the type specified by the TResult parameter.
+		/// </summary>
+		/// <param name="nameSpace">－Import Function NameSpace</param>
+		/// <param name="funcName">－Import Function</param>
+		/// <returns>－Imported function.</returns>
 		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 		static RemoteCallHandler_9 <RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>^ ImportAs(String^ nameSpace, String^ funcName) {
 			auto instance = gcnew ImportFunctionRegister::ImportFunc_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>(nameSpace, funcName);
@@ -167,40 +402,6 @@ namespace LLNET::RemoteCall
 			return gcnew RemoteCallHandler_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>(instance, &ImportFunctionRegister::ImportFunc_9<RTN, T0, T1, T2, T3, T4, T5, T6, T7, T8>::Invoke);
 		}
 
-	internal:
-		ref class RemoteCallFunctionManager sealed {
-		public:
-			generic<typename TDelegate>
-			where TDelegate : System::Delegate
-				static bool _ExportAs(String^ nameSpace, String^ funcName, TDelegate f)
-			{
-				auto func = gcnew Function(nameSpace, funcName, f);
-				auto ret = ExportFunc(nameSpace, funcName, gcnew CallbackFn(func, &Function::Invoke));
-				if (ret)
-				{
-					RemoteCallFunction->Add(func);
-				}
-				return ret;
-			}
-		private:
-			ref class Function {
-			public:
-				Function(String^ nameSpace, String^ funcName, System::Delegate^ f)
-					:NameSpace(nameSpace), FuncName(funcName), delfunc(f)
-				{
-				}
-
-				String^ NameSpace;
-				String^ FuncName;
-				System::Delegate^ delfunc;
-			public:
-				Valuetype^ Invoke(List<Valuetype^>^ args) {
-					throw gcnew System::NotImplementedException;
-				}
-			};
-		private:
-			static List<Function^>^ RemoteCallFunction = gcnew List<Function^>;
-		};
 
 	public:
 		//防止gc回收

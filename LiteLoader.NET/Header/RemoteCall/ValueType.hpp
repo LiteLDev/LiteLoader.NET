@@ -10,22 +10,39 @@ namespace LLNET::RemoteCall {
 		using _TValue = ::RemoteCall::Value;
 
 	public:
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class that is empty.
+		/// </summary>
 		Valuetype()
 			: ClassTemplate(new _T(), true)
 		{
 		}
+
+
 		/// <summary>
-		/// Copy
+		/// Copy constructor
 		/// </summary>
-		/// <param name="v"></param>
 		Valuetype(Valuetype% v)
 			: ClassTemplate(new _T(*v.NativePtr), true)
 		{
 		}
+
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class with a RemoteCall.Value object.
+		/// </summary>
 		Valuetype(Value^ v)
 			: ClassTemplate(new _T(*v->NativePtr), true)
 		{
 		}
+
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
+		/// indicated by an array of RemoteCall.Valuetype.
+		/// </summary>
+		/// <param name="v">£­An array of RemoteCall.Valuetype</param>
 		Valuetype(array<Valuetype^>^ v)
 		{
 			auto len = (int)v->Length;
@@ -37,6 +54,13 @@ namespace LLNET::RemoteCall {
 			NativePtr = new _T(std::move(vec));
 			OwnsNativeInstance = true;
 		}
+
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
+		/// indicated by a System.Collections.Generic.List of RemoteCall.Valuetype.
+		/// </summary>
+		/// <param name="v">£­A System.Collections.Generic.List of RemoteCall.Valuetype.</param>
 		Valuetype(List<Valuetype^>^ v)
 		{
 			auto len = v->Count;
@@ -50,6 +74,12 @@ namespace LLNET::RemoteCall {
 		}
 
 
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
+		/// indicated by a System.Collections.Generic.List of System.String.
+		/// </summary>
+		/// <param name="v">£­A System.Collections.Generic.List of System.String.</param>
 		Valuetype(List<String^>^ v)
 		{
 			auto len = v->Count;
@@ -61,6 +91,13 @@ namespace LLNET::RemoteCall {
 			NativePtr = new _T(std::move(vec));
 			OwnsNativeInstance = true;
 		}
+
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
+		/// indicated by a System.Collections.Generic.List of RemoteCall.NumberType.
+		/// </summary>
+		/// <param name="v">A System.Collections.Generic.List of RemoteCall.NumberType</param>
 		Valuetype(List<NumberType>^ v)
 		{
 			auto len = v->Count;
@@ -73,6 +110,12 @@ namespace LLNET::RemoteCall {
 			OwnsNativeInstance = true;
 		}
 
+
+		/// <summary>
+		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
+		/// indicated by a System.Collections.Generic.Dictionary of System.String and RemoteCall.Valuetype.
+		/// </summary>
+		/// <param name="v"></param>
 		Valuetype(Dictionary<String^, Valuetype^>^ v)
 		{
 			auto len = v->Count;
