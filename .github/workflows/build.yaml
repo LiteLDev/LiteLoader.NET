@@ -124,12 +124,13 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
         git clone https://github.com/StarsDream00/LiteLoader.NETSDK.git
         cp -f x64/Release/LiteLoader.NET.dll LiteLoader.NETSDK/LiteLoader.NET.dll
         cd LiteLoader.NETSDK
         git add .
-        git commit -am "fetch upstream SDK" || exit 0
-        git push || exit 0
+        git commit -am "Update SDK"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git push
       shell: bash
