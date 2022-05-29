@@ -79,6 +79,106 @@ namespace LLNET::DynamicCommand
 			break;
 		}
 	}
+	inline bool DynamicCommand::Result::AsBool() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Bool)
+			throw gcnew DynamicCommandInvalidCastException;
+		return NativePtr->getRaw<bool>();
+	}
+	inline int DynamicCommand::Result::AsInt() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Int)
+			throw gcnew DynamicCommandInvalidCastException;
+		return NativePtr->getRaw<int>();
+	}
+	inline float DynamicCommand::Result::AsFloat() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
+			throw gcnew DynamicCommandInvalidCastException;
+		return NativePtr->getRaw<float>();
+	}
+	inline String^ DynamicCommand::Result::AsString() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
+			throw gcnew DynamicCommandInvalidCastException;
+		return marshalString<Encoding::E_UTF8>(NativePtr->getRaw<std::string>());
+	}
+	inline List<MC::Actor^>^ DynamicCommand::Result::AsActorList() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Actor)
+			throw gcnew DynamicCommandInvalidCastException;
+		auto arr = gcnew List<MC::Actor^>;
+		for (auto i : NativePtr->get<std::vector<::Actor*>>())
+		{
+			arr->Add(gcnew MC::Actor(i));
+		}
+		return arr;
+	}
+	inline List<MC::Player^>^ DynamicCommand::Result::AsPlayerList() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Player)
+			throw gcnew DynamicCommandInvalidCastException;
+		auto arr = gcnew List<MC::Player^>;
+		for (auto i : NativePtr->get<std::vector<::Player*>>())
+		{
+			arr->Add(gcnew MC::Player(i));
+		}
+		return arr;
+	}
+	inline MC::BlockPos^ DynamicCommand::Result::AsBlockPos() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::BlockPos)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::BlockPos(NativePtr->get<::BlockPos>());
+	}
+	inline MC::Vec3^ DynamicCommand::Result::AsVec3() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Vec3)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::Vec3(NativePtr->get<::Vec3>());
+	}
+	inline MC::CommandMessage^ DynamicCommand::Result::AsCommandMessage() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Message)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::CommandMessage(const_cast<::CommandMessage*>(&NativePtr->getRaw<::CommandMessage>()));
+	}
+	inline String^ DynamicCommand::Result::AsRawText() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+			throw gcnew DynamicCommandInvalidCastException;
+		return marshalString(NativePtr->getRaw<std::string>());
+	}
+	inline String^ DynamicCommand::Result::AsJsonValue() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+			throw gcnew DynamicCommandInvalidCastException;
+		return marshalString(NativePtr->getRaw<std::string>());
+	}
+	inline MC::CommandItem^ DynamicCommand::Result::AsCommandItem() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Item)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
+	}
+	inline MC::Block^ DynamicCommand::Result::AsBlock() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
+	}
+	inline MC::MobEffect^ DynamicCommand::Result::AsMobEffect() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Effect)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::MobEffect(const_cast<::MobEffect*>(NativePtr->getRaw<::MobEffect const*>()));
+	}
+	inline String^ DynamicCommand::Result::AsEnum() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+			throw gcnew DynamicCommandInvalidCastException;
+		return marshalString(NativePtr->getRaw<std::string>());
+	}
+	inline String^ DynamicCommand::Result::AsSoftEnum() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::SoftEnum)
+			throw gcnew DynamicCommandInvalidCastException;
+		return marshalString(NativePtr->getRaw<std::string>());
+	}
+	inline MC::Command^ DynamicCommand::Result::AsCommand() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Command)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::Command((::__Command*)NativePtr->getRaw<std::unique_ptr<::Command>>().get(), true);
+	}
+	inline MC::ActorDefinitionIdentifier^ DynamicCommand::Result::AsActorType() {
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::ActorType)
+			throw gcnew DynamicCommandInvalidCastException;
+		return gcnew MC::ActorDefinitionIdentifier((ActorDefinitionIdentifier*)NativePtr->getRaw<ActorDefinitionIdentifier const*>());
+	}
 	LLNET::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance)
 		:ClassTemplate(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr, instance->NativePtr))
 	{
@@ -144,56 +244,44 @@ namespace LLNET::DynamicCommand
 
 		auto callbackfn = CallBackFnManager::Create(callback);
 
-		try
+		for each (auto % map in enums)
 		{
-			for each (auto % map in enums)
+			std::vector<std::string> vector;
+			for each (auto vec in map.Value)
 			{
-				std::vector<std::string> vector;
-				for each (auto vec in map.Value)
-				{
-					vector.emplace_back(marshalString(vec));
-				}
-				enumsMap[marshalString(map.Key)] = std::move(vector);
+				vector.emplace_back(marshalString(vec));
 			}
-
-			for each (auto var in params)
-			{
-				paramsData.emplace_back(*(var->NativePtr));
-			}
-
-			for each (auto var in overloads)
-			{
-				std::vector<std::string> vector;
-				for each (auto vec in var)
-				{
-					vector.emplace_back(marshalString(vec));
-				}
-				overLoads.emplace_back(std::move(vector));
-			}
-
-			return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(
-				marshalString(name),
-				marshalString(description),
-				std::move(enumsMap),
-				std::move(paramsData),
-				std::move(overLoads),
-				callbackfn,
-				::CommandPermissionLevel(permission),
-				flag1,
-				flag2,
-				(HMODULE)(void*)handler)
-				.release(),
-				true);
+			enumsMap[marshalString(map.Key)] = std::move(vector);
 		}
-		catch (const std::exception&)
+
+		for each (auto var in params)
 		{
+			paramsData.emplace_back(*(var->NativePtr));
 		}
-		finally
+
+		for each (auto var in overloads)
 		{
-			paramsData.~vector();
-			overLoads.~vector();
+			std::vector<std::string> vector;
+			for each (auto vec in var)
+			{
+				vector.emplace_back(marshalString(vec));
+			}
+			overLoads.emplace_back(std::move(vector));
 		}
-		return nullptr;
+
+		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(
+			marshalString(name),
+			marshalString(description),
+			std::move(enumsMap),
+			std::move(paramsData),
+			std::move(overLoads),
+			callbackfn,
+			::CommandPermissionLevel(permission),
+			flag1,
+			flag2,
+			(HMODULE)(void*)handler)
+			.release(),
+			true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::Setup(DynamicCommandInstance^ commandInstance)
 	{
@@ -770,12 +858,22 @@ namespace LLNET::DynamicCommand
 		return (*NativePtr).hasRegistered();
 	}
 
-	//List<String^>^ DynamicCommandInstance::EnumNames::get() {
-	//	auto& vec = NativePtr->enumNames;
-	//	auto ret = gcnew List<String^>((int)vec.size());
-	//	for (auto& v : vec) {
-	//		ret->Add(marshalString(v));
+	List<LLNET::Core::Std::string^>^ DynamicCommandInstance::EnumNames::get() {
+		auto& vec = NativePtr->enumNames;
+		auto ret = gcnew List<LLNET::Core::Std::string^>((int)vec.size());
+		for (auto& v : vec) {
+			ret->Add(gcnew LLNET::Core::Std::string(v.release(), true));
+		}
+		return ret;
+	}
+
+	//void DynamicCommandInstance::EnumNames::set(List<LLNET::Core::Std::string^>^ value) {
+	//	std::vector<std::unique_ptr<std::string>> vec;
+	//	for each (auto var in value)
+	//	{
+	//		vec.emplace_back(std::make_unique<std::string>(var->Release()));
 	//	}
+	//	NativePtr->enumNames = vec;
 	//}
 
 } // namespace LLNET::DynamicCommand

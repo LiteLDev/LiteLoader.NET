@@ -103,14 +103,12 @@ public:
 
 public:
     string()
+        :ClassTemplate(std::string())
     {
-        NativePtr = new std::string;
-        OwnsNativeInstance = true;
     }
     string(String^ str)
+        :ClassTemplate(marshalString(str))
     {
-        NativePtr = new std::string(marshalString<Encoding::E_UTF8>(str));
-        OwnsNativeInstance = true;
     }
     iterator ^ begin() {
         return gcnew iterator(NativePtr->begin());

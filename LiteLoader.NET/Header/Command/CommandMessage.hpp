@@ -8,11 +8,14 @@ namespace MC {
 
 namespace MC 
 {
-	ref class CommandMessage
+	public ref class CommandMessage
 		:ClassTemplate<CommandMessage, ::CommandMessage> 
 	{
+	public:
 		__ctor(CommandMessage, ::CommandMessage);
 	public:
+		CommandMessage();
+
 		CommandMessage^ Create();
 
 		String^ GetMessage(CommandOrigin^ origin);

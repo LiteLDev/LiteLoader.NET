@@ -178,6 +178,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Command\Command.hpp" />
     <ClInclude Include="Header\Command\CommandArea.hpp" />
     <ClInclude Include="Header\Command\CommandFlag.hpp" />
+    <ClInclude Include="Header\Command\CommandItem.hpp" />
     <ClInclude Include="Header\Command\CommandMessage.hpp" />
     <ClInclude Include="Header\Command\CommandOrigin.hpp" />
     <ClInclude Include="Header\Command\CommandOriginData.hpp" />
@@ -291,6 +292,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\AllowListAPI.cpp" />
     <ClCompile Include="Kernel\Command\Command.cpp" />
     <ClCompile Include="Kernel\Command\CommandArea.cpp" />
+    <ClCompile Include="Kernel\Command\CommandItem.cpp" />
+    <ClCompile Include="Kernel\Command\CommandMessage.cpp" />
     <ClCompile Include="Kernel\Command\CommandOrigin.cpp" />
     <ClCompile Include="Kernel\Command\CommandOriginData.cpp" />
     <ClCompile Include="Kernel\Command\CommandOutput.cpp" />

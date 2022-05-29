@@ -3,12 +3,17 @@
 
 namespace MC
 {
-	CommandMessage^ CommandMessage::Create()
+	inline CommandMessage^ CommandMessage::Create()
 	{
 		return gcnew CommandMessage(new ::CommandMessage(), true);
 	}
 
-	String^ MC::CommandMessage::GetMessage(CommandOrigin^ origin)
+	inline CommandMessage::CommandMessage()
+		:ClassTemplate(new ::CommandMessage(), true)
+	{
+	}
+
+	inline String^ MC::CommandMessage::GetMessage(CommandOrigin^ origin)
 	{
 		return marshalString(NativePtr->getMessage(*origin->NativePtr));
 	}

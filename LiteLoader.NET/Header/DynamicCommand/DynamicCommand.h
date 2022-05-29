@@ -7,6 +7,7 @@
 #include "../Header/Command/CommandParameterData.hpp"
 #include "../Header/Command/CommandOutput.hpp"
 #include "../Header/Command/CommandMessage.hpp"
+#include "../Header/Command/CommandItem.hpp"
 #include "../Header/MC/Player.hpp"
 #include "../Header/MC/BlockPos.hpp"
 #include "../Header/MC/Vec3.hpp"
@@ -94,54 +95,25 @@ namespace LLNET::DynamicCommand
 			property bool IsSet { bool get(); };
 
 			Object^ Get();
-			bool AsBool() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Bool)
-					throw gcnew DynamicCommandInvalidCastException;
-				return NativePtr->getRaw<bool>();
-			}
 
-
-			int AsInt() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Int)
-					throw gcnew DynamicCommandInvalidCastException;
-				return NativePtr->getRaw<int>();
-			}
-
-
-			float AsFloat() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
-					throw gcnew DynamicCommandInvalidCastException;
-				return NativePtr->getRaw<float>();
-			}
-
-
-			String^ AsString() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
-					throw gcnew DynamicCommandInvalidCastException;
-				return marshalString<Encoding::E_UTF8>(NativePtr->getRaw<std::string>());
-			}
-
-			List<MC::Actor^>^ AsActorList() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Actor)
-					throw gcnew DynamicCommandInvalidCastException;
-				auto arr = gcnew List<MC::Actor^>;
-				for (auto i : NativePtr->get<std::vector<::Actor*>>())
-				{
-					arr->Add(gcnew MC::Actor(i));
-				}
-				return arr;
-			}
-
-			List<MC::Player^>^ AsPlayerList() {
-				if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Player)
-					throw gcnew DynamicCommandInvalidCastException;
-				auto arr = gcnew List<MC::Player^>;
-				for (auto i : NativePtr->get<std::vector<::Player*>>())
-				{
-					arr->Add(gcnew MC::Player(i));
-				}
-				return arr;
-			}
+			bool AsBool();
+			int AsInt();
+			float AsFloat();
+			String^ AsString();
+			List<MC::Actor^>^ AsActorList();
+			List<MC::Player^>^ AsPlayerList();
+			MC::BlockPos^ AsBlockPos();
+			MC::Vec3^ AsVec3();
+			MC::CommandMessage^ AsCommandMessage();
+			String^ AsRawText();
+			String^ AsJsonValue();
+			MC::CommandItem^ AsCommandItem();
+			MC::Block^ AsBlock();
+			MC::MobEffect^ AsMobEffect();
+			String^ AsEnum();
+			String^ AsSoftEnum();
+			MC::Command^ AsCommand();
+			MC::ActorDefinitionIdentifier^ AsActorType();
 
 
 			Result(ParameterPtr^ NativePtr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance);
@@ -244,6 +216,7 @@ namespace LLNET::DynamicCommand
 			MC::CommandFlag^ flag1,
 			MC::CommandFlag^ flag2,
 			IntPtr handler);
+
 		inline static DynamicCommandInstance^ Setup(DynamicCommandInstance^ commandInstance);
 		inline static bool UnregisterCommand(String^ name);
 		inline static bool UpdateAvailableCommands();
@@ -273,10 +246,12 @@ namespace LLNET::DynamicCommand
 	public:
 		property size_t CommandSize { size_t get(); void set(size_t val); };
 		property Dictionary<String^, DynamicCommand::ParameterPtr^>^ ParameterPtrs {Dictionary<String^, DynamicCommand::ParameterPtr^>^ get(); void set(Dictionary<String^, DynamicCommand::ParameterPtr^>^ val); };
-		//property List<String^>^ EnumNames {
-		//	List<String^>^ get();
-		//	void set(List<String^>^ val);
-		//};
+
+		/// <summary>
+		/// unique_ptr&lt;std::string&gt;
+		/// </summary>
+		property List<LLNET::Core::Std::string^>^ EnumNames { List<LLNET::Core::Std::string^>^ get(); /*void set(List<LLNET::Core::Std::string^>^ val);*/ };
+
 		//property List<String^>^ EnumValues {
 		//	List<String^>^ get();
 		//	void set(List<String^>^ val);

@@ -315,6 +315,12 @@
     <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp">
       <Filter>Kernel\Scoreboard</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\Command\CommandItem.cpp">
+      <Filter>Kernel\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Command\CommandMessage.cpp">
+      <Filter>Kernel\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\AABB.hpp">
@@ -655,6 +661,12 @@
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp">
       <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Command\CommandMessage.hpp">
+      <Filter>Header\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Command\CommandItem.hpp">
+      <Filter>Header\Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
