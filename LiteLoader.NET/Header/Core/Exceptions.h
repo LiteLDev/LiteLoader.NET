@@ -41,4 +41,14 @@ namespace LLNET::Core
 		{
 		}
 	};
+	public
+	ref class DynamicCommandInvalidCastException
+		:public LiteLoaderDotNETException 
+	{
+	public:
+		DynamicCommandInvalidCastException()
+			:LiteLoaderDotNETException()
+		{
+		}
+	};
 }

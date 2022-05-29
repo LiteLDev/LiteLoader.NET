@@ -15,23 +15,99 @@ namespace LLNET::DynamicCommand
 	{
 		return gcnew MC::CommandOrigin((::CommandOrigin*)NativePtr->origin);
 	}
+	inline System::Object^ DynamicCommand::Result::Get() {
+		if (!NativePtr->isSet)
+			return nullptr; // null
+		switch (NativePtr->type)
+		{
+		case ::DynamicCommand::ParameterType::Bool:
+			return NativePtr->getRaw<bool>();
+		case ::DynamicCommand::ParameterType::Int:
+			return NativePtr->getRaw<int>();
+		case ::DynamicCommand::ParameterType::Float:
+			return NativePtr->getRaw<float>();
+		case ::DynamicCommand::ParameterType::String:
+			return marshalString(NativePtr->getRaw<std::string>());
+		case ::DynamicCommand::ParameterType::Actor:
+		{
+			auto arr = gcnew List<MC::Actor^>;
+			for (auto i : NativePtr->get<std::vector<Actor*>>())
+			{
+				arr->Add(gcnew MC::Actor(i));
+			}
+			return arr;
+		}
+		case ::DynamicCommand::ParameterType::Player:
+		{
+			auto arr = gcnew List<MC::Player^>;
+			for (auto i : NativePtr->get<std::vector<Player*>>())
+			{
+				arr->Add(gcnew MC::Player(i));
+			}
+			return arr;
+		}
+		case ::DynamicCommand::ParameterType::BlockPos:
+		{
+			return gcnew MC::BlockPos(NativePtr->get<BlockPos>());
+		}
+		case ::DynamicCommand::ParameterType::Vec3:
+		{
+			return gcnew MC::Vec3(NativePtr->get<Vec3>());
+		}
+		case ::DynamicCommand::ParameterType::Message:
+			return marshalString(NativePtr->getRaw<::CommandMessage>().getMessage(*NativePtr->origin));
+		case ::DynamicCommand::ParameterType::RawText:
+			return marshalString(NativePtr->getRaw<std::string>());
+		case ::DynamicCommand::ParameterType::JsonValue:
+			return marshalString(JsonHelpers::serialize(NativePtr->getRaw<Json::Value>()));
+		case ::DynamicCommand::ParameterType::Item:
+			return gcnew MC::ItemInstance(NativePtr->getRaw<CommandItem>().createInstance(1, 1, nullptr, true).value_or(ItemInstance::EMPTY_ITEM));
+		case ::DynamicCommand::ParameterType::Block:
+			return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
+		case ::DynamicCommand::ParameterType::Effect:
+			return gcnew MC::MobEffect((MobEffect*)NativePtr->getRaw<MobEffect const*>());
+		case ::DynamicCommand::ParameterType::Enum:
+			return marshalString(NativePtr->getRaw<std::string>());
+		case ::DynamicCommand::ParameterType::SoftEnum:
+			return marshalString(NativePtr->getRaw<std::string>());
+		case ::DynamicCommand::ParameterType::Command:
+			return gcnew MC::Command((::__Command*)NativePtr->getRaw<std::unique_ptr<::Command>>().get());
+		case ::DynamicCommand::ParameterType::ActorType:
+			return gcnew MC::ActorDefinitionIdentifier((ActorDefinitionIdentifier*)NativePtr->getRaw<ActorDefinitionIdentifier const*>());
+		default:
+			return nullptr; // null
+			break;
+		}
+	}
+	LLNET::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance)
+		:ClassTemplate(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr, instance->NativePtr))
+	{
+	}
+	LLNET::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin)
+		:ClassTemplate(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr))
+	{
+	}
+	LLNET::DynamicCommand::DynamicCommand::Result::Result()
+		:ClassTemplate(::DynamicCommand::Result())
+	{
+	}
 	inline DynamicCommand::Result^ DynamicCommand::Result::Create(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance)
 	{
-		return gcnew Result(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr, instance->NativePtr));
+		return gcnew Result(ptr, command, origin, instance);
 	}
 
 	inline DynamicCommand::Result^ DynamicCommand::Result::Create(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin)
 	{
-		return gcnew Result(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr));
+		return gcnew Result(ptr, command, origin);
 	}
 
 	inline DynamicCommand::Result^ DynamicCommand::Result::Create()
 	{
-		return gcnew Result(::DynamicCommand::Result());
+		return gcnew Result();
 	}
 	String^ DynamicCommand::Result::EnumValue::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getEnumValue());
+		return marshalString(NativePtr->getEnumValue());
 	}
 	DynamicCommand::ParameterType DynamicCommand::Result::GetParameterType()
 	{
@@ -39,11 +115,11 @@ namespace LLNET::DynamicCommand
 	}
 	String^ DynamicCommand::Result::Name::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getName());
+		return marshalString(NativePtr->getName());
 	}
-	String^ DynamicCommand::Result::toDebugString()
+	String^ DynamicCommand::Result::ToDebugString()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->toDebugString());
+		return marshalString(NativePtr->toDebugString());
 	}
 	DynamicCommandInstance^ DynamicCommand::Result::GetInstance()
 	{
@@ -51,7 +127,7 @@ namespace LLNET::DynamicCommand
 	}
 	String^ DynamicCommand::Result::ToString()
 	{
-		return toDebugString();
+		return ToDebugString();
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handler)
 	{
@@ -75,9 +151,9 @@ namespace LLNET::DynamicCommand
 				std::vector<std::string> vector;
 				for each (auto vec in map.Value)
 				{
-					vector.emplace_back(marshalString<Encoding::E_UTF8>(vec));
+					vector.emplace_back(marshalString(vec));
 				}
-				enumsMap[marshalString<Encoding::E_UTF8>(map.Key)] = std::move(vector);
+				enumsMap[marshalString(map.Key)] = std::move(vector);
 			}
 
 			for each (auto var in params)
@@ -90,14 +166,14 @@ namespace LLNET::DynamicCommand
 				std::vector<std::string> vector;
 				for each (auto vec in var)
 				{
-					vector.emplace_back(marshalString<Encoding::E_UTF8>(vec));
+					vector.emplace_back(marshalString(vec));
 				}
 				overLoads.emplace_back(std::move(vector));
 			}
 
 			return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(
-				marshalString<Encoding::E_UTF8>(name),
-				marshalString<Encoding::E_UTF8>(description),
+				marshalString(name),
+				marshalString(description),
 				std::move(enumsMap),
 				std::move(paramsData),
 				std::move(overLoads),
@@ -122,11 +198,11 @@ namespace LLNET::DynamicCommand
 	inline DynamicCommandInstance^ DynamicCommand::Setup(DynamicCommandInstance^ commandInstance)
 	{
 		return gcnew DynamicCommandInstance(
-			(::DynamicCommandInstance*)::DynamicCommand::setup(std::unique_ptr<::DynamicCommandInstance>(commandInstance->NativePtr)));
+			(::DynamicCommandInstance*)::DynamicCommand::setup(std::unique_ptr<::DynamicCommandInstance>(commandInstance->Release())));
 	}
 	inline bool DynamicCommand::UnregisterCommand(String^ name)
 	{
-		return ::DynamicCommand::unregisterCommand(marshalString<Encoding::E_UTF8>(name));
+		return ::DynamicCommand::unregisterCommand(marshalString(name));
 	}
 	inline bool DynamicCommand::UpdateAvailableCommands()
 	{
@@ -138,7 +214,11 @@ namespace LLNET::DynamicCommand
 	}
 	inline DynamicCommandInstance^ DynamicCommand::GetInstance(String^ commandName)
 	{
-		return gcnew DynamicCommandInstance((::DynamicCommandInstance*)::DynamicCommand::getInstance(marshalString<Encoding::E_UTF8>(commandName)));
+		return gcnew DynamicCommandInstance((::DynamicCommandInstance*)::DynamicCommand::getInstance(marshalString(commandName)));
+	}
+	inline DynamicCommand::ParameterPtr::ParameterPtr(ParameterType type, size_t offset)
+		:ClassTemplate(::DynamicCommand::ParameterPtr(::DynamicCommand::ParameterType(type), offset))
+	{
 	}
 	inline DynamicCommand::ParameterPtr^ DynamicCommand::ParameterPtr::Create(ParameterType type, size_t offset)
 	{
@@ -156,52 +236,109 @@ namespace LLNET::DynamicCommand
 	{
 		return size_t(NativePtr->getOffset());
 	}
+	inline DynamicCommand::ParameterData::ParameterData(ParameterData^ data)
+		:ClassTemplate(::DynamicCommand::ParameterData(*data->NativePtr))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			optional,
+			marshalString(enumOptions),
+			marshalString(identifier),
+			::CommandParameterOption(parameterOption)))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			optional,
+			marshalString(enumOptions),
+			marshalString(identifier)))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, bool optional, String^ enumOptions)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			optional,
+			marshalString(enumOptions)))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, bool optional)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			optional))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type), false))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
+		: ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			marshalString(enumOptions),
+			marshalString(identifier),
+			::CommandParameterOption(parameterOption)))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, String^ enumOptions, String^ identifier)
+		:ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			marshalString(enumOptions),
+			marshalString(identifier)))
+	{
+	}
+	inline DynamicCommand::ParameterData::ParameterData(String^ name, ParameterType type, String^ enumOptions)
+		:ClassTemplate(::DynamicCommand::ParameterData(
+			marshalString(name),
+			::DynamicCommand::ParameterType(type),
+			marshalString(enumOptions)))
+	{
+	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(ParameterData^ data)
 	{
 		return gcnew ParameterData(::DynamicCommand::ParameterData(data));
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
 	{
-		return gcnew ParameterData(::DynamicCommand::ParameterData(
-			marshalString<Encoding::E_UTF8>(name),
-			::DynamicCommand::ParameterType(type),
-			optional,
-			marshalString<Encoding::E_UTF8>(enumOptions),
-			marshalString<Encoding::E_UTF8>(identifier),
-			::CommandParameterOption(parameterOption)));
+		return gcnew ParameterData(name, type, optional, enumOptions, identifier, parameterOption);
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier)
 	{
-		return Create(name, type, optional, enumOptions, identifier, MC::CommandParameterOption::None);
+		return gcnew ParameterData(name, type, optional, enumOptions, identifier, MC::CommandParameterOption::None);
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions)
 	{
-		return Create(name, type, optional, enumOptions, "");
+		return gcnew ParameterData(name, type, optional, enumOptions, "");
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional)
 	{
-		return Create(name, type, optional, "");
+		return gcnew ParameterData(name, type, optional, "");
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type)
 	{
-		return Create(name, type, false);
+		return gcnew ParameterData(name, type, false);
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption)
 	{
-		return gcnew ParameterData(::DynamicCommand::ParameterData(
-			marshalString<Encoding::E_UTF8>(name),
-			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(enumOptions),
-			marshalString<Encoding::E_UTF8>(identifier),
-			::CommandParameterOption(parameterOption)));
+		return gcnew ParameterData(name, type, enumOptions, identifier, parameterOption);
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions, String^ identifier)
 	{
-		return Create(name, type, enumOptions, identifier, MC::CommandParameterOption::None);
+		return gcnew ParameterData(name, type, enumOptions, identifier, MC::CommandParameterOption::None);
 	}
 	inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions)
 	{
-		return Create(name, type, enumOptions, "");
+		return gcnew ParameterData(name, type, enumOptions, "");
 	}
 	MC::CommandParameterData^ DynamicCommand::ParameterData::MakeParameterData()
 	{
@@ -213,15 +350,53 @@ namespace LLNET::DynamicCommand
 	}
 	inline bool DynamicCommand::ParameterData::SetEnumOptions(String^ enumOptions)
 	{
-		return NativePtr->setEnumOptions(marshalString<Encoding::E_UTF8>(enumOptions));
+		return NativePtr->setEnumOptions(marshalString(enumOptions));
 	}
+
+	//__ctor_base(DynamicCommand, ::DynamicCommand, MC::Command);
+
+	inline DynamicCommand::DynamicCommand(System::IntPtr p)
+		: MC::Command(p)
+	{
+	}
+	inline DynamicCommand::DynamicCommand(System::IntPtr p, bool ownsNativeInstance)
+		: MC::Command(p, ownsNativeInstance)
+	{
+	}
+	inline DynamicCommand::DynamicCommand(::DynamicCommand* p)
+		: MC::Command((::__Command*)p)
+	{
+	}
+	inline DynamicCommand::DynamicCommand(::DynamicCommand* p, bool ownsNativeInstance)
+		: MC::Command((::__Command*)p, ownsNativeInstance)
+	{
+	}
+	inline ::DynamicCommand* DynamicCommand::NativePtr::get() {
+		return (::DynamicCommand*)(MC::Command::NativePtr);
+	}
+	inline void DynamicCommand::NativePtr::set(::DynamicCommand* value) {
+		MC::Command::NativePtr = (__Command*)value;
+	}
+	inline DynamicCommand::ParameterType DynamicCommand::Result::Type::get()
+	{
+		return ParameterType(NativePtr->type);
+	}
+	inline size_t DynamicCommand::Result::Offset::get()
+	{
+		return NativePtr->offset;
+	}
+	inline bool DynamicCommand::Result::IsSet::get()
+	{
+		return NativePtr->isSet;
+	}
+
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handler)
 	{
-		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handler).release(), true);
+		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handler).release(), true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2)
 	{
-		auto& a = ::DynamicCommand::createCommand(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, MODULE);
+		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, MODULE);
 		return gcnew DynamicCommandInstance(a.release(), true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1)
@@ -240,9 +415,9 @@ namespace LLNET::DynamicCommand
 	{
 		return CreateCommand(name, description, MC::CommandPermissionLevel::GameMasters);
 	}
-	DynamicCommand::CallBackFnManager::CallBackFnManager(CallBackFn^ _callback)
+	DynamicCommand::CallBackFnManager::CallBackFnManager(CallBackFn^ callback)
 	{
-		callback = _callback;
+		this->callback = callback;
 	}
 	void NATIVECALLBACK DynamicCommand::CallBackFnManager::NativeCallbackFunc(
 		::DynamicCommand const& cmd,
@@ -253,7 +428,7 @@ namespace LLNET::DynamicCommand
 		auto dictionary = gcnew Dictionary<String^, DynamicCommand::Result^>((int)results.size());
 		for (auto iter = results.begin(); iter != results.end(); ++iter)
 			dictionary->Add(
-				marshalString<Encoding::E_UTF8>(iter->first),
+				marshalString(iter->first),
 				gcnew DynamicCommand::Result(std::move(iter->second)));
 
 		callback(gcnew DynamicCommand((::DynamicCommand*)&cmd),
@@ -271,6 +446,18 @@ namespace LLNET::DynamicCommand
 		pNativeCallBackFn pFn = static_cast<pNativeCallBackFn>((void*)Marshal::GetFunctionPointerForDelegate(nativecallback));
 		return pFn;
 	}
+	DynamicCommandInstance^ DynamicCommandInstance::ParameterIndex::Instance::get() {
+		return gcnew DynamicCommandInstance(NativePtr->instance);
+	}
+	void DynamicCommandInstance::ParameterIndex::Instance::set(DynamicCommandInstance^ value) {
+		NativePtr->instance = value->NativePtr;
+	}
+	size_t DynamicCommandInstance::ParameterIndex::Index::get() {
+		return NativePtr->index;
+	}
+	void DynamicCommandInstance::ParameterIndex::Index::set(size_t value) {
+		NativePtr->index = value;
+	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::ParameterIndex::Create(DynamicCommandInstance^ instance, size_t index)
 	{
 		return gcnew ParameterIndex(::DynamicCommandInstance::ParameterIndex(instance, index));
@@ -287,46 +474,66 @@ namespace LLNET::DynamicCommand
 	{
 		return NativePtr->isValid();
 	}
+	inline size_t DynamicCommandInstance::CommandSize::get() {
+		return NativePtr->commandSize;
+	}
+	inline void DynamicCommandInstance::CommandSize::set(size_t value) {
+		NativePtr->commandSize = value;
+	}
 	Dictionary<String^, DynamicCommand::ParameterPtr^>^ DynamicCommandInstance::ParameterPtrs::get()
 	{
 		auto& ptrs = (*NativePtr).parameterPtrs;
 		auto ret = gcnew Dictionary<String^, DynamicCommand::ParameterPtr^>((int)ptrs.size());
 		for (auto& kv : ptrs)
-			ret->Add(marshalString<Encoding::E_UTF8>(kv.first), gcnew DynamicCommand::ParameterPtr(std::move(kv.second)));
+			ret->Add(marshalString(kv.first), gcnew DynamicCommand::ParameterPtr(std::move(kv.second)));
 		return ret;
 	}
 	void DynamicCommandInstance::ParameterPtrs::set(Dictionary<String^, DynamicCommand::ParameterPtr^>^ val)
 	{
 		std::unordered_map<std::string, ::DynamicCommand::ParameterPtr> map;
 		for each (auto var in val)
-			map.emplace(marshalString<Encoding::E_UTF8>(var.Key), *var.Value->NativePtr);
+			map.emplace(marshalString(var.Key), *var.Value->NativePtr);
 		(*NativePtr).parameterPtrs = std::move(map);
 	}
-	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler)
-	{
-		return gcnew DynamicCommandInstance(::DynamicCommandInstance::create(
-			marshalString<Encoding::E_UTF8>(name),
-			marshalString<Encoding::E_UTF8>(description),
+	DynamicCommandInstance::DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler)
+		:ClassTemplate(::DynamicCommandInstance::create(
+			marshalString(name),
+			marshalString(description),
 			::CommandPermissionLevel(permission),
 			::CommandFlag{ (::CommandFlagValue(flag->value)) },
 			(HMODULE)(void*)handler)
 			.release(),
-			true);
+			true)
+	{
+	}
+	DynamicCommandInstance::DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag)
+		:ClassTemplate(::DynamicCommandInstance::create(
+			marshalString(name),
+			marshalString(description),
+			::CommandPermissionLevel(permission),
+			::CommandFlag{ (::CommandFlagValue(flag->value)) },
+			MODULE).release(),
+			true)
+	{
+	}
+	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler)
+	{
+		return gcnew DynamicCommandInstance(name, description, permission, flag, handler);
 	}
 	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag)
 	{
-		return Create(name, description, permission, flag, IntPtr(MODULE));
+		return gcnew DynamicCommandInstance(name, description, permission, flag);
 	}
 	inline String^ DynamicCommandInstance::SetEnum(String^ description, List<String^>^ values)
 	{
 		std::vector<std::string> stringvector;
 		for each (auto var in values)
-			stringvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
-		return marshalString<Encoding::E_UTF8>((*NativePtr).setEnum(marshalString<Encoding::E_UTF8>(description), stringvector));
+			stringvector.emplace_back(marshalString(var));
+		return marshalString((*NativePtr).setEnum(marshalString(description), stringvector));
 	}
 	inline String^ DynamicCommandInstance::GetEnumValue(int index)
 	{
-		return marshalString<Encoding::E_UTF8>((*NativePtr).getEnumValue(index));
+		return marshalString((*NativePtr).getEnumValue(index));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(DynamicCommand::ParameterData^ data)
 	{
@@ -335,130 +542,130 @@ namespace LLNET::DynamicCommand
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description, String^ identifier, MC::CommandParameterOption parameterOption)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString<Encoding::E_UTF8>(name),
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			optional,
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier),
+			marshalString(description),
+			marshalString(identifier),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description, String^ identifier)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString<Encoding::E_UTF8>(name),
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			optional,
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier)));
+			marshalString(description),
+			marshalString(identifier)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString<Encoding::E_UTF8>(name),
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			optional,
-			marshalString<Encoding::E_UTF8>(description)));
+			marshalString(description)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString<Encoding::E_UTF8>(name),
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			optional));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::NewParameter(String^ name, DynamicCommand::ParameterType type)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString<Encoding::E_UTF8>(name),
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).newParameter(marshalString(name),
 			::DynamicCommand::ParameterType(type)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::FindParameterIndex(String^ param)
 	{
-		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).findParameterIndex(marshalString<Encoding::E_UTF8>(param)));
+		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).findParameterIndex(marshalString(param)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier),
+			marshalString(description),
+			marshalString(identifier),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier)));
+			marshalString(description),
+			marshalString(identifier)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description)));
+			marshalString(description)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description)));
+			marshalString(description)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Mandatory(String^ name, DynamicCommand::ParameterType type)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).mandatory(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier),
+			marshalString(description),
+			marshalString(identifier),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description),
-			marshalString<Encoding::E_UTF8>(identifier)));
+			marshalString(description),
+			marshalString(identifier)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type, String^ description, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description),
+			marshalString(description),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type, String^ description)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
-			marshalString<Encoding::E_UTF8>(description)));
+			marshalString(description)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type, MC::CommandParameterOption parameterOption)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type),
 			::CommandParameterOption(parameterOption)));
 	}
 	inline DynamicCommandInstance::ParameterIndex^ DynamicCommandInstance::Optional(String^ name, DynamicCommand::ParameterType type)
 	{
 		return gcnew DynamicCommandInstance::ParameterIndex((*NativePtr).optional(
-			marshalString<Encoding::E_UTF8>(name),
+			marshalString(name),
 			::DynamicCommand::ParameterType(type)));
 	}
 	inline bool DynamicCommandInstance::AddOverload(List<ParameterIndex^>^ params)
@@ -472,7 +679,7 @@ namespace LLNET::DynamicCommand
 	{
 		std::vector<std::string> stdvector;
 		for each (auto var in params)
-			stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
+			stdvector.emplace_back(marshalString(var));
 		return (*NativePtr).addOverload(std::move(stdvector));
 	}
 	inline bool DynamicCommandInstance::AddOverload(List<DynamicCommand::ParameterData^>^ params)
@@ -485,7 +692,7 @@ namespace LLNET::DynamicCommand
 
 	inline bool DynamicCommandInstance::SetAlias(String^ alias)
 	{
-		return (*NativePtr).setAlias(marshalString<Encoding::E_UTF8>(alias));
+		return (*NativePtr).setAlias(marshalString(alias));
 	}
 
 	// inline List<MC::CommandParameterData^>^ DynamicCommandInstance::buildOverload(List<ParameterIndex^>^ overload)
@@ -515,32 +722,32 @@ namespace LLNET::DynamicCommand
 	{
 		std::vector<std::string> stdvector;
 		for each (auto var in values)
-			stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
-		return marshalString<Encoding::E_UTF8>((*NativePtr).setSoftEnum(marshalString<Encoding::E_UTF8>(name), stdvector));
+			stdvector.emplace_back(marshalString(var));
+		return marshalString((*NativePtr).setSoftEnum(marshalString(name), stdvector));
 	}
 
 	inline bool DynamicCommandInstance::AddSoftEnumValues(String^ name, List<String^>^ values)
 	{
 		std::vector<std::string> stdvector;
 		for each (auto var in values)
-			stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
-		return (*NativePtr).addSoftEnumValues(marshalString<Encoding::E_UTF8>(name), stdvector);
+			stdvector.emplace_back(marshalString(var));
+		return (*NativePtr).addSoftEnumValues(marshalString(name), stdvector);
 	}
 
 	inline bool DynamicCommandInstance::RemoveSoftEnumValues(String^ name, List<String^>^ values)
 	{
 		std::vector<std::string> stdvector;
 		for each (auto var in values)
-			stdvector.emplace_back(marshalString<Encoding::E_UTF8>(var));
-		return (*NativePtr).addSoftEnumValues(marshalString<Encoding::E_UTF8>(name), stdvector);
+			stdvector.emplace_back(marshalString(var));
+		return (*NativePtr).addSoftEnumValues(marshalString(name), stdvector);
 	}
 
 	inline List<String^>^ DynamicCommandInstance::GetSoftEnumValues(String^ name)
 	{
-		auto& stdvector = ::DynamicCommandInstance::getSoftEnumValues(marshalString<Encoding::E_UTF8>(name));
+		auto& stdvector = ::DynamicCommandInstance::getSoftEnumValues(marshalString(name));
 		auto ret = gcnew List<String^>((int)stdvector.size());
 		for (auto iter = stdvector.begin(); iter != stdvector.end(); ++iter)
-			ret->Add(marshalString<Encoding::E_UTF8>(*iter));
+			ret->Add(marshalString(*iter));
 		return ret;
 	}
 
@@ -549,13 +756,13 @@ namespace LLNET::DynamicCommand
 		auto& stdvector = ::DynamicCommandInstance::getSoftEnumNames();
 		auto ret = gcnew List<String^>((int)stdvector.size());
 		for (auto iter = stdvector.begin(); iter != stdvector.end(); ++iter)
-			ret->Add(marshalString<Encoding::E_UTF8>(*iter));
+			ret->Add(marshalString(*iter));
 		return ret;
 	}
 
 	inline String^ DynamicCommandInstance::GetCommandName()
 	{
-		return marshalString<Encoding::E_UTF8>((*NativePtr).getCommandName());
+		return marshalString((*NativePtr).getCommandName());
 	}
 
 	inline bool DynamicCommandInstance::HasRegistered()
@@ -572,3 +779,88 @@ namespace LLNET::DynamicCommand
 	//}
 
 } // namespace LLNET::DynamicCommand
+
+inline ::DynamicCommand::ParameterType __ParameterData::GetType()
+{
+	return type;
+}
+
+inline void __ParameterData::SetType(::DynamicCommand::ParameterType t)
+{
+	type = t;
+}
+
+inline size_t __ParameterData::GetOffset()
+{
+	return offset;
+}
+
+inline void __ParameterData::SetOffest(size_t o)
+{
+	offset = o;
+}
+
+inline std::string __ParameterData::GetName()
+{
+	return name;
+}
+
+inline void __ParameterData::SetName(std::string& s)
+{
+	name = s;
+}
+
+inline std::string __ParameterData::GetDescription()
+{
+	return description;
+}
+
+inline void __ParameterData::SetDescription(std::string& s)
+{
+	description = s;
+}
+
+inline std::string __ParameterData::GetIdentifier()
+{
+	return identifier;
+}
+
+inline void __ParameterData::SetIdentifier(std::string& s)
+{
+	identifier = s;
+}
+
+inline bool __ParameterData::GetOptional()
+{
+	return option;
+}
+
+inline void __ParameterData::SetOptional(bool b)
+{
+	optional = b;
+}
+
+inline CommandParameterOption __ParameterData::GetOption()
+{
+	return option;
+}
+
+inline void __ParameterData::SetOption(CommandParameterOption o)
+{
+	option = o;
+}
+
+inline __ParameterData::__ParameterData(__ParameterData const& p)
+	: ParameterData(p)
+{
+}
+
+inline __ParameterData::__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, bool optional, std::string const& enumOptions, std::string const& identifier, CommandParameterOption parameterOption)
+	: Base(name, type, optional, enumOptions, identifier, parameterOption)
+{
+}
+
+inline __ParameterData::__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, std::string const& enumOptions, std::string const& identifier, CommandParameterOption parameterOption)
+	: Base(name, type, enumOptions, identifier, parameterOption)
+{
+}

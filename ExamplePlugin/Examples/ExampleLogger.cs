@@ -18,11 +18,11 @@ namespace ExamplePlugin.Examples
             logger.warn.WriteLine("Warn");
 
             //reset logger title
-            logger.title = "LoggerTitle";
+            logger.Title = "LoggerTitle";
 
             logger.error.WriteLine("Error");
 
-            logger.title = "ExampleLogger";
+            logger.Title = "ExampleLogger";
 
 
             //cpp style output

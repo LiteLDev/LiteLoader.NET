@@ -2,7 +2,7 @@
 #include <MC/CommandFlag.hpp>
 namespace MC
 {
-enum class CommandFlagValue : char
+public enum class CommandFlagValue : char
 {
     None = 0,
     Usage = 1,
@@ -16,7 +16,7 @@ enum class CommandFlagValue : char
 };
 
 public
-ref struct CommandFlag
+value struct CommandFlag
 {
     CommandFlagValue value;
 

@@ -178,6 +178,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Command\Command.hpp" />
     <ClInclude Include="Header\Command\CommandArea.hpp" />
     <ClInclude Include="Header\Command\CommandFlag.hpp" />
+    <ClInclude Include="Header\Command\CommandMessage.hpp" />
     <ClInclude Include="Header\Command\CommandOrigin.hpp" />
     <ClInclude Include="Header\Command\CommandOriginData.hpp" />
     <ClInclude Include="Header\Command\CommandOriginIdentity.hpp" />
