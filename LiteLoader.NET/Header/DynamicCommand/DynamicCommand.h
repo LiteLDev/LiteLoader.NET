@@ -18,6 +18,8 @@
 #include "../Core/STLHelper/string.hpp"
 #include <MC/JsonHelpers.hpp>
 
+#include "ICommand.hpp"
+
 struct __ParameterData : public ::DynamicCommand::ParameterData
 {
 public:
@@ -222,6 +224,10 @@ namespace LLNET::DynamicCommand
 		inline static bool UpdateAvailableCommands();
 		inline DynamicCommandInstance^ GetInstance();
 		inline static DynamicCommandInstance^ GetInstance(String^ commandName);
+
+		generic<typename TCommand>
+		where TCommand:ICommand, gcnew()
+			bool RegisterCommand();
 	};
 	public
 	ref class DynamicCommandInstance : ClassTemplate<DynamicCommandInstance, ::DynamicCommandInstance>

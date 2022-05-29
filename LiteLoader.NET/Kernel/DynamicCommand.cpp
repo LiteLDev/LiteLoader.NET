@@ -1,4 +1,4 @@
-#include "../Header/DynamicCommand/DynamicCommand.h"
+#include "../Header/DynamicCommand/RegisterCommand.hpp"
 #include <memory>
 
 namespace LLNET::DynamicCommand

@@ -200,7 +200,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Core\STLHelper\string.hpp" />
     <ClInclude Include="Header\Core\STLHelper\vector.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommand.h" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp" />
+    <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
+    <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp" />
     <ClInclude Include="Header\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
     <ClInclude Include="Header\Hook.h" />

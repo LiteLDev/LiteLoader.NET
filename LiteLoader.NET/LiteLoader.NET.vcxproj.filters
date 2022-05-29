@@ -668,6 +668,15 @@
     <ClInclude Include="Header\Command\CommandItem.hpp">
       <Filter>Header\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Header\DynamicCommand\ICommand.hpp">
+      <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp">
+      <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp">
+      <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

@@ -10,6 +10,10 @@ namespace LLNET::Core
 			: ApplicationException()
 		{
 		}
+		LiteLoaderDotNETException(String^ message)
+			: ApplicationException(message)
+		{
+		}
 	};
 	public
 	ref class HookFailedException
@@ -43,11 +47,25 @@ namespace LLNET::Core
 	};
 	public
 	ref class DynamicCommandInvalidCastException
-		:public LiteLoaderDotNETException 
+		:public LiteLoaderDotNETException
 	{
 	public:
 		DynamicCommandInvalidCastException()
 			:LiteLoaderDotNETException()
+		{
+		}
+	};
+	public
+	ref class RegisterCommandException
+		:public LiteLoaderDotNETException
+	{
+	public:
+		RegisterCommandException()
+			:LiteLoaderDotNETException()
+		{
+		}
+		RegisterCommandException(String^ message)
+			:LiteLoaderDotNETException(message)
 		{
 		}
 	};
