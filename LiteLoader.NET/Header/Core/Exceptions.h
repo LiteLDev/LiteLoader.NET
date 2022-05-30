@@ -10,7 +10,7 @@ namespace LLNET::Core
 			: ApplicationException()
 		{
 		}
-		LiteLoaderDotNETException(String^ message)
+		LiteLoaderDotNETException(System::String^ message)
 			: ApplicationException(message)
 		{
 		}
@@ -64,7 +64,7 @@ namespace LLNET::Core
 			:LiteLoaderDotNETException()
 		{
 		}
-		RegisterCommandException(String^ message)
+		RegisterCommandException(System::String^ message)
 			:LiteLoaderDotNETException(message)
 		{
 		}

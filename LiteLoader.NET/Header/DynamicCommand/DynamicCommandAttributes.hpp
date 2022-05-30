@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Main/.NETGlobal.hpp"
+#include "DynamicCommandHelper.hpp"
 
 namespace LLNET::DynamicCommand {
 	using System::AttributeUsageAttribute;
@@ -17,9 +17,9 @@ namespace LLNET::DynamicCommand {
 		String^ Name;
 		String^ Description = "";
 		MC::CommandPermissionLevel Permission = MC::CommandPermissionLevel::GameMasters;
+		String^ Alia = "";
 		MC::CommandFlagValue Flag1 = MC::CommandFlagValue(0x80);
 		MC::CommandFlagValue Flag2 = MC::CommandFlagValue(0);
-		String^ Alia = "";
 	};
 
 	[AttributeUsage(AttributeTargets::Class, AllowMultiple = true)]
@@ -30,18 +30,27 @@ namespace LLNET::DynamicCommand {
 			:Alia(alia)
 		{
 		}
-		String^ Alia;
+		String^ Alia = "";
 	};
 
 	[AttributeUsage(AttributeTargets::Enum)]
 	public ref class CommandEnumAttribute :Attribute
 	{
-		String^ Name = nullptr;
+	public:
+		//String^ Name = nullptr;
 	};
 
 	[AttributeUsage(AttributeTargets::Field)]
 	public ref class CommandParameterAttribute :Attribute
 	{
+	public:
+		CommandParameterAttribute(DynamicCommand::ParameterType paramType)
+			:Type(paramType) {}
+
 		DynamicCommand::ParameterType Type;
+		bool IsMandatory = true;
+		//String^ Name = nullptr;
+		String^ Identifier = "";
+		MC::CommandParameterOption Option = MC::CommandParameterOption::None;
 	};
 }

@@ -18,8 +18,6 @@
 #include "../Core/STLHelper/string.hpp"
 #include <MC/JsonHelpers.hpp>
 
-#include "ICommand.hpp"
-
 struct __ParameterData : public ::DynamicCommand::ParameterData
 {
 public:
@@ -43,6 +41,12 @@ public:
 	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, bool optional = false, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
 	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
 };
+
+namespace LLNET::DynamicCommand {
+	interface class ICommand;
+	interface class ICommandEvent;
+	interface class ICommandData;
+}
 
 namespace LLNET::DynamicCommand
 {

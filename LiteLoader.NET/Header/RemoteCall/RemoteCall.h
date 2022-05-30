@@ -98,7 +98,7 @@ namespace LLNET::RemoteCall
 		/// <param name="funcName">－Export Function Name</param>
 		/// <param name="fn">－Export Function</param>
 		/// <returns>－Is The Export Successful</returns>
-		/// <exception cref="InvalidRemoteCallTypeException"></exception>
+		/// <exception cref="LLNET::Core::InvalidRemoteCallTypeException"></exception>
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn);
