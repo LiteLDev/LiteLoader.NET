@@ -14,6 +14,7 @@ namespace LLNET::DynamicCommand::Internal {
 			String^ Name;
 			DynamicCommand::ParameterType ParamType;
 			bool IsMandatory;
+			int OverloadId;
 			String^ EnumName;
 			String^ Identifier;
 			MC::CommandParameterOption Option;

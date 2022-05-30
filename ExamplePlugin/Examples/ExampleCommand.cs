@@ -1,24 +1,46 @@
-﻿//using Command Namesapce
-using LLNET.DynamicCommand;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using LLNET.Logger;
+using LLNET.DynamicCommand;
 using MC;
+
 
 namespace ExamplePlugin.Examples
 {
+    using ParamType = LLNET.DynamicCommand.DynamicCommand.ParameterType;
+
     public class ExampleCommand : IExample
     {
-        private static readonly Logger logger = new("ExampleCommand");
         public void Execute()
         {
-            DynamicCommandInstance instance = DynamicCommand.CreateCommand("test", ".NET test command", CommandPermissionLevel.Any);
-            instance.SetAlias("aliafortest");
-            instance.AddOverload(new List<string>());
-            instance.SetCallback((cmd, origin, output, results) =>
-            {
-                Level.BroadcastText("hihi!", TextType.RAW);
-                output.Success("successful");
-            });
-            DynamicCommand.Setup(instance);
+            DynamicCommand.RegisterCommand<TestCommand>();
         }
     }
+
+
+    [Command("testcmd", Description = "test .net command", Permission = CommandPermissionLevel.Any)]
+    public class TestCommand : ICommand
+    {
+        [CommandEnum]
+        enum TestEnum1
+        {
+            val_1, va1_2, val_3
+        }
+
+        [CommandParameter(ParamType.Enum, IsMandatory = true)]
+        TestEnum1 testEnum1;
+
+        [CommandParameter(ParamType.Int)]
+        int a1;
+
+        public void Execute(CommandOrigin origin, CommandOutput output)
+        {
+            Console.WriteLine(testEnum1.ToString(), a1);
+        }
+    }
+
 }

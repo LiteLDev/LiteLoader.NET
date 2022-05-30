@@ -8,7 +8,7 @@ namespace LLNET::DynamicCommand {
 
 	generic<typename TCommand>
 	where TCommand:ICommand, gcnew()
-		inline bool DynamicCommand::RegisterCommand()
+		bool DynamicCommand::RegisterCommand()
 	{
 		auto cmdType = TCommand::typeid;
 
@@ -60,7 +60,7 @@ namespace LLNET::DynamicCommand {
 					auto enumValues = type->GetFields(BindingFlags::Public | BindingFlags::Static);
 					for each (auto enumVal in enumValues)
 					{
-						currentEnums->Add(enumVal->Name, static_cast<int>(enumVal->GetValue(nullptr)));
+						currentEnums->Add(enumVal->Name, static_cast<long>(enumVal->GetValue(nullptr)));
 					}
 				}
 			}
@@ -90,6 +90,7 @@ namespace LLNET::DynamicCommand {
 				field->Name,
 				paramAttr->Type,
 				paramAttr->IsMandatory,
+				paramAttr->OverloadId,
 				paramEnumName,
 				paramAttr->Identifier,
 				paramAttr->Option,
@@ -97,12 +98,12 @@ namespace LLNET::DynamicCommand {
 		}
 
 		auto instance = ::DynamicCommand::createCommand(
-				marshalString(cmdAttr->Name),
-				marshalString(cmdAttr->Description),
-				::CommandPermissionLevel(cmdAttr->Permission),
-				::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag1))),
-				::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag2))),
-				MODULE);
+			marshalString(cmdAttr->Name),
+			marshalString(cmdAttr->Description),
+			::CommandPermissionLevel(cmdAttr->Permission),
+			::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag1))),
+			::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag2))),
+			MODULE);
 
 		for each (auto alia in cmdData->Alias)
 		{
@@ -162,7 +163,21 @@ namespace LLNET::DynamicCommand {
 			}
 
 		}
+
+		//auto currentOverloadIndex = 0;
+		std::vector<std::string> strVec;
+		for each (auto % param in cmdData->Parameters)
+		{
+			if (param.ParamType == DynamicCommand::ParameterType::Enum)
+				strVec.emplace_back(marshalString(param.EnumName));
+			else
+				strVec.emplace_back(marshalString(param.Name));
+		}
+		instance->addOverload(std::move(strVec));
+
+
 		cmdData->cmd = gcnew TCommand();
+	
 
 		auto cmdInterfaces = cmdType->GetInterfaces();
 		bool inheritedICommandEvent = false;
@@ -213,8 +228,6 @@ namespace LLNET::DynamicCommand {
 			((ICommandEvent^)(cmdData->cmd))->AfterCommandSetup(dynamicCmdInstance);
 			delete dynamicCmdInstance;
 		}
-
-
 
 		return false;
 	}

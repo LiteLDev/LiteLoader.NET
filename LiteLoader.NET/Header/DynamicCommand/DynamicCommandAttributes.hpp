@@ -49,6 +49,7 @@ namespace LLNET::DynamicCommand {
 
 		DynamicCommand::ParameterType Type;
 		bool IsMandatory = true;
+		int OverloadId = 0;
 		//String^ Name = nullptr;
 		String^ Identifier = "";
 		MC::CommandParameterOption Option = MC::CommandParameterOption::None;

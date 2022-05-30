@@ -4,8 +4,9 @@
 //#define _EVENT_
 //#define _SCHEDULE_
 //#define _THOOK_
-//#define _COMMAND_
-#define _REMOTECALL_
+//#define _DYNAMICCOMMAND_
+#define _COMMAND_
+//#define _REMOTECALL_
 
 #endregion
 
@@ -41,6 +42,10 @@ namespace PluginMain
 #if _THOOK_
             ExampleThook exampleThook = new();
             exampleThook.Execute();
+#endif
+#if _DYNAMICCOMMAND_
+            ExampleDynamicCommand exampleDynamicCommand = new();
+            exampleDynamicCommand.Execute();
 #endif
 #if _COMMAND_
             ExampleCommand exampleCommand = new();
