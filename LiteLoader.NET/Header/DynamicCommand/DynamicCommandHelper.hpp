@@ -14,11 +14,13 @@ namespace LLNET::DynamicCommand::Internal {
 			String^ Name;
 			DynamicCommand::ParameterType ParamType;
 			bool IsMandatory;
-			int OverloadId;
+			List<int>^ OverloadIds;
 			String^ EnumName;
 			String^ Identifier;
 			MC::CommandParameterOption Option;
 			System::Reflection::FieldInfo^ Fieldinfo;
+			System::Reflection::PropertyInfo^ PropertyInfo;
+			bool IsField;
 		};
 
 		ref struct CommandData

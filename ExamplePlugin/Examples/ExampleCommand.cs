@@ -26,20 +26,18 @@ namespace ExamplePlugin.Examples
     public class TestCommand : ICommand
     {
         [CommandEnum]
-        enum TestEnum1
-        {
-            val_1, va1_2, val_3
-        }
+        enum TestEnumType { Enum1, Enum2, Enum3 }
 
+        [CommandParameterOverload(0)]
         [CommandParameter(ParamType.Enum, IsMandatory = true, Option = CommandParameterOption.EnumAutocompleteExpansion)]
-        TestEnum1 testEnum1;
+        TestEnumType TestEnum { get; set; }
 
         [CommandParameter(ParamType.Int)]
-        int a1;
+        int A_1 { get; set; }
 
         public void Execute(CommandOrigin origin, CommandOutput output)
         {
-            Console.WriteLine("EnumVal:{0},IntVal:{1}", testEnum1.ToString(), a1);
+            Console.WriteLine("EnumVal:{0},IntVal:{1}", TestEnum.ToString(), A_1);
         }
     }
 

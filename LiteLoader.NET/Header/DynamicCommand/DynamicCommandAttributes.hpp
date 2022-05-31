@@ -40,7 +40,7 @@ namespace LLNET::DynamicCommand {
 		//String^ Name = nullptr;
 	};
 
-	[AttributeUsage(AttributeTargets::Field)]
+	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property)]
 	public ref class CommandParameterAttribute :Attribute
 	{
 	public:
@@ -49,9 +49,22 @@ namespace LLNET::DynamicCommand {
 
 		DynamicCommand::ParameterType Type;
 		bool IsMandatory = true;
-		int OverloadId = 0;
-		//String^ Name = nullptr;
 		String^ Identifier = "";
 		MC::CommandParameterOption Option = MC::CommandParameterOption::None;
+		property int OverloadId {int get() { return overloadId; } void set(int value) { isSet = true; overloadId = value; }}
+
+	internal:
+		int overloadId = 0;
+		bool isSet = false;
+	};
+
+	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property)]
+	public ref class CommandParameterOverloadAttribute :Attribute
+	{
+	public:
+		CommandParameterOverloadAttribute(int id)
+			:OverloadId(id) {}
+
+		int OverloadId;
 	};
 }

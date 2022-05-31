@@ -26,11 +26,25 @@ void LLNET::DynamicCommand::Internal::CommandManager::NativeDynamicCommandCallba
 
 	for (auto& [k, v] : results)
 	{
-		for each (auto param in params)
+		for (int i = 0; i < params->Count;)
 		{
-			if (param.Name == marshalString(k))
+			auto% currentParam = params[i];
+			if (currentParam.Name != marshalString(k))
 			{
-				param.Fieldinfo->SetValue(data->cmd, _parseResult(v, param));
+				++i;
+			}
+			else
+			{
+				auto result = _parseResult(v, currentParam);
+				if (currentParam.IsField)
+				{
+					currentParam.Fieldinfo->SetValue(data->cmd, result);
+				}
+				else
+				{
+					currentParam.PropertyInfo->SetValue(data->cmd, result);
+				}
+				params->Remove(currentParam);
 				break;
 			}
 		}

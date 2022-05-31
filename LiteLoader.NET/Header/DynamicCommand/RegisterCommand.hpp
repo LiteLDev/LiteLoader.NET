@@ -12,6 +12,7 @@ namespace LLNET::DynamicCommand {
 	{
 		auto cmdType = TCommand::typeid;
 
+#pragma region CommandAttribute
 
 		auto cmdAttrArr = cmdType->GetCustomAttributes(CommandAttribute::typeid, false);
 		if (cmdAttrArr == nullptr || cmdAttrArr->Length == 0)
@@ -25,9 +26,10 @@ namespace LLNET::DynamicCommand {
 		if (String::IsNullOrWhiteSpace(cmdAttr->Description))
 			throw gcnew RegisterCommandException("Empty Command Description!");
 
+#pragma endregion
 		auto cmdData = gcnew CommandManager::CommandData;
-
 		cmdData->CmdType = cmdType;
+#pragma region CommandAliasAttribute
 
 		if (!String::IsNullOrWhiteSpace(cmdAttr->Alia))
 			cmdData->Alias->Add(cmdAttr->Alia);
@@ -40,6 +42,9 @@ namespace LLNET::DynamicCommand {
 				continue;
 			cmdData->Alias->Add(alia);
 		}
+
+#pragma endregion
+#pragma region CommandEnumAttribute
 
 		auto nestedTypes = cmdType->GetNestedTypes(
 			BindingFlags::Public
@@ -67,6 +72,9 @@ namespace LLNET::DynamicCommand {
 			}
 		}
 
+#pragma endregion
+#pragma region CommandParameterAttribute_Field
+
 		auto cmdFields = cmdType->GetFields(
 			BindingFlags::Static
 			| BindingFlags::Public
@@ -87,16 +95,79 @@ namespace LLNET::DynamicCommand {
 				paramEnumName = fieldType->Name;
 			}
 
+			auto overloads = gcnew List<int>;
+			overloads->Add(paramAttr->isSet ? paramAttr->overloadId : 0);
+
 			cmdData->Parameters->Add(CommandManager::ParamInfo{
 				field->Name,
 				paramAttr->Type,
 				paramAttr->IsMandatory,
-				paramAttr->OverloadId,
+				overloads,
 				paramEnumName,
 				paramAttr->Identifier,
 				paramAttr->Option,
-				field });
+				field,
+				nullptr,
+				true });
+
+			auto overloadAttrArr = field->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
+			for each (auto overloadAttr in overloadAttrArr)
+			{
+				overloads->Add((static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId);
+			}
 		}
+
+#pragma endregion
+#pragma region CommandParameterAttribute_Property
+
+		auto cmdProperties = cmdType->GetProperties(
+			BindingFlags::Static
+			| BindingFlags::Public
+			| BindingFlags::NonPublic
+			| BindingFlags::Instance);
+
+		for each (auto Property in cmdProperties)
+		{
+			auto paramAttrArr = Property->GetCustomAttributes(CommandParameterAttribute::typeid, false);
+			if (paramAttrArr->Length == 0)
+				continue;
+
+			if (!Property->CanWrite)
+				throw gcnew RegisterCommandException(String::Format("Property Cannot Be Written! Property:<{0}>", Property->Name));
+
+			auto paramAttr = static_cast<CommandParameterAttribute^>(paramAttrArr[0]);
+
+			String^ paramEnumName = nullptr;
+			auto propertyType = Property->PropertyType;
+			if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
+			{
+				paramEnumName = propertyType->Name;
+			}
+
+			auto overloads = gcnew List<int>;
+			overloads->Add(paramAttr->isSet ? paramAttr->overloadId : 0);
+
+			cmdData->Parameters->Add(CommandManager::ParamInfo{
+				Property->Name,
+				paramAttr->Type,
+				paramAttr->IsMandatory,
+				overloads,
+				paramEnumName,
+				paramAttr->Identifier,
+				paramAttr->Option,
+				nullptr,
+				Property,
+				false });
+
+			auto overloadAttrArr = Property->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
+			for each (auto overloadAttr in overloadAttrArr)
+			{
+				overloads->Add((static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId);
+			}
+		}
+
+#pragma endregion
+
 
 		auto instance = ::DynamicCommand::createCommand(
 			marshalString(cmdAttr->Name),
@@ -166,9 +237,12 @@ namespace LLNET::DynamicCommand {
 		auto Overloads = gcnew Dictionary<int, List<CommandManager::ParamInfo>^>;
 		for each (auto % param in cmdData->Parameters)
 		{
-			if (!Overloads->ContainsKey(param.OverloadId))
-				Overloads->Add(param.OverloadId, gcnew List<CommandManager::ParamInfo>);
-			Overloads[param.OverloadId]->Add(param);
+			for each (auto id in param.OverloadIds)
+			{
+				if (!Overloads->ContainsKey(id))
+					Overloads->Add(id, gcnew List<CommandManager::ParamInfo>);
+				Overloads[id]->Add(param);
+			}
 		}
 
 		std::vector<std::string> strVec;
