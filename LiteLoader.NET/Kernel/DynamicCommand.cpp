@@ -55,13 +55,13 @@ namespace LLNET::DynamicCommand
 			return gcnew MC::Vec3(NativePtr->get<Vec3>());
 		}
 		case ::DynamicCommand::ParameterType::Message:
-			return marshalString(NativePtr->getRaw<::CommandMessage>().getMessage(*NativePtr->origin));
+			return gcnew MC::CommandMessage(const_cast<::CommandMessage*>(&NativePtr->getRaw<::CommandMessage>()));
 		case ::DynamicCommand::ParameterType::RawText:
 			return marshalString(NativePtr->getRaw<std::string>());
 		case ::DynamicCommand::ParameterType::JsonValue:
 			return marshalString(JsonHelpers::serialize(NativePtr->getRaw<Json::Value>()));
 		case ::DynamicCommand::ParameterType::Item:
-			return gcnew MC::ItemInstance(NativePtr->getRaw<CommandItem>().createInstance(1, 1, nullptr, true).value_or(ItemInstance::EMPTY_ITEM));
+			return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
 		case ::DynamicCommand::ParameterType::Block:
 			return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
 		case ::DynamicCommand::ParameterType::Effect:

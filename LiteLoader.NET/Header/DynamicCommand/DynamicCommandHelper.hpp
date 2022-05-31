@@ -6,7 +6,7 @@ namespace LLNET::DynamicCommand::Internal {
 	public:
 		value struct EnumInfo {
 			String^ Name;
-			Dictionary<String^, long>^ enums;
+			Dictionary<String^, Object^>^ enums;
 			System::Type^ Type;
 		};
 
@@ -18,7 +18,7 @@ namespace LLNET::DynamicCommand::Internal {
 			String^ EnumName;
 			String^ Identifier;
 			MC::CommandParameterOption Option;
-			System::Type^ Type;
+			System::Reflection::FieldInfo^ Fieldinfo;
 		};
 
 		ref struct CommandData
@@ -47,12 +47,10 @@ namespace LLNET::DynamicCommand::Internal {
 					gch.Free();
 				delete data;
 			}
+
+			System::Object^ _parseResult(::DynamicCommand::Result& result, ParamInfo% paramInfo);
 		};
 
 		static List<NativeDynamicCommandCallback^>^ callbackInstance = gcnew List<NativeDynamicCommandCallback^>;
 	};
-}
-
-void LLNET::DynamicCommand::Internal::CommandManager::NativeDynamicCommandCallback::NativeCallback(::DynamicCommand const& cmd, ::CommandOrigin const& origin, ::CommandOutput& output, std::unordered_map<std::string, ::DynamicCommand::Result>& results)
-{
 }

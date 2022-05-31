@@ -31,7 +31,7 @@ namespace ExamplePlugin.Examples
             val_1, va1_2, val_3
         }
 
-        [CommandParameter(ParamType.Enum, IsMandatory = true)]
+        [CommandParameter(ParamType.Enum, IsMandatory = true, Option = CommandParameterOption.EnumAutocompleteExpansion)]
         TestEnum1 testEnum1;
 
         [CommandParameter(ParamType.Int)]
@@ -39,7 +39,7 @@ namespace ExamplePlugin.Examples
 
         public void Execute(CommandOrigin origin, CommandOutput output)
         {
-            Console.WriteLine(testEnum1.ToString(), a1);
+            Console.WriteLine("EnumVal:{0},IntVal:{1}", testEnum1.ToString(), a1);
         }
     }
 

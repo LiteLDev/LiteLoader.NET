@@ -12,6 +12,7 @@ namespace LLNET::DynamicCommand {
 	{
 		auto cmdType = TCommand::typeid;
 
+
 		auto cmdAttrArr = cmdType->GetCustomAttributes(CommandAttribute::typeid, false);
 		if (cmdAttrArr == nullptr || cmdAttrArr->Length == 0)
 			throw gcnew RegisterCommandException("Missing CommandAttribute!");
@@ -54,13 +55,13 @@ namespace LLNET::DynamicCommand {
 				{
 					String^ enumName = type->Name;
 
-					auto currentEnums = gcnew Dictionary<String^, long>;
+					auto currentEnums = gcnew Dictionary<String^, Object^>;
 					cmdData->Enums->Add(CommandManager::EnumInfo{ enumName,currentEnums,type });
 
 					auto enumValues = type->GetFields(BindingFlags::Public | BindingFlags::Static);
 					for each (auto enumVal in enumValues)
 					{
-						currentEnums->Add(enumVal->Name, static_cast<long>(enumVal->GetValue(nullptr)));
+						currentEnums->Add(enumVal->Name, enumVal->GetValue(nullptr));
 					}
 				}
 			}
@@ -94,7 +95,7 @@ namespace LLNET::DynamicCommand {
 				paramEnumName,
 				paramAttr->Identifier,
 				paramAttr->Option,
-				fieldType });
+				field });
 		}
 
 		auto instance = ::DynamicCommand::createCommand(
@@ -107,10 +108,8 @@ namespace LLNET::DynamicCommand {
 
 		for each (auto alia in cmdData->Alias)
 		{
-			if (!instance->setAlias(marshalString(alia))) {
-				delete cmdData;
+			if (!instance->setAlias(marshalString(alia)))
 				throw gcnew RegisterCommandException(String::Format("Set Alias Failed! at alia:<{}>", alia));
-			}
 		}
 
 		for each (auto % Enum in cmdData->Enums)
@@ -164,20 +163,32 @@ namespace LLNET::DynamicCommand {
 
 		}
 
-		//auto currentOverloadIndex = 0;
-		std::vector<std::string> strVec;
+		auto Overloads = gcnew Dictionary<int, List<CommandManager::ParamInfo>^>;
 		for each (auto % param in cmdData->Parameters)
 		{
-			if (param.ParamType == DynamicCommand::ParameterType::Enum)
-				strVec.emplace_back(marshalString(param.EnumName));
-			else
-				strVec.emplace_back(marshalString(param.Name));
+			if (!Overloads->ContainsKey(param.OverloadId))
+				Overloads->Add(param.OverloadId, gcnew List<CommandManager::ParamInfo>);
+			Overloads[param.OverloadId]->Add(param);
 		}
-		instance->addOverload(std::move(strVec));
+
+		std::vector<std::string> strVec;
+		for each (auto % overload in Overloads)
+		{
+			for each (auto param in overload.Value)
+			{
+				if (param.ParamType == DynamicCommand::ParameterType::Enum)
+					strVec.emplace_back(marshalString(param.EnumName));
+				else
+					strVec.emplace_back(marshalString(param.Name));
+			}
+			instance->addOverload(std::move(strVec));
+			strVec.clear();
+		}
+
 
 
 		cmdData->cmd = gcnew TCommand();
-	
+
 
 		auto cmdInterfaces = cmdType->GetInterfaces();
 		bool inheritedICommandEvent = false;
