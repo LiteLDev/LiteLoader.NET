@@ -33,7 +33,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			if (handler == nullptr)
 				handler = MODULE;
 
-			LLNET::PluginManager::ManagedPluginHandler->Add(Asm, IntPtr(handler));
+			Global::ManagedPluginHandler->Add(Asm, IntPtr(handler));
 
 			Asm ->GetType(TEXT(LLNET_ENTRY_CLASS))
 				->GetMethod(TEXT(LLNET_ENTRY_METHOD))

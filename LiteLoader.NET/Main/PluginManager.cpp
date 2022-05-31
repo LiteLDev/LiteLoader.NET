@@ -29,7 +29,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->Add(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), asm_));
-			PluginManager::ManagedPluginHandler->Add(asm_, IntPtr(handler));
+			Global::ManagedPluginHandler->Add(asm_, IntPtr(handler));
 		}
 		// remove LL auto registed plugin.
 		unRegisterPlugin(asm_->GetName()->Name + ".dll");
@@ -113,8 +113,3 @@ namespace LLNET
 		return ::LL::PluginManager::unRegisterPlugin(marshalString(name));
 	}
 } // namespace LLNET
-
-inline HMODULE __GetCurrentModule(Assembly^ asm_)
-{
-	return HMODULE((void*)LLNET::PluginManager::ManagedPluginHandler[asm_]);
-}

@@ -18,6 +18,8 @@ public:
     {
         unsigned int get();
     }
+internal:
+    GCHandle gch;
 };
 
 public
@@ -35,5 +37,6 @@ public:
     inline static ScheduleTask ^ DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handler);
     inline static ScheduleTask ^ NextTick(TaskDelegate ^ task);
     inline static ScheduleTask ^ NextTick(TaskDelegate ^ task, System::IntPtr handler);
+internal:
 };
 } // namespace LLNET::Schedule

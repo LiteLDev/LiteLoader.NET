@@ -29,7 +29,7 @@ unsigned int ScheduleTask::TaskId::get()
 inline ScheduleTask ^ ScheduleAPI::Delay(TaskDelegate ^ task, unsigned long long tickDelay)
 {
     GCHandle::Alloc(task);
-    return Delay(task, tickDelay, System::IntPtr(__GetCurrentModule(Assembly::GetCallingAssembly())));
+    return Delay(task, tickDelay, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
 inline ScheduleTask ^ ScheduleAPI::Delay(TaskDelegate ^ task, unsigned long long tickDelay, System::IntPtr handler)
@@ -48,7 +48,7 @@ inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long lon
 inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long long tickInterval, int maxCount)
 {
     GCHandle::Alloc(task);
-    return Repeat(task, tickInterval, maxCount, System::IntPtr(__GetCurrentModule(Assembly::GetCallingAssembly())));
+    return Repeat(task, tickInterval, maxCount, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
 inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handler)
@@ -67,7 +67,7 @@ inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned lon
 inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount)
 {
     GCHandle::Alloc(task);
-    return DelayRepeat(task, tickDelay, tickInterval, maxCount, System::IntPtr(__GetCurrentModule(Assembly::GetCallingAssembly())));
+    return DelayRepeat(task, tickDelay, tickInterval, maxCount, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
 inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handler)
@@ -80,7 +80,7 @@ inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned lon
 inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task)
 {
     GCHandle::Alloc(task);
-    return NextTick(task, System::IntPtr(__GetCurrentModule(Assembly::GetCallingAssembly())));
+    return NextTick(task, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
 inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task, System::IntPtr handler)

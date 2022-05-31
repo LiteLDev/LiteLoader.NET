@@ -30,7 +30,7 @@ namespace LLNET::RemoteCall
 
 		auto pair = ExportFuncCallback::Create(callback);
 		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler^)pair.converter);
-		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, __GetCurrentModule(Assembly::GetCallingAssembly()));
+		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
 	}
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handler)
