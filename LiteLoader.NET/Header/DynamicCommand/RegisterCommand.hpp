@@ -96,7 +96,8 @@ namespace LLNET::DynamicCommand {
 			}
 
 			auto overloads = gcnew List<int>;
-			overloads->Add(paramAttr->isSet ? paramAttr->overloadId : 0);
+			if (!overloads->Contains(paramAttr->overloadId))
+				overloads->Add(paramAttr->overloadId);
 
 			cmdData->Parameters->Add(CommandManager::ParamInfo{
 				field->Name,
@@ -113,7 +114,9 @@ namespace LLNET::DynamicCommand {
 			auto overloadAttrArr = field->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
 			for each (auto overloadAttr in overloadAttrArr)
 			{
-				overloads->Add((static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId);
+				auto id = (static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId;
+				if (!overloads->Contains(id))
+					overloads->Add(id);
 			}
 		}
 
@@ -145,7 +148,8 @@ namespace LLNET::DynamicCommand {
 			}
 
 			auto overloads = gcnew List<int>;
-			overloads->Add(paramAttr->isSet ? paramAttr->overloadId : 0);
+			if (!overloads->Contains(paramAttr->overloadId))
+				overloads->Add(paramAttr->overloadId);
 
 			cmdData->Parameters->Add(CommandManager::ParamInfo{
 				Property->Name,
@@ -162,7 +166,9 @@ namespace LLNET::DynamicCommand {
 			auto overloadAttrArr = Property->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
 			for each (auto overloadAttr in overloadAttrArr)
 			{
-				overloads->Add((static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId);
+				auto id = (static_cast<CommandParameterOverloadAttribute^>(overloadAttr))->OverloadId;
+				if (!overloads->Contains(id))
+					overloads->Add(id);
 			}
 		}
 

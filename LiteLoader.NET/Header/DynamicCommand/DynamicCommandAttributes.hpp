@@ -58,7 +58,7 @@ namespace LLNET::DynamicCommand {
 		bool isSet = false;
 	};
 
-	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property)]
+	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property, AllowMultiple = true)]
 	public ref class CommandParameterOverloadAttribute :Attribute
 	{
 	public:
