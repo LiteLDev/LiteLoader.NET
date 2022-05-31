@@ -85,3 +85,5 @@ inline uint64_t do_Hash(String^ str)
     }
     return rval;
 }
+
+inline HMODULE __GetCurrentModule(Assembly^ asm_);

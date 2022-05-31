@@ -2,6 +2,7 @@
 #include <LoggerAPI.h>
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
+#include "PluginManager.h"
 
 
 System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
@@ -26,11 +27,18 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 	{
 		try
 		{
-			Assembly::LoadFrom(
-				marshalString(iter->string()))
-				->GetType(TEXT(LLNET_ENTRY_CLASS))
+			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
+
+			auto handler = GetModuleHandle(iter->wstring().c_str());
+			if (handler == nullptr)
+				handler = MODULE;
+
+			LLNET::PluginManager::ManagedPluginHandler->Add(Asm, IntPtr(handler));
+
+			Asm ->GetType(TEXT(LLNET_ENTRY_CLASS))
 				->GetMethod(TEXT(LLNET_ENTRY_METHOD))
 				->Invoke(nullptr, nullptr);
+
 			logger.info("Plugin <{}> loaded", iter->filename().string());
 			++count;
 		}
