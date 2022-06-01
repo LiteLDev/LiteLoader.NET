@@ -3,6 +3,7 @@
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
 #include "PluginManager.h"
+#include "IPluginInitializer.hpp"
 
 
 System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
@@ -35,9 +36,47 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 			Global::ManagedPluginHandler->Add(Asm, IntPtr(handler));
 
-			Asm ->GetType(TEXT(LLNET_ENTRY_CLASS))
-				->GetMethod(TEXT(LLNET_ENTRY_METHOD))
-				->Invoke(nullptr, nullptr);
+			auto types = Asm->GetExportedTypes();
+			System::String^ pluginName = System::String::Empty;
+			LLNET::Core::IPluginInitializer^ initializer = nullptr;
+			for each (auto type in types)
+			{
+				if (type->Equals(LLNET::Core::IPluginInitializer::typeid))
+				{
+					continue;
+				}
+				auto attribute = System::Attribute::GetCustomAttribute(type, LLNET::Core::PluginMainAttribute::typeid);
+				if (attribute != nullptr) 
+				{
+					pluginName = ((LLNET::Core::PluginMainAttribute^) attribute)->Name;
+					auto ctor = type->GetConstructor(System::Type::EmptyTypes);
+					if (ctor != nullptr)
+					{
+						//pluginName = attribute
+						initializer = (LLNET::Core::IPluginInitializer^) ctor->Invoke(nullptr);
+						break;
+					}
+				}
+			}
+
+			if (initializer != nullptr) 
+			{
+				initializer->OnInitialize();
+				String^ introduction = initializer->Introduction;
+				auto version = gcnew LLNET::LL::Version(
+					initializer->Version->Major, 
+					initializer->Version->Minor, 
+					initializer->Version->Build
+				);
+				auto others = initializer->MetaData;
+				LLNET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
+			}
+			else
+			{
+				Asm->GetType(TEXT(LLNET_ENTRY_CLASS))
+					->GetMethod(TEXT(LLNET_ENTRY_METHOD))
+					->Invoke(nullptr, nullptr);
+			}
 
 			logger.info("Plugin <{}> loaded", iter->filename().string());
 			++count;
@@ -109,7 +148,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 
 		if (info.isDotNETAssembly())
 		{
-			auto dllFile = fopen(iter->string().c_str(), "r");
+			/*auto dllFile = fopen(iter->string().c_str(), "r");
 			if (dllFile != nullptr)
 			{
 
@@ -155,7 +194,8 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 					iter = assemblyPaths.erase(iter);
 				}
 				fclose(dllFile);
-			}
+			}*/
+			++iter;
 		}
 		else
 		{
