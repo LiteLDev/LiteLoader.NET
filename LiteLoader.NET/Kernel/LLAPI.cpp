@@ -112,6 +112,26 @@ System::String^ LLNET::LL::LLAPI::GetDataPath(System::String^ pluginName)
     return marshalString<Encoding::E_UTF8>(::LL::getDataPath(marshalString<Encoding::E_UTF8>(pluginName)));
 }
 
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String ^ name, System::String ^ desc, System::Version ^ version)
+{
+    return LLNET::LL::LLAPI::RegisterPlugin(name, desc, gcnew Version(version->Major, version->Minor, version->Build));
+}
+
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String ^ name, System::String ^ desc, System::Version ^ version, System::String ^ git, System::String ^ license, System::String ^ website)
+{
+    return LLNET::LL::LLAPI::RegisterPlugin(name, desc, 
+        gcnew Version(
+            version->Major, 
+            version->Minor, 
+            version->Build
+        ), git, license, website);
+}
+
+inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String ^ name, System::String ^ desc, System::Version ^ version, Dictionary<String ^, String ^> ^ others)
+{
+    return LLNET::LL::LLAPI::RegisterPlugin(name, desc, gcnew Version(version->Major, version->Minor, version->Build), others);
+}
+
 inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String^ name, System::String^ introduction, Version^ version)
 {
     return PluginManager::registerPlugin(name, introduction, version, nullptr, Assembly::GetCallingAssembly());

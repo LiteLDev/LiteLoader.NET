@@ -121,6 +121,11 @@ namespace LLNET::LL
 
 		static String^ GetDataPath(String^ pluginName);
 
+		inline static bool RegisterPlugin(String^ name, String^ desc, System::Version^ version);
+		inline static bool RegisterPlugin(String ^ name, String ^ desc, System::Version ^ version,
+			String^ git, String^ license, String^ website);
+		inline static bool RegisterPlugin(String ^ name, String ^ desc, System::Version ^ version,
+			Dictionary<String^, String^>^ others);
 		inline static bool RegisterPlugin(String^ name, String^ desc, Version^ version);
 		inline static bool RegisterPlugin(String^ name, String^ desc, Version^ version,
 			String^ git, String^ license, String^ website);
