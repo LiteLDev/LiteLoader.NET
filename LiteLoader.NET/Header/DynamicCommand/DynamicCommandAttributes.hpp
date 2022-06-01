@@ -39,9 +39,16 @@ namespace LLNET::DynamicCommand {
 		/// </summary>
 		String^ Alia = "";
 
+		/// <summary>
+		/// These command parameters will be reset after excuted by creating a new instance.
+		/// </summary>
+		bool AutoReset = false;
+
 		MC::CommandFlagValue Flag1 = MC::CommandFlagValue(0x80);
 		MC::CommandFlagValue Flag2 = MC::CommandFlagValue(0);
 	};
+
+
 
 	[AttributeUsage(AttributeTargets::Class, AllowMultiple = true)]
 	/// <summary>
@@ -72,6 +79,8 @@ namespace LLNET::DynamicCommand {
 	public ref class CommandEnumAttribute :Attribute
 	{
 	};
+
+
 
 	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property)]
 	/// <summary>
@@ -119,6 +128,8 @@ namespace LLNET::DynamicCommand {
 		int overloadId = 0;
 		bool isSet = false;
 	};
+
+
 
 	[AttributeUsage(AttributeTargets::Field | AttributeTargets::Property, AllowMultiple = true)]
 	/// <summary>

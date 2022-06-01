@@ -86,7 +86,7 @@ namespace LLNET::RemoteCall
 		/// <code>
 		/// delegate bool Example(int a1, string str, List&lt;double&gt; doubleList);
 		/// <para>　</para>
-		/// <para>ExportAs(".NET","ExampleFunction",(a1,str,doubleList)=>{</para>
+		/// <para>ExportAs&lt;Example&gt;(".NET","ExampleFunction",(a1,str,doubleList)=>{</para>
 		/// <para>return true;</para>
 		/// <para>});</para>
 		/// </code>

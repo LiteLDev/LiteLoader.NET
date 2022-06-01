@@ -29,6 +29,7 @@ namespace LLNET::DynamicCommand {
 #pragma endregion
 		auto cmdData = gcnew CommandManager::CommandData;
 		cmdData->CmdType = cmdType;
+		cmdData->autoReset = cmdAttr->AutoReset;
 #pragma region CommandAliasAttribute
 
 		if (!String::IsNullOrWhiteSpace(cmdAttr->Alia))
@@ -252,18 +253,21 @@ namespace LLNET::DynamicCommand {
 		}
 
 		std::vector<std::string> strVec;
-		for each (auto % overload in Overloads)
-		{
-			for each (auto param in overload.Value)
+		if (Overloads->Count != 0)
+			for each (auto % overload in Overloads)
 			{
-				if (param.ParamType == DynamicCommand::ParameterType::Enum)
-					strVec.emplace_back(marshalString(param.EnumName));
-				else
-					strVec.emplace_back(marshalString(param.Name));
+				for each (auto param in overload.Value)
+				{
+					if (param.ParamType == DynamicCommand::ParameterType::Enum)
+						strVec.emplace_back(marshalString(param.EnumName));
+					else
+						strVec.emplace_back(marshalString(param.Name));
+				}
+				instance->addOverload(std::move(strVec));
+				strVec.clear();
 			}
+		else
 			instance->addOverload(std::move(strVec));
-			strVec.clear();
-		}
 
 
 

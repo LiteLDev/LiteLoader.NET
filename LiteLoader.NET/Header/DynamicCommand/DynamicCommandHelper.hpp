@@ -31,6 +31,7 @@ namespace LLNET::DynamicCommand::Internal {
 			List<ParamInfo>^ Parameters = gcnew List<ParamInfo>;
 			List<String^>^ Alias = gcnew List<String^>;
 			System::Type^ CmdType;
+			bool autoReset;
 		};
 
 	internal:
