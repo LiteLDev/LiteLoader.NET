@@ -24,10 +24,11 @@ System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::
 		return System::Reflection::Assembly::LoadFrom(llLibPath);
 	}
 	
-	for each (auto var in LLNET::PluginManager::CustomLibPath)
+	if (Global::CurrentAssembly != nullptr)
 	{
-		auto libPath = System::IO::Path::Combine(var, assemblyName.Name + ".dll");
-		auto libPathWithPlugin = System::IO::Path::Combine("plugins", var, assemblyName.Name + ".dll");
+		auto cutomPath = LLNET::PluginManager::CustomLibPath[Global::CurrentAssembly];
+		auto libPath = System::IO::Path::Combine(cutomPath, assemblyName.Name + ".dll");
+		auto libPathWithPlugin = System::IO::Path::Combine("plugins", cutomPath, assemblyName.Name + ".dll");
 		if (System::IO::File::Exists(libPath))
 		{
 			return System::Reflection::Assembly::LoadFrom(libPath);
@@ -38,6 +39,20 @@ System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::
 		}
 	}
 
+	for each (auto var in LLNET::PluginManager::CustomLibPath)
+	{
+		auto libPath = System::IO::Path::Combine(var.Value, assemblyName.Name + ".dll");
+		auto libPathWithPlugin = System::IO::Path::Combine("plugins", var.Value, assemblyName.Name + ".dll");
+		if (System::IO::File::Exists(libPath))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPath);
+		}
+		else if (System::IO::File::Exists(libPathWithPlugin))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPathWithPlugin);
+		}
+	}
+	
 	return nullptr;
 }
 
@@ -51,6 +66,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 		try
 		{
 			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
+			Global::CurrentAssembly = Asm;
 
 			auto handler = GetModuleHandle(iter->wstring().c_str());
 			if (handler == nullptr)
@@ -135,7 +151,7 @@ void addCustomLibPath(System::Attribute^ attribute)
 	if (attribute)
 	{
 		auto libPath = ((LLNET::Core::LibPathAttribute^) attribute)->Path;
-		LLNET::PluginManager::CustomLibPath->Add(libPath);
+		LLNET::PluginManager::CustomLibPath->Add(Global::CurrentAssembly, libPath);
 	}
 }
 
