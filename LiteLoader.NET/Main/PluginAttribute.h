@@ -25,4 +25,16 @@ namespace LLNET::Core
 			Desc = "";
 		}
 	};
+
+	[AttributeUsage(AttributeTargets::Class)]
+	public ref class PluginMainAttribute sealed
+		:public Attribute
+	{
+	public:
+		property System::String^ Name;
+		PluginMainAttribute(String^ name) 
+		{
+			Name = name;
+		}
+	};
 } // namespace LLNET
