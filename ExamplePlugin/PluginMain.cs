@@ -22,6 +22,7 @@ namespace LiteLDev;
 /// Plugin Entry Class
 /// </summary>
 [PluginMain("ExamplePlugin")]
+[LibPath("plugins\\ExamplePlugin\\libs")]
 public class ExamplePlugin : IPluginInitializer
 {
     public ExamplePlugin()

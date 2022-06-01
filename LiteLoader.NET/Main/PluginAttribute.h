@@ -37,4 +37,16 @@ namespace LLNET::Core
 			Name = name;
 		}
 	};
+
+	[AttributeUsage(AttributeTargets::Class | AttributeTargets::Method)]
+	public ref class LibPathAttribute sealed
+		:public Attribute
+	{
+	public:
+		property System::String^ Path;
+		LibPathAttribute(String^ path)
+		{
+			Path = path; 
+		}
+	};
 } // namespace LLNET
