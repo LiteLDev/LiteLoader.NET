@@ -26,7 +26,7 @@ namespace ExamplePlugin.Examples
     public class TestCommand : ICommand
     {
         [CommandEnum]
-        enum TestEnumType { enum1, enum2, enum3 }
+        enum TestEnumType { mode1, mode2, mode3 }
 
         [CommandParameterOverload(0)]
         [CommandParameterOverload(1)]
@@ -36,11 +36,17 @@ namespace ExamplePlugin.Examples
 
 
         [CommandParameter(ParamType.Int, OverloadId = 0)]
-        int Overload_0 { get; set; }
+        int int_0 { get; set; }
+
+        [CommandParameter(ParamType.Float, OverloadId = 1)]
+        float float_1 { get; set; }
 
 
         [CommandParameter(ParamType.String, OverloadId = 1)]
-        string? Overload_1 { get; set; }
+        string? string_1 { get; set; }
+
+        [CommandParameter(ParamType.JsonValue, OverloadId = 1, IsMandatory = false)]
+        string? json_1 { get; set; }
 
         public void Execute(CommandOrigin origin, CommandOutput output)
         {

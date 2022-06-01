@@ -19,8 +19,9 @@ namespace LLNET::LL
 			Release
 		};
 
-	public:
+	internal:
 		Version(::LL::Version& v);
+	public:
 		Version();
 		Version(int major);
 		Version(int major, int minor);
@@ -40,13 +41,14 @@ namespace LLNET::LL
 		Property(int, revision, Revision);
 		Property_Enum(StatusEnum, ::LL::Version::Status, status, Status);
 
+	internal:
 		operator ::LL::Version();
-
+	public:
 		::LL::Version* ToPointer();
 		System::IntPtr ToIntPtr();
 
 		String^ ToString() override;
-		static Version^ parse(String^ str);
+		static Version^ Parse(String^ str);
 
 	private:
 		::LL::Version* _this;

@@ -87,7 +87,7 @@ System::String^ LLNET::LL::Version::ToString()
     return marshalString<Encoding::E_UTF8>(_this->toString());
 }
 
-LLNET::LL::Version^ LLNET::LL::Version::parse(System::String^ str)
+LLNET::LL::Version^ LLNET::LL::Version::Parse(System::String^ str)
 {
     return gcnew Version(::LL::Version::parse(marshalString<Encoding::E_UTF8>(str)));
 }

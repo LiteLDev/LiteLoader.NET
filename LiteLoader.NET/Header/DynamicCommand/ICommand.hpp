@@ -73,6 +73,8 @@ void LLNET::DynamicCommand::Internal::CommandManager::NativeDynamicCommandCallba
 
 	delete _origin;
 	delete _output;
+	if (data->autoReset)
+		data->cmd = static_cast<ICommand^>(System::Activator::CreateInstance(data->CmdType));
 }
 
 System::Object^ LLNET::DynamicCommand::CommandManager::NativeDynamicCommandCallback::_parseResult(::DynamicCommand::Result& result, ParamInfo% paramInfo)
