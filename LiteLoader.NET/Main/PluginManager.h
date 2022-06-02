@@ -17,6 +17,7 @@ namespace LLNET {
 		static bool unRegisterPlugin(System::String^ name);
 	internal:
 		using PluginTuple = System::Tuple< Plugin^, Assembly^>;
+		static Dictionary<Assembly^ , String^>^ CustomLibPath = gcnew Dictionary<Assembly^, String^>();
 		static Dictionary<String^, PluginTuple^>^ ManagedPluginData = gcnew Dictionary<String^, PluginTuple^>;
 	};
 }
