@@ -18,8 +18,45 @@ System::Reflection::Assembly^ OnAssemblyResolve(System::Object^ sender, System::
 	if (assemblyName.Name == LLNET_LOADER_NAME)
 		return System::Reflection::Assembly::GetExecutingAssembly();
 
-	return System::Reflection::Assembly::LoadFrom(System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll"));
+	auto llLibPath = System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll");
+	if (System::IO::File::Exists(llLibPath))
+	{
+		return System::Reflection::Assembly::LoadFrom(llLibPath);
+	}
+	
+	if (Global::CurrentAssembly != nullptr)
+	{
+		auto cutomPath = LLNET::PluginManager::CustomLibPath[Global::CurrentAssembly];
+		auto libPath = System::IO::Path::Combine(cutomPath, assemblyName.Name + ".dll");
+		auto libPathWithPlugin = System::IO::Path::Combine("plugins", cutomPath, assemblyName.Name + ".dll");
+		if (System::IO::File::Exists(libPath))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPath);
+		}
+		else if (System::IO::File::Exists(libPathWithPlugin))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPathWithPlugin);
+		}
+	}
+
+	for each (auto var in LLNET::PluginManager::CustomLibPath)
+	{
+		auto libPath = System::IO::Path::Combine(var.Value, assemblyName.Name + ".dll");
+		auto libPathWithPlugin = System::IO::Path::Combine("plugins", var.Value, assemblyName.Name + ".dll");
+		if (System::IO::File::Exists(libPath))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPath);
+		}
+		else if (System::IO::File::Exists(libPathWithPlugin))
+		{
+			return System::Reflection::Assembly::LoadFrom(libPathWithPlugin);
+		}
+	}
+	
+	return nullptr;
 }
+
+void addCustomLibPath(System::Attribute^ attribute);
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
@@ -29,6 +66,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 		try
 		{
 			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
+			Global::CurrentAssembly = Asm;
 
 			auto handler = GetModuleHandle(iter->wstring().c_str());
 			if (handler == nullptr)
@@ -46,13 +84,16 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 					continue;
 				}
 				auto attribute = System::Attribute::GetCustomAttribute(type, LLNET::Core::PluginMainAttribute::typeid);
+				auto customLibPathAttribute = System::Attribute::GetCustomAttribute(type, LLNET::Core::LibPathAttribute::typeid);
 				if (attribute != nullptr) 
 				{
 					pluginName = ((LLNET::Core::PluginMainAttribute^) attribute)->Name;
 					auto ctor = type->GetConstructor(System::Type::EmptyTypes);
 					if (ctor != nullptr)
 					{
-						//pluginName = attribute
+						addCustomLibPath(customLibPathAttribute);
+						
+						pluginName = ((LLNET::Core::PluginMainAttribute^) attribute)->Name;
 						initializer = (LLNET::Core::IPluginInitializer^) ctor->Invoke(nullptr);
 						break;
 					}
@@ -73,13 +114,18 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			}
 			else
 			{
-				Asm->GetType(TEXT(LLNET_ENTRY_CLASS))
-					->GetMethod(TEXT(LLNET_ENTRY_METHOD))
-					->Invoke(nullptr, nullptr);
+				auto entry = Asm->GetType(TEXT(LLNET_ENTRY_CLASS))->GetMethod(TEXT(LLNET_ENTRY_METHOD));
+				auto customLibPathAttribute = System::Attribute::GetCustomAttribute(entry, LLNET::Core::LibPathAttribute::typeid);
+				addCustomLibPath(customLibPathAttribute);
+				entry->Invoke(nullptr, nullptr);
 			}
 
 			logger.info("Plugin <{}> loaded", iter->filename().string());
 			++count;
+		}
+		catch (System::BadImageFormatException^ ex)
+		{
+			continue;
 		}
 		catch (System::Reflection::TargetInvocationException^ ex)
 		{
@@ -102,6 +148,15 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 		}
 	}
 	logger.info << count << " plugin(s) loaded" << logger.endl;
+}
+
+void addCustomLibPath(System::Attribute^ attribute)
+{
+	if (attribute)
+	{
+		auto libPath = ((LLNET::Core::LibPathAttribute^) attribute)->Path;
+		LLNET::PluginManager::CustomLibPath->Add(Global::CurrentAssembly, libPath);
+	}
 }
 
 #pragma unmanaged
@@ -132,7 +187,7 @@ void LoadMain()
 		}
 	}
 
-	CheekPluginEntry(assemblies, logger);
+	// CheekPluginEntry(assemblies, logger);
 
 	LoadPlugins(assemblies, logger);
 }
@@ -148,7 +203,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 
 		if (info.isDotNETAssembly())
 		{
-			/*auto dllFile = fopen(iter->string().c_str(), "r");
+			auto dllFile = fopen(iter->string().c_str(), "r");
 			if (dllFile != nullptr)
 			{
 
@@ -194,8 +249,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 					iter = assemblyPaths.erase(iter);
 				}
 				fclose(dllFile);
-			}*/
-			++iter;
+			}
 		}
 		else
 		{

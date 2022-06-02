@@ -88,6 +88,7 @@ inline uint64_t do_Hash(String^ str)
 
 ref class Global {
 internal:
+    static System::Reflection::Assembly^ CurrentAssembly = nullptr;
     static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
     static inline HMODULE __GetCurrentModule(Assembly^ asm_)
     {

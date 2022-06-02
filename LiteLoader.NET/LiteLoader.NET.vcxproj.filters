@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Main">
@@ -676,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp">
       <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\IPluginInitializer.hpp">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
