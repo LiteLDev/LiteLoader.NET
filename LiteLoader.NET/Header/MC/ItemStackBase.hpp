@@ -20,13 +20,13 @@ namespace MC
         {
             int get();
         }
-#if !defined INCLUDE_MCAPI
+
         property short Id
         {
             short get();
         };
 
-#else
+#ifdef MANUAL_MAINTENANCE
 
         property int AttackDamage
         {
@@ -81,11 +81,6 @@ namespace MC
 
         property ::System::String^ HoverName {
             ::System::String^ get();
-        };
-
-        property short Id
-        {
-            short get();
         };
 
         property int IdAux
@@ -293,7 +288,7 @@ namespace MC
 
         bool ShouldVanish();
 
-        static bool IsValidComponent(::System::String^ _0);
+        //static bool IsValidComponent(::System::String^ _0);
 
         static property ::System::String^ TAG_CAN_DESTROY {
             ::System::String^ get();

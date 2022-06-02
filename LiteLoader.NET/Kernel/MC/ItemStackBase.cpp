@@ -17,7 +17,7 @@ short MC::ItemStackBase::Id::get()
 } // namespace MC
 
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 
 #include "../../Header/MC/HashedString.hpp"
 
@@ -246,12 +246,12 @@ bool MC::ItemStackBase::ShouldVanish()
     return __ret;
 }
 
-bool MC::ItemStackBase::IsValidComponent(::String^ _0)
-{
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto __ret = ::ItemStackBase::isValidComponent(__arg0);
-    return __ret;
-}
+//bool MC::ItemStackBase::IsValidComponent(::String^ _0)
+//{
+//    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+//    auto __ret = ::ItemStackBase::isValidComponent(__arg0);
+//    return __ret;
+//}
 
 int MC::ItemStackBase::AttackDamage::get()
 {
@@ -334,12 +334,6 @@ int MC::ItemStackBase::EnchantValue::get()
 {
     auto __ret = ((class ::ItemStackBase*)NativePtr)->getHoverName();
     return clix::marshalString<clix::E_UTF8>(__ret);
-}
-
-short MC::ItemStackBase::Id::get()
-{
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getId();
-    return __ret;
 }
 
 int MC::ItemStackBase::IdAux::get()
