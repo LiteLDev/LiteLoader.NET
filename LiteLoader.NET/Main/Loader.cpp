@@ -123,6 +123,10 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			logger.info("Plugin <{}> loaded", iter->filename().string());
 			++count;
 		}
+		catch (System::BadImageFormatException^ ex)
+		{
+			continue;
+		}
 		catch (System::Reflection::TargetInvocationException^ ex)
 		{
 			logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
@@ -183,7 +187,7 @@ void LoadMain()
 		}
 	}
 
-	CheekPluginEntry(assemblies, logger);
+	// CheekPluginEntry(assemblies, logger);
 
 	LoadPlugins(assemblies, logger);
 }
@@ -199,7 +203,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 
 		if (info.isDotNETAssembly())
 		{
-			/*auto dllFile = fopen(iter->string().c_str(), "r");
+			auto dllFile = fopen(iter->string().c_str(), "r");
 			if (dllFile != nullptr)
 			{
 
@@ -245,8 +249,7 @@ void CheekPluginEntry(std::vector<std::filesystem::path>& assemblyPaths, Logger&
 					iter = assemblyPaths.erase(iter);
 				}
 				fclose(dllFile);
-			}*/
-			++iter;
+			}
 		}
 		else
 		{

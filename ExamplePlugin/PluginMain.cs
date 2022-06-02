@@ -27,9 +27,13 @@ public class ExamplePlugin : IPluginInitializer
 {
     public ExamplePlugin()
     {
-        MetaData = new Dictionary<string, string>();
-        MetaData.Add("Something", "...");
+        MetaData = new Dictionary<string, string>
+        {
+            {"Something", "..."},
+            {"foo", "bar"}
+        };
     }
+
     public Version Version => new Version(2, 2, 5);
     public Dictionary<string, string> MetaData { get; }
     public string Introduction => "Example plugin for Liteloader.Net";
