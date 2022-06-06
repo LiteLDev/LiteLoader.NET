@@ -45,6 +45,7 @@ using System::Console;
 using System::GC;
 using System::IntPtr;
 using System::String;
+using System::Object;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 using System::Reflection::Assembly;
@@ -88,7 +89,7 @@ inline uint64_t do_Hash(String^ str)
 
 ref class Global {
 internal:
-    static System::Reflection::Assembly^ CurrentAssembly = nullptr;
+    static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
     static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
     static inline HMODULE __GetCurrentModule(Assembly^ asm_)
     {

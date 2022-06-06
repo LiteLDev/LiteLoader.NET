@@ -4,8 +4,11 @@
 
 namespace LLNET
 {
-	bool PluginManager::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ asm_)
+	bool PluginManager::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ Asm)
 	{
+		// remove LL auto registed plugin.
+		unRegisterPlugin(Asm->GetName()->Name + ".dll");
+
 		std::map<std::string, std::string> stdmap;
 		if (others == nullptr)
 			goto null;
@@ -20,7 +23,7 @@ namespace LLNET
 			handler = plugin->handler;
 		else
 		{
-			handler = GetModuleHandle(std::filesystem::path(marshalString(asm_->Location)).wstring().c_str());
+			handler = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
 		}
 		if (handler == nullptr)
 			handler = MODULE;
@@ -28,11 +31,10 @@ namespace LLNET
 		auto ret = ::RegisterPlugin(handler, _name, marshalString(introduction), (::LL::Version)version, stdmap);
 		if (ret)
 		{
-			PluginManager::ManagedPluginData->Add(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), asm_));
-			Global::ManagedPluginHandler->Add(asm_, IntPtr(handler));
+			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
+			Global::ManagedPluginHandler->TryAdd(Asm, IntPtr(handler));
 		}
-		// remove LL auto registed plugin.
-		unRegisterPlugin(asm_->GetName()->Name + ".dll");
+		
 		return ret;
 	}
 	Plugin^ PluginManager::getPlugin(System::IntPtr handler)

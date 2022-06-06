@@ -1,7 +1,7 @@
 namespace LLNET
 {
-	public interface class PluginInterface
+	public interface class IPlugin
 	{
-		property System::IntPtr handler {void set(System::IntPtr value); }
+		property System::IntPtr Handler {void set(System::IntPtr value); }
 	};
 } // namespace LLNET

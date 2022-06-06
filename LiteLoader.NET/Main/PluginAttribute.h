@@ -38,7 +38,7 @@ namespace LLNET::Core
 		}
 	};
 
-	[AttributeUsage(AttributeTargets::Class | AttributeTargets::Method)]
+	[AttributeUsage(AttributeTargets::Assembly, AllowMultiple = true)]
 	public ref class LibPathAttribute sealed
 		:public Attribute
 	{

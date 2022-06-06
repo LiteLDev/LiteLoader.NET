@@ -13,16 +13,18 @@
 using LLNET.Core;
 using ExamplePlugin.Examples;
 
+[assembly: LibPath("plugins\\ExamplePlugin\\libs")]
+
 /// <summary>
 /// Custom Namespace
 /// </summary>
 namespace LiteLDev;
 
+
 /// <summary>
 /// Plugin Entry Class
 /// </summary>
 [PluginMain("ExamplePlugin")]
-[LibPath("plugins\\ExamplePlugin\\libs")]
 public class ExamplePlugin : IPluginInitializer
 {
     public ExamplePlugin()
@@ -34,9 +36,9 @@ public class ExamplePlugin : IPluginInitializer
         };
     }
 
-    public Version Version => new Version(2, 2, 5);
+    public Version Version => new(2, 2, 5);
     public Dictionary<string, string> MetaData { get; }
-    public string Introduction => "Example plugin for Liteloader.Net";
+    public string Introduction => "Example plugin for Liteloader.NET";
 
     /// <summary>
     /// Plugin Entry
