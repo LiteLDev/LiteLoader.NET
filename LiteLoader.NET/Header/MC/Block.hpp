@@ -31,7 +31,7 @@ public:
         unsigned short get();
     }
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 
     property bool CausesFreezeEffect
     {

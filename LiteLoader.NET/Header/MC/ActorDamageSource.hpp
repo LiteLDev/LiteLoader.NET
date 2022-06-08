@@ -67,9 +67,9 @@ public:
         void set(MC::ActorDamageCause);
     }
 
-    virtual void UnkVfn11();
+    //virtual void UnkVfn11();
 
-    virtual void UnkVfn12();
+    //virtual void UnkVfn12();
 
     static MC::ActorDamageCause LookupCause(::String^ _0);
 

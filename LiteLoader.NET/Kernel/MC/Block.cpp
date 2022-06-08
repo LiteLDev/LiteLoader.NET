@@ -44,7 +44,7 @@ inline void Block::Nbt::set(CompoundTag ^ nbt)
 } // namespace MC
 
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 
 ::String^ MC::Block::BuildDescriptionId()
 {

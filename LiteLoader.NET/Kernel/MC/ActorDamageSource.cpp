@@ -11,14 +11,14 @@ bool ActorDamageSource::IsEntitySource::get()
 {
     return NativePtr->isEntitySource();
 }
-void MC::ActorDamageSource::UnkVfn11()
-{
-    NativePtr->__unk_vfn_11();
-}
-void MC::ActorDamageSource::UnkVfn12()
-{
-    NativePtr->__unk_vfn_12();
-}
+//void MC::ActorDamageSource::UnkVfn11()
+//{
+//    NativePtr->__unk_vfn_11();
+//}
+//void MC::ActorDamageSource::UnkVfn12()
+//{
+//    NativePtr->__unk_vfn_12();
+//}
 MC::ActorDamageCause MC::ActorDamageSource::LookupCause(::String^ causeName)
 {
     return MC::ActorDamageCause(::ActorDamageSource::lookupCause(marshalString(causeName)));

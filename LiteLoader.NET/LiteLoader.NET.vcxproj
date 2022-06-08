@@ -222,6 +222,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\BlockPalette.hpp" />
     <ClInclude Include="Header\MC\BlockPos.hpp" />
     <ClInclude Include="Header\MC\BlockSource.hpp" />
+    <ClInclude Include="Header\MC\BoundingBox.hpp" />
     <ClInclude Include="Header\MC\ByteArrayTag.hpp" />
     <ClInclude Include="Header\MC\ByteTag.hpp" />
     <ClInclude Include="Header\MC\Certificate.hpp" />
@@ -234,6 +235,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\EndTag.hpp" />
     <ClInclude Include="Header\MC\FloatTag.hpp" />
     <ClInclude Include="Header\MC\HashedString.hpp" />
+    <ClInclude Include="Header\MC\HitResult.hpp" />
     <ClInclude Include="Header\MC\IdentityDefinition.hpp" />
     <ClInclude Include="Header\MC\Int64Tag.hpp" />
     <ClInclude Include="Header\MC\IntArrayTag.hpp" />
@@ -325,6 +327,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\BlockPalette.cpp" />
     <ClCompile Include="Kernel\MC\BlockPos.cpp" />
     <ClCompile Include="Kernel\MC\BlockSource.cpp" />
+    <ClCompile Include="Kernel\MC\BoundingBox.cpp" />
     <ClCompile Include="Kernel\MC\ByteArrayTag.cpp" />
     <ClCompile Include="Kernel\MC\ByteTag.cpp" />
     <ClCompile Include="Kernel\MC\Certificate.cpp" />
@@ -337,6 +340,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\EndTag.cpp" />
     <ClCompile Include="Kernel\MC\FloatTag.cpp" />
     <ClCompile Include="Kernel\MC\HashedString.cpp" />
+    <ClCompile Include="Kernel\MC\HitResult.cpp" />
     <ClCompile Include="Kernel\MC\IdentityDefinition.cpp" />
     <ClCompile Include="Kernel\MC\Int64Tag.cpp" />
     <ClCompile Include="Kernel\MC\IntArrayTag.cpp" />

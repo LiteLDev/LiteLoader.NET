@@ -72,7 +72,7 @@ public:
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool);
     inline static bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
     inline static void SpawnParticleEffect(String ^ type, Vec3 ^ pos, Dimension ^ a2);
-    inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 ^ a2);
+    //inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 ^ a2);
     inline static bool HasContainer(Vec3 ^ pos, int dim);
     inline static Container ^ GetContainer(Vec3 ^ pos, int dim);
 
@@ -201,25 +201,25 @@ public:
 
     static unsigned int CreateRandomSeed();
 
-    static property float AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK
-    {
-        float get();
-    }
+    //static property float AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK
+    //{
+    //    float get();
+    //}
 
-    static property float AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY
-    {
-        float get();
-    }
+    //static property float AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY
+    //{
+    //    float get();
+    //}
 
-    static property float AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE
-    {
-        float get();
-    }
+    //static property float AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE
+    //{
+    //    float get();
+    //}
 
-    static property float RANDOM_TICKS_PER_TICK_PER_SUBCHUNK
-    {
-        float get();
-    }
+    //static property float RANDOM_TICKS_PER_TICK_PER_SUBCHUNK
+    //{
+    //    float get();
+    //}
 
 #endif // MANUAL_MAINTENANCE
 

@@ -63,9 +63,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Kernel\MC\AABB.cpp">
-      <Filter>Kernel\MC</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
@@ -321,11 +318,17 @@
     <ClCompile Include="Kernel\Command\CommandMessage.cpp">
       <Filter>Kernel\Command</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\BoundingBox.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\AABB.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\HitResult.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header\MC\AABB.hpp">
-      <Filter>Header\MC</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -679,6 +682,15 @@
     </ClInclude>
     <ClInclude Include="Main\IPluginInitializer.hpp">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\BoundingBox.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\AABB.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\HitResult.hpp">
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

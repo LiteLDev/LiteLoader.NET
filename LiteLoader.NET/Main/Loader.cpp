@@ -10,7 +10,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void Init(Logger& logger);
 
-inline void InitializePluginHandler(std::filesystem::path const& path, Assembly^ Asm);
+//inline void InitializePluginHandler(std::filesystem::path const& path, Assembly^ Asm);
 
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm);
 
@@ -63,7 +63,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	if (assemblyName.Name == LLNET_LOADER_NAME)
 		return Assembly::GetExecutingAssembly();
 
-	auto llLibPath = System::IO::Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll");
+	auto llLibPath = Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll");
 	if (File::Exists(llLibPath))
 	{
 		return Assembly::LoadFrom(llLibPath);
@@ -73,12 +73,12 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	for each (auto customPath in customPaths)
 	{
 		auto libPath = System::IO::Path::Combine(customPath, assemblyName.Name + ".dll");
-		if (System::IO::File::Exists(libPath))
+		if (File::Exists(libPath))
 		{
 			return System::Reflection::Assembly::LoadFrom(libPath);
 		}
 
-		auto libPathWithPlugin = System::IO::Path::Combine("plugins", customPath, assemblyName.Name + ".dll");
+		auto libPathWithPlugin = Path::Combine("plugins", customPath, assemblyName.Name + ".dll");
 		if (File::Exists(libPathWithPlugin))
 		{
 			return Assembly::LoadFrom(libPathWithPlugin);
@@ -87,15 +87,6 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 	return nullptr;
 }
-
-
-//inline void InitializePluginHandler(std::filesystem::path const& path, Assembly^ Asm) {
-//	auto handler = GetModuleHandle(path.wstring().c_str());
-//	if (handler == nullptr)
-//		handler = MODULE;
-//
-//	Global::ManagedPluginHandler->Add(Asm, IntPtr(handler));
-//}
 
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
@@ -108,8 +99,6 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
 
 			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
-
-			//InitializePluginHandler(*iter, Asm);
 
 			Global::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
 

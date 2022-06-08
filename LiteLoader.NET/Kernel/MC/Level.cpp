@@ -155,12 +155,12 @@ inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2)
 }
 inline void Level::SpawnParticleEffect(String^ type, Vec3 ^ pos, Dimension ^ a2)
 {
-    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2);
+    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2->NativePtr);
 }
-inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 ^ a2)
-{
-    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), a1, a2);
-}
+//inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 ^ a2)
+//{
+//    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), *a1->NativePtr, a2);
+//}
 inline bool Level::HasContainer(Vec3 ^ pos, int dim)
 {
     return ::Level::hasContainer((::Vec3&)pos, dim);
@@ -242,25 +242,25 @@ bool MC::Level::Use3DBiomeMaps::get()
     return NativePtr->use3DBiomeMaps();
 }
 
-float MC::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK::get()
-{
-    return ::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK;
-}
-
-float MC::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY::get()
-{
-    return ::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY;
-}
-
-float MC::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE::get()
-{
-    return ::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE;
-}
-
-float MC::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK::get()
-{
-    return ::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK;
-}
+//float MC::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK::get()
+//{
+//    return ::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK;
+//}
+//
+//float MC::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY::get()
+//{
+//    return ::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_GAME_DAY;
+//}
+//
+//float MC::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE::get()
+//{
+//    return ::Level::AVERAGE_RANDOM_TICKS_PER_BLOCK_PER_MINUTE;
+//}
+//
+//float MC::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK::get()
+//{
+//    return ::Level::RANDOM_TICKS_PER_TICK_PER_SUBCHUNK;
+//}
 
 #endif // MANUAL_MAINTENANCE
 

@@ -493,7 +493,7 @@ namespace LLNET::RemoteCall {
 			case LLNET::RemoteCall::Value::InstanceType::Container:
 			{
 				auto p = std::get<::Container*>(*NativePtr);
-				info = String::Format("{0},{1}", marshalString(p->getTypeName()), MC::ContainerType(p->getContainerType()));
+				info = String::Format("{0},{1}", marshalString(p->getTypeName()), MC::ContainerType(p->getContainerType()).ToString());
 			}
 			break;
 			case LLNET::RemoteCall::Value::InstanceType::Vec3:
