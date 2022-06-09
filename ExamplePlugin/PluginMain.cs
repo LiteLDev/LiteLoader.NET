@@ -12,6 +12,7 @@
 
 using LLNET.Core;
 using ExamplePlugin.Examples;
+using System.Runtime.InteropServices;
 
 [assembly: LibPath("plugins\\ExamplePlugin\\libs")]
 
@@ -27,6 +28,11 @@ namespace LiteLDev;
 [PluginMain("ExamplePlugin")]
 public class ExamplePlugin : IPluginInitializer
 {
+    [StructLayout(LayoutKind.Sequential)]
+    struct QAQ
+    {
+
+    }
     public ExamplePlugin()
     {
         MetaData = new Dictionary<string, string>

@@ -1523,15 +1523,12 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_441();
 	//}
 
-	void MC::Player::OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2^ _1, float _2)
+	void MC::Player::OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2 _1, float _2)
 	{
 		if (ReferenceEquals(_0, nullptr))
 			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
 		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		if (ReferenceEquals(_1, nullptr))
-			throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-		((class ::Player*)NativePtr)->onMovePlayerPacketNormal(__arg0, __arg1, _2);
+		((class ::Player*)NativePtr)->onMovePlayerPacketNormal(__arg0, _1, _2);
 	}
 
 	void MC::Player::ApplyExhaustion(MC::Vec3^ _0)

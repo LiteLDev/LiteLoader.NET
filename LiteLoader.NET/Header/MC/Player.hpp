@@ -690,7 +690,7 @@ namespace MC
 
 		//virtual void UnkVfn441();
 
-		virtual void OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2^ _1, float _2);
+		virtual void OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2 _1, float _2);
 
 		void ApplyExhaustion(MC::Vec3^ _0);
 

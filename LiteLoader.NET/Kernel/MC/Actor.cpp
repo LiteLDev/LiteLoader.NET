@@ -32,9 +32,9 @@ inline BlockSource ^ Actor::Blocksource::get()
     return gcnew MC::BlockSource(NativePtr->getBlockSource());
 }
 
-inline Vec2 ^ Actor::Direction::get()
+inline Vec2 Actor::Direction::get()
 {
-    return gcnew Vec2(NativePtr->getDirection());
+    return *NativePtr->getDirection();
 }
 
 inline ActorUniqueID ^ Actor::ActorUniqueId::get()
@@ -573,12 +573,9 @@ MC::Vec3^ MC::Actor::GetPosExtrapolated(float _0)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-void MC::Actor::SetRot(MC::Vec2^ _0)
+void MC::Actor::SetRot(MC::Vec2& _0)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setRot(__arg0);
+    ((class ::Actor*)NativePtr)->setRot(_0);
 }
 
 void MC::Actor::Move(MC::Vec3^ _0)
@@ -1275,11 +1272,9 @@ MC::Vec3^ MC::Actor::GetInterpolatedPosition(float _0)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
 
-MC::Vec2^ MC::Actor::GetInterpolatedRotation(float _0)
+MC::Vec2 MC::Actor::GetInterpolatedRotation(float _0)
 {
-    auto __ret = ((class ::Actor*)NativePtr)->getInterpolatedRotation(_0);
-    auto ____ret = new class ::Vec2(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
+    return ((class ::Actor*)NativePtr)->getInterpolatedRotation(_0);
 }
 
 int MC::Actor::GetPassengerIndex(MC::Actor^ _0)
@@ -1373,34 +1368,19 @@ bool MC::Actor::IsRiding()
     return __ret;
 }
 
-void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, int _2)
+void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2 _1, int _2)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    ((class ::Actor*)NativePtr)->lerpTo(__arg0, __arg1, _2);
+    ((class ::Actor*)NativePtr)->lerpTo(_0, _1, _2);
 }
 
-void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, float _2, int _3)
+void MC::Actor::LerpTo(MC::Vec3^ _0, MC::Vec2 _1, float _2, int _3)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    ((class ::Actor*)NativePtr)->lerpTo(__arg0, __arg1, _2, _3);
+    ((class ::Actor*)NativePtr)->lerpTo(_0, _1, _2, _3);
 }
 
-void MC::Actor::LerpToRotation(MC::Vec2^ _0, int _1)
+void MC::Actor::LerpToRotation(MC::Vec2 _0, int _1)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->lerpToRotation(__arg0, _1);
+    ((class ::Actor*)NativePtr)->lerpToRotation(_0, _1);
 }
 
 void MC::Actor::MigrateUniqueID(MC::ActorUniqueID^ _0)
@@ -1424,15 +1404,9 @@ void MC::Actor::MoveRelative(float _0, float _1, float _2, float _3)
     ((class ::Actor*)NativePtr)->moveRelative(_0, _1, _2, _3);
 }
 
-void MC::Actor::MoveTo(MC::Vec3^ _0, MC::Vec2^ _1)
+void MC::Actor::MoveTo(MC::Vec3^ _0, MC::Vec2 _1)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    ((class ::Actor*)NativePtr)->moveTo(__arg0, __arg1);
+    ((class ::Actor*)NativePtr)->moveTo(_0, _1);
 }
 
 void MC::Actor::OnAffectedByWaterBottle()
@@ -1631,15 +1605,9 @@ void MC::Actor::SetPosDirectLegacy(MC::Vec3^ _0)
     ((class ::Actor*)NativePtr)->setPosDirectLegacy(__arg0);
 }
 
-void MC::Actor::SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2^ _1)
+void MC::Actor::SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2 _1)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    ((class ::Actor*)NativePtr)->setPreviousPosRot(__arg0, __arg1);
+    ((class ::Actor*)NativePtr)->setPreviousPosRot(_0, _1);
 }
 
 void MC::Actor::SetSaddle(bool _0)
@@ -1762,28 +1730,14 @@ bool MC::Actor::WasLoadedFromNBTThisFrame()
     return __ret;
 }
 
-MC::Vec2^ MC::Actor::GetInterpolatedRotation(MC::Vec2^ _0, MC::Vec2^ _1, float _2)
+MC::Vec2 MC::Actor::GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    auto __ret = ::Actor::getInterpolatedRotation(__arg0, __arg1, _2);
-    auto ____ret = new class ::Vec2(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
+    return::Actor::getInterpolatedRotation(_0, _1, _2);
 }
 
-MC::Vec3^ MC::Actor::GetViewVector(MC::Vec2^ _0, MC::Vec2^ _1, float _2)
+MC::Vec3^ MC::Actor::GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Vec2*)_1->NativePtr;
-    auto __ret = ::Actor::getViewVector(__arg0, __arg1, _2);
+    auto __ret = ::Actor::getViewVector(_0, _1, _2);
     auto ____ret = new class ::Vec3(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
 }
@@ -2350,18 +2304,14 @@ void MC::Actor::AABB::set(MC::AABB^ _0)
     ((class ::Actor*)NativePtr)->setAABB(__arg0);
 }
 
-MC::Vec2^ MC::Actor::AABBDim::get()
+MC::Vec2 MC::Actor::AABBDim::get()
 {
-    auto& __ret = ((class ::Actor*)NativePtr)->getAABBDim();
-    return (MC::Vec2^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*) & __ret));
+    return ((class ::Actor*)NativePtr)->getAABBDim();
 }
 
-void MC::Actor::AABBDim::set(MC::Vec2^ _0)
+void MC::Actor::AABBDim::set(MC::Vec2 _0)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Vec2*)_0->NativePtr;
-    ((class ::Actor*)NativePtr)->setAABBDim(__arg0);
+    ((class ::Actor*)NativePtr)->setAABBDim(_0);
 }
 
 int MC::Actor::ActiveEffectCount::get()
@@ -2653,11 +2603,9 @@ float MC::Actor::Radius::get()
     return __ret;
 }
 
-MC::Vec2^ MC::Actor::Rotation::get()
+MC::Vec2 MC::Actor::Rotation::get()
 {
-    auto __ret = ((class ::Actor*)NativePtr)->getRotation();
-    auto ____ret = new class ::Vec2(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec2((class ::Vec2*)____ret, true);
+    return ((class ::Actor*)NativePtr)->getRotation();
 }
 
 MC::ActorRuntimeID^ MC::Actor::RuntimeID::get()

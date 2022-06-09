@@ -5,7 +5,7 @@
 namespace MC
 {
 ref class BlockPos;
-ref class Vec2;
+value class Vec2;
 } // namespace MC
 
 namespace MC

@@ -45,10 +45,9 @@ Vec3 ^ CommandOrigin::WorldPosition::get()
     return gcnew Vec3(NativePtr->getWorldPosition());
 }
 
-Vec2 ^ CommandOrigin::Rotation::get()
+Vec2 CommandOrigin::Rotation::get()
 {
-    auto op = NativePtr->getRotation();
-    return op ? gcnew Vec2(*op) : nullptr;
+    return NativePtr->getRotation().value_or(::Vec2::ZERO);
 }
 
 Level ^ CommandOrigin::Level::get()

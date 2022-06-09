@@ -5,7 +5,7 @@
 
 namespace MC
 {
-	ref class Vec2;
+	value class Vec2;
 	ref class BlockPos;
 	ref class Vec3;
 	ref class UserEntityIdentifierComponent;
@@ -64,7 +64,7 @@ namespace MC
 		property String^ TypeName { String^ get(); };
 		property Vec3^ Position { Vec3^ get(); };
 		property BlockSource^ Blocksource { BlockSource^ get(); };
-		property Vec2^ Direction { Vec2^ get(); };
+		property Vec2 Direction { Vec2 get(); };
 		property ActorUniqueID^ ActorUniqueId { ActorUniqueID^ get(); };
 		property Vec3^ CameraPos { Vec3^ get(); };
 		property Tick^ LastTick { Tick^ get(); };
@@ -474,10 +474,10 @@ namespace MC
 			void set(MC::AABB^);
 		}
 
-		property MC::Vec2^ AABBDim
+		property MC::Vec2 AABBDim
 		{
-			MC::Vec2^ get();
-			void set(MC::Vec2^);
+			MC::Vec2 get();
+			void set(MC::Vec2);
 		}
 
 		property int ActiveEffectCount
@@ -652,9 +652,9 @@ namespace MC
 			float get();
 		}
 
-		property MC::Vec2^ Rotation
+		property MC::Vec2 Rotation
 		{
-			MC::Vec2^ get();
+			MC::Vec2 get();
 		}
 
 		property MC::ActorRuntimeID^ RuntimeID
@@ -1244,7 +1244,7 @@ namespace MC
 
 		virtual MC::Vec3^ GetPosExtrapolated(float _0);
 
-		virtual void SetRot(MC::Vec2^ _0);
+		virtual void SetRot(MC::Vec2& _0);
 
 		virtual void Move(MC::Vec3^ _0);
 
@@ -1452,7 +1452,7 @@ namespace MC
 
 		MC::Vec3^ GetInterpolatedPosition(float _0);
 
-		MC::Vec2^ GetInterpolatedRotation(float _0);
+		MC::Vec2 GetInterpolatedRotation(float _0);
 
 		int GetPassengerIndex(MC::Actor^ _0);
 
@@ -1480,11 +1480,11 @@ namespace MC
 
 		bool IsRiding();
 
-		void LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, int _2);
+		void LerpTo(MC::Vec3^ _0, MC::Vec2 _1, int _2);
 
-		void LerpTo(MC::Vec3^ _0, MC::Vec2^ _1, float _2, int _3);
+		void LerpTo(MC::Vec3^ _0, MC::Vec2 _1, float _2, int _3);
 
-		void LerpToRotation(MC::Vec2^ _0, int _1);
+		void LerpToRotation(MC::Vec2 _0, int _1);
 
 		void MigrateUniqueID(MC::ActorUniqueID^ _0);
 
@@ -1492,7 +1492,7 @@ namespace MC
 
 		void MoveRelative(float _0, float _1, float _2, float _3);
 
-		void MoveTo(MC::Vec3^ _0, MC::Vec2^ _1);
+		void MoveTo(MC::Vec3^ _0, MC::Vec2 _1);
 
 		void OnAffectedByWaterBottle();
 
@@ -1558,7 +1558,7 @@ namespace MC
 
 		void SetPosDirectLegacy(MC::Vec3^ _0);
 
-		void SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2^ _1);
+		void SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2 _1);
 
 		void SetSaddle(bool _0);
 
@@ -1597,12 +1597,12 @@ namespace MC
 		void UpdateTickingData();
 
 		bool WasLastHitByPlayer();
-
+		
 		bool WasLoadedFromNBTThisFrame();
 
-		static MC::Vec2^ GetInterpolatedRotation(MC::Vec2^ _0, MC::Vec2^ _1, float _2);
+		static MC::Vec2 GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2);
 
-		static MC::Vec3^ GetViewVector(MC::Vec2^ _0, MC::Vec2^ _1, float _2);
+		static MC::Vec3^ GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2);
 
 		static property float DEFAULT_AMBIENT_SOUND_INTERVAL
 		{
