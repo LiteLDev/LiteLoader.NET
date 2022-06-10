@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir -p SDK/Tools/Server
         # ServerLink=$(cat 'Scripts/LINK.txt')
-        ServerLink=https://minecraft.azureedge.net/bin-win/bedrock-server-1.18.33.02.zip
+        ServerLink=https://minecraft.azureedge.net/bin-win/bedrock-server-1.19.1.01.zip
         curl -L -o SDK/Tools/Server/server.zip "$ServerLink"
         unzip SDK/Tools/Server/server.zip -d SDK/Tools/Server/ > /dev/null
       shell: bash
