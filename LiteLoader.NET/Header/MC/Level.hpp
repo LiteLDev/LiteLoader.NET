@@ -41,12 +41,12 @@ private:
     static List<GCHandle> ^ gchList = nullptr;
 
 public:
-    inline static void ForEachPlayer(Callback ^ callback);
+    inline /*static*/ void ForEachPlayer(Callback ^ callback);
     inline static List<Player ^> ^ GetAllPlayers();
     /// name or xuid
-    inline static Player ^ GetPlayer(String ^ info);
+    inline /*static*/ Player ^ GetPlayer(String ^ info);
     /// UniqueID
-    inline static Player ^ GetPlayer(ActorUniqueID ^ id);
+    inline /*static*/ Player ^ GetPlayer(ActorUniqueID ^ id);
     inline static Actor ^ GetEntity(ActorUniqueID ^ id);
     inline static List<Actor ^> ^ GetAllEntities(int dimId);
     inline static List<Actor ^> ^ GetAllEntities();
@@ -54,7 +54,7 @@ public:
     inline static Actor ^ SpawnItem(Vec3 pos, int dimId, ItemStack ^ item);
     inline static bool CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);
     inline static bool CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak);
-    inline static MapItemSavedData ^ GetMapSavedData(ActorUniqueID ^ a0);
+    inline /*static*/ MapItemSavedData ^ GetMapSavedData(ActorUniqueID ^ a0);
     inline static Actor^ CloneMob(Vec3 pos, int dimid, Actor^ ac);
 
     // Block
@@ -70,8 +70,8 @@ public:
     inline static bool SetBlock(BlockPos ^ pos, int dim, CompoundTag ^ nbt);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool);
-    inline static bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
-    inline static void SpawnParticleEffect(String ^ type, Vec3 pos, Dimension ^ a2);
+    inline /*static*/ bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
+    inline /*static*/ void SpawnParticleEffect(String ^ type, Vec3 pos, Dimension ^ a2);
     //inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 a2);
     inline static bool HasContainer(Vec3 pos, int dim);
     inline static Container ^ GetContainer(Vec3 pos, int dim);
@@ -83,8 +83,8 @@ public:
     // Helper
     inline static BlockSource ^ GetBlockSource(int dimid);
     inline static BlockSource ^ GetBlockSource(Actor ^ actor);
-    inline static BlockPalette ^ GetBlockPalette();
-    inline static Dimension ^ GetDimension(AutomaticID<Dimension ^, int> ^ a0);
+    inline /*static*/ BlockPalette ^ GetBlockPalette();
+    inline /*static*/ Dimension ^ GetDimension(AutomaticID<Dimension ^, int> ^ a0);
     inline static Actor ^ GetDamageSourceEntity(ActorDamageSource ^ ads);
     inline static void BroadcastText(String ^ text, TextType type);
     inline static void BroadcastTitle(String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);

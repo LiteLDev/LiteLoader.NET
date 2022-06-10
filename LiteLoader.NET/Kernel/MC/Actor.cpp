@@ -273,10 +273,10 @@ void MC::Actor::BaseTick()
 	((class ::Actor*)NativePtr)->baseTick();
 }
 
-void MC::Actor::VehicleTick()
-{
-	((class ::Actor*)NativePtr)->vehicleTick();
-}
+//void MC::Actor::VehicleTick()
+//{
+//	((class ::Actor*)NativePtr)->vehicleTick();
+//}
 
 bool MC::Actor::StartRiding(MC::Actor^ _0)
 {
@@ -1108,10 +1108,10 @@ void MC::Actor::CelebrateHunt(int _0, bool _1)
 	((class ::Actor*)NativePtr)->celebrateHunt(_0, _1);
 }
 
-void MC::Actor::CheckForPropertyUpdate()
-{
-	((class ::Actor*)NativePtr)->checkForPropertyUpdate();
-}
+//void MC::Actor::CheckForPropertyUpdate()
+//{
+//	((class ::Actor*)NativePtr)->checkForPropertyUpdate();
+//}
 
 void MC::Actor::ClearFishingHookID()
 {
@@ -2259,16 +2259,16 @@ void MC::Actor::ChainedDamageEffects::set(bool _0)
 	((class ::Actor*)NativePtr)->setChainedDamageEffects(_0);
 }
 
-bool MC::Actor::CollidableMobNear::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->getCollidableMobNear();
-	return __ret;
-}
-
-void MC::Actor::CollidableMobNear::set(bool _0)
-{
-	((class ::Actor*)NativePtr)->setCollidableMobNear(_0);
-}
+//bool MC::Actor::CollidableMobNear::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->getCollidableMobNear();
+//	return __ret;
+//}
+//
+//void MC::Actor::CollidableMobNear::set(bool _0)
+//{
+//	((class ::Actor*)NativePtr)->setCollidableMobNear(_0);
+//}
 
 int MC::Actor::ControllingSeat::get()
 {
@@ -2470,16 +2470,16 @@ MC::Player^ MC::Actor::PlayerOwner::get()
 	return (__ret == nullptr) ? nullptr : gcnew ::MC::Player((class ::Player*)__ret);
 }
 
-MC::Vec3% MC::Actor::PosDelta::get()
-{
-	return *(Vec3*)const_cast<::Vec3*>(&((class ::Actor*)NativePtr)->getPosDelta());
-}
-
-void MC::Actor::PosDelta::set(MC::Vec3% _0)
-{
-	pin_ptr<Vec3> p = &_0;
-	((class ::Actor*)NativePtr)->setPosDelta(*(::Vec3*)p);
-}
+//MC::Vec3% MC::Actor::PosDelta::get()
+//{
+//	return *(Vec3*)const_cast<::Vec3*>(&((class ::Actor*)NativePtr)->getPosDelta());
+//}
+//
+//void MC::Actor::PosDelta::set(MC::Vec3% _0)
+//{
+//	pin_ptr<Vec3> p = &_0;
+//	((class ::Actor*)NativePtr)->setPosDelta(*(::Vec3*)p);
+//}
 
 MC::Vec3% MC::Actor::PosDeltaNonConst::get()
 {

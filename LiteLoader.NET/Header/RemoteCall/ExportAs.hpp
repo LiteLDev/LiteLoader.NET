@@ -301,10 +301,10 @@ namespace LLNET::RemoteCall {
 			return gcnew MC::Container(std::get<::Container*>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::Vec3:
-			return MC::Vec3(std::get<::Vec3>(_VALUE));
+			return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::BlockPos:
-			return gcnew MC::BlockPos(std::get<::BlockPos>(_VALUE));
+			return gcnew BlockPosType(std::get<::RemoteCall::BlockPosType>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::ItemType:
 			return gcnew ItemType(std::get<::RemoteCall::ItemType>(_VALUE));
@@ -419,9 +419,9 @@ namespace LLNET::RemoteCall {
 		{
 			auto list = static_cast<List<Object^>^>(val);
 			auto ret = ::RemoteCall::ValueType::ArrayType();
-			for each (auto var in list)
+			for (int i = 0; i < list->Count; ++i)
 			{
-				ret.emplace_back(std::move(_parseReturnVal(info.genericArgs[0], var)));
+				ret[i] = std::move(_parseReturnVal(info.genericArgs[0], list[i]));
 			}
 			return ret;
 		}
@@ -432,7 +432,7 @@ namespace LLNET::RemoteCall {
 			auto ret = ::RemoteCall::ValueType::ObjectType();
 			for each (auto var in dic)
 			{
-				ret.emplace(marshalString(var.Key), std::move(_parseReturnVal(info.genericArgs[2], var.Value)));
+				ret[marshalString(var.Key)] = std::move(_parseReturnVal(info.genericArgs[2], var.Value));
 			}
 			return ret;
 		}

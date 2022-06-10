@@ -427,7 +427,7 @@ namespace MC
 
         virtual void BaseTick() override;
 
-        virtual void VehicleTick() override;
+        //virtual void VehicleTick() override;
 
         virtual bool StartRiding(MC::Actor^ _0) override;
 

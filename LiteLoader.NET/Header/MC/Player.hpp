@@ -356,10 +356,10 @@ namespace MC
 			bool get();
 		}
 
-		property bool IsBouncing
-		{
-			bool get();
-		}
+		//property bool IsBouncing
+		//{
+		//	bool get();
+		//}
 
 		property bool IsForcedRespawn
 		{
@@ -422,9 +422,9 @@ namespace MC
 
 		virtual void NormalTick() override;
 
-		virtual void VehicleTick() override;
+		//virtual void VehicleTick() override;
 
-		virtual float GetRidingHeight();
+		//virtual float GetRidingHeight();
 
 		//virtual void UnkVfn61() override;
 

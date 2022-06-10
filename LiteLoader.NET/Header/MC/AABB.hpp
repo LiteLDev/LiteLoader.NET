@@ -39,7 +39,7 @@ namespace MC {
 		property Vec3 Center {Vec3 get(); };
 		property float Size {float get(); };
 		property float Volume {float get(); };
-		property bool HasZeroVolume {bool get(); };
+		//property bool HasZeroVolume {bool get(); };
 		property bool IsValid {bool get(); };
 	public:
 		bool IntersectSegment(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4);

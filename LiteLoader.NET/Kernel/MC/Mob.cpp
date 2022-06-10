@@ -68,10 +68,10 @@ void MC::Mob::BaseTick()
 	((class ::Mob*)NativePtr)->baseTick();
 }
 
-void MC::Mob::VehicleTick()
-{
-	((class ::Mob*)NativePtr)->vehicleTick();
-}
+//void MC::Mob::VehicleTick()
+//{
+//	((class ::Mob*)NativePtr)->vehicleTick();
+//}
 
 bool MC::Mob::StartRiding(MC::Actor^ _0)
 {

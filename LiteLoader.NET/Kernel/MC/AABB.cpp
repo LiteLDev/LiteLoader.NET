@@ -159,9 +159,9 @@ namespace MC {
 		return NativePtr->getVolume();
 	}
 
-	bool AABB::HasZeroVolume::get() {
-		return NativePtr->hasZeroVolume();
-	}
+	//bool AABB::HasZeroVolume::get() {
+	//	return NativePtr->hasZeroVolume();
+	//}
 
 	bool AABB::IsValid::get() {
 		return NativePtr->isValid();

@@ -6,6 +6,7 @@ namespace LLNET::RemoteCall {
 	public
 	ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>, IValue
 	{
+	internal:
 		__ctor_copy(NbtType, ::RemoteCall::NbtType);
 		__ctor_move(NbtType, ::RemoteCall::NbtType);
 	public:
@@ -39,6 +40,7 @@ namespace LLNET::RemoteCall {
 	public
 	ref class ItemType : ClassTemplate<ItemType, ::RemoteCall::ItemType>, IValue
 	{
+	internal:
 		__ctor_copy(ItemType, ::RemoteCall::ItemType);
 		__ctor_move(ItemType, ::RemoteCall::ItemType);
 	public:
@@ -72,9 +74,10 @@ namespace LLNET::RemoteCall {
 	public
 	ref class BlockType : ClassTemplate<BlockType, ::RemoteCall::BlockType>, IValue
 	{
+	internal:
 		__ctor_copy(BlockType, ::RemoteCall::BlockType);
 		__ctor_move(BlockType, ::RemoteCall::BlockType);
-
+	public:
 		BlockType(MC::BlockInstance^ block)
 			: ClassTemplate(new ::RemoteCall::BlockType(*block->NativePtr), true)
 		{
@@ -98,6 +101,81 @@ namespace LLNET::RemoteCall {
 		virtual String^ ToString() override {
 			auto& p = NativePtr->get<::BlockInstance>();
 			return String::Format("{0},{1}", marshalString(p.getBlock()->getTypeName()), marshalString(p.getPosition().toString()));
+		}
+	};
+
+	public
+	ref class WorldPosType :ClassTemplate<WorldPosType, ::RemoteCall::WorldPosType>
+	{
+	internal:
+		__ctor_copy(WorldPosType, ::RemoteCall::WorldPosType);
+		__ctor_move(WorldPosType, ::RemoteCall::WorldPosType);
+	public:
+		WorldPosType(MC::Vec3 pos, int dimId)
+			:ClassTemplate(::RemoteCall::WorldPosType(pos, dimId)) {}
+		WorldPosType(MC::Vec3 pos)
+			:ClassTemplate(::RemoteCall::WorldPosType(pos)) {}
+		//WorldPosType(KeyValuePair<MC::Vec3, int> pos)
+		//	:ClassTemplate(::RemoteCall::WorldPosType(pos.Key, pos.Value)) {}
+		WorldPosType(Pair<MC::Vec3, int> pos)
+			:ClassTemplate(::RemoteCall::WorldPosType(pos.Key, pos.Value)) {}
+
+		property Vec3% Pos {
+			Vec3% get() { return *(Vec3*)&NativePtr->pos; }
+		}
+
+		property MC::BlockPos^ BlockPos {
+			MC::BlockPos^ get() { return gcnew MC::BlockPos(NativePtr->pos); }
+		}
+
+		property Pair<MC::Vec3, int> PosPair {
+			Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId); }
+		}
+
+		property Pair<MC::BlockPos^, int> BlockPosPair {
+			Pair<MC::BlockPos^, int> get() { return Pair<MC::BlockPos^, int>(BlockPos, NativePtr->dimId); }
+		}
+
+		property int DimId {
+			int get() { return NativePtr->dimId; }
+			void set(int value) { NativePtr->dimId = value; }
+		}
+	};
+
+	public
+	ref class BlockPosType :ClassTemplate<BlockPosType, ::RemoteCall::BlockPosType>
+	{
+	internal:
+		__ctor_copy(BlockPosType, ::RemoteCall::BlockPosType);
+		__ctor_move(BlockPosType, ::RemoteCall::BlockPosType);
+	public:
+		BlockPosType(MC::BlockPos^ pos)
+			:ClassTemplate(::RemoteCall::BlockPosType(pos)) {}
+		BlockPosType(MC::BlockPos^ pos, int dimId)
+			:ClassTemplate(::RemoteCall::BlockPosType(pos, dimId)) {}
+		BlockPosType(Pair<MC::BlockPos^, int> pos)
+			:ClassTemplate(::RemoteCall::BlockPosType(pos.Key, pos.Value)) {}
+
+		property MC::BlockPos^ Pos {
+			MC::BlockPos^ get() { return gcnew MC::BlockPos(NativePtr->pos); }
+			void set(MC::BlockPos^ value) { NativePtr->pos = value; }
+		}
+
+		property MC::Vec3 Vec3 {
+			MC::Vec3 get() { return NativePtr->pos.toVec3(); }
+		}
+
+		property Pair<MC::Vec3, int> Vec3Pair {
+			Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(Vec3, NativePtr->dimId); }
+		}
+
+		property Pair<MC::BlockPos^, int> BlockPosPair {
+			Pair<MC::BlockPos^, int> get() { return Pair<MC::BlockPos^, int>(gcnew MC::BlockPos(NativePtr->pos), NativePtr->dimId); }
+		}
+
+		property int DimId {
+			int get() { return NativePtr->dimId; }
+			void set(int value) { NativePtr->dimId = value; }
 		}
 	};
 

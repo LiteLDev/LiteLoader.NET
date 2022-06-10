@@ -48,6 +48,7 @@ using System::String;
 using System::Object;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
+using System::Collections::Generic::KeyValuePair;
 using System::Reflection::Assembly;
 using System::Reflection::AssemblyName;
 using System::Runtime::InteropServices::FieldOffsetAttribute;

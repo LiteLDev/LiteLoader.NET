@@ -507,11 +507,11 @@ namespace MC
 			void set(bool);
 		}
 
-		property bool CollidableMobNear
-		{
-			bool get();
-			void set(bool);
-		}
+		//property bool CollidableMobNear
+		//{
+		//	bool get();
+		//	void set(bool);
+		//}
 
 		property int ControllingSeat
 		{
@@ -636,11 +636,11 @@ namespace MC
 			MC::Player^ get();
 		}
 
-		property MC::Vec3% PosDelta
-		{
-			MC::Vec3% get();
-			void set(MC::Vec3%);
-		}
+		//property MC::Vec3% PosDelta
+		//{
+		//	MC::Vec3% get();
+		//	void set(MC::Vec3%);
+		//}
 
 		property MC::Vec3% PosDeltaNonConst
 		{
@@ -1144,7 +1144,7 @@ namespace MC
 
 		virtual void BaseTick();
 
-		virtual void VehicleTick();
+		//virtual void VehicleTick();
 
 		virtual bool StartRiding(MC::Actor^ _0);
 
@@ -1424,7 +1424,7 @@ namespace MC
 
 		void CelebrateHunt(int _0, bool _1);
 
-		void CheckForPropertyUpdate();
+		//void CheckForPropertyUpdate();
 
 		void ClearFishingHookID();
 

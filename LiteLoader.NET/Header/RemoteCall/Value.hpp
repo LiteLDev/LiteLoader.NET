@@ -130,8 +130,8 @@ namespace LLNET::RemoteCall {
 			Actor = 5,
 			BlockActor = 6,
 			Container = 7,
-			Vec3 = 8,
-			BlockPos = 9,
+			WorldPosType = 8,
+			BlockPosType = 9,
 			ItemType = 10,
 			BlockType = 11,
 			NbtType = 12
@@ -204,19 +204,19 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsVec3([System::Runtime::InteropServices::Out] MC::Vec3% v) {
-			v = MC::Vec3();
-			if (NativePtr->index() != (size_t)InstanceType::Vec3)
+		bool AsWorldPosType([System::Runtime::InteropServices::Out] WorldPosType^% v) {
+			v = nullptr;
+			if (NativePtr->index() != (size_t)InstanceType::WorldPosType)
 				return false;
-			v = MC::Vec3(std::get<::Vec3>(*NativePtr));
+			v = gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(*NativePtr));
 			return true;
 		}
 
-		bool AsBlockPos([System::Runtime::InteropServices::Out] MC::BlockPos^% v) {
+		bool AsBlockPosType([System::Runtime::InteropServices::Out] BlockPosType^% v) {
 			v = nullptr;
-			if (NativePtr->index() != (size_t)InstanceType::BlockPos)
+			if (NativePtr->index() != (size_t)InstanceType::BlockPosType)
 				return false;
-			v = gcnew MC::BlockPos(std::get<::BlockPos>(*NativePtr));
+			v = gcnew BlockPosType(std::get<::RemoteCall::BlockPosType>(*NativePtr));
 			return true;
 		}
 
@@ -294,12 +294,12 @@ namespace LLNET::RemoteCall {
 			return this;
 		}
 
-		Value^ operator=(MC::Vec3 vec3) {
-			*NativePtr = vec3;
+		Value^ operator=(WorldPosType^ worldPos) {
+			*NativePtr = *worldPos->NativePtr;
 			return this;
 		}
 
-		Value^ operator=(MC::BlockPos^ blockPos) {
+		Value^ operator=(BlockPosType^ blockPos) {
 			*NativePtr = *blockPos->NativePtr;
 			return this;
 		}
@@ -401,15 +401,15 @@ namespace LLNET::RemoteCall {
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
-		static operator MC::Vec3 (Value^ v) {
-			MC::Vec3 ret;
-			if (!v->AsVec3(ret))
+		static operator WorldPosType ^ (Value^ v) {
+			WorldPosType^ ret;
+			if (!v->AsWorldPosType(ret))
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
-		static operator MC::BlockPos ^ (Value^ v) {
-			MC::BlockPos^ ret;
-			if (!v->AsBlockPos(ret))
+		static operator BlockPosType ^ (Value^ v) {
+			BlockPosType^ ret;
+			if (!v->AsBlockPosType(ret))
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
@@ -496,16 +496,16 @@ namespace LLNET::RemoteCall {
 				info = String::Format("{0},{1}", marshalString(p->getTypeName()), MC::ContainerType(p->getContainerType()).ToString());
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::Vec3:
+			case LLNET::RemoteCall::Value::InstanceType::WorldPosType:
 			{
-				auto& vec3 = std::get<::Vec3>(*NativePtr);
-				info = marshalString(vec3.toString());
+				auto& pos = std::get<::RemoteCall::WorldPosType>(*NativePtr);
+				info = marshalString(pos.pos.toString() + "," + std::to_string(pos.dimId));
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::BlockPos:
+			case LLNET::RemoteCall::Value::InstanceType::BlockPosType:
 			{
-				auto& pos = std::get<::BlockPos>(*NativePtr);
-				info = marshalString(pos.toString());
+				auto& pos = std::get<::RemoteCall::BlockPosType>(*NativePtr);
+				info = marshalString(pos.pos.toString() + "," + std::to_string(pos.dimId));
 				break;
 			}
 			case LLNET::RemoteCall::Value::InstanceType::ItemType:

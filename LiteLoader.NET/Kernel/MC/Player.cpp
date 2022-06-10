@@ -659,11 +659,11 @@ namespace MC
 		return __ret;
 	}
 
-	bool MC::Player::IsBouncing::get()
-	{
-		auto __ret = NativePtr->isBouncing();
-		return __ret;
-	}
+	//bool MC::Player::IsBouncing::get()
+	//{
+	//	auto __ret = NativePtr->isBouncing();
+	//	return __ret;
+	//}
 
 	bool MC::Player::IsForcedRespawn::get()
 	{
@@ -761,16 +761,16 @@ namespace MC
 		((class ::Player*)NativePtr)->normalTick();
 	}
 
-	void MC::Player::VehicleTick()
-	{
-		((class ::Player*)NativePtr)->vehicleTick();
-	}
+	//void MC::Player::VehicleTick()
+	//{
+	//	((class ::Player*)NativePtr)->vehicleTick();
+	//}
 
-	float MC::Player::GetRidingHeight()
-	{
-		auto __ret = ((class ::Player*)NativePtr)->getRidingHeight();
-		return __ret;
-	}
+	//float MC::Player::GetRidingHeight()
+	//{
+	//	auto __ret = ((class ::Player*)NativePtr)->getRidingHeight();
+	//	return __ret;
+	//}
 
 	//void MC::Player::UnkVfn61()
 	//{

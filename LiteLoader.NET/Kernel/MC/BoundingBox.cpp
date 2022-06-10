@@ -3,21 +3,21 @@
 #include "../../Header/MC/AABB.hpp"
 
 namespace MC {
-    inline BlockPos^ BoundingBox::Bpos1::get()
+    inline BlockPos^ BoundingBox::Min::get()
     {
-        return gcnew BlockPos(NativePtr->bpos1);
+        return gcnew BlockPos(NativePtr->min);
     }
-    inline void BoundingBox::Bpos1::set(BlockPos^ bpos)
+    inline void BoundingBox::Min::set(BlockPos^ bpos)
     {
-        NativePtr->bpos1 = bpos;
+        NativePtr->min = bpos;
     }
-    inline BlockPos^ BoundingBox::Bpos2::get()
+    inline BlockPos^ BoundingBox::Max::get()
     {
-        return gcnew BlockPos(NativePtr->bpos2);
+        return gcnew BlockPos(NativePtr->max);
     }
-    inline void BoundingBox::Bpos2::set(BlockPos^ bpos)
+    inline void BoundingBox::Max::set(BlockPos^ bpos)
     {
-        NativePtr->bpos2 = bpos;
+        NativePtr->max = bpos;
     }
     inline BlockPos^ BoundingBox::GetCenter()
     {
@@ -25,8 +25,8 @@ namespace MC {
     }
     inline AABB^ BoundingBox::ToAABB()
     {
-        ::Vec3 vec1 = { (float)Bpos1->X, (float)Bpos1->Y, (float)Bpos1->Z };
-        ::Vec3 vec2 = { (float)Bpos1->X, (float)Bpos1->Y, (float)Bpos1->Z };
+        ::Vec3 vec1 = { (float)Min->X, (float)Min->Y, (float)Min->Z };
+        ::Vec3 vec2 = { (float)Min->X, (float)Min->Y, (float)Min->Z };
         return gcnew AABB({ vec1, vec2 + ::Vec3{1, 1, 1} });
     }
 }

@@ -37,7 +37,7 @@ inline void Level::ForEachPlayer(Callback ^ callback)
     auto pFn = static_cast<pNativeCallback>(
         Marshal::GetFunctionPointerForDelegate(_callback).ToPointer());
 
-    ::Level::forEachPlayer(pFn);
+    NativePtr->forEachPlayer(pFn);
 }
 inline List<Player ^> ^ Level::GetAllPlayers()
 {
@@ -49,11 +49,11 @@ inline List<Player ^> ^ Level::GetAllPlayers()
 }
 inline Player ^ Level::GetPlayer(String^ info)
 {
-    return gcnew Player(::Level::getPlayer(marshalString<Encoding::E_UTF8>(info)));
+    return gcnew Player(NativePtr->getPlayer(marshalString<Encoding::E_UTF8>(info)));
 }
 inline Player ^ Level::GetPlayer(ActorUniqueID ^ id)
 {
-    return gcnew Player(::Level::getPlayer(id));
+    return gcnew Player(NativePtr->getPlayer(id));
 }
 inline Actor ^ Level::GetEntity(ActorUniqueID ^ id)
 {
@@ -95,7 +95,7 @@ inline bool Level::CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float ra
 }
 inline MapItemSavedData ^ Level::GetMapSavedData(ActorUniqueID ^ a0)
 {
-    return gcnew MapItemSavedData(::Level::getMapSavedData(*a0));
+    return gcnew MapItemSavedData(NativePtr->getMapSavedData(*a0));
 }
 inline Actor^ Level::CloneMob(Vec3 pos, int dimid, Actor^ ac)
 {
@@ -151,11 +151,11 @@ inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemSta
 }
 inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2)
 {
-    return ::Level::destroyBlock(bs, pos, a2);
+    return NativePtr->destroyBlock(bs, pos, a2);
 }
 inline void Level::SpawnParticleEffect(String^ type, Vec3 pos, Dimension ^ a2)
 {
-    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2->NativePtr);
+    NativePtr->spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2->NativePtr);
 }
 //inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 a2)
 //{
@@ -187,11 +187,11 @@ inline BlockSource ^ Level::GetBlockSource(Actor ^ actor)
 }
 inline BlockPalette ^ Level::GetBlockPalette()
 {
-    return gcnew BlockPalette(::Level::getBlockPalette());
+    return gcnew BlockPalette(&NativePtr->getBlockPalette());
 }
 inline Dimension ^ Level::GetDimension(AutomaticID<Dimension ^, int> ^ a0)
 {
-    return gcnew Dimension(::Level::getDimension((int)a0));
+    return gcnew Dimension(NativePtr->getDimension((int)a0));
 }
 inline Actor ^ Level::GetDamageSourceEntity(ActorDamageSource ^ ads)
 {
