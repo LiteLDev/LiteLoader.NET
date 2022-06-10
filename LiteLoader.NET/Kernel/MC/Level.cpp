@@ -75,21 +75,21 @@ inline List<Actor ^> ^ Level::GetAllEntities()
         ret->Add(gcnew Actor(var));
     return ret;
 }
-inline Actor ^ Level::SpawnMob(Vec3 ^ pos, int dimId, String^ typeName)
+inline Actor ^ Level::SpawnMob(Vec3 pos, int dimId, String^ typeName)
 {
     return gcnew Actor(::Level::spawnMob(
-        *pos, dimId, marshalString<Encoding::E_UTF8>(typeName)));
+        pos, dimId, marshalString<Encoding::E_UTF8>(typeName)));
 }
-inline Actor ^ Level::SpawnItem(Vec3 ^ pos, int dimId, ItemStack ^ item)
+inline Actor ^ Level::SpawnItem(Vec3 pos, int dimId, ItemStack ^ item)
 {
     return gcnew Actor(::Level::spawnItem(
-        *pos, dimId, item->NativePtr));
+        pos, dimId, item->NativePtr));
 }
-inline bool Level::CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance)
+inline bool Level::CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance)
 {
     return ::Level::createExplosion(::Vec3(pos), dimId, source, radius, createFire, canBreak, maxResistance);
 }
-inline bool Level::CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak)
+inline bool Level::CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak)
 {
     return ::Level::createExplosion(::Vec3(pos), dimId, source, radius, createFire, canBreak);
 }
@@ -97,9 +97,9 @@ inline MapItemSavedData ^ Level::GetMapSavedData(ActorUniqueID ^ a0)
 {
     return gcnew MapItemSavedData(::Level::getMapSavedData(*a0));
 }
-inline Actor^ Level::CloneMob(Vec3^ pos, int dimid, Actor^ ac)
+inline Actor^ Level::CloneMob(Vec3 pos, int dimid, Actor^ ac)
 {
-    return gcnew Actor(::Level::cloneMob(pos->operator ::Vec3 & (), dimid, ac->NativePtr));
+    return gcnew Actor(::Level::cloneMob(pos, dimid, ac->NativePtr));
 }
 inline Block ^ Level::GetBlock(BlockPos ^ pos, int dimId)
 {
@@ -153,19 +153,19 @@ inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2)
 {
     return ::Level::destroyBlock(bs, pos, a2);
 }
-inline void Level::SpawnParticleEffect(String^ type, Vec3 ^ pos, Dimension ^ a2)
+inline void Level::SpawnParticleEffect(String^ type, Vec3 pos, Dimension ^ a2)
 {
     ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2->NativePtr);
 }
-//inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 ^ a2)
+//inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 a2)
 //{
 //    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), *a1->NativePtr, a2);
 //}
-inline bool Level::HasContainer(Vec3 ^ pos, int dim)
+inline bool Level::HasContainer(Vec3 pos, int dim)
 {
     return ::Level::hasContainer((::Vec3&)pos, dim);
 }
-inline Container ^ Level::GetContainer(Vec3 ^ pos, int dim)
+inline Container ^ Level::GetContainer(Vec3 pos, int dim)
 {
     return gcnew Container(::Level::getContainer((::Vec3&)pos, dim));
 }

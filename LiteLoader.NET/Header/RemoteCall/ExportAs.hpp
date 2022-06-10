@@ -64,7 +64,7 @@ namespace LLNET::RemoteCall {
 		public:
 			static Pair<ExportFunc^, delNative^> Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del);
 
-			virtual String^ ToString() override 
+			virtual String^ ToString() override
 			{
 				return String::Format("NameSpace:{0},FunctionName:{1}", nameSpace, funcName);
 			}
@@ -301,7 +301,7 @@ namespace LLNET::RemoteCall {
 			return gcnew MC::Container(std::get<::Container*>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::Vec3:
-			return gcnew MC::Vec3(std::get<::Vec3>(_VALUE));
+			return MC::Vec3(std::get<::Vec3>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::BlockPos:
 			return gcnew MC::BlockPos(std::get<::BlockPos>(_VALUE));
@@ -401,7 +401,7 @@ namespace LLNET::RemoteCall {
 			return static_cast<MC::Container^>(val)->NativePtr;
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Vec3:
-			return *static_cast<MC::Vec3^>(val)->NativePtr;
+			return gcnew Valuetype((MC::Vec3)(val));
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPos:
 			return *static_cast<MC::BlockPos^>(val)->NativePtr;

@@ -54,7 +54,7 @@ public:
 
     virtual void OnFailedTame() override;
 
-    virtual void VehicleLanded(MC::Vec3 ^ _0, MC::Vec3 ^ _1) override;
+    virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1) override;
 
     virtual void AwardKillScore(MC::Actor ^ _0, int _1) override;
 

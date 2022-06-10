@@ -13,7 +13,7 @@ inline void CommandPropertyBag::Set(String^ str, BlockPos ^ bp)
     NativePtr->set(marshalString<Encoding::E_UTF8>(str), bp);
 }
 
-inline void CommandPropertyBag::Set(String^ str, Vec3 ^ bp)
+inline void CommandPropertyBag::Set(String^ str, Vec3 bp)
 {
     NativePtr->set(marshalString<Encoding::E_UTF8>(str), bp);
 }

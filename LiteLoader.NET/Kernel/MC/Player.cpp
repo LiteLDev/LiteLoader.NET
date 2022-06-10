@@ -205,17 +205,17 @@ namespace MC
 		return NativePtr->sendNotePacket(tone);
 	}
 	/// <param name="EntityUniqueID">:default = -1</param>
-	inline bool Player::SendSpawnParticleEffectPacket(Vec3^ spawnPos, int dimid, String^ ParticleName, int64_t EntityUniqueID)
+	inline bool Player::SendSpawnParticleEffectPacket(Vec3 spawnPos, int dimid, String^ ParticleName, int64_t EntityUniqueID)
 	{
-		return NativePtr->sendSpawnParticleEffectPacket(*spawnPos, dimid, marshalString(ParticleName), EntityUniqueID);
+		return NativePtr->sendSpawnParticleEffectPacket(spawnPos, dimid, marshalString(ParticleName), EntityUniqueID);
 	}
-	/*bad*/ inline bool Player::SendPlaySoundPacket(String^ SoundName, Vec3^ Position, float Volume, float Pitch)
+	/*bad*/ inline bool Player::SendPlaySoundPacket(String^ SoundName, Vec3 Position, float Volume, float Pitch)
 	{
-		return NativePtr->sendPlaySoundPacket(marshalString(SoundName), *Position, Volume, Pitch);
+		return NativePtr->sendPlaySoundPacket(marshalString(SoundName), Position, Volume, Pitch);
 	}
 
 	///// <param name="DataItem">:default = {} (using null to substitute it.)</param>
-	// inline bool Player::sendAddItemEntityPacket(unsigned long long runtimeID, int itemID, int stackSize, short aux, Vec3^ pos, List<csFakeDataItem^>^ DataItem) {
+	// inline bool Player::sendAddItemEntityPacket(unsigned long long runtimeID, int itemID, int stackSize, short aux, Vec3 pos, List<csFakeDataItem^>^ DataItem) {
 	//	if (DataItem == nullptr) {
 	//		return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate());
 	//	}
@@ -226,7 +226,7 @@ namespace MC
 	//	return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate(), stdvector);
 	// }
 	///// <param name="DataItem">:default = {} (using null to substitute it.)</param>
-	// inline bool Player::sendAddEntityPacket(unsigned long long runtimeID, System::String^ entityType, Vec3^ pos, Vec3^ rotation, List<csFakeDataItem^>^ DataItem) {
+	// inline bool Player::sendAddEntityPacket(unsigned long long runtimeID, System::String^ entityType, Vec3 pos, Vec3 rotation, List<csFakeDataItem^>^ DataItem) {
 	//	if (DataItem == nullptr) {
 	//		return NativePtr->sendAddEntityPacket(runtimeID, marshalString(entityType), *pos->Translate(), *rotation->Translate());
 	//	}
@@ -741,12 +741,9 @@ namespace MC
 		return __ret;
 	}
 
-	void MC::Player::Move(MC::Vec3^ _0)
+	void MC::Player::Move(MC::Vec3 _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->move(__arg0);
+		((class ::Player*)NativePtr)->move(_0);
 	}
 
 	//void MC::Player::UnkVfn40()
@@ -754,12 +751,9 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_40();
 	//}
 
-	void MC::Player::TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3)
+	void MC::Player::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->teleportTo(__arg0, _1, _2, _3);
+		((class ::Player*)NativePtr)->teleportTo(_0, _1, _2, _3);
 	}
 
 	void MC::Player::NormalTick()
@@ -911,15 +905,9 @@ namespace MC
 		return __ret;
 	}
 
-	void MC::Player::VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1)
+	void MC::Player::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		if (ReferenceEquals(_1, nullptr))
-			throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg1 = *(class ::Vec3*)_1->NativePtr;
-		((class ::Player*)NativePtr)->vehicleLanded(__arg0, __arg1);
+		((class ::Player*)NativePtr)->vehicleLanded(_0, _0);
 	}
 
 	void MC::Player::Feed(int _0)
@@ -1301,12 +1289,9 @@ namespace MC
 		((class ::Player*)NativePtr)->moveView();
 	}
 
-	void MC::Player::CheckMovementStats(MC::Vec3^ _0)
+	void MC::Player::CheckMovementStats(MC::Vec3 _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->checkMovementStats(__arg0);
+		((class ::Player*)NativePtr)->checkMovementStats(_0);
 	}
 
 	//void MC::Player::UnkVfn374()
@@ -1523,20 +1508,14 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_441();
 	//}
 
-	void MC::Player::OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2 _1, float _2)
+	void MC::Player::OnMovePlayerPacketNormal(MC::Vec3 _0, MC::Vec2 _1, float _2)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->onMovePlayerPacketNormal(__arg0, _1, _2);
+		((class ::Player*)NativePtr)->onMovePlayerPacketNormal(_0, _1, _2);
 	}
 
-	void MC::Player::ApplyExhaustion(MC::Vec3^ _0)
+	void MC::Player::ApplyExhaustion(MC::Vec3 _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->applyExhaustion(__arg0);
+		((class ::Player*)NativePtr)->applyExhaustion(_0);
 	}
 
 	bool MC::Player::CanBeSeenOnMap()
@@ -1566,11 +1545,9 @@ namespace MC
 		((class ::Player*)NativePtr)->eat(_0, _1);
 	}
 
-	MC::Vec3^ MC::Player::GetCapePos(float _0)
+	MC::Vec3 MC::Player::GetCapePos(float _0)
 	{
-		auto __ret = ((class ::Player*)NativePtr)->getCapePos(_0);
-		auto ____ret = new class ::Vec3(__ret);
-		return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+		return ((class ::Player*)NativePtr)->getCapePos(_0);
 	}
 
 	void MC::Player::GetNewEnchantmentSeed()
@@ -1585,15 +1562,12 @@ namespace MC
 		return __ret;
 	}
 
-	bool MC::Player::Interact(MC::Actor^ _0, MC::Vec3^ _1)
+	bool MC::Player::Interact(MC::Actor^ _0, MC::Vec3 _1)
 	{
 		if (ReferenceEquals(_0, nullptr))
 			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
 		auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-		if (ReferenceEquals(_1, nullptr))
-			throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg1 = *(class ::Vec3*)_1->NativePtr;
-		auto __ret = ((class ::Player*)NativePtr)->interact(__arg0, __arg1);
+		auto __ret = ((class ::Player*)NativePtr)->interact(__arg0, _1);
 		return __ret;
 	}
 
@@ -1659,12 +1633,9 @@ namespace MC
 		((class ::Player*)NativePtr)->setRespawnPositionCandidate();
 	}
 
-	void MC::Player::SetRespawnReady(MC::Vec3^ _0)
+	void MC::Player::SetRespawnReady(MC::Vec3 _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->setRespawnReady(__arg0);
+		((class ::Player*)NativePtr)->setRespawnReady(_0);
 	}
 
 	bool MC::Player::ShouldShowCredits()
@@ -1673,12 +1644,9 @@ namespace MC
 		return __ret;
 	}
 
-	void MC::Player::SpawnExperienceOrb(MC::Vec3^ _0, int _1)
+	void MC::Player::SpawnExperienceOrb(MC::Vec3 _0, int _1)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
-		((class ::Player*)NativePtr)->spawnExperienceOrb(__arg0, _1);
+		((class ::Player*)NativePtr)->spawnExperienceOrb(_0, _1);
 	}
 
 	void MC::Player::StartGliding()

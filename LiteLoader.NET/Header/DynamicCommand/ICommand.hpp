@@ -115,7 +115,7 @@ System::Object^ LLNET::DynamicCommand::CommandManager::NativeDynamicCommandCallb
 	}
 	case ::DynamicCommand::ParameterType::Vec3:
 	{
-		return gcnew MC::Vec3(result.get<Vec3>());
+		return MC::Vec3(result.get<::Vec3>());
 	}
 	case ::DynamicCommand::ParameterType::Message:
 		return gcnew MC::CommandMessage(const_cast<::CommandMessage*>(&result.getRaw<::CommandMessage>()));

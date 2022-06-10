@@ -421,7 +421,7 @@ namespace MC
 
         //virtual void UnkVfn40() override;
 
-        virtual void TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3) override;
+        virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3) override;
 
         virtual void NormalTick() override;
 
@@ -467,7 +467,7 @@ namespace MC
 
         virtual bool canPowerJump();
 
-        virtual void VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1) override;
+        virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1) override;
 
         virtual void AnimateHurt() override;
 
@@ -601,7 +601,7 @@ namespace MC
 
         //virtual void UnkVfn359();
 
-        virtual MC::AABB^ GetAdjustedAABBForSpawnCheck(MC::AABB^ _0, MC::Vec3^ _1);
+        virtual MC::AABB^ GetAdjustedAABBForSpawnCheck(MC::AABB^ _0, MC::Vec3 _1);
 
         void EndJump();
 

@@ -333,7 +333,7 @@ MC::BlockPos ^ MC::BlockSource::GetHeightmapPos(MC::BlockPos ^ _0)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
 }
 
-float MC::BlockSource::GetSeenPercent(MC::Vec3 ^ _0, MC::AABB ^ _1)
+float MC::BlockSource::GetSeenPercent(MC::Vec3 _0, MC::AABB ^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -345,7 +345,7 @@ float MC::BlockSource::GetSeenPercent(MC::Vec3 ^ _0, MC::AABB ^ _1)
     return __ret;
 }
 
-float MC::BlockSource::GetVisualLiquidHeight(MC::Vec3 ^ _0)
+float MC::BlockSource::GetVisualLiquidHeight(MC::Vec3 _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -435,7 +435,7 @@ bool MC::BlockSource::IsEmptyWaterBlock(MC::BlockPos ^ _0)
     return __ret;
 }
 
-bool MC::BlockSource::IsInWall(MC::Vec3 ^ _0)
+bool MC::BlockSource::IsInWall(MC::Vec3 _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");

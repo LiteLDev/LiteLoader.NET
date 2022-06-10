@@ -7,7 +7,7 @@ namespace MC
 {
 	value class Vec2;
 	ref class BlockPos;
-	ref class Vec3;
+	value class Vec3;
 	ref class UserEntityIdentifierComponent;
 	ref class CompoundTag;
 	ref class BlockSource;
@@ -49,7 +49,7 @@ namespace MC
 		inline bool StopFire();
 		inline bool HasTag(String^ tag);
 		inline bool HurtEntity(float damage);
-		inline bool Teleport(Vec3^ pos, int dimid);
+		inline bool Teleport(Vec3 pos, int dimid);
 		inline bool RefreshActorData();
 		inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient, bool showParticles, bool showAnimation);
 		inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient, bool showParticles);
@@ -62,11 +62,11 @@ namespace MC
 		property BlockPos^ BlockPos { MC::BlockPos^ get(); };
 		property BlockInstance^ BlockStandingOn { BlockInstance^ get(); };
 		property String^ TypeName { String^ get(); };
-		property Vec3^ Position { Vec3^ get(); };
+		property Vec3 Position { Vec3 get(); };
 		property BlockSource^ Blocksource { BlockSource^ get(); };
 		property Vec2 Direction { Vec2 get(); };
 		property ActorUniqueID^ ActorUniqueId { ActorUniqueID^ get(); };
-		property Vec3^ CameraPos { Vec3^ get(); };
+		property Vec3 CameraPos { Vec3 get(); };
 		property Tick^ LastTick { Tick^ get(); };
 		property ItemStack^ HandSlot { ItemStack^ get(); };
 		property MC::Level^ Level { MC::Level^ get(); };
@@ -91,9 +91,9 @@ namespace MC
 
 #ifdef MANUAL_MAINTENANCE
 
-		property MC::Vec3^ FeetPosition
+		property MC::Vec3 FeetPosition
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
 		property ::System::Collections::Generic::List<::System::String^>^ AllTags
@@ -247,21 +247,21 @@ namespace MC
 			MC::Mob^ get();
 		}
 
-		property MC::Vec3^ Pos
+		property MC::Vec3 Pos
 		{
-			MC::Vec3^ get();
-			void set(MC::Vec3^);
+			MC::Vec3 get();
+			void set(MC::Vec3);
 		}
 
-		property MC::Vec3^ PosPrev
+		property MC::Vec3% PosPrev
 		{
-			MC::Vec3^ get();
-			void set(MC::Vec3^);
+			MC::Vec3% get();
+			void set(MC::Vec3%);
 		}
 
-		property MC::Vec3^ FiringPos
+		property MC::Vec3 FiringPos
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
 		property bool IsFireImmune
@@ -447,19 +447,19 @@ namespace MC
 			bool get();
 		}
 
-		property MC::Vec3^ PosOld
+		property MC::Vec3 PosOld
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
-		property MC::Vec3^ RandomHeartPos
+		property MC::Vec3 RandomHeartPos
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
-		property MC::Vec3^ CalcCenterPos
+		property MC::Vec3 CalcCenterPos
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
 		property bool CanFly
@@ -636,15 +636,15 @@ namespace MC
 			MC::Player^ get();
 		}
 
-		property MC::Vec3^ PosDelta
+		property MC::Vec3% PosDelta
 		{
-			MC::Vec3^ get();
-			void set(MC::Vec3^);
+			MC::Vec3% get();
+			void set(MC::Vec3%);
 		}
 
-		property MC::Vec3^ PosDeltaNonConst
+		property MC::Vec3% PosDeltaNonConst
 		{
-			MC::Vec3^ get();
+			MC::Vec3% get();
 		}
 
 		property float Radius
@@ -1122,7 +1122,7 @@ namespace MC
 			MC::ActorUniqueID^ get();
 		}
 
-		bool Teleport(MC::Vec3^ to, int dimID, float x, float y);
+		bool Teleport(MC::Vec3 to, int dimID, float x, float y);
 
 		virtual void OutOfWorld();
 
@@ -1138,7 +1138,7 @@ namespace MC
 
 		//virtual void UnkVfn40();
 
-		virtual void TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3);
+		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3);
 
 		virtual void NormalTick();
 
@@ -1182,7 +1182,7 @@ namespace MC
 
 		virtual void OnFailedTame();
 
-		virtual void VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1);
+		virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1);
 
 		virtual void AnimateHurt();
 
@@ -1242,17 +1242,17 @@ namespace MC
 
 		virtual void Remove();
 
-		virtual MC::Vec3^ GetPosExtrapolated(float _0);
+		virtual MC::Vec3 GetPosExtrapolated(float _0);
 
-		virtual void SetRot(MC::Vec2& _0);
+		virtual void SetRot(MC::Vec2% _0);
 
-		virtual void Move(MC::Vec3^ _0);
+		virtual void Move(MC::Vec3 _0);
 
-		virtual MC::Vec3^ GetInterpolatedRidingPosition(float _0);
+		virtual MC::Vec3 GetInterpolatedRidingPosition(float _0);
 
 		virtual float GetInterpolatedWalkAnimSpeed(float _0);
 
-		virtual MC::Vec3^ GetInterpolatedRidingOffset(float _0);
+		virtual MC::Vec3 GetInterpolatedRidingOffset(float _0);
 
 		virtual void UpdateEntityInside();
 
@@ -1260,17 +1260,17 @@ namespace MC
 
 		virtual bool CanDisableShield();
 
-		virtual bool TryTeleportTo(MC::Vec3^ _0, bool _1, bool _2, int _3, int _4);
+		virtual bool TryTeleportTo(MC::Vec3 _0, bool _1, bool _2, int _3, int _4);
 
-		virtual void ChorusFruitTeleport(MC::Vec3^ _0);
+		virtual void ChorusFruitTeleport(MC::Vec3 _0);
 
-		virtual void LerpMotion(MC::Vec3^ _0);
+		virtual void LerpMotion(MC::Vec3 _0);
 
 		virtual void PositionPassenger(MC::Actor^ _0, float _1);
 
 		virtual void FlagPassengerToRemove(MC::Actor^ _0);
 
-		virtual bool Intersects(MC::Vec3^ _0, MC::Vec3^ _1);
+		virtual bool Intersects(MC::Vec3 _0, MC::Vec3 _1);
 
 		virtual bool CanShowNameTag();
 
@@ -1278,9 +1278,9 @@ namespace MC
 
 		virtual void ResetBlockMovementSlowdownMultiplier();
 
-		virtual MC::Vec3^ GetHeadLookVector(float _0);
+		virtual MC::Vec3 GetHeadLookVector(float _0);
 
-		virtual bool CanSee(MC::Vec3^ _0);
+		virtual bool CanSee(MC::Vec3 _0);
 
 		virtual bool CanSee(MC::Actor^ _0);
 
@@ -1382,7 +1382,7 @@ namespace MC
 
 		virtual void CheckInsideBlocks(float _0);
 
-		virtual void PushOutOfBlocks(MC::Vec3^ _0);
+		virtual void PushOutOfBlocks(MC::Vec3 _0);
 
 		virtual void DoWaterSplashEffect();
 
@@ -1402,7 +1402,7 @@ namespace MC
 
 		void BuildDebugGroupInfo(::System::String^ _0);
 
-		MC::Vec3^ BuildForward();
+		MC::Vec3 BuildForward();
 
 		void Burn(int _0, bool _1);
 
@@ -1436,11 +1436,11 @@ namespace MC
 
 		float DistanceTo(MC::Actor^ _0);
 
-		float DistanceTo(MC::Vec3^ _0);
+		float DistanceTo(MC::Vec3 _0);
 
 		float DistanceToSqr(MC::Actor^ _0);
 
-		float DistanceToSqr(MC::Vec3^ _0);
+		float DistanceToSqr(MC::Vec3 _0);
 
 		void DropLeash(bool _0, bool _1);
 
@@ -1448,9 +1448,9 @@ namespace MC
 
 		MC::MobEffectInstance^ GetEffect(MC::MobEffect^ _0);
 
-		bool GetFirstAvailableSeatPos(MC::Actor^ _0, MC::Vec3^ _1);
+		bool GetFirstAvailableSeatPos(MC::Actor^ _0, MC::Vec3 _1);
 
-		MC::Vec3^ GetInterpolatedPosition(float _0);
+		MC::Vec3 GetInterpolatedPosition(float _0);
 
 		MC::Vec2 GetInterpolatedRotation(float _0);
 
@@ -1458,7 +1458,7 @@ namespace MC
 
 		float GetSwimAmount(float _0);
 
-		MC::Vec3^ GetViewVector(float _0);
+		MC::Vec3 GetViewVector(float _0);
 
 		bool HasBeenHurtByMobInLastTicks(int _0);
 
@@ -1480,19 +1480,19 @@ namespace MC
 
 		bool IsRiding();
 
-		void LerpTo(MC::Vec3^ _0, MC::Vec2 _1, int _2);
+		void LerpTo(MC::Vec3 _0, MC::Vec2 _1, int _2);
 
-		void LerpTo(MC::Vec3^ _0, MC::Vec2 _1, float _2, int _3);
+		void LerpTo(MC::Vec3 _0, MC::Vec2 _1, float _2, int _3);
 
 		void LerpToRotation(MC::Vec2 _0, int _1);
 
 		void MigrateUniqueID(MC::ActorUniqueID^ _0);
 
-		void MoveBBs(MC::Vec3^ _0);
+		void MoveBBs(MC::Vec3 _0);
 
 		void MoveRelative(float _0, float _1, float _2, float _3);
 
-		void MoveTo(MC::Vec3^ _0, MC::Vec2 _1);
+		void MoveTo(MC::Vec3 _0, MC::Vec2 _1);
 
 		void OnAffectedByWaterBottle();
 
@@ -1552,13 +1552,13 @@ namespace MC
 
 		void SetInterpolation(bool _0);
 
-		void SetLastHitBB(MC::Vec3^ _0, MC::Vec3^ _1);
+		void SetLastHitBB(MC::Vec3 _0, MC::Vec3 _1);
 
 		void SetPersistent();
 
-		void SetPosDirectLegacy(MC::Vec3^ _0);
+		void SetPosDirectLegacy(MC::Vec3 _0);
 
-		void SetPreviousPosRot(MC::Vec3^ _0, MC::Vec2 _1);
+		void SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1);
 
 		void SetSaddle(bool _0);
 
@@ -1568,7 +1568,7 @@ namespace MC
 
 		void SetTempted(bool _0);
 
-		void SetVelocity(MC::Vec3^ _0);
+		void SetVelocity(MC::Vec3 _0);
 
 		bool ShouldUpdateEffects();
 
@@ -1580,7 +1580,7 @@ namespace MC
 
 		void SpawnTamingParticles(bool _0);
 
-		void TeleportPassengersTo(MC::Vec3^ _0, int _1, int _2);
+		void TeleportPassengersTo(MC::Vec3 _0, int _1, int _2);
 
 		//::System::Collections::Generic::List<MC::ItemDescriptor^>^ TryGetEquippableSlotAllowedItems(int _0);
 
@@ -1602,7 +1602,7 @@ namespace MC
 
 		static MC::Vec2 GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2);
 
-		static MC::Vec3^ GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2);
+		static MC::Vec3 GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2);
 
 		static property float DEFAULT_AMBIENT_SOUND_INTERVAL
 		{
@@ -1619,9 +1619,9 @@ namespace MC
 			float get();
 		}
 
-		static property MC::Vec3^ LAVA_AABB_SHRINK_AMOUNT
+		static property MC::Vec3 LAVA_AABB_SHRINK_AMOUNT
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
 		static property float LAVA_FLOW_STRENGTH_MULTIPLIER
@@ -1649,9 +1649,9 @@ namespace MC
 			int get();
 		}
 
-		static property MC::Vec3^ WATER_AABB_SHRINK_AMOUNT
+		static property MC::Vec3 WATER_AABB_SHRINK_AMOUNT
 		{
-			MC::Vec3^ get();
+			MC::Vec3 get();
 		}
 
 		static property float WATER_FLOW_STRENGTH_MULTIPLIER

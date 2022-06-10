@@ -52,8 +52,8 @@ namespace LLNET::RemoteCall {
 			: ClassTemplate(new _T(container->NativePtr), true)
 		{
 		}
-		Value(MC::Vec3^ vec3)
-			: ClassTemplate(new _T(*vec3->NativePtr), true)
+		Value(MC::Vec3 vec3)
+			: ClassTemplate(new _T(::Vec3(vec3)), true)
 		{
 		}
 		Value(MC::BlockPos^ blockPos)
@@ -204,11 +204,11 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsVec3([System::Runtime::InteropServices::Out] MC::Vec3^% v) {
-			v = nullptr;
+		bool AsVec3([System::Runtime::InteropServices::Out] MC::Vec3% v) {
+			v = MC::Vec3();
 			if (NativePtr->index() != (size_t)InstanceType::Vec3)
 				return false;
-			v = gcnew MC::Vec3(std::get<::Vec3>(*NativePtr));
+			v = MC::Vec3(std::get<::Vec3>(*NativePtr));
 			return true;
 		}
 
@@ -294,8 +294,8 @@ namespace LLNET::RemoteCall {
 			return this;
 		}
 
-		Value^ operator=(MC::Vec3^ vec3) {
-			*NativePtr = *vec3->NativePtr;
+		Value^ operator=(MC::Vec3 vec3) {
+			*NativePtr = vec3;
 			return this;
 		}
 
@@ -341,7 +341,7 @@ namespace LLNET::RemoteCall {
 		static operator Value ^ (MC::Container^ v) {
 			return gcnew Value(v);
 		}
-		static operator Value ^ (MC::Vec3^ v) {
+		static operator Value ^ (MC::Vec3 v) {
 			return gcnew Value(v);
 		}
 		static operator Value ^ (MC::BlockPos^ v) {
@@ -401,8 +401,8 @@ namespace LLNET::RemoteCall {
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;
 		}
-		static operator MC::Vec3 ^ (Value^ v) {
-			MC::Vec3^ ret;
+		static operator MC::Vec3 (Value^ v) {
+			MC::Vec3 ret;
 			if (!v->AsVec3(ret))
 				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			return ret;

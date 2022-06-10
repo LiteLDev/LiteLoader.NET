@@ -48,19 +48,19 @@ namespace MC
         return gcnew BlockPos(NativePtr->add(dx, dy, dz));
     }
 
-    inline Vec3^ BlockPos::ToVec3()
+    inline Vec3 BlockPos::ToVec3()
     {
-        return gcnew Vec3(NativePtr->toVec3());
+        return NativePtr->toVec3();
     }
 
-    inline Vec3^ BlockPos::BottomCenter()
+    inline Vec3 BlockPos::BottomCenter()
     {
-        return gcnew Vec3(NativePtr->bottomCenter());
+        return NativePtr->bottomCenter();
     }
 
-    inline Vec3^ BlockPos::Center()
+    inline Vec3 BlockPos::Center()
     {
-        return gcnew Vec3(NativePtr->center());
+        return NativePtr->center();
     }
 
     BlockPos^ BlockPos::Create()
@@ -73,7 +73,7 @@ namespace MC
         return gcnew BlockPos(::BlockPos(mx, my, mz));
     }
 
-    BlockPos^ BlockPos::Create(Vec3^ vec)
+    BlockPos^ BlockPos::Create(Vec3 vec)
     {
         return gcnew BlockPos(::BlockPos(vec));
     }
@@ -160,7 +160,7 @@ MC::BlockPos::BlockPos(MC::BlockPos^ _0)
     NativePtr = new class ::BlockPos(__arg0);
 }
 
-MC::BlockPos::operator MC::BlockPos ^ (MC::Vec3^ _0) {
+MC::BlockPos::operator MC::BlockPos ^ (MC::Vec3 _0) {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Vec3*)_0->NativePtr;

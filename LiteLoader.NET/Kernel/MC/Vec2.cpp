@@ -1,4 +1,5 @@
 #include "../../Header/MC/Vec2.hpp"
+
 //namespace MC
 //{
 //inline float Vec2::X::get()

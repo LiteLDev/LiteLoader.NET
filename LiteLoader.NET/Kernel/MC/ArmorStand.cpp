@@ -123,7 +123,7 @@ void MC::ArmorStand::OnFailedTame()
     ((class ::ArmorStand*)NativePtr)->onFailedTame();
 }
 
-void MC::ArmorStand::VehicleLanded(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
+void MC::ArmorStand::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");

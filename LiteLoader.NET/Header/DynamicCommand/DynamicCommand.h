@@ -109,7 +109,7 @@ namespace LLNET::DynamicCommand
 			List<MC::Actor^>^ AsActorList();
 			List<MC::Player^>^ AsPlayerList();
 			MC::BlockPos^ AsBlockPos();
-			MC::Vec3^ AsVec3();
+			MC::Vec3 AsVec3();
 			MC::CommandMessage^ AsCommandMessage();
 			String^ AsRawText();
 			String^ AsJsonValue();

@@ -8,7 +8,7 @@ namespace MC
 	ref class Certificate;
 	ref struct ScorePacketInfo;
 	ref class BlockPos;
-	ref class Vec3;
+	value class Vec3;
 	ref class Mob;
 	ref class Container;
 	ref class ItemStack;
@@ -103,8 +103,8 @@ namespace MC
 		inline bool SendTitlePacket(String^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
 		inline bool SendNotePacket(unsigned int tone);
 		/// <param name="EntityUniqueID">:default = -1</param>
-		inline bool SendSpawnParticleEffectPacket(Vec3^ spawnPos, int dimid, String^ ParticleName, int64_t EntityUniqueID);
-		/*bad*/ inline bool SendPlaySoundPacket(String^ SoundName, Vec3^ Position, float Volume, float Pitch);
+		inline bool SendSpawnParticleEffectPacket(Vec3 spawnPos, int dimid, String^ ParticleName, int64_t EntityUniqueID);
+		/*bad*/ inline bool SendPlaySoundPacket(String^ SoundName, Vec3 Position, float Volume, float Pitch);
 
 
 		inline bool SendTransferPacket(String^ address, short port);
@@ -414,11 +414,11 @@ namespace MC
 
 		virtual bool isRuntimePredictedMovementEnabled();
 
-		virtual void Move(MC::Vec3^ _0) override;
+		virtual void Move(MC::Vec3 _0) override;
 
 		//virtual void UnkVfn40() override;
 
-		virtual void TeleportTo(MC::Vec3^ _0, bool _1, int _2, int _3) override;
+		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3) override;
 
 		virtual void NormalTick() override;
 
@@ -472,7 +472,7 @@ namespace MC
 
 		virtual bool isJumping();
 
-		virtual void VehicleLanded(MC::Vec3^ _0, MC::Vec3^ _1) override;
+		virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1) override;
 
 		virtual void Feed(int _0) override;
 
@@ -612,7 +612,7 @@ namespace MC
 
 		virtual void MoveView();
 
-		virtual void CheckMovementStats(MC::Vec3^ _0);
+		virtual void CheckMovementStats(MC::Vec3 _0);
 
 		//virtual void UnkVfn374();
 
@@ -690,9 +690,9 @@ namespace MC
 
 		//virtual void UnkVfn441();
 
-		virtual void OnMovePlayerPacketNormal(MC::Vec3^ _0, MC::Vec2 _1, float _2);
+		virtual void OnMovePlayerPacketNormal(MC::Vec3 _0, MC::Vec2 _1, float _2);
 
-		void ApplyExhaustion(MC::Vec3^ _0);
+		void ApplyExhaustion(MC::Vec3 _0);
 
 		bool CanBeSeenOnMap();
 
@@ -704,13 +704,13 @@ namespace MC
 
 		void Eat(int _0, float _1);
 
-		MC::Vec3^ GetCapePos(float _0);
+		MC::Vec3 GetCapePos(float _0);
 
 		void GetNewEnchantmentSeed();
 
 		bool HasOpenContainerOfContainerType(MC::ContainerType _0);
 
-		bool Interact(MC::Actor^ _0, MC::Vec3^ _1);
+		bool Interact(MC::Actor^ _0, MC::Vec3 _1);
 
 		bool IsHiddenFrom(MC::Mob^ _0);
 
@@ -734,11 +734,11 @@ namespace MC
 
 		void SetRespawnPositionCandidate();
 
-		void SetRespawnReady(MC::Vec3^ _0);
+		void SetRespawnReady(MC::Vec3 _0);
 
 		bool ShouldShowCredits();
 
-		void SpawnExperienceOrb(MC::Vec3^ _0, int _1);
+		void SpawnExperienceOrb(MC::Vec3 _0, int _1);
 
 		void StartGliding();
 

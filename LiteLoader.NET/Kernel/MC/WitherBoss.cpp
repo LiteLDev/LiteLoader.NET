@@ -19,7 +19,7 @@ bool MC::WitherBoss::isRuntimePredictedMovementEnabled()
     return __ret;
 }
 
-MC::Vec3 ^ MC::WitherBoss::GetFiringPos()
+MC::Vec3 MC::WitherBoss::GetFiringPos()
 {
     auto __ret = ((class ::WitherBoss*)NativePtr)->getFiringPos();
     auto ____ret = new class ::Vec3(__ret);
@@ -50,7 +50,7 @@ void MC::WitherBoss::UnkVfn68()
     ((class ::WitherBoss*)NativePtr)->__unk_vfn_68();
 }
 
-void MC::WitherBoss::SetBlockMovementSlowdownMultiplier(MC::Vec3 ^ _0)
+void MC::WitherBoss::SetBlockMovementSlowdownMultiplier(MC::Vec3 _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -128,7 +128,7 @@ void MC::WitherBoss::OnFailedTame()
     ((class ::WitherBoss*)NativePtr)->onFailedTame();
 }
 
-void MC::WitherBoss::VehicleLanded(MC::Vec3 ^ _0, MC::Vec3 ^ _1)
+void MC::WitherBoss::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -369,7 +369,7 @@ void MC::WitherBoss::AwardSpawnWitherAchievement()
     ((class ::WitherBoss*)NativePtr)->awardSpawnWitherAchievement();
 }
 
-MC::Vec3 ^ MC::WitherBoss::GetHeadPos(int _0)
+MC::Vec3 MC::WitherBoss::GetHeadPos(int _0)
 {
     auto __ret = ((class ::WitherBoss*)NativePtr)->getHeadPos(_0);
     auto ____ret = new class ::Vec3(__ret);

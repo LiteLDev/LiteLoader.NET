@@ -160,8 +160,8 @@ namespace LLNET::RemoteCall {
 			:ClassTemplate(new _T(v->NativePtr), true)
 		{
 		}
-		Valuetype(MC::Vec3^ v)
-			:ClassTemplate(new _T(*v->NativePtr), true)
+		Valuetype(MC::Vec3 v)
+			:ClassTemplate(new _T(::Vec3(v)), true)
 		{
 		}
 		Valuetype(MC::BlockPos^ v)
@@ -286,7 +286,18 @@ namespace LLNET::RemoteCall {
 		ctor_List_RefType_Ptr(MC::BlockActor^);
 		ctor_List_RefType_Ptr(MC::Container^);
 
-		ctor_List_RefType_Instance(MC::Vec3^);
+		Valuetype(List<MC::Vec3>^ v)
+		{
+			auto len = v->Count;
+			std::vector<_T> vec;
+			for (int i = 0; i < len; i++)
+			{
+				vec.emplace_back(::Vec3(v[i]));
+			}
+			NativePtr = new _T(std::move(vec));
+			OwnsNativeInstance = true;
+		};
+
 		ctor_List_RefType_Instance(MC::BlockPos^);
 		ctor_List_RefType_Instance(ItemType^);
 		ctor_List_RefType_Instance(BlockType^);
@@ -314,7 +325,7 @@ namespace LLNET::RemoteCall {
 		List_Type2Valuetype(MC::Actor^);
 		List_Type2Valuetype(MC::BlockActor^);
 		List_Type2Valuetype(MC::Container^);
-		List_Type2Valuetype(MC::Vec3^);
+		List_Type2Valuetype(MC::Vec3);
 		List_Type2Valuetype(MC::BlockPos^);
 		List_Type2Valuetype(ItemType^);
 		List_Type2Valuetype(BlockType^);
@@ -332,7 +343,11 @@ namespace LLNET::RemoteCall {
 		ElementType2Valuetype_Implicit(MC::Actor^);
 		ElementType2Valuetype_Implicit(MC::BlockActor^);
 		ElementType2Valuetype_Implicit(MC::Container^);
-		ElementType2Valuetype_Implicit(MC::Vec3^);
+
+		static operator Valuetype ^ (MC::Vec3 v) {
+				return gcnew Valuetype(v);			
+		}
+
 		ElementType2Valuetype_Implicit(MC::BlockPos^);
 		ElementType2Valuetype_Implicit(ItemType^);
 		ElementType2Valuetype_Implicit(BlockType^);
@@ -370,7 +385,7 @@ namespace LLNET::RemoteCall {
 		Valuetype2ElementType_Implicit(MC::Actor^);
 		Valuetype2ElementType_Implicit(MC::BlockActor^);
 		Valuetype2ElementType_Implicit(MC::Container^);
-		Valuetype2ElementType_Implicit(MC::Vec3^);
+		Valuetype2ElementType_Implicit(MC::Vec3);
 		Valuetype2ElementType_Implicit(MC::BlockPos^);
 		Valuetype2ElementType_Implicit(ItemType^);
 		Valuetype2ElementType_Implicit(BlockType^);
@@ -410,7 +425,7 @@ namespace LLNET::RemoteCall {
 		Valuetype2List_Implicit(MC::Actor^);
 		Valuetype2List_Implicit(MC::BlockActor^);
 		Valuetype2List_Implicit(MC::Container^);
-		Valuetype2List_Implicit(MC::Vec3^);
+		Valuetype2List_Implicit(MC::Vec3);
 		Valuetype2List_Implicit(MC::BlockPos^);
 		Valuetype2List_Implicit(ItemType^);
 		Valuetype2List_Implicit(BlockType^);
@@ -510,7 +525,18 @@ namespace LLNET::RemoteCall {
 		ctor_Dictionary_RefType_Ptr(MC::BlockActor^);
 		ctor_Dictionary_RefType_Ptr(MC::Container^);
 
-		ctor_Dictionary_RefType_Instance(MC::Vec3^);
+		Valuetype(Dictionary<String^, MC::Vec3>^ v)
+		{
+			auto len = v->Count;
+			::RemoteCall::ValueType::ObjectType umap;
+			for each (auto var in v)
+			{
+				umap.emplace(marshalString(var.Key), ::Vec3(var.Value));
+			}
+			NativePtr = new _T(std::move(umap));
+			OwnsNativeInstance = true;
+		};
+
 		ctor_Dictionary_RefType_Instance(MC::BlockPos^);
 		ctor_Dictionary_RefType_Instance(ItemType^);
 		ctor_Dictionary_RefType_Instance(BlockType^);
@@ -539,7 +565,7 @@ namespace LLNET::RemoteCall {
 		Dictionary_Type2Valuetype(MC::Actor^);
 		Dictionary_Type2Valuetype(MC::BlockActor^);
 		Dictionary_Type2Valuetype(MC::Container^);
-		Dictionary_Type2Valuetype(MC::Vec3^);
+		Dictionary_Type2Valuetype(MC::Vec3);
 		Dictionary_Type2Valuetype(MC::BlockPos^);
 		Dictionary_Type2Valuetype(ItemType^);
 		Dictionary_Type2Valuetype(BlockType^);
@@ -592,7 +618,15 @@ namespace LLNET::RemoteCall {
 			return ret;																										\
 		};
 
-		Valuetype2Dictionary_InstanceType(MC::Vec3, ::Vec3);
+		static operator Dictionary<String^, MC::Vec3> ^ (Valuetype^ v) {
+			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(v->NativePtr->value);
+			auto ret = gcnew Dictionary<String^, MC::Vec3>((int)umap.size());
+			for (auto& [k, _v] : umap) {
+				ret->Add(marshalString(k), MC::Vec3(std::get<::Vec3>(std::get<::RemoteCall::Value>(_v.value))));
+			}
+			return ret;
+		};
+
 		Valuetype2Dictionary_InstanceType(MC::BlockPos, ::BlockPos);
 		Valuetype2Dictionary_InstanceType(ItemType, ::RemoteCall::ItemType);
 		Valuetype2Dictionary_InstanceType(BlockType, ::RemoteCall::BlockType);

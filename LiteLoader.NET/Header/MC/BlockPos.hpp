@@ -5,7 +5,7 @@
 
 namespace MC
 {
-    ref class Vec3;
+    value class Vec3;
 }
 
 namespace MC
@@ -19,7 +19,7 @@ namespace MC
 
         static BlockPos^ Create();
         static BlockPos^ Create(int mx, int my, int mz);
-        static BlockPos^ Create(Vec3^ vec);
+        static BlockPos^ Create(Vec3 vec);
         static BlockPos^ Create(float f1, float f2, float f3);
         // static BlockPos ^ Create(double d1, double d2, double d3);
 
@@ -27,9 +27,9 @@ namespace MC
         inline BlockPos^ Add(int dx);
         inline BlockPos^ Add(int dx, int dy);
         inline BlockPos^ Add(int dx, int dy, int dz);
-        inline Vec3^ ToVec3();
-        inline Vec3^ BottomCenter();
-        inline Vec3^ Center();
+        inline Vec3 ToVec3();
+        inline Vec3 BottomCenter();
+        inline Vec3 Center();
 
         static bool operator==(BlockPos^ a, BlockPos^ b);
         static bool operator!=(BlockPos^ a, BlockPos^ b);
@@ -83,7 +83,7 @@ namespace MC
 
         MC::BlockPos^ Relative(unsigned char _0, int _1);
 
-        static operator MC::BlockPos ^ (MC::Vec3^ _0);
+        static operator MC::BlockPos ^ (MC::Vec3 _0);
 
         static void BindType();
 

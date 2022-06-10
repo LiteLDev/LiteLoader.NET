@@ -4,20 +4,20 @@
 
 namespace MC {
 
-	Vec3^ AABB::PointA::get() {
-		return gcnew Vec3(NativePtr->pointA);
+	Vec3 AABB::PointA::get() {
+		return NativePtr->pointA;
 	}
 
-	Vec3^ AABB::PointB::get() {
-		return gcnew Vec3(NativePtr->pointB);
+	Vec3 AABB::PointB::get() {
+		return NativePtr->pointB;
 	}
 
-	AABB::AABB(Vec3^ v1, Vec3^ v2)
+	AABB::AABB(Vec3 v1, Vec3 v2)
 		:ClassTemplate(::AABB(v1, v2))
 	{
 	}
 
-	AABB::AABB(Vec3^ vec, float f)
+	AABB::AABB(Vec3 vec, float f)
 		:ClassTemplate(::AABB(vec, f))
 	{
 	}
@@ -27,23 +27,23 @@ namespace MC {
 	{
 	}
 
-	Vec3^ AABB::AxisInside(AABB^ aabb, Vec3^ vec)
+	Vec3 AABB::AxisInside(AABB^ aabb, Vec3 vec)
 	{
-		return gcnew Vec3(NativePtr->axisInside(aabb, *vec->NativePtr));
+		return NativePtr->axisInside(aabb, vec);
 	}
 
-	HitResult^ AABB::Clip(Vec3^ v1, Vec3^ v2)
+	HitResult^ AABB::Clip(Vec3 v1, Vec3 v2)
 	{
 		return gcnew HitResult(NativePtr->clip(v1, v2));
 	}
 
-	Vec3^ AABB::ClipCollide(AABB^ aabb, Vec3^ vec, bool b, float% f)
+	Vec3 AABB::ClipCollide(AABB^ aabb, Vec3 vec, bool b, float% f)
 	{
 		pin_ptr<float> p = &f;
-		return gcnew Vec3(NativePtr->clipCollide(aabb, vec, b, p));
+		return NativePtr->clipCollide(aabb, vec, b, p);
 	}
 
-	AABB^ AABB::CloneAndExpandAlongDirection(Vec3^ vec)
+	AABB^ AABB::CloneAndExpandAlongDirection(Vec3 vec)
 	{
 		return gcnew AABB(NativePtr->cloneAndExpandAlongDirection(vec));
 	}
@@ -58,12 +58,12 @@ namespace MC {
 		return gcnew AABB(NativePtr->cloneAndFloorMinAndCeilingMax());
 	}
 
-	AABB^ AABB::CloneAndGrow(Vec3^ vec)
+	AABB^ AABB::CloneAndGrow(Vec3 vec)
 	{
 		return gcnew AABB(NativePtr->cloneAndGrow(vec));
 	}
 
-	AABB^ AABB::CloneAndShrink(Vec3^ vec)
+	AABB^ AABB::CloneAndShrink(Vec3 vec)
 	{
 		return gcnew AABB(NativePtr->cloneAndShrink(vec));
 	}
@@ -73,7 +73,7 @@ namespace MC {
 		return NativePtr->contains(aabb);
 	}
 
-	bool AABB::Contains(Vec3^ vec)
+	bool AABB::Contains(Vec3 vec)
 	{
 		return NativePtr->contains(vec);
 	}
@@ -83,14 +83,14 @@ namespace MC {
 		return NativePtr->distanceTo(aabb);
 	}
 
-	float AABB::DistanceTo(Vec3^ vec)
+	float AABB::DistanceTo(Vec3 vec)
 	{
 		return NativePtr->distanceTo(vec);
 	}
 
-	bool AABB::IntersectSegment(Vec3^ v1, Vec3^ v2, Vec3^ v3, Vec3^ v4)
+	bool AABB::IntersectSegment(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4)
 	{
-		return NativePtr->intersectSegment(v1, v2, v3, v4);
+		return NativePtr->intersectSegment(v1, v2, ::Vec3(v3), ::Vec3(v4));
 	}
 
 	bool AABB::Intersects(AABB^ aabb)
@@ -98,7 +98,7 @@ namespace MC {
 		return NativePtr->intersects(aabb);
 	}
 
-	bool AABB::Intersects(Vec3^ v1, Vec3^ v2)
+	bool AABB::Intersects(Vec3 v1, Vec3 v2)
 	{
 		return NativePtr->intersects(v1, v2);
 	}
@@ -118,17 +118,17 @@ namespace MC {
 		return gcnew AABB(NativePtr->set(aabb));
 	}
 
-	AABB^ AABB::Set(Vec3^ v1, Vec3^ v2)
+	AABB^ AABB::Set(Vec3 v1, Vec3 v2)
 	{
 		return gcnew AABB(NativePtr->set(v1, v2));
 	}
 
-	AABB^ AABB::Shrink(Vec3^ vec)
+	AABB^ AABB::Shrink(Vec3 vec)
 	{
 		return gcnew AABB(NativePtr->shrink(vec));
 	}
 
-	AABB^ AABB::TranslateCenterTo(Vec3^ vec)
+	AABB^ AABB::TranslateCenterTo(Vec3 vec)
 	{
 		return gcnew AABB(NativePtr->translateCenterTo(vec));
 	}
@@ -143,12 +143,12 @@ namespace MC {
 		return *a->NativePtr == *b->NativePtr;
 	}
 
-	Vec3^ AABB::Bounds::get() {
-		return gcnew Vec3(NativePtr->getBounds());
+	Vec3 AABB::Bounds::get() {
+		return NativePtr->getBounds();
 	}
 
-	Vec3^ AABB::Center::get() {
-		return gcnew Vec3(NativePtr->getCenter());
+	Vec3 AABB::Center::get() {
+		return NativePtr->getCenter();
 	}
 
 	float AABB::Size::get() {

@@ -14,7 +14,7 @@ void MC::Dimension::AddWither(MC::ActorUniqueID ^ _0)
     ((class ::Dimension*)NativePtr)->addWither(__arg0);
 }
 
-float MC::Dimension::DistanceToNearestPlayerSqr2D(MC::Vec3 ^ _0)
+float MC::Dimension::DistanceToNearestPlayerSqr2D(MC::Vec3 _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");

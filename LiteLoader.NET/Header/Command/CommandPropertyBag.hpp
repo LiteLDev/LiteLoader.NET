@@ -4,7 +4,7 @@
 
 namespace MC
 {
-ref class Vec3;
+value class Vec3;
 }
 
 namespace MC
@@ -17,6 +17,6 @@ public:
 
     inline void AddToResultList(String^ str0, String^ str1);
     inline void Set(String^ str, BlockPos ^ bp);
-    inline void Set(String^ str, Vec3 ^ bp);
+    inline void Set(String^ str, Vec3 bp);
 };
 } // namespace MC

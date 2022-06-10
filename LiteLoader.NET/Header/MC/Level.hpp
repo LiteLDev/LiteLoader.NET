@@ -9,7 +9,7 @@ ref class BlockPalette;
 ref class ActorDamageSource;
 ref class Packet;
 ref class ItemStack;
-ref class Vec3;
+value class Vec3;
 ref class Block;
 ref class BlockSource;
 ref class BlockInstance;
@@ -50,12 +50,12 @@ public:
     inline static Actor ^ GetEntity(ActorUniqueID ^ id);
     inline static List<Actor ^> ^ GetAllEntities(int dimId);
     inline static List<Actor ^> ^ GetAllEntities();
-    inline static Actor ^ SpawnMob(Vec3 ^ pos, int dimId, String ^ typeName);
-    inline static Actor ^ SpawnItem(Vec3 ^ pos, int dimId, ItemStack ^ item);
-    inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);
-    inline static bool CreateExplosion(Vec3 ^ pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak);
+    inline static Actor ^ SpawnMob(Vec3 pos, int dimId, String ^ typeName);
+    inline static Actor ^ SpawnItem(Vec3 pos, int dimId, ItemStack ^ item);
+    inline static bool CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);
+    inline static bool CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak);
     inline static MapItemSavedData ^ GetMapSavedData(ActorUniqueID ^ a0);
-    inline static Actor^ CloneMob(Vec3^ pos, int dimid, Actor^ ac);
+    inline static Actor^ CloneMob(Vec3 pos, int dimid, Actor^ ac);
 
     // Block
     inline static Block ^ GetBlock(BlockPos ^ pos, int dimId);
@@ -71,10 +71,10 @@ public:
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool);
     inline static bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
-    inline static void SpawnParticleEffect(String ^ type, Vec3 ^ pos, Dimension ^ a2);
-    //inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 ^ a2);
-    inline static bool HasContainer(Vec3 ^ pos, int dim);
-    inline static Container ^ GetContainer(Vec3 ^ pos, int dim);
+    inline static void SpawnParticleEffect(String ^ type, Vec3 pos, Dimension ^ a2);
+    //inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 a2);
+    inline static bool HasContainer(Vec3 pos, int dim);
+    inline static Container ^ GetContainer(Vec3 pos, int dim);
 
     // Item
     inline static ItemStack ^ GetItemStackFromId(short itemId, int aux);

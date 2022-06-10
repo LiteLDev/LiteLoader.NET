@@ -539,7 +539,7 @@ Class PlayerMoveEvent
 
 public:
     Property_Ptr(MC, Player, mPlayer, Player);
-    Property_Instance(MC, Vec3, mPos, Pos);
+    Property_ValueType(MC, Vec3, mPos, Pos);
 };
 
 Class PlayerSprintEvent
@@ -707,7 +707,7 @@ Class HopperSearchItemEvent
 public:
     Property(int, isMinecart, isMinecart);
     Property_Instance(MC, BlockInstance, mHopperBlock, HopperBlock);
-    Property_Instance(MC, Vec3, mMinecartPos, MinecartPos);
+    Property_ValueType(MC, Vec3, mMinecartPos, MinecartPos);
     Property(int, mDimensionId, DimensionId);
 };
 
@@ -796,7 +796,7 @@ Class EntityExplodeEvent
 
 public:
     Property_Ptr(MC, Actor, mActor, Actor);
-    Property_Instance(MC, Vec3, mPos, Pos);
+    Property_ValueType(MC, Vec3, mPos, Pos);
     Property_Ptr(MC, BlockSource, mDimension, Dimension);
     Property(float, mRadius, Radius);
     Property(float, mMaxResistance, MaxResistance);
@@ -995,7 +995,7 @@ Class MobSpawnEvent
 
 public:
     Property_String(mTypeName, TypeName);
-    Property_Instance(MC, Vec3, mPos, Pos);
+    Property_ValueType(MC, Vec3, mPos, Pos);
     Property(int, mDimensionId, DimensionId);
 };
 

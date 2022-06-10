@@ -48,14 +48,14 @@ namespace MC
 		return NativePtr->getSize();
 	}
 
-	inline bool Container::HasContainer(Vec3^ pos, int dim)
+	inline bool Container::HasContainer(Vec3 pos, int dim)
 	{
-		return NativePtr->hasContainer(pos, dim);
+		return NativePtr->hasContainer(::Vec3(pos), dim);
 	}
 
-	inline Container^ Container::GetContainerAt(Vec3^ pos, int dim)
+	inline Container^ Container::GetContainerAt(Vec3 pos, int dim)
 	{
-		return gcnew Container(NativePtr->getContainerAt(pos, dim));
+		return gcnew Container(NativePtr->getContainerAt(::Vec3(pos), dim));
 	}
 } // namespace MC
 

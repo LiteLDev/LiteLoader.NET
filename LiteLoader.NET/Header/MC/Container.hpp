@@ -5,7 +5,7 @@
 namespace MC
 {
 	ref class ItemStack;
-	ref class Vec3;
+	value class Vec3;
 }
 
 namespace MC
@@ -23,8 +23,8 @@ namespace MC
 		inline ItemStack^ GetSlot(int slot);
 		List<ItemStack^>^ GetAllSlots();
 		inline int GetSize();
-		inline bool HasContainer(Vec3^ pos, int dim);
-		inline Container^ GetContainerAt(Vec3^ pos, int dim);
+		inline bool HasContainer(Vec3 pos, int dim);
+		inline Container^ GetContainerAt(Vec3 pos, int dim);
 
 #ifdef MANUAL_MAINTENANCE
 

@@ -6,7 +6,7 @@ namespace MC
 {
 ref class Dimension;
 ref class BlockActor;
-ref class Vec3;
+value class Vec3;
 ref class BlockInstance;
 generic<typename A, typename T> ref class AutomaticID;
 } // namespace MC
@@ -107,9 +107,9 @@ public:
 
     MC::BlockPos ^ GetHeightmapPos(MC::BlockPos ^ _0);
 
-    float GetSeenPercent(MC::Vec3 ^ _0, MC::AABB ^ _1);
+    float GetSeenPercent(MC::Vec3 _0, MC::AABB ^ _1);
 
-    float GetVisualLiquidHeight(MC::Vec3 ^ _0);
+    float GetVisualLiquidHeight(MC::Vec3 _0);
 
     bool HasBorderBlock(MC::BlockPos ^ _0);
 
@@ -129,7 +129,7 @@ public:
 
     bool IsEmptyWaterBlock(MC::BlockPos ^ _0);
 
-    bool IsInWall(MC::Vec3 ^ _0);
+    bool IsInWall(MC::Vec3 _0);
 
     bool IsInstaticking(MC::BlockPos ^ _0);
 

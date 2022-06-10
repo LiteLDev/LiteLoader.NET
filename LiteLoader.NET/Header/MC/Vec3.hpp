@@ -1,142 +1,202 @@
 #pragma once
+#include <MC/Vec3.hpp>
 #include "Types.hpp"
-#include "BlockPos.hpp"
+#include "Vec2.hpp"
 
-namespace MC
-{
-ref class BlockPos;
-value class Vec2;
-} // namespace MC
+namespace MC {
+	ref class BlockPos;
+}
 
-namespace MC
-{
-public
-ref class Vec3 : ClassTemplate<Vec3, ::Vec3>
-{
-public:
-    __ctor_all(Vec3, ::Vec3);
+namespace MC {
+	[StructLayout(LayoutKind::Sequential, Size = sizeof(::Vec3))]
+	public value class Vec3 {
+	internal:
+		operator ::Vec3() { return { x,y,z }; }
+		static operator Vec3(::Vec3 const& obj) { return Vec3(obj.x, obj.y, obj.z); }
+		Vec3(::Vec3&& vec) :x(vec.x), y(vec.y), z(vec.z) {}
+		Vec3(::Vec3 const& vec) :x(vec.x), y(vec.y), z(vec.z) {}
+	public:
+		float x, y, z;
 
-    property float X
-    {
-        inline float get();
-        inline void set(float mx);
-    }
-    property float Y
-    {
-        inline float get();
-        inline void set(float my);
-    }
-    property float Z
-    {
-        inline float get();
-        inline void set(float mz);
-    }
-    inline static Vec3 ^ Create();
-    inline static Vec3 ^ Create(float _x, float _y, float _z);
-    inline static Vec3 ^ Create(BlockPos ^ pos);
-    inline static Vec3 ^ Create(double _x, double _y, double _z);
-    inline static Vec3 ^ Create(int _x, int _y, int _z);
+		property float X {
+			float get() { return x; }
+			void set(float x) { this->x = x; }
+		}
 
-    inline String ^ ToString() override;
-    inline BlockPos ^ ToBlockPos();
-    inline float Length();
-    inline float DistanceTo(Vec3 ^ vec3);
-    inline Vec3 ^ Add(float dx, float dy, float dz);
-    inline Vec3 ^ Normalize();
-    static Vec3 ^ operator*(Vec3 ^ a, float num);
-    static Vec3 ^ operator+(Vec3 ^ a, Vec3 ^ b);
-    static Vec3 ^ operator-(Vec3 ^ a, Vec3 ^ b);
-    static bool operator==(Vec3 ^ a, Vec3 ^ b);
+		property float Y {
+			float get() { return y; }
+			void set(float y) { this->y = y; }
+		}
 
-#ifdef INCLUDE_MCAPI
+		property float Z {
+			float get() { return z; }
+			void set(float z) { this->z = z; }
+		}
+	public:
+		inline Vec3(float x, float y, float z)
+			:x(x), y(y), z(z) {}
 
-    Vec3(MC::Vec3 ^ _0);
+		inline Vec3(double x, double y, double z)
+			: x((float)x), y((float)y), z((float)z) {}
 
+		inline Vec3(int x, int y, int z)
+			: x((float)x), y((float)y), z((float)z) {}
 
-    property MC::Vec3 ^ Abs {
-        MC::Vec3 ^ get();
-    };
+		inline Vec3(BlockPos^ pos);
 
-    property bool IsNan
-    {
-        bool get();
-    }
+		Vec3 Abs() {
+			pin_ptr<Vec3> p = this;
+			return ((::Vec3*)p)->abs();
+		}
 
-    property float MaxComponent
-    {
-        float get();
-    }
+		Vec3 Ceil() {
+			pin_ptr<Vec3> p = this;
+			return ((::Vec3*)p)->ceil();
+		}
 
-    property MC::Vec3 ^ Normalized {
-        MC::Vec3 ^ get();
-    };
+		float DistanceToLineSquared(Vec3% a, Vec3% b) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pa = &a;
+			pin_ptr<Vec3> pb = &b;
 
-    property MC::Vec3 ^ Xz {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->distanceToLineSquared(*(::Vec3*)pa, *(::Vec3*)pb);
+		}
 
-    MC::Vec3 ^ Ceil();
+		float DistanceToSqr(Vec3% obj) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pobj = &obj;
 
-    float DistanceToLineSquared(MC::Vec3 ^ _0, MC::Vec3 ^ _1);
+			return ((::Vec3*)p)->distanceToSqr(*(::Vec3*)pobj);
+		}
 
-    float DistanceToSqr(MC::Vec3 ^ _0);
+		Vec3 Floor(float num) {
+			pin_ptr<Vec3> p = this;
 
-    MC::Vec3 ^ Floor(float _0);
+			return ((::Vec3*)p)->floor(num);
+		}
 
-    static MC::Vec3 ^ Clamp(MC::Vec3 ^ _0, MC::Vec3 ^ _1, MC::Vec3 ^ _2);
+		property bool IsNan {
+			bool get() {
+				pin_ptr<Vec3> p = this;
 
-    static MC::Vec3 ^ DirectionFromRotation(MC::Vec2 ^ _0);
+				return ((::Vec3*)p)->isNan();
+			}
+		}
 
-    static MC::Vec2 ^ RotationFromDirection(MC::Vec3 ^ _0);
+		//bool IsNear(Vec3% obj, float num) {
+		//	pin_ptr<Vec3> p = this;
+		//	pin_ptr<Vec3> pobj = &obj;
 
-    static property MC::Vec3 ^ HALF {
-        MC::Vec3 ^ get();
-    };
+		//	return ((::Vec3*)p)->isNear(*(::Vec3*)pobj, num);
+		//}
 
-    static property MC::Vec3 ^ MAX {
-        MC::Vec3 ^ get();
-    };
+		float MaxComponent() {
+			pin_ptr<Vec3> p = this;
 
-    static property MC::Vec3 ^ MIN {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->maxComponent();
+		}
 
-    static property MC::Vec3 ^ NEG_UNIT_X {
-        MC::Vec3 ^ get();
-    };
+		Vec3 Normalized() {
+			pin_ptr<Vec3> p = this;
 
-    static property MC::Vec3 ^ NEG_UNIT_Y {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->normalized();
+		}
 
-    static property MC::Vec3 ^ NEG_UNIT_Z {
-        MC::Vec3 ^ get();
-    };
+		Vec3 XZ() {
+			pin_ptr<Vec3> p = this;
 
-    static property MC::Vec3 ^ ONE {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->xz();
+		}
 
-    static property MC::Vec3 ^ TWO {
-        MC::Vec3 ^ get();
-    };
+		static property Vec3 const HALF { inline Vec3 const get() { return ::Vec3::HALF; }}
+		static property Vec3 const MAX {inline Vec3 const get() { return ::Vec3::MAX; }}
+		static property Vec3 const MIN {inline Vec3 const get() { return ::Vec3::MIN; }}
+		static property Vec3 const NEG_UNIT_X {inline Vec3 const get() { return ::Vec3::NEG_UNIT_X; }}
+		static property Vec3 const LOWESNEG_UNIT_YT {inline Vec3 const get() { return ::Vec3::NEG_UNIT_Y; }}
+		static property Vec3 const ONE {inline Vec3 const get() { return ::Vec3::ONE; }}
+		static property Vec3 const UNIT_X {inline Vec3 const get() { return ::Vec3::UNIT_X; }}
+		static property Vec3 const UNIT_Y {inline Vec3 const get() { return ::Vec3::UNIT_Y; }}
+		static property Vec3 const ZERO {inline Vec3 const get() { return ::Vec3::ZERO; }}
 
-    static property MC::Vec3 ^ UNIT_X {
-        MC::Vec3 ^ get();
-    };
+		Vec3 Clamp(Vec3% a, Vec3% b, Vec3% c) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pa = &a;
+			pin_ptr<Vec3> pb = &b;
+			pin_ptr<Vec3> pc = &c;
 
-    static property MC::Vec3 ^ UNIT_Y {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->clamp(*(::Vec3*)pa, *(::Vec3*)pb, *(::Vec3*)pc);
+		}
 
-    static property MC::Vec3 ^ UNIT_Z {
-        MC::Vec3 ^ get();
-    };
+		Vec3 DirectionFromRotation(Vec2% obj) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec2> pobj = &obj;
 
-    static property MC::Vec3 ^ ZERO {
-        MC::Vec3 ^ get();
-    };
+			return ((::Vec3*)p)->directionFromRotation(*(::Vec2*)pobj);
+		}
 
-#endif // INCLUDE_MCAPI
-};
-} // namespace MC
+		Vec2 RotationFromDirection(Vec3% obj) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pobj = &obj;
+
+			return ((::Vec3*)p)->rotationFromDirection(*(::Vec3*)pobj);
+		}
+
+		BlockPos^ ToBlockPos();
+
+		property float Length {
+			inline float get() {
+				pin_ptr<Vec3> p = this;
+
+				return ((::Vec3*)p)->length();
+			}
+		}
+
+		float DistanceTo(Vec3% obj) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pobj = &obj;
+
+			return ((::Vec3*)p)->distanceTo(*(::Vec3*)pobj);
+		}
+
+		inline Vec3 Add(float dx, float dy, float dz) {
+			return Vec3{ x + dx, y + dy, z + dz };
+		}
+
+		inline Vec3 Normalize() {
+			float l = Length;
+			return Vec3{ x / l, y / l, z / l };
+		}
+
+		static bool operator==(Vec3% a, Vec3% b) {
+			return a.x == b.x && a.y == b.y && a.z == b.z;
+		}
+
+		static bool operator!=(Vec3% a, Vec3% b) {
+			return a.x != b.x || a.y != b.y || a.z != b.z;
+		}
+
+		static Vec3 operator*(Vec3% obj, float b) {
+			return Vec3{ obj.x * b, obj.y * b, obj.z * b };
+		}
+
+		static Vec3 operator/(Vec3% obj, float b) {
+			return Vec3{ obj.x / b, obj.y / b, obj.z / b };
+		}
+
+		static Vec3 operator+(Vec3% obj, float b) {
+			return Vec3{ obj.x + b, obj.y + b, obj.z + b };
+		}
+
+		static Vec3 operator-(Vec3% obj, float b) {
+			return Vec3{ obj.x - b, obj.y - b, obj.z - b };
+		}
+
+		static float Dot(Vec3% a, Vec3% b) {
+			return { a.x * b.x + a.y * b.y + a.z * b.z };
+		}
+
+		inline Vec3 Cross(Vec3% a, Vec3% b) {
+			return Vec3{ a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x };
+		}
+	};
+}

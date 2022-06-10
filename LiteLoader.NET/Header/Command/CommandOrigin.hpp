@@ -12,7 +12,7 @@ namespace MC
 	ref class Level;
 	ref class ServerPlayer;
 	ref class CompoundTag;
-	ref class Vec3;
+	value class Vec3;
 	value class Vec2;
 	ref class Dimension;
 	ref class Actor;
@@ -30,7 +30,7 @@ namespace MC
 		inline CommandOrigin^ Clone();
 		inline CommandOriginData^ ToCommandOriginData();
 		inline void UpdateValues();
-		inline Vec3^ GetExecutePosition(int a0, CommandPositionFloat^ a1);
+		inline Vec3 GetExecutePosition(int a0, CommandPositionFloat^ a1);
 		inline CompoundTag^ Serialize();
 		CommandArea^ GetAreaAt(BlockPos^ bp0, BlockPos^ bp1, int a0, bool a1);
 		CommandArea^ GetAreaAt(BlockPos^ bp0, int a0);
@@ -41,13 +41,13 @@ namespace MC
 		property String^ RequestId { String^ get(); };
 		property String^ Name { String^ get(); };
 		property BlockPos^ BlockPosition { BlockPos^ get(); };
-		property Vec3^ WorldPosition { Vec3^ get(); };
+		property Vec3 WorldPosition { Vec3 get(); };
 		property Vec2 Rotation { Vec2 get(); };
 		property MC::Level^ Level { MC::Level^ get(); };
 		property Dimension^ Dimension { MC::Dimension^ get(); };
 		property Actor^ Entity { Actor^ get(); };
 		property BlockPos^ CursorHitBlockPos { MC::BlockPos^ get(); };
-		property Vec3^ CursorHitPos { Vec3^ get(); };
+		property Vec3 CursorHitPos { Vec3 get(); };
 		property CommandOrigin^ OutputReceiver { CommandOrigin^ get(); };
 		property CommandOriginIdentity^ Identity { CommandOriginIdentity^ get(); };
 		property NetworkIdentifier^ SourceId { NetworkIdentifier^ get(); };

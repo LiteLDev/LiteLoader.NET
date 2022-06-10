@@ -5,7 +5,7 @@
 namespace MC
 {
 ref class CompoundTag;
-ref class Vec3;
+value class Vec3;
 }
 
 namespace MC
@@ -290,7 +290,7 @@ public:
 
     virtual bool Equals(::System::Object ^ obj) override;
 
-    MC::Vec3 ^ RandomlyModifyPosition(MC::BlockPos ^ _0);
+    MC::Vec3 RandomlyModifyPosition(MC::BlockPos ^ _0);
 
     bool ShouldRandomTick();
 

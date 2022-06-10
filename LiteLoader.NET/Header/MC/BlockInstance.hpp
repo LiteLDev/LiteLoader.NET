@@ -9,7 +9,7 @@ namespace MC
 {
 	ref class BlockSource;
 	ref class BlockPos;
-	ref class Vec3;
+	value class Vec3;
 	ref class ItemStack;
 	ref class Container;
 	ref class BlockActor;

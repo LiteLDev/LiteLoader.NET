@@ -180,14 +180,12 @@ bool MC::Block::Equals(::System::Object ^ obj)
     return this == safe_cast<MC::Block ^>(obj);
 }
 
-MC::Vec3 ^ MC::Block::RandomlyModifyPosition(MC::BlockPos ^ _0)
+MC::Vec3 MC::Block::RandomlyModifyPosition(MC::BlockPos ^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-    auto __ret = ((class ::Block*)NativePtr)->randomlyModifyPosition(__arg0);
-    auto ____ret = new class ::Vec3(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Vec3((class ::Vec3*)____ret, true);
+    return ((class ::Block*)NativePtr)->randomlyModifyPosition(__arg0);
 }
 
 bool MC::Block::ShouldRandomTick()

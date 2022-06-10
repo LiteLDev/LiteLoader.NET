@@ -12,8 +12,8 @@ namespace MC {
 		return FaceID(NativePtr->getLiquidFacing());
 	}
 
-	Vec3^ HitResult::Pos::get() {
-		return gcnew Vec3(NativePtr->getPos());
+	Vec3 HitResult::Pos::get() {
+		return NativePtr->getPos();
 	}
 
 	bool HitResult::IsHitLiquid::get() {
@@ -50,23 +50,23 @@ namespace MC {
 	{
 	}
 
-	HitResult::HitResult(Vec3^ v1, Vec3^ v2, Vec3^ v3)
-		:ClassTemplate(::HitResult(*v1->NativePtr, *v2->NativePtr, *v3->NativePtr))
+	HitResult::HitResult(Vec3 v1, Vec3 v2, Vec3 v3)
+		:ClassTemplate(::HitResult(v1, v2, v3))
 	{
 	}
 
-	HitResult::HitResult(Vec3^ v1, Vec3^ v2, Actor^ ac, Vec3^ v3)
-		:ClassTemplate(::HitResult(*v1->NativePtr, *v2->NativePtr, *ac->NativePtr, *v3->NativePtr))
+	HitResult::HitResult(Vec3 v1, Vec3 v2, Actor^ ac, Vec3 v3)
+		:ClassTemplate(::HitResult(v1, v2, *ac->NativePtr, v3))
 	{
 	}
 
-	HitResult::HitResult(Vec3^ v1, Vec3^ v2, Actor^ ac)
-		:ClassTemplate(::HitResult(*v1->NativePtr, *v2->NativePtr, *ac->NativePtr))
+	HitResult::HitResult(Vec3 v1, Vec3 v2, Actor^ ac)
+		:ClassTemplate(::HitResult(v1, v2, *ac->NativePtr))
 	{
 	}
 
-	HitResult::HitResult(Vec3^ v1, Vec3^ v2, MC::BlockPos^ pos, unsigned char b, Vec3^ v3)
-		:ClassTemplate(::HitResult(*v1->NativePtr, *v2->NativePtr, *pos->NativePtr, b, *v3->NativePtr))
+	HitResult::HitResult(Vec3 v1, Vec3 v2, MC::BlockPos^ pos, unsigned char b, Vec3 v3)
+		:ClassTemplate(::HitResult(v1, v2, *pos->NativePtr, b, v3))
 	{
 	}
 

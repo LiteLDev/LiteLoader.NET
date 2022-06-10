@@ -25,6 +25,17 @@
         }                                                    \
     }
 
+#define Property_ValueType(Namespace, type, nativeName, name)\
+    property Namespace::type name {                          \
+        inline Namespace::type get() {                       \
+            return Namespace::type(_this->nativeName);       \
+        } inline void                                        \
+            set(Namespace::type arg)                         \
+        {                                                    \
+            _this->nativeName = arg;                         \
+        }                                                    \
+    }
+
 #define Property_Ptr(Namespace, type, nativeName, name)      \
     property Namespace::type ^ name {                        \
         inline Namespace::type ^ get() {                     \

@@ -4,7 +4,7 @@
 
 namespace MC
 {
-ref class Vec3;
+value class Vec3;
 }
 
 namespace MC
@@ -65,7 +65,7 @@ public:
 
     void AddWither(MC::ActorUniqueID ^ _0);
 
-    float DistanceToNearestPlayerSqr2D(MC::Vec3 ^ _0);
+    float DistanceToNearestPlayerSqr2D(MC::Vec3 _0);
 
     void FlushLevelChunkGarbageCollector();
 
