@@ -52,6 +52,7 @@ void LoadMain()
 void Init(Logger& logger)
 {
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
+	Global::ManagedPluginHandler->TryAdd(Assembly::GetExecutingAssembly(), IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handler));
 }
 
 
@@ -94,6 +95,8 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 	size_t count = 0;
 	for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
 	{
+		if (iter->filename() == LLNET_LOADER_NAME)
+			continue;
 		try
 		{
 			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
@@ -149,9 +152,11 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 		if (plugin == nullptr)
 			return false;
 
-		plugin
-			->GetMethod(TEXT(LLNET_ENTRY_METHOD))
-			->Invoke(nullptr, nullptr);			
+		auto method = plugin->GetMethod(TEXT(LLNET_ENTRY_METHOD));
+		if (method == nullptr)
+			return false;
+
+		method->Invoke(nullptr, nullptr);
 
 		return true;
 	}

@@ -33,6 +33,9 @@ namespace LLNET::RemoteCall {
 			Container,
 			Vec3,
 			BlockPos,
+
+			WorldPosType,
+			BlockPosType,
 			ItemType,
 			BlockType,
 			NbtType,
@@ -155,6 +158,12 @@ namespace LLNET::RemoteCall {
 			return RTN(true, ValidType::Vec3);
 		if (t == MC::BlockPos::typeid)
 			return RTN(true, ValidType::BlockPos);
+
+
+		if (t == WorldPosType::typeid)
+			return RTN(true, ValidType::WorldPosType);
+		if (t == BlockPosType::typeid)
+			return RTN(true, ValidType::BlockPosType);
 		if (t == ItemType::typeid)
 			return RTN(true, ValidType::ItemType);
 		if (t == BlockType::typeid)
@@ -301,9 +310,15 @@ namespace LLNET::RemoteCall {
 			return gcnew MC::Container(std::get<::Container*>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::Vec3:
-			return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(_VALUE));
+			return MC::Vec3(std::get<::RemoteCall::WorldPosType>(_VALUE).pos);
 			break;
 		case ExportFunctionRegister::ValidType::BlockPos:
+			return gcnew MC::BlockPos(std::get<::RemoteCall::BlockPosType>(_VALUE).pos);
+			break;
+		case ExportFunctionRegister::ValidType::WorldPosType:
+			return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(_VALUE));
+			break;
+		case ExportFunctionRegister::ValidType::BlockPosType:
 			return gcnew BlockPosType(std::get<::RemoteCall::BlockPosType>(_VALUE));
 			break;
 		case ExportFunctionRegister::ValidType::ItemType:
@@ -401,10 +416,16 @@ namespace LLNET::RemoteCall {
 			return static_cast<MC::Container^>(val)->NativePtr;
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Vec3:
-			return gcnew Valuetype((MC::Vec3)(val));
+			return ::RemoteCall::packValue(std::make_pair(::Vec3(static_cast<MC::Vec3>(val)), 0));
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPos:
-			return *static_cast<MC::BlockPos^>(val)->NativePtr;
+			return ::RemoteCall::packValue(std::make_pair(*static_cast<MC::BlockPos^>(val)->NativePtr, 0));
+			break;
+		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::WorldPosType:
+			return *static_cast<WorldPosType^>(val)->NativePtr;
+			break;
+		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPosType:
+			return *static_cast<BlockPosType^>(val)->NativePtr;
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::ItemType:
 			return *static_cast<ItemType^>(val)->NativePtr;
