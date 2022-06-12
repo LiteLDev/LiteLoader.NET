@@ -1,7 +1,7 @@
 ﻿//using Form Namesapce
+using LLNET.DynamicCommand;
 using LLNET.Form;
 using LLNET.Logger;
-using LLNET.DynamicCommand;
 using MC;
 
 namespace ExamplePlugin.Examples
@@ -24,8 +24,8 @@ namespace ExamplePlugin.Examples
             //Set form callback
             simpleForm.Callback = (pl, val) =>
             {
-                logger.info.WriteLine("PlayerName:{0}", pl.Name);
-                logger.info.WriteLine("buttonVal:{0}", val);
+                logger.info.WriteLine($"PlayerName:{pl.Name}");
+                logger.info.WriteLine($"buttonVal:{val}");
             };
 
 
@@ -61,9 +61,9 @@ namespace ExamplePlugin.Examples
 
             customForm.Callback = (pl, val) =>
             {
-                var input = (Input)val["InputName"];
+                Input input = (Input)val["InputName"];
 
-                logger.info.WriteLine("FormInput:{0}", input?.Value);
+                logger.info.WriteLine($"FormInput:{input.Value}");
             };
 
             CreateCommand();
@@ -78,15 +78,15 @@ namespace ExamplePlugin.Examples
         private static void CreateCommand()
         {
 
-            var command = DynamicCommand.CreateCommand("testformcommand", "command description", CommandPermissionLevel.Any);
+            DynamicCommandInstance command = DynamicCommand.CreateCommand("testformcommand", "command description", CommandPermissionLevel.Any);
 
-            var simpleFormParam = command.SetEnum("Form Type", new() { "simpleform", "customform" });
+            string simpleFormParam = command.SetEnum("Form Type", new() { "simpleform", "customform" });
 
-            command.Mandatory("FormEnum", DynamicCommand.ParameterType.Enum, simpleFormParam??"");
+            command.Mandatory("FormEnum", DynamicCommand.ParameterType.Enum, simpleFormParam ?? string.Empty);
 
             command.SetCallback((cmd, origin, output, results) =>
             {
-                switch ((string)results["FormEnum"].Get())
+                switch (results["FormEnum"].Get().ToString())
                 {
                     case "simpleform":
                         {

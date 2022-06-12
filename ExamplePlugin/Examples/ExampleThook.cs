@@ -14,19 +14,16 @@ namespace ExamplePlugin.Examples
         public void Execute()
         {
             //Register hook class
-            Thook.RegisterHook<FuenaceBlock_SetLit_Hook, SetLit>();
+            Thook.RegisterHook<FuenaceBlock_SetLit_Hook, Func<char, IntPtr, IntPtr, uint, long, long, IntPtr>>();
         }
 
 
         //Declare function prototype
 
-        //IDA: struct BlockActor *__fastcall FurnaceBlock::setLit(char a1, BlockSource *a2, const struct BlockPos *a3, unsigned int a4, __int64 a5, __int64 a6)
-        private delegate IntPtr SetLit(char a1, IntPtr blockSource, IntPtr blockPos, uint a4, long a5, long a6);
-
-
         //Setup Hook Symbol
         [HookSymbol("?setLit@FurnaceBlock@@SAX_NAEAVBlockSource@@AEBVBlockPos@@W4BlockActorType@@AEBVBlock@@4@Z")]
-        private class FuenaceBlock_SetLit_Hook : THookBase<SetLit>
+        //IDA: struct BlockActor *__fastcall FurnaceBlock::setLit(char a1, BlockSource *a2, const struct BlockPos *a3, unsigned int a4, __int64 a5, __int64 a6)
+        private class FuenaceBlock_SetLit_Hook : THookBase<Func<char, IntPtr, IntPtr, uint, long, long, IntPtr>>
         {
             private static readonly Logger logger = new("ExampleHook");
 
