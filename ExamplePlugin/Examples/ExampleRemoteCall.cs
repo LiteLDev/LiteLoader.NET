@@ -23,9 +23,9 @@ namespace ExamplePlugin.Examples
 
         public void Execute()
         {
-            RemoteCallAPI.ExportAs<Func<int, bool, string, List<string>>>(".NET", "ExortAsTest", Test);
+            RemoteCallAPI.ExportAs<Func<int, bool, string, List<string>>>(".NET", "ExportAsTest", Test);
 
-            RemoteCallHandler_3<List<string>, int, bool, string> imp = RemoteCallAPI.ImportAs<List<string>, int, bool, string>(".NET", "ExortAsTest");
+            RemoteCallHandler_3<List<string>, int, bool, string> imp = RemoteCallAPI.ImportAs<List<string>, int, bool, string>(".NET", "ExportAsTest");
 
             List<string> ret = imp(233, true, "qaq");
 
