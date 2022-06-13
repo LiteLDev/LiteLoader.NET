@@ -344,9 +344,10 @@ namespace LLNET::RemoteCall {
 		case ExportFunctionRegister::ValidType::Dictionary:
 		{
 			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(val.value);
-			auto ret = gcnew Dictionary<String^, Object^>((int)umap.size());
+			auto ret = System::Activator::CreateInstance(info._type, gcnew array<System::Object^>{(int)umap.size()});
+			auto addMethod = info._type->GetMethod("Add");
 			for (auto& val : umap) {
-				ret->Add(marshalString(val.first), _parseParameter(info.genericArgs[1], val.second));
+				addMethod->Invoke(ret, gcnew array<System::Object^>{marshalString(val.first), _parseParameter(info.genericArgs[1], val.second)});
 			}
 			return ret;
 		}
