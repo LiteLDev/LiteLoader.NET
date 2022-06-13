@@ -10,8 +10,8 @@
 
 #endregion
 
-using LLNET.Core;
 using ExamplePlugin.Examples;
+using LLNET.Core;
 using System.Runtime.InteropServices;
 
 [assembly: LibPath("plugins\\ExamplePlugin\\libs")]
@@ -29,7 +29,7 @@ namespace LiteLDev;
 public class ExamplePlugin : IPluginInitializer
 {
     [StructLayout(LayoutKind.Sequential)]
-    struct QAQ
+    private struct QAQ
     {
 
     }

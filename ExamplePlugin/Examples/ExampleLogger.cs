@@ -13,7 +13,7 @@ namespace ExamplePlugin.Examples
         public void Execute()
         {
             //output
-            logger.info.WriteLine("Info.");
+            logger.info.WriteLine("Info");
 
             logger.warn.WriteLine("Warn");
 

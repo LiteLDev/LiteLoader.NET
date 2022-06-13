@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using LLNET.RemoteCall;
+﻿
 using LLNET.Logger;
+using LLNET.RemoteCall;
 
 namespace ExamplePlugin.Examples
 {
     //piece of junk
     public class ExampleRemoteCall : IExample
     {
+        private static readonly Logger logger = new("ExampleRemoteCall");
 
-        static readonly Logger logger = new("ExampleRemoteCall");
-
-        static void Test(bool val)
+        private static void Test(bool val)
         {
             logger.warn.WriteLine(val);
         }
 
-        delegate List<string> TEST(int a1, bool a2, string a3);
-
-        List<string> Test(int a1, bool a2, string a3)
+        private List<string> Test(int a1, bool a2, string a3)
         {
             logger.warn.WriteLine($"a1:{a1},a2:{a2},a3:{a3}");
 
@@ -31,11 +23,11 @@ namespace ExamplePlugin.Examples
 
         public void Execute()
         {
-            RemoteCallAPI.ExportAs<TEST>(".NET", "ExortAsTest", Test);
+            RemoteCallAPI.ExportAs<Func<int, bool, string, List<string>>>(".NET", "ExortAsTest", Test);
 
-            var imp = RemoteCallAPI.ImportAs<List<string>, int, bool, string>(".NET", "ExortAsTest");
+            RemoteCallHandler_3<List<string>, int, bool, string> imp = RemoteCallAPI.ImportAs<List<string>, int, bool, string>(".NET", "ExortAsTest");
 
-            var ret = imp(233, true, "qaq");
+            List<string> ret = imp(233, true, "qaq");
 
             ret.ForEach((str) => { logger.warn.WriteLine($"str:{str}"); });
         }

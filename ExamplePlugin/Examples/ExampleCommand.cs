@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using LLNET.Logger;
-using LLNET.DynamicCommand;
+﻿using LLNET.DynamicCommand;
 using MC;
 
 
@@ -22,13 +15,13 @@ namespace ExamplePlugin.Examples
     }
 
 
-    [Command("testcmd", Description = "test .net command", Permission = CommandPermissionLevel.Any)]
+    [Command("testcmd", Description = ".NET test command", Permission = CommandPermissionLevel.Any)]
     public class TestCommand : ICommand
     {
         static Logger Logger { get; set; } = new("ExampleCommand");
 
         [CommandEnum]
-        enum TestEnumType { mode1, mode2, mode3 }
+        private enum TestEnumType { mode1, mode2, mode3 }
 
         [CommandParameterOverload(0)]
         [CommandParameterOverload(1)]
@@ -43,11 +36,11 @@ namespace ExamplePlugin.Examples
         float Float_1 { get; set; }
 
 
-        [CommandParameter(ParamType.String, OverloadId = 1)]
-        string? String_1 { get; set; }
+        //[CommandParameter(ParamType.String, OverloadId = 1)]
+        //string string_1 { get; set; }
 
-        [CommandParameter(ParamType.JsonValue, OverloadId = 1, IsMandatory = false)]
-        string? Json_1 { get; set; }
+        //[CommandParameter(ParamType.JsonValue, OverloadId = 1, IsMandatory = false)]
+        //string? json_1 { get; set; }
 
         public void Execute(CommandOrigin origin, CommandOutput output)
         {
