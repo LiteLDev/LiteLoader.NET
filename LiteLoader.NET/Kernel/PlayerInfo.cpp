@@ -21,7 +21,7 @@ namespace LLNET::PlayerInfo {
     {
         return marshalString(::PlayerInfo::fromUUID(marshalString(name)));
     }
-    inline void PlayerInfoAPI::ForEachInfo(forEachInfoDelegate^ callback)
+    inline void PlayerInfoAPI::ForEachInfo(ForEachInfoHandler^ callback)
     {
         _callback = callback;
         if (_callback == nullptr)
