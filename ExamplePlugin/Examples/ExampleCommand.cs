@@ -1,4 +1,5 @@
 ﻿using LLNET.DynamicCommand;
+using LLNET.Logger;
 using MC;
 
 
@@ -36,11 +37,11 @@ namespace ExamplePlugin.Examples
         float Float_1 { get; set; }
 
 
-        //[CommandParameter(ParamType.String, OverloadId = 1)]
-        //string string_1 { get; set; }
+        [CommandParameter(ParamType.String, OverloadId = 1)]
+        string? String_1 { get; set; }
 
-        //[CommandParameter(ParamType.JsonValue, OverloadId = 1, IsMandatory = false)]
-        //string? json_1 { get; set; }
+        [CommandParameter(ParamType.JsonValue, OverloadId = 1, IsMandatory = false)]
+        string? Json_1 { get; set; }
 
         public void Execute(CommandOrigin origin, CommandOutput output)
         {
