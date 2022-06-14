@@ -158,6 +158,10 @@ namespace MC {
 			return ((::Vec3*)p)->distanceTo(*(::Vec3*)pobj);
 		}
 
+		String^ ToString() override {
+			return x.ToString() + "," + y.ToString() + "," + z.ToString();
+		}
+
 		inline Vec3 Add(float dx, float dy, float dz) {
 			return Vec3{ x + dx, y + dy, z + dz };
 		}
@@ -167,36 +171,85 @@ namespace MC {
 			return Vec3{ x / l, y / l, z / l };
 		}
 
-		static bool operator==(Vec3% a, Vec3% b) {
+		property float% default[int]
+		{
+			float% get(int index)
+			{
+				pin_ptr<Vec3>p = this;
+				return (*(::Vec3*)p)[index];
+			}
+		};
+
+		static bool operator==(Vec3 a, Vec3 b) {
 			return a.x == b.x && a.y == b.y && a.z == b.z;
 		}
 
-		static bool operator!=(Vec3% a, Vec3% b) {
+		static bool operator!=(Vec3 a, Vec3 b) {
 			return a.x != b.x || a.y != b.y || a.z != b.z;
 		}
 
-		static Vec3 operator*(Vec3% obj, float b) {
+		static Vec3 operator*(Vec3 obj, float b) {
 			return Vec3{ obj.x * b, obj.y * b, obj.z * b };
 		}
 
-		static Vec3 operator/(Vec3% obj, float b) {
+		static Vec3 operator/(Vec3 obj, float b) {
 			return Vec3{ obj.x / b, obj.y / b, obj.z / b };
 		}
 
-		static Vec3 operator+(Vec3% obj, float b) {
+		static Vec3 operator+(Vec3 obj, float b) {
 			return Vec3{ obj.x + b, obj.y + b, obj.z + b };
 		}
 
-		static Vec3 operator-(Vec3% obj, float b) {
+		static Vec3 operator-(Vec3 obj, float b) {
 			return Vec3{ obj.x - b, obj.y - b, obj.z - b };
 		}
 
-		static float Dot(Vec3% a, Vec3% b) {
+		static Vec3 operator*(Vec3 obj, Vec3 b) {
+			return Vec3{ obj.x * b.x, obj.y * b.y, obj.z * b.z };
+		}
+
+		static Vec3 operator/(Vec3 obj, Vec3 b) {
+			return Vec3{ obj.x / b.x, obj.y / b.y, obj.z / b.z };
+		}
+
+		static Vec3 operator+(Vec3 obj, Vec3 b) {
+			return Vec3{ obj.x + b.x, obj.y + b.y, obj.z + b.z };
+		}
+
+		static Vec3 operator-(Vec3 obj, Vec3 b) {
+			return Vec3{ obj.x - b.x, obj.y - b.y, obj.z - b.z };
+		}
+
+		static float Dot(Vec3 a, Vec3 b) {
 			return { a.x * b.x + a.y * b.y + a.z * b.z };
 		}
 
-		inline Vec3 Cross(Vec3% a, Vec3% b) {
+		inline Vec3 Cross(Vec3 a, Vec3 b) {
 			return Vec3{ a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x };
+		}
+
+		inline static Vec3 Max(Vec3 a, Vec3 b) {
+			pin_ptr<Vec3> pa = &a;
+			pin_ptr<Vec3> pb = &b;
+			return ::Vec3::max(*(::Vec3*)pa, *(::Vec3*)pb);
+		}
+
+		inline static Vec3 Min(Vec3 a, Vec3 b) {
+			pin_ptr<Vec3> pa = &a;
+			pin_ptr<Vec3> pb = &b;
+			return ::Vec3::min(*(::Vec3*)pa, *(::Vec3*)pb);
+		}
+
+		property size_t HashVal {
+			size_t get() {
+				pin_ptr<Vec3> p = this;
+				std::hash<::Vec3> hash;
+				return hash(*(::Vec3*)p);
+			}
+		}
+
+		int GetHashCode() override{
+			return (int)HashVal;
 		}
 	};
 }

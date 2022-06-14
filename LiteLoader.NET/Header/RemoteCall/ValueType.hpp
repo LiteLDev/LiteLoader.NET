@@ -659,7 +659,7 @@ namespace LLNET::RemoteCall {
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 		}
 
-		bool AsArrayType([System::Runtime::InteropServices::Out] ArrayType^% v) {
+		bool AsArrayType([Out] ArrayType^% v) {
 			v = nullptr;
 			if (NativePtr->value.index() != (size_t)InstanceType::ArrayType)
 				return false;
@@ -668,7 +668,7 @@ namespace LLNET::RemoteCall {
 			v = gcnew ArrayType(Parse(vec));
 			return true;
 		}
-		bool AsObjectType([System::Runtime::InteropServices::Out] ObjectType^% v) {
+		bool AsObjectType([Out] ObjectType^% v) {
 			v = nullptr;
 			if (NativePtr->value.index() != (size_t)InstanceType::ObjectType)
 				return false;
@@ -677,7 +677,7 @@ namespace LLNET::RemoteCall {
 			v = gcnew ObjectType(Parse(umap));
 			return true;
 		}
-		bool AsValue([System::Runtime::InteropServices::Out] Value^% v) {
+		bool AsValue([Out] Value^% v) {
 			v = nullptr;
 			if (NativePtr->value.index() != (size_t)InstanceType::Value)
 				return false;

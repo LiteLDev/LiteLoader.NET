@@ -28,7 +28,7 @@ public:                                                                         
     }                                                                                                                   \
                                                                                                                         \
 private:                                                                                                                \
-    static List<Pair<EventHandler ^, EventListener ^>> ^ eventData = gcnew List<Pair<EventHandler ^, EventListener ^>>; \
+    static Dictionary<EventHandler ^, EventListener ^> ^ eventData = gcnew Dictionary<EventHandler ^, EventListener ^>; \
     static EventHandler ^ pE;                                                                                           \
                                                                                                                         \
 public:                                                                                                                 \
@@ -36,19 +36,17 @@ public:                                                                         
         void add(EventHandler ^ p)                                                                                      \
         {                                                                                                               \
             pE = static_cast<EventHandler ^>(System::Delegate::Combine(pE, p));                                         \
-            eventData->Add(Pair<EventHandler ^, EventListener ^>(p, Subscribe(p)));                                     \
+            eventData->Add(p, Subscribe(p));                                                                            \
         }                                                                                                               \
         void remove(EventHandler ^ p)                                                                                   \
         {                                                                                                               \
             pE = static_cast<EventHandler ^>(System::Delegate::Remove(pE, p));                                          \
-            auto count = eventData->Count;                                                                              \
-            for (int i = 0; i < count; ++i)                                                                             \
+            for each(auto pair in eventData)                                                                            \
             {                                                                                                           \
-                auto % pair = eventData[i];                                                                             \
                 if (pair.Key->Equals(p))                                                                                \
                 {                                                                                                       \
                     Unsubscribe(pair.Value);                                                                            \
-                    eventData->Remove(pair);                                                                            \
+                    eventData->Remove(p);                                                                               \
                 }                                                                                                       \
             }                                                                                                           \
         }                                                                                                               \

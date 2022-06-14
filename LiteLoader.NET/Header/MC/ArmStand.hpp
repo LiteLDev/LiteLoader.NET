@@ -65,7 +65,7 @@ public:
 
     virtual bool IsValidTarget(MC::Actor ^ _0) override;
 
-    virtual void AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0) override;
+    virtual void AdjustDamageAmount([::System::Runtime::InteropServices::In, ::Out ] int % _0) override;
 
     virtual void OnTame() override;
 

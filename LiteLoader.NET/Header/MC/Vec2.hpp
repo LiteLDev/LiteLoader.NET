@@ -30,16 +30,16 @@ namespace MC
 			return x.ToString() + "," + y.ToString();
 		}
 
-		inline static Vec2 operator*(Vec2 const% obj, float num) {
+		inline static Vec2 operator*(Vec2 const obj, float num) {
 			return Vec2{ obj.x * num,obj.y * num };
 		}
 
-		inline static Vec2 operator+(Vec2 const% a, Vec2 const% b)
+		inline static Vec2 operator+(Vec2 const a, Vec2 const b)
 		{
 			return Vec2{ a.x + b.x, a.y + b.y };
 		}
 
-		inline static Vec2 operator-(Vec2 const% a, Vec2 const% b)
+		inline static Vec2 operator-(Vec2 const a, Vec2 const b)
 		{
 			return Vec2{ a.x - b.x, a.y - b.y };
 		}

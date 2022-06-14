@@ -111,7 +111,7 @@ bool MC::WitherBoss::IsValidTarget(MC::Actor ^ _0)
     return __ret;
 }
 
-void MC::WitherBoss::AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0)
+void MC::WitherBoss::AdjustDamageAmount([::System::Runtime::InteropServices::In, Out ] int % _0)
 {
     int __arg0 = _0;
     ((class ::WitherBoss*)NativePtr)->adjustDamageAmount(__arg0);

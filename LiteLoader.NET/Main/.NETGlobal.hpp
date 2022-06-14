@@ -56,6 +56,9 @@ using System::Runtime::InteropServices::GCHandle;
 using System::Runtime::InteropServices::LayoutKind;
 using System::Runtime::InteropServices::Marshal;
 using System::Runtime::InteropServices::StructLayoutAttribute;
+using System::Runtime::InteropServices::OutAttribute;
+using System::Runtime::InteropServices::InAttribute;
+using System::ComponentModel::ReadOnlyAttribute;
 using LLNET::Core::Pair;
 
 #include "../Tools/clix.hpp"

@@ -148,14 +148,14 @@ namespace LLNET::RemoteCall {
 			return NativePtr->index() == (size_t)InstanceType::Null;
 		}
 
-		bool AsBool([System::Runtime::InteropServices::Out] bool% v) {
+		bool AsBool([Out] bool% v) {
 			if (NativePtr->index() != (size_t)InstanceType::Bool)
 				return false;
 			v = std::get<bool>(*NativePtr);
 			return true;
 		}
 
-		bool AsString([System::Runtime::InteropServices::Out] String^% v) {
+		bool AsString([Out] String^% v) {
 			if (NativePtr->index() != (size_t)InstanceType::String)
 				return false;
 			auto& _v = std::get<std::string>(*NativePtr);
@@ -163,7 +163,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsNumberType([System::Runtime::InteropServices::Out] NumberType% v) {
+		bool AsNumberType([Out] NumberType% v) {
 			v = NumberType();
 			if (NativePtr->index() != (size_t)InstanceType::NumberType)
 				return false;
@@ -172,7 +172,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsPlayer([System::Runtime::InteropServices::Out] MC::Player^% v) {
+		bool AsPlayer([Out] MC::Player^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::Player)
 				return false;
@@ -180,7 +180,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsActor([System::Runtime::InteropServices::Out] MC::Actor^% v) {
+		bool AsActor([Out] MC::Actor^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::Actor)
 				return false;
@@ -188,7 +188,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsBlockActor([System::Runtime::InteropServices::Out] MC::BlockActor^% v) {
+		bool AsBlockActor([Out] MC::BlockActor^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::BlockActor)
 				return false;
@@ -196,7 +196,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsContainer([System::Runtime::InteropServices::Out] MC::Container^% v) {
+		bool AsContainer([Out] MC::Container^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::Container)
 				return false;
@@ -204,7 +204,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsWorldPosType([System::Runtime::InteropServices::Out] WorldPosType^% v) {
+		bool AsWorldPosType([Out] WorldPosType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::WorldPosType)
 				return false;
@@ -212,7 +212,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsBlockPosType([System::Runtime::InteropServices::Out] BlockPosType^% v) {
+		bool AsBlockPosType([Out] BlockPosType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::BlockPosType)
 				return false;
@@ -220,7 +220,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsItemType([System::Runtime::InteropServices::Out] ItemType^% v) {
+		bool AsItemType([Out] ItemType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::ItemType)
 				return false;
@@ -228,7 +228,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsBlockType([System::Runtime::InteropServices::Out] BlockType^% v) {
+		bool AsBlockType([Out] BlockType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::BlockType)
 				return false;
@@ -236,7 +236,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsNbtType([System::Runtime::InteropServices::Out] NbtType^% v) {
+		bool AsNbtType([Out] NbtType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::NbtType)
 				return false;
@@ -244,7 +244,7 @@ namespace LLNET::RemoteCall {
 			return true;
 		}
 
-		bool AsContainer([System::Runtime::InteropServices::Out] BlockType^% v) {
+		bool AsContainer([Out] BlockType^% v) {
 			v = nullptr;
 			if (NativePtr->index() != (size_t)InstanceType::BlockType)
 				return false;

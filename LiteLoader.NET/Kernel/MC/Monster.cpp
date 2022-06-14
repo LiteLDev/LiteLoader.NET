@@ -94,7 +94,7 @@ bool MC::Monster::IsValidTarget(MC::Actor ^ _0)
     return __ret;
 }
 
-void MC::Monster::AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0)
+void MC::Monster::AdjustDamageAmount([::System::Runtime::InteropServices::In, Out ] int % _0)
 {
     int __arg0 = _0;
     ((class ::Monster*)NativePtr)->adjustDamageAmount(__arg0);

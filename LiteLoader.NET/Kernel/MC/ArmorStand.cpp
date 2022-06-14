@@ -106,7 +106,7 @@ bool MC::ArmorStand::IsValidTarget(MC::Actor ^ _0)
     return __ret;
 }
 
-void MC::ArmorStand::AdjustDamageAmount([::System::Runtime::InteropServices::In, ::System::Runtime::InteropServices::Out ] int % _0)
+void MC::ArmorStand::AdjustDamageAmount([::System::Runtime::InteropServices::In, Out ] int % _0)
 {
     int __arg0 = _0;
     ((class ::ArmorStand*)NativePtr)->adjustDamageAmount(__arg0);
