@@ -46,6 +46,8 @@ namespace LLNET
 	}
 	Plugin^ PluginManager::getPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
 	{
+		if (!ManagedPluginData->ContainsKey(name))
+			return nullptr;
 		auto ret = ManagedPluginData[name];
 		if (ret != nullptr)
 			return ret->Item1;
@@ -60,8 +62,9 @@ namespace LLNET
 	}
 	Assembly^ PluginManager::getPluginAssembly(System::String^ name)
 	{
-		auto tuple = PluginManager::ManagedPluginData[name];
-		return tuple == nullptr ? nullptr : tuple->Item2;
+		if (PluginManager::ManagedPluginData->ContainsKey(name))
+			return PluginManager::ManagedPluginData[name]->Item2;
+		return nullptr;
 	}
 	Assembly^ PluginManager::getPluginAssembly(Plugin^ plugin)
 	{
