@@ -45,14 +45,14 @@ namespace MC
 		}
 
 	public:
-		static property Vec2 const LOWEST { inline Vec2 const get() { return ::Vec2::LOWEST; }}
-		static property Vec2 const MAX {inline Vec2 const get() { return ::Vec2::MAX; }}
-		static property Vec2 const MIN {inline Vec2 const get() { return ::Vec2::MIN; }}
-		static property Vec2 const NEG_UNIT_X {inline Vec2 const get() { return ::Vec2::NEG_UNIT_X; }}
-		static property Vec2 const LOWESNEG_UNIT_YT {inline Vec2 const get() { return ::Vec2::NEG_UNIT_Y; }}
-		static property Vec2 const ONE {inline Vec2 const get() { return ::Vec2::ONE; }}
-		static property Vec2 const UNIT_X {inline Vec2 const get() { return ::Vec2::UNIT_X; }}
-		static property Vec2 const UNIT_Y {inline Vec2 const get() { return ::Vec2::UNIT_Y; }}
-		static property Vec2 const ZERO {inline Vec2 const get() { return ::Vec2::ZERO; }}
+		static initonly Vec2 LOWEST = ::Vec2::LOWEST;
+		static initonly Vec2 MAX = ::Vec2::MAX;
+		static initonly Vec2 MIN = ::Vec2::MIN;
+		static initonly Vec2 NEG_UNIT_X = ::Vec2::NEG_UNIT_X;
+		static initonly Vec2 LOWESNEG_UNIT_YT = ::Vec2::NEG_UNIT_Y;
+		static initonly Vec2 ONE = ::Vec2::ONE;
+		static initonly Vec2 UNIT_X = ::Vec2::UNIT_X;
+		static initonly Vec2 UNIT_Y = ::Vec2::UNIT_Y;
+		static initonly Vec2 ZERO = ::Vec2::ZERO;
 	};
 } // namespace MC
