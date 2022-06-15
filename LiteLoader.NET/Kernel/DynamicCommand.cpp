@@ -135,12 +135,12 @@ namespace LLNET::DynamicCommand
 		return gcnew MC::CommandMessage(const_cast<::CommandMessage*>(&NativePtr->getRaw<::CommandMessage>()));
 	}
 	inline String^ DynamicCommand::Result::AsRawText() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::RawText)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline String^ DynamicCommand::Result::AsJsonValue() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::JsonValue)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
