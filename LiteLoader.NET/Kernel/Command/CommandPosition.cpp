@@ -16,14 +16,14 @@ namespace MC
 		return gcnew CommandPosition(::CommandPosition());
 	}
 
-	BlockPos^ MC::CommandPosition::GetBlockPos(CommandOrigin^ co, Vec3 vec)
+	BlockPos MC::CommandPosition::GetBlockPos(CommandOrigin^ co, Vec3 vec)
 	{
-		return gcnew BlockPos(NativePtr->getBlockPos((::CommandOrigin&)co, (::Vec3&)vec));
+		return BlockPos(NativePtr->getBlockPos((::CommandOrigin&)co, (::Vec3&)vec));
 	}
 
-	BlockPos^ CommandPosition::GetBlockPos(Vec3 vec0, Vec3 vec1)
+	BlockPos CommandPosition::GetBlockPos(Vec3 vec0, Vec3 vec1)
 	{
-		return gcnew BlockPos(NativePtr->getBlockPos((::Vec3&)vec0, (::Vec3&)vec1));
+		return BlockPos(NativePtr->getBlockPos((::Vec3&)vec0, (::Vec3&)vec1));
 	}
 	Vec3  CommandPosition::GetPosition(Vec3 vec0, Vec3 vec1)
 	{

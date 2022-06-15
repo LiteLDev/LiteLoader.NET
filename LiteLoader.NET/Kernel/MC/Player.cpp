@@ -74,11 +74,11 @@ namespace MC
 	{
 		return gcnew Container(NativePtr->getEnderChestContainer());
 	}
-	inline Pair<BlockPos^, int> Player::RespawnPosition::get()
+	inline Pair<BlockPos, int> Player::RespawnPosition::get()
 	{
 		auto& p = NativePtr->getRespawnPosition();
-		return Pair<MC::BlockPos^, int>(
-			gcnew MC::BlockPos(p.first), p.second);
+		return Pair<MC::BlockPos, int>(
+			MC::BlockPos(p.first), p.second);
 	}
 	inline float Player::AvgPacketLoss::get()
 	{
@@ -464,10 +464,9 @@ namespace MC
 		return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
 	}
 
-	MC::BlockPos^ MC::Player::BedPosition::get()
+	MC::BlockPos MC::Player::BedPosition::get()
 	{
-		auto& __ret = NativePtr->getBedPosition();
-		return (MC::BlockPos^)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*) & __ret));
+		return NativePtr->getBedPosition();
 	}
 
 	long long MC::Player::BlockedUsingDamagedShieldTimeStamp::get()
@@ -505,10 +504,9 @@ namespace MC
 		NativePtr->setEnchantmentSeed(_0);
 	}
 
-	MC::BlockPos^ MC::Player::ExpectedSpawnPosition::get()
+	MC::BlockPos MC::Player::ExpectedSpawnPosition::get()
 	{
-		auto& __ret = NativePtr->getExpectedSpawnPosition();
-		return (MC::BlockPos^)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*) & __ret));
+		return NativePtr->getExpectedSpawnPosition();
 	}
 
 	::System::String^ MC::Player::InteractText::get()
@@ -574,10 +572,9 @@ namespace MC
 		return (::System::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 	}
 
-	MC::BlockPos^ MC::Player::RespawnAnchorPosition::get()
+	MC::BlockPos MC::Player::RespawnAnchorPosition::get()
 	{
-		auto& __ret = NativePtr->getRespawnAnchorPosition();
-		return (MC::BlockPos^)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*) & __ret));
+		return NativePtr->getRespawnAnchorPosition();
 	}
 
 	int MC::Player::SelectedItemSlot::get()
@@ -592,10 +589,9 @@ namespace MC
 		return __ret;
 	}
 
-	MC::BlockPos^ MC::Player::SpawnPosition::get()
+	MC::BlockPos MC::Player::SpawnPosition::get()
 	{
-		auto& __ret = NativePtr->getSpawnPosition();
-		return (MC::BlockPos^)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*) & __ret));
+		return NativePtr->getSpawnPosition();
 	}
 
 	::System::Collections::Generic::List<MC::ActorUniqueID^>^ MC::Player::TrackedBosses::get()
@@ -1201,13 +1197,9 @@ namespace MC
 		((class ::Player*)NativePtr)->onBorn(__arg0, __arg1);
 	}
 
-	float MC::Player::GetWalkTargetValue(MC::BlockPos^ _0)
+	float MC::Player::GetWalkTargetValue(MC::BlockPos _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-		auto __ret = ((class ::Player*)NativePtr)->_getWalkTargetValue(__arg0);
-		return __ret;
+		return ((class ::Player*)NativePtr)->_getWalkTargetValue(_0);
 	}
 
 	bool MC::Player::CanExistWhenDisallowMob()
@@ -1605,12 +1597,9 @@ namespace MC
 		((class ::Player*)NativePtr)->setAllPlayersSleeping();
 	}
 
-	void MC::Player::SetBedRespawnPosition(MC::BlockPos^ _0)
+	void MC::Player::SetBedRespawnPosition(MC::BlockPos _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-		((class ::Player*)NativePtr)->setBedRespawnPosition(__arg0);
+		((class ::Player*)NativePtr)->setBedRespawnPosition(_0);
 	}
 
 	void MC::Player::SetBlockRespawnUntilClientMessage(bool _0)

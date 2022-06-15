@@ -54,7 +54,7 @@ void MC::BlockActor::UnkVfn16()
     ((class ::BlockActor*)NativePtr)->__unk_vfn_16();
 }
 
-void MC::BlockActor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1)
+void MC::BlockActor::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1)
 {
     auto _tmp_0 = std::vector<::std::string>();
     for each (::String^ _element in _0)
@@ -94,10 +94,8 @@ void MC::BlockActor::UnkVfn33()
     ((class ::BlockActor*)NativePtr)->__unk_vfn_33();
 }
 
-void MC::BlockActor::MoveTo(MC::BlockPos ^ _0)
+void MC::BlockActor::MoveTo(MC::BlockPos _0)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
     ((class ::BlockActor*)NativePtr)->moveTo(__arg0);
 }
@@ -165,10 +163,10 @@ MC::AABB ^ MC::BlockActor::AABB::get()
     return (MC::AABB ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)&__ret));
 }
 
-MC::BlockPos ^ MC::BlockActor::Position::get()
+MC::BlockPos MC::BlockActor::Position::get()
 {
     auto& __ret = ((class ::BlockActor*)NativePtr)->getPosition();
-    return (MC::BlockPos ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)&__ret));
+    return (MC::BlockPos)((&__ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)&__ret));
 }
 
 bool MC::BlockActor::IgnoreLighting::get()

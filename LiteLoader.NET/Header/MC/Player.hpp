@@ -1,19 +1,22 @@
 #pragma once
 #include <MC/Player.hpp>
+#include "BlockPos.hpp"
 #include "Mob.hpp"
+#include <MC/MobEffect.hpp>
 
 namespace MC
 {
+	ref class Attribute;
 	ref class NetworkIdentifier;
 	ref class Certificate;
 	ref struct ScorePacketInfo;
-	ref class BlockPos;
+	value class BlockPos;
 	value class Vec3;
 	ref class Mob;
 	ref class Container;
 	ref class ItemStack;
 	ref class CompoundTag;
-	ref class Attribute;
+
 
 } // namespace MC
 
@@ -57,9 +60,9 @@ namespace MC
 		{
 			int get();
 		}
-		property Pair<MC::BlockPos^, int> RespawnPosition
+		property Pair<MC::BlockPos, int> RespawnPosition
 		{
-			Pair<MC::BlockPos^, int> get();
+			Pair<MC::BlockPos, int> get();
 		};
 		property float AvgPacketLoss
 		{
@@ -216,9 +219,9 @@ namespace MC
 			MC::ActorUniqueID^ get();
 		}
 
-		property MC::BlockPos^ BedPosition
+		property MC::BlockPos BedPosition
 		{
-			MC::BlockPos^ get();
+			MC::BlockPos get();
 		}
 
 		property long long BlockedUsingDamagedShieldTimeStamp
@@ -247,9 +250,9 @@ namespace MC
 			void set(int);
 		}
 
-		property MC::BlockPos^ ExpectedSpawnPosition
+		property MC::BlockPos ExpectedSpawnPosition
 		{
-			MC::BlockPos^ get();
+			MC::BlockPos get();
 		}
 
 		property ::System::String^ InteractText
@@ -295,9 +298,9 @@ namespace MC
 			::System::String^ get();
 		}
 
-		property MC::BlockPos^ RespawnAnchorPosition
+		property MC::BlockPos RespawnAnchorPosition
 		{
-			MC::BlockPos^ get();
+			MC::BlockPos get();
 		}
 
 		property int SelectedItemSlot
@@ -310,9 +313,9 @@ namespace MC
 			float get();
 		}
 
-		property MC::BlockPos^ SpawnPosition
+		property MC::BlockPos SpawnPosition
 		{
-			MC::BlockPos^ get();
+			MC::BlockPos get();
 		}
 
 		property ::System::Collections::Generic::List<MC::ActorUniqueID^>^ TrackedBosses
@@ -580,7 +583,7 @@ namespace MC
 
 		virtual void OnBorn(MC::Actor^ _0, MC::Actor^ _1) override;
 
-		virtual float GetWalkTargetValue(MC::BlockPos^ _0) override;
+		virtual float GetWalkTargetValue(MC::BlockPos _0) override;
 
 		virtual bool CanExistWhenDisallowMob() override;
 
@@ -724,7 +727,7 @@ namespace MC
 
 		void SetAllPlayersSleeping();
 
-		void SetBedRespawnPosition(MC::BlockPos^ _0);
+		void SetBedRespawnPosition(MC::BlockPos _0);
 
 		void SetBlockRespawnUntilClientMessage(bool _0);
 

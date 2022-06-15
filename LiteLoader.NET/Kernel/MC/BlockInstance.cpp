@@ -10,20 +10,20 @@
 namespace MC
 {
 
-inline BlockInstance ^ BlockInstance::CreateBlockinstance(MC::Block ^ block, BlockPos ^ pos, int dimId)
+inline BlockInstance ^ BlockInstance::CreateBlockinstance(MC::Block ^ block, BlockPos pos, int dimId)
 {
     return gcnew BlockInstance(
-        ::BlockInstance::createBlockInstance(block, *pos, dimId));
+        ::BlockInstance::createBlockInstance(block, pos, dimId));
 }
 
-BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos^ pos, int dimid)
+BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos pos, int dimid)
 {
-    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, *pos->NativePtr, dimid));
+    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, pos, dimid));
 }
 
-BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos^ pos)
+BlockInstance^ BlockInstance::Create(MC::Block^ block, MC::BlockPos pos)
 {
-    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, *pos->NativePtr, 0));
+    return gcnew MC::BlockInstance(::BlockInstance::createBlockInstance(block->NativePtr, pos, 0));
 }
 
 BlockInstance^ BlockInstance::Create()
@@ -36,9 +36,9 @@ inline Block ^ BlockInstance::Block::get()
     return gcnew MC::Block(NativePtr->getBlock());
 }
 
-inline BlockPos ^ BlockInstance::Position::get()
+inline BlockPos BlockInstance::Position::get()
 {
-    return gcnew BlockPos(NativePtr->getPosition());
+    return BlockPos(NativePtr->getPosition());
 }
 
 inline BlockSource ^ BlockInstance::BlockSource::get()

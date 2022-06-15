@@ -111,7 +111,7 @@ System::Object^ LLNET::DynamicCommand::CommandManager::NativeDynamicCommandCallb
 	}
 	case ::DynamicCommand::ParameterType::BlockPos:
 	{
-		return gcnew MC::BlockPos(result.get<BlockPos>());
+		return MC::BlockPos(result.get<BlockPos>());
 	}
 	case ::DynamicCommand::ParameterType::Vec3:
 	{

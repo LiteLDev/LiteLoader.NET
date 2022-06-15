@@ -38,7 +38,7 @@ ChunkBlockPos ^ ChunkBlockPos::Create(char x, short y, char z)
     return gcnew ChunkBlockPos(::ChunkBlockPos(x, y, z));
 }
 
-ChunkBlockPos ^ ChunkBlockPos::Create(BlockPos ^ bpos, short a2)
+ChunkBlockPos ^ ChunkBlockPos::Create(BlockPos bpos, short a2)
 {
     return gcnew ChunkBlockPos(::ChunkBlockPos(bpos, a2));
 }

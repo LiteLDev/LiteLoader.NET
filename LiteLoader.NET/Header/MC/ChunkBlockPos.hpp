@@ -9,7 +9,7 @@ ref class ChunkBlockPos : ClassTemplate<ChunkBlockPos, ::ChunkBlockPos>
 
     static ChunkBlockPos ^ Create();
     static ChunkBlockPos ^ Create(char x, short y, char z);
-    static ChunkBlockPos ^ Create(BlockPos ^ bpos, short a2);
+    static ChunkBlockPos ^ Create(BlockPos bpos, short a2);
     static ChunkBlockPos ^ from2D(unsigned char a1, unsigned char a2);
     static ChunkBlockPos ^ fromLegacyIndex(unsigned short a1);
 

@@ -105,7 +105,7 @@ bool MC::Block::CanInstatick()
     return __ret;
 }
 
-void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1)
+void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1)
 {
     auto _tmp_0 = std::vector<::std::string>();
     for each (::String^ _element in _0)
@@ -114,10 +114,7 @@ void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _
         _tmp_0.push_back(_marshalElement);
     }
     auto __arg0 = _tmp_0;
-    if (ReferenceEquals(_1, nullptr))
-        throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::BlockPos*)_1->NativePtr;
-    ((class ::Block*)NativePtr)->getDebugText(__arg0, __arg1);
+    ((class ::Block*)NativePtr)->getDebugText(__arg0, _1);
 }
 
 MC::AABB ^ MC::Block::GetVisualShape(MC::AABB ^ _0, bool _1)
@@ -180,12 +177,9 @@ bool MC::Block::Equals(::System::Object ^ obj)
     return this == safe_cast<MC::Block ^>(obj);
 }
 
-MC::Vec3 MC::Block::RandomlyModifyPosition(MC::BlockPos ^ _0)
+MC::Vec3 MC::Block::RandomlyModifyPosition(MC::BlockPos _0)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-    return ((class ::Block*)NativePtr)->randomlyModifyPosition(__arg0);
+    return ((class ::Block*)NativePtr)->randomlyModifyPosition(_0);
 }
 
 bool MC::Block::ShouldRandomTick()

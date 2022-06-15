@@ -274,7 +274,7 @@ public:
 
     bool CanInstatick();
 
-    void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1);
+    void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1);
 
     MC::AABB ^ GetVisualShape(MC::AABB ^ _0, bool _1);
 
@@ -290,7 +290,7 @@ public:
 
     virtual bool Equals(::System::Object ^ obj) override;
 
-    MC::Vec3 RandomlyModifyPosition(MC::BlockPos ^ _0);
+    MC::Vec3 RandomlyModifyPosition(MC::BlockPos _0);
 
     bool ShouldRandomTick();
 

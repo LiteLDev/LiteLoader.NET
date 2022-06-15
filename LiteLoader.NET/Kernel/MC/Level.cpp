@@ -101,55 +101,55 @@ inline Actor^ Level::CloneMob(Vec3 pos, int dimid, Actor^ ac)
 {
     return gcnew Actor(::Level::cloneMob(pos, dimid, ac->NativePtr));
 }
-inline Block ^ Level::GetBlock(BlockPos ^ pos, int dimId)
+inline Block ^ Level::GetBlock(BlockPos pos, int dimId)
 {
-    return gcnew Block(::Level::getBlock(pos->NativePtr, dimId));
+    return gcnew Block(::Level::getBlock(pos, dimId));
 }
-inline Block ^ Level::GetBlock(BlockPos ^ pos, BlockSource ^ blockSource)
+inline Block ^ Level::GetBlock(BlockPos pos, BlockSource ^ blockSource)
 {
-    return gcnew Block(::Level::getBlock(pos->NativePtr, blockSource));
+    return gcnew Block(::Level::getBlock(pos, blockSource));
 }
-inline Block ^ Level::GetBlockEx(BlockPos ^ pos, int dimId)
+inline Block ^ Level::GetBlockEx(BlockPos pos, int dimId)
 {
     return gcnew Block(::Level::getBlockEx(pos, dimId));
 }
-inline BlockInstance ^ Level::GetBlockInstance(BlockPos ^ pos, int dimId)
+inline BlockInstance ^ Level::GetBlockInstance(BlockPos pos, int dimId)
 {
-    return gcnew BlockInstance(::Level::getBlockInstance(pos->NativePtr, dimId));
+    return gcnew BlockInstance(::Level::getBlockInstance(pos, dimId));
 }
-inline BlockInstance ^ Level::GetBlockInstance(BlockPos ^ pos, BlockSource ^ blockSource)
+inline BlockInstance ^ Level::GetBlockInstance(BlockPos pos, BlockSource ^ blockSource)
 {
-    return gcnew BlockInstance(::Level::getBlockInstance(pos->NativePtr, blockSource));
+    return gcnew BlockInstance(::Level::getBlockInstance(pos, blockSource));
 }
-inline BlockActor ^ Level::GetBlockEntity(BlockPos ^ pos, int dimId)
+inline BlockActor ^ Level::GetBlockEntity(BlockPos pos, int dimId)
 {
-    return gcnew BlockActor(::Level::getBlockEntity(pos->NativePtr, dimId));
+    return gcnew BlockActor(::Level::getBlockEntity(pos, dimId));
 }
-inline BlockActor ^ Level::GetBlockEntity(BlockPos ^ pos, BlockSource ^ blockSource)
+inline BlockActor ^ Level::GetBlockEntity(BlockPos pos, BlockSource ^ blockSource)
 {
-    return gcnew BlockActor(::Level::getBlockEntity(pos->NativePtr, blockSource));
+    return gcnew BlockActor(::Level::getBlockEntity(pos, blockSource));
 }
-inline bool Level::SetBlock(BlockPos ^ pos, int dim, Block ^ block)
+inline bool Level::SetBlock(BlockPos pos, int dim, Block ^ block)
 {
     return ::Level::setBlock(pos, dim, block);
 }
-inline bool Level::SetBlock(BlockPos ^ pos, int dim, String^ name, unsigned short tileData)
+inline bool Level::SetBlock(BlockPos pos, int dim, String^ name, unsigned short tileData)
 {
     return ::Level::setBlock(pos, dim, marshalString<Encoding::E_UTF8>(name), tileData);
 }
-inline bool Level::SetBlock(BlockPos ^ pos, int dim, CompoundTag ^ nbt)
+inline bool Level::SetBlock(BlockPos pos, int dim, CompoundTag ^ nbt)
 {
     return ::Level::setBlock((::BlockPos&)pos, dim, nbt->NativePtr);
 }
-inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos)
+inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos pos)
 {
     return ::Level::breakBlockNaturally(bs, pos);
 }
-inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool)
+inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos pos, ItemStack ^ tool)
 {
     return ::Level::breakBlockNaturally(bs->NativePtr, pos, tool->NativePtr);
 }
-inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2)
+inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos pos, bool a2)
 {
     return NativePtr->destroyBlock(bs, pos, a2);
 }

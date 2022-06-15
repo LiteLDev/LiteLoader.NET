@@ -48,7 +48,7 @@ namespace LLNET::DynamicCommand
 		}
 		case ::DynamicCommand::ParameterType::BlockPos:
 		{
-			return gcnew MC::BlockPos(NativePtr->get<BlockPos>());
+			return MC::BlockPos(NativePtr->get<BlockPos>());
 		}
 		case ::DynamicCommand::ParameterType::Vec3:
 		{
@@ -119,10 +119,10 @@ namespace LLNET::DynamicCommand
 		}
 		return arr;
 	}
-	inline MC::BlockPos^ DynamicCommand::Result::AsBlockPos() {
+	inline MC::BlockPos DynamicCommand::Result::AsBlockPos() {
 		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::BlockPos)
 			throw gcnew DynamicCommandInvalidCastException;
-		return gcnew MC::BlockPos(NativePtr->get<::BlockPos>());
+		return MC::BlockPos(NativePtr->get<::BlockPos>());
 	}
 	inline MC::Vec3 DynamicCommand::Result::AsVec3() {
 		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Vec3)

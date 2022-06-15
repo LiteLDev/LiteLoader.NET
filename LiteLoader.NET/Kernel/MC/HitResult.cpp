@@ -32,12 +32,12 @@ namespace MC {
 		return NativePtr->isHitLiquid();
 	}
 
-	MC::BlockPos^ HitResult::BlockPos::get() {
-		return gcnew MC::BlockPos(NativePtr->getBlockPos());
+	MC::BlockPos HitResult::BlockPos::get() {
+		return MC::BlockPos(NativePtr->getBlockPos());
 	}
 
-	MC::BlockPos^ HitResult::LiquidPos::get() {
-		return gcnew MC::BlockPos(NativePtr->getLiquidPos());
+	MC::BlockPos HitResult::LiquidPos::get() {
+		return MC::BlockPos(NativePtr->getLiquidPos());
 	}
 
 	//MC::HitResultType HitResult::HitResultType::get() {
@@ -65,8 +65,8 @@ namespace MC {
 	{
 	}
 
-	HitResult::HitResult(Vec3 v1, Vec3 v2, MC::BlockPos^ pos, unsigned char b, Vec3 v3)
-		:ClassTemplate(::HitResult(v1, v2, *pos->NativePtr, b, v3))
+	HitResult::HitResult(Vec3 v1, Vec3 v2, MC::BlockPos pos, unsigned char b, Vec3 v3)
+		:ClassTemplate(::HitResult(v1, v2, pos, b, v3))
 	{
 	}
 

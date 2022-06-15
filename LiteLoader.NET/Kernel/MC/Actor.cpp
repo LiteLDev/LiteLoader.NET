@@ -7,7 +7,6 @@
 #include "../../Header/MC/MobEffect.hpp"
 #include "../../Header/MC/Vec2.hpp"
 #include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
 #include "../../Header/MC/ItemStack.hpp"
 #include "../../Header/MC/CompoundTag.hpp"
 #include "../../Header/MC/MobEffectInstance.hpp"
@@ -129,9 +128,9 @@ namespace MC
 		return gcnew Actor(NativePtr->getActorFromViewVector(maxDistance));
 	}
 
-	inline BlockPos^ Actor::BlockPos::get()
+	inline BlockPos Actor::BlockPos::get()
 	{
-		return gcnew MC::BlockPos(NativePtr->getBlockPos());
+		return MC::BlockPos(NativePtr->getBlockPos());
 	}
 
 	inline BlockInstance^ Actor::BlockStandingOn::get()
@@ -778,12 +777,9 @@ void MC::Actor::ThawFreezeEffect()
 	((class ::Actor*)NativePtr)->thawFreezeEffect();
 }
 
-void MC::Actor::HandleInsidePortal(MC::BlockPos^ _0)
+void MC::Actor::HandleInsidePortal(MC::BlockPos _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->handleInsidePortal(__arg0);
+	((class ::Actor*)NativePtr)->handleInsidePortal(_0);
 }
 
 void MC::Actor::CheckFallDamage(float _0, bool _1)
@@ -1132,12 +1128,11 @@ void MC::Actor::DeregisterTagsFromLevelCache()
 	((class ::Actor*)NativePtr)->deregisterTagsFromLevelCache();
 }
 
-float MC::Actor::DistanceSqrToBlockPosCenter(MC::BlockPos^ _0)
+float MC::Actor::DistanceSqrToBlockPosCenter(MC::BlockPos _0)
 {
 	if (ReferenceEquals(_0, nullptr))
 		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-	auto __ret = ((class ::Actor*)NativePtr)->distanceSqrToBlockPosCenter(__arg0);
+	auto __ret = ((class ::Actor*)NativePtr)->distanceSqrToBlockPosCenter(_0);
 	return __ret;
 }
 
@@ -1174,12 +1169,10 @@ void MC::Actor::DropLeash(bool _0, bool _1)
 	((class ::Actor*)NativePtr)->dropLeash(_0, _1);
 }
 
-MC::BlockPos^ MC::Actor::GetBlockPosCurrentlyStandingOn(MC::Actor^ _0)
+MC::BlockPos MC::Actor::GetBlockPosCurrentlyStandingOn(MC::Actor^ _0)
 {
 	auto __arg0 = (class ::Actor*)_0->NativePtr;
-	auto __ret = ((class ::Actor*)NativePtr)->getBlockPosCurrentlyStandingOn(__arg0);
-	auto ____ret = new class ::BlockPos(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getBlockPosCurrentlyStandingOn(__arg0);
 }
 
 MC::MobEffectInstance^ MC::Actor::GetEffect(MC::MobEffect^ _0)
@@ -2227,19 +2220,16 @@ int MC::Actor::ActiveEffectCount::get()
 	return (::System::Collections::Generic::List<MC::MobEffectInstance^>^)(_tmp__ret);
 }
 
-MC::BlockPos^ MC::Actor::BlockTarget::get()
+MC::BlockPos MC::Actor::BlockTarget::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getBlockTarget();
-	auto ____ret = new class ::BlockPos(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getBlockTarget();
 }
 
-void MC::Actor::BlockTarget::set(MC::BlockPos^ _0)
+void MC::Actor::BlockTarget::set(MC::BlockPos _0)
 {
 	if (ReferenceEquals(_0, nullptr))
 		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setBlockTarget(__arg0);
+	((class ::Actor*)NativePtr)->setBlockTarget(_0);
 }
 
 bool MC::Actor::CanPickupItems::get()

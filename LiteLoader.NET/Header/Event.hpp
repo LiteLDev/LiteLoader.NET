@@ -657,7 +657,7 @@ Class FireSpreadEvent
     EventAPIs(FireSpreadEvent, ::Event::FireSpreadEvent);
 
 public:
-    Property_Instance(MC, BlockPos, mTarget, Target);
+    Property_ValueType(MC, BlockPos, mTarget, Target);
     Property(int, mDimensionId, DimensionId);
 };
 
@@ -756,7 +756,7 @@ Class LiquidSpreadEvent
 
 public:
     Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
-    Property_Instance(MC, BlockPos, mTarget, Target);
+    Property_ValueType(MC, BlockPos, mTarget, Target);
     Property(int, mDimensionId, DimensionId);
 };
 

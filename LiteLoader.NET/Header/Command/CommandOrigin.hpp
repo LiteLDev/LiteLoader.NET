@@ -32,21 +32,21 @@ namespace MC
 		inline void UpdateValues();
 		inline Vec3 GetExecutePosition(int a0, CommandPositionFloat^ a1);
 		inline CompoundTag^ Serialize();
-		CommandArea^ GetAreaAt(BlockPos^ bp0, BlockPos^ bp1, int a0, bool a1);
-		CommandArea^ GetAreaAt(BlockPos^ bp0, int a0);
-		CommandArea^ GetAreaAtWithBuffer(BlockPos^ bp0, BlockPos^ bp1, int a0, bool a1);
-		CommandArea^ GetAreaAtWithBuffer(BlockPos^ bp0, int a0);
+		CommandArea^ GetAreaAt(BlockPos bp0, BlockPos bp1, int a0, bool a1);
+		CommandArea^ GetAreaAt(BlockPos bp0, int a0);
+		CommandArea^ GetAreaAtWithBuffer(BlockPos bp0, BlockPos bp1, int a0, bool a1);
+		CommandArea^ GetAreaAtWithBuffer(BlockPos bp0, int a0);
 
 		property ServerPlayer^ Player { ServerPlayer^ get(); };
 		property String^ RequestId { String^ get(); };
 		property String^ Name { String^ get(); };
-		property BlockPos^ BlockPosition { BlockPos^ get(); };
+		property BlockPos BlockPosition { BlockPos get(); };
 		property Vec3 WorldPosition { Vec3 get(); };
 		property Vec2 Rotation { Vec2 get(); };
 		property MC::Level^ Level { MC::Level^ get(); };
 		property Dimension^ Dimension { MC::Dimension^ get(); };
 		property Actor^ Entity { Actor^ get(); };
-		property BlockPos^ CursorHitBlockPos { MC::BlockPos^ get(); };
+		property BlockPos CursorHitBlockPos { MC::BlockPos get(); };
 		property Vec3 CursorHitPos { Vec3 get(); };
 		property CommandOrigin^ OutputReceiver { CommandOrigin^ get(); };
 		property CommandOriginIdentity^ Identity { CommandOriginIdentity^ get(); };

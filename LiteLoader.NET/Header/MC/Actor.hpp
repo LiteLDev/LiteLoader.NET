@@ -6,12 +6,12 @@
 namespace MC
 {
 	value class Vec2;
-	ref class BlockPos;
+	value class BlockPos;
 	value class Vec3;
 	ref class UserEntityIdentifierComponent;
 	ref class CompoundTag;
 	ref class BlockSource;
-	ref class BlockPos;
+	value class BlockPos;
 	ref struct Tick;
 	ref class ItemStack;
 	ref class MobEffectInstance;
@@ -59,7 +59,7 @@ namespace MC
 
 		property UserEntityIdentifierComponent^ UserEntityIdentifierComponent { MC::UserEntityIdentifierComponent^ get(); };
 		property CompoundTag^ Nbt {CompoundTag^ get(); void set(CompoundTag^); };
-		property BlockPos^ BlockPos { MC::BlockPos^ get(); };
+		property BlockPos BlockPos { MC::BlockPos get(); };
 		property BlockInstance^ BlockStandingOn { BlockInstance^ get(); };
 		property String^ TypeName { String^ get(); };
 		property Vec3 Position { Vec3 get(); };
@@ -490,10 +490,10 @@ namespace MC
 			::System::Collections::Generic::List<MC::MobEffectInstance^>^ get();
 		}
 
-		property MC::BlockPos^ BlockTarget
+		property MC::BlockPos BlockTarget
 		{
-			MC::BlockPos^ get();
-			void set(MC::BlockPos^);
+			MC::BlockPos get();
+			void set(MC::BlockPos);
 		}
 
 		property bool CanPickupItems
@@ -1318,7 +1318,7 @@ namespace MC
 
 		virtual void ThawFreezeEffect();
 
-		virtual void HandleInsidePortal(MC::BlockPos^ _0);
+		virtual void HandleInsidePortal(MC::BlockPos _0);
 
 		virtual void CheckFallDamage(float _0, bool _1);
 
@@ -1432,7 +1432,7 @@ namespace MC
 
 		void DeregisterTagsFromLevelCache();
 
-		float DistanceSqrToBlockPosCenter(MC::BlockPos^ _0);
+		float DistanceSqrToBlockPosCenter(MC::BlockPos _0);
 
 		float DistanceTo(MC::Actor^ _0);
 
@@ -1444,7 +1444,7 @@ namespace MC
 
 		void DropLeash(bool _0, bool _1);
 
-		MC::BlockPos^ GetBlockPosCurrentlyStandingOn(MC::Actor^ _0);
+		MC::BlockPos GetBlockPosCurrentlyStandingOn(MC::Actor^ _0);
 
 		MC::MobEffectInstance^ GetEffect(MC::MobEffect^ _0);
 

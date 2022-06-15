@@ -58,19 +58,19 @@ public:
     inline static Actor^ CloneMob(Vec3 pos, int dimid, Actor^ ac);
 
     // Block
-    inline static Block ^ GetBlock(BlockPos ^ pos, int dimId);
-    inline static Block ^ GetBlock(BlockPos ^ pos, BlockSource ^ blockSource);
-    inline static Block ^ GetBlockEx(BlockPos ^ pos, int dimId);
-    inline static BlockInstance ^ GetBlockInstance(BlockPos ^ pos, int dimId);
-    inline static BlockInstance ^ GetBlockInstance(BlockPos ^ pos, BlockSource ^ blockSource);
-    inline static BlockActor ^ GetBlockEntity(BlockPos ^ pos, int dimId);
-    inline static BlockActor ^ GetBlockEntity(BlockPos ^ pos, BlockSource ^ blockSource);
-    inline static bool SetBlock(BlockPos ^ pos, int dim, Block ^ block);
-    inline static bool SetBlock(BlockPos ^ pos, int dim, String ^ name, unsigned short tileData);
-    inline static bool SetBlock(BlockPos ^ pos, int dim, CompoundTag ^ nbt);
-    inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos);
-    inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos ^ pos, ItemStack ^ tool);
-    inline /*static*/ bool DestroyBlock(BlockSource ^ bs, BlockPos ^ pos, bool a2);
+    inline static Block ^ GetBlock(BlockPos pos, int dimId);
+    inline static Block ^ GetBlock(BlockPos pos, BlockSource ^ blockSource);
+    inline static Block ^ GetBlockEx(BlockPos pos, int dimId);
+    inline static BlockInstance ^ GetBlockInstance(BlockPos pos, int dimId);
+    inline static BlockInstance ^ GetBlockInstance(BlockPos pos, BlockSource ^ blockSource);
+    inline static BlockActor ^ GetBlockEntity(BlockPos pos, int dimId);
+    inline static BlockActor ^ GetBlockEntity(BlockPos pos, BlockSource ^ blockSource);
+    inline static bool SetBlock(BlockPos pos, int dim, Block ^ block);
+    inline static bool SetBlock(BlockPos pos, int dim, String ^ name, unsigned short tileData);
+    inline static bool SetBlock(BlockPos pos, int dim, CompoundTag ^ nbt);
+    inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos pos);
+    inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos pos, ItemStack ^ tool);
+    inline /*static*/ bool DestroyBlock(BlockSource ^ bs, BlockPos pos, bool a2);
     inline /*static*/ void SpawnParticleEffect(String ^ type, Vec3 pos, Dimension ^ a2);
     //inline static void SpawnParticleEffect(String ^ type, Actor ^ a1, Vec3 a2);
     inline static bool HasContainer(Vec3 pos, int dim);

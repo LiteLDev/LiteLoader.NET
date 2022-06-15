@@ -35,9 +35,9 @@ namespace MC
 		return marshalString<Encoding::E_UTF8>(NativePtr->getName());
 	}
 
-	BlockPos^ CommandOrigin::BlockPosition::get()
+	BlockPos CommandOrigin::BlockPosition::get()
 	{
-		return gcnew BlockPos(NativePtr->getBlockPosition());
+		return BlockPos(NativePtr->getBlockPosition());
 	}
 
 	Vec3 CommandOrigin::WorldPosition::get()
@@ -75,10 +75,9 @@ namespace MC
 		return gcnew CommandOrigin(NativePtr->clone().release(), true);
 	}
 
-	BlockPos^ CommandOrigin::CursorHitBlockPos::get()
+	BlockPos CommandOrigin::CursorHitBlockPos::get()
 	{
-		auto op = NativePtr->getCursorHitBlockPos();
-		return op ? gcnew BlockPos(*op) : nullptr;
+		return NativePtr->getCursorHitBlockPos().value_or(::BlockPos::ZERO);
 	}
 
 	Vec3 CommandOrigin::CursorHitPos::get()
@@ -176,22 +175,22 @@ namespace MC
 		NativePtr->_setUUID(a0);
 	}
 
-	CommandArea^ CommandOrigin::GetAreaAt(BlockPos^ bp0, BlockPos^ bp1, int a0, bool a1)
+	CommandArea^ CommandOrigin::GetAreaAt(BlockPos bp0, BlockPos bp1, int a0, bool a1)
 	{
 		return gcnew CommandArea(NativePtr->getAreaAt(bp0, bp1, a0, a1).release(), true);
 	}
 
-	CommandArea^ CommandOrigin::GetAreaAt(BlockPos^ bp0, int a0)
+	CommandArea^ CommandOrigin::GetAreaAt(BlockPos bp0, int a0)
 	{
 		return gcnew CommandArea(NativePtr->getAreaAt(bp0, a0).release(), true);
 	}
 
-	CommandArea^ CommandOrigin::GetAreaAtWithBuffer(BlockPos^ bp0, BlockPos^ bp1, int a0, bool a1)
+	CommandArea^ CommandOrigin::GetAreaAtWithBuffer(BlockPos bp0, BlockPos bp1, int a0, bool a1)
 	{
 		return gcnew CommandArea(NativePtr->getAreaAtWithBuffer(bp0, bp1, a0, a1).release(), true);
 	}
 
-	CommandArea^ CommandOrigin::GetAreaAtWithBuffer(BlockPos^ bp0, int a0)
+	CommandArea^ CommandOrigin::GetAreaAtWithBuffer(BlockPos bp0, int a0)
 	{
 		return gcnew CommandArea(NativePtr->getAreaAtWithBuffer(bp0, a0).release(), true);
 	}

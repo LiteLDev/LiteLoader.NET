@@ -313,7 +313,7 @@ namespace LLNET::RemoteCall {
 			return MC::Vec3(std::get<::RemoteCall::WorldPosType>(_VALUE).pos);
 			break;
 		case ExportFunctionRegister::ValidType::BlockPos:
-			return gcnew MC::BlockPos(std::get<::RemoteCall::BlockPosType>(_VALUE).pos);
+			return MC::BlockPos(std::get<::RemoteCall::BlockPosType>(_VALUE).pos);
 			break;
 		case ExportFunctionRegister::ValidType::WorldPosType:
 			return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(_VALUE));
@@ -420,7 +420,7 @@ namespace LLNET::RemoteCall {
 			return ::RemoteCall::packValue(std::make_pair(::Vec3(static_cast<MC::Vec3>(val)), 0));
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPos:
-			return ::RemoteCall::packValue(std::make_pair(*static_cast<MC::BlockPos^>(val)->NativePtr, 0));
+			return ::RemoteCall::packValue(std::make_pair(::BlockPos(static_cast<MC::BlockPos>(val)), 0));
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::WorldPosType:
 			return *static_cast<WorldPosType^>(val)->NativePtr;

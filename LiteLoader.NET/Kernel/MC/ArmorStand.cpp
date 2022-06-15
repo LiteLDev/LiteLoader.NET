@@ -309,7 +309,7 @@ void MC::ArmorStand::OnBorn(MC::Actor ^ _0, MC::Actor ^ _1)
     ((class ::ArmorStand*)NativePtr)->onBorn(__arg0, __arg1);
 }
 
-float MC::ArmorStand::GetWalkTargetValue(MC::BlockPos ^ _0)
+float MC::ArmorStand::GetWalkTargetValue(MC::BlockPos _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");

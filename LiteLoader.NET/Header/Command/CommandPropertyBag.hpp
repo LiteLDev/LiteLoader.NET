@@ -16,7 +16,7 @@ public:
     __ctor(CommandPropertyBag, ::CommandPropertyBag);
 
     inline void AddToResultList(String^ str0, String^ str1);
-    inline void Set(String^ str, BlockPos ^ bp);
+    inline void Set(String^ str, BlockPos bp);
     inline void Set(String^ str, Vec3 bp);
 };
 } // namespace MC

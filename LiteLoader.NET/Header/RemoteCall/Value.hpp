@@ -56,8 +56,8 @@ namespace LLNET::RemoteCall {
 			: ClassTemplate(new _T(::Vec3(vec3)), true)
 		{
 		}
-		Value(MC::BlockPos^ blockPos)
-			: ClassTemplate(new _T(*blockPos->NativePtr), true)
+		Value(MC::BlockPos blockPos)
+			: ClassTemplate(new _T((::BlockPos)blockPos), true)
 		{
 		}
 		Value(ItemType^ itemType)
@@ -344,7 +344,7 @@ namespace LLNET::RemoteCall {
 		static operator Value ^ (MC::Vec3 v) {
 			return gcnew Value(v);
 		}
-		static operator Value ^ (MC::BlockPos^ v) {
+		static operator Value ^ (MC::BlockPos v) {
 			return gcnew Value(v);
 		}
 		static operator Value ^ (ItemType^ v) {

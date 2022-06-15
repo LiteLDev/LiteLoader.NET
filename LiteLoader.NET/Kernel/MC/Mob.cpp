@@ -484,13 +484,9 @@ void MC::Mob::AttackAnimation(MC::Actor^ _0, float _1)
 	((class ::Mob*)NativePtr)->attackAnimation(__arg0, _1);
 }
 
-float MC::Mob::GetWalkTargetValue(MC::BlockPos^ _0)
+float MC::Mob::GetWalkTargetValue(MC::BlockPos _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-	auto __ret = ((class ::Mob*)NativePtr)->_getWalkTargetValue(__arg0);
-	return __ret;
+	return ((class ::Mob*)NativePtr)->_getWalkTargetValue(_0);
 }
 
 bool MC::Mob::CanExistWhenDisallowMob()
@@ -600,12 +596,9 @@ void MC::Mob::AddSpeedModifier(MC::Mce::UUID^ _0, ::System::String^ _1, float _2
 //    ((class ::Mob*)NativePtr)->createAI(__arg0);
 //}
 
-void MC::Mob::EmitJumpPreventedEvent(MC::BlockPos^ _0)
+void MC::Mob::EmitJumpPreventedEvent(MC::BlockPos _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::BlockPos*)_0->NativePtr;
-	((class ::Mob*)NativePtr)->emitJumpPreventedEvent(__arg0);
+	((class ::Mob*)NativePtr)->emitJumpPreventedEvent(_0);
 }
 
 void MC::Mob::FrostWalk()
@@ -1000,11 +993,9 @@ bool MC::Mob::DiscardFriction::get()
 	return __ret;
 }
 
-MC::BlockPos^ MC::Mob::BoundOrigin::get()
+MC::BlockPos MC::Mob::BoundOrigin::get()
 {
-	auto __ret = ((class ::Mob*)NativePtr)->getBoundOrigin();
-	auto ____ret = new class ::BlockPos(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
+	return ((class ::Mob*)NativePtr)->getBoundOrigin();
 }
 
 int MC::Mob::CaravanSize::get()

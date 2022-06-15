@@ -4,7 +4,7 @@
 #include "Vec2.hpp"
 
 namespace MC {
-	ref class BlockPos;
+	value class BlockPos;
 }
 
 namespace MC {
@@ -42,7 +42,7 @@ namespace MC {
 		inline Vec3(int x, int y, int z)
 			: x((float)x), y((float)y), z((float)z) {}
 
-		inline Vec3(BlockPos^ pos);
+		inline Vec3(BlockPos pos);
 
 		Vec3 Abs() {
 			pin_ptr<Vec3> p = this;
@@ -108,15 +108,15 @@ namespace MC {
 			return ((::Vec3*)p)->xz();
 		}
 
-		static property Vec3 const HALF { inline Vec3 const get() { return ::Vec3::HALF; }}
-		static property Vec3 const MAX {inline Vec3 const get() { return ::Vec3::MAX; }}
-		static property Vec3 const MIN {inline Vec3 const get() { return ::Vec3::MIN; }}
-		static property Vec3 const NEG_UNIT_X {inline Vec3 const get() { return ::Vec3::NEG_UNIT_X; }}
-		static property Vec3 const LOWESNEG_UNIT_YT {inline Vec3 const get() { return ::Vec3::NEG_UNIT_Y; }}
-		static property Vec3 const ONE {inline Vec3 const get() { return ::Vec3::ONE; }}
-		static property Vec3 const UNIT_X {inline Vec3 const get() { return ::Vec3::UNIT_X; }}
-		static property Vec3 const UNIT_Y {inline Vec3 const get() { return ::Vec3::UNIT_Y; }}
-		static property Vec3 const ZERO {inline Vec3 const get() { return ::Vec3::ZERO; }}
+		initonly static Vec3 HALF = ::Vec3::HALF;
+		initonly static Vec3 MAX = ::Vec3::MAX;
+		initonly static Vec3 MIN = ::Vec3::MIN;
+		initonly static Vec3 NEG_UNIT_X = ::Vec3::NEG_UNIT_X;
+		initonly static Vec3 LOWESNEG_UNIT_YT = ::Vec3::NEG_UNIT_Y;
+		initonly static Vec3 ONE = ::Vec3::ONE;
+		initonly static Vec3 UNIT_X = ::Vec3::UNIT_X;
+		initonly static Vec3 UNIT_Y = ::Vec3::UNIT_Y;
+		initonly static Vec3 ZERO = ::Vec3::ZERO;
 
 		Vec3 Clamp(Vec3% a, Vec3% b, Vec3% c) {
 			pin_ptr<Vec3> p = this;
@@ -141,7 +141,7 @@ namespace MC {
 			return ((::Vec3*)p)->rotationFromDirection(*(::Vec3*)pobj);
 		}
 
-		BlockPos^ ToBlockPos();
+		BlockPos ToBlockPos();
 
 		property float Length {
 			inline float get() {
@@ -248,7 +248,7 @@ namespace MC {
 			}
 		}
 
-		int GetHashCode() override{
+		int GetHashCode() override {
 			return (int)HashVal;
 		}
 	};

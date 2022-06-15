@@ -58,9 +58,9 @@ public:
         MC::AABB ^ get();
     }
 
-        property MC::BlockPos ^
+        property MC::BlockPos
         Position {
-            MC::BlockPos ^ get();
+            MC::BlockPos get();
         }
 
         property bool IgnoreLighting
@@ -77,7 +77,7 @@ public:
 
     virtual void UnkVfn16();
 
-    virtual void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos ^ _1);
+    virtual void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1);
 
     virtual void UnkVfn28();
 
@@ -89,7 +89,7 @@ public:
 
     virtual void UnkVfn33();
 
-    void MoveTo(MC::BlockPos ^ _0);
+    void MoveTo(MC::BlockPos _0);
 
     void SetChanged();
 

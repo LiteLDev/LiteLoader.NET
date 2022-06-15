@@ -118,7 +118,7 @@ public:
 
     virtual void OnBorn(MC::Actor ^ _0, MC::Actor ^ _1) override;
 
-    virtual float GetWalkTargetValue(MC::BlockPos ^ _0) override;
+    virtual float GetWalkTargetValue(MC::BlockPos _0) override;
 
     virtual void UnkVfn338() override;
 

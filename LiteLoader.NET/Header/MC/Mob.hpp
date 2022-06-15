@@ -258,9 +258,9 @@ namespace MC
             bool get();
         }
 
-        property MC::BlockPos^ BoundOrigin
+        property MC::BlockPos BoundOrigin
         {
-            MC::BlockPos^ get();
+            MC::BlockPos get();
         }
 
         property int CaravanSize
@@ -571,7 +571,7 @@ namespace MC
 
         virtual void AttackAnimation(MC::Actor^ _0, float _1);
 
-        virtual float GetWalkTargetValue(MC::BlockPos^ _0);
+        virtual float GetWalkTargetValue(MC::BlockPos _0);
 
         virtual bool CanExistWhenDisallowMob();
 
@@ -609,7 +609,7 @@ namespace MC
 
         //void CreateAI(::System::Collections::Generic::List<MC::GoalDefinition^>^ _0);
 
-        void EmitJumpPreventedEvent(MC::BlockPos^ _0);
+        void EmitJumpPreventedEvent(MC::BlockPos _0);
 
         void FrostWalk();
 

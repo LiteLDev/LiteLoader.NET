@@ -65,7 +65,7 @@ inline CommandOutputParameter ^ CommandOutputParameter::Create(char const* p)
     return gcnew CommandOutputParameter(::CommandOutputParameter(p));
 }
 
-inline CommandOutputParameter ^ CommandOutputParameter::Create(BlockPos ^ bp)
+inline CommandOutputParameter ^ CommandOutputParameter::Create(BlockPos bp)
 {
     return gcnew CommandOutputParameter(::CommandOutputParameter(bp));
 }

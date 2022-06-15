@@ -124,16 +124,16 @@ namespace LLNET::RemoteCall {
 			Vec3% get() { return *(Vec3*)&NativePtr->pos; }
 		}
 
-		property MC::BlockPos^ BlockPos {
-			MC::BlockPos^ get() { return gcnew MC::BlockPos(NativePtr->pos); }
+		property MC::BlockPos BlockPos {
+			MC::BlockPos get() { return MC::BlockPos(MC::Vec3(NativePtr->pos)); }
 		}
 
 		property Pair<MC::Vec3, int> PosPair {
 			Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId); }
 		}
 
-		property Pair<MC::BlockPos^, int> BlockPosPair {
-			Pair<MC::BlockPos^, int> get() { return Pair<MC::BlockPos^, int>(BlockPos, NativePtr->dimId); }
+		property Pair<MC::BlockPos, int> BlockPosPair {
+			Pair<MC::BlockPos, int> get() { return Pair<MC::BlockPos, int>(BlockPos, NativePtr->dimId); }
 		}
 
 		property int DimId {
@@ -149,16 +149,16 @@ namespace LLNET::RemoteCall {
 		__ctor_copy(BlockPosType, ::RemoteCall::BlockPosType);
 		__ctor_move(BlockPosType, ::RemoteCall::BlockPosType);
 	public:
-		BlockPosType(MC::BlockPos^ pos)
+		BlockPosType(MC::BlockPos pos)
 			:ClassTemplate(::RemoteCall::BlockPosType(pos)) {}
-		BlockPosType(MC::BlockPos^ pos, int dimId)
+		BlockPosType(MC::BlockPos pos, int dimId)
 			:ClassTemplate(::RemoteCall::BlockPosType(pos, dimId)) {}
-		BlockPosType(Pair<MC::BlockPos^, int> pos)
+		BlockPosType(Pair<MC::BlockPos, int> pos)
 			:ClassTemplate(::RemoteCall::BlockPosType(pos.Key, pos.Value)) {}
 
-		property MC::BlockPos^ Pos {
-			MC::BlockPos^ get() { return gcnew MC::BlockPos(NativePtr->pos); }
-			void set(MC::BlockPos^ value) { NativePtr->pos = value; }
+		property MC::BlockPos Pos {
+			MC::BlockPos get() { return MC::BlockPos(NativePtr->pos); }
+			void set(MC::BlockPos value) { NativePtr->pos = value; }
 		}
 
 		property MC::Vec3 Vec3 {
@@ -169,8 +169,8 @@ namespace LLNET::RemoteCall {
 			Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(Vec3, NativePtr->dimId); }
 		}
 
-		property Pair<MC::BlockPos^, int> BlockPosPair {
-			Pair<MC::BlockPos^, int> get() { return Pair<MC::BlockPos^, int>(gcnew MC::BlockPos(NativePtr->pos), NativePtr->dimId); }
+		property Pair<MC::BlockPos, int> BlockPosPair {
+			Pair<MC::BlockPos, int> get() { return Pair<MC::BlockPos, int>(MC::BlockPos(NativePtr->pos), NativePtr->dimId); }
 		}
 
 		property int DimId {

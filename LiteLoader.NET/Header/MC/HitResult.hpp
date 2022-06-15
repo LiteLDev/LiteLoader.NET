@@ -10,7 +10,7 @@ namespace MC {
 		NO_HIT,
 	};
 	value class Vec3;
-	ref class BlockPos;
+	value class BlockPos;
 	ref class Actor;
 }
 
@@ -26,8 +26,8 @@ namespace MC {
 		property bool IsHitLiquid { bool get(); }
 		property bool IsEntity { bool get(); }
 		property bool IsTile { bool get(); }
-		property MC::BlockPos^ BlockPos { MC::BlockPos^ get(); }
-		property MC::BlockPos^ LiquidPos { MC::BlockPos^ get(); }
+		property MC::BlockPos BlockPos { MC::BlockPos get(); }
+		property MC::BlockPos LiquidPos { MC::BlockPos get(); }
 		property FaceID LiquidFacing { FaceID get(); }
 		//property MC::HitResultType HitResultType { MC::HitResultType get(); }
 	public:
@@ -35,7 +35,7 @@ namespace MC {
 		HitResult(Vec3 v1, Vec3 v2, Vec3 v3);
 		HitResult(Vec3 v1, Vec3 v2, Actor^ ac, Vec3 v3);
 		HitResult(Vec3 v1, Vec3 v2, Actor^ ac);
-		HitResult(Vec3 v1, Vec3 v2, MC::BlockPos^ pos, unsigned char b, Vec3 v3);
+		HitResult(Vec3 v1, Vec3 v2, MC::BlockPos pos, unsigned char b, Vec3 v3);
 		HitResult();
 	public:
 		//void __AutoClassInit2(unsigned __int64 a1);

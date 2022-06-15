@@ -8,7 +8,7 @@
 namespace MC
 {
 	ref class BlockSource;
-	ref class BlockPos;
+	value class BlockPos;
 	value class Vec3;
 	ref class ItemStack;
 	ref class Container;
@@ -24,7 +24,7 @@ namespace MC
 	public:
 		__ctor_all(BlockInstance, ::BlockInstance);
 
-		inline static BlockInstance^ CreateBlockinstance(Block^ block, BlockPos^ pos, int dimId);
+		inline static BlockInstance^ CreateBlockinstance(Block^ block, BlockPos pos, int dimId);
 
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace MC
 		/// <para>¡¡¡¡2 : The End</para>
 		/// </param>
 		/// <returns>A instance of the MC.BlockInstance</returns>
-		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos^ pos, int dimid);
+		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos, int dimid);
 
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace MC
 		/// <param name="block">£­Block</param>
 		/// <param name="pos">£­Block Position</param>
 		/// <returns>A instance of the MC.BlockInstance</returns>
-		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos^ pos);
+		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos);
 
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace MC
 		/// <summary>
 		/// Get the position in the current MC.BlockInstance object.
 		/// </summary>
-		property BlockPos^ Position { BlockPos^ get(); };
+		property BlockPos Position { BlockPos get(); };
 
 
 		/// <summary>

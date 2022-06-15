@@ -106,6 +106,12 @@ namespace LLNET::Logger {
 		OutputStream^ error;
 		OutputStream^ fatal;
 
+		property OutputStream^ Debug {OutputStream^ get() { return debug; }};
+		property OutputStream^ Info {OutputStream^ get() { return info; }};
+		property OutputStream^ Warn {OutputStream^ get() { return warn; }};
+		property OutputStream^ Error {OutputStream^ get() { return error; }};
+		property OutputStream^ Fatal {OutputStream^ get() { return fatal; }};
+
 		property String^ Title {inline String^ get(); inline void set(String^ _title); }
 		//property IntPtr std_ofstream {inline IntPtr get(); inline void set(IntPtr pofs); }
 		//property MC::Player^ player {inline MC::Player^ get(); inline void set(MC::Player^ _player); }

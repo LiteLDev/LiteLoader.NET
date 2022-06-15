@@ -31,7 +31,7 @@ public:
     inline static CommandOutputParameter ^ Create(int i);
     inline static CommandOutputParameter ^ Create(float f);
     inline static CommandOutputParameter ^ Create(char const* p);
-    inline static CommandOutputParameter ^ Create(BlockPos ^ bp);
+    inline static CommandOutputParameter ^ Create(BlockPos bp);
     // inline static CommandOutputParameter^ Create(NoCountType unknown);
     inline static CommandOutputParameter ^ Create(bool b);
 };
