@@ -276,7 +276,7 @@ public:
 
     void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1);
 
-    MC::AABB ^ GetVisualShape(MC::AABB ^ _0, bool _1);
+    MC::AABB GetVisualShape(MC::AABB _0, bool _1);
 
     bool HasTag(unsigned long long _0);
 

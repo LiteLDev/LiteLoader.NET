@@ -157,10 +157,10 @@ float MC::BlockActor::DeletionDelayTimeSeconds::get()
     return __ret;
 }
 
-MC::AABB ^ MC::BlockActor::AABB::get()
+MC::AABB MC::BlockActor::AABB::get()
 {
     auto& __ret = ((class ::BlockActor*)NativePtr)->getAABB();
-    return (MC::AABB ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)&__ret));
+    return (MC::AABB)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)&__ret));
 }
 
 MC::BlockPos MC::BlockActor::Position::get()

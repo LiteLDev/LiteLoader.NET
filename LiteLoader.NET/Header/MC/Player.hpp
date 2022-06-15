@@ -271,9 +271,9 @@ namespace MC
 			void set(int);
 		}
 
-		property MC::AABB^ PickupArea
+		property MC::AABB PickupArea
 		{
-			MC::AABB^ get();
+			MC::AABB get();
 		}
 
 		property ::System::String^ PlatformOnlineId

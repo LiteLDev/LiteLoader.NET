@@ -560,12 +560,9 @@ void MC::Mob::UpdateGliding()
 //    ((class ::Mob*)NativePtr)->__unk_vfn_359();
 //}
 
-MC::AABB^ MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB^ _0, MC::Vec3 _1)
+MC::AABB MC::Mob::GetAdjustedAABBForSpawnCheck(MC::AABB _0, MC::Vec3 _1)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-		return gcnew MC::AABB(((class ::Mob*)NativePtr)->_getAdjustedAABBForSpawnCheck(__arg0, _1));
+	return ((class ::Mob*)NativePtr)->_getAdjustedAABBForSpawnCheck(_0, _1);
 }
 
 void MC::Mob::EndJump()

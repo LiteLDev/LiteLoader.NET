@@ -532,9 +532,9 @@ namespace MC
 		NativePtr->setMapIndex(_0);
 	}
 
-	MC::AABB^ MC::Player::PickupArea::get()
+	MC::AABB MC::Player::PickupArea::get()
 	{
-		return gcnew ::MC::AABB(NativePtr->getPickupArea());
+		return NativePtr->getPickupArea();
 	}
 
 	::System::String^ MC::Player::PlatformOnlineId::get()

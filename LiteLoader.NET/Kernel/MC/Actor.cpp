@@ -588,12 +588,9 @@ void MC::Actor::UpdateEntityInside()
 	((class ::Actor*)NativePtr)->updateEntityInside();
 }
 
-void MC::Actor::UpdateEntityInside(MC::AABB^ _0)
+void MC::Actor::UpdateEntityInside(MC::AABB _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->updateEntityInside(__arg0);
+	((class ::Actor*)NativePtr)->updateEntityInside(_0);
 }
 
 bool MC::Actor::CanDisableShield()
@@ -1347,12 +1344,9 @@ bool MC::Actor::OnHoverableBlock()
 	return __ret;
 }
 
-void MC::Actor::OnOnewayCollision(MC::AABB^ _0)
+void MC::Actor::OnOnewayCollision(MC::AABB _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->onOnewayCollision(__arg0);
+	((class ::Actor*)NativePtr)->onOnewayCollision(_0);
 }
 
 bool MC::Actor::operator==(MC::Actor^ __op, MC::Actor^ _0)
@@ -2176,18 +2170,14 @@ void MC::Actor::CanFly::set(bool _0)
 	((class ::Actor*)NativePtr)->setCanFly(_0);
 }
 
-MC::AABB^ MC::Actor::AABB::get()
+MC::AABB MC::Actor::AABB::get()
 {
-	auto& __ret = ((class ::Actor*)NativePtr)->getAABB();
-	return (MC::AABB^)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*) & __ret));
+	return ((class ::Actor*)NativePtr)->getAABB();
 }
 
-void MC::Actor::AABB::set(MC::AABB^ _0)
+void MC::Actor::AABB::set(MC::AABB _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setAABB(__arg0);
+	((class ::Actor*)NativePtr)->setAABB(_0);
 }
 
 MC::Vec2 MC::Actor::AABBDim::get()

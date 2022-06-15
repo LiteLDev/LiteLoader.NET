@@ -117,13 +117,9 @@ void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _
     ((class ::Block*)NativePtr)->getDebugText(__arg0, _1);
 }
 
-MC::AABB ^ MC::Block::GetVisualShape(MC::AABB ^ _0, bool _1)
+MC::AABB MC::Block::GetVisualShape(MC::AABB _0, bool _1)
 {
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::AABB*)_0->NativePtr;
-    auto& __ret = ((class ::Block*)NativePtr)->getVisualShape(__arg0, _1);
-    return (MC::AABB ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)&__ret));
+    return ((class ::Block*)NativePtr)->getVisualShape((::AABB)_0, _1);
 }
 
 bool MC::Block::HasTag(unsigned long long _0)

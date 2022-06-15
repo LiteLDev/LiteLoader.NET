@@ -43,9 +43,9 @@ public:
 
     virtual bool HasChunksAt(MC::BlockPos _0, int _1);
 
-    virtual bool HasChunksAt(MC::AABB ^ _0);
+    virtual bool HasChunksAt(MC::AABB _0);
 
-    virtual bool ContainsAnyLiquid(MC::AABB ^ _0);
+    virtual bool ContainsAnyLiquid(MC::AABB _0);
 
     virtual void UnkVfn19();
 
@@ -53,7 +53,7 @@ public:
 
     virtual void UnkVfn22();
 
-    virtual ::System::Collections::Generic::List<MC::AABB ^> ^ FetchAABBs(MC::AABB ^ _0, bool _1);
+    virtual ::System::Collections::Generic::List<MC::AABB> ^ FetchAABBs(MC::AABB _0, bool _1);
 
     virtual void UnkVfn26();
 
@@ -75,13 +75,13 @@ public:
 
     void ClearDeletedEntities();
 
-    bool ContainsAnySolidBlocking(MC::AABB ^ _0);
+    bool ContainsAnySolidBlocking(MC::AABB _0);
 
-    void FetchActorIds(MC::AABB ^ _0, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _1);
+    void FetchActorIds(MC::AABB _0, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _1);
 
-    void FetchActorIds(unsigned long long _0, MC::AABB ^ _1, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _2);
+    void FetchActorIds(unsigned long long _0, MC::AABB _1, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _2);
 
-    ::System::Collections::Generic::List<MC::BlockActor ^> ^ FetchBlockEntities(MC::AABB ^ _0);
+    ::System::Collections::Generic::List<MC::BlockActor ^> ^ FetchBlockEntities(MC::AABB _0);
 
     bool FindNextTopSolidBlockAbove(MC::BlockPos _0);
 
@@ -107,7 +107,7 @@ public:
 
     MC::BlockPos GetHeightmapPos(MC::BlockPos _0);
 
-    float GetSeenPercent(MC::Vec3 _0, MC::AABB ^ _1);
+    float GetSeenPercent(MC::Vec3 _0, MC::AABB _1);
 
     float GetVisualLiquidHeight(MC::Vec3 _0);
 

@@ -33,7 +33,7 @@ bool MC::BlockSource::HasChunksAt(MC::BlockPos _0, int _1)
     return __ret;
 }
 
-bool MC::BlockSource::HasChunksAt(MC::AABB ^ _0)
+bool MC::BlockSource::HasChunksAt(MC::AABB _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -42,7 +42,7 @@ bool MC::BlockSource::HasChunksAt(MC::AABB ^ _0)
     return __ret;
 }
 
-bool MC::BlockSource::ContainsAnyLiquid(MC::AABB ^ _0)
+bool MC::BlockSource::ContainsAnyLiquid(MC::AABB _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -66,13 +66,13 @@ void MC::BlockSource::UnkVfn22()
     ((class ::BlockSource*)NativePtr)->__unk_vfn_22();
 }
 
-::System::Collections::Generic::List<MC::AABB ^> ^ MC::BlockSource::FetchAABBs(MC::AABB ^ _0, bool _1)
+::System::Collections::Generic::List<MC::AABB> ^ MC::BlockSource::FetchAABBs(MC::AABB _0, bool _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::AABB*)_0->NativePtr;
     auto& __ret = ((class ::BlockSource*)NativePtr)->fetchAABBs(__arg0, _1);
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::AABB ^>();
+    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::AABB>();
     auto __list0 = __ret;
     for (auto _element : __list0)
     {
@@ -80,7 +80,7 @@ void MC::BlockSource::UnkVfn22()
         auto _marshalElement = (___element == nullptr) ? nullptr : gcnew ::MC::AABB((class ::AABB*)___element, true);
         _tmp__ret->Add(_marshalElement);
     }
-    return (::System::Collections::Generic::List<MC::AABB ^> ^)(_tmp__ret);
+    return (::System::Collections::Generic::List<MC::AABB> ^)(_tmp__ret);
 }
 
 void MC::BlockSource::UnkVfn26()
@@ -148,7 +148,7 @@ void MC::BlockSource::ClearDeletedEntities()
     ((class ::BlockSource*)NativePtr)->clearDeletedEntities();
 }
 
-bool MC::BlockSource::ContainsAnySolidBlocking(MC::AABB ^ _0)
+bool MC::BlockSource::ContainsAnySolidBlocking(MC::AABB _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -157,7 +157,7 @@ bool MC::BlockSource::ContainsAnySolidBlocking(MC::AABB ^ _0)
     return __ret;
 }
 
-void MC::BlockSource::FetchActorIds(MC::AABB ^ _0, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _1)
+void MC::BlockSource::FetchActorIds(MC::AABB _0, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _1)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -174,7 +174,7 @@ void MC::BlockSource::FetchActorIds(MC::AABB ^ _0, ::System::Collections::Generi
     ((class ::BlockSource*)NativePtr)->fetchActorIds(__arg0, __arg1);
 }
 
-void MC::BlockSource::FetchActorIds(unsigned long long _0, MC::AABB ^ _1, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _2)
+void MC::BlockSource::FetchActorIds(unsigned long long _0, MC::AABB _1, ::System::Collections::Generic::List<MC::ActorUniqueID ^> ^ _2)
 {
     if (ReferenceEquals(_1, nullptr))
         throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
@@ -191,7 +191,7 @@ void MC::BlockSource::FetchActorIds(unsigned long long _0, MC::AABB ^ _1, ::Syst
     ((class ::BlockSource*)NativePtr)->fetchActorIds(_0, __arg1, __arg2);
 }
 
-::System::Collections::Generic::List<MC::BlockActor ^> ^ MC::BlockSource::FetchBlockEntities(MC::AABB ^ _0)
+::System::Collections::Generic::List<MC::BlockActor ^> ^ MC::BlockSource::FetchBlockEntities(MC::AABB _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
@@ -289,7 +289,7 @@ MC::BlockPos MC::BlockSource::GetHeightmapPos(MC::BlockPos _0)
     return (____ret == nullptr) ? nullptr : gcnew ::MC::BlockPos((class ::BlockPos*)____ret, true);
 }
 
-float MC::BlockSource::GetSeenPercent(MC::Vec3 _0, MC::AABB ^ _1)
+float MC::BlockSource::GetSeenPercent(MC::Vec3 _0, MC::AABB _1)
 {
     auto& __arg0 = *(class ::Vec3*)_0->NativePtr;
     if (ReferenceEquals(_1, nullptr))

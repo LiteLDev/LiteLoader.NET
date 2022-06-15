@@ -54,8 +54,8 @@ public:
         float get();
     }
 
-    property MC::AABB ^ AABB {
-        MC::AABB ^ get();
+    property MC::AABB AABB {
+        MC::AABB get();
     }
 
         property MC::BlockPos

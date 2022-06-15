@@ -23,10 +23,10 @@ namespace MC {
 	{
 		return BlockPos(NativePtr->getCenter());
 	}
-	inline AABB^ BoundingBox::ToAABB()
+	inline AABB BoundingBox::ToAABB()
 	{
 		::Vec3 vec1 = { (float)Min.X, (float)Min.Y, (float)Min.Z };
 		::Vec3 vec2 = { (float)Min.X, (float)Min.Y, (float)Min.Z };
-		return gcnew AABB({ vec1, vec2 + ::Vec3{1, 1, 1} });
+		return AABB({ vec1, vec2 + ::Vec3{1, 1, 1} });
 	}
 }

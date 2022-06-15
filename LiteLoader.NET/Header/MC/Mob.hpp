@@ -601,7 +601,7 @@ namespace MC
 
         //virtual void UnkVfn359();
 
-        virtual MC::AABB^ GetAdjustedAABBForSpawnCheck(MC::AABB^ _0, MC::Vec3 _1);
+        virtual MC::AABB GetAdjustedAABBForSpawnCheck(MC::AABB _0, MC::Vec3 _1);
 
         void EndJump();
 

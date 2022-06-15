@@ -11,6 +11,6 @@ namespace MC {
         property BlockPos Min {inline BlockPos get(); inline void set(BlockPos bpos); };
         property BlockPos Max {inline BlockPos get(); inline void set(BlockPos bpos); };
         inline BlockPos GetCenter();
-        inline AABB^ ToAABB();
+        inline AABB ToAABB();
     };
 }

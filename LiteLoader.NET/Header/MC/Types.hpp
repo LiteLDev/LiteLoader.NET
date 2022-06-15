@@ -7,7 +7,7 @@
 namespace MC
 {
 	value class BlockPos;
-	ref class AABB;
+	value class AABB;
 } // namespace MC
 
 namespace MC

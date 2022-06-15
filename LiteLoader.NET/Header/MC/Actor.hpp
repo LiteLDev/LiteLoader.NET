@@ -468,10 +468,10 @@ namespace MC
 			void set(bool);
 		}
 
-		property MC::AABB^ AABB
+		property MC::AABB AABB
 		{
-			MC::AABB^ get();
-			void set(MC::AABB^);
+			MC::AABB get();
+			void set(MC::AABB);
 		}
 
 		property MC::Vec2 AABBDim
@@ -1256,7 +1256,7 @@ namespace MC
 
 		virtual void UpdateEntityInside();
 
-		virtual void UpdateEntityInside(MC::AABB^ _0);
+		virtual void UpdateEntityInside(MC::AABB _0);
 
 		virtual bool CanDisableShield();
 
@@ -1500,7 +1500,7 @@ namespace MC
 
 		bool OnHoverableBlock();
 
-		void OnOnewayCollision(MC::AABB^ _0);
+		void OnOnewayCollision(MC::AABB _0);
 
 		static bool operator==(MC::Actor^ __op, MC::Actor^ _0);
 
