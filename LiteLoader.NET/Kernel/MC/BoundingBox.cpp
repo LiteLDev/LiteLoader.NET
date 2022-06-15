@@ -2,31 +2,28 @@
 #include "../../Header/MC/BlockPos.hpp"
 #include "../../Header/MC/AABB.hpp"
 
+#include "../../Tools/NativeCallbackConverter.hpp"
+
+
 namespace MC {
-	inline BlockPos BoundingBox::Min::get()
-	{
-		return BlockPos(NativePtr->min);
+	DelegateToNativeHelper(ForEachBlockInBoxHelper, BoundingBox::ForEachBlockInBoxHandler, void, ::BlockPos const& pos) {
+		try
+		{
+			delfunc(*((BlockPos*)&pos));
+		}
+		CATCH
 	}
-	inline void BoundingBox::Min::set(BlockPos bpos)
-	{
-		NativePtr->min = bpos;
-	}
-	inline BlockPos BoundingBox::Max::get()
-	{
-		return BlockPos(NativePtr->max);
-	}
-	inline void BoundingBox::Max::set(BlockPos bpos)
-	{
-		NativePtr->max = bpos;
-	}
-	inline BlockPos BoundingBox::GetCenter()
-	{
-		return BlockPos(NativePtr->getCenter());
-	}
+
 	inline AABB BoundingBox::ToAABB()
 	{
-		::Vec3 vec1 = { (float)Min.X, (float)Min.Y, (float)Min.Z };
-		::Vec3 vec2 = { (float)Min.X, (float)Min.Y, (float)Min.Z };
-		return AABB({ vec1, vec2 + ::Vec3{1, 1, 1} });
+		pin_ptr<BoundingBox> p = this;
+		return ((::BoundingBox*)p)->toAABB();
+	}
+
+	inline void BoundingBox::ForEachBlockInBox(ForEachBlockInBoxHandler^ todo) {
+		pin_ptr<BoundingBox> p = this;
+		auto pair = ForEachBlockInBoxHelper::Create(todo);
+		((::BoundingBox*)p)->forEachBlockInBox(pair.pCallbackFn);
+		delete pair.converter;
 	}
 }

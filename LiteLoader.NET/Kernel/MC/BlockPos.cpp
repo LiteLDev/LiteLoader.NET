@@ -20,9 +20,11 @@ namespace MC {
 		pin_ptr<BlockPos> p = this;
 		return ((::BlockPos*)p)->center();
 	}
-	inline bool BlockPos::ContainedWithin(BoundingBox^ obj)
+	inline bool BlockPos::ContainedWithin(BoundingBox% obj)
 	{
 		pin_ptr<BlockPos> p = this;
-		return ((::BlockPos*)p)->containedWithin(obj);
+		pin_ptr<BoundingBox> pobj = &obj;
+
+		return ((::BlockPos*)p)->containedWithin(*(::BoundingBox*)pobj);
 	}
 }

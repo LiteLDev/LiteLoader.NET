@@ -6,7 +6,7 @@
 
 namespace MC
 {
-	ref class BoundingBox;
+	value class BoundingBox;
 }
 
 namespace MC
@@ -182,7 +182,7 @@ namespace MC
 		inline Vec3 ToVec3();
 		inline Vec3 BottomCenter();
 		inline Vec3 Center();
-		inline bool ContainedWithin(BoundingBox^ obj);
+		inline bool ContainedWithin(BoundingBox% obj);
 
 	public:
 		property size_t HashVal {
