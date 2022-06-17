@@ -29,7 +29,7 @@ namespace LLNET::RemoteCall {
 		/// <para>£­object</para>
 		/// </summary>
 		inline static void parseParameter(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals);
-		inline static void parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo);
+		inline static void parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals);
 
 		//ref class Listhelper {
 		//public:
@@ -88,7 +88,6 @@ namespace LLNET::RemoteCall {
 
 			auto delegateType = TDelegate::typeid;
 			auto invokeMethod = delegateType->GetMethod("Invoke");
-			Console::WriteLine(invokeMethod);
 			auto params = invokeMethod->GetParameters();
 
 			//generate funcinfo
@@ -187,7 +186,7 @@ namespace LLNET::RemoteCall {
 			//	parse return val start
 			il->Emit(oc::Ldloc_0);
 			//		>stack:1<
-			parseRetunval(il, funcinfo->returnType);
+			parseRetunval(il, funcinfo->returnType, locals);
 			//		>stack:1(if return type == void:0)<
 			//	parse return val end
 			//	delete start
@@ -294,7 +293,10 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 		break;
 	case ValidType::List:
 	{
-		List<Object^>^ a;
+		//	>stack:2<
+		//	£­RemoteCall::ValueType pointer
+		//	£­arg
+
 		auto getEnumeratorMethod = info._type->GetMethod("GetEnumerator");
 		auto enumeratorType = getEnumeratorMethod->ReturnType;
 
@@ -302,25 +304,29 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 		auto local_enumerator_index = locals.Count;
 		locals.Add(local_enumerator_index, il->DeclareLocal(enumeratorType));
 
-		//add local ::RemoteCall::ValueType::ArrayType pointer
-		auto local_pArrayType_index = locals.Count;
-		locals.Add(local_pArrayType_index, il->DeclareLocal(::RemoteCall::ValueType::ArrayType::typeid->MakePointerType()));
+		//add local ::RemoteCall::ValueType::ArrayType
+		auto local_ArrayType_index = locals.Count;
+		locals.Add(local_ArrayType_index, il->DeclareLocal(::RemoteCall::ValueType::ArrayType::typeid));
+
 
 		//add local ::RemoteCall::ValueType pointer
-		auto local_pValueType_index = locals.Count;
-		locals.Add(local_pValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid->MakePointerType()));
+		auto local_ValueType_index = locals.Count;
+		locals.Add(local_ValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid));
 
+
+		il->EmitCall(oc::Call, getEnumeratorMethod, nullptr);
 		//	>stack:2<
-		il->EmitCall(oc::Call, info._type->GetMethod("GetEnumerator"), nullptr);
+
 		//store enumerator
 		il->Emit(oc::Stloc_S, locals[local_enumerator_index]);
-		//	>stack:2<
+		//	>stack:1<
 
+		il->Emit(oc::Ldloca_S, locals[local_ArrayType_index]);
 		//create ::RemoteCall::ValueType::ArrayType
 		il->EmitCall(oc::Call, create_std_vector, nullptr);
-		//store pointer
-		il->Emit(oc::Stloc_S, locals[local_pArrayType_index]);
-		//	>stack:2<
+		il->Emit(oc::Pop);
+		//	>stack:1<
+		//	£­RemoteCall::ValueType pointer
 
 		auto loop_start_label = il->DefineLabel();
 		auto loop_body_label = il->DefineLabel();
@@ -329,45 +335,56 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 		il->MarkLabel(loop_body_label);
 		//loop body	{   ///////////////////////////////////////////////////////////////////////
 
-		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
-		il->Emit(oc::Ldloca_S, local_enumerator_index);
+		il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
+		il->Emit(oc::Ldloca_S, locals[local_enumerator_index]);
 		il->EmitCall(oc::Call, enumeratorType->GetProperty("Current")->GetMethod, nullptr);
-		//	>stack:4<
+		//	>stack:3<
 		//	1£­argN ::RemoteCall::ValueType pointer
-		//	2£­argN
-		//	3£­local ::RemoteCall::ValueType pointer
-		//	4£­enumerator->Current
+		//	2£­local ::RemoteCall::ValueType pointer
+		//	3£­enumerator->Current
 
 		parseParameter(il, info.genericArgs[0], locals);
-		//	>stack:2<
+		//	>stack:1<
+		//	1£­argN ::RemoteCall::ValueType pointer
 
 		//emplace back to ArrayType
-		il->Emit(oc::Ldloca_S, locals[local_pArrayType_index]);
-		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
+		il->Emit(oc::Ldloca_S, locals[local_ArrayType_index]);
+		il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
 		il->EmitCall(oc::Call, emplace_back, nullptr);
-		//	>stack:2<
+		//	>stack:1<
 		//emplace back end
 
 		//delete ValueType start
-		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
-		il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
-		//	>stack:2<
+		//il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
+		//il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
+		//	>stack:1<
 		//delete ValueType end
+
 		//loop body	}   ///////////////////////////////////////////////////////////////////////
 		//loop start
-		//	>stack:2<
+		//	>stack:1<
 		il->MarkLabel(loop_start_label);
 		//load enumerator start
-		il->Emit(oc::Ldloca_S, local_enumerator_index);
-		//	>stack:3<
+		il->Emit(oc::Ldloca_S, locals[local_enumerator_index]);
+		//	>stack:2<
 		//load enumerator end
 		il->EmitCall(oc::Call, enumeratorType->GetMethod("MoveNext"), nullptr);
-		//	>stack:3<
-		il->Emit(oc::Brtrue_S, loop_body_label);
 		//	>stack:2<
+		il->Emit(oc::Brtrue_S, loop_body_label);
+		//	>stack:1<
 		//loop end
 
+		//	>stack:1<
+		//	1£­argN ::RemoteCall::ValueType pointer
 
+		il->Emit(oc::Ldloca_S, locals[local_ArrayType_index]);
+		//	>stack:2<
+		//	1£­argN ::RemoteCall::ValueType pointer
+		//	2£­local ::RemoteCall::ArrayType pointer
+
+		il->EmitCall(oc::Call, ArrayType2ValueType, nullptr);
+		//	>stack:1<
+		//	1£­returned pointer
 	}
 	break;
 	case ValidType::Dictionary:
@@ -382,7 +399,7 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 	//stack:0
 }
 
-inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo)
+inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals)
 {
 	switch (returnvalinfo.type)
 	{
@@ -462,8 +479,89 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator
 		il->EmitCall(OpCodes::Call, Native2NbtType, nullptr);
 		break;
 	case ValidType::List:
-		throw gcnew System::NotSupportedException("NotSupported Type [List]");
-		break;
+	{
+		auto AddMethod = returnvalinfo._type->GetMethod("Add");
+
+		auto ret_list_index = locals.Count;
+		locals.Add(ret_list_index, il->DeclareLocal(returnvalinfo._type));
+
+		auto loop_size_index = locals.Count;
+		locals.Add(loop_size_index, il->DeclareLocal(int::typeid));
+
+		auto loop_i_index = locals.Count;
+		locals.Add(loop_i_index, il->DeclareLocal(int::typeid));
+
+		//	>stack:1<
+		//	1£­returned ::RemoteCall::ValueType pointer
+		il->EmitCall(oc::Call, get_retArrayType_size, nullptr);
+		//	>stack:1<
+		//	1£­size int
+		il->Emit(oc::Stloc_S, locals[loop_size_index]);
+		il->Emit(oc::Ldloc_S, locals[loop_size_index]);
+		//new list start
+		il->Emit(oc::Newobj, returnvalinfo._type->GetConstructor(gcnew array<System::Type^>(1) { int::typeid }));
+		//	>stack:1<
+		//	1£­list
+		//new list end
+		//store list instance
+		il->Emit(oc::Stloc_S, locals[ret_list_index]);
+		//	>stack:0<
+
+		//	(int i = 0)
+		il->Emit(oc::Ldc_I4_0);
+		il->Emit(oc::Stloc_S, locals[loop_i_index]);
+
+		auto loop_start_label = il->DefineLabel();
+		auto loop_body_label = il->DefineLabel();
+
+		//loop(for)
+		il->Emit(oc::Br_S, loop_start_label);
+		il->MarkLabel(loop_body_label);
+		//loop body	{	//////////////////////////////////////////////////////
+
+		il->Emit(oc::Ldloc_S, locals[ret_list_index]);
+		//	>stack:1<
+		//	1£­list instance
+		il->Emit(oc::Ldloca_S, locals[retIndex]);
+		il->Emit(oc::Ldloc_S, locals[loop_i_index]);
+		//	>stack:3<
+		//	1£­list instance
+		//	2£­ret ::RemoteCall::ValueType pointer
+		//	3£­i
+
+		il->EmitCall(oc::Call, get_pValueType_from_ArrayType_by_index, nullptr);
+		//	>stack:2<
+		//	1£­list instance
+		//	2£­returned ::RemoteCall::ValueType pointer
+
+		parseRetunval(il, returnvalinfo.genericArgs[0], locals);
+		//	>stack:2<
+		//	1£­list instance
+		//	2£­returned object
+
+		il->EmitCall(oc::Call, AddMethod, nullptr);
+		//	>stack:0<
+
+		//loop body	}	//////////////////////////////////////////////////////
+		//	(++i)
+		il->Emit(oc::Ldloc_S, locals[loop_i_index]);
+		il->Emit(oc::Ldc_I4_1);
+		il->Emit(oc::Add);
+		il->Emit(oc::Stloc_S, locals[loop_i_index]);
+		//	(i < size)
+		il->MarkLabel(loop_start_label);
+		il->Emit(oc::Ldloc_S, locals[loop_i_index]);
+		il->Emit(oc::Ldloc_S, locals[loop_size_index]);
+		il->Emit(oc::Clt);
+		il->Emit(oc::Brtrue_S, loop_body_label);
+		//loop end
+		//	>stack:0<
+
+		il->Emit(oc::Ldloc_S, locals[ret_list_index]);
+		//	>stack:0<
+		//	1£­return val
+	}
+	break;
 	case ValidType::Dictionary:
 		throw gcnew System::NotSupportedException("NotSupported Type [Dictinary]");
 		break;

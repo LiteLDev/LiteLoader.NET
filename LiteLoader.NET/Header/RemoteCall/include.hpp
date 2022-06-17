@@ -15,7 +15,7 @@
 #include "../../Header/MC/Vec3.hpp"
 #include "../../Header/MC/BlockPos.hpp"
 
-#define REMOTECALL_DEBUG
+//#define REMOTECALL_DEBUG
 
 #define REMOTECALL_DEBUG_INFO(info)							\
 auto _color = Console::ForegroundColor;						\

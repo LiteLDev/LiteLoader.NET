@@ -366,40 +366,40 @@ namespace LLNET::RemoteCall {
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Double:
-			return ::RemoteCall::NumberType(static_cast<double>(val));
+			return ::RemoteCall::NumberType((double)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Float:
-			return ::RemoteCall::NumberType(static_cast<float>(val));
+			return ::RemoteCall::NumberType((float)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int64:
-			return ::RemoteCall::NumberType(static_cast<int64_t>(val));
+			return ::RemoteCall::NumberType((long long)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int32:
-			return ::RemoteCall::NumberType(static_cast<int32_t>(val));
+			return ::RemoteCall::NumberType((int)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int16:
-			return ::RemoteCall::NumberType(static_cast<int16_t>(val));
+			return ::RemoteCall::NumberType((short)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int8:
-			return ::RemoteCall::NumberType(static_cast<int8_t>(val));
+			return ::RemoteCall::NumberType((signed char)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt64:
-			return ::RemoteCall::NumberType(static_cast<uint64_t>(val));
+			return ::RemoteCall::NumberType((unsigned long long)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt32:
-			return ::RemoteCall::NumberType(static_cast<uint32_t>(val));
+			return ::RemoteCall::NumberType((unsigned int)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt16:
-			return ::RemoteCall::NumberType(static_cast<uint16_t>(val));
+			return ::RemoteCall::NumberType((unsigned short)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt8:
-			return ::RemoteCall::NumberType(static_cast<uint8_t>(val));
+			return ::RemoteCall::NumberType((unsigned char)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Bool:
-			return ::RemoteCall::packValue(static_cast<bool>(val));
+			return ::RemoteCall::packValue((bool)val);
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::String:
-			return marshalString(static_cast<String^>(val));
+			return marshalString((String^)(val));
 			break;
 		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::NumberType:
 			return static_cast<NumberType>(val)._toNative();
@@ -443,6 +443,10 @@ namespace LLNET::RemoteCall {
 			auto ret = ::RemoteCall::ValueType::ArrayType();
 			for (int i = 0; i < list->Count; ++i)
 			{
+#ifdef REMOTECALL_DEBUG
+				REMOTECALL_DEBUG_INFO(list[i]);
+#endif // REMOTECALL_DEBUG
+
 				ret[i] = std::move(_parseReturnVal(info.genericArgs[0], list[i]));
 			}
 			return ret;
