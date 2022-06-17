@@ -111,6 +111,9 @@ namespace LLNET::RemoteCall {
 		inline static void _delete_std_vector(void* vec);
 		inline static void _delete_RemoteCall_ValueType(void* valuetype);
 		inline static void _emplace_back(void* vec, void* val);
+		inline static ::RemoteCall::ValueType _ArrayType2ValueType(void* arr);
+		inline static int _get_retArrayType_size(void* arr);
+		inline static void* _get_pValueType_from_ArrayType_by_index(void* arr, int index);
 
 #define __METHOD_INFO(name,funcname)\
 static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
@@ -149,6 +152,9 @@ __METHOD_INFO(Native2##typeName,_##Native2##typeName)
 		__METHOD_INFO(create_std_vector, _create_std_vector);
 		__METHOD_INFO(delete_std_vector, _delete_std_vector);
 		__METHOD_INFO(delete_RemoteCall_ValueType, _delete_RemoteCall_ValueType);
+		__METHOD_INFO(ArrayType2ValueType, _ArrayType2ValueType);
+		__METHOD_INFO(get_retArrayType_size, _get_retArrayType_size);
+		__METHOD_INFO(get_pValueType_from_ArrayType_by_index, _get_pValueType_from_ArrayType_by_index);
 	};
 }
 
@@ -796,9 +802,39 @@ inline System::Object^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Nativ
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
 inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_emplace_back(void* vec, void* val)
 {
-
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(vec).ToString() + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
+
 	((::std::vector<::RemoteCall::ValueType>*)vec)->emplace_back(std::move(*(::RemoteCall::ValueType*)val));
+}
+
+[MethodImpl(MethodImplOptions::AggressiveInlining)]
+inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_ArrayType2ValueType(void* arr)
+{
+#ifdef REMOTECALL_DEBUG
+	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(arr).ToString());
+#endif // REMOTECALL_DEBUG
+
+	return ::RemoteCall::ValueType(std::move(*(std::vector<::RemoteCall::ValueType>*)arr));
+}
+
+[MethodImpl(MethodImplOptions::AggressiveInlining)]
+inline int LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_retArrayType_size(void* val)
+{
+#ifdef REMOTECALL_DEBUG
+	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
+#endif // REMOTECALL_DEBUG
+
+	return (int)std::get<::RemoteCall::ValueType::ArrayType>(((::RemoteCall::ValueType*)val)->value).size();
+}
+
+[MethodImpl(MethodImplOptions::AggressiveInlining)]
+inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_from_ArrayType_by_index(void* val, int index)
+{
+#ifdef REMOTECALL_DEBUG
+	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
+#endif // REMOTECALL_DEBUG
+
+	return &(std::get<::RemoteCall::ValueType::ArrayType>(((::RemoteCall::ValueType*)val)->value)[index]);
 }
