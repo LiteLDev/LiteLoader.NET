@@ -34,7 +34,7 @@ namespace LLNET
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
 			Global::ManagedPluginHandler->TryAdd(Asm, IntPtr(handler));
 		}
-		
+
 		return ret;
 	}
 	Plugin^ PluginManager::getPlugin(System::IntPtr handler)
@@ -46,11 +46,13 @@ namespace LLNET
 	}
 	Plugin^ PluginManager::getPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin)
 	{
-		if (!ManagedPluginData->ContainsKey(name))
-			return nullptr;
-		auto ret = ManagedPluginData[name];
-		if (ret != nullptr)
-			return ret->Item1;
+		if (ManagedPluginData->ContainsKey(name))
+		{
+			auto ret = ManagedPluginData[name];
+			if (ret != nullptr)
+				return ret->Item1;
+		}
+
 		auto pPlugin = ::LL::getPlugin(marshalString(name));
 		if (pPlugin == nullptr)
 			return nullptr;
