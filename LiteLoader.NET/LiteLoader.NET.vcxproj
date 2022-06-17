@@ -276,6 +276,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\RemoteCall\Interfaces.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
     <ClInclude Include="Header\RemoteCall\RemoteCall.h" />
+    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\Value.hpp" />
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.h" />

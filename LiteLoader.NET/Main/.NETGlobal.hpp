@@ -58,7 +58,8 @@ using System::Runtime::InteropServices::Marshal;
 using System::Runtime::InteropServices::StructLayoutAttribute;
 using System::Runtime::InteropServices::OutAttribute;
 using System::Runtime::InteropServices::InAttribute;
-using System::ComponentModel::ReadOnlyAttribute;
+using System::Runtime::CompilerServices::MethodImplAttribute;
+using System::Runtime::CompilerServices::MethodImplOptions;
 using LLNET::Core::Pair;
 
 #include "../Tools/clix.hpp"

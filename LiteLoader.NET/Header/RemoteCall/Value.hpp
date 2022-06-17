@@ -456,73 +456,73 @@ namespace LLNET::RemoteCall {
 			String^ info;
 			switch (type)
 			{
-			case LLNET::RemoteCall::Value::InstanceType::Bool:
+			case InstanceType::Bool:
 				info = std::get<bool>(*NativePtr).ToString();
 				break;
-			case LLNET::RemoteCall::Value::InstanceType::String:
+			case InstanceType::String:
 				info = marshalString(std::get<std::string>(*NativePtr));
 				break;
-			case LLNET::RemoteCall::Value::InstanceType::Null:
+			case InstanceType::Null:
 				info = "Null";
 				break;
-			case LLNET::RemoteCall::Value::InstanceType::NumberType:
+			case InstanceType::NumberType:
 			{
 				auto& number = std::get<::RemoteCall::NumberType>(*NativePtr);
 				info = String::Format("<{0},{1}>", number.f, number.i);
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::Player:
+			case InstanceType::Player:
 			{
 				auto p = std::get<::Player*>(*NativePtr);
 				info = String::Format("{0},{1}", marshalString(p->getRealName()), marshalString(p->getPos().toString()));
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::Actor:
+			case InstanceType::Actor:
 			{
 				auto p = std::get<::Actor*>(*NativePtr);
 				info = String::Format("{0},{1}", marshalString(p->getTypeName()), marshalString(p->getPos().toString()));
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::BlockActor:
+			case InstanceType::BlockActor:
 			{
 				auto p = std::get<::BlockActor*>(*NativePtr);
 				info = String::Format("{0},{1}", marshalString(p->getName()), marshalString(p->getPosition().toString()));
 
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::Container:
+			case InstanceType::Container:
 			{
 				auto p = std::get<::Container*>(*NativePtr);
 				info = String::Format("{0},{1}", marshalString(p->getTypeName()), MC::ContainerType(p->getContainerType()).ToString());
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::WorldPosType:
+			case InstanceType::WorldPosType:
 			{
 				auto& pos = std::get<::RemoteCall::WorldPosType>(*NativePtr);
 				info = marshalString(pos.pos.toString() + "," + std::to_string(pos.dimId));
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::BlockPosType:
+			case InstanceType::BlockPosType:
 			{
 				auto& pos = std::get<::RemoteCall::BlockPosType>(*NativePtr);
 				info = marshalString(pos.pos.toString() + "," + std::to_string(pos.dimId));
 				break;
 			}
-			case LLNET::RemoteCall::Value::InstanceType::ItemType:
+			case InstanceType::ItemType:
 			{
 				ItemType^ item;
 				this->AsItemType(item);
 				info = item->ToString();
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::BlockType:
+			case InstanceType::BlockType:
 			{
 				BlockType^ block;
 				this->AsBlockType(block);
 				info = block->ToString();
 			}
 			break;
-			case LLNET::RemoteCall::Value::InstanceType::NbtType:
+			case InstanceType::NbtType:
 			{
 				NbtType^ nbt;
 				this->AsNbtType(nbt);

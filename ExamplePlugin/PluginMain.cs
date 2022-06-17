@@ -79,5 +79,6 @@ public class ExamplePlugin : IPluginInitializer
         ExampleRemoteCall exampleRemoteCall = new();
         exampleRemoteCall.Execute();
 #endif
+        LLNET.RemoteCall.RemoteCallAPI.ImportAs
     }
 }

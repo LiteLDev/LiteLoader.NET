@@ -692,6 +692,9 @@
     <ClInclude Include="Header\MC\HitResult.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
+    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

@@ -1,355 +1,517 @@
 #pragma once
-#include "ExportAs.hpp"
+#include "RemoteCallFunctionRegisterBase.hpp"
+using namespace System::Reflection::Emit;
+
+constexpr int retIndex = 0;
+constexpr int nativeParamIndex = 1;
 
 namespace LLNET::RemoteCall {
+	ref class ImportFunctionRegister
+		:RemoteCallFunctionRegisterBase
+	{
+	internal:
+		/// <summary>
+		/// <para>stack+=2</para>
+		/// <para>[Push]</para>
+		/// <para>£­local ::RemoteCall::ValueType pointer</para>
+		/// <para>£­arg</para>
+		/// </summary>
+		inline static void loadParameter(ILGenerator^ il, int localIndex, int paramIndex, Dictionary<int, LocalBuilder^>% locals);
+		/// <summary>
+		/// <para>stack+=0</para>
+		/// <para>[None]</para>
+		/// </summary>
+		inline static void emplaceBack(ILGenerator^ il, int localIndex, Dictionary<int, LocalBuilder^>% locals);
+		/// <summary>
+		/// <para>stack-=2</para>
+		/// <para>[Using]</para>
+		/// <para>£­local ::RemoteCall::ValueType pointer</para>
+		/// <para>£­object</para>
+		/// </summary>
+		inline static void parseParameter(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals);
+		inline static void parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo);
 
-	public delegate void RemoteCallHandler_void_0();
-	generic<typename T0>
-	public delegate void RemoteCallHandler_void_1(T0);
-	generic<typename T0, typename T1>
-	public delegate void RemoteCallHandler_void_2(T0, T1);
-	generic<typename T0, typename T1, typename T2>
-	public delegate void RemoteCallHandler_void_3(T0, T1, T2);
-	generic<typename T0, typename T1, typename T2, typename T3>
-	public delegate void RemoteCallHandler_void_4(T0, T1, T2, T3);
-	generic<typename T0, typename T1, typename T2, typename T3, typename T4>
-	public delegate void RemoteCallHandler_void_5(T0, T1, T2, T3, T4);
-	generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-	public delegate void RemoteCallHandler_void_6(T0, T1, T2, T3, T4, T5);
-	generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	public delegate void RemoteCallHandler_void_7(T0, T1, T2, T3, T4, T5, T6);
-	generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	public delegate void RemoteCallHandler_void_8(T0, T1, T2, T3, T4, T5, T6, T7);
-	generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	public delegate void RemoteCallHandler_void_9(T0, T1, T2, T3, T4, T5, T6, T7, T8);
+		//ref class Listhelper {
+		//public:
+		//	inline static void* _create_RemoteCall_ArrayType();
+		//	inline static void _ArrayType_emplace_back(void* arrType, void* val);
 
+		//	__METHOD_INFO(create_RemoteCall_ArrayType, _create_RemoteCall_ArrayType);
+		//	__METHOD_INFO(ArrayType_emplace_back, _ArrayType_emplace_back);
+		//};
 
-
-	generic<typename RTN>
-	public delegate RTN RemoteCallHandler_0();
-	generic<typename RTN, typename T0>
-	public delegate RTN RemoteCallHandler_1(T0);
-	generic<typename RTN, typename T0, typename T1>
-	public delegate RTN RemoteCallHandler_2(T0, T1);
-	generic<typename RTN, typename T0, typename T1, typename T2>
-	public delegate RTN RemoteCallHandler_3(T0, T1, T2);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
-	public delegate RTN RemoteCallHandler_4(T0, T1, T2, T3);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
-	public delegate RTN RemoteCallHandler_5(T0, T1, T2, T3, T4);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-	public delegate RTN RemoteCallHandler_6(T0, T1, T2, T3, T4, T5);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	public delegate RTN RemoteCallHandler_7(T0, T1, T2, T3, T4, T5, T6);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	public delegate RTN RemoteCallHandler_8(T0, T1, T2, T3, T4, T5, T6, T7);
-	generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	public delegate RTN RemoteCallHandler_9(T0, T1, T2, T3, T4, T5, T6, T7, T8);
-
-
-
-	ref class ImportFunctionRegister {
-
-	public:
-		ref class ImportFuncBase abstract {
-		public:
+		ref struct ImportedFunc {
 			String^ nameSpace;
 			String^ funcName;
-			ExportFunctionRegister::FunctionInfo^ info;
 			::RemoteCall::CallbackFn* pfunc;
-			ImportFuncBase(String^ nameSpace, String^ funcName)
-				:nameSpace(nameSpace), funcName(funcName), pfunc(nullptr)
-			{
-				pfunc = new ::RemoteCall::CallbackFn(std::move(::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName))));
-			}
-			~ImportFuncBase() {
+
+			void* _Invoke(void* vec);
+
+			static initonly MethodInfo^ Invoke = ImportedFunc::typeid->GetMethod("_Invoke");
+
+
+			~ImportedFunc() {
 				delete pfunc;
-				pfunc = nullptr;
 			}
-			Object^ _Invoke(...array<Object^>^ args);
-		};
 
-		generic<typename RTN>
-		ref class ImportFunc_0 :ImportFuncBase {
-		public:
-			ImportFunc_0(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid);
-			}
-			RTN Invoke() {
-				return (RTN)_Invoke();
-			}
-		};
-		generic<typename RTN, typename T0>
-		ref class ImportFunc_1 :ImportFuncBase {
-		public:
-			ImportFunc_1(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid);
-			}
-			RTN Invoke(T0 a0) {
-				return (RTN)_Invoke(a0);
+			Object^ TEST(int a, String^ str) {
+				auto vec = _create_std_vector();
+				auto val1 = _int32_t2Native(a);
+				_emplace_back(&vec, &val1);
+				auto val2 = _string2Native(str);
+				_emplace_back(&vec, &val2);
+				auto _ret = _Invoke(&vec);
+				auto ret = _Native2int32_t(_ret);
+				_delete_std_vector(&vec);
+				_delete_RemoteCall_ValueType(&_ret);
+
+				return nullptr;
 			}
 		};
-		generic<typename RTN, typename T0, typename T1>
-		ref class ImportFunc_2 :ImportFuncBase {
-		public:
-			ImportFunc_2(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1) {
-				return (RTN)_Invoke(a0, a1);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2>
-		ref class ImportFunc_3 :ImportFuncBase {
-		public:
-			ImportFunc_3(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2) {
-				return (RTN)_Invoke(a0, a1, a2);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
-		ref class ImportFunc_4 :ImportFuncBase {
-		public:
-			ImportFunc_4(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3) {
-				return (RTN)_Invoke(a0, a1, a2, a3);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
-		ref class ImportFunc_5 :ImportFuncBase {
-		public:
-			ImportFunc_5(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-				return (RTN)_Invoke(a0, a1, a2, a3, a4);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-		ref class ImportFunc_6 :ImportFuncBase {
-		public:
-			ImportFunc_6(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-				return (RTN)_Invoke(a0, a1, a2, a3, a4, a5);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-		ref class ImportFunc_7 :ImportFuncBase {
-		public:
-			ImportFunc_7(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
-				return (RTN)_Invoke(a0, a1, a2, a3, a4, a5, a6);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-		ref class ImportFunc_8 :ImportFuncBase {
-		public:
-			ImportFunc_8(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid, T7::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
-				return (RTN)_Invoke(a0, a1, a2, a3, a4, a5, a6, a7);
-			}
-		};
-		generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-		ref class ImportFunc_9 :ImportFuncBase {
-		public:
-			ImportFunc_9(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(RTN::typeid, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid, T7::typeid, T8::typeid);
-			}
-			RTN Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7, T8 a8) {
-				return (RTN)_Invoke(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-			}
-		};
+	public:
+		generic<typename TDelegate>
+		where TDelegate : System::Delegate
+		static TDelegate RegisterImportFunction(String^ nameSpace, String^ funcName) {
 
 
-		ref class ImportFunc_void_0 :ImportFuncBase {
-		public:
-			ImportFunc_void_0(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr);
-			}
-			void Invoke() {
-				_Invoke();
-			}
-		};
-		generic<typename T0>
-		ref class ImportFunc_void_1 :ImportFuncBase {
-		public:
-			ImportFunc_void_1(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid);
-			}
-			void Invoke(T0 a0) {
-				_Invoke(a0);
-			}
-		};
-		generic<typename T0, typename T1>
-		ref class ImportFunc_void_2 :ImportFuncBase {
-		public:
-			ImportFunc_void_2(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid);
-			}
-			void Invoke(T0 a0, T1 a1) {
-				_Invoke(a0, a1);
-			}
-		};
-		generic<typename T0, typename T1, typename T2>
-		ref class ImportFunc_void_3 :ImportFuncBase {
-		public:
-			ImportFunc_void_3(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2) {
-				_Invoke(a0, a1, a2);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3>
-		ref class ImportFunc_void_4 :ImportFuncBase {
-		public:
-			ImportFunc_void_4(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3) {
-				_Invoke(a0, a1, a2, a3);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3, typename T4>
-		ref class ImportFunc_void_5 :ImportFuncBase {
-		public:
-			ImportFunc_void_5(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-				_Invoke(a0, a1, a2, a3, a4);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-		ref class ImportFunc_void_6 :ImportFuncBase {
-		public:
-			ImportFunc_void_6(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-				_Invoke(a0, a1, a2, a3, a4, a5);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-		ref class ImportFunc_void_7 :ImportFuncBase {
-		public:
-			ImportFunc_void_7(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
-				_Invoke(a0, a1, a2, a3, a4, a5, a6);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-		ref class ImportFunc_void_8 :ImportFuncBase {
-		public:
-			ImportFunc_void_8(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid, T7::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
-				_Invoke(a0, a1, a2, a3, a4, a5, a6, a7);
-			}
-		};
-		generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-		ref class ImportFunc_void_9 :ImportFuncBase {
-		public:
-			ImportFunc_void_9(String^ nameSpace, String^ funcName)
-				:ImportFuncBase(nameSpace, funcName)
-			{
-				info = _tryPraseFunctionInfo(nullptr, T0::typeid, T1::typeid, T2::typeid, T3::typeid, T4::typeid, T5::typeid, T6::typeid, T7::typeid, T8::typeid);
-			}
-			void Invoke(T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7, T8 a8) {
-				_Invoke(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-			}
-		};
+			NULL_ARG_CHEEK(nameSpace);
+			NULL_ARG_CHEEK(funcName);
 
-	internal:
-		using FunctionInfo = ExportFunctionRegister::FunctionInfo;
+			auto& _func = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
+			if (!_func)
+				throw gcnew LLNET::Core::RemoteCallImportFunctionException(String::Format("Fail to import!Function[{0}.{1}] has not been exported", nameSpace, funcName));
 
-	internal:
-		static FunctionInfo^ _tryPraseFunctionInfo(System::Type^ returnType, ...array<System::Type^>^ types);
-		inline static ::RemoteCall::ValueType _parseParameter(FunctionInfo::TypeInfo const% info, Object^ val);
-		inline static Object^ _parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val);
+			auto func = gcnew ImportedFunc;
+			func->nameSpace = nameSpace;
+			func->funcName = funcName;
+			func->pfunc = new ::RemoteCall::CallbackFn(std::move(_func));
+
+			auto delegateType = TDelegate::typeid;
+			auto invokeMethod = delegateType->GetMethod("Invoke");
+			Console::WriteLine(invokeMethod);
+			auto params = invokeMethod->GetParameters();
+
+			//generate funcinfo
+			auto funcinfo = gcnew FunctionInfo;
+			funcinfo->parameters = gcnew array<FunctionInfo::TypeInfo>(params->Length);
+			funcinfo->returnType = _generateTypeInfo(invokeMethod->ReturnType);
+			for (int i = 0; i < params->Length; ++i) {
+				funcinfo->parameters[i] = _generateTypeInfo(params[i]->ParameterType);
+			}
+			//end
+
+
+			auto methodArgs = gcnew array<System::Type^>(funcinfo->parameters->Length + 1);
+			methodArgs[0] = ImportedFunc::typeid;
+			for (int i = 1; i < methodArgs->Length; ++i) {
+				methodArgs[i] = funcinfo->parameters[i - 1]._type;
+			}
+
+			auto method = gcnew DynamicMethod(funcName, invokeMethod->ReturnType, methodArgs);
+			auto il = method->GetILGenerator();
+
+
+#define oc OpCodes
+
+			/*
+			* local:
+			* 0£­ret				(::RemoteCall::ValueType*)
+			* 1£­nativeParameters	(std::vector<::RemoteCall::ValueType>)
+			* 2£­arg1				(::RemoteCall::ValueType)
+			*
+			* ...					(::RemoteCall::ValueType)
+			*
+			* N£­argN				(::RemoteCall::ValueType)
+			*/
+
+			/*
+			* parameter:
+			* 0£­this				(ImportedFunc class)
+			* 1£­delegate arg1		(Unknown)
+			*
+			* ...					(Unknown)
+			*
+			* N£­delegate argN		(Unknown)
+			*/
+
+
+
+			//declare local
+			Dictionary<int, LocalBuilder^> locals;
+			locals.Add(0, il->DeclareLocal(::RemoteCall::ValueType::typeid->MakePointerType(), true));
+			locals.Add(1, il->DeclareLocal(std::vector<::RemoteCall::ValueType>::typeid, true));
+			for (int i = 0; i < funcinfo->parameters->Length; ++i)
+				locals.Add(i + 2, il->DeclareLocal(::RemoteCall::ValueType::typeid, true));
+			//declare local end
+
+			//il code start
+			//	init memblock
+			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
+			il->Emit(oc::Ldc_I4_0);
+			il->Emit(oc::Ldc_I4_S, 24);
+			il->Emit(oc::Conv_I8);
+			//		>stack:3<
+			il->Emit(oc::Initblk);
+			//		>stack:0<
+			//	init block end
+			//	init std::vector start
+			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
+			il->EmitCall(oc::Call, create_std_vector, nullptr);
+			//		>stack:1<
+			il->Emit(oc::Pop);
+			//		>stack:0<
+			//	init std::vector end
+			//	prase args start
+
+			for (int i = 0; i < funcinfo->parameters->Length; ++i) {
+				int currentParamIndex = i + 1;
+				int currentlocalIndex = i + 2;
+
+				loadParameter(il, currentlocalIndex, currentParamIndex, locals);
+				parseParameter(il, funcinfo->parameters[i], locals);
+				emplaceBack(il, currentlocalIndex, locals);
+			}
+			//		>stack:0<
+			//	prase args end
+			//	invoke this->_Invoke(std::vector<::RemoteCall::ValueType>*) start
+			il->Emit(oc::Ldarg_0);
+			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
+			//		>stack:2<
+			il->EmitCall(oc::Call, ImportedFunc::Invoke, nullptr);
+			//		>stack:1<
+			//	invoke this->_Invoke(std::vector<::RemoteCall::ValueType>*) end
+			//	store ret(::RemoteCall::ValueType pointer) start
+			il->Emit(oc::Stloc_0);
+			//		>stack:0<
+			//	store ret(::RemoteCall::ValueType pointer) end
+			//	parse return val start
+			il->Emit(oc::Ldloc_0);
+			//		>stack:1<
+			parseRetunval(il, funcinfo->returnType);
+			//		>stack:1(if return type == void:0)<
+			//	parse return val end
+			//	delete start
+			il->Emit(oc::Ldloc_0);
+			il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
+			//		>stack:1(if return type == void:0)<
+			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
+			il->EmitCall(oc::Call, delete_std_vector, nullptr);
+			//		>stack:1(if return type == void:0)<
+			//	delete end
+			//	return start
+			il->Emit(oc::Ret);
+			//	return end
+			//il code end
+
+
+
+			auto ret = (TDelegate)method->CreateDelegate(TDelegate::typeid, func);
+			return ret;
+		}
 	};
 }
 
-namespace LLNET::RemoteCall {
-	ExportFunctionRegister::FunctionInfo^ ImportFunctionRegister::_tryPraseFunctionInfo(System::Type^ returnType, ...array<System::Type^>^ types)
+inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals)
+{
+	//>stack:2<
+
+	switch (info.type)
 	{
-		if (returnType == nullptr)
-			returnType = void::typeid;
-		auto ret = gcnew ExportFunctionRegister::FunctionInfo();
-		ret->returnType = ExportFunctionRegister::_generateTypeInfo(returnType);
-		ret->parameters = gcnew array<ExportFunctionRegister::FunctionInfo::TypeInfo>(types->Length);
-		for (int i = 0; i < types->Length; ++i)
-		{
-			ret->parameters[i] = ExportFunctionRegister::_generateTypeInfo(types[i]);
-		}
-		return ret;
+	case ValidType::Invalid:
+		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		break;
+	case ValidType::Double:
+		il->EmitCall(OpCodes::Call, double2Native, nullptr);
+		break;
+	case ValidType::Float:
+		il->EmitCall(OpCodes::Call, float2Native, nullptr);
+		break;
+	case ValidType::Int64:
+		il->EmitCall(OpCodes::Call, int64_t2Native, nullptr);
+		break;
+	case ValidType::Int32:
+		il->EmitCall(OpCodes::Call, int32_t2Native, nullptr);
+		break;
+	case ValidType::Int16:
+		il->EmitCall(OpCodes::Call, int16_t2Native, nullptr);
+		break;
+	case ValidType::Int8:
+		il->EmitCall(OpCodes::Call, int8_t2Native, nullptr);
+		break;
+	case ValidType::UInt64:
+		il->EmitCall(OpCodes::Call, uint64_t2Native, nullptr);
+		break;
+	case ValidType::UInt32:
+		il->EmitCall(OpCodes::Call, uint32_t2Native, nullptr);
+		break;
+	case ValidType::UInt16:
+		il->EmitCall(OpCodes::Call, uint16_t2Native, nullptr);
+		break;
+	case ValidType::UInt8:
+		il->EmitCall(OpCodes::Call, uint8_t2Native, nullptr);
+		break;
+	case ValidType::Bool:
+		il->EmitCall(OpCodes::Call, bool2Native, nullptr);
+		break;
+	case ValidType::String:
+		il->EmitCall(OpCodes::Call, string2Native, nullptr);
+		break;
+	case ValidType::NumberType:
+		il->EmitCall(OpCodes::Call, NumberType2Native, nullptr);
+		break;
+	case ValidType::Player:
+		il->EmitCall(OpCodes::Call, Player2Native, nullptr);
+		break;
+	case ValidType::Actor:
+		il->EmitCall(OpCodes::Call, Actor2Native, nullptr);
+		break;
+	case ValidType::BlockActor:
+		il->EmitCall(OpCodes::Call, BlockActor2Native, nullptr);
+		break;
+	case ValidType::Container:
+		il->EmitCall(OpCodes::Call, Container2Native, nullptr);
+		break;
+	case ValidType::Vec3:
+		il->EmitCall(OpCodes::Call, Vec32Native, nullptr);
+		break;
+	case ValidType::BlockPos:
+		il->EmitCall(OpCodes::Call, BlockPos2Native, nullptr);
+		break;
+	case ValidType::WorldPosType:
+		il->EmitCall(OpCodes::Call, WorldPosType2Native, nullptr);
+		break;
+	case ValidType::BlockPosType:
+		il->EmitCall(OpCodes::Call, BlockPosType2Native, nullptr);
+		break;
+	case ValidType::ItemType:
+		il->EmitCall(OpCodes::Call, ItemType2Native, nullptr);
+		break;
+	case ValidType::BlockType:
+		il->EmitCall(OpCodes::Call, BlockType2Native, nullptr);
+		break;
+	case ValidType::NbtType:
+		il->EmitCall(OpCodes::Call, NbtType2Native, nullptr);
+		break;
+	case ValidType::List:
+	{
+		List<Object^>^ a;
+		auto getEnumeratorMethod = info._type->GetMethod("GetEnumerator");
+		auto enumeratorType = getEnumeratorMethod->ReturnType;
+
+		//add local Enumerator variable
+		auto local_enumerator_index = locals.Count;
+		locals.Add(local_enumerator_index, il->DeclareLocal(enumeratorType));
+
+		//add local ::RemoteCall::ValueType::ArrayType pointer
+		auto local_pArrayType_index = locals.Count;
+		locals.Add(local_pArrayType_index, il->DeclareLocal(::RemoteCall::ValueType::ArrayType::typeid->MakePointerType()));
+
+		//add local ::RemoteCall::ValueType pointer
+		auto local_pValueType_index = locals.Count;
+		locals.Add(local_pValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid->MakePointerType()));
+
+		//	>stack:2<
+		il->EmitCall(oc::Call, info._type->GetMethod("GetEnumerator"), nullptr);
+		//store enumerator
+		il->Emit(oc::Stloc_S, locals[local_enumerator_index]);
+		//	>stack:2<
+
+		//create ::RemoteCall::ValueType::ArrayType
+		il->EmitCall(oc::Call, create_std_vector, nullptr);
+		//store pointer
+		il->Emit(oc::Stloc_S, locals[local_pArrayType_index]);
+		//	>stack:2<
+
+		auto loop_start_label = il->DefineLabel();
+		auto loop_body_label = il->DefineLabel();
+		//jump to loop
+		il->Emit(oc::Br_S, loop_start_label);
+		il->MarkLabel(loop_body_label);
+		//loop body	{   ///////////////////////////////////////////////////////////////////////
+
+		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
+		il->Emit(oc::Ldloca_S, local_enumerator_index);
+		il->EmitCall(oc::Call, enumeratorType->GetProperty("Current")->GetMethod, nullptr);
+		//	>stack:4<
+		//	1£­argN ::RemoteCall::ValueType pointer
+		//	2£­argN
+		//	3£­local ::RemoteCall::ValueType pointer
+		//	4£­enumerator->Current
+
+		parseParameter(il, info.genericArgs[0], locals);
+		//	>stack:2<
+
+		//emplace back to ArrayType
+		il->Emit(oc::Ldloca_S, locals[local_pArrayType_index]);
+		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
+		il->EmitCall(oc::Call, emplace_back, nullptr);
+		//	>stack:2<
+		//emplace back end
+
+		//delete ValueType start
+		il->Emit(oc::Ldloca_S, locals[local_pValueType_index]);
+		il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
+		//	>stack:2<
+		//delete ValueType end
+		//loop body	}   ///////////////////////////////////////////////////////////////////////
+		//loop start
+		//	>stack:2<
+		il->MarkLabel(loop_start_label);
+		//load enumerator start
+		il->Emit(oc::Ldloca_S, local_enumerator_index);
+		//	>stack:3<
+		//load enumerator end
+		il->EmitCall(oc::Call, enumeratorType->GetMethod("MoveNext"), nullptr);
+		//	>stack:3<
+		il->Emit(oc::Brtrue_S, loop_body_label);
+		//	>stack:2<
+		//loop end
+
+
 	}
-	inline ::RemoteCall::ValueType LLNET::RemoteCall::ImportFunctionRegister::_parseParameter(FunctionInfo::TypeInfo const% info, Object^ val)
-	{
-		return std::move(ExportFunctionRegister::_parseReturnVal(info, val));
+	break;
+	case ValidType::Dictionary:
+		throw gcnew System::NotSupportedException("NotSupported Type [Dictinary]");
+		break;
+	case ValidType::Void:
+		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		break;
 	}
-	inline System::Object^ LLNET::RemoteCall::ImportFunctionRegister::_parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
+	//stack:1
+	il->Emit(oc::Pop);
+	//stack:0
+}
+
+inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo)
+{
+	switch (returnvalinfo.type)
 	{
-		return ExportFunctionRegister::_parseParameter(info, val);
-	}
-	System::Object^ ImportFunctionRegister::ImportFuncBase::_Invoke(...array<Object^>^ args)
-	{
-		std::vector<::RemoteCall::ValueType> vec;
-		for (int i = 0; i < args->Length; ++i) {
-			vec.emplace_back(_parseParameter(info->parameters[i], args[i]));
-		}
-		auto ret = (*pfunc)(vec);
-		return _parseReturnVal(info->returnType, ret);
+	case ValidType::Invalid:
+		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		break;
+	case ValidType::Double:
+		il->EmitCall(OpCodes::Call, Native2double, nullptr);
+		break;
+	case ValidType::Float:
+		il->EmitCall(OpCodes::Call, Native2float, nullptr);
+		break;
+	case ValidType::Int64:
+		il->EmitCall(OpCodes::Call, Native2int64_t, nullptr);
+		break;
+	case ValidType::Int32:
+		il->EmitCall(OpCodes::Call, Native2int32_t, nullptr);
+		break;
+	case ValidType::Int16:
+		il->EmitCall(OpCodes::Call, Native2int16_t, nullptr);
+		break;
+	case ValidType::Int8:
+		il->EmitCall(OpCodes::Call, Native2int8_t, nullptr);
+		break;
+	case ValidType::UInt64:
+		il->EmitCall(OpCodes::Call, Native2uint64_t, nullptr);
+		break;
+	case ValidType::UInt32:
+		il->EmitCall(OpCodes::Call, Native2uint32_t, nullptr);
+		break;
+	case ValidType::UInt16:
+		il->EmitCall(OpCodes::Call, Native2uint16_t, nullptr);
+		break;
+	case ValidType::UInt8:
+		il->EmitCall(OpCodes::Call, Native2uint8_t, nullptr);
+		break;
+	case ValidType::Bool:
+		il->EmitCall(OpCodes::Call, Native2bool, nullptr);
+		break;
+	case ValidType::String:
+		il->EmitCall(OpCodes::Call, Native2string, nullptr);
+		break;
+	case ValidType::NumberType:
+		il->EmitCall(OpCodes::Call, Native2NumberType, nullptr);
+		break;
+	case ValidType::Player:
+		il->EmitCall(OpCodes::Call, Native2Player, nullptr);
+		break;
+	case ValidType::Actor:
+		il->EmitCall(OpCodes::Call, Native2Actor, nullptr);
+		break;
+	case ValidType::BlockActor:
+		il->EmitCall(OpCodes::Call, Native2BlockActor, nullptr);
+		break;
+	case ValidType::Container:
+		il->EmitCall(OpCodes::Call, Native2Container, nullptr);
+		break;
+	case ValidType::Vec3:
+		il->EmitCall(OpCodes::Call, Native2Vec3, nullptr);
+		break;
+	case ValidType::BlockPos:
+		il->EmitCall(OpCodes::Call, Native2BlockPos, nullptr);
+		break;
+	case ValidType::WorldPosType:
+		il->EmitCall(OpCodes::Call, Native2WorldPosType, nullptr);
+		break;
+	case ValidType::BlockPosType:
+		il->EmitCall(OpCodes::Call, Native2BlockPosType, nullptr);
+		break;
+	case ValidType::ItemType:
+		il->EmitCall(OpCodes::Call, Native2ItemType, nullptr);
+		break;
+	case ValidType::BlockType:
+		il->EmitCall(OpCodes::Call, Native2BlockType, nullptr);
+		break;
+	case ValidType::NbtType:
+		il->EmitCall(OpCodes::Call, Native2NbtType, nullptr);
+		break;
+	case ValidType::List:
+		throw gcnew System::NotSupportedException("NotSupported Type [List]");
+		break;
+	case ValidType::Dictionary:
+		throw gcnew System::NotSupportedException("NotSupported Type [Dictinary]");
+		break;
+	case ValidType::Void:
+		il->Emit(oc::Pop);
+		break;
 	}
 }
+
+void* LLNET::RemoteCall::ImportFunctionRegister::ImportedFunc::_Invoke(void* vec)
+{
+	return new ::RemoteCall::ValueType((*pfunc)(std::move(*(std::vector<::RemoteCall::ValueType>*)vec)));
+}
+
+
+inline void LLNET::RemoteCall::ImportFunctionRegister::loadParameter(ILGenerator^ il, int localIndex, int paramIndex, Dictionary<int, LocalBuilder^>% locals)
+{
+	//load pointer
+	il->Emit(OpCodes::Ldloca_S, locals[localIndex]);
+
+	switch (paramIndex)
+	{
+	case 0:throw gcnew LLNET::Core::LiteLoaderDotNETException("arg[0]->this");
+	case 1:il->Emit(oc::Ldarg_1); break;
+	case 2:il->Emit(oc::Ldarg_2); break;
+	case 3:il->Emit(oc::Ldarg_3); break;
+	default: il->Emit(oc::Ldarga_S, paramIndex); break;
+	}
+	//stack:2;
+}
+
+inline void LLNET::RemoteCall::ImportFunctionRegister::emplaceBack(ILGenerator^ il, int localIndex, Dictionary<int, LocalBuilder^>% locals) {
+
+	//emplace_back start
+	il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
+	il->Emit(oc::Ldloca_S, locals[localIndex]);
+	//	stack:2
+	il->EmitCall(oc::Call, emplace_back, nullptr);
+	//	stack:0
+	//emplace_back end
+}
+
+//inline void* LLNET::RemoteCall::ImportFunctionRegister::Listhelper::_create_RemoteCall_ArrayType()
+//{
+//	return new ::RemoteCall::ValueType::ArrayType();
+//}
+//
+//inline void LLNET::RemoteCall::ImportFunctionRegister::Listhelper::_ArrayType_emplace_back(void* arrType, void* val)
+//{
+//	((::RemoteCall::ValueType::ArrayType*)arrType)->emplace_back(std::move(*(::RemoteCall::ValueType*)val));
+//}

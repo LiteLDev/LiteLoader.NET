@@ -14,3 +14,11 @@
 #include "../../Header/MC/Container.hpp"
 #include "../../Header/MC/Vec3.hpp"
 #include "../../Header/MC/BlockPos.hpp"
+
+#define REMOTECALL_DEBUG
+
+#define REMOTECALL_DEBUG_INFO(info)							\
+auto _color = Console::ForegroundColor;						\
+Console::ForegroundColor = System::ConsoleColor::Yellow;	\
+Console::WriteLine(info);									\
+Console::ForegroundColor = _color

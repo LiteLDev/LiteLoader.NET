@@ -1,8 +1,7 @@
 #pragma once
 namespace LLNET::Core
 {
-	public
-	ref class LiteLoaderDotNETException
+	public ref class LiteLoaderDotNETException
 		: public System::ApplicationException
 	{
 	public:
@@ -15,8 +14,8 @@ namespace LLNET::Core
 		{
 		}
 	};
-	public
-	ref class HookFailedException
+
+	public ref class HookFailedException
 		: public LiteLoaderDotNETException
 	{
 	public:
@@ -25,8 +24,8 @@ namespace LLNET::Core
 		{
 		}
 	};
-	public
-	ref class NativePluginException
+
+	public ref class NativePluginException
 		: public LiteLoaderDotNETException
 	{
 	public:
@@ -35,8 +34,8 @@ namespace LLNET::Core
 		{
 		}
 	};
-	public
-	ref class InvalidRemoteCallTypeException
+
+	public ref class InvalidRemoteCallTypeException
 		:public LiteLoaderDotNETException
 	{
 	public:
@@ -45,8 +44,18 @@ namespace LLNET::Core
 		{
 		}
 	};
-	public
-	ref class DynamicCommandInvalidCastException
+
+	ref class RemoteCallImportFunctionException 
+		:public LiteLoaderDotNETException
+	{
+	public:
+		RemoteCallImportFunctionException(String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+	};
+
+	public ref class DynamicCommandInvalidCastException
 		:public LiteLoaderDotNETException
 	{
 	public:
@@ -55,8 +64,8 @@ namespace LLNET::Core
 		{
 		}
 	};
-	public
-	ref class RegisterCommandException
+
+	public ref class RegisterCommandException
 		:public LiteLoaderDotNETException
 	{
 	public:
