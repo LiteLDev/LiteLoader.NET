@@ -29,7 +29,7 @@ namespace LLNET::RemoteCall {
 		/// <para>£­object</para>
 		/// </summary>
 		inline static void parseParameter(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals);
-		inline static void parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals);
+		inline static void parseReturnval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals);
 
 		//ref class Listhelper {
 		//public:
@@ -55,15 +55,15 @@ namespace LLNET::RemoteCall {
 			}
 
 			Object^ TEST(int a, String^ str) {
-				auto vec = _create_std_vector();
+				auto vec = _create_ArrayType();
 				auto val1 = _int32_t2Native(a);
 				_emplace_back(&vec, &val1);
 				auto val2 = _string2Native(str);
 				_emplace_back(&vec, &val2);
 				auto _ret = _Invoke(&vec);
 				auto ret = _Native2int32_t(_ret);
-				_delete_std_vector(&vec);
-				_delete_RemoteCall_ValueType(&_ret);
+				_delete_ArrayType(&vec);
+				_delete_ValueType(&_ret);
 
 				return nullptr;
 			}
@@ -155,13 +155,16 @@ namespace LLNET::RemoteCall {
 			//	init block end
 			//	init std::vector start
 			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
-			il->EmitCall(oc::Call, create_std_vector, nullptr);
+			il->EmitCall(oc::Call, create_ArrayType, nullptr);
 			//		>stack:1<
 			il->Emit(oc::Pop);
 			//		>stack:0<
 			//	init std::vector end
 			//	prase args start
 
+#ifdef REMOTECALL_DEBUG
+			il->EmitWriteLine("[RemoteCall.Import]Try parse parameter");
+#endif // REMOTECALL_DEBUG
 			for (int i = 0; i < funcinfo->parameters->Length; ++i) {
 				int currentParamIndex = i + 1;
 				int currentlocalIndex = i + 2;
@@ -176,6 +179,9 @@ namespace LLNET::RemoteCall {
 			il->Emit(oc::Ldarg_0);
 			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
 			//		>stack:2<
+#ifdef REMOTECALL_DEBUG
+			il->EmitWriteLine("[RemoteCall.Import]Try invoke");
+#endif // REMOTECALL_DEBUG
 			il->EmitCall(oc::Call, ImportedFunc::Invoke, nullptr);
 			//		>stack:1<
 			//	invoke this->_Invoke(std::vector<::RemoteCall::ValueType>*) end
@@ -186,17 +192,25 @@ namespace LLNET::RemoteCall {
 			//	parse return val start
 			il->Emit(oc::Ldloc_0);
 			//		>stack:1<
-			parseRetunval(il, funcinfo->returnType, locals);
+#ifdef REMOTECALL_DEBUG
+			il->EmitWriteLine("[RemoteCall.Import]Try parse return val");
+#endif // REMOTECALL_DEBUG
+			parseReturnval(il, funcinfo->returnType, locals);
 			//		>stack:1(if return type == void:0)<
 			//	parse return val end
 			//	delete start
 			il->Emit(oc::Ldloc_0);
-			il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
+			il->EmitCall(oc::Call, delete_ValueType, nullptr);
 			//		>stack:1(if return type == void:0)<
 			il->Emit(oc::Ldloca_S, locals[nativeParamIndex]);
-			il->EmitCall(oc::Call, delete_std_vector, nullptr);
+			il->EmitCall(oc::Call, delete_ArrayType, nullptr);
 			//		>stack:1(if return type == void:0)<
 			//	delete end
+
+#ifdef REMOTECALL_DEBUG
+			il->EmitWriteLine("[RemoteCall.Import]Try ret");
+#endif // REMOTECALL_DEBUG
+
 			//	return start
 			il->Emit(oc::Ret);
 			//	return end
@@ -306,12 +320,12 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 
 		//add local ::RemoteCall::ValueType::ArrayType
 		auto local_ArrayType_index = locals.Count;
-		locals.Add(local_ArrayType_index, il->DeclareLocal(::RemoteCall::ValueType::ArrayType::typeid));
+		locals.Add(local_ArrayType_index, il->DeclareLocal(::RemoteCall::ValueType::ArrayType::typeid, true));
 
 
-		//add local ::RemoteCall::ValueType pointer
+		//add local ::RemoteCall::ValueType
 		auto local_ValueType_index = locals.Count;
-		locals.Add(local_ValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid));
+		locals.Add(local_ValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid, true));
 
 
 		il->EmitCall(oc::Call, getEnumeratorMethod, nullptr);
@@ -322,8 +336,15 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 		//	>stack:1<
 
 		il->Emit(oc::Ldloca_S, locals[local_ArrayType_index]);
+		il->Emit(oc::Ldc_I4_0);
+		il->Emit(oc::Ldc_I4_S, 24);
+		il->Emit(oc::Conv_I8);
+		//		>stack:4<
+		il->Emit(oc::Initblk);
+
+		il->Emit(oc::Ldloca_S, locals[local_ArrayType_index]);
 		//create ::RemoteCall::ValueType::ArrayType
-		il->EmitCall(oc::Call, create_std_vector, nullptr);
+		il->EmitCall(oc::Call, create_ArrayType, nullptr);
 		il->Emit(oc::Pop);
 		//	>stack:1<
 		//	£­RemoteCall::ValueType pointer
@@ -354,24 +375,12 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 		//	>stack:1<
 		//emplace back end
 
-		//delete ValueType start
-		//il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
-		//il->EmitCall(oc::Call, delete_RemoteCall_ValueType, nullptr);
-		//	>stack:1<
-		//delete ValueType end
-
 		//loop body	}   ///////////////////////////////////////////////////////////////////////
-		//loop start
-		//	>stack:1<
+		//(while enumerator.MoveNext())
 		il->MarkLabel(loop_start_label);
-		//load enumerator start
 		il->Emit(oc::Ldloca_S, locals[local_enumerator_index]);
-		//	>stack:2<
-		//load enumerator end
 		il->EmitCall(oc::Call, enumeratorType->GetMethod("MoveNext"), nullptr);
-		//	>stack:2<
 		il->Emit(oc::Brtrue_S, loop_body_label);
-		//	>stack:1<
 		//loop end
 
 		//	>stack:1<
@@ -399,7 +408,7 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseParameter(ILGenerato
 	//stack:0
 }
 
-inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals)
+inline void LLNET::RemoteCall::ImportFunctionRegister::parseReturnval(ILGenerator^ il, FunctionInfo::TypeInfo% returnvalinfo, Dictionary<int, LocalBuilder^>% locals)
 {
 	switch (returnvalinfo.type)
 	{
@@ -493,7 +502,7 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator
 
 		//	>stack:1<
 		//	1£­returned ::RemoteCall::ValueType pointer
-		il->EmitCall(oc::Call, get_retArrayType_size, nullptr);
+		il->EmitCall(oc::Call, get_ValueArrayType_size, nullptr);
 		//	>stack:1<
 		//	1£­size int
 		il->Emit(oc::Stloc_S, locals[loop_size_index]);
@@ -529,12 +538,12 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::parseRetunval(ILGenerator
 		//	2£­ret ::RemoteCall::ValueType pointer
 		//	3£­i
 
-		il->EmitCall(oc::Call, get_pValueType_from_ArrayType_by_index, nullptr);
+		il->EmitCall(oc::Call, get_pValueType_from_ValueArrayType_by_index, nullptr);
 		//	>stack:2<
 		//	1£­list instance
 		//	2£­returned ::RemoteCall::ValueType pointer
 
-		parseRetunval(il, returnvalinfo.genericArgs[0], locals);
+		parseReturnval(il, returnvalinfo.genericArgs[0], locals);
 		//	>stack:2<
 		//	1£­list instance
 		//	2£­returned object
@@ -584,11 +593,11 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::loadParameter(ILGenerator
 
 	switch (paramIndex)
 	{
-	case 0:throw gcnew LLNET::Core::LiteLoaderDotNETException("arg[0]->this");
+	case 0:throw gcnew LLNET::Core::RemoteCallImportFunctionException("arg[0]->this");
 	case 1:il->Emit(oc::Ldarg_1); break;
 	case 2:il->Emit(oc::Ldarg_2); break;
 	case 3:il->Emit(oc::Ldarg_3); break;
-	default: il->Emit(oc::Ldarga_S, paramIndex); break;
+	default: il->Emit(oc::Ldarg_S, paramIndex); break;
 	}
 	//stack:2;
 }
@@ -613,3 +622,5 @@ inline void LLNET::RemoteCall::ImportFunctionRegister::emplaceBack(ILGenerator^ 
 //{
 //	((::RemoteCall::ValueType::ArrayType*)arrType)->emplace_back(std::move(*(::RemoteCall::ValueType*)val));
 //}
+
+#undef oc

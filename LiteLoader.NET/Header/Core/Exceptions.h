@@ -45,11 +45,25 @@ namespace LLNET::Core
 		}
 	};
 
-	ref class RemoteCallImportFunctionException
+	public ref class RemoteCallImportFunctionException
 		:public LiteLoaderDotNETException
 	{
 	public:
 		RemoteCallImportFunctionException(System::String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+	};
+
+	public ref class RemoteCallExportFunctionException
+		:public LiteLoaderDotNETException
+	{
+	public:
+		RemoteCallExportFunctionException()
+			:LiteLoaderDotNETException()
+		{
+		}
+		RemoteCallExportFunctionException(System::String^ message)
 			:LiteLoaderDotNETException(message)
 		{
 		}

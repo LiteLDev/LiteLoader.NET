@@ -24,21 +24,21 @@ namespace LLNET::RemoteCall
 		/// <para>Export a function with NameSpace, function name.</para>
 		/// <para>　</para>
 		/// <para>example:</para>
-		/// <para>　<code>ExportFunc(".NET","ExampleFunction",(args) => { });</code></para>
+		/// <para>　<code>ExportedFunc(".NET","ExampleFunction",(args) => { });</code></para>
 		/// <para></para>
 		/// </summary>
 		/// <param name="nameSpace">－Export Function NameSpace</param>
 		/// <param name="funcName">－Export Function Name</param>
 		/// <param name="fn">－Export Function</param>
 		/// <returns>－Is The Export Successful</returns>
-		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
+		static bool ExportedFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn);
 
 
 		/// <summary>
 		/// <para>Export a function with NameSpace, function name, and plugin handler.</para>
 		/// <para>　</para>
 		/// <para>example:</para>
-		/// <para>　<code>ExportFunc(".NET","ExampleFunction",(args) => { });</code></para>
+		/// <para>　<code>ExportedFunc(".NET","ExampleFunction",(args) => { });</code></para>
 		/// <para></para>
 		/// </summary>
 		/// <param name="nameSpace">－Export Function NameSpace</param>
@@ -46,7 +46,7 @@ namespace LLNET::RemoteCall
 		/// <param name="fn">－Export Function</param>
 		/// <param name="handler">－Plugin Handler</param>
 		/// <returns>－Is The Export Successful</returns>
-		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
+		static bool ExportedFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
 
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace LLNET::RemoteCall
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn) {
-			return ExportFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, fn);
+			return ExportFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, fn, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
 		};
 
 		generic<typename TDelegate>
