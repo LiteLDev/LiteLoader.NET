@@ -41,3 +41,4 @@
 #define Property_ValueType(Namespace, type, nativeName, name) property Namespace::type name { inline Namespace::type get() { return Namespace::type(_this->nativeName); } inline void set(Namespace::type arg) { _this->nativeName = arg; } }
 #define METHOD_INFO(name, funcname) static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
 #define __METHOD_INFO(name, funcname) static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
+#define oc

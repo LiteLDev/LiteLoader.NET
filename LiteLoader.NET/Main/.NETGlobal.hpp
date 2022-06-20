@@ -9,20 +9,20 @@
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
 #define CATCH                                                                                   \
-    catch (System::Exception ^ ex)                                                              \
-    {                                                                                           \
-        auto color = Console::ForegroundColor;                                                  \
-        Console::ForegroundColor = System::ConsoleColor::Red;                                   \
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString()); \
-        System::Console::WriteLine(ex->ToString());                                             \
-        Console::ForegroundColor = color;                                                       \
-    }                                                                                           \
     catch (const std::exception& ex)                                                            \
     {                                                                                           \
         auto color = Console::ForegroundColor;                                                  \
         Console::ForegroundColor = System::ConsoleColor::Red;                                   \
         System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "std::exception");          \
         System::Console::WriteLine(marshalString(ex.what()));                                   \
+        Console::ForegroundColor = color;                                                       \
+    }                                                                                           \
+    catch (System::Exception ^ ex)                                                              \
+    {                                                                                           \
+        auto color = Console::ForegroundColor;                                                  \
+        Console::ForegroundColor = System::ConsoleColor::Red;                                   \
+        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString()); \
+        System::Console::WriteLine(ex->ToString());                                             \
         Console::ForegroundColor = color;                                                       \
     }                                                                                           \
     catch (...)                                                                                 \

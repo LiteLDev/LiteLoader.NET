@@ -55,11 +55,14 @@
     <Filter Include="Kernel\Scoreboard">
       <UniqueIdentifier>{9e803160-8fc8-4610-b8c5-0c124b593efa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\RemoteCall">
-      <UniqueIdentifier>{f29925e2-3ac2-401d-874c-62721b378bbf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header\DynamicCommand">
       <UniqueIdentifier>{48fc0746-f917-42c3-b3cd-0895f1347a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\RemoteCall">
+      <UniqueIdentifier>{9f309bf3-820a-4354-9874-ea2ef5c7595d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\RemoteCall\Internal">
+      <UniqueIdentifier>{48d20abb-293f-49b1-bb01-58d24378ede8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +329,18 @@
     </ClCompile>
     <ClCompile Include="Kernel\MC\HitResult.cpp">
       <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.cpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\ImportFunctionRegister.cpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\ExportFunctionRegister.cpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,33 +647,6 @@
     <ClInclude Include="Header\Core\STLHelper\vector.hpp">
       <Filter>Header\Core\STLHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\RemoteCall.h">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\NumberType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\include.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Interfaces.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ExtendType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Value.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ValueType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ExportAs.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ImportAs.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommand.h">
       <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
@@ -692,8 +680,38 @@
     <ClInclude Include="Header\MC\HitResult.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp">
+    <ClInclude Include="Header\RemoteCall\ExtendType.hpp">
       <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\include.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Interfaces.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\NumberType.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Value.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ValueType.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.hpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Internal\ImportFunctionRegister.hpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\RemoteCall.h">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\Internal\ExportFunctionRegister.hpp">
+      <Filter>Header\RemoteCall\Internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

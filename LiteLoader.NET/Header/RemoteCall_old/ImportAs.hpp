@@ -54,18 +54,19 @@ namespace LLNET::RemoteCall {
 				delete pfunc;
 			}
 
-			Object^ TEST(int a, String^ str) {
-				auto vec = _create_ArrayType();
-				auto val1 = _int32_t2Native(a);
-				_emplace_back(&vec, &val1);
-				auto val2 = _string2Native(str);
-				_emplace_back(&vec, &val2);
-				auto _ret = _Invoke(&vec);
-				auto ret = _Native2int32_t(_ret);
-				_delete_ArrayType(&vec);
-				_delete_ValueType(&_ret);
+			int __INVOKE__(int i) { return i; }
 
-				return nullptr;
+			void* TEST(void* Array) {
+				int a0;
+				int method_ret;
+
+				auto pValue = _get_pValueType_from_ArrayType_by_index(Array, 0);
+				a0 = _Native2int32_t(pValue);
+				method_ret = __INVOKE__(a0);
+
+				auto local_ValueType = _int32_t2Native(method_ret);
+
+				return &local_ValueType;
 			}
 		};
 	public:

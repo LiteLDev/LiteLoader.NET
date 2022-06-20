@@ -269,14 +269,15 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\Vec3.hpp" />
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
     <ClInclude Include="Header\PlayerInfo.h" />
-    <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
-    <ClInclude Include="Header\RemoteCall\ImportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\include.hpp" />
     <ClInclude Include="Header\RemoteCall\Interfaces.hpp" />
+    <ClInclude Include="Header\RemoteCall\Internal\ExportFunctionRegister.hpp" />
+    <ClInclude Include="Header\RemoteCall\Internal\ImportFunctionRegister.hpp" />
+    <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp" />
+    <ClInclude Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
     <ClInclude Include="Header\RemoteCall\RemoteCall.h" />
-    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\Value.hpp" />
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.h" />
@@ -296,6 +297,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Tools\PropertryHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Header\RemoteCall\Internal\ExportFunctionRegister.cpp" />
+    <ClCompile Include="Header\RemoteCall\Internal\ImportFunctionRegister.cpp" />
+    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
+    <ClCompile Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.cpp" />
     <ClCompile Include="Kernel\AllowListAPI.cpp" />
     <ClCompile Include="Kernel\Command\Command.cpp" />
     <ClCompile Include="Kernel\Command\CommandArea.cpp" />

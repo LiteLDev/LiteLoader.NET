@@ -62,83 +62,28 @@ namespace LLNET::RemoteCall {
 			auto il = method->GetILGenerator();
 			il->EmitWriteLine("QAQ");
 
-			//void* func(void*)
-			//ret:	::RemoteCall::ValueType pointer
-			//arg:	::std::vector<RemoteCall::ValueType> pointer
-
-
-			//auto method = gcnew DynamicMethod(funcName, void::typeid->MakePointerType(), methodArgs);
-			//auto il = method->GetILGenerator();
-
-
-
 			//declare local
 			Dictionary<int, LocalBuilder^> locals;
-			for (int i = 0; i < funcinfo->parameters->Length; ++i)
-				locals.Add(i, il->DeclareLocal(funcinfo->parameters[i]._type));
 
-			auto local_ValueType_index = locals.Count;
-			locals.Add(local_ValueType_index, il->DeclareLocal(::RemoteCall::ValueType::typeid, true));
+			auto int32_0 = locals.Count;
+			locals.Add(int32_0, il->DeclareLocal(int::typeid));
+
+			auto ValueType_1 = locals.Count;
+			locals.Add(ValueType_1, il->DeclareLocal(::RemoteCall::ValueType::typeid, true));
 			//declare local end
 
-			//	>stack:0<
+			il->Emit(oc::Ldarg_1);
+			il->Emit(oc::Ldc_I4_0);
+			il->EmitCall(oc::Call, get_pValueType_from_ArrayType_by_index, nullptr);
+			il->EmitCall(oc::Call, Native2int32_t, nullptr);
+			il->Emit(oc::Stloc_0);
 
-			//check std::vector size
-			//il->Emit(oc::Ldarg_1);
-			//il->EmitCall(oc::Call, get_ArrayType_size, nullptr);
-			//il->Emit(oc::Ldloc_S, funcinfo->parameters->Length);
-			//il->Emit(oc::Ceq);
-			//auto skip_exception_label = il->DefineLabel();
-			//il->Emit(oc::Brtrue_S, skip_exception_label);
-			//il->Emit(oc::Ldstr, "Parameter quantity dos not match.");
-			//il->Emit(oc::Newobj, LLNET::Core::RemoteCallExportFunctionException::typeid->GetConstructor(gcnew array<System::Type^>(1) { String::typeid }));
-			//il->ThrowException(LLNET::Core::RemoteCallExportFunctionException::typeid);
-			//il->MarkLabel(skip_exception_label);
-			//check std::vector size end
+			il->Emit(oc::Ldloca_S, 1);
+			il->Emit(oc::Ldloc_0);
+			il->EmitCall(oc::Call, int32_t2Native, nullptr);
+			il->Emit(oc::Pop);
 
-			//	>stack:0<
-
-//#ifdef REMOTECALL_DEBUG
-			il->EmitWriteLine("[RemoteCall.Export]Try parse parameter");
-			//#endif // REMOTECALL_DEBUG
-			for (int i = 0; i < funcinfo->parameters->Length; i++)
-			{
-				il->Emit(oc::Ldarg_1);
-				il->Emit(oc::Ldc_I4_S, 0);
-				il->EmitCall(oc::Call, get_pValueType_from_ArrayType_by_index, nullptr);
-
-				parseParameter(il, funcinfo->parameters[i], locals);
-
-				il->Emit(oc::Stloc_S, i);
-				//	>stack:0<
-			}
-
-#ifdef REMOTECALL_DEBUG
-			il->EmitWriteLine("[RemoteCall.Export]Try invoke");
-#endif // REMOTECALL_DEBUG
-			il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
-			//this
-			il->Emit(oc::Ldarg_0);
-			il->Emit(oc::Ldfld, ExportedFunc::typeid->GetField("func"));
-			for (int i = 0; i < funcinfo->parameters->Length; i++)
-				il->Emit(oc::Ldloc_S, i);
-
-			il->EmitCall(oc::Call, TDelegate::typeid->GetMethod("Invoke"), nullptr);
-
-#ifdef REMOTECALL_DEBUG
-			il->EmitWriteLine("[RemoteCall.Export]Try parse return val");
-#endif // REMOTECALL_DEBUG
-
-			//	>stack:2<
-			
-			parseReturnVal(il, funcinfo->returnType, locals);
-			
-			//
-			//#ifdef REMOTECALL_DEBUG
-			il->EmitWriteLine("[RemoteCall.Export]Try ret");
-			//#endif // REMOTECALL_DEBUG
-
-			il->Emit(oc::Ldloca_S, locals[local_ValueType_index]);
+			il->Emit(oc::Ldloca_S, 1);
 			il->Emit(oc::Ret);
 
 			//func->dynamicMethod = (DynamicMethodDelegate^)method->CreateDelegate(DynamicMethodDelegate::typeid);
@@ -490,8 +435,6 @@ namespace LLNET::RemoteCall {
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			break;
 		}
-
-		il->Emit(oc::Pop);
 	}
 
 	::RemoteCall::ValueType ExportFunctionRegister::ExportedFunc::_Invoke(std::vector<::RemoteCall::ValueType> vec)
@@ -499,9 +442,12 @@ namespace LLNET::RemoteCall {
 		try
 		{
 			auto a = this->dynamicMethod(&vec);
-			auto p =  (::RemoteCall::ValueType*)a;
-			Console::WriteLine(p->value.index());
 			Console::WriteLine("address a:" + ((intptr_t)a).ToString());
+
+
+			auto p = (::RemoteCall::ValueType*)a;
+			Console::WriteLine(p->value.index());
+
 			return *p;
 		}
 		CATCH

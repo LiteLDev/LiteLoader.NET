@@ -1,12 +1,10 @@
 #pragma once
 
-#include "Internal/ExportFunctionRegister.hpp"
-#include "Internal/ImportFunctionRegister.hpp"
+#include "ImportAs.hpp"
+#include "ExportAs.hpp"
+
 namespace LLNET::RemoteCall
 {
-	using namespace LLNET::RemoteCall::Internal;
-
-
 	/// <summary>
 	/// ========Remote Call API========
 	/// <para>　</para>
