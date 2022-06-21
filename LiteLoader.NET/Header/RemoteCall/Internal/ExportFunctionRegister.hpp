@@ -43,7 +43,7 @@ namespace LLNET::RemoteCall::Internal {
 			methodArgs[0] = ExportedFunc::typeid;
 			methodArgs[1] = VOID_POINTER_TYPE;
 
-			auto method = gcnew DynamicMethod(funcName, VOID_POINTER_TYPE, methodArgs);
+			auto method = gcnew DynamicMethod(funcName, VOID_POINTER_TYPE, methodArgs, true);
 			auto il = method->GetILGenerator();
 
 			Dictionary<int, LocalBuilder^> locals;

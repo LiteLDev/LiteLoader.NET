@@ -59,13 +59,35 @@ namespace LLNET::RemoteCall::Internal
 		inline static void _delete_ArrayType(void* arr);
 		inline static void* _create_ValueType();
 		inline static void _delete_ValueType(void* val);
+		inline static void* _create_ObjectType();
+		inline static void _delete_ObjectType(void* obj);
+
+		inline static void _delete_ObjectType_iterator(void* iter);
 
 		inline static void* _create_ValueType_by_null();
 		inline static void _emplace_ValueType_back_to_ArrayType_and_delete(void* val, void* arr);
 		inline static void* _create_ValueType_by_ArrayType_and_delete(void* arr);
+		inline static void* _get_ValueType_from_ArrayType_by_index(void* arr, int index);
+
 		inline static void* _get_ArrayType_from_ValueType(void* val);
 		inline static int _get_ArrayType_size(void* arr);
-		inline static void* _get_ValueType_from_ArrayType_by_index(void* arr, int index);
+
+		inline static void* _create_std_string_from_String(String^ str);
+		inline static String^ _get_String_from_std_string(void* str);
+		inline static void _delete_std_string(void* str);
+
+		inline static void* _get_ObjectType_begin_iterator(void* obj);
+		inline static bool _is_iterator_not_equals_ObjectType_end(void* iter, void* obj);
+		inline static void _iterator_move_next(void* iter);
+		inline static void* get_iterator_current_key(void* iter);
+		inline static void* get_iterator_current_value_by_stdmove(void* iter);
+
+		inline static void* _get_ObjectType_from_ValueType(void* val);
+		inline static int _get_ObjectType_size(void* obj);
+
+		inline static void* _create_ValueType_by_ObjectType_and_delete(void* obj);
+		inline static void _emplace_string_and_ValueType_to_ObjectType_and_delete(void* val, String^ str, void* obj);
+
 	};
 }
 
@@ -82,9 +104,12 @@ il->EmitWriteLine(#info);info
 
 #else
 
-#define _INFO(info)
+#define _INFO(info)\
+info
 
 #endif
+
+#define __INLINE [MethodImpl(MethodImplOptions::AggressiveInlining)] inline
 
 
 

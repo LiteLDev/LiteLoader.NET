@@ -42,3 +42,4 @@
 #define METHOD_INFO(name, funcname) static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
 #define __METHOD_INFO(name, funcname) static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
 #define oc
+#define __INLINE [MethodImpl(MethodImplOptions::AggressiveInlining)] inline
