@@ -1,7 +1,7 @@
 #pragma once
-#include "RemoteCallRegisterBase.hpp"
+#include "DynamicRemoteCallFunctionRegisterBase.hpp"
 namespace LLNET::RemoteCall::Internal {
-	public ref class ImportFunctionRegister :RemoteCallRegisterBase
+	public ref class DynamicImportFunctionRegister :DynamicRemoteCallFunctionRegisterBase
 	{
 	public:
 		ref struct ImportedFunc {

@@ -6,7 +6,7 @@ using namespace System::Reflection::Emit;
 #define oc OpCodes
 
 namespace LLNET::RemoteCall::Internal {
-	public ref class RemoteCallRegisterBase
+	public ref class DynamicRemoteCallFunctionRegisterBase
 	{
 	public:
 		enum class ValidType {

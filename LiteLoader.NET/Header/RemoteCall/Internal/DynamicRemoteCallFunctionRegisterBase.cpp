@@ -1,6 +1,6 @@
-#include "RemoteCallRegisterBase.hpp"
+#include "DynamicRemoteCallFunctionRegisterBase.hpp"
 namespace LLNET::RemoteCall::Internal {
-	inline Pair<bool, RemoteCallRegisterBase::ValidType> RemoteCallRegisterBase::_tryGetValidType(System::Type^ t)
+	inline Pair<bool, DynamicRemoteCallFunctionRegisterBase::ValidType> DynamicRemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
 	{
 		using RTN = Pair<bool, ValidType>;
 
@@ -72,7 +72,7 @@ namespace LLNET::RemoteCall::Internal {
 		return RTN(false, ValidType::Invalid);
 	}
 
-	inline RemoteCallRegisterBase::FunctionInfo::TypeInfo RemoteCallRegisterBase::_generateTypeInfo(System::Type^ t)
+	inline DynamicRemoteCallFunctionRegisterBase::FunctionInfo::TypeInfo DynamicRemoteCallFunctionRegisterBase::_generateTypeInfo(System::Type^ t)
 	{
 
 		auto type = _tryGetValidType(t);
@@ -111,7 +111,7 @@ namespace LLNET::RemoteCall::Internal {
 		return ret;
 	}
 
-	void RemoteCallRegisterBase::IL_ManagedObjectToValueType(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals)
+	void DynamicRemoteCallFunctionRegisterBase::IL_ManagedObjectToValueType(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals)
 	{
 		switch (info.type)
 		{
@@ -362,7 +362,7 @@ namespace LLNET::RemoteCall::Internal {
 		}
 	}
 
-	void RemoteCallRegisterBase::IL_ValueTypeToManagedObject(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals)
+	void DynamicRemoteCallFunctionRegisterBase::IL_ValueTypeToManagedObject(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals)
 	{
 		switch (info.type)
 		{

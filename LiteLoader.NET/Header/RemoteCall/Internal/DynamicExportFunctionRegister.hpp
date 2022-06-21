@@ -1,7 +1,7 @@
 #pragma once
-#include "RemoteCallRegisterBase.hpp"
+#include "DynamicRemoteCallFunctionRegisterBase.hpp"
 namespace LLNET::RemoteCall::Internal {
-	public ref class ExportFunctionRegister :RemoteCallRegisterBase {
+	public ref class DynamicExportFunctionRegister :DynamicRemoteCallFunctionRegisterBase {
 	public:
 		delegate ::RemoteCall::ValueType delNative(std::vector<::RemoteCall::ValueType>);
 		delegate void* DynamicMethodDelegate(void*);

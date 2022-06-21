@@ -333,13 +333,13 @@
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.cpp">
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.cpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\ImportFunctionRegister.cpp">
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\ExportFunctionRegister.cpp">
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
   </ItemGroup>
@@ -701,17 +701,26 @@
     <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\RemoteCallRegisterBase.hpp">
+    <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\ImportFunctionRegister.hpp">
+    <ClInclude Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.hpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClInclude>
     <ClInclude Include="Header\RemoteCall\RemoteCall.h">
       <Filter>Header\RemoteCall</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\ExportFunctionRegister.hpp">
+    <ClInclude Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.hpp">
       <Filter>Header\RemoteCall\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ExportAs.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\ImportAs.hpp">
+      <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp">
+      <Filter>Header\RemoteCall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

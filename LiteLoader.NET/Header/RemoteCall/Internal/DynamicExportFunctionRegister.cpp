@@ -1,6 +1,6 @@
-#include "ExportFunctionRegister.hpp"
+#include "DynamicExportFunctionRegister.hpp"
 namespace LLNET::RemoteCall::Internal {
-	::RemoteCall::ValueType ExportFunctionRegister::ExportedFunc::_Invoke(std::vector<::RemoteCall::ValueType> vec)
+	::RemoteCall::ValueType DynamicExportFunctionRegister::ExportedFunc::_Invoke(std::vector<::RemoteCall::ValueType> vec)
 	{
 		try
 		{
