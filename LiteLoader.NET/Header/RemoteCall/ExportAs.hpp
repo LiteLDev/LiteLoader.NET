@@ -232,127 +232,125 @@ namespace LLNET::RemoteCall {
 
 		switch (info.type)
 		{
-		case ExportFunctionRegister::ValidType::Invalid:
+		case ValidType::Invalid:
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
-		case ExportFunctionRegister::ValidType::Double:
+		case ValidType::Double:
 		{
 			return _NUMBERTYPE.get<double>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Float:
+		case ValidType::Float:
 		{
 			return _NUMBERTYPE.get<float>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Int64:
+		case ValidType::Int64:
 		{
 			return _NUMBERTYPE.get<int64_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Int32:
+		case ValidType::Int32:
 		{
 			return _NUMBERTYPE.get<int32_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Int16:
+		case ValidType::Int16:
 		{
 			return _NUMBERTYPE.get<int16_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Int8:
+		case ValidType::Int8:
 		{
 			return _NUMBERTYPE.get<int8_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::UInt64:
+		case ValidType::UInt64:
 		{
 			return _NUMBERTYPE.get<uint64_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::UInt32:
+		case ValidType::UInt32:
 		{
 			return _NUMBERTYPE.get<uint32_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::UInt16:
+		case ValidType::UInt16:
 		{
 			return _NUMBERTYPE.get<uint16_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::UInt8:
+		case ValidType::UInt8:
 		{
 			return _NUMBERTYPE.get<uint8_t>();
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Bool:
+		case ValidType::Bool:
 		{
 			return std::get<bool>(_VALUE);
 		}
 		break;
-		case ExportFunctionRegister::ValidType::String:
+		case ValidType::String:
 		{
 			return marshalString(std::get<std::string>(_VALUE));
 		}
 		break;
-		case ExportFunctionRegister::ValidType::NumberType:
+		case ValidType::NumberType:
 			return NumberType(_NUMBERTYPE);
 			break;
-		case ExportFunctionRegister::ValidType::Player:
+		case ValidType::Player:
 			return gcnew MC::Player(std::get<::Player*>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::Actor:
+		case ValidType::Actor:
 			return gcnew MC::Actor(std::get<::Actor*>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::BlockActor:
+		case ValidType::BlockActor:
 			return gcnew MC::BlockActor(std::get<::BlockActor*>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::Container:
+		case ValidType::Container:
 			return gcnew MC::Container(std::get<::Container*>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::Vec3:
+		case ValidType::Vec3:
 			return MC::Vec3(std::get<::RemoteCall::WorldPosType>(_VALUE).pos);
 			break;
-		case ExportFunctionRegister::ValidType::BlockPos:
+		case ValidType::BlockPos:
 			return MC::BlockPos(std::get<::RemoteCall::BlockPosType>(_VALUE).pos);
 			break;
-		case ExportFunctionRegister::ValidType::WorldPosType:
-			return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(_VALUE));
-			break;
-		case ExportFunctionRegister::ValidType::BlockPosType:
-			return gcnew BlockPosType(std::get<::RemoteCall::BlockPosType>(_VALUE));
-			break;
-		case ExportFunctionRegister::ValidType::ItemType:
+		case ValidType::ItemType:
 			return gcnew ItemType(std::get<::RemoteCall::ItemType>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::BlockType:
+		case ValidType::BlockType:
 			return gcnew BlockType(std::get<::RemoteCall::BlockType>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::NbtType:
+		case ValidType::NbtType:
 			return gcnew NbtType(std::get<::RemoteCall::NbtType>(_VALUE));
 			break;
-		case ExportFunctionRegister::ValidType::List:
+		case ValidType::List:
 		{
 			auto& vec = std::get<::RemoteCall::ValueType::ArrayType>(val.value);
-			auto ret = System::Activator::CreateInstance(info._type, gcnew array<System::Object^>{(int)vec.size()});
-			auto addMethod = info._type->GetMethod("Add");
+			auto ret = System::Activator::CreateInstance(info._type, gcnew array<Object^>{(int)vec.size()});
+
+			auto AddMethod = info._type->GetMethod("Add");
+
 			for (auto& val : vec) {
-				addMethod->Invoke(ret, gcnew array<System::Object^>{_parseParameter(info.genericArgs[0], val)});
+				AddMethod->Invoke(ret, gcnew array<Object^>{_parseParameter(info.genericArgs[0], val)});
 			}
 			return ret;
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Dictionary:
+		case ValidType::Dictionary:
 		{
 			auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(val.value);
+
 			auto ret = System::Activator::CreateInstance(info._type, gcnew array<System::Object^>{(int)umap.size()});
-			auto addMethod = info._type->GetMethod("Add");
+			auto AddMethod = info._type->GetMethod("Add");
+
 			for (auto& val : umap) {
-				addMethod->Invoke(ret, gcnew array<System::Object^>{marshalString(val.first), _parseParameter(info.genericArgs[1], val.second)});
+				AddMethod->Invoke(ret, gcnew array<Object^>{marshalString(val.first), _parseParameter(info.genericArgs[1], val.second)});
 			}
 			return ret;
 		}
 		break;
-		case ExportFunctionRegister::ValidType::Void:
+		case ValidType::Void:
 		default:
 			return nullptr;
 			break;
@@ -362,106 +360,128 @@ namespace LLNET::RemoteCall {
 	{
 		switch (info.type)
 		{
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Invalid:
+		case ValidType::Invalid:
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Double:
+		case ValidType::Double:
 			return ::RemoteCall::NumberType(static_cast<double>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Float:
+		case ValidType::Float:
 			return ::RemoteCall::NumberType(static_cast<float>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int64:
+		case ValidType::Int64:
 			return ::RemoteCall::NumberType(static_cast<int64_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int32:
+		case ValidType::Int32:
 			return ::RemoteCall::NumberType(static_cast<int32_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int16:
+		case ValidType::Int16:
 			return ::RemoteCall::NumberType(static_cast<int16_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Int8:
+		case ValidType::Int8:
 			return ::RemoteCall::NumberType(static_cast<int8_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt64:
+		case ValidType::UInt64:
 			return ::RemoteCall::NumberType(static_cast<uint64_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt32:
+		case ValidType::UInt32:
 			return ::RemoteCall::NumberType(static_cast<uint32_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt16:
+		case ValidType::UInt16:
 			return ::RemoteCall::NumberType(static_cast<uint16_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::UInt8:
+		case ValidType::UInt8:
 			return ::RemoteCall::NumberType(static_cast<uint8_t>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Bool:
+		case ValidType::Bool:
 			return ::RemoteCall::packValue(static_cast<bool>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::String:
+		case ValidType::String:
 			return marshalString(static_cast<String^>(val));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::NumberType:
+		case ValidType::NumberType:
 			return static_cast<NumberType>(val)._toNative();
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Player:
+		case ValidType::Player:
 			return static_cast<MC::Player^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Actor:
+		case ValidType::Actor:
 			return static_cast<MC::Actor^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockActor:
+		case ValidType::BlockActor:
 			return static_cast<MC::BlockActor^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Container:
+		case ValidType::Container:
 			return static_cast<MC::Container^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Vec3:
-			return ::RemoteCall::packValue(std::make_pair(::Vec3(static_cast<MC::Vec3>(val)), 0));
+		case ValidType::Vec3:
+			return ::RemoteCall::pack(std::make_pair(static_cast<MC::Vec3>(val).operator ::Vec3(), 0));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPos:
-			return ::RemoteCall::packValue(std::make_pair(::BlockPos(static_cast<MC::BlockPos>(val)), 0));
+		case ValidType::BlockPos:
+			return ::RemoteCall::pack(std::make_pair(static_cast<MC::BlockPos>(val).operator ::BlockPos(), 0));
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::WorldPosType:
-			return *static_cast<WorldPosType^>(val)->NativePtr;
-			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockPosType:
-			return *static_cast<BlockPosType^>(val)->NativePtr;
-			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::ItemType:
+		case ValidType::ItemType:
 			return *static_cast<ItemType^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::BlockType:
+		case ValidType::BlockType:
 			return *static_cast<BlockType^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::NbtType:
+		case ValidType::NbtType:
 			return *static_cast<NbtType^>(val)->NativePtr;
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::List:
+		case ValidType::List:
 		{
-			auto list = static_cast<List<Object^>^>(val);
 			auto ret = ::RemoteCall::ValueType::ArrayType();
-			for (int i = 0; i < list->Count; ++i)
+
+			auto EMPTY_ARGS = System::Array::Empty<System::Object^>();
+
+			auto GetEnumeratorMethod = info._type->GetMethod("GetEnumerator");
+
+			auto enumeratorType = GetEnumeratorMethod->ReturnType;
+			auto MoveNextMethod = enumeratorType->GetMethod("MoveNext");
+			auto get_CurrentMethod = enumeratorType->GetMethod("get_Current");
+
+			auto enumerator = GetEnumeratorMethod->Invoke(val, EMPTY_ARGS);
+
+			while ((bool)MoveNextMethod->Invoke(enumerator, EMPTY_ARGS))
 			{
-				ret[i] = std::move(_parseReturnVal(info.genericArgs[0], list[i]));
+				ret.emplace_back(std::move(_parseReturnVal(info.genericArgs[0], get_CurrentMethod->Invoke(enumerator, EMPTY_ARGS))));
 			}
 			return ret;
 		}
 		break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Dictionary:
+		case ValidType::Dictionary:
 		{
-			auto dic = static_cast<Dictionary<String^, Object^>^>(val);
 			auto ret = ::RemoteCall::ValueType::ObjectType();
-			for each (auto var in dic)
+			auto EMPTY_ARGS = System::Array::Empty<System::Object^>();
+
+			auto GetEnumeratorMethod = info._type->GetMethod("GetEnumerator");
+
+			auto enumeratorType = GetEnumeratorMethod->ReturnType;
+			auto MoveNextMethod = enumeratorType->GetMethod("MoveNext");
+			auto get_CurrentMethod = enumeratorType->GetMethod("get_Current");
+
+			auto kvPairType = get_CurrentMethod->ReturnType;
+			auto get_KeyMethod = kvPairType->GetMethod("get_Key");
+			auto get_ValueMethod = kvPairType->GetMethod("get_Value");
+
+			auto enumerator = GetEnumeratorMethod->Invoke(val, EMPTY_ARGS);
+
+			while ((bool)MoveNextMethod->Invoke(enumerator, EMPTY_ARGS))
 			{
-				ret[marshalString(var.Key)] = std::move(_parseReturnVal(info.genericArgs[2], var.Value));
+				auto kvPair = get_CurrentMethod->Invoke(enumerator, EMPTY_ARGS);
+				auto key = get_KeyMethod->Invoke(kvPair, EMPTY_ARGS);
+				auto value = get_ValueMethod->Invoke(kvPair, EMPTY_ARGS);
+
+				ret.emplace(marshalString(static_cast<String^>(key)), _parseReturnVal(info.genericArgs[1], value));
 			}
+
 			return ret;
 		}
 		break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Void:
+		case ValidType::Void:
 		default:
-			return ::RemoteCall::ValueType(nullptr);
+			return ::RemoteCall::ValueType();
 			break;
 		}
 	}
