@@ -8,12 +8,8 @@ namespace LLNET::RemoteCall::Internal {
 			String^ nameSpace;
 			String^ funcName;
 			::RemoteCall::CallbackFn* pfunc;
-
 			void* _Invoke(void* vec);
-
-			~ImportedFunc() {
-				delete pfunc;
-			}
+			~ImportedFunc();
 			static initonly MethodInfo^ Invoke = ImportedFunc::typeid->GetMethod("_Invoke");
 		};
 
@@ -61,8 +57,11 @@ namespace LLNET::RemoteCall::Internal {
 			auto native_func_ret_pValueType_index = locals.Count;
 			locals.Add(native_func_ret_pValueType_index, il->DeclareLocal(VOID_POINTER_TYPE));
 
+			auto local_should_delete_pValueType_index = locals.Count;
+			locals.Add(local_should_delete_pValueType_index, il->DeclareLocal(VOID_POINTER_TYPE));
+
 			_INFO(il->EmitCall(oc::Call, _HelperMethod(_create_ArrayType), nullptr));
-			_INFO(il->Emit(oc::Stloc_S, locals[native_func_param_pArrayType_index]));
+			il->Emit(oc::Stloc_S, locals[native_func_param_pArrayType_index]);
 
 			for (int i = 0; i < funcinfo->parameters->Length; ++i) {
 				switch (i + 1)
@@ -72,17 +71,32 @@ namespace LLNET::RemoteCall::Internal {
 				case 3:_INFO(il->Emit(oc::Ldarg_3)); break;
 				default: _INFO(il->Emit(oc::Ldarg_S, i + 1)); break;
 				}
+
 				_INFO(IL_ManagedObjectToValueType(il, funcinfo->parameters[i], locals));
-				_INFO(il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]));
-				_INFO(il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType_and_delete), nullptr));
+				il->Emit(oc::Stloc_S, locals[local_should_delete_pValueType_index]);
+
+				il->Emit(oc::Ldloc_S, locals[local_should_delete_pValueType_index]);
+				il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]);
+				_INFO(il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType), nullptr));
+
+				il->Emit(oc::Ldloc_S, locals[local_should_delete_pValueType_index]);
+				_INFO(il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr));
 			}
 			//load this
-			_INFO(il->Emit(oc::Ldarg_0));
-			_INFO(il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]));
+			il->Emit(oc::Ldarg_0);
+			il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]);
 			_INFO(il->EmitCall(oc::Call, ImportedFunc::Invoke, nullptr));
+			il->Emit(oc::Stloc_S, locals[native_func_ret_pValueType_index]);
+
+			il->Emit(oc::Ldloc_S, locals[native_func_ret_pValueType_index]);
 			_INFO(IL_ValueTypeToManagedObject(il, funcinfo->returnType, locals));
-			_INFO(il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]));
+
+			il->Emit(oc::Ldloc_S, locals[native_func_param_pArrayType_index]);
 			_INFO(il->EmitCall(oc::Call, _HelperMethod(_delete_ArrayType), nullptr));
+			il->Emit(oc::Ldloc_S, locals[native_func_ret_pValueType_index]);
+			_INFO(il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr));
+
+			//_INFO(il->EmitCall(oc::Call, _HelperMethod(collect), nullptr));
 			_INFO(il->Emit(oc::Ret));
 
 			auto ret = (TDelegate)method->CreateDelegate(TDelegate::typeid, func);

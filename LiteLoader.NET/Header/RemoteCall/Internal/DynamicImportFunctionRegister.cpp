@@ -10,4 +10,7 @@ namespace LLNET::RemoteCall::Internal
 		CATCH
 			return new ::RemoteCall::ValueType(::RemoteCall::pack(nullptr));
 	}
+	inline DynamicImportFunctionRegister::ImportedFunc::~ImportedFunc() {
+		delete pfunc;
+	}
 }

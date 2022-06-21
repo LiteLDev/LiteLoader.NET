@@ -54,8 +54,8 @@ namespace LLNET::RemoteCall::Internal {
 
 			for (int i = 0; i < funcinfo->parameters->Length; i++)
 			{
-				_INFO(il->Emit(oc::Ldarg_1));
-				_INFO(il->Emit(oc::Ldc_I4_S, i));
+				il->Emit(oc::Ldarg_1);
+				il->Emit(oc::Ldc_I4_S, i);
 				_INFO(il->EmitCall(oc::Call, _HelperMethod(_get_ValueType_from_ArrayType_by_index), nullptr));
 				_INFO(IL_ValueTypeToManagedObject(il, funcinfo->parameters[i], locals));
 				_INFO(il->Emit(oc::Stloc_S, i));

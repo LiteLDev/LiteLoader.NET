@@ -4,7 +4,10 @@ namespace LLNET::RemoteCall::Internal {
 	{
 		try
 		{
-			return *(::RemoteCall::ValueType*)this->dynamicMethod(&vec);
+			auto p = this->dynamicMethod(&vec);
+			::RemoteCall::ValueType ret = std::move(*(::RemoteCall::ValueType*)p);
+			delete (::RemoteCall::ValueType*)p;
+			return ret;
 		}
 		CATCH
 			return ::RemoteCall::pack(nullptr);

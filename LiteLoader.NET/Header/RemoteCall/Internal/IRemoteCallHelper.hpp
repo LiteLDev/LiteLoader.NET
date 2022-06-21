@@ -65,8 +65,8 @@ namespace LLNET::RemoteCall::Internal
 		inline static void _delete_ObjectType_iterator(void* iter);
 
 		inline static void* _create_ValueType_by_null();
-		inline static void _emplace_ValueType_back_to_ArrayType_and_delete(void* val, void* arr);
-		inline static void* _create_ValueType_by_ArrayType_and_delete(void* arr);
+		inline static void _emplace_ValueType_back_to_ArrayType(void* val, void* arr);
+		inline static void* _create_ValueType_by_ArrayType(void* arr);
 		inline static void* _get_ValueType_from_ArrayType_by_index(void* arr, int index);
 
 		inline static void* _get_ArrayType_from_ValueType(void* val);
@@ -85,9 +85,8 @@ namespace LLNET::RemoteCall::Internal
 		inline static void* _get_ObjectType_from_ValueType(void* val);
 		inline static int _get_ObjectType_size(void* obj);
 
-		inline static void* _create_ValueType_by_ObjectType_and_delete(void* obj);
-		inline static void _emplace_string_and_ValueType_to_ObjectType_and_delete(void* val, String^ str, void* obj);
-
+		inline static void* _create_ValueType_by_ObjectType(void* obj);
+		inline static void _emplace_string_and_ValueType_to_ObjectType(void* val, String^ str, void* obj);
 	};
 }
 

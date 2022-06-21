@@ -240,12 +240,18 @@ namespace LLNET::RemoteCall::Internal {
 			il->EmitCall(oc::Call, info._type->GetProperty("Item")->GetMethod, nullptr);
 
 			IL_ManagedObjectToValueType(il, info.genericArgs[0], locals);
+			il->Emit(oc::Stloc_S, locals[local_pValueType_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_pValueType_index]);
 			//	>stack:1<
 			//	1£­argN ::RemoteCall::ValueType pointer
-
+			// 
 			//emplace back to ArrayType
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
-			il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType_and_delete), nullptr);
+			il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_pValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr);
 			//	>stack:0<
 			//emplace back end
 
@@ -266,7 +272,10 @@ namespace LLNET::RemoteCall::Internal {
 			//	>stack:0<
 
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
-			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ArrayType_and_delete), nullptr);
+			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ArrayType), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ArrayType), nullptr);
 			//	>stack:1<
 			//	1£­returned pointer
 		}
@@ -290,6 +299,9 @@ namespace LLNET::RemoteCall::Internal {
 
 			auto local_arg_dictionary_index = locals.Count;
 			locals.Add(local_arg_dictionary_index, il->DeclareLocal(info._type, true));
+
+			auto local_should_delete_pValueType_index = locals.Count;
+			locals.Add(local_should_delete_pValueType_index, il->DeclareLocal(VOID_POINTER_TYPE, true));
 
 			auto local_enumerator_index = locals.Count;
 			locals.Add(local_enumerator_index, il->DeclareLocal(getEnumeratorMethod->ReturnType));
@@ -328,6 +340,9 @@ namespace LLNET::RemoteCall::Internal {
 			il->Emit(oc::Ldfld, ValueField);
 
 			IL_ManagedObjectToValueType(il, info.genericArgs[1], locals);
+			il->Emit(oc::Stloc_S, locals[local_should_delete_pValueType_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_should_delete_pValueType_index]);
 
 			il->Emit(oc::Ldloca_S, locals[local_keyValuePair_index]);
 			il->Emit(oc::Ldfld, KeyField);
@@ -338,7 +353,10 @@ namespace LLNET::RemoteCall::Internal {
 			//il->Emit(oc::Pop);
 			//il->Emit(oc::Pop);
 
-			il->EmitCall(oc::Call, _HelperMethod(_emplace_string_and_ValueType_to_ObjectType_and_delete), nullptr);
+			il->EmitCall(oc::Call, _HelperMethod(_emplace_string_and_ValueType_to_ObjectType), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_should_delete_pValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr);
 
 			//loop body	}   ///////////////////////////////////////////////////////////////////////
 			//while(enumerator->MoveNext())
@@ -351,7 +369,10 @@ namespace LLNET::RemoteCall::Internal {
 			//	>stack:0<
 
 			il->Emit(oc::Ldloc_S, locals[local_pObjectType_index]);
-			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ObjectType_and_delete), nullptr);
+			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ObjectType), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ObjectType), nullptr);
 			//	>stack:1<
 			//	1£­returned pointer
 		}
@@ -591,8 +612,8 @@ namespace LLNET::RemoteCall::Internal {
 
 			il->EmitCall(oc::Call, AddMethod, nullptr);
 
-			il->Emit(oc::Ldloc_S, locals[local_pValueType_should_delete_index]);
-			il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr);
+			//il->Emit(oc::Ldloc_S, locals[local_pValueType_should_delete_index]);
+			//il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr);
 
 			//loop body	}	//////////////////////////////////////////////////////
 			//(iter++)
@@ -608,8 +629,8 @@ namespace LLNET::RemoteCall::Internal {
 			//loop end
 			//	>stack:0<
 
-			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
-			il->EmitCall(oc::Call, _HelperMethod(_delete_ObjectType_iterator), nullptr);
+			//il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			//il->EmitCall(oc::Call, _HelperMethod(_delete_ObjectType_iterator), nullptr);
 
 			il->Emit(oc::Ldloc_S, locals[ret_dictionary_index]);
 			//	>stack:0<

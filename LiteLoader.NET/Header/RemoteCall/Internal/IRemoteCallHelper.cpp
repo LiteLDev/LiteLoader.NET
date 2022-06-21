@@ -1,5 +1,6 @@
 #include "IRemoteCallHelper.hpp"
 
+
 using __ValueType = ::RemoteCall::ValueType;
 using __ArrayType = ::RemoteCall::ValueType::ArrayType;
 using __ObjectType = ::RemoteCall::ValueType::ObjectType;
@@ -61,7 +62,9 @@ namespace LLNET::RemoteCall::Internal
 
 	__INLINE void* IRemoteCallHelper::_create_ValueType_by_string(String^ val) {
 		if (val == nullptr)
+		{
 			return new __ValueType(::RemoteCall::pack(std::string("")));
+		}
 		return new __ValueType(::RemoteCall::pack(marshalString(val)));
 	}
 
@@ -247,14 +250,12 @@ namespace LLNET::RemoteCall::Internal
 		return new __ValueType(nullptr);
 	}
 
-	__INLINE void IRemoteCallHelper::_emplace_ValueType_back_to_ArrayType_and_delete(void* val, void* arr) {
+	__INLINE void IRemoteCallHelper::_emplace_ValueType_back_to_ArrayType(void* val, void* arr) {
 		((__ArrayType*)arr)->emplace_back(std::move(*(__ValueType*)val));
-		delete (__ValueType*)val;
 	}
 
-	__INLINE void* IRemoteCallHelper::_create_ValueType_by_ArrayType_and_delete(void* arr) {
+	__INLINE void* IRemoteCallHelper::_create_ValueType_by_ArrayType(void* arr) {
 		auto ret = new __ValueType(std::move(*(__ArrayType*)arr));
-		delete (__ArrayType*)arr;
 		return ret;
 	}
 
@@ -310,15 +311,11 @@ namespace LLNET::RemoteCall::Internal
 		return (int)((__ObjectType*)obj)->size();
 	}
 
-	__INLINE void* IRemoteCallHelper::_create_ValueType_by_ObjectType_and_delete(void* obj) {
-		auto ret = new __ValueType(std::move(*(__ObjectType*)obj));
-		delete (__ObjectType*)obj;
-		return ret;
+	__INLINE void* IRemoteCallHelper::_create_ValueType_by_ObjectType(void* obj) {
+		return new __ValueType(std::move(*(__ObjectType*)obj));
 	}
 
-	__INLINE void IRemoteCallHelper::_emplace_string_and_ValueType_to_ObjectType_and_delete(void* val, String^ str, void* obj) {
+	__INLINE void IRemoteCallHelper::_emplace_string_and_ValueType_to_ObjectType(void* val, String^ str, void* obj) {
 		((__ObjectType*)obj)->emplace(marshalString(str), std::move(*(__ValueType*)val));
-		delete (__ValueType*)val;
 	}
-
 }
