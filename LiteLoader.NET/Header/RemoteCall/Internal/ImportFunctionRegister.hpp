@@ -51,7 +51,7 @@ namespace LLNET::RemoteCall::Internal {
 				methodArgs[i] = funcinfo->parameters[i - 1]._type;
 			}
 
-			auto method = gcnew DynamicMethod(funcName, invokeMethod->ReturnType, methodArgs);
+			auto method = gcnew DynamicMethod(funcName, invokeMethod->ReturnType, methodArgs, true);
 			auto il = method->GetILGenerator();
 
 			Dictionary<int, LocalBuilder^> locals;

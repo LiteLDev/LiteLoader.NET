@@ -119,76 +119,76 @@ namespace LLNET::RemoteCall::Internal {
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			break;
 		case ValidType::Double:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_double), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_double), nullptr);
 			break;
 		case ValidType::Float:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_float), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_float), nullptr);
 			break;
 		case ValidType::Int64:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int64), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int64), nullptr);
 			break;
 		case ValidType::Int32:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int32), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int32), nullptr);
 			break;
 		case ValidType::Int16:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int16), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int16), nullptr);
 			break;
 		case ValidType::Int8:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int8), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_int8), nullptr);
 			break;
 		case ValidType::UInt64:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint64), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint64), nullptr);
 			break;
 		case ValidType::UInt32:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint32), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint32), nullptr);
 			break;
 		case ValidType::UInt16:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint16), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint16), nullptr);
 			break;
 		case ValidType::UInt8:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint8), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_uint8), nullptr);
 			break;
 		case ValidType::Bool:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_bool), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_bool), nullptr);
 			break;
 		case ValidType::String:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_string), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_string), nullptr);
 			break;
 		case ValidType::NumberType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_NumberType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_NumberType), nullptr);
 			break;
 		case ValidType::Player:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Player), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Player), nullptr);
 			break;
 		case ValidType::Actor:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Actor), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Actor), nullptr);
 			break;
 		case ValidType::BlockActor:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockActor), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockActor), nullptr);
 			break;
 		case ValidType::Container:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Container), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Container), nullptr);
 			break;
 		case ValidType::Vec3:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Vec3), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_Vec3), nullptr);
 			break;
 		case ValidType::BlockPos:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockPos), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockPos), nullptr);
 			break;
 		case ValidType::WorldPosType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_WorldPosType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_WorldPosType), nullptr);
 			break;
 		case ValidType::BlockPosType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockPosType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockPosType), nullptr);
 			break;
 		case ValidType::ItemType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_ItemType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_ItemType), nullptr);
 			break;
 		case ValidType::BlockType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_BlockType), nullptr);
 			break;
 		case ValidType::NbtType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_NbtType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_NbtType), nullptr);
 			break;
 		case ValidType::List:
 		{
@@ -213,20 +213,20 @@ namespace LLNET::RemoteCall::Internal {
 			//	>stack:1<
 			//	£­object
 
-			_INFO(il->Emit(oc::Stloc_S,locals[local_arg_list_index]));
+			il->Emit(oc::Stloc_S, locals[local_arg_list_index]);
 
 			//create ::RemoteCall::ValueType::ArrayType
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_create_ArrayType), nullptr));
-			_INFO(il->Emit(oc::Stloc_S, locals[local_pArrayType_index]));
+			il->EmitCall(oc::Call, _HelperMethod(_create_ArrayType), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_pArrayType_index]);
 			//	>stack:0<
 
 			//	(int i = 0)
-			_INFO(il->Emit(oc::Ldc_I4_0));
-			_INFO(il->Emit(oc::Stloc_S, locals[loop_i_index]));
+			il->Emit(oc::Ldc_I4_0);
+			il->Emit(oc::Stloc_S, locals[loop_i_index]);
 
-			_INFO(il->Emit(oc::Ldloc_S,locals[local_arg_list_index]));
-			_INFO(il->EmitCall(oc::Call, info._type->GetProperty("Count")->GetMethod, nullptr));
-			_INFO(il->Emit(oc::Stloc_S, locals[loop_size_index]));
+			il->Emit(oc::Ldloc_S, locals[local_arg_list_index]);
+			il->EmitCall(oc::Call, info._type->GetProperty("Count")->GetMethod, nullptr);
+			il->Emit(oc::Stloc_S, locals[loop_size_index]);
 
 			auto loop_start_label = il->DefineLabel();
 			auto loop_body_label = il->DefineLabel();
@@ -235,17 +235,17 @@ namespace LLNET::RemoteCall::Internal {
 			il->MarkLabel(loop_body_label);
 			//loop body	{   ///////////////////////////////////////////////////////////////////////
 
-			_INFO(il->Emit(oc::Ldloc_S, locals[local_arg_list_index]));
-			_INFO(il->Emit(oc::Ldloc_S, locals[loop_i_index]));
-			_INFO(il->EmitCall(oc::Call, info._type->GetProperty("Item")->GetMethod, nullptr));
+			il->Emit(oc::Ldloc_S, locals[local_arg_list_index]);
+			il->Emit(oc::Ldloc_S, locals[loop_i_index]);
+			il->EmitCall(oc::Call, info._type->GetProperty("Item")->GetMethod, nullptr);
 
-			_INFO(IL_ManagedObjectToValueType(il, info.genericArgs[0], locals));
+			IL_ManagedObjectToValueType(il, info.genericArgs[0], locals);
 			//	>stack:1<
 			//	1£­argN ::RemoteCall::ValueType pointer
 
 			//emplace back to ArrayType
-			_INFO(il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]));
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType_and_delete), nullptr));
+			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_emplace_ValueType_back_to_ArrayType_and_delete), nullptr);
 			//	>stack:0<
 			//emplace back end
 
@@ -265,17 +265,99 @@ namespace LLNET::RemoteCall::Internal {
 
 			//	>stack:0<
 
-			_INFO(il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]));
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ArrayType_and_delete), nullptr));
+			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ArrayType_and_delete), nullptr);
 			//	>stack:1<
 			//	1£­returned pointer
 		}
 		break;
 		case ValidType::Dictionary:
-			throw gcnew System::NotSupportedException("NotSupported Type [Dictinary]");
-			break;
+		{
+			auto getEnumeratorMethod = info._type->GetMethod("GetEnumerator");
+
+			auto moveNextMethod = getEnumeratorMethod->ReturnType->GetMethod("MoveNext");
+
+			auto getCurrentMethod = getEnumeratorMethod->ReturnType->GetMethod("get_Current");
+
+			using System::Reflection::BindingFlags;
+
+			auto KeyField = getCurrentMethod->ReturnType->GetField("key", BindingFlags::Instance | BindingFlags::NonPublic);
+			auto ValueField = getCurrentMethod->ReturnType->GetField("value", BindingFlags::Instance | BindingFlags::NonPublic);
+
+			//add local ::RemoteCall::ValueType::ObjectType
+			auto local_pObjectType_index = locals.Count;
+			locals.Add(local_pObjectType_index, il->DeclareLocal(VOID_POINTER_TYPE, true));
+
+			auto local_arg_dictionary_index = locals.Count;
+			locals.Add(local_arg_dictionary_index, il->DeclareLocal(info._type, true));
+
+			auto local_enumerator_index = locals.Count;
+			locals.Add(local_enumerator_index, il->DeclareLocal(getEnumeratorMethod->ReturnType));
+
+			auto local_keyValuePair_index = locals.Count;
+			locals.Add(local_keyValuePair_index, il->DeclareLocal(getCurrentMethod->ReturnType));
+
+			//	>stack:1<
+			//	£­object
+
+			il->Emit(oc::Stloc_S, locals[local_arg_dictionary_index]);
+
+			//create ::RemoteCall::ValueType::ObjectType
+			il->EmitCall(oc::Call, _HelperMethod(_create_ObjectType), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_pObjectType_index]);
+			//	>stack:0<
+
+			//get enumerator
+			il->Emit(oc::Ldloc_S, locals[local_arg_dictionary_index]);
+			il->EmitCall(oc::Call, getEnumeratorMethod, nullptr);
+			il->Emit(oc::Stloc_S, locals[local_enumerator_index]);
+
+
+			auto loop_start_label = il->DefineLabel();
+			auto loop_body_label = il->DefineLabel();
+			//jump to loop
+			il->Emit(oc::Br_S, loop_start_label);
+			il->MarkLabel(loop_body_label);
+			//loop body	{   ///////////////////////////////////////////////////////////////////////
+
+			il->Emit(oc::Ldloca_S, locals[local_enumerator_index]);
+			il->EmitCall(oc::Call, getCurrentMethod, nullptr);
+			il->Emit(oc::Stloc_S, locals[local_keyValuePair_index]);
+
+			il->Emit(oc::Ldloca_S, locals[local_keyValuePair_index]);
+			il->Emit(oc::Ldfld, ValueField);
+
+			IL_ManagedObjectToValueType(il, info.genericArgs[1], locals);
+
+			il->Emit(oc::Ldloca_S, locals[local_keyValuePair_index]);
+			il->Emit(oc::Ldfld, KeyField);
+
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_index]);
+
+			//il->Emit(oc::Pop);
+			//il->Emit(oc::Pop);
+			//il->Emit(oc::Pop);
+
+			il->EmitCall(oc::Call, _HelperMethod(_emplace_string_and_ValueType_to_ObjectType_and_delete), nullptr);
+
+			//loop body	}   ///////////////////////////////////////////////////////////////////////
+			//while(enumerator->MoveNext())
+			il->MarkLabel(loop_start_label);
+			il->Emit(oc::Ldloca_S, locals[local_enumerator_index]);
+			il->EmitCall(oc::Call, moveNextMethod, nullptr);
+			il->Emit(oc::Brtrue_S, loop_body_label);
+			//loop end
+
+			//	>stack:0<
+
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_create_ValueType_by_ObjectType_and_delete), nullptr);
+			//	>stack:1<
+			//	1£­returned pointer
+		}
+		break;
 		case ValidType::Void:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_null), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_null), nullptr);
 			break;
 		}
 	}
@@ -288,76 +370,76 @@ namespace LLNET::RemoteCall::Internal {
 			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
 			break;
 		case ValidType::Double:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_double_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_double_from_ValueType), nullptr);
 			break;
 		case ValidType::Float:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_float_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_float_from_ValueType), nullptr);
 			break;
 		case ValidType::Int64:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_int64_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_int64_from_ValueType), nullptr);
 			break;
 		case ValidType::Int32:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_int32_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_int32_from_ValueType), nullptr);
 			break;
 		case ValidType::Int16:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_int16_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_int16_from_ValueType), nullptr);
 			break;
 		case ValidType::Int8:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_int8_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_int8_from_ValueType), nullptr);
 			break;
 		case ValidType::UInt64:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint64_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint64_from_ValueType), nullptr);
 			break;
 		case ValidType::UInt32:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint32_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint32_from_ValueType), nullptr);
 			break;
 		case ValidType::UInt16:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint16_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint16_from_ValueType), nullptr);
 			break;
 		case ValidType::UInt8:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint8_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_uint8_from_ValueType), nullptr);
 			break;
 		case ValidType::Bool:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_bool_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_bool_from_ValueType), nullptr);
 			break;
 		case ValidType::String:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_string_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_string_from_ValueType), nullptr);
 			break;
 		case ValidType::NumberType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_NumberType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_NumberType_from_ValueType), nullptr);
 			break;
 		case ValidType::Player:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_Player_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_Player_from_ValueType), nullptr);
 			break;
 		case ValidType::Actor:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_Actor_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_Actor_from_ValueType), nullptr);
 			break;
 		case ValidType::BlockActor:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockActor_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockActor_from_ValueType), nullptr);
 			break;
 		case ValidType::Container:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_Container_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_Container_from_ValueType), nullptr);
 			break;
 		case ValidType::Vec3:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_Vec3_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_Vec3_from_ValueType), nullptr);
 			break;
 		case ValidType::BlockPos:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockPos_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockPos_from_ValueType), nullptr);
 			break;
 		case ValidType::WorldPosType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_WorldPosType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_WorldPosType_from_ValueType), nullptr);
 			break;
 		case ValidType::BlockPosType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockPosType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockPosType_from_ValueType), nullptr);
 			break;
 		case ValidType::ItemType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_ItemType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_ItemType_from_ValueType), nullptr);
 			break;
 		case ValidType::BlockType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_BlockType_from_ValueType), nullptr);
 			break;
 		case ValidType::NbtType:
-			_INFO(il->EmitCall(OpCodes::Call, _HelperMethod(_get_NbtType_from_ValueType), nullptr));
+			il->EmitCall(OpCodes::Call, _HelperMethod(_get_NbtType_from_ValueType), nullptr);
 			break;
 		case ValidType::List:
 		{
@@ -377,26 +459,26 @@ namespace LLNET::RemoteCall::Internal {
 
 			//	>stack:1<
 			//	1£­::RemoteCall::ValueType pointer
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_from_ValueType), nullptr));
-			_INFO(il->Emit(oc::Stloc_S, locals[local_pArrayType_form_ValueType_index]));
+			il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_from_ValueType), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_pArrayType_form_ValueType_index]);
 
-			_INFO(il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]));
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_size), nullptr));
+			il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_size), nullptr);
 			//	>stack:1<
 			//	1£­size int
-			_INFO(il->Emit(oc::Stloc_S, locals[loop_size_index]));
+			il->Emit(oc::Stloc_S, locals[loop_size_index]);
 
 
-			_INFO(il->Emit(oc::Ldloc_S, locals[loop_size_index]));
+			il->Emit(oc::Ldloc_S, locals[loop_size_index]);
 			//new list
-			_INFO(il->Emit(oc::Newobj, info._type->GetConstructor(gcnew array<System::Type^>(1) { int::typeid })));
+			il->Emit(oc::Newobj, info._type->GetConstructor(gcnew array<System::Type^>(1) { int::typeid }));
 			//store list instance
-			_INFO(il->Emit(oc::Stloc_S, locals[ret_list_index]));
+			il->Emit(oc::Stloc_S, locals[ret_list_index]);
 			//	>stack:0<
 
 			//	(int i = 0)
-			_INFO(il->Emit(oc::Ldc_I4_0));
-			_INFO(il->Emit(oc::Stloc_S, locals[loop_i_index]));
+			il->Emit(oc::Ldc_I4_0);
+			il->Emit(oc::Stloc_S, locals[loop_i_index]);
 
 			auto loop_start_label = il->DefineLabel();
 			auto loop_body_label = il->DefineLabel();
@@ -406,27 +488,27 @@ namespace LLNET::RemoteCall::Internal {
 			il->MarkLabel(loop_body_label);
 			//loop body	{	//////////////////////////////////////////////////////
 
-			_INFO(il->Emit(oc::Ldloc_S, locals[ret_list_index]));
+			il->Emit(oc::Ldloc_S, locals[ret_list_index]);
 			//	>stack:1<
 			//	1£­list instance
-			_INFO(il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]));
-			_INFO(il->Emit(oc::Ldloc_S, locals[loop_i_index]));
+			il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]);
+			il->Emit(oc::Ldloc_S, locals[loop_i_index]);
 			//	>stack:3<
 			//	1£­list instance
 			//	2£­::RemoteCall::ArrayType pointer
 			//	3£­i
 
-			_INFO(il->EmitCall(oc::Call, _HelperMethod(_get_ValueType_from_ArrayType_by_index), nullptr));
+			il->EmitCall(oc::Call, _HelperMethod(_get_ValueType_from_ArrayType_by_index), nullptr);
 			//	>stack:2<
 			//	1£­list instance
 			//	2£­returned ::RemoteCall::ValueType pointer
 
-			_INFO(IL_ValueTypeToManagedObject(il, info.genericArgs[0], locals));
+			IL_ValueTypeToManagedObject(il, info.genericArgs[0], locals);
 			//	>stack:2<
 			//	1£­list instance
 			//	2£­returned object
 
-			_INFO(il->EmitCall(oc::Call, AddMethod, nullptr));
+			il->EmitCall(oc::Call, AddMethod, nullptr);
 			//	>stack:0<
 
 			//loop body	}	//////////////////////////////////////////////////////
@@ -450,8 +532,90 @@ namespace LLNET::RemoteCall::Internal {
 		}
 		break;
 		case ValidType::Dictionary:
-			throw gcnew System::NotSupportedException("NotSupported Type [Dictinary]");
-			break;
+		{
+			auto AddMethod = info._type->GetMethod("Add");
+
+			auto ret_dictionary_index = locals.Count;
+			locals.Add(ret_dictionary_index, il->DeclareLocal(info._type));
+
+			auto local_ObjectType_iterator_index = locals.Count;
+			locals.Add(local_ObjectType_iterator_index, il->DeclareLocal(VOID_POINTER_TYPE));
+
+			auto local_pObjectType_form_ValueType_index = locals.Count;
+			locals.Add(local_pObjectType_form_ValueType_index, il->DeclareLocal(VOID_POINTER_TYPE));
+
+			auto local_pValueType_should_delete_index = locals.Count;
+			locals.Add(local_pValueType_should_delete_index, il->DeclareLocal(VOID_POINTER_TYPE));
+
+			//	>stack:1<
+			//	1£­::RemoteCall::ValueType pointer
+			il->EmitCall(oc::Call, _HelperMethod(_get_ObjectType_from_ValueType), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_pObjectType_form_ValueType_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_form_ValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_get_ObjectType_begin_iterator), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_ObjectType_iterator_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_form_ValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_get_ObjectType_size), nullptr);
+			//new dictionary
+			il->Emit(oc::Newobj, info._type->GetConstructor(gcnew array<System::Type^>(1) { int::typeid }));
+			//store list instance
+			il->Emit(oc::Stloc_S, locals[ret_dictionary_index]);
+			//	>stack:0<
+
+			auto loop_start_label = il->DefineLabel();
+			auto loop_body_label = il->DefineLabel();
+
+			//loop(for)
+			il->Emit(oc::Br_S, loop_start_label);
+			il->MarkLabel(loop_body_label);
+			//loop body	{	//////////////////////////////////////////////////////
+
+			il->Emit(oc::Ldloc_S, locals[ret_dictionary_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			il->EmitCall(oc::Call, _HelperMethod(get_iterator_current_key), nullptr);
+			il->EmitCall(oc::Call, _HelperMethod(_get_String_from_std_string), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			il->EmitCall(oc::Call, _HelperMethod(get_iterator_current_value_by_stdmove), nullptr);
+			il->Emit(oc::Stloc_S, locals[local_pValueType_should_delete_index]);
+
+			il->Emit(oc::Ldloc_S, locals[local_pValueType_should_delete_index]);
+			IL_ValueTypeToManagedObject(il, info.genericArgs[1], locals);
+
+			//il->Emit(oc::Pop);
+			//il->Emit(oc::Pop);
+			//il->Emit(oc::Pop);
+
+			il->EmitCall(oc::Call, AddMethod, nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[local_pValueType_should_delete_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ValueType), nullptr);
+
+			//loop body	}	//////////////////////////////////////////////////////
+			//(iter++)
+			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_iterator_move_next), nullptr);
+
+			il->MarkLabel(loop_start_label);
+			//(iter != obj->end())
+			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			il->Emit(oc::Ldloc_S, locals[local_pObjectType_form_ValueType_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_is_iterator_not_equals_ObjectType_end), nullptr);
+			il->Emit(oc::Brtrue_S, loop_body_label);
+			//loop end
+			//	>stack:0<
+
+			il->Emit(oc::Ldloc_S, locals[local_ObjectType_iterator_index]);
+			il->EmitCall(oc::Call, _HelperMethod(_delete_ObjectType_iterator), nullptr);
+
+			il->Emit(oc::Ldloc_S, locals[ret_dictionary_index]);
+			//	>stack:0<
+			//	1£­return val
+		}
+		break;
 		case ValidType::Void:
 			il->Emit(oc::Pop);
 			break;
