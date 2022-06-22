@@ -87,6 +87,8 @@ namespace LLNET::RemoteCall::Internal
 
 		inline static void* _create_ValueType_by_ObjectType(void* obj);
 		inline static void _emplace_string_and_ValueType_to_ObjectType(void* val, String^ str, void* obj);
+
+		/*inline static void _set_ValueType(void* val_a, void* val_b);*/
 	};
 }
 

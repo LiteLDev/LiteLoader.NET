@@ -446,12 +446,20 @@ namespace LLNET::RemoteCall
 	};
 	public ref class DynamicRemoteCallAPI abstract {
 	public:
+		/// <summary>
+		/// Will cause memory leak.　QAQ
+		/// </summary>
+		/// <returns></returns>
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn) {
 			return DynamicExportFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, fn, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
 		};
 
+
+		/// <summary>
+		/// Will cause memory leak.　QAQ
+		/// </summary>
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 		static TDelegate ImportAs(String^ nameSpace, String^ funcName) {
