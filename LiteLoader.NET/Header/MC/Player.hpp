@@ -78,10 +78,41 @@ namespace MC
 			bool get();
 		}
 
+		/// <summary> 
+		/// <exception cref="LLNET::Core::MCException"></exception>
+		/// </summary>
+		property int CurrentExperience
+		{
+			int get();
+			void set(int value);
+		}
+
+		/// <summary>
+		/// <exception cref="LLNET::Core::MCException"></exception>
+		/// </summary>
+		property size_t TotalExperience
+		{
+			size_t get();
+			void set(size_t value);
+		}
+
+		bool ReduceExperience(size_t exp);
+
+		/// <summary>
+		/// Experience required to upgrade to level from (level-1)
+		/// </summary>
+		static int GetXpNeededForLevel(int level);
+
+		/// <summary>
+		/// Experience required to upgrade to level from level 0
+		/// </summary>
+		static size_t GetTotalXpNeededForLevel(int level);
+
 		inline bool Kick(String^ msg);
 		inline bool CrashClient();
 		/// <param name="type">:default = TextType::RAW</param>
 		inline bool SendText(String^ text, TextType type);
+		inline bool SendText(String^ text);
 
 		inline bool TalkAs(String^ msg);
 		inline bool GiveItem(ItemStack^ item);

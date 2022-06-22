@@ -342,6 +342,9 @@
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\Biome.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -721,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp">
       <Filter>Header\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\Biome.hpp">
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

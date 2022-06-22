@@ -92,4 +92,19 @@ namespace LLNET::Core
 		{
 		}
 	};
+
+	public ref class MCException
+		:LiteLoaderDotNETException
+	{
+	public:
+		MCException(System::String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+
+		MCException()
+			:LiteLoaderDotNETException()
+		{
+		}
+	};
 }

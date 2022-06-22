@@ -96,6 +96,37 @@ namespace MC
 	{
 		return NativePtr->isOP();
 	}
+	inline int Player::CurrentExperience::get() 
+	{
+		return NativePtr->getCurrentExperience();
+	}
+	inline void Player::CurrentExperience::set(int value) 
+	{
+		if (NativePtr->setTotalExperience(value))
+			throw gcnew LLNET::Core::MCException("Failed to set current experience.");
+	}
+	inline size_t Player::TotalExperience::get()
+	{
+		return NativePtr->getCurrentExperience();
+	}
+	inline void Player::TotalExperience::set(size_t value)
+	{
+		if (NativePtr->setTotalExperience(value))
+			throw gcnew LLNET::Core::MCException("Failed to set total experience.");
+	}
+	inline bool Player::ReduceExperience(size_t exp) { return NativePtr->reduceExperience(exp); }
+
+	/// <summary>
+	/// Experience required to upgrade to level from (level-1)
+	/// </summary>
+
+	inline int Player::GetXpNeededForLevel(int level) { return ::Player::getXpNeededForLevel(level); }
+
+	/// <summary>
+	/// Experience required to upgrade to level from level 0
+	/// </summary>
+
+	inline size_t Player::GetTotalXpNeededForLevel(int level) { return ::Player::getTotalXpNeededForLevel(level); }
 	inline bool Player::Kick(String^ msg)
 	{
 		return NativePtr->kick(marshalString(msg));
@@ -110,6 +141,7 @@ namespace MC
 	{
 		return NativePtr->sendText(marshalString(text), ::TextType(type));
 	}
+	inline bool Player::SendText(String^ text) { return SendText(text, MC::TextType::RAW); }
 	inline bool Player::TalkAs(String^ msg)
 	{
 		return NativePtr->talkAs(marshalString(msg));
