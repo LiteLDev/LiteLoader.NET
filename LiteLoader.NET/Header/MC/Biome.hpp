@@ -4,9 +4,9 @@
 #include <MC/Biome.hpp>
 namespace MC
 {
-	enum class VanillaBiomeTypes {};
+	public enum class VanillaBiomeTypes {};
 
-	ref class Biome
+	public ref class Biome
 		:ClassTemplate<Biome, ::Biome>
 	{
 	public:
