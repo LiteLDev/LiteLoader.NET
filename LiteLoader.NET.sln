@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{8814218B-144E-4B84-8710-02ACB77AAA57}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtensionLibrary", "ExtensionLibrary\ExtensionLibrary.vcxproj", "{D922D4D9-5E27-4C8D-BF2C-5C5241906CE3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABEB5558-C92F-473E-8BDF-90F58BD3811C} = {ABEB5558-C92F-473E-8BDF-90F58BD3811C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
