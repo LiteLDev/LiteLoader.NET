@@ -39,13 +39,15 @@ namespace LLNET::AllowList
 		}
 
 		property System::String^ AllowList {
-			System::String^ get() {
+			System::String^ get() 
+			{
 				return marshalString<Encoding::E_UTF8>(_this->allowList.dump());
-			} void
-				set(System::String^ str)
+			};
+
+			void set(System::String^ str)
 			{
 				_this->allowList = nlohmann::json::parse(marshalString<Encoding::E_UTF8>(str));
-			}
+			};
 		};
 		property size_t Size
 		{
@@ -62,9 +64,10 @@ namespace LLNET::AllowList
 		{
 			return _this->has(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid));
 		}
-		bool Has(System::String^ name, System::String^ xuid, size_t index)
+		bool Has(System::String^ name, System::String^ xuid, [Out] size_t% index)
 		{
-			return _this->has(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid), index);
+			pin_ptr<size_t> p = &index;
+			return _this->has(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid), *p);
 		}
 		AllowListManager^ Add(System::String^ name) {
 			return Add(name, "");

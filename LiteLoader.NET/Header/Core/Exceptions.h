@@ -2,15 +2,15 @@
 namespace LLNET::Core
 {
 	public ref class LiteLoaderDotNETException
-		: public System::ApplicationException
+		: public System::Exception
 	{
 	public:
 		LiteLoaderDotNETException()
-			: ApplicationException()
+			: Exception()
 		{
 		}
 		LiteLoaderDotNETException(System::String^ message)
-			: ApplicationException(message)
+			: Exception(message)
 		{
 		}
 	};
@@ -49,6 +49,10 @@ namespace LLNET::Core
 		:public LiteLoaderDotNETException
 	{
 	public:
+		RemoteCallImportFunctionException()
+			:LiteLoaderDotNETException()
+		{
+		}
 		RemoteCallImportFunctionException(System::String^ message)
 			:LiteLoaderDotNETException(message)
 		{

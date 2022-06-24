@@ -303,6 +303,7 @@ namespace MC
 	{
 		return NativePtr->sendRawFormPacket(formId, marshalString(data));
 	}
+	inline bool Player::SendToastPacket(String^ title, String^ msg) { return NativePtr->sendToastPacket(marshalString(title), marshalString(msg)); }
 	inline bool Player::SendSimpleFormPacket(
 		String^ title,
 		String^ content,

@@ -149,4 +149,12 @@ namespace LLNET::DynamicCommand {
 		/// </summary>
 		int OverloadId;
 	};
+
+	[AttributeUsage(AttributeTargets::Class)]
+	/// <summary>
+	/// Indicates that the command has empty overload.
+	/// </summary>
+	public ref class CommandEmptyOverloadAttribute :Attribute
+	{
+	};
 }

@@ -28,22 +28,23 @@ namespace LiteLDev;
 [PluginMain("ExamplePlugin")]
 public class ExamplePlugin : IPluginInitializer
 {
-    [StructLayout(LayoutKind.Sequential)]
-    private struct QAQ
-    {
+    //public ExamplePlugin()
+    //{
+    //    MetaData = new Dictionary<string, string>
+    //    {
+    //        {"Something", "..."},
+    //        {"foo", "bar"}
+    //    };
+    //}
 
-    }
-    public ExamplePlugin()
-    {
-        MetaData = new Dictionary<string, string>
+    public Dictionary<string, string> MetaData => new()
         {
             {"Something", "..."},
             {"foo", "bar"}
         };
-    }
 
     public Version Version => new(2, 2, 5);
-    public Dictionary<string, string> MetaData { get; }
+
     public string Introduction => "Example plugin for Liteloader.NET";
 
     /// <summary>
@@ -79,6 +80,7 @@ public class ExamplePlugin : IPluginInitializer
         ExampleRemoteCall exampleRemoteCall = new();
         exampleRemoteCall.Execute();
 #endif
-        LLNET.RemoteCall.RemoteCallAPI.ImportAs
+
+        LLNET.DynamicCommand.ICommandEvent
     }
 }
