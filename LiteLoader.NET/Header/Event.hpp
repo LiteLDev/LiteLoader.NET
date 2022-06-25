@@ -3,55 +3,58 @@
 #include "../Main/.NETGlobal.hpp"
 #include "../Tools/PropertryHelper.h"
 
-#define EventAPIs(RefEvent, NativeEvent)                                                                                \
-public:                                                                                                                 \
-    using EventListener = EventListener<NativeEvent>;                                                                   \
-    using EventTemplate = EventTemplate<RefEvent, NativeEvent>;                                                         \
-                                                                                                                        \
-    static EventListener ^ Subscribe(EventHandler ^ callback) {                                                         \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                             \
-        auto pluginname = assembly->GetName()->FullName;                                                                \
-        return EventTemplate::subscribe(pluginname, callback);                                                          \
-    };                                                                                                                  \
-    static EventListener ^ Subscribe_Ref(EventHandler ^ callback) {                                                     \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                             \
-        auto pluginname = assembly->GetName()->FullName;                                                                \
-        return EventTemplate::subscribe_ref(pluginname, callback);                                                      \
-    };                                                                                                                  \
-    static void Unsubscribe(EventListener ^ listener)                                                                   \
-    {                                                                                                                   \
-        return EventTemplate::unsubscribe(listener);                                                                    \
-    }                                                                                                                   \
-    static bool HasListener()                                                                                           \
-    {                                                                                                                   \
-        return EventTemplate::hasListener();                                                                            \
-    }                                                                                                                   \
-                                                                                                                        \
-private:                                                                                                                \
-    static Dictionary<EventHandler ^, EventListener ^> ^ eventData = gcnew Dictionary<EventHandler ^, EventListener ^>; \
-    static EventHandler ^ pE;                                                                                           \
-                                                                                                                        \
-public:                                                                                                                 \
-    static event EventHandler ^ Event {                                                                                 \
-        void add(EventHandler ^ p)                                                                                      \
-        {                                                                                                               \
-            pE = static_cast<EventHandler ^>(System::Delegate::Combine(pE, p));                                         \
-            eventData->Add(p, Subscribe(p));                                                                            \
-        }                                                                                                               \
-        void remove(EventHandler ^ p)                                                                                   \
-        {                                                                                                               \
-            pE = static_cast<EventHandler ^>(System::Delegate::Remove(pE, p));                                          \
-            for each(auto pair in eventData)                                                                            \
-            {                                                                                                           \
-                if (pair.Key->Equals(p))                                                                                \
-                {                                                                                                       \
-                    Unsubscribe(pair.Value);                                                                            \
-                    eventData->Remove(p);                                                                               \
-                }                                                                                                       \
-            }                                                                                                           \
-        }                                                                                                               \
-    };                                                                                                                  \
-                                                                                                                        \
+#define EventAPIs(RefEvent, NativeEvent)                                                                                    \
+public:                                                                                                                     \
+    ref class EventListener : __EventListener<NativeEvent>{                                                                 \
+    public:                                                                                                                 \
+        EventListener(int id):__EventListener<NativeEvent>(id){}                                                            \
+    };                                                                                                                      \
+    using EventTemplate = EventTemplate<RefEvent, NativeEvent>;                                                             \
+                                                                                                                            \
+    static EventListener ^ Subscribe(EventHandler ^ callback) {                                                             \
+        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                 \
+        auto pluginname = assembly->GetName()->FullName;                                                                    \
+        return (EventListener^)EventTemplate::subscribe(pluginname, callback);                                              \
+    };                                                                                                                      \
+    static EventListener ^ Subscribe_Ref(EventHandler ^ callback) {                                                         \
+        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                 \
+        auto pluginname = assembly->GetName()->FullName;                                                                    \
+        return (EventListener^)EventTemplate::subscribe_ref(pluginname, callback);                                          \
+    };                                                                                                                      \
+    static void Unsubscribe(EventListener ^ listener)                                                                       \
+    {                                                                                                                       \
+        EventTemplate::unsubscribe(listener);                                                                               \
+    }                                                                                                                       \
+    static bool HasListener()                                                                                               \
+    {                                                                                                                       \
+        return EventTemplate::hasListener();                                                                                \
+    }                                                                                                                       \
+                                                                                                                            \
+private:                                                                                                                    \
+    static Dictionary<EventHandler ^, EventListener ^> ^ eventData = gcnew Dictionary<EventHandler ^, EventListener ^>;     \
+    static EventHandler ^ pE;                                                                                               \
+                                                                                                                            \
+public:                                                                                                                     \
+    static event EventHandler ^ Event {                                                                                     \
+        void add(EventHandler ^ p)                                                                                          \
+        {                                                                                                                   \
+            pE = static_cast<EventHandler ^>(System::Delegate::Combine(pE, p));                                             \
+            eventData->Add(p, Subscribe(p));                                                                                \
+        }                                                                                                                   \
+        void remove(EventHandler ^ p)                                                                                       \
+        {                                                                                                                   \
+            pE = static_cast<EventHandler ^>(System::Delegate::Remove(pE, p));                                              \
+            for each(auto pair in eventData)                                                                                \
+            {                                                                                                               \
+                if (pair.Key->Equals(p))                                                                                    \
+                {                                                                                                           \
+                    Unsubscribe(pair.Value);                                                                                \
+                    eventData->Remove(p);                                                                                   \
+                }                                                                                                           \
+            }                                                                                                               \
+        }                                                                                                                   \
+    };                                                                                                                      \
+                                                                                                                            \
 private:
 
 #include "MC/AABB.hpp"
@@ -84,14 +87,14 @@ namespace LLNET::Event
 using namespace MC;
 
 template <typename NATIVEEVENT>
-public ref class EventListener
+public ref class __EventListener
 {
 private:
     int listenerId;
     bool deleted = false;
 
 public:
-    EventListener(int id)
+    __EventListener(int id)
         : listenerId(id)
     {
     }
@@ -128,7 +131,6 @@ protected:
     inline ~EventTemplate()
     {
         this->!EventTemplate();
-        GC::SuppressFinalize(this);
     };
     inline static REFEVENT ^ Translate(NATIVEEVENT& ev) {
         auto ret = gcnew REFEVENT{};
@@ -192,7 +194,7 @@ private:
                     gch = GCHandle::Alloc(ftr);
                     System::IntPtr ^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
                     auto pfunc = static_cast<NativeCallbackFunc_ref>(_ptr->ToPointer());
-                    Listener = gcnew EventListener<NATIVEEVENT>(
+                    Listener = gcnew __EventListener<NATIVEEVENT>(
                         ::Event::EventManager<NATIVEEVENT>::addEventListenerRef(
                             pluginName ? marshalString<Encoding::E_UTF8>(pluginName) : "",
                             pfunc));
@@ -204,7 +206,7 @@ private:
                     gch = GCHandle::Alloc(ftr);
                     System::IntPtr ^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
                     auto pfunc = static_cast<NativeCallbackFunc>(_ptr->ToPointer());
-                    Listener = gcnew EventListener<NATIVEEVENT>(
+                    Listener = gcnew __EventListener<NATIVEEVENT>(
                         ::Event::EventManager<NATIVEEVENT>::addEventListener(
                             pluginName ? marshalString<Encoding::E_UTF8>(pluginName) : "",
                             pfunc));
@@ -225,21 +227,21 @@ private:
         GCHandle gch;
 
     public:
-        EventListener<NATIVEEVENT> ^ Listener;
+        __EventListener<NATIVEEVENT> ^ Listener;
     };
 
 protected:
-    inline static EventListener<NATIVEEVENT> ^ subscribe(String^ pluginName, EventHandler ^ callback) {
+    inline static __EventListener<NATIVEEVENT> ^ subscribe(String^ pluginName, EventHandler ^ callback) {
         auto c = gcnew EventCallBack(pluginName, callback, false);
         GC::KeepAlive(c);
         return c->Listener;
     };
-    inline static EventListener<NATIVEEVENT> ^ subscribe_ref(String^ pluginName, EventHandler ^ callback) {
+    inline static __EventListener<NATIVEEVENT> ^ subscribe_ref(String^ pluginName, EventHandler ^ callback) {
         auto c = gcnew EventCallBack(pluginName, callback, true);
         GC::KeepAlive(c);
         return c->Listener;
     };
-    inline static void unsubscribe(EventListener<NATIVEEVENT> ^ listener)
+    inline static void unsubscribe(__EventListener<NATIVEEVENT> ^ listener)
     {
         listener->Remove();
     }
