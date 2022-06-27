@@ -348,16 +348,6 @@ public:
     Property_Ptr(MC, Player, mPlayer, Player);
 };
 
-Class EntityTransformEvent
-    : public EventTemplate<EntityTransformEvent, ::Event::EntityTransformEvent>
-{
-    EventAPIs(EntityTransformEvent, ::Event::EntityTransformEvent);
-
-public:
-    Property_Ptr(MC, ActorUniqueID, mBeforeEntityUniqueId, BeforeEntityUniqueId);
-    Property_Ptr(MC, Actor, mAfterEntity, AfterEntity);
-};
-
 Class PlayerSneakEvent
     : public EventTemplate<PlayerSneakEvent, ::Event::PlayerSneakEvent>
 {
@@ -457,14 +447,14 @@ Class PlayerEffectChangedEvent
     EventAPIs(PlayerEffectChangedEvent, ::Event::PlayerEffectChangedEvent);
 
 public:
-    enum class EventTypeEnum
+    enum class EventType
     {
         Add,
         Remove,
         Update
     };
     Property_Ptr(MC, Player, mPlayer, Player);
-    Property_Enum(EventTypeEnum, ::Event::PlayerEffectChangedEvent::EventType, mEventType, EventType);
+    Property_Enum(EventType, ::Event::PlayerEffectChangedEvent::EventType, mEventType, Event_Type);
     Property_Ptr(MC, MobEffectInstance, mEffect, Effect);
 };
 
@@ -696,7 +686,7 @@ Class RedStoneUpdateEvent
 public:
     Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
     Property(int, mRedStonePower, RedStonePower);
-    Property(int, mIsActivated, IsActivated);
+    Property(bool, mIsActivated, IsActivated);
 };
 
 Class HopperSearchItemEvent
@@ -788,6 +778,16 @@ public:
 };
 
 ///////////////////////////// Entity Events /////////////////////////////
+
+Class EntityTransformEvent
+    : public EventTemplate<EntityTransformEvent, ::Event::EntityTransformEvent>
+{
+    EventAPIs(EntityTransformEvent, ::Event::EntityTransformEvent);
+
+public:
+    Property_Ptr(MC, ActorUniqueID, mBeforeEntityUniqueId, BeforeEntityUniqueId);
+    Property_Ptr(MC, Actor, mAfterEntity, AfterEntity);
+};
 
 Class EntityExplodeEvent
     : public EventTemplate<EntityExplodeEvent, ::Event::EntityExplodeEvent>

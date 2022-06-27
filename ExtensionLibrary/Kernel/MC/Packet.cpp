@@ -14,16 +14,16 @@ namespace MC::Extensions
 	void Packet::ReliableOrdered::set(MC::PacketReliability value) {
 		NativePtr->reliableOrdered = (::PacketReliability)value;
 	}
-	uint64_t Packet::Unk24::get() {
+	uint32_t Packet::Unk24::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Unk24::set(uint64_t value) {
+	void Packet::Unk24::set(uint32_t value) {
 		NativePtr->unk2 = value;
 	}
-	uint64_t Packet::Unk40::get() {
+	uint32_t Packet::Unk40::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Unk40::set(uint64_t value) {
+	void Packet::Unk40::set(uint32_t value) {
 		NativePtr->unk2 = value;
 	}
 	uint32_t Packet::Incompressible::get() {

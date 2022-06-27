@@ -1,12 +1,13 @@
 ﻿#region Configs
 
-#define _LOGGER_
+//#define _LOGGER_
 //#define _EVENT_
 //#define _SCHEDULE_
 //#define _THOOK_
 //#define _DYNAMICCOMMAND_
 #define _COMMAND_
 //#define _REMOTECALL_
+#define _FORM_
 
 #endregion
 
@@ -79,6 +80,10 @@ public class ExamplePlugin : IPluginInitializer
 #if _REMOTECALL_
         ExampleRemoteCall exampleRemoteCall = new();
         exampleRemoteCall.Execute();
+#endif
+#if _FORM_
+        ExampleForm exampleForm = new();
+        exampleForm.Execute();
 #endif
     }
 }

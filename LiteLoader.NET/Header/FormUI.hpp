@@ -568,6 +568,8 @@ public:
         };
         void set(List<kvPair> ^ value)
         {
+            isFormGenerated = false;
+            isDictionaryGenerated = false;
             elements = value;
         }
     };
@@ -614,18 +616,18 @@ public:
 
     inline void SetValue(int index, String ^ value);
 
-private:
-    inline ::Form::Label _Marshal(Label ^ arg);
-    inline ::Form::Input _Marshal(Input ^ arg);
-    inline ::Form::Toggle _Marshal(Toggle ^ arg);
-    inline ::Form::Slider _Marshal(Slider ^ arg);
-    inline ::Form::Dropdown _Marshal(Dropdown ^ arg);
-    inline ::Form::StepSlider _Marshal(StepSlider ^ arg);
-    inline Label ^ _Marshal(::Form::Label const& arg);
-    inline Input ^ _Marshal(::Form::Input const& arg);
-    inline Toggle ^ _Marshal(::Form::Toggle const& arg);
-    inline Slider ^ _Marshal(::Form::Slider const& arg);
-    inline Dropdown ^ _Marshal(::Form::Dropdown const& arg);
-    inline StepSlider ^ _Marshal(::Form::StepSlider const& arg);
+internal:
+    static inline ::Form::Label _Marshal(Label ^ arg);
+    static inline ::Form::Input _Marshal(Input ^ arg);
+    static inline ::Form::Toggle _Marshal(Toggle ^ arg);
+    static inline ::Form::Slider _Marshal(Slider ^ arg);
+    static inline ::Form::Dropdown _Marshal(Dropdown ^ arg);
+    static inline ::Form::StepSlider _Marshal(StepSlider ^ arg);
+    static inline Label ^ _Marshal(::Form::Label const& arg);
+    static inline Input ^ _Marshal(::Form::Input const& arg);
+    static inline Toggle ^ _Marshal(::Form::Toggle const& arg);
+    static inline Slider ^ _Marshal(::Form::Slider const& arg);
+    static inline Dropdown ^ _Marshal(::Form::Dropdown const& arg);
+    static inline StepSlider ^ _Marshal(::Form::StepSlider const& arg);
 };
 } // namespace LLNET::Form

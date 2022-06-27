@@ -23,7 +23,7 @@ namespace ExamplePlugin.Examples
         //Setup Hook Symbol
         [HookSymbol("?setLit@FurnaceBlock@@SAX_NAEAVBlockSource@@AEBVBlockPos@@W4BlockActorType@@AEBVBlock@@4@Z")]
         //IDA: struct BlockActor *__fastcall FurnaceBlock::setLit(char a1, BlockSource *a2, const struct BlockPos *a3, unsigned int a4, __int64 a5, __int64 a6)
-        private class FuenaceBlock_SetLit_Hook : THookBase<Func<char, IntPtr, IntPtr, uint, long, long, IntPtr>>
+        private unsafe class FuenaceBlock_SetLit_Hook : THookBase<Func<char, IntPtr, IntPtr, uint, long, long, IntPtr>>
         {
             private static readonly Logger logger = new("ExampleHook");
 
@@ -32,7 +32,7 @@ namespace ExamplePlugin.Examples
             {
 
                 BlockSource source = new(blockSource);
-                BlockPos pos = new(blockPos);
+                BlockPos pos = *(BlockPos*)blockPos;
 
                 //BlockPos as string
                 logger.error.WriteLine(pos);
