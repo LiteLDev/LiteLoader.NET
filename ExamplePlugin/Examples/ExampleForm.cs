@@ -113,7 +113,7 @@ namespace ExamplePlugin.Examples
             DynamicCommand.RegisterCommand<FormCommand>();
         }
 
-        [Command("testformcommand", Description = "qaq", Permission = CommandPermissionLevel.Any)]
+        [Command("testformcommand", Description = "Test .NET Form Command", Permission = CommandPermissionLevel.Any)]
         [CommandEmptyOverload]
         class FormCommand : ICommand
         {

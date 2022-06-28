@@ -312,8 +312,8 @@ namespace LLNET {
 			where T4 : System::ValueType
 			where T5 : System::ValueType
 			where T6 : System::ValueType
-				inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
-				return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4, a5, a6);
+				inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
+				return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4, a5, a6);
 			}
 			generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 			where T0 : System::ValueType
@@ -324,8 +324,8 @@ namespace LLNET {
 			where T5 : System::ValueType
 			where T6 : System::ValueType
 			where T7 : System::ValueType
-				inline static void Virtual_Call(void const* _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
-				return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6, T7))(*(uintptr_t*)_this + off))(_this, a0, a1, a2, a3, a4, a5, a6, a7);
+				inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
+				return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6, T7))(*(uintptr_t*)(void*)_this + off))((void*)_this, a0, a1, a2, a3, a4, a5, a6, a7);
 			}
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			inline static System::IntPtr const dAccess(System::IntPtr ptr, uintptr_t off) {
