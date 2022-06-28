@@ -104,7 +104,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline Label::Type Label::GetType()
+	inline Label::Type Label::GetElementType()
 	{
 		return Type::Label;
 	}
@@ -139,7 +139,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline Input::Type Input::GetType()
+	inline Input::Type Input::GetElementType()
 	{
 		return Type::Input;
 	}
@@ -174,7 +174,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline Toggle::Type Toggle::GetType()
+	inline Toggle::Type Toggle::GetElementType()
 	{
 		return Type::Toggle;
 	}
@@ -206,7 +206,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline Dropdown::Type Dropdown::GetType()
+	inline Dropdown::Type Dropdown::GetElementType()
 	{
 		return Type::Dropdown;
 	}
@@ -262,7 +262,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline Slider::Type Slider::GetType()
+	inline Slider::Type Slider::GetElementType()
 	{
 		return Type::Slider;
 	}
@@ -309,7 +309,7 @@ namespace LLNET::Form
 		SetName(name);
 	}
 
-	inline StepSlider::Type StepSlider::GetType()
+	inline StepSlider::Type StepSlider::GetElementType()
 	{
 		return Type::StepSlider;
 	}
@@ -443,7 +443,6 @@ namespace LLNET::Form
 	inline CustomForm^ CustomForm::Append(CustomFormElement^ element)
 	{
 		isFormGenerated = false;
-		isDictionaryGenerated = false;
 		elements->Add(kvPair(element->Name, element));
 		return this;
 	}
@@ -454,7 +453,6 @@ namespace LLNET::Form
 		{
 			delete var;
 		}
-		delete CallbackDictionary;
 		delete elements;
 	}
 
@@ -465,53 +463,48 @@ namespace LLNET::Form
 
 	void NATIVECALLBACK CustomForm::NativeFormSendCallback(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg)
 	{
+		auto CallbackDictionary = gcnew Dictionary<String^, CustomFormElement^>;
 
-		if (CallbackDictionary == nullptr || !isDictionaryGenerated)
+		for (auto& [k, v] : arg)
 		{
-			CallbackDictionary = gcnew Dictionary<String^, CustomFormElement^>;
-			isDictionaryGenerated = true;
-
-			for (auto& [k, v] : arg)
+			switch (v->getType())
 			{
-				switch (v->getType())
-				{
-				case ::Form::CustomFormElement::Type::Label:
-				{
-					auto label = _Marshal(*static_cast<::Form::Label*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), label);
-				}
-				break;
-				case ::Form::CustomFormElement::Type::Input:
-				{
-					auto input = _Marshal(*static_cast<::Form::Input*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), input);
-				}
-				break;
-				case ::Form::CustomFormElement::Type::Toggle:
-				{
-					auto toggle = _Marshal(*static_cast<::Form::Toggle*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), toggle);
-				}
-				break;
-				case ::Form::CustomFormElement::Type::Dropdown:
-				{
-					auto dropdown = _Marshal(*static_cast<::Form::Dropdown*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), dropdown);
-				}
-				break;
-				case ::Form::CustomFormElement::Type::Slider:
-				{
-					auto slider = _Marshal(*static_cast<::Form::Slider*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), slider);
-				}
-				break;
-				case ::Form::CustomFormElement::Type::StepSlider:
-				{
-					auto stepSlider = _Marshal(*static_cast<::Form::StepSlider*>(v.get()));
-					CallbackDictionary->Add(marshalString(k), stepSlider);
-				}
-				break;
-				}
+			case ::Form::CustomFormElement::Type::Label:
+			{
+				auto label = _Marshal(*static_cast<::Form::Label*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), label);
+			}
+			break;
+			case ::Form::CustomFormElement::Type::Input:
+			{
+				auto input = _Marshal(*static_cast<::Form::Input*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), input);
+			}
+			break;
+			case ::Form::CustomFormElement::Type::Toggle:
+			{
+				auto toggle = _Marshal(*static_cast<::Form::Toggle*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), toggle);
+			}
+			break;
+			case ::Form::CustomFormElement::Type::Dropdown:
+			{
+				auto dropdown = _Marshal(*static_cast<::Form::Dropdown*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), dropdown);
+			}
+			break;
+			case ::Form::CustomFormElement::Type::Slider:
+			{
+				auto slider = _Marshal(*static_cast<::Form::Slider*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), slider);
+			}
+			break;
+			case ::Form::CustomFormElement::Type::StepSlider:
+			{
+				auto stepSlider = _Marshal(*static_cast<::Form::StepSlider*>(v.get()));
+				CallbackDictionary->Add(marshalString(k), stepSlider);
+			}
+			break;
 			}
 		}
 		if (callback != nullptr)
@@ -553,7 +546,7 @@ namespace LLNET::Form
 		for each (auto var in elements)
 		{
 			auto p = var.Value;
-			switch (p->GetType())
+			switch (p->GetElementType())
 			{
 			case Form::CustomFormElement::Type::Label:
 				NativePtr->append(_Marshal(static_cast<Label^>(p)));
@@ -600,9 +593,9 @@ namespace LLNET::Form
 		return SendTo(player, nullptr);
 	}
 
-	inline CustomFormElement::Type CustomForm::GetType(int index)
+	inline CustomFormElement::Type CustomForm::GetElementType(int index)
 	{
-		return CustomFormElement::Type(elements[index].Value->GetType());
+		return CustomFormElement::Type(elements[index].Value->GetElementType());
 	}
 
 	inline String^ CustomForm::GetString(String const^ name)
