@@ -78,6 +78,7 @@ namespace LLNET::Form
 	inline void CustomFormElement::SetName(String^ _name)
 	{
 		this->name = _name;
+		reSetGeneratedForm();
 	}
 
 	inline String^ CustomFormElement::GetString()
@@ -97,6 +98,14 @@ namespace LLNET::Form
 		return true;
 	}
 
+	void CustomFormElement::reSetGeneratedForm()
+	{
+		for each (auto var in appendedForms)
+		{
+			var->IsFormGenerated = false;
+		}
+	}
+
 
 	inline Label::Label(String^ name, String^ text)
 		: text(text)
@@ -112,6 +121,7 @@ namespace LLNET::Form
 	inline void Label::SetText(String^ _text)
 	{
 		this->text = _text;
+		reSetGeneratedForm();
 	}
 
 
@@ -147,16 +157,19 @@ namespace LLNET::Form
 	inline void Input::SetTitle(String^ title)
 	{
 		this->title = title;
+		reSetGeneratedForm();
 	}
 
 	inline void Input::SetPlaceHolder(String^ placeholder)
 	{
 		this->placeholder = placeholder;
+		reSetGeneratedForm();
 	}
 
 	inline void Input::SetDefault(String^ def)
 	{
 		this->def = def;
+		reSetGeneratedForm();
 	}
 
 
@@ -182,11 +195,13 @@ namespace LLNET::Form
 	inline void Toggle::SetTitle(String^ title)
 	{
 		this->title = title;
+		reSetGeneratedForm();
 	}
 
 	inline void Toggle::SetDefault(bool def)
 	{
 		this->def = def;
+		reSetGeneratedForm();
 	}
 
 
@@ -214,21 +229,25 @@ namespace LLNET::Form
 	inline void Dropdown::SetTitle(String^ title)
 	{
 		this->title = title;
+		reSetGeneratedForm();
 	}
 
 	inline void Dropdown::SetOptions(List<String^>^ options)
 	{
 		this->options = options;
+		reSetGeneratedForm();
 	}
 
 	inline void Dropdown::AddOption(String^ option)
 	{
 		if (options != nullptr) options->Add(option);
+		reSetGeneratedForm();
 	}
 
 	inline void Dropdown::SetDefault(int defId)
 	{
 		this->def = defId;
+		reSetGeneratedForm();
 	}
 
 
@@ -270,26 +289,31 @@ namespace LLNET::Form
 	inline void Slider::SetTitle(String^ title)
 	{
 		this->title = title;
+		reSetGeneratedForm();
 	}
 
 	inline void Slider::SetMin(int min)
 	{
 		this->min = min;
+		reSetGeneratedForm();
 	}
 
 	inline void Slider::SetMax(int max)
 	{
 		this->max = max;
+		reSetGeneratedForm();
 	}
 
 	inline void Slider::SetStep(int step)
 	{
 		this->step = step;
+		reSetGeneratedForm();
 	}
 
 	inline void Slider::SetDefault(int def)
 	{
 		this->def = def;
+		reSetGeneratedForm();
 	}
 
 
@@ -317,21 +341,25 @@ namespace LLNET::Form
 	inline void StepSlider::SetTitle(String^ title)
 	{
 		this->title = title;
+		reSetGeneratedForm();
 	}
 
 	inline void StepSlider::SetOptions(List<String^>^ options)
 	{
 		this->options = options;
+		reSetGeneratedForm();
 	}
 
 	inline void StepSlider::AddOption(String^ option)
 	{
 		if (options != nullptr) options->Add(option);
+		reSetGeneratedForm();
 	}
 
 	inline void StepSlider::SetDefault(int defId)
 	{
 		this->def = defId;
+		reSetGeneratedForm();
 	}
 
 
@@ -444,6 +472,8 @@ namespace LLNET::Form
 	{
 		isFormGenerated = false;
 		elements->Add(kvPair(element->Name, element));
+		if (!element->appendedForms->Contains(this))
+			element->appendedForms->Add(this);
 		return this;
 	}
 
@@ -468,7 +498,6 @@ namespace LLNET::Form
 		int index = 0;
 		for (auto& [k, v] : arg)
 		{
-			std::cout << "shared_ptr:" << v->getString() << std::endl;
 			switch (v->getType())
 			{
 			case ::Form::CustomFormElement::Type::Label:

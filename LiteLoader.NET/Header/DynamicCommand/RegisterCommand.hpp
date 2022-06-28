@@ -176,28 +176,28 @@ namespace LLNET::DynamicCommand {
 #pragma endregion
 
 
-		auto instance = ::DynamicCommand::createCommand(
-			marshalString(cmdAttr->Name),
-			marshalString(cmdAttr->Description),
-			::CommandPermissionLevel(cmdAttr->Permission),
-			::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag1))),
-			::CommandFlag((gcnew MC::CommandFlag(cmdAttr->Flag2))),
-			Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
+		auto instance = DynamicCommand::CreateCommand(
+			cmdAttr->Name,
+			cmdAttr->Description,
+			cmdAttr->Permission,
+			gcnew MC::CommandFlag(cmdAttr->Flag1),
+			gcnew MC::CommandFlag(cmdAttr->Flag2),
+			IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 
 		for each (auto alia in cmdData->Alias)
 		{
-			if (!instance->setAlias(marshalString(alia)))
+			if (!instance->SetAlias(alia))
 				throw gcnew RegisterCommandException(String::Format("Set Alias Failed! at alia:<{}>", alia));
 		}
 
 		for each (auto % Enum in cmdData->Enums)
 		{
-			std::vector<std::string> enumVec;
+			auto enumList = gcnew List<String^>(cmdData->Enums->Count);
 			for each (auto % _enum in Enum.enums)
 			{
-				enumVec.emplace_back(marshalString(_enum.Key));
+				enumList->Add(_enum.Key);
 			}
-			instance->setEnum(marshalString(Enum.Name), enumVec);
+			instance->SetEnum(Enum.Name, enumList);
 		}
 
 		for each (auto % param in cmdData->Parameters)
@@ -206,36 +206,36 @@ namespace LLNET::DynamicCommand {
 			{
 				if (param.ParamType == DynamicCommand::ParameterType::Enum)
 				{
-					instance->mandatory(
-						marshalString(param.Name),
-						::DynamicCommand::ParameterType(param.ParamType),
-						marshalString(param.EnumName),
-						::CommandParameterOption(param.Option));
+					instance->Mandatory(
+						param.Name,
+						param.ParamType,
+						param.EnumName,
+						param.Option);
 				}
 				else
 				{
-					instance->mandatory(
-						marshalString(param.Name),
-						::DynamicCommand::ParameterType(param.ParamType),
-						::CommandParameterOption(param.Option));
+					instance->Mandatory(
+						param.Name,
+						param.ParamType,
+						param.Option);
 				}
 			}
 			else
 			{
 				if (param.ParamType == DynamicCommand::ParameterType::Enum)
 				{
-					instance->optional(
-						marshalString(param.Name),
-						::DynamicCommand::ParameterType(param.ParamType),
-						marshalString(param.EnumName),
-						::CommandParameterOption(param.Option));
+					instance->Optional(
+						param.Name,
+						param.ParamType,
+						param.EnumName,
+						param.Option);
 				}
 				else
 				{
-					instance->optional(
-						marshalString(param.Name),
-						::DynamicCommand::ParameterType(param.ParamType),
-						::CommandParameterOption(param.Option));
+					instance->Optional(
+						param.Name,
+						param.ParamType,
+						param.Option);
 				}
 			}
 
@@ -252,26 +252,28 @@ namespace LLNET::DynamicCommand {
 			}
 		}
 
-		std::vector<std::string> strVec;
+		auto strList = gcnew List<String^>;
 		if (Overloads->Count != 0)
 			for each (auto % overload in Overloads)
 			{
 				for each (auto param in overload.Value)
 				{
 					if (param.ParamType == DynamicCommand::ParameterType::Enum)
-						strVec.emplace_back(marshalString(param.EnumName));
+						strList->Add(param.EnumName);
 					else
-						strVec.emplace_back(marshalString(param.Name));
+						strList->Add(param.Name);
 				}
-				instance->addOverload(std::move(strVec));
-				strVec.clear();
+				instance->AddOverload(strList);
+				strList->Clear();
 			}
 		else
-			instance->addOverload(std::move(strVec));
+			instance->AddOverload(strList);
 
-		auto cmdAttrEmptyOverloadArr = cmdType->GetCustomAttributes(CommandAttribute::typeid, false);
+		strList->Clear();
+
+		auto cmdAttrEmptyOverloadArr = cmdType->GetCustomAttributes(CommandEmptyOverloadAttribute::typeid, false);
 		if (cmdAttrEmptyOverloadArr->Length > 0)
-			instance->addOverload(std::vector<std::string>());
+			instance->AddOverload(strList);
 
 
 		cmdData->cmd = gcnew TCommand();
@@ -299,21 +301,21 @@ namespace LLNET::DynamicCommand {
 		auto pcallback = static_cast<CommandManager::NativeDynamicCommandCallback::pCallback>(
 			(void*)Marshal::GetFunctionPointerForDelegate(delcallback));
 
-		instance->setCallback(pcallback);
+		instance->NativePtr->setCallback(pcallback);
 
 		if (inheritedICommandData) {
-			auto dynamicCmdInstance = gcnew DynamicCommandInstance(instance.get());
+			auto dynamicCmdInstance = gcnew DynamicCommandInstance(instance->NativePtr);
 			((ICommandData^)(cmdData->cmd))->BeforeCommandSetup(cmdData, dynamicCmdInstance);
 			delete dynamicCmdInstance;
 		}
 
 		if (inheritedICommandEvent) {
-			auto dynamicCmdInstance = gcnew DynamicCommandInstance(instance.get());
+			auto dynamicCmdInstance = gcnew DynamicCommandInstance(instance->NativePtr);
 			((ICommandEvent^)(cmdData->cmd))->BeforeCommandSetup(dynamicCmdInstance);
 			delete dynamicCmdInstance;
 		}
 
-		cmdData->instance = ::DynamicCommand::setup(std::move(instance));
+		cmdData->instance = DynamicCommand::Setup(instance);
 
 		if (inheritedICommandData) {
 			auto dynamicCmdInstance = gcnew DynamicCommandInstance(const_cast<::DynamicCommandInstance*>(cmdData->instance));
