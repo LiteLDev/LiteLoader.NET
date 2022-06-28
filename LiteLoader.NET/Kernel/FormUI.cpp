@@ -463,49 +463,59 @@ namespace LLNET::Form
 
 	void NATIVECALLBACK CustomForm::NativeFormSendCallback(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg)
 	{
-		auto CallbackDictionary = gcnew Dictionary<String^, CustomFormElement^>;
-
+		auto CallbackDictionary = gcnew Dictionary<String^, CustomFormElement^>((int)arg.size());
+		
+		int index = 0;
 		for (auto& [k, v] : arg)
 		{
+			std::cout << "shared_ptr:" << v->getString() << std::endl;
 			switch (v->getType())
 			{
 			case ::Form::CustomFormElement::Type::Label:
 			{
 				auto label = _Marshal(*static_cast<::Form::Label*>(v.get()));
+				label->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), label);
 			}
 			break;
 			case ::Form::CustomFormElement::Type::Input:
 			{
 				auto input = _Marshal(*static_cast<::Form::Input*>(v.get()));
+				input->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), input);
 			}
 			break;
 			case ::Form::CustomFormElement::Type::Toggle:
 			{
 				auto toggle = _Marshal(*static_cast<::Form::Toggle*>(v.get()));
+				toggle->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), toggle);
 			}
 			break;
 			case ::Form::CustomFormElement::Type::Dropdown:
 			{
 				auto dropdown = _Marshal(*static_cast<::Form::Dropdown*>(v.get()));
+				dropdown->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), dropdown);
 			}
 			break;
 			case ::Form::CustomFormElement::Type::Slider:
 			{
 				auto slider = _Marshal(*static_cast<::Form::Slider*>(v.get()));
+				slider->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), slider);
 			}
 			break;
 			case ::Form::CustomFormElement::Type::StepSlider:
 			{
 				auto stepSlider = _Marshal(*static_cast<::Form::StepSlider*>(v.get()));
+				stepSlider->Value = marshalString(v->getString());
 				CallbackDictionary->Add(marshalString(k), stepSlider);
 			}
 			break;
 			}
+
+			++index;
 		}
 		if (callback != nullptr)
 		{

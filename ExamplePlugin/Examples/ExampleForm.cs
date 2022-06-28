@@ -62,13 +62,12 @@ namespace ExamplePlugin.Examples
             customForm.Callback = (pl, val) =>
             {
                 Input input = (Input)val["InputName"];
-                foreach (var item in val)
-                {
-                    logger.Info.WriteLine(item.Key);
-                    logger.Info.WriteLine(item.Value.ElementType+item.Value.Value);
-                }
+                Toggle toggle = (Toggle)val["ToggleName"];
+                StepSlider stepSlider = (StepSlider)val["StepSlider"];
 
                 logger.info.WriteLine($"FormInput:{input.Value}");
+                logger.info.WriteLine($"FormInput:{toggle.Value}");
+                logger.info.WriteLine($"FormInput:{stepSlider.Value}");
             };
 
             CreateCommand();

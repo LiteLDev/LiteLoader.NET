@@ -1,13 +1,13 @@
 ﻿#region Configs
 
 //#define _LOGGER_
-//#define _EVENT_
+#define _EVENT_
 //#define _SCHEDULE_
-#define _THOOK_
+//#define _THOOK_
 //#define _DYNAMICCOMMAND_
 #define _COMMAND_
 //#define _REMOTECALL_
-//#define _FORM_
+#define _FORM_
 
 #endregion
 

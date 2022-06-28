@@ -114,7 +114,7 @@ public:
         };
         void set(String ^ value)
         {
-            value = value;
+            this->value = value;
         }
     };
     property Type ElementType
@@ -164,7 +164,7 @@ public
 ref class Input : public CustomFormElement
 {
 private:
-    String ^ title, ^placeholder, ^def, ^data;
+    String ^ title, ^placeholder, ^def;
 
 public:
     property String ^ Title {
@@ -194,15 +194,6 @@ public:
             def = value;
         }
     };
-    property String ^ Data {
-        String ^ get() {
-            return data;
-        };
-        void set(String ^ value)
-        {
-            data = value;
-        }
-    };
 
     inline Input(String ^ name, String ^ title, String ^ placeholder, String ^ def);
     inline Input(String ^ name, String ^ title, String ^ placeholder);
@@ -219,7 +210,7 @@ ref class Toggle : public CustomFormElement
 private:
     using DataType = bool;
     String ^ title;
-    bool def, data;
+    bool def;
 
 public:
     property String ^ Title {
@@ -242,17 +233,6 @@ public:
             def = value;
         }
     };
-    property bool Data
-    {
-        bool get()
-        {
-            return data;
-        };
-        void set(bool value)
-        {
-            data = value;
-        }
-    };
 
 public:
     inline Toggle(String ^ name, String ^ title, bool def);
@@ -268,7 +248,7 @@ ref class Dropdown : public CustomFormElement
 private:
     String ^ title;
     List<String ^> ^ options;
-    int def, data{};
+    int def;
 
 public:
     property String ^ Title {
@@ -300,17 +280,6 @@ public:
             def = value;
         }
     };
-    property int Data
-    {
-        int get()
-        {
-            return data;
-        };
-        void set(int value)
-        {
-            data = value;
-        }
-    };
 
 public:
     inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options, int defId);
@@ -327,7 +296,7 @@ ref class Slider : public CustomFormElement
 {
 private:
     String ^ title;
-    int min, max, step, def, data{};
+    int min, max, step, def;
 
 public:
     property String ^ Title {
@@ -383,17 +352,6 @@ public:
             def = value;
         }
     };
-    property int Data
-    {
-        int get()
-        {
-            return data;
-        };
-        void set(int value)
-        {
-            data = value;
-        }
-    };
 
 public:
     inline Slider(String ^ name, String ^ title, int min, int max, int step, int def);
@@ -413,7 +371,7 @@ ref class StepSlider : public CustomFormElement
 private:
     String ^ title;
     List<String ^> ^ options;
-    int def, data{};
+    int def;
 
 public:
     property String ^ Title {
@@ -443,17 +401,6 @@ public:
         void set(int value)
         {
             def = value;
-        }
-    };
-    property int Data
-    {
-        int get()
-        {
-            return data;
-        };
-        void set(int value)
-        {
-            data = value;
         }
     };
 
