@@ -150,6 +150,7 @@ namespace MC
 		inline bool SendTextTalkPacket(String^ msg);
 
 		inline bool SendRawFormPacket(unsigned formId, String^ data);
+		inline bool SendToastPacket(String^ title, String^ msg);
 		delegate void callBackFunc_int(int);
 		inline bool SendSimpleFormPacket(String^ title, String^ content, List<String^>^ buttons, List<String^>^ images, callBackFunc_int^ callback);
 		delegate void callBackFunc_bool(bool);

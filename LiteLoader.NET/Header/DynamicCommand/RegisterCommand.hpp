@@ -269,6 +269,9 @@ namespace LLNET::DynamicCommand {
 		else
 			instance->addOverload(std::move(strVec));
 
+		auto cmdAttrEmptyOverloadArr = cmdType->GetCustomAttributes(CommandAttribute::typeid, false);
+		if (cmdAttrEmptyOverloadArr->Length > 0)
+			instance->addOverload(std::vector<std::string>());
 
 
 		cmdData->cmd = gcnew TCommand();

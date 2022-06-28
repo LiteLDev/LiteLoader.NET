@@ -13,7 +13,7 @@ public:
     {
     }
     /// <param name="p2">:Secondary Rank Pointer IntPtr </param>
-    SecondaryRankPtr(System::IntPtr % p2)
+    SecondaryRankPtr(System::IntPtr p2)
         : ptr((void**)p2.ToPointer())
     {
     }

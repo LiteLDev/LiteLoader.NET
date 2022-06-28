@@ -130,7 +130,7 @@ public:
     };
 
     inline void SetName(String ^ _name);
-    inline virtual Type GetType() abstract = 0;
+    inline virtual Type GetElementType() abstract = 0;
     inline String ^ GetString();
     inline int GetNumber();
     inline bool GetBool();
@@ -156,7 +156,7 @@ public:
 
 public:
     inline Label(String ^ name, String ^ text);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetText(String ^ _text);
 };
 
@@ -207,7 +207,7 @@ public:
     inline Input(String ^ name, String ^ title, String ^ placeholder, String ^ def);
     inline Input(String ^ name, String ^ title, String ^ placeholder);
     inline Input(String ^ name, String ^ title);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetTitle(String ^ title);
     inline void SetPlaceHolder(String ^ placeholder);
     inline void SetDefault(String ^ def);
@@ -257,7 +257,7 @@ public:
 public:
     inline Toggle(String ^ name, String ^ title, bool def);
     inline Toggle(String ^ name, String ^ title);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetTitle(String ^ title);
     inline void SetDefault(bool def);
 };
@@ -315,7 +315,7 @@ public:
 public:
     inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options, int defId);
     inline Dropdown(String ^ name, String ^ title, List<String ^> ^ options);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetTitle(String ^ title);
     inline void SetOptions(List<String ^> ^ options);
     inline void AddOption(String ^ option);
@@ -399,7 +399,7 @@ public:
     inline Slider(String ^ name, String ^ title, int min, int max, int step, int def);
     inline Slider(String ^ name, String ^ title, int min, int max, int step);
     inline Slider(String ^ name, String ^ title, int min, int max);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetTitle(String ^ title);
     inline void SetMin(int min);
     inline void SetMax(int max);
@@ -460,7 +460,7 @@ public:
 public:
     inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options, int defId);
     inline StepSlider(String ^ name, String ^ title, List<String ^> ^ options);
-    inline Type GetType() override;
+    inline Type GetElementType() override;
     inline void SetTitle(String ^ title);
     inline void SetOptions(List<String ^> ^ options);
     inline void AddOption(String ^ option);
@@ -568,6 +568,7 @@ public:
         };
         void set(List<kvPair> ^ value)
         {
+            isFormGenerated = false;
             elements = value;
         }
     };
@@ -593,8 +594,6 @@ private:
     void NATIVECALLBACK NativeFormSendCallback(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
 
     void GenerateNativeForm();
-    Dictionary<String ^, CustomFormElement ^> ^ CallbackDictionary = nullptr;
-    bool isDictionaryGenerated = false;
     bool isFormGenerated = false;
 
     List<NativeCallbackHandler ^> ^ handlers = gcnew List<NativeCallbackHandler ^>;
@@ -603,7 +602,7 @@ public:
     bool SendTo(MC::Player ^ player, CustomFormCallback ^ callback);
     inline bool SendTo(MC::Player ^ player);
 
-    inline CustomFormElement::Type GetType(int index);
+    inline CustomFormElement::Type GetElementType(int index);
 
     inline String ^ GetString(String const ^ name);
     inline int GetNumber(String const ^ name);
@@ -614,18 +613,18 @@ public:
 
     inline void SetValue(int index, String ^ value);
 
-private:
-    inline ::Form::Label _Marshal(Label ^ arg);
-    inline ::Form::Input _Marshal(Input ^ arg);
-    inline ::Form::Toggle _Marshal(Toggle ^ arg);
-    inline ::Form::Slider _Marshal(Slider ^ arg);
-    inline ::Form::Dropdown _Marshal(Dropdown ^ arg);
-    inline ::Form::StepSlider _Marshal(StepSlider ^ arg);
-    inline Label ^ _Marshal(::Form::Label const& arg);
-    inline Input ^ _Marshal(::Form::Input const& arg);
-    inline Toggle ^ _Marshal(::Form::Toggle const& arg);
-    inline Slider ^ _Marshal(::Form::Slider const& arg);
-    inline Dropdown ^ _Marshal(::Form::Dropdown const& arg);
-    inline StepSlider ^ _Marshal(::Form::StepSlider const& arg);
+internal:
+    static inline ::Form::Label _Marshal(Label ^ arg);
+    static inline ::Form::Input _Marshal(Input ^ arg);
+    static inline ::Form::Toggle _Marshal(Toggle ^ arg);
+    static inline ::Form::Slider _Marshal(Slider ^ arg);
+    static inline ::Form::Dropdown _Marshal(Dropdown ^ arg);
+    static inline ::Form::StepSlider _Marshal(StepSlider ^ arg);
+    static inline Label ^ _Marshal(::Form::Label const& arg);
+    static inline Input ^ _Marshal(::Form::Input const& arg);
+    static inline Toggle ^ _Marshal(::Form::Toggle const& arg);
+    static inline Slider ^ _Marshal(::Form::Slider const& arg);
+    static inline Dropdown ^ _Marshal(::Form::Dropdown const& arg);
+    static inline StepSlider ^ _Marshal(::Form::StepSlider const& arg);
 };
 } // namespace LLNET::Form

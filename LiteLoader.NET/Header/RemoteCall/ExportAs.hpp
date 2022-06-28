@@ -415,7 +415,7 @@ namespace LLNET::RemoteCall {
 			return static_cast<MC::Container^>(val)->NativePtr;
 			break;
 		case ValidType::Vec3:
-			return ::RemoteCall::pack(std::make_pair(static_cast<MC::Vec3>(val).operator ::Vec3(), 0));
+			return ::RemoteCall::pack(std::make_pair(static_cast<MC::Vec3>(val).operator ::Vec3(), 3));
 			break;
 		case ValidType::BlockPos:
 			return ::RemoteCall::pack(std::make_pair(static_cast<MC::BlockPos>(val).operator ::BlockPos(), 0));

@@ -62,6 +62,11 @@ namespace ExamplePlugin.Examples
             customForm.Callback = (pl, val) =>
             {
                 Input input = (Input)val["InputName"];
+                foreach (var item in val)
+                {
+                    logger.Info.WriteLine(item.Key);
+                    logger.Info.WriteLine(item.Value.ElementType+item.Value.Value);
+                }
 
                 logger.info.WriteLine($"FormInput:{input.Value}");
             };
@@ -78,28 +83,62 @@ namespace ExamplePlugin.Examples
         private static void CreateCommand()
         {
 
-            DynamicCommandInstance command = DynamicCommand.CreateCommand("testformcommand", "command description", CommandPermissionLevel.Any);
+            //DynamicCommandInstance command = DynamicCommand.CreateCommand("testformcommand", "command description", CommandPermissionLevel.Any);
 
-            string simpleFormParam = command.SetEnum("Form Type", new() { "simpleform", "customform" });
+            //string simpleFormParam = command.SetEnum("Form Type", new() { "simpleform", "customform" });
 
-            command.Mandatory("FormEnum", DynamicCommand.ParameterType.Enum, simpleFormParam ?? string.Empty);
+            //command.Mandatory("FormEnum", DynamicCommand.ParameterType.Enum, simpleFormParam ?? string.Empty);
 
-            command.SetCallback((cmd, origin, output, results) =>
+            //command.SetCallback((cmd, origin, output, results) =>
+            //{
+            //    switch (results["FormEnum"].Get().ToString())
+            //    {
+            //        case "simpleform":
+            //            {
+            //                simpleForm.SendTo(origin.Player);
+            //            }
+            //            break;
+            //        case "customform":
+            //            {
+            //                customForm.SendTo(origin.Player);
+            //            }
+            //            break;
+            //    }
+            //});
+
+            //command.AddOverload(new List<string>());
+
+            //DynamicCommand.Setup(command);
+
+            DynamicCommand.RegisterCommand<FormCommand>();
+        }
+
+        [Command("testformcommand", Description = "Test .NET Form Command", Permission = CommandPermissionLevel.Any)]
+        [CommandEmptyOverload]
+        class FormCommand : ICommand
+        {
+            [CommandEnum]
+            enum FormType { simpleform, customform };
+
+            [CommandParameter(DynamicCommand.ParameterType.Enum, Option = CommandParameterOption.EnumAutocompleteExpansion)]
+            FormType Form_Type { get; set; }
+
+            public void Execute(CommandOrigin origin, CommandOutput output)
             {
-                switch (results["FormEnum"].Get().ToString())
+                switch (Form_Type)
                 {
-                    case "simpleform":
+                    case FormType.simpleform:
                         {
                             simpleForm.SendTo(origin.Player);
                         }
                         break;
-                    case "customform":
+                    case FormType.customform:
                         {
                             customForm.SendTo(origin.Player);
                         }
                         break;
                 }
-            });
+            }
         }
     }
 }
