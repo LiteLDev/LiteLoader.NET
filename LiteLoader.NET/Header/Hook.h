@@ -607,7 +607,7 @@ namespace LLNET {
 				if (pOriginal == nullptr)
 					throw gcnew LLNET::Core::HookFailedException;
 
-				instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer(IntPtr(pOriginal), TDelegate::typeid);
+				instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
 			}
 		};
 	}
