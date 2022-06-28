@@ -563,14 +563,19 @@ namespace LLNET {
 		generic<typename TDelegate> where TDelegate : System::Delegate
 			public ref class THookBase abstract
 		{
+		internal:
+			TDelegate _original;
 		public:
-			virtual property TDelegate Hook;
-			virtual property TDelegate Original;
-			virtual void Setup() = 0;
+			property TDelegate Hook {
+		public:
+				virtual TDelegate get() abstract;
+			};
+		public:
+			property TDelegate Original { TDelegate get() { return _original; } };
 		};
 
 		using namespace System::Reflection;
-		public ref class Thook {
+		public ref class Thook abstract {
 		public:
 			generic<typename T, typename TDelegate>
 			where TDelegate :
@@ -590,8 +595,6 @@ namespace LLNET {
 				if (sym == nullptr)
 					throw gcnew System::NullReferenceException;
 
-				instance->Setup();
-
 				if (instance->Hook == nullptr)
 					throw gcnew System::NullReferenceException;
 
@@ -604,7 +607,7 @@ namespace LLNET {
 				if (pOriginal == nullptr)
 					throw gcnew LLNET::Core::HookFailedException;
 
-				instance->Original = (TDelegate)Marshal::GetDelegateForFunctionPointer(IntPtr(pOriginal), TDelegate::typeid);
+				instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer(IntPtr(pOriginal), TDelegate::typeid);
 			}
 		};
 	}
