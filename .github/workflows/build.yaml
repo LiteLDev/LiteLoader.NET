@@ -128,6 +128,7 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git clone https://github.com/StarsDream00/LiteLoader.NETSDK.git
         cp -f x64/Release/LiteLoader.NET.dll LiteLoader.NETSDK/LiteLoader.NET.dll
+        cp -f x64/Release/LiteLoader.NET.xml LiteLoader.NETSDK/LiteLoader.NET.xml
         cd LiteLoader.NETSDK
         git add .
         git commit -am "Update SDK"
