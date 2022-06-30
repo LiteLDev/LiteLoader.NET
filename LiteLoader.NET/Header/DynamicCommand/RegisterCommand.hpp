@@ -24,7 +24,7 @@ namespace LLNET::DynamicCommand {
 			throw gcnew RegisterCommandException("Empty Command Name!");
 
 		if (String::IsNullOrWhiteSpace(cmdAttr->Description))
-			throw gcnew RegisterCommandException("Empty Command Description!");
+			cmdAttr->Description = "";
 
 #pragma endregion
 		auto cmdData = gcnew CommandManager::CommandData;
@@ -84,16 +84,34 @@ namespace LLNET::DynamicCommand {
 
 		for each (auto field in cmdFields)
 		{
+			auto fieldType = field->FieldType;
+
+			auto isKVPair = false;
+
+			System::Type^ __fieldType = nullptr;
+			if (fieldType->IsGenericType && fieldType->Namespace == "System.Collections.Generic" && fieldType->Name->Contains("KeyValuePair"))
+			{
+				isKVPair = true;
+				__fieldType = fieldType;
+			}
+
 			auto paramAttrArr = field->GetCustomAttributes(CommandParameterAttribute::typeid, false);
 			if (paramAttrArr->Length == 0)
 				continue;
 			auto paramAttr = static_cast<CommandParameterAttribute^>(paramAttrArr[0]);
 
 			String^ paramEnumName = nullptr;
-			auto fieldType = field->FieldType;
+			
 			if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
 			{
-				paramEnumName = fieldType->Name;
+				if (isKVPair)
+				{
+					paramEnumName = fieldType->GenericTypeArguments[1]->Name;
+				}
+				else
+				{
+					paramEnumName = fieldType->Name;
+				}
 			}
 
 			auto overloads = gcnew List<int>;
@@ -110,7 +128,11 @@ namespace LLNET::DynamicCommand {
 				paramAttr->Option,
 				field,
 				nullptr,
-				true });
+				true,
+				isKVPair,
+				__fieldType
+				});
+
 
 			auto overloadAttrArr = field->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
 			for each (auto overloadAttr in overloadAttrArr)
@@ -139,13 +161,30 @@ namespace LLNET::DynamicCommand {
 			if (!Property->CanWrite)
 				throw gcnew RegisterCommandException(String::Format("Property Cannot Be Written! Property:<{0}>", Property->Name));
 
+			auto propertyType = Property->PropertyType;
+
+			auto isKVPair = false;
+
+			System::Type^ __propertyType = nullptr;
+			if (propertyType->IsGenericType && propertyType->Namespace == "System.Collections.Generic" && propertyType->Name->Contains("KeyValuePair"))
+			{
+				isKVPair = true;
+				__propertyType = propertyType;
+			}
+
 			auto paramAttr = static_cast<CommandParameterAttribute^>(paramAttrArr[0]);
 
 			String^ paramEnumName = nullptr;
-			auto propertyType = Property->PropertyType;
 			if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
 			{
-				paramEnumName = propertyType->Name;
+				if (isKVPair)
+				{
+					paramEnumName = propertyType->GenericTypeArguments[1]->Name;
+				}
+				else
+				{
+					paramEnumName = propertyType->Name;
+				}
 			}
 
 			auto overloads = gcnew List<int>;
@@ -162,7 +201,10 @@ namespace LLNET::DynamicCommand {
 				paramAttr->Option,
 				nullptr,
 				Property,
-				false });
+				false ,
+				isKVPair,
+				__propertyType
+				});
 
 			auto overloadAttrArr = Property->GetCustomAttributes(CommandParameterOverloadAttribute::typeid, false);
 			for each (auto overloadAttr in overloadAttrArr)

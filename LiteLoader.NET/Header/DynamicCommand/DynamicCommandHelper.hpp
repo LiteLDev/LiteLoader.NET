@@ -21,6 +21,9 @@ namespace LLNET::DynamicCommand::Internal {
 			System::Reflection::FieldInfo^ Fieldinfo;
 			System::Reflection::PropertyInfo^ PropertyInfo;
 			bool IsField;
+
+			bool isKeyValuePair_with_bool;
+			System::Type^ KVPairType;
 		};
 
 		ref struct CommandData
