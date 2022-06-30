@@ -8,7 +8,7 @@ namespace LLNET {
 		static bool registerPlugin(System::String^ name, System::String^ introduction,
 			Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ Asm);
 
-		static Plugin^ getPlugin(System::IntPtr handler);
+		static Plugin^ getPlugin(System::IntPtr handle);
 		static Plugin^ getPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin);
 		static Assembly^ getPluginAssembly(System::String^ name);
 		static Assembly^ getPluginAssembly(Plugin^ plugin);

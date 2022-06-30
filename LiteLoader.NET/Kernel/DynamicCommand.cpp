@@ -229,11 +229,11 @@ namespace LLNET::DynamicCommand
 	{
 		return ToDebugString();
 	}
-	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handler)
+	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
 	{
 
-		if (handler == IntPtr::Zero)
-			handler = IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
+		if (handle == IntPtr::Zero)
+			handle = IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
 
 
 		std::unordered_map<std::string, std::vector<std::string>> enumsMap;
@@ -279,7 +279,7 @@ namespace LLNET::DynamicCommand
 			::CommandPermissionLevel(permission),
 			flag1,
 			flag2,
-			(HMODULE)(void*)handler)
+			(HMODULE)(void*)handle)
 			.release(),
 			true);
 	}
@@ -478,9 +478,9 @@ namespace LLNET::DynamicCommand
 		return NativePtr->isSet;
 	}
 
-	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handler)
+	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
 	{
-		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handler).release(), true);
+		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handle).release(), true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2)
 	{
@@ -583,13 +583,13 @@ namespace LLNET::DynamicCommand
 			map.emplace(marshalString(var.Key), *var.Value->NativePtr);
 		(*NativePtr).parameterPtrs = std::move(map);
 	}
-	DynamicCommandInstance::DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler)
+	DynamicCommandInstance::DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle)
 		:ClassTemplate(::DynamicCommandInstance::create(
 			marshalString(name),
 			marshalString(description),
 			::CommandPermissionLevel(permission),
 			::CommandFlag{ (::CommandFlagValue(flag->value)) },
-			(HMODULE)(void*)handler)
+			(HMODULE)(void*)handle)
 			.release(),
 			true)
 	{
@@ -604,9 +604,9 @@ namespace LLNET::DynamicCommand
 			true)
 	{
 	}
-	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler)
+	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle)
 	{
-		return gcnew DynamicCommandInstance(name, description, permission, flag, handler);
+		return gcnew DynamicCommandInstance(name, description, permission, flag, handle);
 	}
 	inline DynamicCommandInstance^ DynamicCommandInstance::Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag)
 	{

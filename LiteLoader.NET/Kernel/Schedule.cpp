@@ -32,11 +32,11 @@ inline ScheduleTask ^ ScheduleAPI::Delay(TaskDelegate ^ task, unsigned long long
     return Delay(task, tickDelay, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
-inline ScheduleTask ^ ScheduleAPI::Delay(TaskDelegate ^ task, unsigned long long tickDelay, System::IntPtr handler)
+inline ScheduleTask ^ ScheduleAPI::Delay(TaskDelegate ^ task, unsigned long long tickDelay, System::IntPtr handle)
 {
     GCHandle::Alloc(task);
     return gcnew ScheduleTask(::Schedule::delay(
-        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)(void*)handler));
+        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)(void*)handle));
 }
 
 inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long long tickInterval)
@@ -51,11 +51,11 @@ inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long lon
     return Repeat(task, tickInterval, maxCount, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
-inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handler)
+inline ScheduleTask ^ ScheduleAPI::Repeat(TaskDelegate ^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
 {
     GCHandle::Alloc(task);
     return gcnew ScheduleTask(::Schedule::repeat(
-        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)(void*)handler));
+        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)(void*)handle));
 }
 
 inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval)
@@ -70,11 +70,11 @@ inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned lon
     return DelayRepeat(task, tickDelay, tickInterval, maxCount, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
-inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handler)
+inline ScheduleTask ^ ScheduleAPI::DelayRepeat(TaskDelegate ^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
 {
     GCHandle::Alloc(task);
     return gcnew ScheduleTask(::Schedule::delayRepeat(
-        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)(void*)handler));
+        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)(void*)handle));
 }
 
 inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task)
@@ -83,11 +83,11 @@ inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task)
     return NextTick(task, System::IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly())));
 }
 
-inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task, System::IntPtr handler)
+inline ScheduleTask ^ ScheduleAPI::NextTick(TaskDelegate ^ task, System::IntPtr handle)
 {
     GCHandle::Alloc(task);
     return gcnew ScheduleTask(::Schedule::nextTick(
-        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)(void*)handler));
+        static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)(void*)handle));
 }
 
 } // namespace LLNET::Schedule

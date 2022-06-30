@@ -181,7 +181,7 @@ namespace LLNET::DynamicCommand
 			inline bool SetEnumOptions(String^ enumOptions);
 		};
 		/*virtual void execute(class CommandOrigin const& origin, class CommandOutput& output);*/
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handler);
+		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle);
 		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2);
 		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1);
 		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission);
@@ -221,7 +221,7 @@ namespace LLNET::DynamicCommand
 			MC::CommandPermissionLevel permission,
 			MC::CommandFlag^ flag1,
 			MC::CommandFlag^ flag2,
-			IntPtr handler);
+			IntPtr handle);
 
 		inline static DynamicCommandInstance^ Setup(DynamicCommandInstance^ commandInstance);
 		inline static bool UnregisterCommand(String^ name);
@@ -274,10 +274,10 @@ namespace LLNET::DynamicCommand
 		//	List<DynamicCommand::ParameterData^>^ get();
 		//	void set(List<DynamicCommand::ParameterData^>^ val);
 		//};
-		DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler);
+		DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle);
 		DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag);
 
-		inline static DynamicCommandInstance^ Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handler);
+		inline static DynamicCommandInstance^ Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle);
 		inline static DynamicCommandInstance^ Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag);
 		inline String^ SetEnum(String^ description, List<String^>^ values);
 		inline String^ GetEnumValue(int index);

@@ -33,7 +33,7 @@ namespace LLNET::RemoteCall
 		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
 	}
 
-	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handler)
+	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handle)
 	{
 		NULL_ARG_CHEEK(nameSpace);
 		NULL_ARG_CHEEK(funcName);
@@ -41,7 +41,7 @@ namespace LLNET::RemoteCall
 
 		auto pair = ExportFuncCallback::Create(callback);
 		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler^)pair.converter);
-		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, (HMODULE)(void*)handler);
+		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, (HMODULE)(void*)handle);
 	}
 
 	RemoteCallAPI::CallbackFn^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)

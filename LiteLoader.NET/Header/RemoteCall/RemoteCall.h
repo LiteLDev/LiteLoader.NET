@@ -39,7 +39,7 @@ namespace LLNET::RemoteCall
 
 
 		/// <summary>
-		/// <para>Export a function with NameSpace, function name, and plugin handler.</para>
+		/// <para>Export a function with NameSpace, function name, and plugin handle.</para>
 		/// <para>　</para>
 		/// <para>example:</para>
 		/// <para>　<code>ExportedFunc(".NET","ExampleFunction",(args) => { });</code></para>
@@ -48,9 +48,9 @@ namespace LLNET::RemoteCall
 		/// <param name="nameSpace">－Export Function NameSpace</param>
 		/// <param name="funcName">－Export Function Name</param>
 		/// <param name="fn">－Export Function</param>
-		/// <param name="handler">－Plugin Handler</param>
+		/// <param name="handle">－Plugin Handler</param>
 		/// <returns>－Is The Export Successful</returns>
-		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handler);
+		static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handle);
 
 
 		/// <summary>

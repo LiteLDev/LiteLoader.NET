@@ -19,7 +19,7 @@ namespace LLNET::RemoteCall::Internal {
 
 		generic<typename TDelegate>
 		where TDelegate : System::Delegate
-			static bool RegisterExportFunction(String^ nameSpace, String^ funcName, TDelegate function, HMODULE handler) {
+			static bool RegisterExportFunction(String^ nameSpace, String^ funcName, TDelegate function, HMODULE handle) {
 			NULL_ARG_CHEEK(nameSpace);
 			NULL_ARG_CHEEK(funcName);
 			NULL_ARG_CHEEK(function);
@@ -75,7 +75,7 @@ namespace LLNET::RemoteCall::Internal {
 			auto delfunc = gcnew delNative(func, &ExportedFunc::_Invoke);
 			func->gch = GCHandle::Alloc(delfunc);
 			auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(delfunc));
-			return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, handler);
+			return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, handle);
 		}
 	};
 }

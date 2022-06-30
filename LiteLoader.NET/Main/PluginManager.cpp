@@ -18,28 +18,28 @@ namespace LLNET
 		auto _name = marshalString(name);
 
 		auto plugin = ::LL::getPlugin(_name);
-		HMODULE handler = nullptr;
+		HMODULE handle = nullptr;
 		if (plugin != nullptr)
-			handler = plugin->handler;
+			handle = plugin->handler;
 		else
 		{
-			handler = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+			handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
 		}
-		if (handler == nullptr)
-			handler = MODULE;
+		if (handle == nullptr)
+			handle = MODULE;
 
-		auto ret = ::RegisterPlugin(handler, _name, marshalString(introduction), (::LL::Version)version, stdmap);
+		auto ret = ::RegisterPlugin(handle, _name, marshalString(introduction), (::LL::Version)version, stdmap);
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
-			Global::ManagedPluginHandler->TryAdd(Asm, IntPtr(handler));
+			Global::ManagedPluginHandler->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;
 	}
-	Plugin^ PluginManager::getPlugin(System::IntPtr handler)
+	Plugin^ PluginManager::getPlugin(System::IntPtr handle)
 	{
-		auto pPlugin = ::LL::getPlugin((HMODULE)(void*)handler);
+		auto pPlugin = ::LL::getPlugin((HMODULE)(void*)handle);
 		if (pPlugin == nullptr)
 			return nullptr;
 		return gcnew Plugin(pPlugin);

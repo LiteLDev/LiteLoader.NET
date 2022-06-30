@@ -137,7 +137,7 @@ namespace LLNET::LL
 		inline static Plugin^ GetPlugin(String^ name);
 		inline static Plugin^ GetPlugin(String^ name, bool includeNativePlugin);
 		inline static Plugin^ GetPlugin(String^ name, bool includeNativePlugin, bool includeScriptPlugin);
-		inline static Plugin^ GetPlugin(System::IntPtr% handler);
+		inline static Plugin^ GetPlugin(System::IntPtr% handle);
 		inline static Assembly^ GetPluginAssembly(String^ name);
 		inline static Assembly^ GetPluginAssembly(Plugin^ plugin);
 

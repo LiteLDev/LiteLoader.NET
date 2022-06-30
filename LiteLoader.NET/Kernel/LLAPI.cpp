@@ -166,9 +166,9 @@ inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::String^ name, bool
     return PluginManager::getPlugin(name, includeNativePlugin, includeScriptPlugin);
 }
 
-inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::IntPtr% handler)
+inline LLNET::LL::Plugin^ LLNET::LL::LLAPI::GetPlugin(System::IntPtr% handle)
 {
-    return PluginManager::getPlugin(handler);
+    return PluginManager::getPlugin(handle);
 }
 
 inline Assembly^ LLNET::LL::LLAPI::GetPluginAssembly(System::String^ name)
