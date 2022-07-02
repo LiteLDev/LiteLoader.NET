@@ -42,11 +42,18 @@
     <ClInclude Include="Tools\ClassAdapter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Header\MC\MobEffect.hpp">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\Packet.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\MobEffect.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

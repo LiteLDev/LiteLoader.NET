@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\MC\MobEffect.hpp" />
     <ClInclude Include="Header\MC\Packet.hpp" />
     <ClInclude Include="Tools\.NETGlobal.hpp" />
     <ClInclude Include="Tools\ClassAdapter.hpp" />
@@ -23,6 +24,8 @@
     <ClInclude Include="Tools\PropertryHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Kernel\MC\MobEffect.cpp" />
     <ClCompile Include="Kernel\MC\Packet.cpp" />
   </ItemGroup>
   <ItemGroup>
