@@ -39,7 +39,6 @@ LLNET::LL::Version::!Version()
 LLNET::LL::Version::~Version()
 {
     this->!Version();
-    GC::SuppressFinalize(this);
 }
 
 bool LLNET::LL::Version::operator<(Version^ a, Version^ b)
