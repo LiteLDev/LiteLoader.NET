@@ -222,7 +222,7 @@ namespace MC
 		return NativePtr->deleteScore(marshalString(key));
 	}
 
-	// Packet
+	// PacketEX
 	/// <param name="Type">:default = TextType::RAW</param>
 	inline bool Player::SendTextPacket(String^ text, TextType Type)
 	{

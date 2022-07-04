@@ -256,6 +256,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\Objective.hpp" />
     <ClInclude Include="Header\MC\Packet.hpp" />
     <ClInclude Include="Header\MC\Player.hpp" />
+    <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp" />
     <ClInclude Include="Header\MC\ScoreboardId.hpp" />
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
@@ -371,6 +372,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\Objective.cpp" />
     <ClCompile Include="Kernel\MC\Packet.cpp" />
     <ClCompile Include="Kernel\MC\Player.cpp" />
+    <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\ScoreboardId.cpp" />
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />

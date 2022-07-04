@@ -2,34 +2,34 @@
 
 namespace MC::Extensions
 {
-	unsigned Packet::Unk2::get() {
+	unsigned PacketEX::Unk2::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Unk2::set(unsigned value) {
+	void PacketEX::Unk2::set(unsigned value) {
 		NativePtr->unk2 = value;
 	}
-	MC::PacketReliability Packet::ReliableOrdered::get() {
+	MC::PacketReliability PacketEX::ReliableOrdered::get() {
 		return (MC::PacketReliability)NativePtr->reliableOrdered;
 	}
-	void Packet::ReliableOrdered::set(MC::PacketReliability value) {
+	void PacketEX::ReliableOrdered::set(MC::PacketReliability value) {
 		NativePtr->reliableOrdered = (::PacketReliability)value;
 	}
-	uint32_t Packet::Unk24::get() {
+	uint32_t PacketEX::Unk24::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Unk24::set(uint32_t value) {
+	void PacketEX::Unk24::set(uint32_t value) {
 		NativePtr->unk2 = value;
 	}
-	uint32_t Packet::Unk40::get() {
+	uint32_t PacketEX::Unk40::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Unk40::set(uint32_t value) {
+	void PacketEX::Unk40::set(uint32_t value) {
 		NativePtr->unk2 = value;
 	}
-	uint32_t Packet::Incompressible::get() {
+	uint32_t PacketEX::Incompressible::get() {
 		return NativePtr->unk2;
 	}
-	void Packet::Incompressible::set(uint32_t value) {
+	void PacketEX::Incompressible::set(uint32_t value) {
 		NativePtr->unk2 = value;
 	}
 }

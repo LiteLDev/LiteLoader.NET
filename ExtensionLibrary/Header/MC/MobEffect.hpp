@@ -8,16 +8,16 @@
 
 namespace MC::Extensions
 {
-	ref class MobEffect_EX :MC::MobEffect
+	ref class MobEffectEX :MC::MobEffect
 	{
 	public:
-		__ctor_ex(MobEffect_EX, MC::MobEffect, ::MobEffect);
+		__ctor_ex(MobEffectEX, MC::MobEffect, ::MobEffect);
 	public:
 		property unsigned int Id {unsigned int get(); }
 		property bool IsHarmful { bool get(); }
 		property bool IsVisible {bool get(); }
 	public:
-		static MobEffect_EX^ GetById(int id);
-		static MobEffect_EX^ GetByName(String^ name);
+		static MobEffectEX^ GetById(int id);
+		static MobEffectEX^ GetByName(String^ name);
 	};
 }

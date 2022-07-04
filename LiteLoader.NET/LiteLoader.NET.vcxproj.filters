@@ -345,6 +345,9 @@
     <ClCompile Include="Kernel\MC\Biome.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -726,6 +729,9 @@
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\Core\Pair.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>

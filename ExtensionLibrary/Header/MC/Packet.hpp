@@ -6,11 +6,11 @@
 
 namespace MC::Extensions
 {
-	public ref class Packet
+	public ref class PacketEX
 		:public MC::Packet
 	{
 	public:
-		__ctor_ex(Packet, MC::Packet, ::Packet)
+		__ctor_ex(PacketEX, MC::Packet, ::Packet)
 	public:
 
 		property unsigned Unk2 { unsigned get(); void set(unsigned value); };
