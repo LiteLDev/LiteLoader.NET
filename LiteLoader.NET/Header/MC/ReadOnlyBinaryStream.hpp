@@ -1,6 +1,7 @@
 #pragma once
 
 #include <MC/ReadOnlyBinaryStream.hpp>
+#include <MC/RakNet.hpp>
 #include "Types.hpp"
 #include "../Core/STLHelper/string.hpp"
 
@@ -27,6 +28,11 @@ namespace MC
 		property size_t Length {size_t get() { return NativePtr->getLength(); } };
 		//property size_t ReadPointer { size_t get() { return NativePtr->getReadPointer(); } };
 		property size_t UnreadLength { size_t get() { return NativePtr->getUnreadLength(); } };
+	public:
+		String^ GetData();
+		__string^ GetData_Native();
+		void Read(void* buffer, unsigned __int64 size);
+		void Read(array<System::Byte>^ buffer);
 	public:
 		ReadOnlyBinaryStream(String^ str);
 		ReadOnlyBinaryStream(String^ str, bool b);

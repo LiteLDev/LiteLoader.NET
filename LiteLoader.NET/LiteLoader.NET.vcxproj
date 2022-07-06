@@ -216,6 +216,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
     <ClInclude Include="Header\MC\ArmStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
+    <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
     <ClInclude Include="Header\MC\Block.hpp" />
     <ClInclude Include="Header\MC\BlockActor.hpp" />
@@ -332,6 +333,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ActorDefinitionIdentifier.cpp" />
     <ClCompile Include="Kernel\MC\ArmorStand.cpp" />
     <ClCompile Include="Kernel\MC\Attribute.cpp" />
+    <ClCompile Include="Kernel\MC\BinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\Biome.cpp" />
     <ClCompile Include="Kernel\MC\Block.cpp" />
     <ClCompile Include="Kernel\MC\BlockActor.cpp" />
