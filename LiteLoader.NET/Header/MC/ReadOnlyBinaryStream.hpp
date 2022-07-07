@@ -7,7 +7,7 @@
 
 #pragma make_public(::ReadOnlyBinaryStream)
 
-namespace MC
+namespace MC::NetWork
 {
 	using __string = LLNET::Core::Std::string;
 

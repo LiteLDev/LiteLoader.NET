@@ -1,6 +1,6 @@
 #include "../../Header/MC/ReadOnlyBinaryStream.hpp"
 
-namespace MC
+namespace MC::NetWork
 {
 	inline String^ ReadOnlyBinaryStream::GetData() { return marshalString(NativePtr->getData()); }
 

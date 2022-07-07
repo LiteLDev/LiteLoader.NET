@@ -7,10 +7,10 @@
 
 namespace MC::NetWork
 {
-	ref class BinaryStream : MC::ReadOnlyBinaryStream
+	ref class BinaryStream : MC::NetWork::ReadOnlyBinaryStream
 	{
 	public:
-		__ctor_base(BinaryStream, ::BinaryStream, MC::ReadOnlyBinaryStream)
+		__ctor_base(BinaryStream, ::BinaryStream, MC::NetWork::ReadOnlyBinaryStream)
 	public:
 		property String^ WriteBuf {String^ get() { return marshalString(NativePtr->writeBuf); } void set(String^ value) { NativePtr->writeBuf = marshalString(value); }};
 		property __string^ WBuf { __string^ get() { return gcnew __string(NativePtr->pwBuf); } void set(__string^ value) { *NativePtr->pwBuf = *value->NativePtr; }};
