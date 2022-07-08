@@ -133,7 +133,10 @@ void LLNET::DynamicCommand::Internal::CommandManager::NativeDynamicCommandCallba
 	delete _origin;
 	delete _output;
 	if (data->autoReset)
+	{
+		delete data->cmd;
 		data->cmd = static_cast<ICommand^>(System::Activator::CreateInstance(data->CmdType));
+	}
 }
 
 System::Object^ LLNET::DynamicCommand::CommandManager::NativeDynamicCommandCallback::_parseResult(::DynamicCommand::Result& result, ParamInfo% paramInfo)
@@ -183,7 +186,7 @@ System::Object^ LLNET::DynamicCommand::CommandManager::NativeDynamicCommandCallb
 	case ::DynamicCommand::ParameterType::JsonValue:
 		return marshalString(JsonHelpers::serialize(result.getRaw<Json::Value>()));
 	case ::DynamicCommand::ParameterType::Item:
-		return gcnew MC::CommandItem(result.getRaw<CommandItem>());
+		return gcnew MC::CommandItem(const_cast<::CommandItem*>(&result.getRaw<::CommandItem>()));
 	case ::DynamicCommand::ParameterType::Block:
 		return gcnew MC::Block(const_cast<Block*>(result.getRaw<Block const*>()));
 	case ::DynamicCommand::ParameterType::Effect:
