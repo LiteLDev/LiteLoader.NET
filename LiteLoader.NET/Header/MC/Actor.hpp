@@ -56,6 +56,7 @@ namespace MC
 		inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient);
 		inline bool AddEffect(MobEffect::EffectType type, int tick, int level);
 		inline bool Rename(String^ name);
+		inline float QuickEvalMolangScript(String^ expression);
 
 		property UserEntityIdentifierComponent^ UserEntityIdentifierComponent { MC::UserEntityIdentifierComponent^ get(); };
 		property CompoundTag^ Nbt {CompoundTag^ get(); void set(CompoundTag^); };

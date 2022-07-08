@@ -182,6 +182,10 @@ namespace MC
 	{
 		return NativePtr->rename(marshalString<Encoding::E_UTF8>(name));
 	}
+	inline float Actor::QuickEvalMolangScript(String^ expression)
+	{
+		return NativePtr->quickEvalMolangScript(marshalString(expression));
+	}
 	inline CompoundTag^ Actor::Nbt::get()
 	{
 		return gcnew CompoundTag(NativePtr->getNbt().release(), true);
