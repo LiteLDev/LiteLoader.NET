@@ -186,6 +186,7 @@ namespace MC
 	{
 		return NativePtr->quickEvalMolangScript(marshalString(expression));
 	}
+
 	inline CompoundTag^ Actor::Nbt::get()
 	{
 		return gcnew CompoundTag(NativePtr->getNbt().release(), true);
