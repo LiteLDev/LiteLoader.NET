@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\MC\MobEffect.hpp" />
     <ClInclude Include="Header\MC\Packet.hpp" />
     <ClInclude Include="Tools\.NETGlobal.hpp" />
     <ClInclude Include="Tools\ClassAdapter.hpp" />
@@ -23,6 +24,8 @@
     <ClInclude Include="Tools\PropertryHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Kernel\MC\MobEffect.cpp" />
     <ClCompile Include="Kernel\MC\Packet.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +76,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(SolutionDir)SDK\Header\third-party;$(SolutionDir)SDK\Header;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir);$(SolutionDir)SDK\Header\third-party;$(SolutionDir)SDK\Header;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
     <ManagedAssembly>true</ManagedAssembly>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>

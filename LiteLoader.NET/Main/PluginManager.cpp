@@ -20,7 +20,7 @@ namespace LLNET
 		auto plugin = ::LL::getPlugin(_name);
 		HMODULE handle = nullptr;
 		if (plugin != nullptr)
-			handle = plugin->handler;
+			handle = plugin->handle;
 		else
 		{
 			handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());

@@ -459,8 +459,7 @@ namespace MC
         East = 5,
     };
 
-    public enum class MinecraftPacketIds : int
-    {
+    public enum class MinecraftPacketIds : int {
         Login = 0x01,
         PlayStatus = 0x02,
         ServerToClientHandshake = 0x03,
@@ -628,7 +627,7 @@ namespace MC
         EduUriResource = 0xAA,
         CreatePhoto = 0xAB,
         UpdateSubChunkBlocks = 0xAC,
-        PhotoInfoRequest = 0xAD,//removed
+        PhotoInfoRequest = 0xAD, // removed
         SubChunk = 0xAE,
         SubChunkRequest = 0xAF,
         PlayerStartItemCooldown = 0xB0,
@@ -637,10 +636,18 @@ namespace MC
         TickingAreasLoadStatus = 0xB3,
         DimensionData = 0xB4,
         AgentActionEvent = 0xB5,
-        ChangeMobProperty = 0xB6
+        ChangeMobProperty = 0xB6,
+        LessonProgress = 0xB7,
+        RequestAbility = 0xB8,
+        RequestPermissions = 0xB9,
+        ToastRequest = 0xBA,
+        UpdateAbilities = 0xBB,
+        UpdateAdventureSettings = 0xBC,
+        DeathInfo = 0XBD,
+        EditorNetwork = 0XBE
     };
 
-    public enum class ItemStackNetResult :unsigned char {
+    public enum class ItemStackNetResult : unsigned char {
         Success = 0,
         Error = 1,
         InvalidRequestActionType = 2,

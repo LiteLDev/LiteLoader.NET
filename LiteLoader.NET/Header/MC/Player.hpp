@@ -131,7 +131,7 @@ namespace MC
 		inline bool AddScore(String^ key, int value);
 		inline bool ReduceScore(String^ key, int value);
 		inline bool DeleteScore(String^ key);
-		// Packet
+		// PacketEX
 		/// <param name="Type">:default = TextType::RAW</param>
 		inline bool SendTextPacket(String^ text, TextType Type);
 		inline bool SendTitlePacket(String^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);

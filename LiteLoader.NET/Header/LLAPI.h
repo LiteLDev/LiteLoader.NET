@@ -79,7 +79,7 @@ namespace LLNET::LL
 		{
 			System::IntPtr get()
 			{
-				return System::IntPtr(_this->handler);
+				return System::IntPtr(_this->handle);
 			}
 		}
 		property Version^ version {
@@ -100,9 +100,9 @@ namespace LLNET::LL
 		generic<typename TDelegate>
 		where TDelegate : System::Delegate inline TDelegate GetFunction(String^ functionName)
 		{
-			if (_this->handler == NULL)
+			if (_this->handle == NULL)
 				return TDelegate();
-			void* address = GetProcAddress(_this->handler, marshalString<Encoding::E_UTF8>(functionName).c_str());
+			void* address = GetProcAddress(_this->handle, marshalString<Encoding::E_UTF8>(functionName).c_str());
 			if (!address)
 				return TDelegate();
 			return Marshal::GetDelegateForFunctionPointer<TDelegate>(System::IntPtr(address));

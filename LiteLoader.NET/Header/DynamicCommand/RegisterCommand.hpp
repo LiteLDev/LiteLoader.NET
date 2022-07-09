@@ -371,6 +371,6 @@ namespace LLNET::DynamicCommand {
 			delete dynamicCmdInstance;
 		}
 
-		return false;
+		return true;
 	}
 }

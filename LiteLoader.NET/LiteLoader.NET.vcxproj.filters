@@ -64,6 +64,12 @@
     <Filter Include="Header\RemoteCall\Internal">
       <UniqueIdentifier>{48d20abb-293f-49b1-bb01-58d24378ede8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\MC\NetWork">
+      <UniqueIdentifier>{7c606752-8215-4560-a7b4-e5e922f59ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel\MC\NetWork">
+      <UniqueIdentifier>{f93ff546-a821-4659-9187-52530b76b1c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -142,9 +148,6 @@
       <Filter>Kernel\MC</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\MC\Objective.cpp">
-      <Filter>Kernel\MC</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\MC\Packet.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\MC\ScoreboardId.cpp">
@@ -345,6 +348,15 @@
     <ClCompile Include="Kernel\MC\Biome.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\Packet.cpp">
+      <Filter>Kernel\MC\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp">
+      <Filter>Kernel\MC\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\BinaryStream.cpp">
+      <Filter>Kernel\MC\NetWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -423,9 +435,6 @@
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\Objective.hpp">
-      <Filter>Header\MC</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\MC\Packet.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\ScoreboardId.hpp">
@@ -727,6 +736,15 @@
     </ClInclude>
     <ClInclude Include="Header\Core\Pair.hpp">
       <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\BinaryStream.hpp">
+      <Filter>Header\MC\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\Packet.hpp">
+      <Filter>Header\MC\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp">
+      <Filter>Header\MC\NetWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

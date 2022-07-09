@@ -40,6 +40,10 @@ namespace MC {
 
 		inline AABB ToAABB();
 
+		BoundingBox Merge(BoundingBox% a);
+
+		BoundingBox Merge(BlockPos% a);
+
 	public:
 		property BlockPos% default[int]{
 			BlockPos % get(int index) {
@@ -83,7 +87,7 @@ namespace MC {
 		static BoundingBox MergeBoundingBox(BoundingBox% a, BoundingBox% b) {
 			pin_ptr<BoundingBox> pa = &a;
 			pin_ptr<BoundingBox> pb = &b;
-			return ::BoundingBox::mergeBoundingBox(*(::BoundingBox*)pa, *(::BoundingBox*)pb);
+			return (((::BoundingBox*)pa)->merge(*(::BoundingBox*)pb));
 		}
 		static BoundingBox OrientBox(int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, int i10) {
 			return ::BoundingBox::orientBox(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10);

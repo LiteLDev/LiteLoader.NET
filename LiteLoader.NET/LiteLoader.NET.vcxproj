@@ -216,6 +216,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
     <ClInclude Include="Header\MC\ArmStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
+    <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
     <ClInclude Include="Header\MC\Block.hpp" />
     <ClInclude Include="Header\MC\BlockActor.hpp" />
@@ -256,6 +257,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\Objective.hpp" />
     <ClInclude Include="Header\MC\Packet.hpp" />
     <ClInclude Include="Header\MC\Player.hpp" />
+    <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp" />
     <ClInclude Include="Header\MC\ScoreboardId.hpp" />
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
@@ -331,6 +333,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ActorDefinitionIdentifier.cpp" />
     <ClCompile Include="Kernel\MC\ArmorStand.cpp" />
     <ClCompile Include="Kernel\MC\Attribute.cpp" />
+    <ClCompile Include="Kernel\MC\BinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\Biome.cpp" />
     <ClCompile Include="Kernel\MC\Block.cpp" />
     <ClCompile Include="Kernel\MC\BlockActor.cpp" />
@@ -371,6 +374,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\Objective.cpp" />
     <ClCompile Include="Kernel\MC\Packet.cpp" />
     <ClCompile Include="Kernel\MC\Player.cpp" />
+    <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\ScoreboardId.cpp" />
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
