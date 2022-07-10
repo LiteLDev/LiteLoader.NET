@@ -570,13 +570,10 @@ void MC::Mob::EndJump()
 	((class ::Mob*)NativePtr)->_endJump();
 }
 
-void MC::Mob::AddSpeedModifier(MC::Mce::UUID^ _0, ::System::String^ _1, float _2)
+void MC::Mob::AddSpeedModifier(MC::Mce::UUID _0, ::System::String^ _1, float _2)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::mce::UUID*)_0->NativePtr;
 	auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);
-	((class ::Mob*)NativePtr)->addSpeedModifier(__arg0, __arg1, _2);
+	((class ::Mob*)NativePtr)->addSpeedModifier(_0, __arg1, _2);
 }
 
 //void MC::Mob::CreateAI(::System::Collections::Generic::List<MC::GoalDefinition^>^ _0)
@@ -608,12 +605,9 @@ void MC::Mob::OnPlayerJump(int _0)
 	((class ::Mob*)NativePtr)->onPlayerJump(_0);
 }
 
-void MC::Mob::RemoveSpeedModifier(MC::Mce::UUID^ _0)
+void MC::Mob::RemoveSpeedModifier(MC::Mce::UUID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(class ::mce::UUID*)_0->NativePtr;
-	((class ::Mob*)NativePtr)->removeSpeedModifier(__arg0);
+	((class ::Mob*)NativePtr)->removeSpeedModifier(_0);
 }
 
 void MC::Mob::ResetAttributes()

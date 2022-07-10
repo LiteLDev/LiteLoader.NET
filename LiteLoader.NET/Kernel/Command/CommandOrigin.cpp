@@ -145,9 +145,9 @@ namespace MC
 		return gcnew CommandOriginData(NativePtr->toCommandOriginData());
 	}
 
-	Mce::UUID^ CommandOrigin::UUID::get()
+	Mce::UUID CommandOrigin::UUID::get()
 	{
-		return gcnew Mce::UUID((::mce::UUID&)NativePtr->getUUID());
+		return (::mce::UUID&)NativePtr->getUUID();
 	}
 
 	void CommandOrigin::UpdateValues()
@@ -170,7 +170,7 @@ namespace MC
 		return NativePtr->isValid();
 	}
 
-	void CommandOrigin::UUID::set(Mce::UUID^ a0)
+	void CommandOrigin::UUID::set(Mce::UUID a0)
 	{
 		NativePtr->_setUUID(a0);
 	}

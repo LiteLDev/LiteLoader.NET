@@ -605,7 +605,7 @@ namespace MC
 
         void EndJump();
 
-        void AddSpeedModifier(MC::Mce::UUID^ _0, ::System::String^ _1, float _2);
+        void AddSpeedModifier(MC::Mce::UUID _0, ::System::String^ _1, float _2);
 
         //void CreateAI(::System::Collections::Generic::List<MC::GoalDefinition^>^ _0);
 
@@ -615,7 +615,7 @@ namespace MC
 
         void OnPlayerJump(int _0);
 
-        void RemoveSpeedModifier(MC::Mce::UUID^ _0);
+        void RemoveSpeedModifier(MC::Mce::UUID _0);
 
         void ResetAttributes();
 

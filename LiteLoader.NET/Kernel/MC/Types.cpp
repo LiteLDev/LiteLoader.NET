@@ -6,30 +6,6 @@
 
 namespace MC
 {
-String ^ Mce::UUID::ToString()
-{
-    return gcnew String(marshalString<Encoding::E_UTF8>(NativePtr->asString()));
-}
-
-Mce::UUID ^ Mce::UUID::FromString(String ^ str)
-{
-    return gcnew UUID(::mce::UUID::fromString(marshalString<Encoding::E_UTF8>(str->ToString())));
-}
-
-bool Mce::UUID::IsEmpty::get()
-{
-    return NativePtr->isEmpty();
-}
-
-Mce::UUID ^ Mce::UUID::SeedFromString(String ^ str)
-{
-    return gcnew UUID(&mce::UUID::seedFromString(marshalString<Encoding::E_UTF8>(str)));
-}
-
-Mce::UUID::operator bool()
-{
-    return IsEmpty;
-}
 
 ActorUniqueID ^ ActorUniqueID::Create()
 {

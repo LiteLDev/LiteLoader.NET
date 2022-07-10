@@ -51,7 +51,7 @@ namespace MC
 		property CommandOrigin^ OutputReceiver { CommandOrigin^ get(); };
 		property CommandOriginIdentity^ Identity { CommandOriginIdentity^ get(); };
 		property NetworkIdentifier^ SourceId { NetworkIdentifier^ get(); };
-		property Mce::UUID^ UUID { Mce::UUID^ get(); void set(Mce::UUID^ value); };
+		property Mce::UUID UUID { Mce::UUID get(); void set(Mce::UUID value); };
 
 		// property CommandPermissionLevel PermissionsLevel
 		//{
