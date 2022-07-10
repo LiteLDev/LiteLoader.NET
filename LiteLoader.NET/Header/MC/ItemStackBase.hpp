@@ -48,9 +48,9 @@ namespace MC
             ::System::String^ get();
         };
 
-        property MC::Mce::Color^
+        property MC::Mce::Color
             Color {
-            MC::Mce::Color^ get();
+            MC::Mce::Color get();
         };
 
         property ::System::String^

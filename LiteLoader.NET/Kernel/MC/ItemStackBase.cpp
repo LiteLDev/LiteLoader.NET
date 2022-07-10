@@ -282,11 +282,9 @@ int MC::ItemStackBase::BaseRepairCost::get()
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
-MC::Mce::Color ^ MC::ItemStackBase::Color::get()
+MC::Mce::Color MC::ItemStackBase::Color::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getColor();
-    auto ____ret = new class ::mce::Color(__ret);
-    return (____ret == nullptr) ? nullptr : gcnew ::MC::Mce::Color((class ::mce::Color*)____ret, true);
+    return ((class ::ItemStackBase*)NativePtr)->getColor();
 }
 
 ::String^ MC::ItemStackBase::CustomName::get()

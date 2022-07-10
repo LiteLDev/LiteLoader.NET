@@ -8,6 +8,7 @@ namespace MC
 {
 	value class BlockPos;
 	value class AABB;
+	value class Vec3;
 } // namespace MC
 
 namespace MC
@@ -17,7 +18,7 @@ namespace MC
 
 		static_assert(sizeof(::mce::UUID) == sizeof(uint64_t) * 2);
 
-		[StructLayout(LayoutKind::Sequential, Size = sizeof(::Vec2))]
+		[StructLayout(LayoutKind::Sequential, Size = sizeof(::mce::UUID))]
 		public value class UUID
 		{
 			uint64_t a, b;
@@ -66,36 +67,256 @@ namespace MC
 		};
 
 
-		public
-		ref class Color : ClassTemplate<Color, ::mce::Color>
+
+		static_assert(sizeof(::mce::Color) == sizeof(float) * 4);
+
+		[StructLayout(LayoutKind::Sequential, Size = sizeof(::mce::Color))]
+		public value class Color
 		{
-		public:
-			__ctor_all(Color, ::mce::Color);
-			property class ::mce::Color* NativePtr;
-			property ::System::IntPtr __Instance
+		internal:
+			operator ::mce::Color()
 			{
-				virtual ::System::IntPtr get();
-				virtual void set(::System::IntPtr instance);
+				return ::mce::Color{ r,g,b,a };
+			}
+			static operator Color(::mce::Color const& obj)
+			{
+				return Color{ obj.r,obj.g,obj.b,obj.a };
+			}
+		public:
+			float r;
+			float g;
+			float b;
+			float a;
+		public:
+			Color(float r, float g, float b, float a)
+				: r(r)
+				, g(g)
+				, b(b)
+				, a(a) {};
+			Color(float r, float g, float b)
+				: r(r)
+				, g(g)
+				, b(b)
+				, a(1) {};
+			Color(int ir, int ig, int ib, int ia)
+				: r(ir / 255.0f)
+				, g(ig / 255.0f)
+				, b(ib / 255.0f)
+				, a(ia / 255.0f) {};
+			Color(int ir, int ig, int ib)
+				: r(ir / 255.0f)
+				, g(ig / 255.0f)
+				, b(ib / 255.0f)
+				, a(255 / 255.0f) {};
+
+			static operator bool(Color obj) {
+				return !(obj == NIL);
 			}
 
-			Color(Color^ _0);
+			double DistanceTo(Color% obj)
+			{
+				pin_ptr<Color> p = this;
+				pin_ptr<Color> pobj = &obj;
+				return ((::mce::Color*)p)->distanceTo(*(::mce::Color*)pobj);
+			}
 
-			static bool operator==(Color^ __op, Color^ _0);
+			String^ ToConsoleCode(bool foreground)
+			{
+				pin_ptr<Color> p = this;
+				return marshalString(((::mce::Color*)p)->toConsoleCode(foreground));
+			}
 
-			virtual bool Equals(::System::Object^ obj) override;
+			String^ ToConsoleCode()
+			{
+				return ToConsoleCode(true);
+			}
 
-			int ToABGR();
+			String^ ToNearestColorCode()
+			{
+				pin_ptr<Color> p = this;
+				return marshalString(((::mce::Color*)p)->toNearestColorCode());
+			}
 
-			int ToARGB();
+			static Color FromConsoleCode(String^ str)
+			{
+				return ::mce::Color::fromConsoleCode(marshalString(str));
+			}
 
-			::String^ ToHexString();
+			static Color FromColorCode(String^ str)
+			{
+				return ::mce::Color::fromColorCode(marshalString(str));
+			}
 
-			static Color^ FromHexString(::String^ _0);
+			Color sRGBToLinear()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->sRGBToLinear();
+			}
 
-			static property Color^ NIL {
-				Color^ get();
-			};
+			Color LinearTosRGB()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->LinearTosRGB();
+			}
+
+			Color LinearToXYZ()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->LinearToXYZ();
+			}
+
+			Color XYZToLinear()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->XYZToLinear();
+			}
+
+			Color XYZToLab()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->XYZToLab();
+			}
+
+			Color LabToXYZ()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->LabToXYZ();
+			}
+
+			double DeltaE76(Color% obj)
+			{
+				pin_ptr<Color> p = this;
+				pin_ptr<Color> pobj = &obj;
+				return ((::mce::Color*)p)->deltaE76(*(::mce::Color*)pobj);
+			}
+
+			double DeltaE94(Color% obj)
+			{
+				pin_ptr<Color> p = this;
+				pin_ptr<Color> pobj = &obj;
+				return ((::mce::Color*)p)->deltaE76(*(::mce::Color*)pobj);
+			}
+
+			double DeltaE00(Color% obj)
+			{
+				pin_ptr<Color> p = this;
+				pin_ptr<Color> pobj = &obj;
+				return ((::mce::Color*)p)->deltaE76(*(::mce::Color*)pobj);
+			}
+
+			static Color FromHexString(String^ str)
+			{
+				return ::mce::Color::fromHexString(marshalString(str));
+			}
+
+			static bool operator==(Color a, Color b)
+			{
+				pin_ptr<Color> pa = &a;
+				pin_ptr<Color> pb = &b;
+				return *(::mce::Color*)pa == *(::mce::Color*)pb;
+			}
+
+			int ToABGR()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->toABGR();
+			}
+
+			int ToARGB()
+			{
+				pin_ptr<Color> p = this;
+				return ((::mce::Color*)p)->toARGB();
+			}
+
+			String^ ToHexString()
+			{
+				pin_ptr<Color> p = this;
+				return marshalString(((::mce::Color*)p)->toHexString());
+			}
+
+			inline MC::Vec3 ToVec3();
+
+			inline static Color FromVec3(MC::Vec3% k);
+
+			inline  MC::BlockPos ToBlockPos();
+
+			inline static Color fromBlockPos(MC::BlockPos% k);
+
+			inline bool operator!=(const Color& c) {
+				return !(c == *this);
+			}
+
+			static Color operator*(Color obj, float c) {
+				return Color{ obj.r * c, obj.g * c, obj.b * c, obj.a * c };
+			}
+
+			static Color operator/(Color obj, float c) {
+				return Color{ obj.r / c, obj.g / c, obj.b / c, obj.a / c };
+			}
+
+			static Color operator+(Color obj, float c) {
+				return Color{ obj.r + c, obj.g + c, obj.b + c, obj.a + c };
+			}
+
+			static Color operator-(Color obj, float c) {
+				return Color{ obj.r - c, obj.g - c, obj.b - c, obj.a - c };
+			}
+
+			static Color operator+(Color obj, Color c) {
+				return Color{ obj.r + c.r, obj.g + c.g, obj.b + c.b, obj.a + c.a };
+			}
+
+			static Color operator*(Color obj, Color c) {
+				return Color{ obj.r * c.r, obj.g * c.g, obj.b * c.b, obj.a * c.a };
+			}
+
+			static Color operator/(Color obj, Color c) {
+				return Color{ obj.r / c.r, obj.g / c.g, obj.b / c.b, obj.a / c.a };
+			}
+
+			static Color operator-(Color obj, Color c) {
+				return Color{ obj.r - c.r, obj.g - c.g, obj.b - c.b, obj.a - c.a };
+			}
+
+			inline static Color Max(Color% k, Color% l) {
+				pin_ptr<Color> pk = &k;
+				pin_ptr<Color> pl = &l;
+				return ::mce::Color::max(*(::mce::Color*)pk, *(::mce::Color*)pl);
+			}
+
+			inline static Color Min(Color% k, Color% l) {
+				pin_ptr<Color> pk = &k;
+				pin_ptr<Color> pl = &l;
+				return ::mce::Color::min(*(::mce::Color*)pk, *(::mce::Color*)pl);
+			}
+
+			inline static Color Lerp(Color% k, Color% l, float m) {
+				return k * (1.0f - m) + l * m;
+			}
+
+			inline static Color Mix(Color% k, Color% l, float m) {
+				return Lerp(k, l, m);
+			}
+
+			property size_t HashVal
+			{
+				size_t get()
+				{
+					pin_ptr<Color> p = this;
+					std::hash<::mce::Color> hash;
+					return hash(*(::mce::Color*)p);
+				}
+			}
+
+			int GetHashCode() override
+			{
+				return (int)HashVal;
+			}
+
+		public:
+			static Color NIL = ::mce::Color::NIL;
 		};
+
 	} // namespace Mce
 
 	public
