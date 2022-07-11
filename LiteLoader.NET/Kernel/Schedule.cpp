@@ -16,7 +16,6 @@ ScheduleTask::!ScheduleTask()
 ScheduleTask::~ScheduleTask()
 {
     this->!ScheduleTask();
-    GC::SuppressFinalize(this);
 }
 bool ScheduleTask::Cancel()
 {

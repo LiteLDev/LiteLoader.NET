@@ -1,7 +1,7 @@
 #pragma once
 #include <EventAPI.h>
-#include "../Main/.NETGlobal.hpp"
-#include "../Tools/PropertryHelper.h"
+#include "../../Main/.NETGlobal.hpp"
+#include "../../Tools/PropertryHelper.h"
 
 #define EventAPIs(RefEvent, NativeEvent)                                                                                    \
 public:                                                                                                                     \
@@ -60,30 +60,30 @@ public:                                                                         
                                                                                                                             \
 private:
 
-#include "MC/AABB.hpp"
-#include "MC/Types.hpp"
-#include "MC/Block.hpp"
-#include "MC/BlockActor.hpp"
-#include "MC/BlockInstance.hpp"
-#include "MC/BlockSource.hpp"
-#include "MC/Container.hpp"
-#include "MC/ItemInstance.hpp"
-#include "MC/ItemStack.hpp"
-#include "MC/Player.hpp"
-#include "MC/ActorDamageSource.hpp"
-#include "MC/MCRESULT.hpp"
-#include "MC/MobEffectInstance.hpp"
-#include "MC/Objective.hpp"
-#include "MC/WitherBoss.hpp"
-#include "MC/ActorDefinitionIdentifier.hpp"
-#include "MC/ArmStand.hpp"
-#include "MC/Vec3.hpp"
-#include "MC/BlockPos.hpp"
-#include "MC/ScoreboardId.hpp"
-#include "Command/CommandRegistry.hpp"
-#include "Command/CommandParameterData.hpp"
+#include "../MC/AABB.hpp"
+#include "../MC/Types.hpp"
+#include "../MC/Block.hpp"
+#include "../MC/BlockActor.hpp"
+#include "../MC/BlockInstance.hpp"
+#include "../MC/BlockSource.hpp"
+#include "../MC/Container.hpp"
+#include "../MC/ItemInstance.hpp"
+#include "../MC/ItemStack.hpp"
+#include "../MC/Player.hpp"
+#include "../MC/ActorDamageSource.hpp"
+#include "../MC/MCRESULT.hpp"
+#include "../MC/MobEffectInstance.hpp"
+#include "../MC/Objective.hpp"
+#include "../MC/WitherBoss.hpp"
+#include "../MC/ActorDefinitionIdentifier.hpp"
+#include "../MC/ArmStand.hpp"
+#include "../MC/Vec3.hpp"
+#include "../MC/BlockPos.hpp"
+#include "../MC/ScoreboardId.hpp"
+#include "../Command/CommandRegistry.hpp"
+#include "../Command/CommandParameterData.hpp"
 
-#include "Logger.hpp"
+#include "../Logger.hpp"
 
 namespace LLNET::Event
 {
