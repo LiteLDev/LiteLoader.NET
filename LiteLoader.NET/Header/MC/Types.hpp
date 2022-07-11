@@ -319,16 +319,33 @@ namespace MC
 
 	} // namespace Mce
 
-	public
-	ref struct ActorUniqueID : ClassTemplate<ActorUniqueID, ::ActorUniqueID>
-	{
-	public:
-		__ctor_all(ActorUniqueID, ::ActorUniqueID);
+	static_assert(sizeof(::ActorUniqueID) == sizeof(long long));
 
-		static ActorUniqueID^ Create();
-		static ActorUniqueID^ Create(long long i);
-		inline long long get();
-		inline operator long long();
+	[StructLayout(LayoutKind::Sequential, Size = sizeof(::ActorUniqueID))]
+	public value struct ActorUniqueID
+	{
+	internal:
+		operator ::ActorUniqueID()
+		{
+			return { id };
+		}
+		static operator ActorUniqueID(::ActorUniqueID const& obj)
+		{
+			return ActorUniqueID{ obj.id };
+		}
+		ActorUniqueID(::ActorUniqueID const* p)
+			:id(p->id) {}
+	public:
+		long long id;
+		ActorUniqueID(long long i)
+			:id(i) {}
+
+		long long get() { return id; }
+
+		static operator long long(ActorUniqueID obj)
+		{
+			return obj.id;
+		}
 	};
 
 	generic<typename A, typename T> public ref class AutomaticID

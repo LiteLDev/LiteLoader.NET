@@ -206,7 +206,9 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp" />
     <ClInclude Include="Header\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
+    <ClInclude Include="Header\GlobalSurvice.hpp" />
     <ClInclude Include="Header\Hook.h" />
+    <ClInclude Include="Header\I18n.hpp" />
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
     <ClInclude Include="Header\LLAPI.h" />
     <ClInclude Include="Header\Logger.hpp" />
@@ -323,6 +325,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
     <ClCompile Include="Kernel\Event.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
+    <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />

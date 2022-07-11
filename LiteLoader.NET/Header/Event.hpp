@@ -788,7 +788,18 @@ public        \
 		EventAPIs(EntityTransformEvent, ::Event::EntityTransformEvent);
 
 	public:
-		Property_Ptr(MC, ActorUniqueID, mBeforeEntityUniqueId, BeforeEntityUniqueId);
+		property MC::ActorUniqueID BeforeEntityUniqueId
+		{
+			MC::ActorUniqueID get()
+			{
+				return *_this->mBeforeEntityUniqueId;
+			}
+			void set(MC::ActorUniqueID value)
+			{
+				*_this->mBeforeEntityUniqueId = value;
+			}
+		}
+
 		Property_Ptr(MC, Actor, mAfterEntity, AfterEntity);
 	};
 

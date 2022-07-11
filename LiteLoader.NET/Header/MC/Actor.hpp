@@ -66,7 +66,7 @@ namespace MC
 		property Vec3 Position { Vec3 get(); };
 		property BlockSource^ Blocksource { BlockSource^ get(); };
 		property Vec2 Direction { Vec2 get(); };
-		property ActorUniqueID^ ActorUniqueId { ActorUniqueID^ get(); };
+		property ActorUniqueID ActorUniqueId { ActorUniqueID get(); };
 		property Vec3 CameraPos { Vec3 get(); };
 		property Tick^ LastTick { Tick^ get(); };
 		property ItemStack^ HandSlot { ItemStack^ get(); };
@@ -170,9 +170,9 @@ namespace MC
 			bool get();
 		}
 
-		property MC::ActorUniqueID^ SourceUniqueID
+		property MC::ActorUniqueID SourceUniqueID
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		property int PortalWaitTime
@@ -180,9 +180,9 @@ namespace MC
 			int get();
 		}
 
-		property MC::ActorUniqueID^ ControllingPlayer
+		property MC::ActorUniqueID ControllingPlayer
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		property bool InCaravan
@@ -589,10 +589,10 @@ namespace MC
 			unsigned long long get();
 		}
 
-		property MC::ActorUniqueID^ LeashHolder
+		property MC::ActorUniqueID LeashHolder
 		{
-			MC::ActorUniqueID^ get();
-			void set(MC::ActorUniqueID^);
+			MC::ActorUniqueID get();
+			void set(MC::ActorUniqueID);
 		}
 
 		property int LimitedLifetimeTicks
@@ -622,9 +622,9 @@ namespace MC
 			MC::Mob^ get();
 		}
 
-		property MC::ActorUniqueID^ OwnerId
+		property MC::ActorUniqueID OwnerId
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		property int PersistingTradeRiches
@@ -699,9 +699,9 @@ namespace MC
 			void set(int);
 		}
 
-		property MC::ActorUniqueID^ TargetId
+		property MC::ActorUniqueID TargetId
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		property bool TradeInterest
@@ -716,10 +716,10 @@ namespace MC
 			void set(MC::Player^);
 		}
 
-		property MC::ActorUniqueID^ UniqueID
+		property MC::ActorUniqueID UniqueID
 		{
-			MC::ActorUniqueID^ get();
-			void set(MC::ActorUniqueID^);
+			MC::ActorUniqueID get();
+			void set(MC::ActorUniqueID);
 		}
 
 		property int Variant
@@ -1118,9 +1118,9 @@ namespace MC
 			void set(bool);
 		}
 
-		property MC::ActorUniqueID^ LovePartnerId
+		property MC::ActorUniqueID LovePartnerId
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		bool Teleport(MC::Vec3 to, int dimID, float x, float y);
@@ -1231,7 +1231,7 @@ namespace MC
 
 		//virtual void UnkVfn269();
 
-		virtual void RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3);
+		virtual void RemovePassenger(MC::ActorUniqueID _0, bool _1, bool _2, bool _3);
 
 		virtual void OnSizeUpdated();
 
@@ -1297,7 +1297,7 @@ namespace MC
 
 		virtual void PerformRangedAttack(MC::Actor^ _0, float _1);
 
-		virtual void SetOwner(MC::ActorUniqueID^ _0);
+		virtual void SetOwner(MC::ActorUniqueID _0);
 
 		virtual bool ShouldRender();
 
@@ -1473,7 +1473,7 @@ namespace MC
 
 		bool IsInsideBorderBlock(float _0);
 
-		bool IsPassenger(MC::ActorUniqueID^ _0);
+		bool IsPassenger(MC::ActorUniqueID _0);
 
 		bool IsPassenger(MC::Actor^ _0);
 
@@ -1487,7 +1487,7 @@ namespace MC
 
 		void LerpToRotation(MC::Vec2 _0, int _1);
 
-		void MigrateUniqueID(MC::ActorUniqueID^ _0);
+		void MigrateUniqueID(MC::ActorUniqueID _0);
 
 		void MoveBBs(MC::Vec3 _0);
 
@@ -1547,7 +1547,7 @@ namespace MC
 
 		void SetDancing(bool _0);
 
-		void SetFishingHookID(MC::ActorUniqueID^ _0);
+		void SetFishingHookID(MC::ActorUniqueID _0);
 
 		void SetInLove(MC::Actor^ _0);
 

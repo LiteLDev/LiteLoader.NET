@@ -490,11 +490,9 @@ namespace MC
 		return NativePtr->forceAllowEating();
 	}
 
-	MC::ActorUniqueID^ MC::Player::AgentID::get()
+	MC::ActorUniqueID MC::Player::AgentID::get()
 	{
-		auto __ret = NativePtr->getAgentID();
-		auto ____ret = new struct ::ActorUniqueID(__ret);
-		return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+		return NativePtr->getAgentID();
 	}
 
 	MC::BlockPos MC::Player::BedPosition::get()
@@ -627,18 +625,15 @@ namespace MC
 		return NativePtr->getSpawnPosition();
 	}
 
-	::System::Collections::Generic::List<MC::ActorUniqueID^>^ MC::Player::TrackedBosses::get()
+	List<MC::ActorUniqueID>^ MC::Player::TrackedBosses::get()
 	{
-		auto& __ret = NativePtr->getTrackedBosses();
-		auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::ActorUniqueID^>();
-		auto __list0 = __ret;
-		for (auto _element : __list0)
+		auto& vec = NativePtr->getTrackedBosses();
+		auto ret = gcnew List<MC::ActorUniqueID>((int)vec.size());
+		for (auto& item : vec)
 		{
-			auto ___element = new struct ::ActorUniqueID(_element);
-			auto _marshalElement = (___element == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)___element, true);
-			_tmp__ret->Add(_marshalElement);
+			ret->Add(item);
 		}
-		return (::System::Collections::Generic::List<MC::ActorUniqueID^>^)(_tmp__ret);
+		return ret;
 	}
 
 	bool MC::Player::UsedPotion::get()
@@ -958,11 +953,9 @@ namespace MC
 		return __ret;
 	}
 
-	MC::ActorUniqueID^ MC::Player::GetSourceUniqueID()
+	MC::ActorUniqueID MC::Player::GetSourceUniqueID()
 	{
-		auto __ret = ((class ::Player*)NativePtr)->getSourceUniqueID();
-		auto ____ret = new struct ::ActorUniqueID(__ret);
-		return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+		return ((class ::Player*)NativePtr)->getSourceUniqueID();
 	}
 
 	bool MC::Player::CanFreeze()
@@ -994,11 +987,9 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_181();
 	//}
 
-	MC::ActorUniqueID^ MC::Player::GetControllingPlayer()
+	MC::ActorUniqueID MC::Player::GetControllingPlayer()
 	{
-		auto __ret = ((class ::Player*)NativePtr)->getControllingPlayer();
-		auto ____ret = new struct ::ActorUniqueID(__ret);
-		return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+		return ((class ::Player*)NativePtr)->getControllingPlayer();
 	}
 
 	void MC::Player::OnSynchedDataUpdate(int _0)
@@ -1375,12 +1366,9 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_385();
 	//}
 
-	void MC::Player::OpenTrading(MC::ActorUniqueID^ _0, bool _1)
+	void MC::Player::OpenTrading(MC::ActorUniqueID _0, bool _1)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-		auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-		((class ::Player*)NativePtr)->openTrading(__arg0, _1);
+		((class ::Player*)NativePtr)->openTrading(_0, _1);
 	}
 
 	bool MC::Player::CanOpenContainerScreen()
@@ -1449,20 +1437,14 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_406();
 	//}
 
-	void MC::Player::RegisterTrackedBoss(MC::ActorUniqueID^ _0)
+	void MC::Player::RegisterTrackedBoss(MC::ActorUniqueID _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-		auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-		((class ::Player*)NativePtr)->registerTrackedBoss(__arg0);
+		((class ::Player*)NativePtr)->registerTrackedBoss(_0);
 	}
 
-	void MC::Player::UnRegisterTrackedBoss(MC::ActorUniqueID^ _0)
+	void MC::Player::UnRegisterTrackedBoss(MC::ActorUniqueID _0)
 	{
-		if (ReferenceEquals(_0, nullptr))
-			throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-		auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-		((class ::Player*)NativePtr)->unRegisterTrackedBoss(__arg0);
+		((class ::Player*)NativePtr)->unRegisterTrackedBoss(_0);
 	}
 
 	void MC::Player::InitHUDContainerManager()

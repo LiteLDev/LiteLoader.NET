@@ -55,9 +55,9 @@ bool MC::ActorDamageSource::DamagingEntityIsWorldBuilder::get()
 {
     return NativePtr->getDamagingEntityIsWorldBuilder();
 }
-MC::ActorUniqueID ^ MC::ActorDamageSource::DamagingEntityUniqueID::get()
+MC::ActorUniqueID MC::ActorDamageSource::DamagingEntityUniqueID::get()
 {
-    return gcnew ::MC::ActorUniqueID(new struct ::ActorUniqueID(NativePtr->getDamagingEntityUniqueID()), true);
+    return NativePtr->getDamagingEntityUniqueID();
 }
 MC::ActorDamageCause MC::ActorDamageSource::Cause::get()
 {

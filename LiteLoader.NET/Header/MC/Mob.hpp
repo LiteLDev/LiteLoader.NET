@@ -84,9 +84,9 @@ namespace MC
             bool get();
         }
 
-        property MC::ActorUniqueID^ SourceUniqueID
+        property MC::ActorUniqueID SourceUniqueID
         {
-            MC::ActorUniqueID^ get();
+            MC::ActorUniqueID get();
         }
 
         property int PortalWaitTime
@@ -94,9 +94,9 @@ namespace MC
             int get();
         }
 
-        property MC::ActorUniqueID^ ControllingPlayer
+        property MC::ActorUniqueID ControllingPlayer
         {
-            MC::ActorUniqueID^ get();
+            MC::ActorUniqueID get();
         }
 
         property bool InCaravan
@@ -207,9 +207,9 @@ namespace MC
             bool get();
         }
 
-        property MC::ActorUniqueID^ CaravanHead
+        property MC::ActorUniqueID CaravanHead
         {
-            MC::ActorUniqueID^ get();
+            MC::ActorUniqueID get();
         }
 
         property int ArmorValue
@@ -345,10 +345,10 @@ namespace MC
             void set(float);
         }
 
-        property MC::ActorUniqueID^ TargetCaptain
+        property MC::ActorUniqueID TargetCaptain
         {
-            MC::ActorUniqueID^ get();
-            void set(MC::ActorUniqueID^);
+            MC::ActorUniqueID get();
+            void set(MC::ActorUniqueID);
         }
 
         property float YRotA
@@ -515,7 +515,7 @@ namespace MC
 
         //virtual void UnkVfn269() override;
 
-        virtual void RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3) override;
+        virtual void RemovePassenger(MC::ActorUniqueID _0, bool _1, bool _2, bool _3) override;
 
         virtual void OnSizeUpdated() override;
 

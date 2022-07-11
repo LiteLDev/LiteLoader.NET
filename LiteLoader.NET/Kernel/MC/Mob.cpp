@@ -320,12 +320,9 @@ void MC::Mob::AddAdditionalSaveData(MC::CompoundTag^ _0)
 //    ((class ::Mob*)NativePtr)->__unk_vfn_269();
 //}
 
-void MC::Mob::RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3)
+void MC::Mob::RemovePassenger(MC::ActorUniqueID _0, bool _1, bool _2, bool _3)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Mob*)NativePtr)->_removePassenger(__arg0, _1, _2, _3);
+	((class ::Mob*)NativePtr)->_removePassenger(_0, _1, _2, _3);
 }
 
 void MC::Mob::OnSizeUpdated()
@@ -750,11 +747,9 @@ bool MC::Mob::Jumping::get()
 	return __ret;
 }
 
-MC::ActorUniqueID^ MC::Mob::SourceUniqueID::get()
+MC::ActorUniqueID MC::Mob::SourceUniqueID::get()
 {
-	auto __ret = ((class ::Mob*)NativePtr)->getSourceUniqueID();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Mob*)NativePtr)->getSourceUniqueID();
 }
 
 int MC::Mob::PortalWaitTime::get()
@@ -763,11 +758,9 @@ int MC::Mob::PortalWaitTime::get()
 	return __ret;
 }
 
-MC::ActorUniqueID^ MC::Mob::ControllingPlayer::get()
+MC::ActorUniqueID MC::Mob::ControllingPlayer::get()
 {
-	auto __ret = ((class ::Mob*)NativePtr)->getControllingPlayer();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Mob*)NativePtr)->getControllingPlayer();
 }
 
 bool MC::Mob::InCaravan::get()
@@ -911,11 +904,9 @@ bool MC::Mob::HasCaravanTail::get()
 	return __ret;
 }
 
-MC::ActorUniqueID^ MC::Mob::CaravanHead::get()
+MC::ActorUniqueID MC::Mob::CaravanHead::get()
 {
-	auto __ret = ((class ::Mob*)NativePtr)->getCaravanHead();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Mob*)NativePtr)->getCaravanHead();
 }
 
 int MC::Mob::ArmorValue::get()
@@ -1116,19 +1107,14 @@ void MC::Mob::SwimSpeedMultiplier::set(float _0)
 	((class ::Mob*)NativePtr)->setSwimSpeedMultiplier(_0);
 }
 
-MC::ActorUniqueID^ MC::Mob::TargetCaptain::get()
+MC::ActorUniqueID MC::Mob::TargetCaptain::get()
 {
-	auto __ret = ((class ::Mob*)NativePtr)->getTargetCaptain();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Mob*)NativePtr)->getTargetCaptain();
 }
 
-void MC::Mob::TargetCaptain::set(MC::ActorUniqueID^ _0)
+void MC::Mob::TargetCaptain::set(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Mob*)NativePtr)->setTargetCaptain(__arg0);
+	((class ::Mob*)NativePtr)->setTargetCaptain(_0);
 }
 
 float MC::Mob::YRotA::get()

@@ -36,9 +36,9 @@ namespace MC
 		return *NativePtr->getDirection();
 	}
 
-	inline ActorUniqueID^ Actor::ActorUniqueId::get()
+	inline ActorUniqueID Actor::ActorUniqueId::get()
 	{
-		return gcnew ActorUniqueID(NativePtr->getActorUniqueId());
+		return NativePtr->getActorUniqueId();
 	}
 
 	inline Vec3 Actor::CameraPos::get()
@@ -523,12 +523,9 @@ void MC::Actor::AddAdditionalSaveData(MC::CompoundTag^ _0)
 //    ((class ::Actor*)NativePtr)->__unk_vfn_269();
 //}
 
-void MC::Actor::RemovePassenger(MC::ActorUniqueID^ _0, bool _1, bool _2, bool _3)
+void MC::Actor::RemovePassenger(MC::ActorUniqueID _0, bool _1, bool _2, bool _3)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->_removePassenger(__arg0, _1, _2, _3);
+	((class ::Actor*)NativePtr)->_removePassenger(_0, _1, _2, _3);
 }
 
 void MC::Actor::OnSizeUpdated()
@@ -709,12 +706,9 @@ void MC::Actor::PerformRangedAttack(MC::Actor^ _0, float _1)
 	((class ::Actor*)NativePtr)->performRangedAttack(__arg0, _1);
 }
 
-void MC::Actor::SetOwner(MC::ActorUniqueID^ _0)
+void MC::Actor::SetOwner(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setOwner(__arg0);
+	((class ::Actor*)NativePtr)->setOwner(_0);
 }
 
 bool MC::Actor::ShouldRender()
@@ -1263,13 +1257,9 @@ bool MC::Actor::IsInsideBorderBlock(float _0)
 	return __ret;
 }
 
-bool MC::Actor::IsPassenger(MC::ActorUniqueID^ _0)
+bool MC::Actor::IsPassenger(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-	auto& __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	auto __ret = ((class ::Actor*)NativePtr)->isPassenger(__arg0);
-	return __ret;
+	return ((class ::Actor*)NativePtr)->isPassenger(_0);
 }
 
 bool MC::Actor::IsPassenger(MC::Actor^ _0)
@@ -1309,12 +1299,9 @@ void MC::Actor::LerpToRotation(MC::Vec2 _0, int _1)
 	((class ::Actor*)NativePtr)->lerpToRotation(_0, _1);
 }
 
-void MC::Actor::MigrateUniqueID(MC::ActorUniqueID^ _0)
+void MC::Actor::MigrateUniqueID(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->migrateUniqueID(__arg0);
+	((class ::Actor*)NativePtr)->migrateUniqueID(_0);
 }
 
 void MC::Actor::MoveBBs(MC::Vec3 _0)
@@ -1482,12 +1469,9 @@ void MC::Actor::SetDancing(bool _0)
 	((class ::Actor*)NativePtr)->setDancing(_0);
 }
 
-void MC::Actor::SetFishingHookID(MC::ActorUniqueID^ _0)
+void MC::Actor::SetFishingHookID(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setFishingHookID(__arg0);
+	((class ::Actor*)NativePtr)->setFishingHookID(_0);
 }
 
 void MC::Actor::SetInLove(MC::Actor^ _0)
@@ -1759,24 +1743,20 @@ bool MC::Actor::IsJumping::get()
 	return __ret;
 }
 
-MC::ActorUniqueID^ MC::Actor::SourceUniqueID::get()
+MC::ActorUniqueID MC::Actor::SourceUniqueID::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getSourceUniqueID();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getSourceUniqueID();
+
 }
 
 int MC::Actor::PortalWaitTime::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getPortalWaitTime();
-	return __ret;
+	return ((class ::Actor*)NativePtr)->getPortalWaitTime();
 }
 
-MC::ActorUniqueID^ MC::Actor::ControllingPlayer::get()
+MC::ActorUniqueID MC::Actor::ControllingPlayer::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getControllingPlayer();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getControllingPlayer();
 }
 
 bool MC::Actor::InCaravan::get()
@@ -2365,19 +2345,14 @@ unsigned long long MC::Actor::LastHurtTimestamp::get()
 	return __ret;
 }
 
-MC::ActorUniqueID^ MC::Actor::LeashHolder::get()
+MC::ActorUniqueID MC::Actor::LeashHolder::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getLeashHolder();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getLeashHolder();
 }
 
-void MC::Actor::LeashHolder::set(MC::ActorUniqueID^ _0)
+void MC::Actor::LeashHolder::set(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setLeashHolder(__arg0);
+	((class ::Actor*)NativePtr)->setLeashHolder(_0);
 }
 
 int MC::Actor::LimitedLifetimeTicks::get()
@@ -2435,11 +2410,9 @@ MC::Mob^ MC::Actor::Owner::get()
 	return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob((class ::Mob*)__ret);
 }
 
-MC::ActorUniqueID^ MC::Actor::OwnerId::get()
+MC::ActorUniqueID MC::Actor::OwnerId::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getOwnerId();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getOwnerId();
 }
 
 int MC::Actor::PersistingTradeRiches::get()
@@ -2558,11 +2531,9 @@ void MC::Actor::StructuralIntegrity::set(int _0)
 	((class ::Actor*)NativePtr)->setStructuralIntegrity(_0);
 }
 
-MC::ActorUniqueID^ MC::Actor::TargetId::get()
+MC::ActorUniqueID MC::Actor::TargetId::get()
 {
-	auto __ret = ((class ::Actor*)NativePtr)->getTargetId();
-	auto ____ret = new struct ::ActorUniqueID(__ret);
-	return (____ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*)____ret, true);
+	return ((class ::Actor*)NativePtr)->getTargetId();
 }
 
 bool MC::Actor::TradeInterest::get()
@@ -2589,18 +2560,14 @@ void MC::Actor::TradingPlayer::set(MC::Player^ _0)
 	((class ::Actor*)NativePtr)->setTradingPlayer(__arg0);
 }
 
-MC::ActorUniqueID^ MC::Actor::UniqueID::get()
+MC::ActorUniqueID MC::Actor::UniqueID::get()
 {
-	auto& __ret = ((class ::Actor*)NativePtr)->getUniqueID();
-	return (MC::ActorUniqueID^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*) & __ret));
+	return ((class ::Actor*)NativePtr)->getUniqueID();
 }
 
-void MC::Actor::UniqueID::set(MC::ActorUniqueID^ _0)
+void MC::Actor::UniqueID::set(MC::ActorUniqueID _0)
 {
-	if (ReferenceEquals(_0, nullptr))
-		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is passed by value.");
-	auto __arg0 = *(struct ::ActorUniqueID*)_0->NativePtr;
-	((class ::Actor*)NativePtr)->setUniqueID(__arg0);
+	((class ::Actor*)NativePtr)->setUniqueID(_0);
 }
 
 int MC::Actor::Variant::get()
@@ -3142,10 +3109,9 @@ void MC::Actor::Walker::set(bool _0)
 	((class ::Actor*)NativePtr)->setWalker(_0);
 }
 
-MC::ActorUniqueID^ MC::Actor::LovePartnerId::get()
+MC::ActorUniqueID MC::Actor::LovePartnerId::get()
 {
-	auto& __ret = ((class ::Actor*)NativePtr)->lovePartnerId();
-	return (MC::ActorUniqueID^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ActorUniqueID((struct ::ActorUniqueID*) & __ret));
+	return ((class ::Actor*)NativePtr)->lovePartnerId();
 }
 
 float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()

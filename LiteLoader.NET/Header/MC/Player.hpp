@@ -246,9 +246,9 @@ namespace MC
 			bool get();
 		}
 
-		property MC::ActorUniqueID^ AgentID
+		property MC::ActorUniqueID AgentID
 		{
-			MC::ActorUniqueID^ get();
+			MC::ActorUniqueID get();
 		}
 
 		property MC::BlockPos BedPosition
@@ -350,9 +350,9 @@ namespace MC
 			MC::BlockPos get();
 		}
 
-		property ::System::Collections::Generic::List<MC::ActorUniqueID^>^ TrackedBosses
+		property ::System::Collections::Generic::List<MC::ActorUniqueID>^ TrackedBosses
 		{
-			::System::Collections::Generic::List<MC::ActorUniqueID^>^ get();
+			::System::Collections::Generic::List<MC::ActorUniqueID>^ get();
 		}
 
 		property bool UsedPotion
@@ -515,7 +515,7 @@ namespace MC
 
 		virtual bool ConsumeTotem() override;
 
-		virtual MC::ActorUniqueID^ GetSourceUniqueID();
+		virtual MC::ActorUniqueID GetSourceUniqueID();
 
 		virtual bool CanFreeze() override;
 
@@ -527,7 +527,7 @@ namespace MC
 
 		//virtual void UnkVfn181() override;
 
-		virtual MC::ActorUniqueID^ GetControllingPlayer();
+		virtual MC::ActorUniqueID GetControllingPlayer();
 
 		virtual void OnSynchedDataUpdate(int _0) override;
 
@@ -671,7 +671,7 @@ namespace MC
 
 		//virtual void UnkVfn385();
 
-		virtual void OpenTrading(MC::ActorUniqueID^ _0, bool _1);
+		virtual void OpenTrading(MC::ActorUniqueID _0, bool _1);
 
 		virtual bool CanOpenContainerScreen();
 
@@ -697,9 +697,9 @@ namespace MC
 
 		//virtual void UnkVfn406();
 
-		virtual void RegisterTrackedBoss(MC::ActorUniqueID^ _0);
+		virtual void RegisterTrackedBoss(MC::ActorUniqueID _0);
 
-		virtual void UnRegisterTrackedBoss(MC::ActorUniqueID^ _0);
+		virtual void UnRegisterTrackedBoss(MC::ActorUniqueID _0);
 
 		virtual void InitHUDContainerManager();
 

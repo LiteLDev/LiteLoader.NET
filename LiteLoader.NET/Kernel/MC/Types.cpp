@@ -6,24 +6,6 @@
 
 namespace MC
 {
-
-	ActorUniqueID^ ActorUniqueID::Create()
-	{
-		return gcnew ActorUniqueID(::ActorUniqueID());
-	}
-	ActorUniqueID^ ActorUniqueID::Create(long long i)
-	{
-		return gcnew ActorUniqueID(::ActorUniqueID(i));
-	}
-	inline long long ActorUniqueID::get()
-	{
-		return NativePtr->get();
-	}
-	inline ActorUniqueID::operator long long()
-	{
-		return ((long long)*NativePtr);
-	}
-
 	ActorRuntimeID::ActorRuntimeID()
 		: ClassTemplate(::ActorRuntimeID())
 	{
