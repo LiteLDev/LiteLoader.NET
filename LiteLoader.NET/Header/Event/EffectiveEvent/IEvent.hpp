@@ -7,6 +7,7 @@ namespace LLNET::Event::Effective
 
 	public interface class IEvent
 	{
-
+		property bool IsCancelled;
+		void Cancell();
 	};
 }

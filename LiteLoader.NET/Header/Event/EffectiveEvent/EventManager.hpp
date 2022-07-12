@@ -1,8 +1,38 @@
 #pragma once
 #include "include.hpp"
 
+constexpr int LOWEST = 0;
+constexpr int LOW = 1;
+constexpr int NORMAL = 2;
+constexpr int HIGH = 3;
+constexpr int HIGHEST = 4;
+constexpr int MONITOR = 5;
+
+#define CALL_FUNCTIONS(_eventPriority)								\
+	auto _eventPriority##funcs = functions[_eventPriority];			\
+	for each (auto func in _eventPriority##funcs)					\
+	{																\
+		if (func.Item2)												\
+			((void(*)(Object^))(void*)func.Item1)(ev);				\
+		else														\
+		{															\
+			if (!ev->IsCancelled)									\
+				((void(*)(Object^))(void*)func.Item1)(ev);			\
+		}															\
+	}
+
+
+
+
 namespace LLNET::Event::Effective
 {
+	public enum class EventCode
+	{
+		SUCCESS = 0,
+		UNREGISTERED,
+		UNKNOWN
+	};
+
 	public ref class EventManager sealed
 	{
 	public:
@@ -11,25 +41,20 @@ namespace LLNET::Event::Effective
 		generic<typename TListener> where TListener : IEventListener
 			static void RegisterListener();
 		generic<typename TEvent> where TEvent : IEvent
-			static void CallEvent(TEvent ev);
+			static EventCode CallEvent(TEvent ev);
 	private:
 
-		const int LOWEST = 0;
-		const int LOW = 1;
-		const int NORMAL = 2;
-		const int HIGH = 3;
-		const int HIGHEST = 4;
-		const int MONITOR = 5;
+		using __IgnoreCancelled = bool;
+		using __CallBackFunctionPointer = IntPtr;
+		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled>;
+		using __PermissionWithCallbackFunctions = array<List<__CallbackFunctionInfo>^>;
+		using __EventId = size_t;
+		using __EventManagerData = Dictionary<__EventId, __PermissionWithCallbackFunctions^>;
 
-		using CallBackFunctionPointer = IntPtr;
-		using PermissionWithCallbackFunctions = array<List<CallBackFunctionPointer>^>;
-		using EventId = size_t;
-		using EventManagerData = Dictionary<EventId, PermissionWithCallbackFunctions^>;
+		using __EventIds = Dictionary<System::Type^, __EventId>;
 
-		using EventIds = Dictionary<System::Type^, EventId>;
-
-		static EventManagerData eventManagerData;
-		static EventIds eventIds;
+		static __EventManagerData eventManagerData;
+		static __EventIds eventIds;
 		static System::Random rand;
 
 	private:
@@ -62,7 +87,7 @@ namespace LLNET::Event::Effective
 		{
 			do
 			{
-				eventId = EventId(rand.Next()) ^ EventId(rand.Next() & 7);
+				eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
 			} while (!eventIds.ContainsValue(eventId));
 
 			goto SKIP_CHECK;
@@ -74,7 +99,7 @@ namespace LLNET::Event::Effective
 	SKIP_CHECK:
 
 		eventIds.Add(eventType, eventId);
-		eventManagerData.Add(eventId, gcnew PermissionWithCallbackFunctions(6) { nullptr });
+		eventManagerData.Add(eventId, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
 	}
 
 
@@ -149,16 +174,30 @@ namespace LLNET::Event::Effective
 			auto callbackFuncArr = eventManagerData[eventId];
 
 			if (callbackFuncArr[eventPriority] == nullptr)
-				callbackFuncArr[eventPriority] = gcnew List<CallBackFunctionPointer>;
+				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
-			callbackFuncArr[eventPriority]->Add(method->MethodHandle.GetFunctionPointer());
+			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3));
 		}
 	}
 
 
+
 	generic<typename TEvent> where TEvent : IEvent
-		inline void EventManager::CallEvent(TEvent ev)
+		inline EventCode EventManager::CallEvent(TEvent ev)
 	{
-		throw gcnew System::NotImplementedException();
+		auto eventType = TEvent::typeid;
+		if (!eventIds.ContainsKey(eventType))
+			return EventCode::UNREGISTERED;
+
+		auto functions = eventManagerData[eventIds[eventType]];
+
+		CALL_FUNCTIONS(LOWEST);
+		CALL_FUNCTIONS(LOW);
+		CALL_FUNCTIONS(NORMAL);
+		CALL_FUNCTIONS(HIGH);
+		CALL_FUNCTIONS(HIGHEST);
+		CALL_FUNCTIONS(MONITOR);
+
+		return EventCode::SUCCESS;
 	}
 }
