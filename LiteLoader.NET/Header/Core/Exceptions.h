@@ -111,4 +111,28 @@ namespace LLNET::Core
 		{
 		}
 	};
+
+	public ref class EventException
+		:LiteLoaderDotNETException
+	{
+	public:
+		EventException(System::String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+		EventException()
+			:LiteLoaderDotNETException()
+		{
+		}
+	};
+
+	public ref class RegisterEventException
+		:EventException
+	{
+	public:
+		RegisterEventException(System::String^ message)
+			:EventException(message)
+		{
+		}
+	};
 }

@@ -3,6 +3,8 @@
 
 namespace LLNET::Event::Effective
 {
+	using namespace LLNET::Core;
+
 	public interface class IEvent
 	{
 
