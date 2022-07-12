@@ -1,4 +1,5 @@
 #pragma once
+#include "../../../Main/.NETGlobal.hpp"
 
 namespace LLNET::Event::Effective
 {
