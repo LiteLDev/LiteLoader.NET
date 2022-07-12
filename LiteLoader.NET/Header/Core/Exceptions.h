@@ -135,4 +135,14 @@ namespace LLNET::Core
 		{
 		}
 	};
+
+	public ref class RegisterEventListenerException
+		:EventException
+	{
+	public:
+		RegisterEventListenerException(System::String^ message)
+			:EventException(message)
+		{
+		}
+	};
 }
