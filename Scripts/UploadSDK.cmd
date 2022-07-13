@@ -31,7 +31,7 @@ echo LL_NOW_TAG_LONG %LL_NOW_TAG_LONG%
 echo LL_NOW_TAG %LL_NOW_TAG%
 echo.
 
-if not exist LiteLoader.NETSDK/LiteLoader.NET.dll (
+if not exist LiteLoader.NETSDK\LiteLoader.NET.dll (
     echo [WARNING] LiteLoader.NETSDK files no found. Pulling from remote...
     echo.
     git clone %LL_SDK_REMOTE_PATH%
@@ -48,9 +48,9 @@ echo [INFO] Fetching LiteLoader.NETSDK to GitHub finished
 echo.
 
 @REM if [%1] neq [action] (
+    cd Scripts
     echo [INFO] Packing LiteLoader.NETSDK ...
-    copy /Y x64\Release\LiteLoader.NET.dll LiteLoader.NETSDK\LiteLoader.NET.dll
-    copy /Y x64\Release\LiteLoader.NET.xml LiteLoader.NETSDK\LiteLoader.NET.xml
+    start /wait cmd /c PackSDK.cmd
     echo [INFO] Packing LiteLoader.NETSDK finished.
     echo.
     cd ..
@@ -63,10 +63,10 @@ if "%LL_SDK_NOW_STATUS%" neq "" (
     echo.
     git add .
     if "%LL_SDK_NOW_BRANCH%" == "main" (
-        git commit -m "From LiteLoader %LL_NOW_TAG%"
+        git commit -m "From LiteLoader.NET %LL_NOW_TAG%"
         git tag %LL_NOW_TAG%
     ) else (
-        git commit -m "From LiteLoader %LL_NOW_TAG_LONG%"
+        git commit -m "From LiteLoader.NET %LL_NOW_TAG_LONG%"
     )
     echo.
     echo [INFO] Pushing to origin...
