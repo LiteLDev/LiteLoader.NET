@@ -70,12 +70,6 @@
     <Filter Include="Kernel\MC\NetWork">
       <UniqueIdentifier>{f93ff546-a821-4659-9187-52530b76b1c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\Event">
-      <UniqueIdentifier>{1f247153-bd56-4e44-837f-388cd13c1e36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header\Event\EffectiveEvent">
-      <UniqueIdentifier>{e70dde21-b367-4d5e-a5a5-66b6ba4be02f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -760,36 +754,6 @@
     </ClInclude>
     <ClInclude Include="Header\GlobalSurvice.hpp">
       <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\Event.hpp">
-      <Filter>Header\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\include.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
