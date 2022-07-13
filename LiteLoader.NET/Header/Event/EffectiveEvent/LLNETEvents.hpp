@@ -103,8 +103,25 @@
         }																	\
     }
 
-#define IEventAPIs virtual property bool IsCancelled; virtual void Cancell() { IsCancelled = true; }
-#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className
+#define IEventAPIs															\
+virtual property bool IsCancelled											\
+{																			\
+	bool get()																\
+	{																		\
+		return NativeEventIsCancelledManager::get(this->GetHashCode());		\
+	}																		\
+	void set(bool value)													\
+	{																		\
+		NativeEventIsCancelledManager::set(this->GetHashCode(), value);		\
+	}																		\
+}																			\
+virtual void Cancell()														\
+{																			\
+	NativeEventIsCancelledManager::set(this->GetHashCode(), true);			\
+}
+
+
+#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent
 
 
 namespace LLNET::Event::Effective::NativeEvents

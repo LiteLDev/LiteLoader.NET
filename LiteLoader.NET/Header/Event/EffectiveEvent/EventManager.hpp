@@ -21,40 +21,19 @@ constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | I
 
 
 
-#define CALL_FUNCTIONS(_eventPriority)								\
-	auto _eventPriority##funcs = functions[_eventPriority];			\
-	if(_eventPriority##funcs == nullptr)							\
-		goto SKIP_CALL_##_eventPriority;							\
-	for each (auto func in _eventPriority##funcs)					\
-	{																\
-		if(!func.Item3)												\
-		{															\
-			if (func.Item2)											\
-				((void(*)(TEvent))(void*)func.Item1)(ev);			\
-			else													\
-			{														\
-				if (!ev->IsCancelled)								\
-					((void(*)(TEvent))(void*)func.Item1)(ev);		\
-			}														\
-		}															\
-		else														\
-		{															\
-			if (func.Item2)											\
-				((void(*)(TEvent%))(void*)func.Item1)(ev);			\
-			else													\
-			{														\
-				if (!ev->IsCancelled)								\
-					((void(*)(TEvent%))(void*)func.Item1)(ev);		\
-			}														\
-		}															\
-	}																\
-	SKIP_CALL_##_eventPriority:
-
-
-
-
 namespace LLNET::Event::Effective
 {
+
+	ref class NativeEventIsCancelledManager sealed
+	{
+	internal:
+		static Dictionary<int, bool> IsCancelledData;
+
+		inline static void set(int hashcode, bool isCancelled);
+		inline static bool get(int hashcode);
+		inline static void add(int hashcode, bool isCancelled);
+	};
+
 	public enum class EventCode
 	{
 		SUCCESS = 0,
@@ -248,7 +227,7 @@ namespace LLNET::Event::Effective
 				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (func.Item4 ? IS_INSTANCE : 0);
 				switch (callingmode)
 				{
-				case NORMAL:
+				case IS_NORMAL:
 
 					((void(*)(TEvent))(void*)func.Item1)(ev);
 					break;
@@ -297,5 +276,20 @@ namespace LLNET::Event::Effective
 
 
 		return EventCode::SUCCESS;
+	}
+
+	inline void NativeEventIsCancelledManager::set(int hashcode, bool isCancelled)
+	{
+		IsCancelledData[hashcode] = isCancelled;
+	}
+
+	inline bool NativeEventIsCancelledManager::get(int hashcode)
+	{
+		return IsCancelledData[hashcode];
+	}
+
+	inline void NativeEventIsCancelledManager::add(int hashcode, bool isCancelled)
+	{
+		IsCancelledData.Add(hashcode, isCancelled);
 	}
 }
