@@ -10,16 +10,32 @@ constexpr int MONITOR = 5;
 
 #define CALL_FUNCTIONS(_eventPriority)								\
 	auto _eventPriority##funcs = functions[_eventPriority];			\
+	if(_eventPriority##funcs == nullptr)							\
+		goto SKIP_CALL_##_eventPriority;							\
 	for each (auto func in _eventPriority##funcs)					\
 	{																\
-		if (func.Item2)												\
-			((void(*)(Object^))(void*)func.Item1)(ev);				\
+		if(!func.Item3)												\
+		{															\
+			if (func.Item2)											\
+				((void(*)(TEvent))(void*)func.Item1)(ev);			\
+			else													\
+			{														\
+				if (!ev->IsCancelled)								\
+					((void(*)(TEvent))(void*)func.Item1)(ev);		\
+			}														\
+		}															\
 		else														\
 		{															\
-			if (!ev->IsCancelled)									\
-				((void(*)(Object^))(void*)func.Item1)(ev);			\
+			if (func.Item2)											\
+				((void(*)(TEvent%))(void*)func.Item1)(ev);			\
+			else													\
+			{														\
+				if (!ev->IsCancelled)								\
+					((void(*)(TEvent%))(void*)func.Item1)(ev);		\
+			}														\
 		}															\
-	}
+	}																\
+	SKIP_CALL_##_eventPriority:
 
 
 
@@ -45,8 +61,9 @@ namespace LLNET::Event::Effective
 	private:
 
 		using __IgnoreCancelled = bool;
+		using __IsRef = bool;
 		using __CallBackFunctionPointer = IntPtr;
-		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled>;
+		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled, __IsRef>;
 		using __PermissionWithCallbackFunctions = array<List<__CallbackFunctionInfo>^>;
 		using __EventId = size_t;
 		using __EventManagerData = Dictionary<__EventId, __PermissionWithCallbackFunctions^>;
@@ -88,7 +105,7 @@ namespace LLNET::Event::Effective
 			do
 			{
 				eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
-			} while (!eventIds.ContainsValue(eventId));
+			} while (eventIds.ContainsValue(eventId));
 
 			goto SKIP_CHECK;
 		}
@@ -150,7 +167,16 @@ namespace LLNET::Event::Effective
 			if (methodParam->Length != 1)
 				goto PARAM_CHECK_FAILED;
 
-			auto paramInterfaces = methodParam[0]->ParameterType->GetInterfaces();
+			__IsRef isref = false;
+			auto paramType = methodParam[0]->ParameterType;
+
+			if (paramType->IsByRef)
+			{
+				isref = true;
+				paramType = paramType->GetElementType();
+			}
+
+			auto paramInterfaces = paramType->GetInterfaces();
 			for each (auto Interface in paramInterfaces)
 			{
 				if (Interface == IEvent::typeid)
@@ -163,12 +189,10 @@ namespace LLNET::Event::Effective
 			}
 		PARAM_CHECK_SUCCEED:
 
-			auto  eventType = methodParam[0]->ParameterType;
+			if (!eventIds.ContainsKey(paramType))
+				_registerEvent(paramType);
 
-			if (!eventIds.ContainsKey(eventType))
-				_registerEvent(eventType);
-
-			auto eventId = eventIds[eventType];
+			auto eventId = eventIds[paramType];
 			auto eventPriority = (int)methodData.Item2;
 
 			auto callbackFuncArr = eventManagerData[eventId];
@@ -176,7 +200,7 @@ namespace LLNET::Event::Effective
 			if (callbackFuncArr[eventPriority] == nullptr)
 				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
-			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3));
+			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref));
 		}
 	}
 
