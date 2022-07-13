@@ -8,6 +8,19 @@ constexpr int HIGH = 3;
 constexpr int HIGHEST = 4;
 constexpr int MONITOR = 5;
 
+
+
+constexpr int IS_NORMAL = 0;
+constexpr int IS_INSTANCE = 64;
+constexpr int IS_REF = 128;
+constexpr int IS_IGNORECANCELLED = 256;
+constexpr int IS_INSTANCE_AND_REF = IS_INSTANCE | IS_REF;
+constexpr int IS_INSTANCE_AND_IGNORECANCELLED = IS_INSTANCE | IS_IGNORECANCELLED;
+constexpr int IS_REF_AND_IGNORECANCELLED = IS_REF | IS_IGNORECANCELLED;
+constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | IS_IGNORECANCELLED;
+
+
+
 #define CALL_FUNCTIONS(_eventPriority)								\
 	auto _eventPriority##funcs = functions[_eventPriority];			\
 	if(_eventPriority##funcs == nullptr)							\
@@ -62,8 +75,10 @@ namespace LLNET::Event::Effective
 
 		using __IgnoreCancelled = bool;
 		using __IsRef = bool;
+		using __IsInstance = bool;
 		using __CallBackFunctionPointer = IntPtr;
-		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled, __IsRef>;
+		using __ListenerType = System::Type;
+		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled, __IsRef, __IsInstance, __ListenerType^>;
 		using __PermissionWithCallbackFunctions = array<List<__CallbackFunctionInfo>^>;
 		using __EventId = size_t;
 		using __EventManagerData = Dictionary<__EventId, __PermissionWithCallbackFunctions^>;
@@ -97,36 +112,18 @@ namespace LLNET::Event::Effective
 
 	void EventManager::_registerEvent(System::Type^ eventType)
 	{
-		auto eventAttrArr = eventType->GetCustomAttributes(EventAttribute::typeid, false);
-		if (eventAttrArr->Length < 1)
-			throw gcnew RegisterEventException("Missing EventAttribute!  at Event:<" + eventType->Name + ">");
+		__EventId eventId = 0;
 
-		auto eventAttr = static_cast<EventAttribute^>(eventAttrArr[0]);
-		auto eventId = eventAttr->Id;
-		if (eventId == 0)
+	RE_GENERATE_EVENTID:
+		do
 		{
-		RE_GENERATE_EVENTID:
-			do
-			{
-				eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
-			} while (eventIds.ContainsValue(eventId));
+			eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
+		} while (eventIds.ContainsValue(eventId));
 
-			if (0 < eventId && eventId <= 128)
-			{
-				goto RE_GENERATE_EVENTID;
-			}
-
-			goto SKIP_CHECK;
-		}
-
-		if (eventIds.ContainsValue(eventId))
-			throw gcnew RegisterEventException("EventId is already exists!  at Event:<" + eventType->Name + ">");
-		if ((0 < eventId && eventId <= 128))
+		if (0 < eventId && eventId <= 128)
 		{
-			throw gcnew RegisterEventException("Event occupied reserved EventIds[1--128]!  at Event:<" + eventType->Name + ">");
+			goto RE_GENERATE_EVENTID;
 		}
-
-	SKIP_CHECK:
 
 		eventIds.Add(eventType, eventId);
 		eventManagerData.Add(eventId, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
@@ -150,7 +147,7 @@ namespace LLNET::Event::Effective
 			BindingFlags::Static |
 			BindingFlags::Instance);
 
-		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, bool>>;
+		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, bool, bool>>;
 
 		for each (auto method in Methods)
 		{
@@ -160,14 +157,19 @@ namespace LLNET::Event::Effective
 			else
 			{
 				if (!method->IsStatic)
-					throw gcnew RegisterEventListenerException("Listener must be static!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+				{
+					auto defaultCtor = listenerType->GetConstructor(System::Array::Empty<System::Type^>());
+					if (defaultCtor == nullptr)
+						throw gcnew RegisterEventListenerException("Listener must be static or it's class must have default constructor!");
+				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
-				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool>
+				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool, bool>
 				{
 					method,
 						evHandlerAttr->Priority,
-						evHandlerAttr->IgnoreCancelled
+						evHandlerAttr->IgnoreCancelled,
+						!method->IsStatic
 				});
 			}
 		}
@@ -220,7 +222,7 @@ namespace LLNET::Event::Effective
 			if (callbackFuncArr[eventPriority] == nullptr)
 				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
-			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref));
+			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref, methodData.Item4, methodData.Item4 ? listenerType : nullptr));
 		}
 	}
 
@@ -234,13 +236,65 @@ namespace LLNET::Event::Effective
 			return EventCode::UNREGISTERED;
 
 		auto functions = eventManagerData[eventIds[eventType]];
+		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
 
-		CALL_FUNCTIONS(LOWEST);
-		CALL_FUNCTIONS(LOW);
-		CALL_FUNCTIONS(NORMAL);
-		CALL_FUNCTIONS(HIGH);
-		CALL_FUNCTIONS(HIGHEST);
-		CALL_FUNCTIONS(MONITOR);
+		for (int i = 0; i < 6; i++)
+		{
+			auto funcs = pfunctions[i];
+			if (funcs == nullptr)
+				continue;
+			for each (auto func in funcs)
+			{
+				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (func.Item4 ? IS_INSTANCE : 0);
+				switch (callingmode)
+				{
+				case NORMAL:
+
+					((void(*)(TEvent))(void*)func.Item1)(ev);
+					break;
+
+				case IS_INSTANCE:
+
+					((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+					break;
+
+				case IS_REF:
+
+					((void(*)(TEvent%))(void*)func.Item1)(ev);
+					break;
+
+				case IS_IGNORECANCELLED:
+
+					if (!ev->IsCancelled)
+						((void(*)(TEvent))(void*)func.Item1)(ev);
+					break;
+
+				case IS_INSTANCE_AND_REF:
+
+					((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+					break;
+
+				case IS_INSTANCE_AND_IGNORECANCELLED:
+
+					if (!ev->IsCancelled)
+						((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+					break;
+
+				case IS_REF_AND_IGNORECANCELLED:
+
+					if (!ev->IsCancelled)
+						((void(*)(TEvent%))(void*)func.Item1)(ev);
+					break;
+
+				case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+
+					if (!ev->IsCancelled)
+						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+					break;
+				}
+			}
+		}
+
 
 		return EventCode::SUCCESS;
 	}

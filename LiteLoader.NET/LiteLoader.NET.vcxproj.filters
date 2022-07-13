@@ -773,9 +773,6 @@
     <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
@@ -788,7 +785,7 @@
     <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp">
+    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
   </ItemGroup>
