@@ -1,7 +1,4 @@
 #pragma once
-#include "include.hpp"
-#include "EventListener.hpp"
-#include "EventCallbackHandler.hpp"
 
 namespace LLNET::Event::Effective
 {
@@ -10,4 +7,8 @@ namespace LLNET::Event::Effective
 
 namespace LLNET::Event::Effective
 {
+	interface class INativeEvent
+	{
+
+	};
 }

@@ -58,7 +58,7 @@ namespace LLNET::Event::Effective
 			static void RegisterListener();
 		generic<typename TEvent> where TEvent : IEvent
 			static EventCode CallEvent(TEvent ev);
-	private:
+	internal:
 
 		using __IgnoreCancelled = bool;
 		using __IsRef = bool;
@@ -76,6 +76,9 @@ namespace LLNET::Event::Effective
 
 	private:
 		static void _registerEvent(System::Type^ eventType);
+	internal:
+		generic<typename TEvent> where TEvent : IEvent, INativeEvent
+			static void RegisterEventInternal(__EventId id);
 	};
 }
 
@@ -102,21 +105,38 @@ namespace LLNET::Event::Effective
 		auto eventId = eventAttr->Id;
 		if (eventId == 0)
 		{
+		RE_GENERATE_EVENTID:
 			do
 			{
 				eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
 			} while (eventIds.ContainsValue(eventId));
+
+			if (0 < eventId && eventId <= 128)
+			{
+				goto RE_GENERATE_EVENTID;
+			}
 
 			goto SKIP_CHECK;
 		}
 
 		if (eventIds.ContainsValue(eventId))
 			throw gcnew RegisterEventException("EventId is already exists!  at Event:<" + eventType->Name + ">");
+		if ((0 < eventId && eventId <= 128))
+		{
+			throw gcnew RegisterEventException("Event occupied reserved EventIds[1--128]!  at Event:<" + eventType->Name + ">");
+		}
 
 	SKIP_CHECK:
 
 		eventIds.Add(eventType, eventId);
 		eventManagerData.Add(eventId, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
+	}
+
+	generic<typename TEvent> where TEvent : IEvent, INativeEvent
+		inline void EventManager::RegisterEventInternal(__EventId id)
+	{
+		eventIds.Add(TEvent::typeid, id);
+		eventManagerData.Add(id, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
 	}
 
 

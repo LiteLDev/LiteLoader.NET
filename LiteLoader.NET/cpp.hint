@@ -43,3 +43,28 @@
 #define __METHOD_INFO(name, funcname) static initonly MethodInfo^ name = RemoteCallFunctionRegisterBase::typeid->GetMethod(#funcname)
 #define oc
 #define __INLINE [MethodImpl(MethodImplOptions::AggressiveInlining)] inline
+#define IEventAPIs virtual property bool IsCancelled; virtual void Cancell() { IsCancelled = true; }
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define IEventAPIs virtual property bool IsCancelled; virtual void Cancell() { IsCancelled = true; }
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define __PROPERTY_POINTER(managedType, nativeType, managedName, nativeName) property managedType^ managedName { managedType^ get() { return gcnew managedType(nativeName); } void set(managedType^ value) { nativeName = value->NativePtr; } }
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define _Property_Ptr(type, name) __PROPERTY_POINTER(MC::type,::type,name,m##type);
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define _Property_String(name) __PROPERTY_STRING(name,m##name);
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define _Property_Instance(type, name) __PROPERTY_INSTANCE(MC::type,type,name,m##name);
