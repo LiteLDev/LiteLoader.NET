@@ -66,9 +66,9 @@ public:
         }
     }
     property String ^ Name {
-        String ^ get() { return marshalString<Encoding::E_UTF8>(NativePtr->name); } void set(String ^ val)
+        String ^ get() { return marshalString(NativePtr->name); } void set(String ^ val)
         {
-            NativePtr->name = marshalString<Encoding::E_UTF8>(val);
+            NativePtr->name = marshalString(val);
         }
     };
     property System::IntPtr Desc
@@ -155,9 +155,9 @@ public:
               return gcnew CommandParameterData(::CommandParameterData(
                   ::typeid_t<::CommandRegistry>(tid.value),
                   *parser.p,
-                  marshalString<Encoding::E_UTF8>(describe),
+                  marshalString(describe),
                   ::CommandParameterDataType(type),
-                  marshalString<Encoding::E_UTF8>(enumName).c_str(),
+                  marshalString(enumName).c_str(),
                   offset,
                   optional,
                   flag_offset));

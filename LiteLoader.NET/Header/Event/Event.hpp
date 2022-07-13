@@ -199,7 +199,7 @@ namespace LLNET::Event
 					auto pfunc = static_cast<NativeCallbackFunc_ref>(_ptr->ToPointer());
 					Listener = gcnew __EventListener<NATIVEEVENT>(
 						::Event::EventManager<NATIVEEVENT>::addEventListenerRef(
-							pluginName ? marshalString<Encoding::E_UTF8>(pluginName) : "",
+							pluginName ? marshalString(pluginName) : "",
 							pfunc));
 				}
 				break;
@@ -211,7 +211,7 @@ namespace LLNET::Event
 					auto pfunc = static_cast<NativeCallbackFunc>(_ptr->ToPointer());
 					Listener = gcnew __EventListener<NATIVEEVENT>(
 						::Event::EventManager<NATIVEEVENT>::addEventListener(
-							pluginName ? marshalString<Encoding::E_UTF8>(pluginName) : "",
+							pluginName ? marshalString(pluginName) : "",
 							pfunc));
 				}
 				break;
@@ -320,6 +320,7 @@ public        \
 		Property_Ptr(MC, ItemStack, mItemStack, ItemStack);
 		Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
 		Property(char, mFace, Face);
+		Property_ValueType(MC, Vec3, mClickPos, ClickPos);
 	};
 
 	Class PlayerChatEvent

@@ -11,15 +11,15 @@ namespace MC
 {
 inline void CommandOutput::AddMessage(String^ str)
 {
-    NativePtr->addMessage(marshalString<Encoding::E_UTF8>(str));
+    NativePtr->addMessage(marshalString(str));
 }
 inline void CommandOutput::Success(String^ str)
 {
-    NativePtr->success(marshalString<Encoding::E_UTF8>(str));
+    NativePtr->success(marshalString(str));
 }
 inline void CommandOutput::Error(String^ str)
 {
-    NativePtr->error(marshalString<Encoding::E_UTF8>(str));
+    NativePtr->error(marshalString(str));
 }
 inline CommandOutput ^ CommandOutput::Create(CommandOutput ^ co)
 {
@@ -28,12 +28,12 @@ inline CommandOutput ^ CommandOutput::Create(CommandOutput ^ co)
 
 inline void CommandOutput::AddToResultList(String^ str0, String^ str1)
 {
-    NativePtr->addToResultList(marshalString<Encoding::E_UTF8>(str0), marshalString<Encoding::E_UTF8>(str1));
+    NativePtr->addToResultList(marshalString(str0), marshalString(str1));
 }
 
 inline void CommandOutput::AddToResultList(String^ str, Actor ^ ac)
 {
-    NativePtr->addToResultList(marshalString<Encoding::E_UTF8>(str), ac);
+    NativePtr->addToResultList(marshalString(str), ac);
 }
 
 inline bool CommandOutput::IsEmpty::get()
@@ -47,7 +47,7 @@ inline void CommandOutput::Error(String^ str, List<CommandOutputParameter ^> ^ c
     std::vector<::CommandOutputParameter> stdvector;
     for (int i = 0; i < len; i++)
         stdvector.emplace_back(std::move(*(coplist[i]->NativePtr)));
-    NativePtr->error(marshalString<Encoding::E_UTF8>(str), stdvector);
+    NativePtr->error(marshalString(str), stdvector);
 }
 
 inline void CommandOutput::ForceOutput(String^ str, List<CommandOutputParameter ^> ^ coplist)
@@ -56,7 +56,7 @@ inline void CommandOutput::ForceOutput(String^ str, List<CommandOutputParameter 
     std::vector<::CommandOutputParameter> stdvector;
     for (int i = 0; i < len; i++)
         stdvector.emplace_back(*(coplist[i]->NativePtr));
-    NativePtr->forceOutput(marshalString<Encoding::E_UTF8>(str), stdvector);
+    NativePtr->forceOutput(marshalString(str), stdvector);
 }
 
 inline CommandPropertyBag ^ CommandOutput::Data::get()
@@ -104,7 +104,7 @@ inline void CommandOutput::Success(String^ str, List<CommandOutputParameter ^> ^
     std::vector<::CommandOutputParameter> stdvector;
     for (int i = 0; i < len; i++)
         stdvector.emplace_back(*coplist[i]->NativePtr);
-    NativePtr->success(marshalString<Encoding::E_UTF8>(str), stdvector);
+    NativePtr->success(marshalString(str), stdvector);
 }
 
 inline void CommandOutput::Success()

@@ -18,7 +18,7 @@ namespace MC
 {
 	String^ Actor::TypeName::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getTypeName());
+		return marshalString(NativePtr->getTypeName());
 	}
 
 	inline Vec3 Actor::Position::get()
@@ -63,7 +63,7 @@ namespace MC
 		auto Tags = gcnew List<String^>(int(len));
 		for (auto i = 0; i < len; i++)
 		{
-			Tags[i] = marshalString<Encoding::E_UTF8>(stdTags[i]);
+			Tags[i] = marshalString(stdTags[i]);
 		}
 		return Tags;
 	}
@@ -164,7 +164,7 @@ namespace MC
 	}
 	inline bool Actor::HasTag(String^ tag)
 	{
-		return NativePtr->hasTag(marshalString<Encoding::E_UTF8>(tag));
+		return NativePtr->hasTag(marshalString(tag));
 	}
 	inline bool Actor::HurtEntity(float damage)
 	{
@@ -180,7 +180,7 @@ namespace MC
 	}
 	inline bool Actor::Rename(String^ name)
 	{
-		return NativePtr->rename(marshalString<Encoding::E_UTF8>(name));
+		return NativePtr->rename(marshalString(name));
 	}
 	inline float Actor::QuickEvalMolangScript(String^ expression)
 	{
@@ -262,9 +262,9 @@ float MC::Actor::GetInterpolatedBodyYaw(float _0)
 //    ((class ::Actor*)NativePtr)->__unk_vfn_40();
 //}
 
-void MC::Actor::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3)
+void MC::Actor::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3, bool _4)
 {
-	((class ::Actor*)NativePtr)->teleportTo(_0, _1, _2, _3);
+	((class ::Actor*)NativePtr)->teleportTo(_0, _1, _2, _3, _4);
 }
 
 void MC::Actor::NormalTick()
@@ -1259,7 +1259,7 @@ bool MC::Actor::IsInsideBorderBlock(float _0)
 
 bool MC::Actor::IsPassenger(MC::ActorUniqueID _0)
 {
-	return ((class ::Actor*)NativePtr)->isPassenger(_0);
+	return NativePtr->isPassenger(*::Level::getEntity(_0));
 }
 
 bool MC::Actor::IsPassenger(MC::Actor^ _0)
@@ -1358,9 +1358,9 @@ bool MC::Actor::Equals(::System::Object^ obj)
 	return this == safe_cast<MC::Actor^>(obj);
 }
 
-void MC::Actor::PositionAllPassengers()
+void MC::Actor::PositionAllPassengers(bool a1)
 {
-	((class ::Actor*)NativePtr)->positionAllPassengers();
+	((class ::Actor*)NativePtr)->positionAllPassengers(a1);
 }
 
 bool MC::Actor::PullInEntity(MC::Actor^ _0)
@@ -1719,12 +1719,12 @@ void MC::Actor::Target::set(MC::Actor^ _0)
 	((class ::Actor*)NativePtr)->setTarget(__arg0);
 }
 
-MC::Actor^ MC::Actor::FindAttackTarget::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->findAttackTarget();
-	if (__ret == nullptr) return nullptr;
-	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
-}
+//MC::Actor^ MC::Actor::FindAttackTarget::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->findAttackTarget();
+//	if (__ret == nullptr) return nullptr;
+//	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+//}
 
 bool MC::Actor::CanPowerJump::get()
 {

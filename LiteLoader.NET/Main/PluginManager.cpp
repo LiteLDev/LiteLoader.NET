@@ -1,6 +1,7 @@
 #include "PluginManager.h"
 #include "../Header/Core/Exceptions.h"
 #include "../Extra/PluginManager.h"
+#include <filesystem>
 
 namespace LLNET
 {
@@ -32,7 +33,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
-			Global::ManagedPluginHandler->TryAdd(Asm, IntPtr(handle));
+			GlobalClass::ManagedPluginHandler->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;

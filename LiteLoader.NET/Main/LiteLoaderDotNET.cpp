@@ -11,10 +11,10 @@ extern void LoadMain();
 
 
 #pragma unmanaged
-void LoadConfigFile()
-{
-    auto content = ReadAllFile(LITELOADER_CONFIG_FILE);
-}
+//void LoadConfigFile()
+//{
+//    auto content = ReadAllFile(LITELOADER_CONFIG_FILE);
+//}
 
 #pragma unmanaged
 void entry()

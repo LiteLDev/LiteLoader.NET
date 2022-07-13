@@ -22,7 +22,7 @@ Tag::Type Tag::TagType::get()
 
 inline String^ Tag::ToJson(int formatIndent)
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->toJson(formatIndent));
+    return marshalString(NativePtr->toJson(formatIndent));
 }
 
 inline EndTag ^ Tag::AsEndTag()

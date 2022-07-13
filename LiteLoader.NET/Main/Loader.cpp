@@ -52,7 +52,7 @@ void LoadMain()
 void Init(Logger& logger)
 {
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
-	Global::ManagedPluginHandler->TryAdd(Assembly::GetExecutingAssembly(), IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
+	GlobalClass::ManagedPluginHandler->TryAdd(Assembly::GetExecutingAssembly(), IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
 }
 
 
@@ -70,7 +70,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 		return Assembly::LoadFrom(llLibPath);
 	}
 
-	auto customPaths = Global::CustomLibPath[args->RequestingAssembly];
+	auto customPaths = GlobalClass::CustomLibPath[args->RequestingAssembly];
 	for each (auto customPath in customPaths)
 	{
 		auto libPath = System::IO::Path::Combine(customPath, assemblyName.Name + ".dll");
@@ -103,7 +103,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
 
-			Global::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
+			GlobalClass::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
 
 			auto succeed = LoadByDefaultEntry(logger, Asm);
 			if (!succeed)

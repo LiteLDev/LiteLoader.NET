@@ -9,7 +9,7 @@ namespace MC
 {
 inline Block ^ Block::Create(const String ^ str, unsigned short tileData)
 {
-    return gcnew Block(::Block::create(marshalString<Encoding::E_UTF8>((String ^) str), tileData));
+    return gcnew Block(::Block::create(marshalString((String ^) str), tileData));
 }
 
 inline Block ^ Block::Create(CompoundTag ^ nbt)
@@ -19,7 +19,7 @@ inline Block ^ Block::Create(CompoundTag ^ nbt)
 
 inline String ^ Block::TypeName::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->getTypeName());
+    return marshalString(NativePtr->getTypeName());
 }
 
 inline int Block::Id::get()
@@ -144,29 +144,29 @@ bool MC::Block::IsPreservingMediumWhenPlaced(MC::Block ^ _0)
     return __ret;
 }
 
-bool MC::Block::operator!=(MC::Block ^ __op, MC::Block ^ _0)
-{
-    bool __opNull = ReferenceEquals(__op, nullptr);
-    bool _0Null = ReferenceEquals(_0, nullptr);
-    if (__opNull || _0Null)
-        return !(__opNull && _0Null);
-    auto& __arg0 = *(class ::Block*)__op->NativePtr;
-    auto& __arg1 = *(class ::Block*)_0->NativePtr;
-    auto __ret = __arg0 != __arg1;
-    return __ret;
-}
-
-bool MC::Block::operator==(MC::Block ^ __op, MC::Block ^ _0)
-{
-    bool __opNull = ReferenceEquals(__op, nullptr);
-    bool _0Null = ReferenceEquals(_0, nullptr);
-    if (__opNull || _0Null)
-        return __opNull && _0Null;
-    auto& __arg0 = *(class ::Block*)__op->NativePtr;
-    auto& __arg1 = *(class ::Block*)_0->NativePtr;
-    auto __ret = __arg0 == __arg1;
-    return __ret;
-}
+//bool MC::Block::operator!=(MC::Block ^ __op, MC::Block ^ _0)
+//{
+//    bool __opNull = ReferenceEquals(__op, nullptr);
+//    bool _0Null = ReferenceEquals(_0, nullptr);
+//    if (__opNull || _0Null)
+//        return !(__opNull && _0Null);
+//    auto& __arg0 = *(class ::Block*)__op->NativePtr;
+//    auto& __arg1 = *(class ::Block*)_0->NativePtr;
+//    auto __ret = __arg0 != __arg1;
+//    return __ret;
+//}
+//
+//bool MC::Block::operator==(MC::Block ^ __op, MC::Block ^ _0)
+//{
+//    bool __opNull = ReferenceEquals(__op, nullptr);
+//    bool _0Null = ReferenceEquals(_0, nullptr);
+//    if (__opNull || _0Null)
+//        return __opNull && _0Null;
+//    auto& __arg0 = *(class ::Block*)__op->NativePtr;
+//    auto& __arg1 = *(class ::Block*)_0->NativePtr;
+//    auto __ret = __arg0 == __arg1;
+//    return __ret;
+//}
 
 bool MC::Block::Equals(::System::Object ^ obj)
 {

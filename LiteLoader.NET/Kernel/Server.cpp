@@ -3,7 +3,7 @@ namespace LLNET::LL
 {
 inline String^ ServerAPI::GetBdsVersion()
 {
-    return marshalString<Encoding::E_UTF8>(::LL::getBdsVersion());
+    return marshalString(::LL::getBdsVersion());
 }
 
 inline int ServerAPI::GetServerProtocolVersion()
@@ -13,7 +13,7 @@ inline int ServerAPI::GetServerProtocolVersion()
 
 inline bool ServerAPI::SetServerMotd(String^ d)
 {
-    return ::LL::setServerMotd(marshalString<Encoding::E_UTF8>(d));
+    return ::LL::setServerMotd(marshalString(d));
 }
 
 } // namespace LLNET::LL

@@ -14,26 +14,26 @@ namespace MC {
 	[StructLayout(LayoutKind::Sequential, Size = sizeof(::AABB))]
 	public value class AABB {
 	internal:
-		operator ::AABB() { return { pointA.operator ::Vec3(),pointB.operator ::Vec3() }; }
-		static operator AABB(::AABB const& obj) { return AABB(obj.pointA, obj.pointB); }
-		AABB(::AABB&& obj) :pointA(obj.pointA), pointB(obj.pointB) {}
-		AABB(::AABB const& obj) :pointA(obj.pointA), pointB(obj.pointB) {}
+		operator ::AABB() { return { min.operator ::Vec3(),max.operator ::Vec3() }; }
+		static operator AABB(::AABB const& obj) { return AABB(obj.min, obj.max); }
+		AABB(::AABB&& obj) :min(obj.min), max(obj.max) {}
+		AABB(::AABB const& obj) :min(obj.min), max(obj.max) {}
 	public:
-		Vec3 pointA;
-		Vec3 pointB;
+		Vec3 min;
+		Vec3 max;
 
-		property Vec3 PointA {
+		property Vec3 Min {
 			Vec3 get() {
-				return pointA;
+				return min;
 			}
 		}
-		property Vec3 PointB {
+		property Vec3 Max {
 			Vec3 get() {
-				return pointB;
+				return max;
 			}
 		}
 	public:
-		AABB(Vec3 a, Vec3 b) :pointA(a), pointB(b) {}
+		AABB(Vec3 a, Vec3 b) :min(a), max(b) {}
 		AABB(Vec3 vec, float val) {
 			pin_ptr<AABB> p = this;
 			(*(::AABB*)p) = ::AABB(vec, val);
@@ -63,6 +63,12 @@ namespace MC {
 		property float Volume {float get(); };
 		//property bool HasZeroVolume {bool get(); };
 		property bool IsValid {bool get(); };
+		property Vec3% default[int]{
+			Vec3% get(int index) {
+				pin_ptr<AABB> p = this;
+				return *(Vec3*)&((*(::AABB*)p)[index]);
+			}
+		};
 	public:
 		bool IntersectSegment(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4);
 		bool Intersects(AABB aabb);

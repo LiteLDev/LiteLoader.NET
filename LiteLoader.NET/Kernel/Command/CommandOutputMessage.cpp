@@ -13,14 +13,14 @@ inline CommandOutputMessage ^ CommandOutputMessage::Create(int _EnumCommandOutpu
     int len = a1->Count;
     std::vector<std::string> stdvector((int)len);
     for (int i = 0; i < len; i++)
-        stdvector[i] = marshalString<Encoding::E_UTF8>(a1[i]);
-    return gcnew CommandOutputMessage(::CommandOutputMessage(CommandOutputMessageType(_EnumCommandOutputMessageType), marshalString<Encoding::E_UTF8>(a0), std::move(stdvector)));
-    /*::CommandOutputMessageType(_EnumCommandOutputMessageType), marshalString<Encoding::E_UTF8>(a0), std::move(stdvector))*/
+        stdvector[i] = marshalString(a1[i]);
+    return gcnew CommandOutputMessage(::CommandOutputMessage(CommandOutputMessageType(_EnumCommandOutputMessageType), marshalString(a0), std::move(stdvector)));
+    /*::CommandOutputMessageType(_EnumCommandOutputMessageType), marshalString(a0), std::move(stdvector))*/
 }
 
 inline String^ CommandOutputMessage::GetMessageId()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->getMessageId());
+    return marshalString(NativePtr->getMessageId());
 }
 inline List<String^> ^ CommandOutputMessage::GetParams()
 {
@@ -28,7 +28,7 @@ inline List<String^> ^ CommandOutputMessage::GetParams()
     auto len = (int)stdvector.size();
     auto ret = gcnew List<String^>(len);
     for (int i = 0; i < len; ++i)
-        ret[i] = marshalString<Encoding::E_UTF8>(stdvector[i]);
+        ret[i] = marshalString(stdvector[i]);
     return ret;
 }
 inline int CommandOutputMessage::GetType()

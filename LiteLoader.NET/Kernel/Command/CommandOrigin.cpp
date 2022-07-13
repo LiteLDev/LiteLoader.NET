@@ -27,12 +27,12 @@ namespace MC
 
 	String^ CommandOrigin::RequestId::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getRequestId());
+		return marshalString(NativePtr->getRequestId());
 	}
 
 	String^ CommandOrigin::Name::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getName());
+		return marshalString(NativePtr->getName());
 	}
 
 	BlockPos CommandOrigin::BlockPosition::get()

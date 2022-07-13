@@ -154,10 +154,10 @@ namespace MC
 			void set(MC::Actor^);
 		}
 
-		property MC::Actor^ FindAttackTarget
-		{
-			MC::Actor^ get();
-		}
+		//property MC::Actor^ FindAttackTarget
+		//{
+		//	MC::Actor^ get();
+		//}
 
 		property bool CanPowerJump
 		{
@@ -1139,7 +1139,7 @@ namespace MC
 
 		//virtual void UnkVfn40();
 
-		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3);
+		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3, bool _4);
 
 		virtual void NormalTick();
 
@@ -1507,7 +1507,7 @@ namespace MC
 
 		virtual bool Equals(::System::Object^ obj) override;
 
-		void PositionAllPassengers();
+		void PositionAllPassengers(bool);
 
 		bool PullInEntity(MC::Actor^ _0);
 
@@ -1598,7 +1598,7 @@ namespace MC
 		void UpdateTickingData();
 
 		bool WasLastHitByPlayer();
-		
+
 		bool WasLoadedFromNBTThisFrame();
 
 		static MC::Vec2 GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2);

@@ -83,17 +83,17 @@ System::IntPtr LLNET::LL::Version::ToIntPtr()
 
 System::String^ LLNET::LL::Version::ToString()
 {
-    return marshalString<Encoding::E_UTF8>(_this->toString());
+    return marshalString(_this->toString());
 }
 
 LLNET::LL::Version^ LLNET::LL::Version::Parse(System::String^ str)
 {
-    return gcnew Version(::LL::Version::parse(marshalString<Encoding::E_UTF8>(str)));
+    return gcnew Version(::LL::Version::parse(marshalString(str)));
 }
 
 System::String^ LLNET::LL::LLAPI::GetLoaderVersionString()
 {
-    return marshalString<Encoding::E_UTF8>(::LL::getLoaderVersionString());
+    return marshalString(::LL::getLoaderVersionString());
 }
 
 LLNET::LL::Version^ LLNET::LL::LLAPI::GetLoaderVersion()
@@ -108,7 +108,7 @@ bool LLNET::LL::LLAPI::IsDebugMode()
 
 System::String^ LLNET::LL::LLAPI::GetDataPath(System::String^ pluginName)
 {
-    return marshalString<Encoding::E_UTF8>(::LL::getDataPath(marshalString<Encoding::E_UTF8>(pluginName)));
+    return marshalString(::LL::getDataPath(marshalString(pluginName)));
 }
 
 inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String ^ name, System::String ^ desc, System::Version ^ version)

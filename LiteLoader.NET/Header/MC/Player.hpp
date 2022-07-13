@@ -453,7 +453,7 @@ namespace MC
 
 		//virtual void UnkVfn40() override;
 
-		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3) override;
+		virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3,bool _4) override;
 
 		virtual void NormalTick() override;
 
@@ -495,7 +495,7 @@ namespace MC
 
 		//virtual void UnkVfn109() override;
 
-		virtual MC::Actor^ findAttackTarget();
+		//virtual MC::Actor^ findAttackTarget();
 
 		virtual bool IsValidTarget(MC::Actor^ _0) override;
 

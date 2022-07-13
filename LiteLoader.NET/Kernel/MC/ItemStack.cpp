@@ -11,7 +11,7 @@ namespace MC
 
 	inline ItemStack^ ItemStack::Create(String^ type, int count)
 	{
-		return gcnew ItemStack(::ItemStack::create(marshalString<Encoding::E_UTF8>(type), count), true);
+		return gcnew ItemStack(::ItemStack::create(marshalString(type), count), true);
 	}
 
 	inline ItemStack^ ItemStack::Create(CompoundTag^ tag)
@@ -41,7 +41,7 @@ namespace MC
 
 	inline String^ ItemStack::TypeName::get()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getTypeName());
+		return marshalString(NativePtr->getTypeName());
 	}
 
 	inline int ItemStack::Aux::get()
@@ -65,7 +65,7 @@ namespace MC
 		for (int i = 0; i < lores->Length; ++i)
 		{
 			auto str = lores[i];
-			stdlores.emplace_back(marshalString<Encoding::E_UTF8>((str)));
+			stdlores.emplace_back(marshalString((str)));
 		}
 		return NativePtr->setLore(stdlores);
 	}

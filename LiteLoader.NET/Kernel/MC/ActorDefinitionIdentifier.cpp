@@ -6,35 +6,35 @@ namespace MC
 {
 inline String^ ActorDefinitionIdentifier::NS::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->ns);
+    return marshalString(NativePtr->ns);
 }
 inline void ActorDefinitionIdentifier::NS::set(String^ ns)
 {
-    NativePtr->ns = marshalString<Encoding::E_UTF8>(ns);
+    NativePtr->ns = marshalString(ns);
 }
 inline String^ ActorDefinitionIdentifier::Identifier::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->identifier);
+    return marshalString(NativePtr->identifier);
 }
 inline void ActorDefinitionIdentifier::Identifier::set(String^ identifier)
 {
-    NativePtr->identifier = marshalString<Encoding::E_UTF8>(identifier);
+    NativePtr->identifier = marshalString(identifier);
 }
 inline String^ ActorDefinitionIdentifier::Event::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->event);
+    return marshalString(NativePtr->event);
 }
 inline void ActorDefinitionIdentifier::Event::set(String^ event)
 {
-    NativePtr->event = marshalString<Encoding::E_UTF8>(event);
+    NativePtr->event = marshalString(event);
 }
 inline String^ ActorDefinitionIdentifier::Fullname::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->fullname);
+    return marshalString(NativePtr->fullname);
 }
 inline void ActorDefinitionIdentifier::Fullname::set(String^ fullname)
 {
-    NativePtr->fullname = marshalString<Encoding::E_UTF8>(fullname);
+    NativePtr->fullname = marshalString(fullname);
 }
 inline HashedString ^ ActorDefinitionIdentifier::CanonicalHash::get()
 {
@@ -51,10 +51,10 @@ ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create()
 ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash)
 {
     ::ActorDefinitionIdentifier adi{};
-    adi.ns = marshalString<Encoding::E_UTF8>(ns);
-    adi.identifier = marshalString<Encoding::E_UTF8>(identifier);
-    adi.event = marshalString<Encoding::E_UTF8>(event);
-    adi.fullname = marshalString<Encoding::E_UTF8>(fullname);
+    adi.ns = marshalString(ns);
+    adi.identifier = marshalString(identifier);
+    adi.event = marshalString(event);
+    adi.fullname = marshalString(fullname);
     adi.canonicalHash = canonicalHash;
     return gcnew ActorDefinitionIdentifier(std::move(adi));
 }

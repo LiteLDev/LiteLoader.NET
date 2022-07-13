@@ -40,8 +40,8 @@ public:
                                CommandPermissionLevel cmdLevel)
     {
         NativePtr->registerCommand(
-            marshalString<Encoding::E_UTF8>(cmd),
-            marshalString<Encoding::E_UTF8>(describe).c_str(),
+            marshalString(cmd),
+            marshalString(describe).c_str(),
             (::CommandPermissionLevel)cmdLevel,
             {(::CommandFlagValue)0},
             {(::CommandFlagValue)0x80});

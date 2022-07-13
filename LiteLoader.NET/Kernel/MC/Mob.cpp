@@ -53,9 +53,9 @@ float MC::Mob::GetInterpolatedBodyYaw(float _0)
 //    ((class ::Mob*)NativePtr)->__unk_vfn_40();
 //}
 
-void MC::Mob::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3)
+void MC::Mob::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3, bool _4)
 {
-	((class ::Mob*)NativePtr)->teleportTo(_0, _1, _2, _3);
+	((class ::Mob*)NativePtr)->teleportTo(_0, _1, _2, _3, _4);
 }
 
 void MC::Mob::NormalTick()
@@ -734,12 +734,12 @@ void MC::Mob::Target::set(MC::Actor^ _0)
 	((class ::Mob*)NativePtr)->setTarget(__arg0);
 }
 
-MC::Actor^ MC::Mob::FindAttackTarget::get()
-{
-	auto __ret = ((class ::Mob*)NativePtr)->findAttackTarget();
-	if (__ret == nullptr) return nullptr;
-	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
-}
+//MC::Actor^ MC::Mob::FindAttackTarget::get()
+//{
+//	auto __ret = ((class ::Mob*)NativePtr)->findAttackTarget();
+//	if (__ret == nullptr) return nullptr;
+//	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+//}
 
 bool MC::Mob::Jumping::get()
 {

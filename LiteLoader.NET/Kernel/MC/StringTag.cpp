@@ -4,7 +4,7 @@ namespace MC
 
 inline String^ StringTag::Value()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->value());
+    return marshalString(NativePtr->value());
 }
 
 inline StringTag ^ StringTag::operator=(std::string val)
@@ -20,12 +20,12 @@ inline StringTag ^ StringTag::Create()
 
 inline bool StringTag::Set(String^ val)
 {
-    return NativePtr->set(marshalString<Encoding::E_UTF8>(val));
+    return NativePtr->set(marshalString(val));
 }
 
 inline String^ StringTag::Get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->get());
+    return marshalString(NativePtr->get());
 }
 } // namespace MC
 

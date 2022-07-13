@@ -74,10 +74,10 @@ namespace MC
             void set(MC::Actor^);
         }
 
-        property MC::Actor^ FindAttackTarget
-        {
-            MC::Actor^ get();
-        }
+        //property MC::Actor^ FindAttackTarget
+        //{
+        //    MC::Actor^ get();
+        //}
 
         property bool Jumping
         {
@@ -421,7 +421,7 @@ namespace MC
 
         //virtual void UnkVfn40() override;
 
-        virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3) override;
+        virtual void TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3,bool _4) override;
 
         virtual void NormalTick() override;
 

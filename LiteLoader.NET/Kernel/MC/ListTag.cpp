@@ -91,7 +91,7 @@ inline void ListTag::AddDouble(double v)
 }
 inline void ListTag::AddString(String ^ v)
 {
-    NativePtr->addString(marshalString<Encoding::E_UTF8>(v));
+    NativePtr->addString(marshalString(v));
 }
 inline void ListTag::AddByteArray(TagMemoryChunk ^ byteArr)
 {
