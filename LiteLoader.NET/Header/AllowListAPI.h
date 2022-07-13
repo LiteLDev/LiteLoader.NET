@@ -41,12 +41,12 @@ namespace LLNET::AllowList
 		property System::String^ AllowList {
 			System::String^ get() 
 			{
-				return marshalString<Encoding::E_UTF8>(_this->allowList.dump());
+				return marshalString(_this->allowList.dump());
 			};
 
 			void set(System::String^ str)
 			{
-				_this->allowList = nlohmann::json::parse(marshalString<Encoding::E_UTF8>(str));
+				_this->allowList = nlohmann::json::parse(marshalString(str));
 			};
 		};
 		property size_t Size
@@ -62,12 +62,12 @@ namespace LLNET::AllowList
 		}
 		bool Has(System::String^ name, System::String^ xuid)
 		{
-			return _this->has(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid));
+			return _this->has(marshalString(name), marshalString(xuid));
 		}
 		bool Has(System::String^ name, System::String^ xuid, [Out] size_t% index)
 		{
 			pin_ptr<size_t> p = &index;
-			return _this->has(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid), *p);
+			return _this->has(marshalString(name), marshalString(xuid), *p);
 		}
 		AllowListManager^ Add(System::String^ name) {
 			return Add(name, "");
@@ -76,14 +76,14 @@ namespace LLNET::AllowList
 			return Add(name, xuid, false);
 		};
 		AllowListManager^ Add(System::String^ name, System::String^ xuid, bool ignore) {
-			_this->add(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid), ignore);
+			_this->add(marshalString(name), marshalString(xuid), ignore);
 			return this;
 		};
 		AllowListManager^ Remove(System::String^ name) {
 			return Remove(name, "");
 		};
 		AllowListManager^ Remove(System::String^ name, System::String^ xuid) {
-			_this->remove(marshalString<Encoding::E_UTF8>(name), marshalString<Encoding::E_UTF8>(xuid));
+			_this->remove(marshalString(name), marshalString(xuid));
 			return this;
 		};
 		void Reload()

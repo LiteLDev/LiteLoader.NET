@@ -36,7 +36,7 @@ inline Dictionary<String^, CompoundTagVariant ^> ^ CompoundTag::Value()
     ret = gcnew Dictionary<String^, CompoundTagVariant ^>(int(stdmap.size()));
     for (auto iter = stdmap.begin(); iter != stdmap.end(); ++iter)
         ret->Add(
-            marshalString<Encoding::E_UTF8>((*iter).first),
+            marshalString((*iter).first),
             gcnew CompoundTagVariant(&iter->second));
     return ret;
 }
@@ -44,83 +44,83 @@ inline Dictionary<String^, CompoundTagVariant ^> ^ CompoundTag::Value()
 // put value
 inline void CompoundTag::PutEnd(String^ key)
 {
-    NativePtr->putEnd(marshalString<Encoding::E_UTF8>(key));
+    NativePtr->putEnd(marshalString(key));
 }
 
 inline double ^ CompoundTag::PutDouble(String^ key, double val)
 {
-    return NativePtr->putDouble(marshalString<Encoding::E_UTF8>(key), val);
+    return NativePtr->putDouble(marshalString(key), val);
 }
 
 inline void CompoundTag::PutByteArray(String^ key, array<char> ^ data /*, size_t size*/)
 {
     pin_ptr<char> p_ptr = &data[0];
-    NativePtr->putByteArray(marshalString<Encoding::E_UTF8>(key), (char*)p_ptr, data->Length);
+    NativePtr->putByteArray(marshalString(key), (char*)p_ptr, data->Length);
 }
 
 inline void CompoundTag::PutIntArray(String^ key, array<int> ^ data /*, size_t size*/)
 {
     pin_ptr<int> p_ptr = &data[0];
-    NativePtr->putIntArray(marshalString<Encoding::E_UTF8>(key), (int*)p_ptr, data->Length);
+    NativePtr->putIntArray(marshalString(key), (int*)p_ptr, data->Length);
 }
 
 inline TagMemoryChunk ^ CompoundTag::PutIntArray(String^ key, TagMemoryChunk ^ val)
 {
     return gcnew TagMemoryChunk(
-        NativePtr->putIntArray(marshalString<Encoding::E_UTF8>(key), val));
+        NativePtr->putIntArray(marshalString(key), val));
 }
 
 // get value
 inline double CompoundTag::GetDouble(String^ key)
 {
-    return NativePtr->getDouble(marshalString<Encoding::E_UTF8>(key));
+    return NativePtr->getDouble(marshalString(key));
 }
 
 inline TagMemoryChunk const ^ CompoundTag::GetIntArray(String^ key)
 {
-    return gcnew TagMemoryChunk(::TagMemoryChunk(NativePtr->getIntArray(marshalString<Encoding::E_UTF8>(key))));
+    return gcnew TagMemoryChunk(::TagMemoryChunk(NativePtr->getIntArray(marshalString(key))));
 }
 
 // get tag
 inline ByteTag const ^ CompoundTag::GetByteTag(String^ key)
 {
-    return gcnew ByteTag((::ByteTag*)NativePtr->getByteTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew ByteTag((::ByteTag*)NativePtr->getByteTag(marshalString(key)));
 }
 inline ShortTag const ^ CompoundTag::GetShortTag(String^ key)
 {
-    return gcnew ShortTag((::ShortTag*)NativePtr->getShortTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew ShortTag((::ShortTag*)NativePtr->getShortTag(marshalString(key)));
 }
 inline FloatTag const ^ CompoundTag::GetFloatTag(String^ key)
 {
-    return gcnew FloatTag((::FloatTag*)NativePtr->getFloatTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew FloatTag((::FloatTag*)NativePtr->getFloatTag(marshalString(key)));
 }
 inline DoubleTag const ^ CompoundTag::GetDoubleTag(String^ key)
 {
-    return gcnew DoubleTag((::DoubleTag*)NativePtr->getDoubleTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew DoubleTag((::DoubleTag*)NativePtr->getDoubleTag(marshalString(key)));
 }
 inline ByteArrayTag const ^ CompoundTag::GetByteArrayTag(String^ key)
 {
-    return gcnew ByteArrayTag((::ByteArrayTag*)NativePtr->getByteArrayTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew ByteArrayTag((::ByteArrayTag*)NativePtr->getByteArrayTag(marshalString(key)));
 }
 inline StringTag const ^ CompoundTag::GetStringTag(String^ key)
 {
-    return gcnew StringTag((::StringTag*)NativePtr->getStringTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew StringTag((::StringTag*)NativePtr->getStringTag(marshalString(key)));
 }
 inline IntArrayTag const ^ CompoundTag::GetIntArrayTag(String^ key)
 {
-    return gcnew IntArrayTag((::IntArrayTag*)NativePtr->getIntArrayTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew IntArrayTag((::IntArrayTag*)NativePtr->getIntArrayTag(marshalString(key)));
 }
 inline ListTag const ^ CompoundTag::GetListTag(String^ key)
 {
-    return gcnew ListTag((::ListTag*)NativePtr->getListTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew ListTag((::ListTag*)NativePtr->getListTag(marshalString(key)));
 }
 inline CompoundTag ^ CompoundTag::GetCompoundTag(String^ key)
 {
-    return gcnew CompoundTag((::CompoundTag*)NativePtr->getCompoundTag(marshalString<Encoding::E_UTF8>(key)));
+    return gcnew CompoundTag((::CompoundTag*)NativePtr->getCompoundTag(marshalString(key)));
 }
 inline Tag ^ CompoundTag::operator[](String^ key)
 {
-    return gcnew Tag((*NativePtr)[marshalString<Encoding::E_UTF8>(key)]);
+    return gcnew Tag((*NativePtr)[marshalString(key)]);
 }
 
 // io
@@ -176,19 +176,19 @@ inline CompoundTag ^ CompoundTag::FromPlayer(Player ^ player)
 
 inline String^ CompoundTag::ToSNBT()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->toSNBT());
+    return marshalString(NativePtr->toSNBT());
 }
 inline String^ CompoundTag::ToBinaryNBT(bool isLittleEndian)
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->toBinaryNBT(isLittleEndian));
+    return marshalString(NativePtr->toBinaryNBT(isLittleEndian));
 }
 inline String^ CompoundTag::ToBinaryNBT()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->toBinaryNBT());
+    return marshalString(NativePtr->toBinaryNBT());
 }
 inline CompoundTag ^ CompoundTag::FromSNBT(String^ snbt)
 {
-    return gcnew CompoundTag(::CompoundTag::fromSNBT(marshalString<Encoding::E_UTF8>(snbt)).release(), true);
+    return gcnew CompoundTag(::CompoundTag::fromSNBT(marshalString(snbt)).release(), true);
 }
 inline CompoundTag ^ CompoundTag::FromBinaryNBT(void* data, size_t len, bool isLittleEndian)
 {

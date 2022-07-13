@@ -5,7 +5,7 @@ namespace MC
 
 inline bool Objective::SetDisplay(String^ slotName, ObjectiveSortOrder sort)
 {
-    return NativePtr->setDisplay(marshalString<Encoding::E_UTF8>(slotName), ::ObjectiveSortOrder(sort));
+    return NativePtr->setDisplay(marshalString(slotName), ::ObjectiveSortOrder(sort));
 }
 } // namespace MC
 

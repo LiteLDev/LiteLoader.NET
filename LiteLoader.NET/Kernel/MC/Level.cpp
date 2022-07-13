@@ -49,7 +49,7 @@ inline List<Player ^> ^ Level::GetAllPlayers()
 }
 inline Player ^ Level::GetPlayer(String^ info)
 {
-    return gcnew Player(NativePtr->getPlayer(marshalString<Encoding::E_UTF8>(info)));
+    return gcnew Player(NativePtr->getPlayer(marshalString(info)));
 }
 inline Player ^ Level::GetPlayer(ActorUniqueID ^ id)
 {
@@ -78,7 +78,7 @@ inline List<Actor ^> ^ Level::GetAllEntities()
 inline Actor ^ Level::SpawnMob(Vec3 pos, int dimId, String^ typeName)
 {
     return gcnew Actor(::Level::spawnMob(
-        pos, dimId, marshalString<Encoding::E_UTF8>(typeName)));
+        pos, dimId, marshalString(typeName)));
 }
 inline Actor ^ Level::SpawnItem(Vec3 pos, int dimId, ItemStack ^ item)
 {
@@ -135,7 +135,7 @@ inline bool Level::SetBlock(BlockPos pos, int dim, Block ^ block)
 }
 inline bool Level::SetBlock(BlockPos pos, int dim, String^ name, unsigned short tileData)
 {
-    return ::Level::setBlock(pos, dim, marshalString<Encoding::E_UTF8>(name), tileData);
+    return ::Level::setBlock(pos, dim, marshalString(name), tileData);
 }
 inline bool Level::SetBlock(BlockPos pos, int dim, CompoundTag ^ nbt)
 {
@@ -155,11 +155,11 @@ inline bool Level::DestroyBlock(BlockSource ^ bs, BlockPos pos, bool a2)
 }
 inline void Level::SpawnParticleEffect(String^ type, Vec3 pos, Dimension ^ a2)
 {
-    NativePtr->spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), pos, a2->NativePtr);
+    NativePtr->spawnParticleEffect(marshalString(type), pos, a2->NativePtr);
 }
 //inline void Level::SpawnParticleEffect(String^ type, Actor ^ a1, Vec3 a2)
 //{
-//    ::Level::spawnParticleEffect(marshalString<Encoding::E_UTF8>(type), *a1->NativePtr, a2);
+//    ::Level::spawnParticleEffect(marshalString(type), *a1->NativePtr, a2);
 //}
 inline bool Level::HasContainer(Vec3 pos, int dim)
 {
@@ -199,11 +199,11 @@ inline Actor ^ Level::GetDamageSourceEntity(ActorDamageSource ^ ads)
 }
 inline void Level::BroadcastText(String^ text, TextType type)
 {
-    ::Level::broadcastText(marshalString<Encoding::E_UTF8>(text), ::TextType(type));
+    ::Level::broadcastText(marshalString(text), ::TextType(type));
 }
 inline void Level::BroadcastTitle(String^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration)
 {
-    ::Level::broadcastTitle(marshalString<Encoding::E_UTF8>(text), ::TitleType(Type), FadeInDuration, RemainDuration, FadeOutDuration);
+    ::Level::broadcastTitle(marshalString(text), ::TitleType(Type), FadeInDuration, RemainDuration, FadeOutDuration);
 }
 inline void Level::SendPacketForAllPlayer(Packet ^ pkt)
 {
@@ -211,16 +211,16 @@ inline void Level::SendPacketForAllPlayer(Packet ^ pkt)
 }
 inline bool Level::RuncmdAs(Player ^ pl, String^ cmd)
 {
-    return ::Level::runcmdAs(pl->NativePtr, marshalString<Encoding::E_UTF8>(cmd));
+    return ::Level::runcmdAs(pl->NativePtr, marshalString(cmd));
 }
 inline Pair<bool, String^> Level::RuncmdEx(String^ cmd)
 {
-    auto& kvpair = ::Level::runcmdEx(marshalString<Encoding::E_UTF8>(cmd));
-    return Pair<bool, String^>(kvpair.first, marshalString<Encoding::E_UTF8>(kvpair.second));
+    auto& kvpair = ::Level::runcmdEx(marshalString(cmd));
+    return Pair<bool, String^>(kvpair.first, marshalString(kvpair.second));
 }
 inline bool Level::Runcmd(String^ cmd)
 {
-    return ::Level::runcmd(marshalString<Encoding::E_UTF8>(cmd));
+    return ::Level::runcmd(marshalString(cmd));
 }
 } // namespace MC
 

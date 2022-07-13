@@ -354,25 +354,25 @@ namespace LLNET {
 			generic<typename FunctionProtorype>
 			where FunctionProtorype : System::Delegate
 				inline static FunctionProtorype SYM(System::String^ sym) {
-				return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str()))));
+				return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(System::IntPtr(::dlsym_real(marshalString(sym).c_str()))));
 			}
 
 			inline static System::IntPtr SYM(System::String^ sym) {
-				return System::IntPtr(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str()));
+				return System::IntPtr(::dlsym_real(marshalString(sym).c_str()));
 			}
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef SymCall
 			generic<typename RTN>
 			where RTN : System::ValueType
 				inline static RTN SymCall(System::String^ sym) {
-				return ((RTN(*)())(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))();
+				return ((RTN(*)())(::dlsym_real(marshalString(sym).c_str())))();
 			}
 
 			generic<typename RTN, typename T0>
 			where RTN : System::ValueType
 			where T0 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0) {
-				return ((RTN(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0);
+				return ((RTN(*)(T0))(::dlsym_real(marshalString(sym).c_str())))(a0);
 			}
 
 			generic<typename RTN, typename T0, typename T1>
@@ -380,7 +380,7 @@ namespace LLNET {
 			where T0 : System::ValueType
 			where T1 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1) {
-				return ((RTN(*)(T0, T1))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1);
+				return ((RTN(*)(T0, T1))(::dlsym_real(marshalString(sym).c_str())))(a0, a1);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2>
@@ -389,7 +389,7 @@ namespace LLNET {
 			where T1 : System::ValueType
 			where T2 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2) {
-				return ((RTN(*)(T0, T1, T2))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2);
+				return ((RTN(*)(T0, T1, T2))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
@@ -399,7 +399,7 @@ namespace LLNET {
 			where T2 : System::ValueType
 			where T3 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3) {
-				return ((RTN(*)(T0, T1, T2, T3))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3);
+				return ((RTN(*)(T0, T1, T2, T3))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
@@ -410,7 +410,7 @@ namespace LLNET {
 			where T3 : System::ValueType
 			where T4 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-				return ((RTN(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4);
+				return ((RTN(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4);
 			}
 
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -422,7 +422,7 @@ namespace LLNET {
 			where T4 : System::ValueType
 			where T5 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-				return ((RTN(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5);
+				return ((RTN(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5);
 			}
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 			where RTN : System::ValueType
@@ -434,7 +434,7 @@ namespace LLNET {
 			where T5 : System::ValueType
 			where T6 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
-				return ((RTN(*)(T0, T1, T2, T3, T4, T5, T6))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6);
+				return ((RTN(*)(T0, T1, T2, T3, T4, T5, T6))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6);
 			}
 			generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 			where RTN : System::ValueType
@@ -447,27 +447,27 @@ namespace LLNET {
 			where T6 : System::ValueType
 			where T7 : System::ValueType
 				inline static RTN SymCall(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
-				return ((RTN(*)(T0, T1, T2, T3, T4, T5, T6, T7))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6, a7);
+				return ((RTN(*)(T0, T1, T2, T3, T4, T5, T6, T7))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6, a7);
 			}
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 			inline static void Sym_Call(System::String^ sym) {
-				return ((void(*)())(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))();
+				return ((void(*)())(::dlsym_real(marshalString(sym).c_str())))();
 			}
 
 			generic<typename T0>
 			where T0 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0) {
-				return ((void(*)(T0))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0);
+				return ((void(*)(T0))(::dlsym_real(marshalString(sym).c_str())))(a0);
 			}
 
 			generic<typename T0, typename T1>
 			where T0 : System::ValueType
 			where T1 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1) {
-				return ((void(*)(T0, T1))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1);
+				return ((void(*)(T0, T1))(::dlsym_real(marshalString(sym).c_str())))(a0, a1);
 			}
 
 			generic<typename T0, typename T1, typename T2>
@@ -475,7 +475,7 @@ namespace LLNET {
 			where T1 : System::ValueType
 			where T2 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2) {
-				return ((void(*)(T0, T1, T2))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2);
+				return ((void(*)(T0, T1, T2))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2);
 			}
 
 			generic<typename T0, typename T1, typename T2, typename T3>
@@ -484,7 +484,7 @@ namespace LLNET {
 			where T2 : System::ValueType
 			where T3 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3) {
-				return ((void(*)(T0, T1, T2, T3))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3);
+				return ((void(*)(T0, T1, T2, T3))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3);
 			}
 
 			generic<typename T0, typename T1, typename T2, typename T3, typename T4>
@@ -494,7 +494,7 @@ namespace LLNET {
 			where T3 : System::ValueType
 			where T4 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
-				return ((void(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4);
+				return ((void(*)(T0, T1, T2, T3, T4))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4);
 			}
 
 			generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -505,7 +505,7 @@ namespace LLNET {
 			where T4 : System::ValueType
 			where T5 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
-				return ((void(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5);
+				return ((void(*)(T0, T1, T2, T3, T4, T5))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5);
 			}
 			generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 			where T0 : System::ValueType
@@ -516,7 +516,7 @@ namespace LLNET {
 			where T5 : System::ValueType
 			where T6 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
-				return ((void(*)(T0, T1, T2, T3, T4, T5, T6))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6);
+				return ((void(*)(T0, T1, T2, T3, T4, T5, T6))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6);
 			}
 			generic<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 			where T0 : System::ValueType
@@ -528,7 +528,7 @@ namespace LLNET {
 			where T6 : System::ValueType
 			where T7 : System::ValueType
 				inline static void Sym_Call(System::String^ sym, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
-				return ((void(*)(T0, T1, T2, T3, T4, T5, T6, T7))(::dlsym_real(marshalString<Encoding::E_UTF8>(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6, a7);
+				return ((void(*)(T0, T1, T2, T3, T4, T5, T6, T7))(::dlsym_real(marshalString(sym).c_str())))(a0, a1, a2, a3, a4, a5, a6, a7);
 			}
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -542,7 +542,7 @@ namespace LLNET {
 				::THookRegister(address, hook, org);
 			}
 			THookRegister(System::String^ sym, System::IntPtr hook, SecondaryRankPtr org) {
-				::THookRegister(marshalString<Encoding::E_UTF8>(sym).c_str(), (void*)hook, (void**)org);
+				::THookRegister(marshalString(sym).c_str(), (void*)hook, (void**)org);
 			}
 			THookRegister(char const* sym, void* hook, void** org) {
 				::THookRegister(sym, hook, org);
@@ -603,7 +603,7 @@ namespace LLNET {
 
 				void* pOriginal = nullptr;
 
-				::THookRegister(marshalString<Encoding::E_UTF8>(sym).c_str(), pHook, (void**)&pOriginal);
+				::THookRegister(marshalString(sym).c_str(), pHook, (void**)&pOriginal);
 				if (pOriginal == nullptr)
 					throw gcnew LLNET::Core::HookFailedException;
 

@@ -15,7 +15,7 @@ inline CommandOutputParameter ^ CommandOutputParameter::Create(CommandSelectorRe
 
 inline CommandOutputParameter ^ CommandOutputParameter::Create(String^ str)
 {
-    return gcnew CommandOutputParameter(::CommandOutputParameter(marshalString<Encoding::E_UTF8>(str)));
+    return gcnew CommandOutputParameter(::CommandOutputParameter(marshalString(str)));
 }
 
 inline CommandOutputParameter ^ CommandOutputParameter::Create(List<Actor ^> ^ pllist)
@@ -41,7 +41,7 @@ inline CommandOutputParameter ^ CommandOutputParameter::Create(List<String ^> ^ 
     auto len = pllist->Count;
     std::vector<std::string> stdvector((size_t)len);
     for (int i = 0; i < len; i++)
-        stdvector[i] = marshalString<Encoding::E_UTF8>(pllist[i]);
+        stdvector[i] = marshalString(pllist[i]);
     return gcnew CommandOutputParameter(::CommandOutputParameter(stdvector));
 }
 

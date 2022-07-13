@@ -60,15 +60,15 @@
         }                                                 \
     }
 
-#define Property_String(nativeName, name)                              \
-    property String^ name {                                   \
-        inline String^ get() {                                \
-            return marshalString<Encoding::E_UTF8>(_this->nativeName); \
-        } inline void                                                  \
-            set(String^ arg)                                  \
-        {                                                              \
-            _this->nativeName = marshalString<Encoding::E_UTF8>(arg);  \
-        }                                                              \
+#define Property_String(nativeName, name)                               \
+    property String^ name {                                             \
+        inline String^ get() {                                          \
+            return marshalString(_this->nativeName);                    \
+        } inline void                                                   \
+            set(String^ arg)                                            \
+        {                                                               \
+            _this->nativeName = marshalString(arg);                     \
+        }                                                               \
     }
 
 #define Property_ReadOnly(type, nativeName, name) \

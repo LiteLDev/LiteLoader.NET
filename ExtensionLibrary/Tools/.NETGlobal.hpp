@@ -64,13 +64,13 @@ using LLNET::Core::Pair;
 using namespace clix;
 
 inline String^ marshalString(std::string const& str) {
-    return marshalString<Encoding::E_UTF8>(str);
+    return marshalString(str);
 
 };
 
 inline std::string marshalString(String^ str)
 {
-    return marshalString<Encoding::E_UTF8>(str);
+    return marshalString(str);
 }
 
 inline uint64_t do_Hash(String^ str)

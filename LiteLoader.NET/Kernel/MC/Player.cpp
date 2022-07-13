@@ -96,11 +96,11 @@ namespace MC
 	{
 		return NativePtr->isOP();
 	}
-	inline int Player::CurrentExperience::get() 
+	inline int Player::CurrentExperience::get()
 	{
 		return NativePtr->getCurrentExperience();
 	}
-	inline void Player::CurrentExperience::set(int value) 
+	inline void Player::CurrentExperience::set(int value)
 	{
 		if (NativePtr->setTotalExperience(value))
 			throw gcnew LLNET::Core::MCException("Failed to set current experience.");
@@ -775,9 +775,9 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_40();
 	//}
 
-	void MC::Player::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3)
+	void MC::Player::TeleportTo(MC::Vec3 _0, bool _1, int _2, int _3, bool _4)
 	{
-		((class ::Player*)NativePtr)->teleportTo(_0, _1, _2, _3);
+		((class ::Player*)NativePtr)->teleportTo(_0, _1, _2, _3, _4);
 	}
 
 	void MC::Player::NormalTick()
@@ -889,12 +889,12 @@ namespace MC
 	//	((class ::Player*)NativePtr)->__unk_vfn_109();
 	//}
 
-	MC::Actor^ MC::Player::findAttackTarget()
-	{
-		auto __ret = ((class ::Player*)NativePtr)->findAttackTarget();
-		if (__ret == nullptr) return nullptr;
-		return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
-	}
+	//MC::Actor^ MC::Player::findAttackTarget()
+	//{
+	//	auto __ret = ((class ::Player*)NativePtr)->findAttackTarget();
+	//	if (__ret == nullptr) return nullptr;
+	//	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+	//}
 
 	bool MC::Player::IsValidTarget(MC::Actor^ _0)
 	{

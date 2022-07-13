@@ -1,5 +1,4 @@
 #pragma once
-#include <GlobalServiceAPI.h>
 
 using System::IntPtr;
 

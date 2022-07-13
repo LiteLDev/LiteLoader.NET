@@ -3,7 +3,7 @@ namespace MC
 {
 inline String^ NetworkIdentifier::IP::get()
 {
-    return marshalString<Encoding::E_UTF8>(NativePtr->getIP());
+    return marshalString(NativePtr->getIP());
 }
 } // namespace MC
 

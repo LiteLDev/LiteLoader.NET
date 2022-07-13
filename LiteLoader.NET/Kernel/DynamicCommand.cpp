@@ -97,7 +97,7 @@ namespace LLNET::DynamicCommand
 	inline String^ DynamicCommand::Result::AsString() {
 		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
 			throw gcnew DynamicCommandInvalidCastException;
-		return marshalString<Encoding::E_UTF8>(NativePtr->getRaw<std::string>());
+		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline List<MC::Actor^>^ DynamicCommand::Result::AsActorList() {
 		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Actor)
@@ -233,7 +233,7 @@ namespace LLNET::DynamicCommand
 	{
 
 		if (handle == IntPtr::Zero)
-			handle = IntPtr(Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
+			handle = IntPtr(GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
 
 
 		std::unordered_map<std::string, std::vector<std::string>> enumsMap;
@@ -484,7 +484,7 @@ namespace LLNET::DynamicCommand
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2)
 	{
-		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
+		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
 		return gcnew DynamicCommandInstance(a.release(), true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1)
@@ -600,7 +600,7 @@ namespace LLNET::DynamicCommand
 			marshalString(description),
 			::CommandPermissionLevel(permission),
 			::CommandFlag{ (::CommandFlagValue(flag->value)) },
-			Global::__GetCurrentModule(Assembly::GetCallingAssembly())).release(),
+			GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly())).release(),
 			true)
 	{
 	}

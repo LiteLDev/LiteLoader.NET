@@ -17,6 +17,7 @@
 #include <MC/AllowListFile.hpp>
 #include <MC/PropertiesSettings.hpp>
 #include <MC/LevelStorage.hpp>
+#include <GlobalServiceAPI.h>
 
 namespace LLNET
 {

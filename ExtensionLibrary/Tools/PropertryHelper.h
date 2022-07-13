@@ -63,11 +63,11 @@
 #define Property_String(nativeName, name)                                           \
     property String^ name {                                                         \
         inline String^ get() {                                                      \
-            return marshalString<Encoding::E_UTF8>(this->NativePtr->nativeName);    \
+            return marshalString(this->NativePtr->nativeName);    \
         } inline void                                                               \
             set(String^ arg)                                                        \
         {                                                                           \
-            this->NativePtr->nativeName = marshalString<Encoding::E_UTF8>(arg);     \
+            this->NativePtr->nativeName = marshalString(arg);     \
         }                                                                           \
     }
 

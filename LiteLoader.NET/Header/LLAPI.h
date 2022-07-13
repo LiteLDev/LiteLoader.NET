@@ -91,7 +91,7 @@ namespace LLNET::LL
 				auto len = (int)_this->others.size();
 				auto ret = gcnew Dictionary<String^, String^>(len);
 				for (auto& kv : _this->others)
-					ret->Add(marshalString<Encoding::E_UTF8>(kv.first), marshalString<Encoding::E_UTF8>(kv.second));
+					ret->Add(marshalString(kv.first), marshalString(kv.second));
 				return ret;
 			}
 		} Property_Enum(PluginTypeEnum, ::LL::Plugin::PluginType, type, Type);
@@ -102,7 +102,7 @@ namespace LLNET::LL
 		{
 			if (_this->handle == NULL)
 				return TDelegate();
-			void* address = GetProcAddress(_this->handle, marshalString<Encoding::E_UTF8>(functionName).c_str());
+			void* address = GetProcAddress(_this->handle, marshalString(functionName).c_str());
 			if (!address)
 				return TDelegate();
 			return Marshal::GetDelegateForFunctionPointer<TDelegate>(System::IntPtr(address));

@@ -102,7 +102,7 @@ namespace LLNET::RemoteCall {
 			auto exportfunc = ExportFunc::Create(nameSpace, funcName, funcinfo, func);
 			ExportFunctions->Add(exportfunc.Key);
 			auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(exportfunc.Value));
-			return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, Global::__GetCurrentModule(Assembly::GetCallingAssembly()));
+			return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
 
 			//debug
 			//Console::WriteLine(succeed);

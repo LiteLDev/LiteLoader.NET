@@ -58,7 +58,8 @@ jmp:
 	default:
 		break;
 	}
-	(*pstream)(wstr);
+
+	(*pstream)(TextEncoding::fromUnicode(wstr));
 }
 #pragma unmanaged
 void LoggerManager::WriteLine(OutputStreamType t, const std::string& str)
@@ -279,7 +280,7 @@ namespace LLNET::Logger {
 
 	Logger::Logger(System::String^ title)
 	{
-		this->id = LoggerManager::CreateLogger(marshalString<Encoding::E_UTF8>(title)).first;
+		this->id = LoggerManager::CreateLogger(marshalString(title)).first;
 		this->debug = gcnew Logger::OutputStream(OutputStreamType::debug, this->id);
 		this->info = gcnew Logger::OutputStream(OutputStreamType::info, this->id);
 		this->warn = gcnew Logger::OutputStream(OutputStreamType::warn, this->id);
@@ -308,15 +309,15 @@ namespace LLNET::Logger {
 
 	void Logger::OutputStream::WriteLine(System::String^ string)
 	{
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshal_as<std::wstring>(string));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshalString<CLI_Encoding::E_UTF16>(string));
 	}
 	void Logger::OutputStream::WriteLine(System::String^ format, ...array<System::Object^>^ args)
 	{
 		auto str = System::String::Format(format, (array<System::Object^>^)args);
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshal_as<std::wstring>(str));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(str));
 	}
 	void Logger::OutputStream::WriteLine(System::Object^ obj) {
-		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshal_as<std::wstring>(obj->ToString()));
+		LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(obj->ToString()));
 	}
 
 	inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Boolean val)
@@ -411,7 +412,7 @@ namespace LLNET::Logger {
 			os->WriteLine(strbulider->ToString(), os->buffer->ToArray());
 		}
 		CATCH
-		finally
+			finally
 		{
 			delete strbulider;
 			delete os->buffer;
@@ -421,11 +422,11 @@ namespace LLNET::Logger {
 	}
 
 	inline System::String^ Logger::Title::get() {
-		return marshalString<Encoding::E_UTF8>(LoggerManager::GetTitle(id));
+		return marshalString(LoggerManager::GetTitle(id));
 	}
 
 	inline void Logger::Title::set(System::String^ _title) {
-		LoggerManager::SetTitle(id, marshalString<Encoding::E_UTF8>(_title));
+		LoggerManager::SetTitle(id, marshalString(_title));
 	}
 
 }

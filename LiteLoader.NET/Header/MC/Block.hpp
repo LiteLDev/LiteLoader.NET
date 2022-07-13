@@ -284,9 +284,9 @@ public:
 
     bool IsPreservingMediumWhenPlaced(MC::Block ^ _0);
 
-    static bool operator!=(MC::Block ^ __op, MC::Block ^ _0);
+    //static bool operator!=(MC::Block ^ __op, MC::Block ^ _0);
 
-    static bool operator==(MC::Block ^ __op, MC::Block ^ _0);
+    //static bool operator==(MC::Block ^ __op, MC::Block ^ _0);
 
     virtual bool Equals(::System::Object ^ obj) override;
 

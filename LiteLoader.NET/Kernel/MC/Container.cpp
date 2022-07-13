@@ -8,7 +8,7 @@ namespace MC
 
 	inline String^ Container::GetTypeName()
 	{
-		return marshalString<Encoding::E_UTF8>(NativePtr->getTypeName());
+		return marshalString(NativePtr->getTypeName());
 	}
 
 	inline bool Container::AddItem_s(ItemStack^ item)
