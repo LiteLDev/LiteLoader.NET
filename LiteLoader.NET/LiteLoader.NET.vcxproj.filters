@@ -76,6 +76,9 @@
     <Filter Include="Header\Event\EffectiveEvent">
       <UniqueIdentifier>{e70dde21-b367-4d5e-a5a5-66b6ba4be02f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Native">
+      <UniqueIdentifier>{797fffce-2202-4d37-868c-9ce32d47745b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -365,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="Kernel\GlobalService.cpp">
       <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Native\IsManagedAssemblyAPI.cpp">
+      <Filter>Native</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -790,6 +796,9 @@
     </ClInclude>
     <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp">
+      <Filter>Native</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
