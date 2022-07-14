@@ -7,12 +7,12 @@ namespace LLNET::Event::Effective
 
 	public interface class ICancellable
 	{
-		property bool IsCancelled;
+		property bool IsCancelled {void set(bool); };
 	};
 
 	public interface class IEvent
 	{
-		property bool IsCancelled;
+		property bool IsCancelled {bool get(); };
 	};
 
 	public ref class EventBase abstract : IEvent

@@ -65,9 +65,9 @@ using LLNET::Core::Pair;
 #include "../Tools/clix.hpp"
 using namespace clix;
 
-inline String^ marshalString(std::string const& str) {
+inline String^ marshalString(std::string const& str) 
+{
 	return marshalString<clix::CLI_Encoding::E_UTF8>(str);
-
 };
 
 inline std::string marshalString(String^ str)
@@ -96,6 +96,12 @@ template<typename T, typename U>
 inline bool Is(U u)
 {
 	return dynamic_cast<T>(u) != nullptr;
+}
+
+template<typename T,typename U>
+inline bool As(U u)
+{
+	return safe_cast<T>(u);
 }
 
 ref class GlobalClass {
