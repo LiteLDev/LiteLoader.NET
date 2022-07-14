@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branch-ignore: main
+    branches-ignore: main
     paths:
       - '**.cpp'
       - '**.cc'
