@@ -104,6 +104,11 @@ internal:
 	static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
 	static inline HMODULE __GetCurrentModule(Assembly^ asm_)
 	{
-		return HMODULE((void*)ManagedPluginHandler[asm_]);
+		auto ret = IntPtr::Zero;
+		ManagedPluginHandler->TryGetValue(asm_, ret);
+		if (ret != IntPtr::Zero)
+			return HMODULE((void*)ret);
+		else
+			return MODULE;
 	}
 };

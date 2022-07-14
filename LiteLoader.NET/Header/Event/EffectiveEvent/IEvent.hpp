@@ -15,7 +15,8 @@ namespace LLNET::Event::Effective
 		void Cancel();
 	};
 
-	public ref class EventBase abstract : IEvent
+	generic<typename TEvent> where TEvent : IEvent
+		public ref class EventBase abstract : IEvent
 	{
 	protected:
 		bool isCancelled;
@@ -26,10 +27,11 @@ namespace LLNET::Event::Effective
 		}
 		virtual void Cancel()
 		{
-			if (Is<ICancellable^>(this))
+			if (dynamic_cast<ICancellable^>(this) != nullptr)
 				isCancelled = true;
 			else
 				throw gcnew LLNET::Core::CancelEventException;
 		}
+		void Call();
 	};
 }

@@ -38,18 +38,11 @@ namespace LLNET::Event::Effective
 	{
 		SUCCESS = 0,
 		UNREGISTERED,
-		UNKNOWN
+		//UNKNOWN
 	};
 
 	public ref class EventManager sealed
 	{
-	public:
-		generic<typename TEvent> where TEvent : IEvent
-			static void RegisterEvent();
-		generic<typename TListener> where TListener : IEventListener
-			static void RegisterListener();
-		generic<typename TEvent> where TEvent : IEvent
-			static EventCode CallEvent(TEvent ev);
 	internal:
 
 		using __IgnoreCancelled = bool;
@@ -57,7 +50,8 @@ namespace LLNET::Event::Effective
 		using __IsInstance = bool;
 		using __CallBackFunctionPointer = IntPtr;
 		using __ListenerType = System::Type;
-		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled, __IsRef, __IsInstance, __ListenerType^>;
+		using __HMODULE = IntPtr;
+		using __CallbackFunctionInfo = System::ValueTuple<__CallBackFunctionPointer, __IgnoreCancelled, __IsRef, __IsInstance, __ListenerType^, __HMODULE>;
 		using __PermissionWithCallbackFunctions = array<List<__CallbackFunctionInfo>^>;
 		using __EventId = size_t;
 		using __EventManagerData = Dictionary<__EventId, __PermissionWithCallbackFunctions^>;
@@ -67,6 +61,23 @@ namespace LLNET::Event::Effective
 		static __EventManagerData eventManagerData;
 		static __EventIds eventIds;
 		static System::Random rand;
+
+	public:
+		generic<typename TEvent> where TEvent : IEvent
+			static void RegisterEvent();
+
+		generic<typename TListener> where TListener : IEventListener
+			static void RegisterListener(__HMODULE handle);
+		generic<typename TListener> where TListener : IEventListener
+			static void RegisterListener();
+
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode CallEvent(TEvent ev, __EventId eventId);
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode CallEvent(TEvent ev);
+
+		generic<typename TEvent> where TEvent : IEvent
+			static __EventId GetEventId();
 
 	private:
 		static void _registerEvent(System::Type^ eventType);
@@ -89,6 +100,8 @@ namespace LLNET::Event::Effective
 		_registerEvent(TEvent::typeid);
 	}
 
+
+
 	void EventManager::_registerEvent(System::Type^ eventType)
 	{
 		__EventId eventId = 0;
@@ -108,6 +121,8 @@ namespace LLNET::Event::Effective
 		eventManagerData.Add(eventId, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
 	}
 
+
+
 	generic<typename TEvent> where TEvent : IEvent, INativeEvent
 		inline void EventManager::RegisterEventInternal(__EventId id)
 	{
@@ -116,8 +131,17 @@ namespace LLNET::Event::Effective
 	}
 
 
+
 	generic<typename TListener> where TListener : IEventListener
 		inline void EventManager::RegisterListener()
+	{
+		RegisterListener<TListener>(IntPtr(GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly())));
+	}
+
+
+
+	generic<typename TListener> where TListener : IEventListener
+		inline void EventManager::RegisterListener(__HMODULE handle)
 	{
 		auto listenerType = TListener::typeid;
 		auto Methods = listenerType->GetMethods(
@@ -201,7 +225,7 @@ namespace LLNET::Event::Effective
 			if (callbackFuncArr[eventPriority] == nullptr)
 				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
-			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref, methodData.Item4, methodData.Item4 ? listenerType : nullptr));
+			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref, methodData.Item4, methodData.Item4 ? listenerType : nullptr, handle));
 		}
 	}
 
@@ -210,11 +234,26 @@ namespace LLNET::Event::Effective
 	generic<typename TEvent> where TEvent : IEvent
 		inline EventCode EventManager::CallEvent(TEvent ev)
 	{
+		return CallEvent(ev, 0);
+	}
+
+
+
+	generic<typename TEvent> where TEvent : IEvent
+		inline EventCode EventManager::CallEvent(TEvent ev, __EventId eventId)
+	{
+		if (eventId != 0)
+			goto SKIP_CHECK;
+
 		auto eventType = TEvent::typeid;
 		if (!eventIds.ContainsKey(eventType))
 			return EventCode::UNREGISTERED;
 
-		auto functions = eventManagerData[eventIds[eventType]];
+		eventId = eventIds[eventType];
+
+	SKIP_CHECK:
+
+		auto functions = eventManagerData[eventId];
 		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
 
 		for (int i = 0; i < 6; i++)
@@ -273,10 +312,16 @@ namespace LLNET::Event::Effective
 				}
 			}
 		}
-
-
 		return EventCode::SUCCESS;
 	}
+
+	generic<typename TEvent> where TEvent : IEvent
+	inline EventManager::__EventId EventManager::GetEventId()
+	{
+		return eventIds[TEvent::typeid];
+	}
+
+
 
 	inline void NativeEventIsCancelledManager::set(int hashcode, bool isCancelled)
 	{
@@ -291,5 +336,11 @@ namespace LLNET::Event::Effective
 	inline void NativeEventIsCancelledManager::add(int hashcode, bool isCancelled)
 	{
 		IsCancelledData.Add(hashcode, isCancelled);
+	}
+
+	generic<typename TEvent> where TEvent : IEvent
+	inline void EventBase<TEvent>::Call()
+	{
+		EventManager::CallEvent<TEvent>(safe_cast<TEvent>(this));
 	}
 }

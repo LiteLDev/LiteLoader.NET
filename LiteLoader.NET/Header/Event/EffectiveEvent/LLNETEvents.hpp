@@ -121,7 +121,7 @@ virtual void Cancel()														\
 }
 
 
-#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent
+#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent, INativeEvent, ICancellable
 
 
 namespace LLNET::Event::Effective::NativeEvents
