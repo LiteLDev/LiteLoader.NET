@@ -245,7 +245,7 @@ namespace LLNET::Event::Effective
 		if (eventId != 0)
 			goto SKIP_CHECK;
 
-		auto eventType = TEvent::typeid;
+		auto eventType = ev->GetType();
 		if (!eventIds.ContainsKey(eventType))
 			return EventCode::UNREGISTERED;
 
