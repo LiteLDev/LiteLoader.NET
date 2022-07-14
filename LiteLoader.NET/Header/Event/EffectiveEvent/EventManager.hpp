@@ -337,4 +337,9 @@ namespace LLNET::Event::Effective
 	{
 		IsCancelledData.Add(hashcode, isCancelled);
 	}
+	
+	inline void EventBase::Call()
+	{
+		EventManager::CallEvent(this);
+	}
 }
