@@ -150,7 +150,7 @@ namespace LLNET::Event::Effective
 			BindingFlags::Static |
 			BindingFlags::Instance);
 
-		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, bool, bool>>;
+		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, bool, bool, bool>>;
 
 		for each (auto method in Methods)
 		{
@@ -167,12 +167,13 @@ namespace LLNET::Event::Effective
 				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
-				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool, bool>
+				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool, bool, bool>
 				{
 					method,
 						evHandlerAttr->Priority,
 						evHandlerAttr->IgnoreCancelled,
-						!method->IsStatic
+						!method->IsStatic,
+						evHandlerAttr->CanModifyEvent
 				});
 			}
 		}
@@ -190,34 +191,57 @@ namespace LLNET::Event::Effective
 			auto methodParam = method->GetParameters();
 
 			if (methodParam->Length != 1)
-				goto PARAM_CHECK_FAILED;
+				goto PARAM_CHECK_STEP1_FAILED;
 
 			__IsRef isref = false;
 			auto paramType = methodParam[0]->ParameterType;
+			auto elementParamType = paramType;
 
 			if (paramType->IsByRef)
 			{
 				isref = true;
-				paramType = paramType->GetElementType();
+				elementParamType = paramType->GetElementType();
 			}
 
-			auto paramInterfaces = paramType->GetInterfaces();
+			auto paramInterfaces = elementParamType->GetInterfaces();
 			for each (auto Interface in paramInterfaces)
 			{
 				if (Interface == IEvent::typeid)
-					goto PARAM_CHECK_SUCCEED;
+					goto PARAM_CHECK_STEP1_SUCCEED;
 			}
 
+
+		PARAM_CHECK_STEP1_FAILED:
+			throw gcnew RegisterEventListenerException("Listener can only have one parameter which the type is based on IEvent!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+
+		PARAM_CHECK_STEP1_SUCCEED:
+
+			if (!eventIds.ContainsKey(elementParamType))
+				_registerEvent(elementParamType);
+
+			auto eventId = eventIds[elementParamType];
+			bool isNativeEventListener = 0 < eventId && eventId <= 128;
+
+			if (isNativeEventListener)
 			{
-			PARAM_CHECK_FAILED:
-				throw gcnew RegisterEventListenerException("Listener can only have one parameter which the type is based on IEvent!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+				if (!isref)
+					throw gcnew RegisterEventListenerException("Listener's parameter for native events must be ref parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
 			}
-		PARAM_CHECK_SUCCEED:
 
-			if (!eventIds.ContainsKey(paramType))
-				_registerEvent(paramType);
+			if (isref)
+			{
+				if (isNativeEventListener)
+				{
+					if(!methodData.Item5)
+						throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Listener's parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+				}
+				else
+				{
+					if (!methodData.Item5)
+						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!");
+				}
+			}
 
-			auto eventId = eventIds[paramType];
 			auto eventPriority = (int)methodData.Item2;
 
 			auto callbackFuncArr = eventManagerData[eventId];
@@ -316,7 +340,7 @@ namespace LLNET::Event::Effective
 	}
 
 	generic<typename TEvent> where TEvent : IEvent
-	inline EventManager::__EventId EventManager::GetEventId()
+		inline EventManager::__EventId EventManager::GetEventId()
 	{
 		return eventIds[TEvent::typeid];
 	}
@@ -337,7 +361,7 @@ namespace LLNET::Event::Effective
 	{
 		IsCancelledData.Add(hashcode, isCancelled);
 	}
-	
+
 	inline void EventBase::Call()
 	{
 		EventManager::CallEvent(this);
