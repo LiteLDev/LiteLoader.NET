@@ -1,7 +1,8 @@
 name: Build
 
-on: 
+on:
   push:
+    branch-ignore: main
     paths:
       - '**.cpp'
       - '**.cc'
