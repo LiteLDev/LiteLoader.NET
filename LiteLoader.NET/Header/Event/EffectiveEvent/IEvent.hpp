@@ -11,27 +11,31 @@ namespace LLNET::Event::Effective
 
 	public interface class IEvent
 	{
-		property bool IsCancelled {bool get(); };
+		property bool IsCancelled {bool get();};
 		void Cancel();
 	};
 
-	generic<typename TEvent> where TEvent : IEvent
-		public ref class EventBase abstract : IEvent
+	public ref class EventBase abstract : IEvent
 	{
-	protected:
+	private:
 		bool isCancelled;
 	public:
-		virtual property bool IsCancelled
+		property bool IsCancelled
 		{
 			bool get() { return isCancelled; }
 		}
-		virtual void Cancel()
+		
+		void Cancel()
 		{
 			if (dynamic_cast<ICancellable^>(this) != nullptr)
 				isCancelled = true;
 			else
 				throw gcnew LLNET::Core::CancelEventException;
 		}
-		void Call();
+		
+		void Call() 
+		{
+			EventManager::CallEvent(safe_cast<IEvent>(this));
+		}
 	};
 }
