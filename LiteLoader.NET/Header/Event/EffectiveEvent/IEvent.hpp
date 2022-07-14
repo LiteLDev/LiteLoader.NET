@@ -13,7 +13,6 @@ namespace LLNET::Event::Effective
 	public interface class IEvent
 	{
 		property bool IsCancelled;
-		void Call();
 	};
 
 	public ref class EventBase abstract : IEvent
@@ -33,6 +32,6 @@ namespace LLNET::Event::Effective
 			}
 		}
 		
-		virtual void Call();
+		void Call();
 	};
 }
