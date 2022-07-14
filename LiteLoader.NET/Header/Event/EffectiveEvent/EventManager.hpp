@@ -337,10 +337,4 @@ namespace LLNET::Event::Effective
 	{
 		IsCancelledData.Add(hashcode, isCancelled);
 	}
-
-	generic<typename TEvent> where TEvent : IEvent
-	inline void EventBase<TEvent>::Call()
-	{
-		EventManager::CallEvent<TEvent>(safe_cast<TEvent>(this));
-	}
 }
