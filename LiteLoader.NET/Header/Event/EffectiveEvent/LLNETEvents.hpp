@@ -114,10 +114,6 @@ virtual property bool IsCancelled											\
 	{																		\
 		NativeEventIsCancelledManager::set(this->GetHashCode(), value);		\
 	}																		\
-}																			\
-virtual void Cancel()														\
-{																			\
-	NativeEventIsCancelledManager::set(this->GetHashCode(), true);			\
 }
 
 
