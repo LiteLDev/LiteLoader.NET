@@ -20,12 +20,12 @@ namespace LLNET::Event::Effective
 	private:
 		bool isCancelled;
 	public:
-		property bool IsCancelled
+		virtual property bool IsCancelled
 		{
 			bool get() { return isCancelled; }
 		}
 		
-		void Cancel()
+		virtual void Cancel()
 		{
 			if (dynamic_cast<ICancellable^>(this) != nullptr)
 				isCancelled = true;
@@ -33,9 +33,6 @@ namespace LLNET::Event::Effective
 				throw gcnew LLNET::Core::CancelEventException;
 		}
 		
-		void Call() 
-		{
-			EventManager::CallEvent(safe_cast<IEvent>(this));
-		}
+		void Call();
 	};
 }
