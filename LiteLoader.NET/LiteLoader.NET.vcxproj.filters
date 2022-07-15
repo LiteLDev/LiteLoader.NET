@@ -372,6 +372,9 @@
     <ClCompile Include="Kernel\Event\LLNETEvents.cpp">
       <Filter>Kernel\Event</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -794,8 +797,8 @@
     <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp">
-      <Filter>Native</Filter>
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

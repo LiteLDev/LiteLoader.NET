@@ -219,6 +219,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Hook.h" />
     <ClInclude Include="Header\I18n.hpp" />
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Header\LLAPI.h" />
     <ClInclude Include="Header\Logger.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
@@ -307,7 +308,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\Loader.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
-    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
@@ -339,6 +339,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
     <ClCompile Include="Kernel\Logger.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
@@ -412,7 +413,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
-    <ClCompile Include="Native\IsManagedAssemblyAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
