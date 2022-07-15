@@ -8,7 +8,9 @@ void InitEvents()
 
 inline void LLNET::Event::Effective::EventManager::_initEvents()
 {
-#define REGISTER_NATIVE_EVENT(_event) _registerEventInternal<LLNET::Event::Effective::NativeEvents::_event>(LLNET::Event::Effective::NativeEvents::_event::EventId)
+	using namespace LLNET::Event::Effective::NativeEvents;
+
+#define REGISTER_NATIVE_EVENT(_event) _registerEventInternal<_event>(_event::EventId)
 
 	REGISTER_NATIVE_EVENT(PlayerPreJoinEvent);
 	REGISTER_NATIVE_EVENT(PlayerJoinEvent);
@@ -19,7 +21,6 @@ inline void LLNET::Event::Effective::EventManager::_initEvents()
 	REGISTER_NATIVE_EVENT(PlayerUseItemOnEvent);
 	REGISTER_NATIVE_EVENT(PlayerChangeDimEvent);
 	REGISTER_NATIVE_EVENT(PlayerJumpEvent);
-	REGISTER_NATIVE_EVENT(EntityTransformEvent);
 	REGISTER_NATIVE_EVENT(PlayerSneakEvent);
 	REGISTER_NATIVE_EVENT(PlayerAttackEvent);
 	REGISTER_NATIVE_EVENT(PlayerAttackBlockEvent);
@@ -57,6 +58,7 @@ inline void LLNET::Event::Effective::EventManager::_initEvents()
 	REGISTER_NATIVE_EVENT(BlockInteractedEvent);
 	REGISTER_NATIVE_EVENT(ArmorStandChangeEvent);
 	REGISTER_NATIVE_EVENT(BlockExplodeEvent);
+	REGISTER_NATIVE_EVENT(EntityTransformEvent);
 	REGISTER_NATIVE_EVENT(ContainerChangeEvent);
 	REGISTER_NATIVE_EVENT(PistonPushEvent);
 	REGISTER_NATIVE_EVENT(PistonTryPushEvent);

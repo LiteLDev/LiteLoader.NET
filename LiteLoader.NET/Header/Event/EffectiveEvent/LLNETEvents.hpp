@@ -1,5 +1,5 @@
 #pragma once
-#include "include.hpp"
+#include "EventManager.hpp"
 #include <EventAPI.h>
 
 #include "../../MC/Vec3.hpp"
@@ -114,41 +114,43 @@
         }																	\
     }
 
-#define IEventAPIs(eventId)													\
+#define IEventAPIs(eventId,eventName)										\
 virtual property bool IsCancelled											\
 {																			\
 	bool get()																\
 	{																		\
-		return NativeEventIsCancelledManager::get(this->GetHashCode());		\
+		return NativeEventIsCancelledManager::get();						\
 	}																		\
 	void set(bool value)													\
 	{																		\
-		NativeEventIsCancelledManager::set(this->GetHashCode(), value);		\
+		NativeEventIsCancelledManager::set(value);							\
 	}																		\
 }																			\
 static const size_t EventId = eventId;
 
 
-#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent, INativeEvent, ICancellable
+#define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event:: className))] public value class className : IEvent, INativeEvent, ICancellable
 
 #define CallEventAPI(...) static void CallEvent(__VA_ARGS__)
 
-#define NativeCallback(eventName)										\
-delegate bool _delNativeCallback(::Event::eventName&);					\
-static bool _nativeCallback(::Event::eventName& ev)						\
-{																		\
-	auto% _ev = *(eventName*)&ev;										\
-	EventManager::CallNativeEventInternal(_ev, EventId);				\
-	return !_ev.IsCancelled;											\
-}																		\
-static eventName()														\
-{																		\
-	auto delfunc = gcnew _delNativeCallback(&_nativeCallback);			\
-	GCHandle::Alloc(delfunc);											\
-	::Event::eventName::subscribe_ref(									\
-		static_cast<bool(*)(::Event::eventName&)>(						\
-			(void*)Marshal::GetFunctionPointerForDelegate(delfunc)));	\
-}
+#define NativeCallback(eventName)																						\
+internal:																												\
+	delegate bool _delNativeCallback(::Event::eventName&);																\
+	static bool _nativeCallback(::Event::eventName& ev)																	\
+	{																													\
+		NativeEventIsCancelledManager::set(false);																		\
+		auto% _ev = *(eventName*)&ev;																					\
+		EventManager::CallNativeEventInternal(_ev, EventId);															\
+		return !_ev.IsCancelled;																						\
+	}																													\
+	static void _init()																									\
+	{																													\
+		auto delfunc = gcnew _delNativeCallback(&_nativeCallback);														\
+		GCHandle::Alloc(delfunc);																						\
+		::Event::EventManager<::Event::eventName>::addEventListenerRef(													\
+			LLNET_LOADER_NAME,																							\
+			static_cast<bool(*)(::Event::eventName&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));			\
+	}																													\
 
 
 namespace LLNET::Event::Effective::NativeEvents
@@ -162,7 +164,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerPreJoinEvent);
 
 	public:
-		IEventAPIs(1);
+		IEventAPIs(1, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mIP, IP, EVENTNAME);
@@ -181,7 +183,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerJoinEvent);
 
 	public:
-		IEventAPIs(2);
+		IEventAPIs(2, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 	public:
@@ -198,7 +200,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerLeftEvent);
 
 	public:
-		IEventAPIs(3);
+		IEventAPIs(3, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mXUID, XUID, EVENTNAME);
@@ -216,7 +218,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerRespawnEvent);
 
 	public:
-		IEventAPIs(4);
+		IEventAPIs(4, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 	public:
@@ -233,7 +235,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerUseItemEvent);
 
 	public:
-		IEventAPIs(5);
+		IEventAPIs(5, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
@@ -251,7 +253,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerUseItemOnEvent);
 
 	public:
-		IEventAPIs(6);
+		IEventAPIs(6, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
@@ -271,7 +273,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerChatEvent);
 
 	public:
-		IEventAPIs(7);
+		IEventAPIs(7, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mMessage, Message, EVENTNAME);
@@ -289,7 +291,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerChangeDimEvent);
 
 	public:
-		IEventAPIs(8);
+		IEventAPIs(8, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mToDimensionId, ToDimensionId, EVENTNAME);
@@ -306,8 +308,24 @@ namespace LLNET::Event::Effective::NativeEvents
 	private:
 		NativeCallback(PlayerJumpEvent);
 
+		/*delegate bool _delNativeCallback(::Event::PlayerJumpEvent&);
+		static bool _nativeCallback(::Event::PlayerJumpEvent & ev)
+		{
+			auto% _ev = *(PlayerJumpEvent*)&ev;
+			EventManager::CallNativeEventInternal(_ev, EventId);
+			return !_ev.IsCancelled;
+		}
+		static PlayerJumpEvent()
+		{
+			auto delfunc = gcnew _delNativeCallback(&_nativeCallback);
+			GCHandle::Alloc(delfunc);
+			::Event::EventManager<::Event::PlayerJumpEvent>::addEventListenerRef(
+				LLNET_LOADER_NAME,
+				static_cast<bool(*)(::Event::PlayerJumpEvent&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));
+		}*/
+
 	public:
-		IEventAPIs(9);
+		IEventAPIs(9, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 	public:
@@ -324,7 +342,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerSneakEvent);
 
 	public:
-		IEventAPIs(10);
+		IEventAPIs(10, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(bool, mIsSneaking, IsSneaking, EVENTNAME);
@@ -342,7 +360,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerAttackEvent);
 
 	public:
-		IEventAPIs(11);
+		IEventAPIs(11, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, Actor, mTarget, Target, EVENTNAME);
@@ -361,7 +379,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerAttackBlockEvent);
 
 	public:
-		IEventAPIs(12);
+		IEventAPIs(12, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
@@ -380,7 +398,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerDieEvent);
 
 	public:
-		IEventAPIs(13);
+		IEventAPIs(13, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
@@ -398,7 +416,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerPickupItemEvent);
 
 	public:
-		IEventAPIs(14);
+		IEventAPIs(14, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, Actor, mItemEntity, ItemEntity, EVENTNAME);
@@ -417,7 +435,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerDropItemEvent);
 
 	public:
-		IEventAPIs(15);
+		IEventAPIs(15, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
@@ -435,7 +453,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerEatEvent);
 
 	public:
-		IEventAPIs(16);
+		IEventAPIs(16, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mFoodItem, FoodItem, EVENTNAME);
@@ -453,7 +471,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerConsumeTotemEvent);
 
 	public:
-		IEventAPIs(17);
+		IEventAPIs(17, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 	public:
@@ -470,7 +488,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerCmdEvent);
 
 	public:
-		IEventAPIs(18);
+		IEventAPIs(18, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mCommand, Command, EVENTNAME);
@@ -489,7 +507,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerEffectChangedEvent);
 
 	public:
-		IEventAPIs(19);
+		IEventAPIs(19, EVENTNAME);
 	public:
 		enum class EventType
 		{
@@ -514,7 +532,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerStartDestroyBlockEvent);
 
 	public:
-		IEventAPIs(20);
+		IEventAPIs(20, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -532,7 +550,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerDestroyBlockEvent);
 
 	public:
-		IEventAPIs(21);
+		IEventAPIs(21, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -550,7 +568,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerPlaceBlockEvent);
 
 	public:
-		IEventAPIs(22);
+		IEventAPIs(22, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -568,7 +586,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerOpenContainerEvent);
 
 	public:
-		IEventAPIs(23);
+		IEventAPIs(23, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -587,7 +605,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerCloseContainerEvent);
 
 	public:
-		IEventAPIs(24);
+		IEventAPIs(24, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -606,7 +624,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerInventoryChangeEvent);
 
 	public:
-		IEventAPIs(25);
+		IEventAPIs(25, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mSlot, Slot, EVENTNAME);
@@ -626,7 +644,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerMoveEvent);
 
 	public:
-		IEventAPIs(26);
+		IEventAPIs(26, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_ValueType(MC, Vec3, mPos, Pos, EVENTNAME);
@@ -644,7 +662,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerSprintEvent);
 
 	public:
-		IEventAPIs(27);
+		IEventAPIs(27, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(bool, mIsSprinting, IsSprinting, EVENTNAME);
@@ -662,7 +680,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerSetArmorEvent);
 
 	public:
-		IEventAPIs(28);
+		IEventAPIs(28, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mSlot, Slot, EVENTNAME);
@@ -681,7 +699,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerUseRespawnAnchorEvent);
 
 	public:
-		IEventAPIs(29);
+		IEventAPIs(29, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -699,7 +717,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerOpenContainerScreenEvent);
 
 	public:
-		IEventAPIs(30);
+		IEventAPIs(30, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 	public:
@@ -716,7 +734,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerUseFrameBlockEvent);
 
 	public:
-		IEventAPIs(31);
+		IEventAPIs(31, EVENTNAME);
 	public:
 		enum class TypeEnum
 		{
@@ -740,7 +758,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerScoreChangedEvent);
 
 	public:
-		IEventAPIs(32);
+		IEventAPIs(32, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mScore, Score, EVENTNAME);
@@ -760,7 +778,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerExperienceAddEvent);
 
 	public:
-		IEventAPIs(33);
+		IEventAPIs(33, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mExp, Exp, EVENTNAME);
@@ -779,7 +797,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(BlockInteractedEvent);
 
 	public:
-		IEventAPIs(34);
+		IEventAPIs(34, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
@@ -797,7 +815,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(BlockChangedEvent);
 
 	public:
-		IEventAPIs(35);
+		IEventAPIs(35, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mPreviousBlockInstance, PreviousBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mNewBlockInstance, NewBlockInstance, EVENTNAME);
@@ -815,7 +833,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(BlockExplodedEvent);
 
 	public:
-		IEventAPIs(36);
+		IEventAPIs(36, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mExplodeSource, ExplodeSource, EVENTNAME);
@@ -833,7 +851,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(FireSpreadEvent);
 
 	public:
-		IEventAPIs(37);
+		IEventAPIs(37, EVENTNAME);
 	public:
 		_Property_ValueType(MC, BlockPos, mTarget, Target, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
@@ -851,7 +869,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ContainerChangeEvent);
 
 	public:
-		IEventAPIs(38);
+		IEventAPIs(38, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
@@ -874,7 +892,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ProjectileHitBlockEvent);
 
 	public:
-		IEventAPIs(39);
+		IEventAPIs(39, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mSource, Source, EVENTNAME);
@@ -892,7 +910,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(RedStoneUpdateEvent);
 
 	public:
-		IEventAPIs(40);
+		IEventAPIs(40, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property(int, mRedStonePower, RedStonePower, EVENTNAME);
@@ -911,7 +929,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(HopperSearchItemEvent);
 
 	public:
-		IEventAPIs(41);
+		IEventAPIs(41, EVENTNAME);
 	public:
 		_Property(int, isMinecart, isMinecart, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mHopperBlock, HopperBlock, EVENTNAME);
@@ -931,7 +949,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(HopperPushOutEvent);
 
 	public:
-		IEventAPIs(42);
+		IEventAPIs(42, EVENTNAME);
 	public:
 		_Property_Instance(MC, Vec3, mPos, Pos, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
@@ -949,7 +967,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PistonTryPushEvent);
 
 	public:
-		IEventAPIs(43);
+		IEventAPIs(43, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mPistonBlockInstance, PistonBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mTargetBlockInstance, TargetBlockInstance, EVENTNAME);
@@ -967,7 +985,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PistonPushEvent);
 
 	public:
-		IEventAPIs(44);
+		IEventAPIs(44, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mPistonBlockInstance, PistonBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mTargetBlockInstance, TargetBlockInstance, EVENTNAME);
@@ -985,7 +1003,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(FarmLandDecayEvent);
 
 	public:
-		IEventAPIs(45);
+		IEventAPIs(45, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
@@ -1003,7 +1021,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(LiquidSpreadEvent);
 
 	public:
-		IEventAPIs(46);
+		IEventAPIs(46, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_ValueType(MC, BlockPos, mTarget, Target, EVENTNAME);
@@ -1022,7 +1040,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(CmdBlockExecuteEvent);
 
 	public:
-		IEventAPIs(47);
+		IEventAPIs(47, EVENTNAME);
 	public:
 		_Property_String(mCommand, Command, EVENTNAME);
 		_Property(bool, mIsMinecart, IsMinecart, EVENTNAME);
@@ -1042,7 +1060,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(BlockExplodeEvent);
 
 	public:
-		IEventAPIs(48);
+		IEventAPIs(48, EVENTNAME);
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property(float, mRadius, Radius, EVENTNAME);
@@ -1064,7 +1082,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(EntityTransformEvent);
 
 	public:
-		IEventAPIs(49);
+		IEventAPIs(49, EVENTNAME);
 	public:
 		property MC::ActorUniqueID BeforeEntityUniqueId
 		{
@@ -1094,7 +1112,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(EntityExplodeEvent);
 
 	public:
-		IEventAPIs(50);
+		IEventAPIs(50, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
 		_Property_ValueType(MC, Vec3, mPos, Pos, EVENTNAME);
@@ -1117,7 +1135,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(MobHurtEvent);
 
 	public:
-		IEventAPIs(51);
+		IEventAPIs(51, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Mob, mMob, Mob, EVENTNAME);
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
@@ -1136,7 +1154,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(MobDieEvent);
 
 	public:
-		IEventAPIs(52);
+		IEventAPIs(52, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Mob, mMob, Mob, EVENTNAME);
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
@@ -1154,7 +1172,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ProjectileHitEntityEvent);
 
 	public:
-		IEventAPIs(53);
+		IEventAPIs(53, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mTarget, Target, EVENTNAME);
 		_Property_Ptr(MC, Actor, mSource, Source, EVENTNAME);
@@ -1172,7 +1190,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(WitherBossDestroyEvent);
 
 	public:
-		IEventAPIs(54);
+		IEventAPIs(54, EVENTNAME);
 	public:
 		_Property_Ptr(MC, WitherBoss, mWitherBoss, WitherBoss, EVENTNAME);
 		_Property_Instance(MC, AABB, mDestroyRange, DestroyRange, EVENTNAME);
@@ -1190,7 +1208,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(EntityRideEvent);
 
 	public:
-		IEventAPIs(55);
+		IEventAPIs(55, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mRider, Rider, EVENTNAME);
 		_Property_Ptr(MC, Actor, mVehicle, Vehicle, EVENTNAME);
@@ -1208,7 +1226,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(EntityStepOnPressurePlateEvent);
 
 	public:
-		IEventAPIs(56);
+		IEventAPIs(56, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -1226,7 +1244,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(NpcCmdEvent);
 
 	public:
-		IEventAPIs(57);
+		IEventAPIs(57, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mNpc, Npc, EVENTNAME);
 		_Property_String(mCommand, Command, EVENTNAME);
@@ -1245,7 +1263,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ProjectileSpawnEvent);
 
 	public:
-		IEventAPIs(58);
+		IEventAPIs(58, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mShooter, Shooter, EVENTNAME);
 		_Property_Ptr(MC, ActorDefinitionIdentifier, mIdentifier, Identifier, EVENTNAME);
@@ -1264,7 +1282,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ProjectileCreatedEvent);
 
 	public:
-		IEventAPIs(59);
+		IEventAPIs(59, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Actor, mShooter, Shooter, EVENTNAME);
 		_Property_Ptr(MC, Actor, mProjectile, Projectile, EVENTNAME);
@@ -1282,7 +1300,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ArmorStandChangeEvent);
 
 	public:
-		IEventAPIs(60);
+		IEventAPIs(60, EVENTNAME);
 	public:
 		_Property_Ptr(MC, ArmorStand, mArmorStand, ArmorStand, EVENTNAME);
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
@@ -1301,7 +1319,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ItemUseOnActorEvent);
 
 	public:
-		IEventAPIs(61);
+		IEventAPIs(61, EVENTNAME);
 	public:
 		_Property_Instance(MC, ActorRuntimeID, mTarget, Target, EVENTNAME);
 		_Property(int, mInteractiveMode, InteractiveMode, EVENTNAME);
@@ -1320,7 +1338,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PostInitEvent);
 
 	public:
-		IEventAPIs(62);
+		IEventAPIs(62, EVENTNAME);
 	public:
 
 	public:
@@ -1336,7 +1354,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ServerStartedEvent);
 
 	public:
-		IEventAPIs(63);
+		IEventAPIs(63, EVENTNAME);
 	public:
 
 	public:
@@ -1352,7 +1370,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ServerStoppedEvent);
 
 	public:
-		IEventAPIs(64);
+		IEventAPIs(64, EVENTNAME);
 	public:
 
 	public:
@@ -1368,7 +1386,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ConsoleCmdEvent);
 
 	public:
-		IEventAPIs(65);
+		IEventAPIs(65, EVENTNAME);
 	public:
 		_Property_String(mCommand, Command, EVENTNAME);
 
@@ -1385,7 +1403,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(RegCmdEvent);
 
 	public:
-		IEventAPIs(66);
+		IEventAPIs(66, EVENTNAME);
 	public:
 		_Property_Ptr(MC, CommandRegistry, mCommandRegistry, CommandRegistry, EVENTNAME);
 
@@ -1402,7 +1420,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ConsoleOutputEvent);
 
 	public:
-		IEventAPIs(67);
+		IEventAPIs(67, EVENTNAME);
 	public:
 		_Property_String(mOutput, Output, EVENTNAME);
 
@@ -1419,7 +1437,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(PlayerBedEnterEvent);
 
 	public:
-		IEventAPIs(68);
+		IEventAPIs(68, EVENTNAME);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
@@ -1437,7 +1455,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(ScriptPluginManagerEvent);
 
 	public:
-		IEventAPIs(69);
+		IEventAPIs(69, EVENTNAME);
 	public:
 		enum class OperationEnum
 		{
@@ -1464,7 +1482,7 @@ namespace LLNET::Event::Effective::NativeEvents
 		NativeCallback(MobSpawnEvent);
 
 	public:
-		IEventAPIs(70);
+		IEventAPIs(70, EVENTNAME);
 	public:
 		_Property_String(mTypeName, TypeName, EVENTNAME);
 		_Property_ValueType(MC, Vec3, mPos, Pos, EVENTNAME);

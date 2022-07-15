@@ -27,11 +27,13 @@ namespace LLNET::Event::Effective
 	ref class NativeEventIsCancelledManager sealed
 	{
 	internal:
-		static Dictionary<int, bool> IsCancelledData;
+		/*static Dictionary<int, bool> IsCancelledData;*/
+		static bool current = false;
 
-		inline static void set(int hashcode, bool isCancelled);
-		inline static bool get(int hashcode);
-		inline static void add(int hashcode, bool isCancelled);
+		inline static void set(bool isCancelled);
+		inline static bool get();
+		/*inline static void add(bool isCancelled);*/
+		/*inline static void remove(int hashcode);*/
 	};
 
 	public enum class EventCode
@@ -63,6 +65,7 @@ namespace LLNET::Event::Effective
 		static __EventIds eventIds;
 		static System::Random rand;
 		static Queue<Exception^>^ lastExceptions = gcnew Queue<Exception^>;
+		static List<__EventId> initializedNativeEvents;
 
 	public:
 		//public API
@@ -71,6 +74,7 @@ namespace LLNET::Event::Effective
 
 		generic<typename TListener> where TListener : IEventListener
 			static void RegisterListener(__HMODULE handle);
+
 		generic<typename TListener> where TListener : IEventListener
 			static void RegisterListener();
 
@@ -181,7 +185,7 @@ namespace LLNET::Event::Effective
 				{
 					auto defaultCtor = listenerType->GetConstructor(System::Array::Empty<System::Type^>());
 					if (defaultCtor == nullptr)
-						throw gcnew RegisterEventListenerException("Listener must be static or it's class must have default constructor!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+						throw gcnew RegisterEventListenerException("Handler must be static or it's class must have default constructor!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
@@ -203,7 +207,7 @@ namespace LLNET::Event::Effective
 			auto methodRetType = method->ReturnType;
 
 			if (methodRetType != void::typeid)
-				throw gcnew RegisterEventListenerException("Listener.ReturnType must be System.Void!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+				throw gcnew RegisterEventListenerException("Handler.ReturnType must be System.Void!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 
 
 			auto methodParam = method->GetParameters();
@@ -230,7 +234,7 @@ namespace LLNET::Event::Effective
 
 
 		PARAM_CHECK_STEP1_FAILED:
-			throw gcnew RegisterEventListenerException("Listener can only have one parameter which the type is based on IEvent!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+			throw gcnew RegisterEventListenerException("Handler can only have one parameter which the type is based on IEvent!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 
 		PARAM_CHECK_STEP1_SUCCEED:
 
@@ -243,7 +247,7 @@ namespace LLNET::Event::Effective
 			if (isNativeEventListener)
 			{
 				if (!isref)
-					throw gcnew RegisterEventListenerException("Listener's parameter for native events must be ref parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+					throw gcnew RegisterEventListenerException("Handler's parameter for native events must be ref parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 			}
 
 			if (isref)
@@ -254,7 +258,7 @@ namespace LLNET::Event::Effective
 					{
 						if (!methodParam[0]->IsIn)
 						{
-							throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Listener's parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+							throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Handler's parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 						}
 					}
 
@@ -262,7 +266,7 @@ namespace LLNET::Event::Effective
 				else
 				{
 					if (!methodData.Item5)
-						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
 				}
 			}
 
@@ -274,6 +278,15 @@ namespace LLNET::Event::Effective
 				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
 			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref, methodData.Item4, methodData.Item4 ? listenerType : nullptr, handle));
+
+			if (isNativeEventListener)
+			{
+				if (!initializedNativeEvents.Contains(eventId))
+					elementParamType
+					->GetMethod("_init", BindingFlags::Static | BindingFlags::NonPublic)
+					->Invoke(nullptr, System::Array::Empty<System::Type^>());
+				initializedNativeEvents.Add(eventId);
+			}
 		}
 	}
 
@@ -349,7 +362,7 @@ namespace LLNET::Event::Effective
 						break;
 
 					case IS_IGNORECANCELLED:
-						
+
 						if (!ev->IsCancelled)
 							((void(*)(TEvent))(void*)func.Item1)(ev);
 						break;
@@ -418,7 +431,7 @@ namespace LLNET::Event::Effective
 				continue;
 			for each (auto func in funcs)
 			{
-				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item4 ? IS_INSTANCE : 0);
+				int callingmode = IS_REF | (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item4 ? IS_INSTANCE : 0);
 
 				try
 				{
@@ -465,20 +478,25 @@ namespace LLNET::Event::Effective
 
 
 
-	inline void NativeEventIsCancelledManager::set(int hashcode, bool isCancelled)
+	inline void NativeEventIsCancelledManager::set(bool isCancelled)
 	{
-		IsCancelledData[hashcode] = isCancelled;
+		current = isCancelled;
 	}
 
-	inline bool NativeEventIsCancelledManager::get(int hashcode)
+	inline bool NativeEventIsCancelledManager::get()
 	{
-		return IsCancelledData[hashcode];
+		return current;
 	}
 
-	inline void NativeEventIsCancelledManager::add(int hashcode, bool isCancelled)
-	{
-		IsCancelledData.Add(hashcode, isCancelled);
-	}
+	//inline void NativeEventIsCancelledManager::add( bool isCancelled)
+	//{
+	//	IsCancelledData.Add(hashcode, isCancelled);
+	//}
+
+	//inline void NativeEventIsCancelledManager::remove(int hashcode)
+	//{
+	//	IsCancelledData.Remove(hashcode);
+	//}
 
 	inline void EventBase::Call()
 	{
