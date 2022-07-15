@@ -38,6 +38,7 @@ namespace LLNET::Event::Effective
 	{
 		SUCCESS = 0,
 		UNREGISTERED,
+		CATCHED_EXCEPTIONS
 		//UNKNOWN
 	};
 
@@ -90,10 +91,10 @@ namespace LLNET::Event::Effective
 		generic<typename TEvent> where TEvent : IEvent
 			static EventCode _callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
 
+	internal:
 		generic<typename TEvent> where TEvent : IEvent
 			static EventCode _callNativeEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
 
-	internal:
 		static void _initEvents();
 
 		generic<typename TEvent> where TEvent : IEvent, INativeEvent
@@ -313,11 +314,14 @@ namespace LLNET::Event::Effective
 	generic<typename TEvent> where TEvent : IEvent
 		inline EventCode EventManager::_callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs)
 	{
+		bool catchedException = false;
+
 		for (int i = 0; i < 6; i++)
 		{
 			auto funcs = pfuncs[i];
 			if (funcs == nullptr)
 				continue;
+
 			for each (auto func in funcs)
 			{
 				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (func.Item4 ? IS_INSTANCE : 0);
@@ -374,10 +378,15 @@ namespace LLNET::Event::Effective
 				catch (Exception^ ex)
 				{
 					lastExceptions->Enqueue(ex);
+					catchedException = true;
 				}
 			}
 		}
-		return EventCode::SUCCESS;
+
+		if (catchedException)
+			return EventCode::CATCHED_EXCEPTIONS;
+		else
+			return EventCode::SUCCESS;
 	}
 
 

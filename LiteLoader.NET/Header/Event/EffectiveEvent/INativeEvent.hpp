@@ -4,6 +4,5 @@ namespace LLNET::Event::Effective
 {
 	interface class INativeEvent
 	{
-
 	};
 }

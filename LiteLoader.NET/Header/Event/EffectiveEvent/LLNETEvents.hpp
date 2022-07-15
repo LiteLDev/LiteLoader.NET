@@ -9,6 +9,8 @@
 #include "../../MC/AABB.hpp"
 #include "../../MC/ItemStack.hpp"
 #include "../../MC/Container.hpp"
+#include "../../Command/CommandRegistry.hpp"
+#include "../../Command/Command.hpp"
 
 #define _PIN_OBJECT(eventName) pin_ptr<eventName> _this = this
 #define _THIS(eventName) ((::Event::eventName*)_this)
@@ -120,6 +122,8 @@ static const size_t EventId = eventId;
 
 #define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent, INativeEvent, ICancellable
 
+#define CallEventAPI(...) static void CallEvent(__VA_ARGS__)
+
 
 namespace LLNET::Event::Effective::NativeEvents
 {
@@ -134,6 +138,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mIP, IP, EVENTNAME);
 		_Property_String(mXUID, XUID, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, String ^ mIP, String ^ mXUID);
 
 #undef EVENTNAME 
 	};
@@ -146,6 +152,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(2);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer);
 
 #undef EVENTNAME 
 	};
@@ -159,6 +167,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mXUID, XUID, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, String ^ mXUID);
 
 #undef EVENTNAME 
 	};
@@ -171,6 +181,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(4);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer);
 
 #undef EVENTNAME 
 	};
@@ -184,6 +196,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ItemStack ^ mItenStack);
 
 #undef EVENTNAME 
 	};
@@ -199,6 +213,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property(char, mFace, Face, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ItemStack ^ mItenStack, MC::BlockInstance ^ mBlockInstance, char mFace);
 
 #undef EVENTNAME 
 	};
@@ -212,6 +228,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mMessage, Message, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, String ^ mMessage);
 
 #undef EVENTNAME 
 	};
@@ -225,6 +243,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mToDimensionId, ToDimensionId, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, int mToDimensionId);
 
 #undef EVENTNAME 
 	};
@@ -237,6 +257,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(9);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer);
 
 #undef EVENTNAME 
 	};
@@ -250,6 +272,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(bool, mIsSneaking, IsSneaking, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, bool mIsSneaking);
 
 #undef EVENTNAME 
 	};
@@ -264,6 +288,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, Actor, mTarget, Target, EVENTNAME);
 		_Property(int, mAttackDamage, AttackDamage, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::Actor ^ mTarget, int mAttackDamage);
 
 #undef EVENTNAME 
 	};
@@ -278,6 +304,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ItemStack ^ mItemStack, MC::BlockInstance ^ mBlockInstance);
 
 #undef EVENTNAME 
 	};
@@ -291,6 +319,8 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ActorDamageSource ^ mDamageSource);
 
 #undef EVENTNAME 
 	};
@@ -305,6 +335,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, Actor, mItemEntity, ItemEntity, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::Actor ^ mItemEntity, MC::ItemStack ^ mItemStack);
 
 #undef EVENTNAME 
 	};
@@ -318,8 +350,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mItemStack, ItemStack, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ItemStack ^ mItemStack);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerEatEvent)
@@ -331,8 +365,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mFoodItem, FoodItem, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::ItemStack ^ mFoodItem);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerConsumeTotemEvent)
@@ -343,8 +379,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(17);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerCmdEvent)
@@ -357,8 +395,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_String(mCommand, Command, EVENTNAME);
 		_Property_Ptr(MC, MCRESULT, mResult, Result, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::Command ^ mCommand, MC::MCRESULT ^ mResult);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerEffectChangedEvent)
@@ -377,8 +417,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Enum(EventType, ::Event::PlayerEffectChangedEvent::EventType, mEventType, Event_Type, EVENTNAME);
 		_Property_Ptr(MC, MobEffectInstance, mEffect, Effect, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, EventType mEventType, MC::MobEffectInstance ^ mEffect);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerStartDestroyBlockEvent)
@@ -390,8 +432,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerDestroyBlockEvent)
@@ -403,8 +447,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerPlaceBlockEvent)
@@ -416,8 +462,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerOpenContainerEvent)
@@ -430,8 +478,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Container, mContainer, Container, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance, MC::Container ^ mContainer);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerCloseContainerEvent)
@@ -444,8 +494,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Container, mContainer, Container, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance, MC::Container ^ mContainer);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerInventoryChangeEvent)
@@ -459,8 +511,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property(int, mSlot, Slot, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mPreviousItemStack, PreviousItemStack, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mNewItemStack, NewItemStack, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, int mSlot, MC::ItemStack ^ mPreviousItemStack, MC::ItemStack ^ mNewItemStack);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerMoveEvent)
@@ -472,8 +526,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_ValueType(MC, Vec3, mPos, Pos, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::Vec3 mPos);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerSprintEvent)
@@ -485,8 +541,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(bool, mIsSprinting, IsSprinting, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, bool mIsSprinting);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerSetArmorEvent)
@@ -499,8 +557,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mSlot, Slot, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mArmorItem, ArmorItem, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, int mSlot, MC::ItemStack ^ mArmorItem);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerUseRespawnAnchorEvent)
@@ -512,8 +572,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerOpenContainerScreenEvent)
@@ -524,8 +586,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(30);
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerUseFrameBlockEvent)
@@ -543,8 +607,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Enum(TypeEnum, ::Event::PlayerUseFrameBlockEvent::Type, mType, Type, EVENTNAME);
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(TypeEnum mType, MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerScoreChangedEvent)
@@ -558,8 +624,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property(int, mScore, Score, EVENTNAME);
 		_Property_Ptr(MC, Objective, mObjective, Objective, EVENTNAME);
 		_Property_Ptr(MC, ScoreboardId, mScoreboardId, ScoreboardId, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, int mScore, MC::Objective ^ Objective, MC::ScoreboardId ^ mBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerExperienceAddEvent)
@@ -571,8 +639,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mExp, Exp, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, int mExp);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 	///////////////////////////// Block Events /////////////////////////////
 
@@ -585,8 +655,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockInstance ^ mBlockInstance, MC::Player ^ mPlayer);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(BlockChangedEvent)
@@ -598,8 +670,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Instance(MC, BlockInstance, mPreviousBlockInstance, PreviousBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mNewBlockInstance, NewBlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockInstance ^ mPreviousBlockInstance, MC::BlockInstance ^ mNewBlockInstance);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(BlockExplodedEvent)
@@ -611,8 +685,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mExplodeSource, ExplodeSource, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockInstance ^ mBlockInstance, MC::Actor ^ mExplodeSource);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(FireSpreadEvent)
@@ -624,8 +700,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_ValueType(MC, BlockPos, mTarget, Target, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockPos mBlockInstance, int mDimensionId);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(ContainerChangeEvent)
@@ -642,8 +720,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property(int, mSlot, Slot, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mPreviousItemStack, PreviousItemStack, EVENTNAME);
 		_Property_Ptr(MC, ItemStack, mNewItemStack, NewItemStack, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::Actor ^ mActor, MC::BlockInstance ^ mBlockInstance, MC::Container ^ mContainer, int mSlot, MC::ItemStack ^ mPreviousItemStack, MC::Player ^ mNewItemStack);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(ProjectileHitBlockEvent)
@@ -655,8 +735,10 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mSource, Source, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockInstance ^ mBlockInstance, MC::Actor ^ mSource);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(RedStoneUpdateEvent)
@@ -669,8 +751,10 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property(int, mRedStonePower, RedStonePower, EVENTNAME);
 		_Property(bool, mIsActivated, IsActivated, EVENTNAME);
+	public:
+		//CallEventAPI(MC::BlockInstance ^ mBlockInstance, int mRedStonePower, bool mIsActivated);
 
-#undef EVENTNAME 
+#undef EVENTNAME
 	};
 
 	EventClass(HopperSearchItemEvent)
@@ -685,7 +769,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_ValueType(MC, Vec3, mMinecartPos, MinecartPos, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(HopperPushOutEvent)
@@ -698,7 +784,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, Vec3, mPos, Pos, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(PistonTryPushEvent)
@@ -711,7 +799,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, BlockInstance, mPistonBlockInstance, PistonBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mTargetBlockInstance, TargetBlockInstance, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(PistonPushEvent)
@@ -724,7 +814,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, BlockInstance, mPistonBlockInstance, PistonBlockInstance, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mTargetBlockInstance, TargetBlockInstance, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(FarmLandDecayEvent)
@@ -737,7 +829,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(LiquidSpreadEvent)
@@ -751,7 +845,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_ValueType(MC, BlockPos, mTarget, Target, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(CmdBlockExecuteEvent)
@@ -766,7 +862,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 		_Property_Ptr(MC, Actor, mMinecart, Minecart, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(BlockExplodeEvent)
@@ -782,7 +880,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property(bool, mBreaking, Breaking, EVENTNAME);
 		_Property(bool, mFire, Fire, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 	///////////////////////////// Entity Events /////////////////////////////
 
@@ -808,7 +908,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		}
 		_Property_Ptr(MC, Actor, mAfterEntity, AfterEntity, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(EntityExplodeEvent)
@@ -826,7 +928,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property(bool, mBreaking, Breaking, EVENTNAME);
 		_Property(bool, mFire, Fire, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(MobHurtEvent)
@@ -840,7 +944,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
 		_Property(float, mDamage, Damage, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(MobDieEvent)
@@ -853,7 +959,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Mob, mMob, Mob, EVENTNAME);
 		_Property_Ptr(MC, ActorDamageSource, mDamageSource, DamageSource, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ProjectileHitEntityEvent)
@@ -866,7 +974,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Actor, mTarget, Target, EVENTNAME);
 		_Property_Ptr(MC, Actor, mSource, Source, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(WitherBossDestroyEvent)
@@ -879,7 +989,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, WitherBoss, mWitherBoss, WitherBoss, EVENTNAME);
 		_Property_Instance(MC, AABB, mDestroyRange, DestroyRange, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(EntityRideEvent)
@@ -892,7 +1004,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Actor, mRider, Rider, EVENTNAME);
 		_Property_Ptr(MC, Actor, mVehicle, Vehicle, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(EntityStepOnPressurePlateEvent)
@@ -905,7 +1019,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Actor, mActor, Actor, EVENTNAME);
 		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(NpcCmdEvent)
@@ -919,7 +1035,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_String(mCommand, Command, EVENTNAME);
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ProjectileSpawnEvent)
@@ -933,7 +1051,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, ActorDefinitionIdentifier, mIdentifier, Identifier, EVENTNAME);
 		_Property_String(mType, Type, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ProjectileCreatedEvent)
@@ -946,7 +1066,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Actor, mShooter, Shooter, EVENTNAME);
 		_Property_Ptr(MC, Actor, mProjectile, Projectile, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ArmorStandChangeEvent)
@@ -960,7 +1082,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property(int, mSlot, Slot, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ItemUseOnActorEvent)
@@ -973,7 +1097,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Instance(MC, ActorRuntimeID, mTarget, Target, EVENTNAME);
 		_Property(int, mInteractiveMode, InteractiveMode, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 	///////////////////////////// Other Events /////////////////////////////
 
@@ -985,7 +1111,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(62);
 	public:
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ServerStartedEvent)
@@ -996,7 +1124,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(63);
 	public:
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ServerStoppedEvent)
@@ -1007,7 +1137,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		IEventAPIs(64);
 	public:
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ConsoleCmdEvent)
@@ -1019,7 +1151,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_String(mCommand, Command, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(RegCmdEvent)
@@ -1031,7 +1165,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_Ptr(MC, CommandRegistry, mCommandRegistry, CommandRegistry, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ConsoleOutputEvent)
@@ -1043,7 +1179,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	public:
 		_Property_String(mOutput, Output, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(PlayerBedEnterEvent)
@@ -1056,7 +1194,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
 		_Property_Ptr(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(ScriptPluginManagerEvent)
@@ -1078,7 +1218,9 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_String(pluginExtention, PluginExtention, EVENTNAME);
 		_Property(bool, success, Success, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 
 	EventClass(MobSpawnEvent)
@@ -1092,6 +1234,8 @@ namespace LLNET::Event::Effective::NativeEvents
 		_Property_ValueType(MC, Vec3, mPos, Pos, EVENTNAME);
 		_Property(int, mDimensionId, DimensionId, EVENTNAME);
 
-#undef EVENTNAME 
+	public:
+		//CallEventAPI();
+#undef EVENTNAME
 	};
 }

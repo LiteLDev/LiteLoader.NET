@@ -82,3 +82,9 @@ inline void LLNET::Event::Effective::EventManager::_initEvents()
 	REGISTER_NATIVE_EVENT(ScriptPluginManagerEvent);
 	REGISTER_NATIVE_EVENT(MobSpawnEvent);
 }
+
+#define CallEventAPI_Imp(_event,...) void _event::CallEvent(__VA_ARGS__)
+
+namespace LLNET::Event::Effective::NativeEvents
+{
+}
