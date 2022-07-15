@@ -61,6 +61,7 @@ namespace LLNET::Event::Effective
 		static __EventManagerData eventManagerData;
 		static __EventIds eventIds;
 		static System::Random rand;
+		static Queue<Exception^>^ lastExceptions = gcnew Queue<Exception^>;
 
 	public:
 		generic<typename TEvent> where TEvent : IEvent
@@ -78,6 +79,8 @@ namespace LLNET::Event::Effective
 
 		generic<typename TEvent> where TEvent : IEvent
 			static __EventId GetEventId();
+
+		static array<Exception^>^ GetLastCallingExceptions();
 
 	private:
 		static void _registerEvent(System::Type^ eventType);
@@ -288,6 +291,9 @@ namespace LLNET::Event::Effective
 		auto functions = eventManagerData[eventId];
 		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
 
+		if (lastExceptions->Count > 0)
+			lastExceptions->Clear();
+
 		for (int i = 0; i < 6; i++)
 		{
 			auto funcs = pfunctions[i];
@@ -296,51 +302,59 @@ namespace LLNET::Event::Effective
 			for each (auto func in funcs)
 			{
 				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (func.Item4 ? IS_INSTANCE : 0);
-				switch (callingmode)
+
+				try
 				{
-				case IS_NORMAL:
+					switch (callingmode)
+					{
+					case IS_NORMAL:
 
-					((void(*)(TEvent))(void*)func.Item1)(ev);
-					break;
-
-				case IS_INSTANCE:
-
-					((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-					break;
-
-				case IS_REF:
-
-					((void(*)(TEvent%))(void*)func.Item1)(ev);
-					break;
-
-				case IS_IGNORECANCELLED:
-
-					if (!ev->IsCancelled)
 						((void(*)(TEvent))(void*)func.Item1)(ev);
-					break;
+						break;
 
-				case IS_INSTANCE_AND_REF:
+					case IS_INSTANCE:
 
-					((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-					break;
-
-				case IS_INSTANCE_AND_IGNORECANCELLED:
-
-					if (!ev->IsCancelled)
 						((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-					break;
+						break;
 
-				case IS_REF_AND_IGNORECANCELLED:
+					case IS_REF:
 
-					if (!ev->IsCancelled)
 						((void(*)(TEvent%))(void*)func.Item1)(ev);
-					break;
+						break;
 
-				case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+					case IS_IGNORECANCELLED:
 
-					if (!ev->IsCancelled)
+						if (!ev->IsCancelled)
+							((void(*)(TEvent))(void*)func.Item1)(ev);
+						break;
+
+					case IS_INSTANCE_AND_REF:
+
 						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-					break;
+						break;
+
+					case IS_INSTANCE_AND_IGNORECANCELLED:
+
+						if (!ev->IsCancelled)
+							((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+
+					case IS_REF_AND_IGNORECANCELLED:
+
+						if (!ev->IsCancelled)
+							((void(*)(TEvent%))(void*)func.Item1)(ev);
+						break;
+
+					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+
+						if (!ev->IsCancelled)
+							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+					}
+				}
+				catch (Exception^ ex)
+				{
+					lastExceptions->Enqueue(ex);
 				}
 			}
 		}
@@ -373,5 +387,10 @@ namespace LLNET::Event::Effective
 	inline void EventBase::Call()
 	{
 		EventManager::CallEvent(this);
+	}
+
+	inline array<Exception^>^ EventManager::GetLastCallingExceptions()
+	{
+		return lastExceptions->ToArray();
 	}
 }
