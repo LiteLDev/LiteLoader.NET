@@ -76,6 +76,9 @@
     <Filter Include="Header\Event\EffectiveEvent">
       <UniqueIdentifier>{e70dde21-b367-4d5e-a5a5-66b6ba4be02f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kernel\Event">
+      <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -181,9 +184,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\DynamicCommand.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\Event.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\FormUI.cpp">
@@ -365,6 +365,12 @@
     </ClCompile>
     <ClCompile Include="Kernel\GlobalService.cpp">
       <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\Event.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\LLNETEvents.cpp">
+      <Filter>Kernel\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

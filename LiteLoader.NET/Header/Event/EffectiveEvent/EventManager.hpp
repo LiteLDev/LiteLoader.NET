@@ -89,11 +89,14 @@ namespace LLNET::Event::Effective
 		static void _registerEvent(System::Type^ eventType);
 
 		generic<typename TEvent> where TEvent : IEvent
-			static EventCode _callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
+			static EventCode _callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs);
 
 	internal:
 		generic<typename TEvent> where TEvent : IEvent
-			static EventCode _callNativeEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
+			static EventCode _callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs);
+
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode CallNativeEventInternal(TEvent% ev, __EventId eventId);
 
 		static void _initEvents();
 
@@ -304,15 +307,15 @@ namespace LLNET::Event::Effective
 		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
 
 		if (eventId > 128)
-			return _callEvent(ev, 0, pfunctions);
+			return _callEvent(ev, pfunctions);
 		else
-			return _callNativeEvent(ev, eventId, pfunctions);
+			return _callNativeEvent(ev, pfunctions);
 	}
 
 
 
 	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::_callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs)
+		inline EventCode EventManager::_callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs)
 	{
 		bool catchedException = false;
 
@@ -392,7 +395,21 @@ namespace LLNET::Event::Effective
 
 
 	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::_callNativeEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs)
+		inline EventCode EventManager::CallNativeEventInternal(TEvent% ev, __EventId eventId)
+	{
+		if (lastExceptions->Count > 0)
+			lastExceptions->Clear();
+
+		auto functions = eventManagerData[eventId];
+		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
+
+		return _callNativeEvent(ev, pfunctions);
+	}
+
+
+
+	generic<typename TEvent> where TEvent : IEvent
+		inline EventCode EventManager::_callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs)
 	{
 		for (int i = 0; i < 6; i++)
 		{

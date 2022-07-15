@@ -9,6 +9,15 @@
 #include "../../MC/AABB.hpp"
 #include "../../MC/ItemStack.hpp"
 #include "../../MC/Container.hpp"
+#include "../../MC/ActorDamageSource.hpp"
+#include "../../MC/MCRESULT.hpp"
+#include "../../MC/MobEffectInstance.hpp"
+#include "../../MC/Objective.hpp"
+#include "../../MC/ScoreboardId.hpp"
+#include "../../MC/BlockSource.hpp"
+#include "../../MC/WitherBoss.hpp"
+#include "../../MC/ActorDefinitionIdentifier.hpp"
+#include "../../MC/ArmStand.hpp"
 #include "../../Command/CommandRegistry.hpp"
 #include "../../Command/Command.hpp"
 
@@ -124,6 +133,23 @@ static const size_t EventId = eventId;
 
 #define CallEventAPI(...) static void CallEvent(__VA_ARGS__)
 
+#define NativeCallback(eventName)										\
+delegate bool _delNativeCallback(::Event::eventName&);					\
+static bool _nativeCallback(::Event::eventName& ev)						\
+{																		\
+	auto% _ev = *(eventName*)&ev;										\
+	EventManager::CallNativeEventInternal(_ev, EventId);				\
+	return !_ev.IsCancelled;											\
+}																		\
+static eventName()														\
+{																		\
+	auto delfunc = gcnew _delNativeCallback(&_nativeCallback);			\
+	GCHandle::Alloc(delfunc);											\
+	::Event::eventName::subscribe_ref(									\
+		static_cast<bool(*)(::Event::eventName&)>(						\
+			(void*)Marshal::GetFunctionPointerForDelegate(delfunc)));	\
+}
+
 
 namespace LLNET::Event::Effective::NativeEvents
 {
@@ -131,6 +157,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerPreJoinEvent)
 	{
 #define EVENTNAME PlayerPreJoinEvent 
+
+	private:
+		NativeCallback(PlayerPreJoinEvent);
 
 	public:
 		IEventAPIs(1);
@@ -148,6 +177,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerJoinEvent 
 
+	private:
+		NativeCallback(PlayerJoinEvent);
+
 	public:
 		IEventAPIs(2);
 	public:
@@ -161,6 +193,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerLeftEvent)
 	{
 #define EVENTNAME PlayerLeftEvent 
+
+	private:
+		NativeCallback(PlayerLeftEvent);
 
 	public:
 		IEventAPIs(3);
@@ -177,6 +212,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerRespawnEvent 
 
+	private:
+		NativeCallback(PlayerRespawnEvent);
+
 	public:
 		IEventAPIs(4);
 	public:
@@ -190,6 +228,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerUseItemEvent)
 	{
 #define EVENTNAME PlayerUseItemEvent 
+
+	private:
+		NativeCallback(PlayerUseItemEvent);
 
 	public:
 		IEventAPIs(5);
@@ -205,6 +246,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerUseItemOnEvent)
 	{
 #define EVENTNAME PlayerUseItemOnEvent 
+
+	private:
+		NativeCallback(PlayerUseItemOnEvent);
 
 	public:
 		IEventAPIs(6);
@@ -223,6 +267,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerChatEvent 
 
+	private:
+		NativeCallback(PlayerChatEvent);
+
 	public:
 		IEventAPIs(7);
 	public:
@@ -237,6 +284,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerChangeDimEvent)
 	{
 #define EVENTNAME PlayerChangeDimEvent 
+
+	private:
+		NativeCallback(PlayerChangeDimEvent);
 
 	public:
 		IEventAPIs(8);
@@ -253,6 +303,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerJumpEvent 
 
+	private:
+		NativeCallback(PlayerJumpEvent);
+
 	public:
 		IEventAPIs(9);
 	public:
@@ -266,6 +319,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerSneakEvent)
 	{
 #define EVENTNAME PlayerSneakEvent 
+
+	private:
+		NativeCallback(PlayerSneakEvent);
 
 	public:
 		IEventAPIs(10);
@@ -281,6 +337,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerAttackEvent)
 	{
 #define EVENTNAME PlayerAttackEvent 
+
+	private:
+		NativeCallback(PlayerAttackEvent);
 
 	public:
 		IEventAPIs(11);
@@ -298,6 +357,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerAttackBlockEvent 
 
+	private:
+		NativeCallback(PlayerAttackBlockEvent);
+
 	public:
 		IEventAPIs(12);
 	public:
@@ -314,6 +376,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerDieEvent 
 
+	private:
+		NativeCallback(PlayerDieEvent);
+
 	public:
 		IEventAPIs(13);
 	public:
@@ -328,6 +393,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerPickupItemEvent)
 	{
 #define EVENTNAME PlayerPickupItemEvent 
+
+	private:
+		NativeCallback(PlayerPickupItemEvent);
 
 	public:
 		IEventAPIs(14);
@@ -345,6 +413,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerDropItemEvent 
 
+	private:
+		NativeCallback(PlayerDropItemEvent);
+
 	public:
 		IEventAPIs(15);
 	public:
@@ -359,6 +430,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerEatEvent)
 	{
 #define EVENTNAME PlayerEatEvent 
+
+	private:
+		NativeCallback(PlayerEatEvent);
 
 	public:
 		IEventAPIs(16);
@@ -375,6 +449,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerConsumeTotemEvent 
 
+	private:
+		NativeCallback(PlayerConsumeTotemEvent);
+
 	public:
 		IEventAPIs(17);
 	public:
@@ -388,6 +465,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerCmdEvent)
 	{
 #define EVENTNAME PlayerCmdEvent 
+
+	private:
+		NativeCallback(PlayerCmdEvent);
 
 	public:
 		IEventAPIs(18);
@@ -404,6 +484,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerEffectChangedEvent)
 	{
 #define EVENTNAME PlayerEffectChangedEvent 
+
+	private:
+		NativeCallback(PlayerEffectChangedEvent);
 
 	public:
 		IEventAPIs(19);
@@ -427,6 +510,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerStartDestroyBlockEvent 
 
+	private:
+		NativeCallback(PlayerStartDestroyBlockEvent);
+
 	public:
 		IEventAPIs(20);
 	public:
@@ -441,6 +527,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerDestroyBlockEvent)
 	{
 #define EVENTNAME PlayerDestroyBlockEvent 
+
+	private:
+		NativeCallback(PlayerDestroyBlockEvent);
 
 	public:
 		IEventAPIs(21);
@@ -457,6 +546,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerPlaceBlockEvent 
 
+	private:
+		NativeCallback(PlayerPlaceBlockEvent);
+
 	public:
 		IEventAPIs(22);
 	public:
@@ -471,6 +563,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerOpenContainerEvent)
 	{
 #define EVENTNAME PlayerOpenContainerEvent 
+
+	private:
+		NativeCallback(PlayerOpenContainerEvent);
 
 	public:
 		IEventAPIs(23);
@@ -488,6 +583,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerCloseContainerEvent 
 
+	private:
+		NativeCallback(PlayerCloseContainerEvent);
+
 	public:
 		IEventAPIs(24);
 	public:
@@ -503,6 +601,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerInventoryChangeEvent)
 	{
 #define EVENTNAME PlayerInventoryChangeEvent 
+
+	private:
+		NativeCallback(PlayerInventoryChangeEvent);
 
 	public:
 		IEventAPIs(25);
@@ -521,6 +622,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerMoveEvent 
 
+	private:
+		NativeCallback(PlayerMoveEvent);
+
 	public:
 		IEventAPIs(26);
 	public:
@@ -536,6 +640,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerSprintEvent 
 
+	private:
+		NativeCallback(PlayerSprintEvent);
+
 	public:
 		IEventAPIs(27);
 	public:
@@ -550,6 +657,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerSetArmorEvent)
 	{
 #define EVENTNAME PlayerSetArmorEvent 
+
+	private:
+		NativeCallback(PlayerSetArmorEvent);
 
 	public:
 		IEventAPIs(28);
@@ -567,6 +677,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerUseRespawnAnchorEvent 
 
+	private:
+		NativeCallback(PlayerUseRespawnAnchorEvent);
+
 	public:
 		IEventAPIs(29);
 	public:
@@ -582,6 +695,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerOpenContainerScreenEvent 
 
+	private:
+		NativeCallback(PlayerOpenContainerScreenEvent);
+
 	public:
 		IEventAPIs(30);
 	public:
@@ -595,6 +711,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PlayerUseFrameBlockEvent)
 	{
 #define EVENTNAME PlayerUseFrameBlockEvent 
+
+	private:
+		NativeCallback(PlayerUseFrameBlockEvent);
 
 	public:
 		IEventAPIs(31);
@@ -617,6 +736,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerScoreChangedEvent 
 
+	private:
+		NativeCallback(PlayerScoreChangedEvent);
+
 	public:
 		IEventAPIs(32);
 	public:
@@ -634,6 +756,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerExperienceAddEvent 
 
+	private:
+		NativeCallback(PlayerExperienceAddEvent);
+
 	public:
 		IEventAPIs(33);
 	public:
@@ -650,6 +775,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME BlockInteractedEvent 
 
+	private:
+		NativeCallback(BlockInteractedEvent);
+
 	public:
 		IEventAPIs(34);
 	public:
@@ -664,6 +792,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(BlockChangedEvent)
 	{
 #define EVENTNAME BlockChangedEvent 
+
+	private:
+		NativeCallback(BlockChangedEvent);
 
 	public:
 		IEventAPIs(35);
@@ -680,6 +811,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME BlockExplodedEvent 
 
+	private:
+		NativeCallback(BlockExplodedEvent);
+
 	public:
 		IEventAPIs(36);
 	public:
@@ -695,6 +829,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME FireSpreadEvent 
 
+	private:
+		NativeCallback(FireSpreadEvent);
+
 	public:
 		IEventAPIs(37);
 	public:
@@ -709,6 +846,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ContainerChangeEvent)
 	{
 #define EVENTNAME ContainerChangeEvent 
+
+	private:
+		NativeCallback(ContainerChangeEvent);
 
 	public:
 		IEventAPIs(38);
@@ -730,6 +870,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME ProjectileHitBlockEvent 
 
+	private:
+		NativeCallback(ProjectileHitBlockEvent);
+
 	public:
 		IEventAPIs(39);
 	public:
@@ -744,6 +887,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(RedStoneUpdateEvent)
 	{
 #define EVENTNAME RedStoneUpdateEvent 
+
+	private:
+		NativeCallback(RedStoneUpdateEvent);
 
 	public:
 		IEventAPIs(40);
@@ -760,6 +906,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(HopperSearchItemEvent)
 	{
 #define EVENTNAME HopperSearchItemEvent 
+
+	private:
+		NativeCallback(HopperSearchItemEvent);
 
 	public:
 		IEventAPIs(41);
@@ -778,6 +927,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME HopperPushOutEvent 
 
+	private:
+		NativeCallback(HopperPushOutEvent);
+
 	public:
 		IEventAPIs(42);
 	public:
@@ -792,6 +944,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(PistonTryPushEvent)
 	{
 #define EVENTNAME PistonTryPushEvent 
+
+	private:
+		NativeCallback(PistonTryPushEvent);
 
 	public:
 		IEventAPIs(43);
@@ -808,6 +963,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PistonPushEvent 
 
+	private:
+		NativeCallback(PistonPushEvent);
+
 	public:
 		IEventAPIs(44);
 	public:
@@ -823,6 +981,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME FarmLandDecayEvent 
 
+	private:
+		NativeCallback(FarmLandDecayEvent);
+
 	public:
 		IEventAPIs(45);
 	public:
@@ -837,6 +998,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(LiquidSpreadEvent)
 	{
 #define EVENTNAME LiquidSpreadEvent 
+
+	private:
+		NativeCallback(LiquidSpreadEvent);
 
 	public:
 		IEventAPIs(46);
@@ -854,6 +1018,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME CmdBlockExecuteEvent 
 
+	private:
+		NativeCallback(CmdBlockExecuteEvent);
+
 	public:
 		IEventAPIs(47);
 	public:
@@ -870,6 +1037,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(BlockExplodeEvent)
 	{
 #define EVENTNAME BlockExplodeEvent 
+
+	private:
+		NativeCallback(BlockExplodeEvent);
 
 	public:
 		IEventAPIs(48);
@@ -889,6 +1059,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(EntityTransformEvent)
 	{
 #define EVENTNAME EntityTransformEvent 
+
+	private:
+		NativeCallback(EntityTransformEvent);
 
 	public:
 		IEventAPIs(49);
@@ -917,6 +1090,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME EntityExplodeEvent 
 
+	private:
+		NativeCallback(EntityExplodeEvent);
+
 	public:
 		IEventAPIs(50);
 	public:
@@ -937,6 +1113,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME MobHurtEvent 
 
+	private:
+		NativeCallback(MobHurtEvent);
+
 	public:
 		IEventAPIs(51);
 	public:
@@ -953,6 +1132,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME MobDieEvent 
 
+	private:
+		NativeCallback(MobDieEvent);
+
 	public:
 		IEventAPIs(52);
 	public:
@@ -967,6 +1149,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ProjectileHitEntityEvent)
 	{
 #define EVENTNAME ProjectileHitEntityEvent 
+
+	private:
+		NativeCallback(ProjectileHitEntityEvent);
 
 	public:
 		IEventAPIs(53);
@@ -983,6 +1168,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME WitherBossDestroyEvent 
 
+	private:
+		NativeCallback(WitherBossDestroyEvent);
+
 	public:
 		IEventAPIs(54);
 	public:
@@ -997,6 +1185,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(EntityRideEvent)
 	{
 #define EVENTNAME EntityRideEvent 
+
+	private:
+		NativeCallback(EntityRideEvent);
 
 	public:
 		IEventAPIs(55);
@@ -1013,6 +1204,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME EntityStepOnPressurePlateEvent 
 
+	private:
+		NativeCallback(EntityStepOnPressurePlateEvent);
+
 	public:
 		IEventAPIs(56);
 	public:
@@ -1027,6 +1221,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(NpcCmdEvent)
 	{
 #define EVENTNAME NpcCmdEvent 
+
+	private:
+		NativeCallback(NpcCmdEvent);
 
 	public:
 		IEventAPIs(57);
@@ -1044,6 +1241,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME ProjectileSpawnEvent 
 
+	private:
+		NativeCallback(ProjectileSpawnEvent);
+
 	public:
 		IEventAPIs(58);
 	public:
@@ -1060,6 +1260,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME ProjectileCreatedEvent 
 
+	private:
+		NativeCallback(ProjectileCreatedEvent);
+
 	public:
 		IEventAPIs(59);
 	public:
@@ -1074,6 +1277,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ArmorStandChangeEvent)
 	{
 #define EVENTNAME ArmorStandChangeEvent 
+
+	private:
+		NativeCallback(ArmorStandChangeEvent);
 
 	public:
 		IEventAPIs(60);
@@ -1091,6 +1297,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME ItemUseOnActorEvent 
 
+	private:
+		NativeCallback(ItemUseOnActorEvent);
+
 	public:
 		IEventAPIs(61);
 	public:
@@ -1107,6 +1316,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PostInitEvent 
 
+	private:
+		NativeCallback(PostInitEvent);
+
 	public:
 		IEventAPIs(62);
 	public:
@@ -1119,6 +1331,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ServerStartedEvent)
 	{
 #define EVENTNAME ServerStartedEvent 
+
+	private:
+		NativeCallback(ServerStartedEvent);
 
 	public:
 		IEventAPIs(63);
@@ -1133,6 +1348,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME ServerStoppedEvent 
 
+	private:
+		NativeCallback(ServerStoppedEvent);
+
 	public:
 		IEventAPIs(64);
 	public:
@@ -1145,6 +1363,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ConsoleCmdEvent)
 	{
 #define EVENTNAME ConsoleCmdEvent 
+
+	private:
+		NativeCallback(ConsoleCmdEvent);
 
 	public:
 		IEventAPIs(65);
@@ -1160,6 +1381,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME RegCmdEvent 
 
+	private:
+		NativeCallback(RegCmdEvent);
+
 	public:
 		IEventAPIs(66);
 	public:
@@ -1173,6 +1397,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ConsoleOutputEvent)
 	{
 #define EVENTNAME ConsoleOutputEvent 
+
+	private:
+		NativeCallback(ConsoleOutputEvent);
 
 	public:
 		IEventAPIs(67);
@@ -1188,6 +1415,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	{
 #define EVENTNAME PlayerBedEnterEvent 
 
+	private:
+		NativeCallback(PlayerBedEnterEvent);
+
 	public:
 		IEventAPIs(68);
 	public:
@@ -1202,6 +1432,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(ScriptPluginManagerEvent)
 	{
 #define EVENTNAME ScriptPluginManagerEvent 
+
+	private:
+		NativeCallback(ScriptPluginManagerEvent);
 
 	public:
 		IEventAPIs(69);
@@ -1226,6 +1459,9 @@ namespace LLNET::Event::Effective::NativeEvents
 	EventClass(MobSpawnEvent)
 	{
 #define EVENTNAME MobSpawnEvent 
+
+	private:
+		NativeCallback(MobSpawnEvent);
 
 	public:
 		IEventAPIs(70);

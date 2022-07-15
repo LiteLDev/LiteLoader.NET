@@ -332,7 +332,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\Command\CommandPropertyBag.cpp" />
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
-    <ClCompile Include="Kernel\Event.cpp" />
+    <ClCompile Include="Kernel\Event\Event.cpp" />
+    <ClCompile Include="Kernel\Event\LLNETEvents.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
