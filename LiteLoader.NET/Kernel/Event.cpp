@@ -7,9 +7,9 @@ void InitEvents()
 	LLNET::Event::Effective::EventManager::_initEvents();
 }
 
-void LLNET::Event::Effective::EventManager::_initEvents()
+inline void LLNET::Event::Effective::EventManager::_initEvents()
 {
-#define REGISTER_NATIVE_EVENT(_event) RegisterEventInternal<LLNET::Event::Effective::NativeEvents::_event>(LLNET::Event::Effective::NativeEvents::_event::EventId)
+#define REGISTER_NATIVE_EVENT(_event) _registerEventInternal<LLNET::Event::Effective::NativeEvents::_event>(LLNET::Event::Effective::NativeEvents::_event::EventId)
 
 	REGISTER_NATIVE_EVENT(PlayerPreJoinEvent);
 	REGISTER_NATIVE_EVENT(PlayerJoinEvent);

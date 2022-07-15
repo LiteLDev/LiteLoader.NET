@@ -64,6 +64,7 @@ namespace LLNET::Event::Effective
 		static Queue<Exception^>^ lastExceptions = gcnew Queue<Exception^>;
 
 	public:
+		//public API
 		generic<typename TEvent> where TEvent : IEvent
 			static void RegisterEvent();
 
@@ -73,9 +74,10 @@ namespace LLNET::Event::Effective
 			static void RegisterListener();
 
 		generic<typename TEvent> where TEvent : IEvent
-			static EventCode CallEvent(TEvent ev, __EventId eventId);
-		generic<typename TEvent> where TEvent : IEvent
 			static EventCode CallEvent(TEvent ev);
+
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode CallEvent(TEvent ev, __EventId eventId);
 
 		generic<typename TEvent> where TEvent : IEvent
 			static __EventId GetEventId();
@@ -84,11 +86,18 @@ namespace LLNET::Event::Effective
 
 	private:
 		static void _registerEvent(System::Type^ eventType);
+
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode _callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
+
+		generic<typename TEvent> where TEvent : IEvent
+			static EventCode _callNativeEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs);
+
 	internal:
 		static void _initEvents();
-	internal:
+
 		generic<typename TEvent> where TEvent : IEvent, INativeEvent
-			static void RegisterEventInternal(__EventId id);
+			static void _registerEventInternal(__EventId id);
 	};
 }
 
@@ -129,7 +138,7 @@ namespace LLNET::Event::Effective
 
 
 	generic<typename TEvent> where TEvent : IEvent, INativeEvent
-		inline void EventManager::RegisterEventInternal(__EventId id)
+		inline void EventManager::_registerEventInternal(__EventId id)
 	{
 		eventIds.Add(TEvent::typeid, id);
 		eventManagerData.Add(id, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
@@ -273,7 +282,6 @@ namespace LLNET::Event::Effective
 	}
 
 
-
 	generic<typename TEvent> where TEvent : IEvent
 		inline EventCode EventManager::CallEvent(TEvent ev, __EventId eventId)
 	{
@@ -288,15 +296,26 @@ namespace LLNET::Event::Effective
 
 	SKIP_CHECK:
 
-		auto functions = eventManagerData[eventId];
-		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
-
 		if (lastExceptions->Count > 0)
 			lastExceptions->Clear();
 
+		auto functions = eventManagerData[eventId];
+		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
+
+		if (eventId > 128)
+			return _callEvent(ev, 0, pfunctions);
+		else
+			return _callNativeEvent(ev, eventId, pfunctions);
+	}
+
+
+
+	generic<typename TEvent> where TEvent : IEvent
+		inline EventCode EventManager::_callEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs)
+	{
 		for (int i = 0; i < 6; i++)
 		{
-			auto funcs = pfunctions[i];
+			auto funcs = pfuncs[i];
 			if (funcs == nullptr)
 				continue;
 			for each (auto func in funcs)
@@ -360,6 +379,58 @@ namespace LLNET::Event::Effective
 		}
 		return EventCode::SUCCESS;
 	}
+
+
+
+	generic<typename TEvent> where TEvent : IEvent
+		inline EventCode EventManager::_callNativeEvent(TEvent ev, __EventId eventId, List<__CallbackFunctionInfo>^* pfuncs)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto funcs = pfuncs[i];
+			if (funcs == nullptr)
+				continue;
+			for each (auto func in funcs)
+			{
+				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item4 ? IS_INSTANCE : 0);
+
+				try
+				{
+					switch (callingmode)
+					{
+					case IS_REF:
+
+						if (!ev->IsCancelled)
+							((void(*)(TEvent%))(void*)func.Item1)(ev);
+						break;
+
+					case IS_INSTANCE_AND_REF:
+
+						if (!ev->IsCancelled)
+							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+
+					case IS_REF_AND_IGNORECANCELLED:
+
+						((void(*)(TEvent%))(void*)func.Item1)(ev);
+						break;
+
+					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+
+						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+					}
+				}
+				catch (Exception^ ex)
+				{
+					lastExceptions->Enqueue(ex);
+				}
+			}
+		}
+		return EventCode::SUCCESS;
+	}
+
+
 
 	generic<typename TEvent> where TEvent : IEvent
 		inline EventManager::__EventId EventManager::GetEventId()
