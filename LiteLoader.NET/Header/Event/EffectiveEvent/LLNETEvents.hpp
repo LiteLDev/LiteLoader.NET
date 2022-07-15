@@ -115,7 +115,7 @@ virtual property bool IsCancelled											\
 		NativeEventIsCancelledManager::set(this->GetHashCode(), value);		\
 	}																		\
 }																			\
-static constexpr size_t EventId = eventId;
+static const size_t EventId = eventId;
 
 
 #define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className : IEvent, INativeEvent, ICancellable

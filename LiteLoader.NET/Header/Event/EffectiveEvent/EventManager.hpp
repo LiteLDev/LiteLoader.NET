@@ -82,6 +82,8 @@ namespace LLNET::Event::Effective
 	private:
 		static void _registerEvent(System::Type^ eventType);
 	internal:
+		static void _initEvents();
+	internal:
 		generic<typename TEvent> where TEvent : IEvent, INativeEvent
 			static void RegisterEventInternal(__EventId id);
 	};
@@ -90,7 +92,7 @@ namespace LLNET::Event::Effective
 
 
 
-
+//#include "LLNETEvents.hpp"
 
 namespace LLNET::Event::Effective
 {
@@ -163,7 +165,7 @@ namespace LLNET::Event::Effective
 				{
 					auto defaultCtor = listenerType->GetConstructor(System::Array::Empty<System::Type^>());
 					if (defaultCtor == nullptr)
-						throw gcnew RegisterEventListenerException("Listener must be static or it's class must have default constructor!");
+						throw gcnew RegisterEventListenerException("Listener must be static or it's class must have default constructor!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
 				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
@@ -232,13 +234,19 @@ namespace LLNET::Event::Effective
 			{
 				if (isNativeEventListener)
 				{
-					if(!methodData.Item5)
-						throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Listener's parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+					if (!methodData.Item5)
+					{
+						if (!methodParam[0]->IsIn)
+						{
+							throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Listener's parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
+						}
+					}
+
 				}
 				else
 				{
 					if (!methodData.Item5)
-						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!");
+						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!  at Listener:<" + listenerType->Name + "." + method->Name + ">");
 				}
 			}
 
