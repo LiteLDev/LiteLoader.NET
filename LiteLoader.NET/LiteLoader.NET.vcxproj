@@ -307,6 +307,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\Loader.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
+    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
@@ -411,6 +412,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
+    <ClCompile Include="Native\IsManagedAssemblyAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

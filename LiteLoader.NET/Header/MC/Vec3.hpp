@@ -62,12 +62,16 @@ namespace MC {
 			return ((::Vec3*)p)->distanceToLineSquared(*(::Vec3*)pa, *(::Vec3*)pb);
 		}
 
-		//float DistanceToSqr(Vec3% obj) {
-		//	pin_ptr<Vec3> p = this;
-		//	pin_ptr<Vec3> pobj = &obj;
+		float DistanceToSqr(Vec3% obj) {
+			pin_ptr<Vec3> p = this;
+			pin_ptr<Vec3> pobj = &obj;
 
-		//	return ((::Vec3*)p)->distanceToSqr(*(::Vec3*)pobj);
-		//}
+			return (float)((float)((float)(*((float*)pobj + 1) - *((float*)p + 1)) *
+				(float)(*((float*)pobj + 1) - *((float*)p + 1))) +
+				(float)((float)(*(float*)pobj - *(float*)p) * (float)(*(float*)pobj - *(float*)p))) +
+				(float)((float)(*((float*)pobj + 2) - *((float*)p + 2)) *
+					(float)(*((float*)pobj + 2) - *((float*)p + 2)));
+		}
 
 		Vec3 Floor(float num) {
 			pin_ptr<Vec3> p = this;
