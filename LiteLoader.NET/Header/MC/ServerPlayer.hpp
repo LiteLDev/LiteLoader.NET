@@ -4,9 +4,9 @@
 
 namespace MC
 {
-ref class ServerPlayer : public Player
-{
-public:
-    __ctor_base(ServerPlayer, ::ServerPlayer, Player);
-};
+    public ref class ServerPlayer : Player
+    {
+    public:
+        __ctor_base(ServerPlayer, ::ServerPlayer, Player);
+    };
 } // namespace MC
