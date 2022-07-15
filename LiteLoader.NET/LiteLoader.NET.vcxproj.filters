@@ -372,6 +372,9 @@
     <ClCompile Include="Native\IsManagedAssemblyAPI.cpp">
       <Filter>Native</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -799,6 +802,9 @@
     </ClInclude>
     <ClInclude Include="Native\IsManagedAssemblyAPI.hpp">
       <Filter>Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\SimulatedPlayer.hpp">
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -274,6 +274,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
     <ClInclude Include="Header\MC\ShortTag.hpp" />
+    <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
     <ClInclude Include="Header\MC\StringTag.hpp" />
     <ClInclude Include="Header\MC\Tag.hpp" />
     <ClInclude Include="Header\MC\TagMemoryChunk.hpp" />
@@ -393,6 +394,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
     <ClCompile Include="Kernel\MC\ShortTag.cpp" />
+    <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
     <ClCompile Include="Kernel\MC\StringTag.cpp" />
     <ClCompile Include="Kernel\MC\Tag.cpp" />
     <ClCompile Include="Kernel\MC\TagMemoryChunk.cpp" />
