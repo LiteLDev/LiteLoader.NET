@@ -332,46 +332,46 @@ namespace LLNET::Event::Effective
 					{
 					case IS_NORMAL:
 
+						((void(*)(TEvent))(void*)func.Item1)(ev);
+						break;
+
+					case IS_INSTANCE:
+
+						((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+
+					case IS_REF:
+
+						((void(*)(TEvent%))(void*)func.Item1)(ev);
+						break;
+
+					case IS_IGNORECANCELLED:
+						
 						if (!ev->IsCancelled)
 							((void(*)(TEvent))(void*)func.Item1)(ev);
 						break;
 
-					case IS_INSTANCE:
+					case IS_INSTANCE_AND_REF:
+
+						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						break;
+
+					case IS_INSTANCE_AND_IGNORECANCELLED:
 
 						if (!ev->IsCancelled)
 							((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
 						break;
 
-					case IS_REF:
+					case IS_REF_AND_IGNORECANCELLED:
 
 						if (!ev->IsCancelled)
 							((void(*)(TEvent%))(void*)func.Item1)(ev);
 						break;
 
-					case IS_IGNORECANCELLED:
-
-						((void(*)(TEvent))(void*)func.Item1)(ev);
-						break;
-
-					case IS_INSTANCE_AND_REF:
+					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
 
 						if (!ev->IsCancelled)
 							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-						break;
-
-					case IS_INSTANCE_AND_IGNORECANCELLED:
-
-						((void(*)(Object^, TEvent))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-						break;
-
-					case IS_REF_AND_IGNORECANCELLED:
-
-						((void(*)(TEvent%))(void*)func.Item1)(ev);
-						break;
-
-					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
-
-						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
 						break;
 					}
 				}
@@ -409,24 +409,23 @@ namespace LLNET::Event::Effective
 					{
 					case IS_REF:
 
-						if (!ev->IsCancelled)
-							((void(*)(TEvent%))(void*)func.Item1)(ev);
+						((void(*)(TEvent%))(void*)func.Item1)(ev);
 						break;
 
 					case IS_INSTANCE_AND_REF:
 
-						if (!ev->IsCancelled)
-							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
 						break;
 
 					case IS_REF_AND_IGNORECANCELLED:
 
-						((void(*)(TEvent%))(void*)func.Item1)(ev);
+						if (!ev->IsCancelled)
+							((void(*)(TEvent%))(void*)func.Item1)(ev);
 						break;
 
 					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
-
-						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
+						if (!ev->IsCancelled)
+							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
 						break;
 					}
 				}
