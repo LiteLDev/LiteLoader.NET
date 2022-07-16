@@ -21,7 +21,5 @@ void entry()
 {
     _set_se_translator(seh_exception::TranslateSEHtoCE);
 
-    LL::registerPlugin(LLNET_LOADER_NAME, LLNET_LOADER_DESCRIPTION, LITELOADER_VERSION, {{"GitHub","github.com/LiteLDev/LiteLoader.NET"}});
-
     LoadMain();
 }
