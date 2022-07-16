@@ -602,6 +602,7 @@ namespace LLNET {
 				if (hookFunc == nullptr)
 					throw gcnew System::NullReferenceException;
 
+				GC::KeepAlive(instance->Hook);
 				GCHandle::Alloc(instance->Hook);
 				auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(hookFunc);
 
