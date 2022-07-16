@@ -576,6 +576,8 @@ namespace LLNET {
 
 		using namespace System::Reflection;
 		public ref class Thook abstract {
+		internal:
+			static List<System::Delegate^> HookedFunctions;
 		public:
 			generic<typename T, typename TDelegate>
 			where TDelegate :
@@ -595,11 +597,15 @@ namespace LLNET {
 				if (sym == nullptr)
 					throw gcnew System::NullReferenceException;
 
-				if (instance->Hook == nullptr)
+				auto hookFunc = instance->Hook;
+
+				if (hookFunc == nullptr)
 					throw gcnew System::NullReferenceException;
 
 				GCHandle::Alloc(instance->Hook);
-				auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(instance->Hook);
+				auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(hookFunc);
+
+				HookedFunctions.Add(hookFunc);
 
 				void* pOriginal = nullptr;
 
