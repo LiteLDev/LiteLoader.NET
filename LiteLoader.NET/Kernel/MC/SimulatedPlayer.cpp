@@ -27,7 +27,7 @@ namespace MC
 
     inline bool SimulatedPlayer::SimulateDestroy()
     {
-        return NativePtr->simulateDestory();
+        return NativePtr->simulateDestroy();
     }
 
     inline bool SimulatedPlayer::SimulateUseItem()
