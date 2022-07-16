@@ -71,10 +71,11 @@ jobs:
       run: |
         mkdir output/
         mkdir output/RELEASE/
+        mkdir output/RELEASE/LiteLoader
         mkdir output/RELEASE/lib
         cp -f x64/Release/Ijwhost.dll output/RELEASE/lib/Ijwhost.dll
-        cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader.NET.runtimeconfig.json
-        cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader.NET.dll
+        cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader/LiteLoader.NET.dll
+        cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader/LiteLoader.NET.runtimeconfig.json
         mkdir output/PDB/
         cp -f x64/Release/*.pdb output/PDB/
         # mkdir output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
