@@ -46,9 +46,11 @@ using System::GC;
 using System::IntPtr;
 using System::String;
 using System::Object;
+using System::Exception;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 using System::Collections::Generic::KeyValuePair;
+using System::Collections::Generic::Queue;
 using System::Reflection::Assembly;
 using System::Reflection::AssemblyName;
 using System::Runtime::InteropServices::FieldOffsetAttribute;
@@ -65,39 +67,56 @@ using LLNET::Core::Pair;
 #include "../Tools/clix.hpp"
 using namespace clix;
 
-inline String^ marshalString(std::string const& str) {
-    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
-
+inline String^ marshalString(std::string const& str) 
+{
+	return marshalString<clix::CLI_Encoding::E_UTF8>(str);
 };
 
 inline std::string marshalString(String^ str)
 {
-    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
+	return marshalString<clix::CLI_Encoding::E_UTF8>(str);
 }
 
 inline uint64_t do_Hash(String^ str)
 {
-    uint64_t rval = 0;
-    for (int i = 0; i < str->Length; ++i)
-    {
-        if (i & 1)
-        {
-            rval ^= (~((rval << 11) ^ str[i] ^ (rval >> 5)));
-        }
-        else
-        {
-            rval ^= (~((rval << 7) ^ str[i] ^ (rval >> 3)));
-        }
-    }
-    return rval;
+	uint64_t rval = 0;
+	for (int i = 0; i < str->Length; ++i)
+	{
+		if (i & 1)
+		{
+			rval ^= (~((rval << 11) ^ str[i] ^ (rval >> 5)));
+		}
+		else
+		{
+			rval ^= (~((rval << 7) ^ str[i] ^ (rval >> 3)));
+		}
+	}
+	return rval;
+}
+
+template<typename T, typename U>
+inline bool Is(U u)
+{
+	return dynamic_cast<T>(u) != nullptr;
+}
+
+template<typename T,typename U>
+inline bool As(U u)
+{
+	return safe_cast<T>(u);
 }
 
 ref class GlobalClass {
 internal:
-    static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-    static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
-    static inline HMODULE __GetCurrentModule(Assembly^ asm_)
-    {
-        return HMODULE((void*)ManagedPluginHandler[asm_]);
-    }
+	static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
+	static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
+	static inline HMODULE __GetCurrentModule(Assembly^ asm_)
+	{
+		auto ret = IntPtr::Zero;
+		ManagedPluginHandler->TryGetValue(asm_, ret);
+		if (ret != IntPtr::Zero)
+			return HMODULE((void*)ret);
+		else
+			return MODULE;
+	}
 };

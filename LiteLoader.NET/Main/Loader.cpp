@@ -1,4 +1,3 @@
-#include "Loader.hpp"
 #include <LoggerAPI.h>
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
@@ -49,8 +48,11 @@ void LoadMain()
 }
 
 #pragma managed
+extern void InitEvents();
+
 void Init(Logger& logger)
 {
+	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	GlobalClass::ManagedPluginHandler->TryAdd(Assembly::GetExecutingAssembly(), IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
 }

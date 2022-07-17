@@ -77,9 +77,9 @@
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
-      <DisableSpecificWarnings>4828;4635;6385;4793;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <LanguageStandard_C>Default</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -87,10 +87,10 @@
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
@@ -130,9 +130,9 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
-      <DisableSpecificWarnings>4828;4635;6385;4793;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <LanguageStandard_C>Default</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -141,10 +141,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
@@ -208,10 +208,9 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp" />
+    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\include.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp" />
     <ClInclude Include="Header\Event\Event.hpp" />
@@ -220,6 +219,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Hook.h" />
     <ClInclude Include="Header\I18n.hpp" />
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Header\LLAPI.h" />
     <ClInclude Include="Header\Logger.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
@@ -274,6 +274,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
     <ClInclude Include="Header\MC\ShortTag.hpp" />
+    <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
     <ClInclude Include="Header\MC\StringTag.hpp" />
     <ClInclude Include="Header\MC\Tag.hpp" />
     <ClInclude Include="Header\MC\TagMemoryChunk.hpp" />
@@ -306,7 +307,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\Config.h" />
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
-    <ClInclude Include="Main\Loader.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
@@ -333,11 +333,13 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\Command\CommandPropertyBag.cpp" />
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
-    <ClCompile Include="Kernel\Event.cpp" />
+    <ClCompile Include="Kernel\Event\Event.cpp" />
+    <ClCompile Include="Kernel\Event\LLNETEvents.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
     <ClCompile Include="Kernel\Logger.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
@@ -392,6 +394,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
     <ClCompile Include="Kernel\MC\ShortTag.cpp" />
+    <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
     <ClCompile Include="Kernel\MC\StringTag.cpp" />
     <ClCompile Include="Kernel\MC\Tag.cpp" />
     <ClCompile Include="Kernel\MC\TagMemoryChunk.cpp" />

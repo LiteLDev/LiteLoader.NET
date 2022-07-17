@@ -44,27 +44,13 @@
 #define oc
 #define __INLINE [MethodImpl(MethodImplOptions::AggressiveInlining)] inline
 #define IEventAPIs virtual property bool IsCancelled; virtual void Cancell() { IsCancelled = true; }
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
-#define IEventAPIs virtual property bool IsCancelled; virtual void Cancell() { IsCancelled = true; }
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
-#define __PROPERTY_POINTER(managedType, nativeType, managedName, nativeName) property managedType^ managedName { managedType^ get() { return gcnew managedType(nativeName); } void set(managedType^ value) { nativeName = value->NativePtr; } }
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
-#define _Property_Ptr(type, name) __PROPERTY_POINTER(MC::type,::type,name,m##type);
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
-#define _Property_String(name) __PROPERTY_STRING(name,m##name);
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
 #define EventClass(className) [StructLayout(LayoutKind::Sequential, Size = sizeof(::Event::className))] public value class className
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
-#define _Property_Instance(type, name) __PROPERTY_INSTANCE(MC::type,type,name,m##name);
+#define CallEventAPI(__VA_ARGS__) static void CallEvent(__VA_ARGS__)
+#define _Property_Ptr(Namespace, type, nativeName, name, eventName) property Namespace::type ^ name { inline Namespace::type ^ get() { _PIN_OBJECT(eventName); return gcnew Namespace::type(_THIS(eventName)->nativeName); } inline void set(Namespace::type ^ arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = arg->NativePtr; } }
+#define _Property_String(nativeName, name, eventName) property String^ name { inline String^ get() { _PIN_OBJECT(eventName); return marshalString(_THIS(eventName)->nativeName); } inline void set(String^ arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = marshalString(arg); } }
+#define _Property_Instance(Namespace, type, nativeName, name, eventName) property Namespace::type ^ name { inline Namespace::type ^ get() { _PIN_OBJECT(eventName); return gcnew Namespace::type(_THIS(eventName)->nativeName); } inline void set(Namespace::type ^ arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = arg; } }
+#define _Property(type, nativeName, name, eventName) property type name { inline type get() { _PIN_OBJECT(eventName); return _THIS(eventName)->nativeName; } inline void set(type arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = arg; } }
+#define _Property_Enum(type, nativeEnum, nativeName, name, eventName) property type name { inline type get() { _PIN_OBJECT(eventName); return ((type)(_THIS(eventName)->nativeName)); } inline void set(type arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = ((nativeEnum)(arg)); } }
+#define _Property_ValueType(Namespace, type, nativeName, name, eventName) property Namespace::type name { inline Namespace::type get() { _PIN_OBJECT(eventName); return Namespace::type(_THIS(eventName)->nativeName); } inline void set(Namespace::type arg) { _PIN_OBJECT(eventName); _THIS(eventName)->nativeName = arg; } }
+#define CallEventAPI_Imp(_event, __VA_ARGS__) void _event::CallEvent(__VA_ARGS__)
+#define NativeCallback(eventName) delegate bool _delNativeCallback(::Event::eventName&); static bool _nativeCallback(::Event::eventName& ev) { auto% _ev = *(eventName*)&ev; EventManager::CallNativeEventInternal(_ev, EventId); return !_ev.IsCancelled; } static eventName() { auto delfunc = gcnew _delNativeCallback(&_nativeCallback); GCHandle::Alloc(delfunc); ::Event::eventName::subscribe_ref( static_cast<bool(*)(::Event::eventName&)>( (void*)Marshal::GetFunctionPointerForDelegate(delfunc))); }
