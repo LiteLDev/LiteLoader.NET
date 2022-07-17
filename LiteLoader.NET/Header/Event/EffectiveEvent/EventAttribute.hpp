@@ -7,12 +7,10 @@ namespace LLNET::Event::Effective
 	public:
 		property EventPriority Priority;
 		property bool IgnoreCancelled;
-		property bool CanModifyEvent;
 		EventHandlerAttribute()
 		{
 			Priority = EventPriority::NORMAL;
 			IgnoreCancelled = false;
-			CanModifyEvent = false;
 		}
 	};
 }

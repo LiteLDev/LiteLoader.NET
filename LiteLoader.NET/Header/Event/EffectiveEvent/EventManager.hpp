@@ -192,10 +192,10 @@ namespace LLNET::Event::Effective
 				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool, bool, bool>
 				{
 					method,
-						evHandlerAttr->Priority,
-						evHandlerAttr->IgnoreCancelled,
-						!method->IsStatic,
-						evHandlerAttr->CanModifyEvent
+					evHandlerAttr->Priority,
+					evHandlerAttr->IgnoreCancelled,
+					!method->IsStatic,
+					false
 				});
 			}
 		}
@@ -244,30 +244,16 @@ namespace LLNET::Event::Effective
 			auto eventId = eventIds[elementParamType];
 			bool isNativeEventListener = 0 < eventId && eventId <= 128;
 
-			if (isNativeEventListener)
-			{
-				if (!isref)
-					throw gcnew RegisterEventListenerException("Handler's parameter for native events must be ref parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
-			}
-
 			if (isref)
 			{
-				if (isNativeEventListener)
-				{
-					if (!methodData.Item5)
-					{
-						if (!methodParam[0]->IsIn)
-						{
-							throw gcnew RegisterEventListenerException("If you did not explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute, you should to add InAttribute (parameter modifier 'in' in C#) on your native event Handler's parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
-						}
-					}
-
-				}
-				else
-				{
-					if (!methodData.Item5)
-						throw gcnew RegisterEventListenerException("Please explicit declare \"CanModifyEvent = true\" in EventHandlerAttribute if you using a ref parameter!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
-				}
+				methodData.Item5 = true;
+			}
+			else
+			{
+			    if (isNativeEventListener)
+			    {
+					throw gcnew RegisterEventListenerException("Parameter of the native event handler must be passed by reference (use 'in' or 'ref' keyword in C#)!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
+			    }
 			}
 
 			auto eventPriority = (int)methodData.Item2;
