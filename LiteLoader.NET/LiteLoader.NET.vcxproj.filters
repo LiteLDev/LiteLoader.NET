@@ -76,8 +76,8 @@
     <Filter Include="Header\Event\EffectiveEvent">
       <UniqueIdentifier>{e70dde21-b367-4d5e-a5a5-66b6ba4be02f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Native">
-      <UniqueIdentifier>{797fffce-2202-4d37-868c-9ce32d47745b}</UniqueIdentifier>
+    <Filter Include="Kernel\Event">
+      <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,9 +184,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\DynamicCommand.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\Event.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\FormUI.cpp">
@@ -369,8 +366,14 @@
     <ClCompile Include="Kernel\GlobalService.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
-    <ClCompile Include="Native\IsManagedAssemblyAPI.cpp">
-      <Filter>Native</Filter>
+    <ClCompile Include="Kernel\Event\Event.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\LLNETEvents.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp">
+      <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp">
       <Filter>Kernel\MC</Filter>
@@ -782,9 +785,6 @@
     <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
@@ -797,11 +797,11 @@
     <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp">
+    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
       <Filter>Header\Event\EffectiveEvent</Filter>
     </ClInclude>
-    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp">
-      <Filter>Native</Filter>
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\SimulatedPlayer.hpp">
       <Filter>Header\MC</Filter>

@@ -1,22 +1,17 @@
 #pragma once
-
 namespace LLNET::Event::Effective
 {
-	interface class IEvent;
-}
-
-namespace LLNET::Event::Effective
-{
-	generic<typename TEvent>
-	where TEvent:IEvent
-
-	public value class EventListener
+	public enum class EventPriority :int
 	{
-	private:
-		int listenerId;
-		bool deleted;
-	public:
-		EventListener(int listenerId)
-			:listenerId(listenerId), deleted(false) {}
+		LOWEST = 0,
+		LOW = 1,
+		NORMAL = 2,
+		HIGH = 3,
+		HIGHEST = 4,
+		MONITOR = 5,
+	};
+	public interface class IEventListener
+	{
+
 	};
 }

@@ -145,4 +145,14 @@ namespace LLNET::Core
 		{
 		}
 	};
+
+	public ref class CancelEventException
+		:EventException
+	{
+	public:
+		CancelEventException()
+			:EventException()
+		{
+		}
+	};
 }

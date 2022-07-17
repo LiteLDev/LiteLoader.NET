@@ -130,7 +130,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
-      <DisableSpecificWarnings>4828;4635;6385;4793;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
@@ -208,10 +208,9 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\IEventListener.hpp" />
+    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\include.hpp" />
     <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp" />
     <ClInclude Include="Header\Event\Event.hpp" />
@@ -220,6 +219,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Hook.h" />
     <ClInclude Include="Header\I18n.hpp" />
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Header\LLAPI.h" />
     <ClInclude Include="Header\Logger.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
@@ -308,7 +308,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
-    <ClInclude Include="Native\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
@@ -334,11 +333,13 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\Command\CommandPropertyBag.cpp" />
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
-    <ClCompile Include="Kernel\Event.cpp" />
+    <ClCompile Include="Kernel\Event\Event.cpp" />
+    <ClCompile Include="Kernel\Event\LLNETEvents.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
     <ClCompile Include="Kernel\Logger.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
@@ -413,7 +414,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
-    <ClCompile Include="Native\IsManagedAssemblyAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
