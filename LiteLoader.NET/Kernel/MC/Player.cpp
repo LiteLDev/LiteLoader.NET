@@ -15,6 +15,8 @@
 
 #include "../../Header/Logger.hpp"
 
+enum GameType;
+
 namespace MC
 {
 
@@ -428,6 +430,17 @@ namespace MC
 		return NativePtr->sendCustomFormPacket(
 			marshalString(json),
 			pfunc);
+	}
+
+
+	Player::GameType Player::GameMode::get()
+	{
+		return GameType(NativePtr->getPlayerGameType());
+	}
+
+	void Player::GameMode::set(Player::GameType value)
+	{
+		NativePtr->setPlayerGameType(::GameType(value));
 	}
 
 #ifdef MANUAL_MAINTENANCE

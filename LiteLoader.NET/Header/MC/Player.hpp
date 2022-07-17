@@ -188,6 +188,19 @@ namespace MC
 	public:
 		bool SendCustomForm(String^ json, CustomForm_callback^ callback);
 
+		enum class GameType
+		{
+			Survival = 0,
+			Creative = 1,
+			Adventure = 2,
+		};
+
+		virtual property GameType GameMode
+		{
+			GameType get();
+			void set(GameType);
+		}
+
 
 #ifdef MANUAL_MAINTENANCE
 
