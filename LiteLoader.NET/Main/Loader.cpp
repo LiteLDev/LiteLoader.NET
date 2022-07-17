@@ -1,4 +1,3 @@
-#include "Loader.hpp"
 #include <LoggerAPI.h>
 #include ".NETGlobal.hpp"
 #include "PluginAttribute.h"
