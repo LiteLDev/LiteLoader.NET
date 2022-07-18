@@ -82,6 +82,7 @@ inline void LLNET::Event::Effective::EventManager::_initEvents()
 	REGISTER_NATIVE_EVENT(PlayerBedEnterEvent);
 	REGISTER_NATIVE_EVENT(ScriptPluginManagerEvent);
 	REGISTER_NATIVE_EVENT(MobSpawnEvent);
+	REGISTER_NATIVE_EVENT(BlockPlacedByPlayerEvent);
 }
 
 #define CallEventAPI_Imp(_event,...) void _event::CallEvent(__VA_ARGS__)

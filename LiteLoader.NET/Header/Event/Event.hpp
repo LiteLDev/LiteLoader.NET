@@ -260,7 +260,6 @@ public        \
 
 	///////////////////////////// Player Events /////////////////////////////
 
-
 	Class PlayerPreJoinEvent
 		: public EventTemplate<PlayerPreJoinEvent, ::Event::PlayerPreJoinEvent>
 	{
@@ -492,6 +491,16 @@ public        \
 		Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
 	};
 
+	Class BlockPlacedByPlayerEvent
+		: public EventTemplate<BlockPlacedByPlayerEvent, ::Event::BlockPlacedByPlayerEvent>
+	{
+		EventAPIs(BlockPlacedByPlayerEvent, ::Event::BlockPlacedByPlayerEvent);
+
+	public:
+		Property_Ptr(MC, Player, mPlayer, Player);
+		Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
+	};
+
 	Class PlayerOpenContainerEvent
 		: public EventTemplate<PlayerOpenContainerEvent, ::Event::PlayerOpenContainerEvent>
 	{
@@ -616,7 +625,7 @@ public        \
 
 
 	///////////////////////////// Block Events /////////////////////////////
-
+	
 	Class BlockInteractedEvent
 		: public EventTemplate<BlockInteractedEvent, ::Event::BlockInteractedEvent>
 	{

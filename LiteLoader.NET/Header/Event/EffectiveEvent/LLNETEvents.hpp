@@ -1492,4 +1492,24 @@ namespace LLNET::Event::Effective::NativeEvents
 		//CallEventAPI();
 #undef EVENTNAME
 	};
+
+	//Add
+
+	EventClass(BlockPlacedByPlayerEvent)
+	{
+#define EVENTNAME BlockPlacedByPlayerEvent 
+
+	private:
+		NativeCallback(BlockPlacedByPlayerEvent);
+
+	public:
+		IEventAPIs(71, EVENTNAME);
+	public:
+		_Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
+		_Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance, EVENTNAME);
+	public:
+		//CallEventAPI(MC::Player ^ mPlayer, MC::BlockInstance ^ mBlockInstance);
+
+#undef EVENTNAME
+	};
 }
