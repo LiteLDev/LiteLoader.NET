@@ -13,586 +13,525 @@ using System::Collections::Generic::List;
 
 namespace LLNET::Form
 {
-	ref class CustomForm;
-	//////////////////////////////// Simple Form Elements ////////////////////////////////
-	public
-	ref class SimpleFormElement
-	{
-	};
+    ref class CustomForm;
 
-	public
-	ref class Button : public SimpleFormElement
-	{
-	public:
-		delegate void ButtonCallback(MC::Player^);
+    //////////////////////////////// Simple Form Elements ////////////////////////////////
 
-	private:
-		String^ text, ^ image;
-		ButtonCallback^ callback;
+    public
+        ref class SimpleFormElement
+    {
+    };
 
+    public
+        ref class Button : public SimpleFormElement
+    {
+    public:
+        delegate void ButtonCallback(MC::Player^);
 
-	public:
-		property String^ Text {
-			String^ get() {
-				return text;
-			};
-			void set(String^ value)
-			{
-				text = value;
-			}
-		};
-		property String^ Image {
-			String^ get() {
-				return image;
-			};
-			void set(String^ value)
-			{
-				image = value;
-			}
-		};
-		property ButtonCallback^ Callback {
-			ButtonCallback^ get() {
-				return callback;
-			};
-			void set(ButtonCallback^ value)
-			{
-				callback = value;
-			}
-		};
+        property String^ Text;
+        property String^ Image;
+        property ButtonCallback^ Callback;
 
-	public:
-		inline Button(String^ text, String^ image, ButtonCallback^ callback);
-		inline Button(String^ text, String^ image);
-		inline Button(String^ text);
-		inline !Button();
-		inline ~Button();
-		inline void SetText(String^ text);
-		inline void SetImage(String^ image);
-		inline void SetCallback(ButtonCallback^ callback);
+        inline Button(String^ text, String^ image, ButtonCallback^ callback);
+        inline Button(String^ text, String^ image);
+        inline Button(String^ text);
+        inline !Button();
+        inline ~Button();
 
-	public:
-		typedef void (*pButtonCallback)(::Player*);
-		pButtonCallback ToNativeCallback();
+        using pButtonCallback = void(*)(Player*);
+        pButtonCallback ToNativeCallback();
 
-	private:
-		List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
-	};
+    private:
+        List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
+    };
 
-	//////////////////////////////// Custom Form Elements ////////////////////////////////
+    //////////////////////////////// Custom Form Elements ////////////////////////////////
 
-	public
-	ref class CustomFormElement abstract
-	{
-	public:
-		enum class Type
-		{
-			Label,
-			Input,
-			Toggle,
-			Dropdown,
-			Slider,
-			StepSlider
-		};
+    public
+        ref class CustomFormElement abstract
+    {
+    public:
+        enum class Type
+        {
+            Label,
+            Input,
+            Toggle,
+            Dropdown,
+            Slider,
+            StepSlider
+        };
 
-	private:
-		String^ name;
-		String^ value;
-		Type type;
+        property String^ Name;
+        property String^ Value;
+        property Type ElementType { virtual Type get() abstract; }
 
-	public:
-		property String^ Name {
-			String^ get() {
-				return name;
-			};
-			void set(String^ value)
-			{
-				name = value;
-			}
-		};
-		property String^ Value {
-			String^ get() {
-				return value;
-			};
-			void set(String^ value)
-			{
-				this->value = value;
-			}
-		};
-		property Type ElementType
-		{
-			Type get()
-			{
-				return type;
-			};
-			void set(Type value)
-			{
-				type = value;
-			}
-		};
+        inline String^ GetString();
+        inline int GetInt();
+        inline float GetFloat();
+        inline double GetDouble();
+        inline bool GetBool();
 
-		inline void SetName(String^ _name);
-		inline virtual Type GetElementType() abstract = 0;
-		inline String^ GetString();
-		inline int GetNumber();
-		inline bool GetBool();
-	internal:
-		List<CustomForm^>^ appendedForms = gcnew List<CustomForm^>;
-		void reSetGeneratedForm();
-	};
+    internal:
+        List<CustomForm^>^ appendedForms = gcnew List<CustomForm^>;
+        void reSetGeneratedForm();
+    };
 
-	public
-	ref class Label : public CustomFormElement
-	{
-	private:
-		String^ text;
+    public
+        ref class Label : public CustomFormElement
+    {
+        String^ text;
 
-	public:
-		property String^ Text {
-			String^ get() {
-				return text;
-			};
-			void set(String^ value)
-			{
-				text = value;
-				reSetGeneratedForm();
-			}
-		};
+    public:
+        property String^ Text
+        {
+            String^ get()
+            {
+                return text;
+            };
 
+            void set(String^ value)
+            {
+                text = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public:
-		inline Label(String^ name, String^ text);
-		inline Type GetElementType() override;
-		inline void SetText(String^ _text);
-	};
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::Label; }
+        }
 
-	public
-	ref class Input : public CustomFormElement
-	{
-	private:
-		String^ title, ^ placeholder, ^ def;
+        inline Label(String^ name, String^ text);
+    };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-				reSetGeneratedForm();
-			}
-		};
-		property String^ Placeholder {
-			String^ get() {
-				return placeholder;
-			};
-			void set(String^ value)
-			{
-				placeholder = value;
-				reSetGeneratedForm();
-			}
-		};
-		property String^ Def {
-			String^ get() {
-				return def;
-			};
-			void set(String^ value)
-			{
-				def = value;
-				reSetGeneratedForm();
-			}
-		};
+    public
+        ref class Input : public CustomFormElement
+    {
+        String ^title, ^placeholder, ^def;
 
-		inline Input(String^ name, String^ title, String^ placeholder, String^ def);
-		inline Input(String^ name, String^ title, String^ placeholder);
-		inline Input(String^ name, String^ title);
-		inline Type GetElementType() override;
-		inline void SetTitle(String^ title);
-		inline void SetPlaceHolder(String^ placeholder);
-		inline void SetDefault(String^ def);
-	};
+    public:
+        property String^ Title
+        {
+            String^ get()
+            {
+                return title;
+            };
 
-	public
-	ref class Toggle : public CustomFormElement
-	{
-	private:
-		using DataType = bool;
-		String^ title;
-		bool def;
+            void set(String^ value)
+            {
+                title = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-				reSetGeneratedForm();
-			}
-		};
-		property bool Def
-		{
-			bool get()
-			{
-				return def;
-			};
-			void set(bool value)
-			{
-				def = value;
-				reSetGeneratedForm();
-			}
-		};
+        property String^ Placeholder
+        {
+            String^ get()
+            {
+                return placeholder;
+            };
 
-	public:
-		inline Toggle(String^ name, String^ title, bool def);
-		inline Toggle(String^ name, String^ title);
-		inline Type GetElementType() override;
-		inline void SetTitle(String^ title);
-		inline void SetDefault(bool def);
-	};
+            void set(String^ value)
+            {
+                placeholder = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public
-	ref class Dropdown : public CustomFormElement
-	{
-	private:
-		String^ title;
-		List<String^>^ options;
-		int def;
+        property String^ Def
+        {
+            String^ get()
+            {
+                return def;
+            };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-				reSetGeneratedForm();
-			}
-		};
-		property List<String^>^ Options {
-			List<String^>^ get() {
-				return options;
-			};
-			void set(List<String^>^ value)
-			{
-				options = value;
-				reSetGeneratedForm();
-			}
-		};
-		property int Def
-		{
-			int get()
-			{
-				return def;
-			};
-			void set(int value)
-			{
-				def = value;
-				reSetGeneratedForm();
-			}
-		};
+            void set(String^ value)
+            {
+                def = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public:
-		inline Dropdown(String^ name, String^ title, List<String^>^ options, int defId);
-		inline Dropdown(String^ name, String^ title, List<String^>^ options);
-		inline Type GetElementType() override;
-		inline void SetTitle(String^ title);
-		inline void SetOptions(List<String^>^ options);
-		inline void AddOption(String^ option);
-		inline void SetDefault(int defId);
-	};
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::Input; }
+        }
 
-	public
-	ref class Slider : public CustomFormElement
-	{
-	private:
-		String^ title;
-		int min, max, step, def;
+        inline Input(String^ name, String^ title, String^ placeholder, String^ def);
+        inline Input(String^ name, String^ title, String^ placeholder);
+        inline Input(String^ name, String^ title);
+    };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-				reSetGeneratedForm();
-			}
-		};
-		property int Min
-		{
-			int get()
-			{
-				return min;
-			};
-			void set(int value)
-			{
-				min = value;
-				reSetGeneratedForm();
-			}
-		};
-		property int Max
-		{
-			int get()
-			{
-				return max;
-			};
-			void set(int value)
-			{
-				max = value;
-				reSetGeneratedForm();
-			}
-		};
-		property int Step
-		{
-			int get()
-			{
-				return step;
-			};
-			void set(int value)
-			{
-				step = value;
-				reSetGeneratedForm();
-			}
-		};
-		property int Def
-		{
-			int get()
-			{
-				return def;
-			};
-			void set(int value)
-			{
-				def = value;
-				reSetGeneratedForm();
-			}
-		};
+    public
+        ref class Toggle : public CustomFormElement
+    {
+        String^ title;
+        bool def;
 
-	public:
-		inline Slider(String^ name, String^ title, int min, int max, int step, int def);
-		inline Slider(String^ name, String^ title, int min, int max, int step);
-		inline Slider(String^ name, String^ title, int min, int max);
-		inline Type GetElementType() override;
-		inline void SetTitle(String^ title);
-		inline void SetMin(int min);
-		inline void SetMax(int max);
-		inline void SetStep(int step);
-		inline void SetDefault(int def);
-	};
+    public:
+        property String^ Title
+        {
+            String^ get()
+            {
+                return title;
+            };
 
-	public
-	ref class StepSlider : public CustomFormElement
-	{
-	private:
-		String^ title;
-		List<String^>^ options;
-		int def;
+            void set(String^ value)
+            {
+                title = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-				reSetGeneratedForm();
-			}
-		};
-		property List<String^>^ Options {
-			List<String^>^ get() {
-				return options;
-			};
-			void set(List<String^>^ value)
-			{
-				options = value;
-			}
-		};
-		property int Def
-		{
-			int get()
-			{
-				return def;
-			};
-			void set(int value)
-			{
-				def = value;
-				reSetGeneratedForm();
-			}
-		};
+        property bool Def
+        {
+            bool get()
+            {
+                return def;
+            };
 
-	public:
-		inline StepSlider(String^ name, String^ title, List<String^>^ options, int defId);
-		inline StepSlider(String^ name, String^ title, List<String^>^ options);
-		inline Type GetElementType() override;
-		inline void SetTitle(String^ title);
-		inline void SetOptions(List<String^>^ options);
-		inline void AddOption(String^ option);
-		inline void SetDefault(int defId);
-	};
+            void set(bool value)
+            {
+                def = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	//////////////////////////////// Forms ////////////////////////////////
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::Toggle; }
+        }
 
-	public
-		interface class FormImpl
-	{
-	};
+        inline Toggle(String^ name, String^ title, bool def);
+        inline Toggle(String^ name, String^ title);
+    };
 
-	public
-	ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
-	{
-	public:
-		delegate void SimpleFormCallback(MC::Player^, int);
+    public
+        ref class Dropdown : public CustomFormElement
+    {
+        String^ title;
+        List<String^>^ options;
+        int def;
 
-	private:
-		String^ title, ^ content;
-		List<SimpleFormElement^>^ elements = gcnew List<SimpleFormElement^>;
-		SimpleFormCallback^ callback;
+    public:
+        property String^ Title
+        {
+            String^ get()
+            {
+                return title;
+            };
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-			}
-		};
-		property String^ Content {
-			String^ get() {
-				return content;
-			};
-			void set(String^ value)
-			{
-				content = value;
-			}
-		};
-		property List<SimpleFormElement^>^ Elements {
-			List<SimpleFormElement^>^ get() {
-				return elements;
-			};
-			void set(List<SimpleFormElement^>^ value)
-			{
-				elements = value;
-			}
-		};
-		property SimpleFormCallback^ Callback {
-			SimpleFormCallback^ get() {
-				return callback;
-			};
-			void set(SimpleFormCallback^ value)
-			{
-				callback = value;
-			}
-		};
+            void set(String^ value)
+            {
+                title = value;
+                reSetGeneratedForm();
+            }
+        };
 
-	public:
-		SimpleForm(String^ title, String^ content);
-		!SimpleForm();
-		~SimpleForm();
-		inline SimpleForm^ SetTitle(String^ title);
-		inline SimpleForm^ CstContent(String^ content);
-		inline SimpleForm^ AddButton(String^ text, String^ image, Button::ButtonCallback^ callback);
-		inline SimpleForm^ AddButton(String^ text, String^ image);
-		inline SimpleForm^ AddButton(String^ text);
-		inline SimpleForm^ Append(Button^ element);
-		bool SendTo(MC::Player^ player, SimpleFormCallback^ callback);
-		bool SendTo(MC::Player^ player);
+        property List<String^>^ Options
+        {
+            List<String^>^ get()
+            {
+                return options;
+            };
 
-	private:
-		List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
-	};
+            void set(List<String^>^ value)
+            {
+                options = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Def
+        {
+            int get()
+            {
+                return def;
+            };
+
+            void set(int value)
+            {
+                def = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::Dropdown; }
+        }
+
+        inline Dropdown(String^ name, String^ title, List<String^>^ options, int defId);
+        inline Dropdown(String^ name, String^ title, List<String^>^ options);
+        inline void AddOption(String^ option);
+    };
+
+    public
+        ref class Slider : public CustomFormElement
+    {
+        String^ title;
+        // TODO make it a float type (firstly in SDK)
+        int min, max, step, def;
+
+    public:
+        property String^ Title
+        {
+            String^ get()
+            {
+                return title;
+            };
+
+            void set(String^ value)
+            {
+                title = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Min
+        {
+            int get()
+            {
+                return min;
+            };
+
+            void set(int value)
+            {
+                min = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Max
+        {
+            int get()
+            {
+                return max;
+            };
+
+            void set(int value)
+            {
+                max = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Step
+        {
+            int get()
+            {
+                return step;
+            };
+
+            void set(int value)
+            {
+                step = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Def
+        {
+            int get()
+            {
+                return def;
+            };
+
+            void set(int value)
+            {
+                def = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::Slider; }
+        }
+
+        inline Slider(String^ name, String^ title, int min, int max, int step, int def);
+        inline Slider(String^ name, String^ title, int min, int max, int step);
+        inline Slider(String^ name, String^ title, int min, int max);
+    };
+
+    public
+        ref class StepSlider : public CustomFormElement
+    {
+        String^ title;
+        List<String^>^ options;
+        int def;
+
+    public:
+        property String^ Title
+        {
+            String^ get()
+            {
+                return title;
+            };
+
+            void set(String^ value)
+            {
+                title = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property List<String^>^ Options
+        {
+            List<String^>^ get()
+            {
+                return options;
+            };
+
+            void set(List<String^>^ value)
+            {
+                options = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property int Def
+        {
+            int get()
+            {
+                return def;
+            };
+
+            void set(int value)
+            {
+                def = value;
+                reSetGeneratedForm();
+            }
+        };
+
+        property Type ElementType
+        {
+            virtual Type get() override { return Type::StepSlider; }
+        }
+
+        inline StepSlider(String^ name, String^ title, List<String^>^ options, int defId);
+        inline StepSlider(String^ name, String^ title, List<String^>^ options);
+        inline void AddOption(String^ option);
+    };
+
+    //////////////////////////////// Forms ////////////////////////////////
+
+    public
+        interface class FormImpl
+    {
+    };
+
+    public
+        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
+    {
+    public:
+        delegate void SimpleFormCallback(MC::Player^, int);
+
+        property String^ Title;
+        property String^ Content;
+        property List<SimpleFormElement^>^ Elements;
+        property SimpleFormCallback^ Callback;
+
+        SimpleForm(String^ title, String^ content);
+        !SimpleForm();
+        ~SimpleForm();
+
+        inline SimpleForm^ AddButton(String^ text, String^ image, Button::ButtonCallback^ callback);
+        inline SimpleForm^ AddButton(String^ text, String^ image);
+        inline SimpleForm^ AddButton(String^ text);
+        inline SimpleForm^ Append(Button^ element);
+        bool SendTo(MC::Player^ player, SimpleFormCallback^ callback);
+        bool SendTo(MC::Player^ player);
+
+    private:
+        List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
+    };
 
 
-	public
-	ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
-	{
-		using kvPair = Pair<String^, CustomFormElement^>;
+    public
+        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl
+    {
+    public:
+        delegate void ModalFormCallback(MC::Player^ player, bool isConfirm);
 
-	public:
-		delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
-		String^ title;
-		List<kvPair>^ elements = gcnew List<kvPair>;
-		CustomFormCallback^ callback;
+        property String^ Title;
+        property String^ Content;
+        property String^ ConfirmButton;
+        property String^ CancelButton;
+        property ModalFormCallback^ Callback;
 
-	public:
-		property String^ Title {
-			String^ get() {
-				return title;
-			};
-			void set(String^ value)
-			{
-				title = value;
-			}
-		};
-		property List<kvPair>^ Elements {
-			List<kvPair>^ get() {
-				return elements;
-			};
-			void set(List<kvPair>^ value)
-			{
-				isFormGenerated = false;
-				elements = value;
-			}
-		};
-		property CustomFormCallback^ Callback {
-			CustomFormCallback^ get() { return callback; }
-			void set(CustomFormCallback^ value) { callback = value; }
-		};
-	internal:
-		property bool IsFormGenerated
-		{
-			bool get() { return isFormGenerated; }
-			void set(bool value) { isFormGenerated = value; }
-		}
+        ModalForm(String^ title, String^ content, String^ confirmButton, String^ cancelButton);
+        !ModalForm();
+        ~ModalForm();
 
-	public:
-		CustomForm(String^ title);
-		!CustomForm();
-		~CustomForm();
+        bool SendTo(MC::Player^ player, ModalFormCallback^ callback);
+        bool SendTo(MC::Player^ player);
 
-		inline CustomForm^ Append(CustomFormElement^ element);
+    private:
+        List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
+    };
 
-	private:
-		delegate void delSendCallback(::Player*, std::map<string, std::shared_ptr<::Form::CustomFormElement>>);
-		void NATIVECALLBACK NativeFormSendCallback(::Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
 
-		void GenerateNativeForm();
-		bool isFormGenerated = false;
+    public
+        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
+    {
+        using kvPair = Pair<String^, CustomFormElement^>;
+        List<kvPair>^ elements = gcnew List<kvPair>;
 
-		List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
+    public:
+        delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
 
-	public:
-		bool SendTo(MC::Player^ player, CustomFormCallback^ callback);
-		inline bool SendTo(MC::Player^ player);
+        property String^ Title;
+        property CustomFormCallback^ Callback;
 
-		inline CustomFormElement::Type GetElementType(int index);
+        property List<kvPair>^ Elements
+        {
+            List<kvPair>^ get()
+            {
+                return elements;
+            };
 
-		inline String^ GetString(String const^ name);
-		inline int GetNumber(String const^ name);
-		inline bool GetBool(String const^ name);
-		inline String^ GetString(int index);
-		inline int GetNumber(int index);
-		inline bool GetBool(int index);
+            void set(List<kvPair>^ value)
+            {
+                isFormGenerated = false;
+                elements = value;
+            }
+        };
 
-		inline void SetValue(int index, String^ value);
+        CustomForm(String^ title);
+        !CustomForm();
+        ~CustomForm();
 
-	internal:
-		static inline ::Form::Label _Marshal(Label^ arg);
-		static inline ::Form::Input _Marshal(Input^ arg);
-		static inline ::Form::Toggle _Marshal(Toggle^ arg);
-		static inline ::Form::Slider _Marshal(Slider^ arg);
-		static inline ::Form::Dropdown _Marshal(Dropdown^ arg);
-		static inline ::Form::StepSlider _Marshal(StepSlider^ arg);
-		static inline Label^ _Marshal(::Form::Label const& arg);
-		static inline Input^ _Marshal(::Form::Input const& arg);
-		static inline Toggle^ _Marshal(::Form::Toggle const& arg);
-		static inline Slider^ _Marshal(::Form::Slider const& arg);
-		static inline Dropdown^ _Marshal(::Form::Dropdown const& arg);
-		static inline StepSlider^ _Marshal(::Form::StepSlider const& arg);
-	};
+        inline CustomForm^ Append(CustomFormElement^ element);
+        bool SendTo(MC::Player^ player, CustomFormCallback^ callback);
+        inline bool SendTo(MC::Player^ player);
+        inline CustomFormElement^ GetElement(const String^ name);
+        inline CustomFormElement^ GetElement(int index);
+
+    internal:
+        property bool IsFormGenerated;
+
+        static inline ::Form::Label _Marshal(Label^ arg);
+        static inline ::Form::Input _Marshal(Input^ arg);
+        static inline ::Form::Toggle _Marshal(Toggle^ arg);
+        static inline ::Form::Slider _Marshal(Slider^ arg);
+        static inline ::Form::Dropdown _Marshal(Dropdown^ arg);
+        static inline ::Form::StepSlider _Marshal(StepSlider^ arg);
+        static inline Label^ _Marshal(const ::Form::Label& arg);
+        static inline Input^ _Marshal(const ::Form::Input& arg);
+        static inline Toggle^ _Marshal(const ::Form::Toggle& arg);
+        static inline Slider^ _Marshal(const ::Form::Slider& arg);
+        static inline Dropdown^ _Marshal(const ::Form::Dropdown& arg);
+        static inline StepSlider^ _Marshal(const ::Form::StepSlider& arg);
+
+    private:
+        delegate void delSendCallback(Player*, std::map<string, std::shared_ptr<::Form::CustomFormElement>>);
+        void NATIVECALLBACK NativeFormSendCallback(
+            Player* p, std::map<string, std::shared_ptr<::Form::CustomFormElement>> arg);
+
+        void GenerateNativeForm();
+        bool isFormGenerated = false;
+
+        List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
+    };
 } // namespace LLNET::Form
