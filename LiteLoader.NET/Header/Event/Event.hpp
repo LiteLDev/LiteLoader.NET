@@ -62,14 +62,12 @@ private:
 
 #include "../MC/AABB.hpp"
 #include "../MC/Types.hpp"
-#include "../MC/Block.hpp"
-#include "../MC/BlockActor.hpp"
 #include "../MC/BlockInstance.hpp"
 #include "../MC/BlockSource.hpp"
 #include "../MC/Container.hpp"
-#include "../MC/ItemInstance.hpp"
 #include "../MC/ItemStack.hpp"
 #include "../MC/Player.hpp"
+#include "../MC/ServerPlayer.hpp"
 #include "../MC/ActorDamageSource.hpp"
 #include "../MC/MCRESULT.hpp"
 #include "../MC/MobEffectInstance.hpp"
@@ -1023,4 +1021,14 @@ public        \
 		Property(int, mDimensionId, DimensionId);
 	};
 
+	Class FormResponsePacketEvent
+		: public EventTemplate<FormResponsePacketEvent, ::Event::FormResponsePacketEvent>
+	{
+		EventAPIs(FormResponsePacketEvent, ::Event::FormResponsePacketEvent);
+
+	public:
+		Property_Ptr(MC, ServerPlayer, mServerPlayer, ServerPlayer);
+		Property(unsigned, mFormId, FormId);
+		Property_String(mJsonData, JsonData);
+	};
 } // namespace LLNET::Event
