@@ -20,6 +20,7 @@
 #include "../../MC/ActorDefinitionIdentifier.hpp"
 #include "../../MC/ArmStand.hpp"
 #include "../../Command/CommandRegistry.hpp"
+#include "../../Command/Command.hpp"
 
 #define _PIN_OBJECT(eventName) pin_ptr<eventName> _this = this
 #define _THIS(eventName) ((::Event::eventName*)_this)
