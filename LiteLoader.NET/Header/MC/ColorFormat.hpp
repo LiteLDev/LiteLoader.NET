@@ -37,7 +37,5 @@ public:
     static String^ ConvertToConsole(String^ str, bool keepColor);
     static String^ ConvertToConsole(String^ str);
     static String^ RemoveColorCode(String^ str);
-
-
 };
 }

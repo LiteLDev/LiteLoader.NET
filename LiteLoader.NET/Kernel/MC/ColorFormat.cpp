@@ -19,12 +19,12 @@ namespace MC
 
     String^ ColorFormat::ConvertToConsole(String^ str, bool keepColor)
     {
-        return marshalString(::ColorFormat::convertToColsole(marshalString(str), keepColor));
+        return marshalString(::ColorFormat::convertToConsole(marshalString(str), keepColor));
     }
 
     String^ ColorFormat::ConvertToConsole(String^ str)
     {
-        return marshalString(::ColorFormat::convertToColsole(marshalString(str)));
+        return marshalString(::ColorFormat::convertToConsole(marshalString(str)));
     }
 
     String^ ColorFormat::RemoveColorCode(String^ str)
