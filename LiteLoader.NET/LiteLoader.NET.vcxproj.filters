@@ -809,6 +809,9 @@
     <ClInclude Include="Header\MC\ColorFormat.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
+    <ClInclude Include="Main\Version.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

@@ -309,6 +309,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
+    <ClInclude Include="Main\Version.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />

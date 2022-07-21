@@ -3,6 +3,8 @@ using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 
 #include "Config.h"
+#include "Version.h"
+
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
@@ -33,5 +35,5 @@ using namespace System::Runtime::InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly:AssemblyVersion("2.4.1.*")];
-[assembly:AssemblyFileVersion("2.4.1.0")];
+[assembly:AssemblyVersion(LLNET_ASSEMBLY_VERSION)];
+[assembly:AssemblyFileVersion(LLNET_ASSEMBLY_FILE_VERSION)];
