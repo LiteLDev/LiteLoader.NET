@@ -241,6 +241,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ByteTag.hpp" />
     <ClInclude Include="Header\MC\Certificate.hpp" />
     <ClInclude Include="Header\MC\ChunkBlockPos.hpp" />
+    <ClInclude Include="Header\MC\ColorFormat.hpp" />
     <ClInclude Include="Header\MC\CompoundTag.hpp" />
     <ClInclude Include="Header\MC\CompoundTagVariant.hpp" />
     <ClInclude Include="Header\MC\Container.hpp" />
@@ -361,6 +362,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ByteTag.cpp" />
     <ClCompile Include="Kernel\MC\Certificate.cpp" />
     <ClCompile Include="Kernel\MC\ChunkBlockPos.cpp" />
+    <ClCompile Include="Kernel\MC\ColorFormat.cpp" />
     <ClCompile Include="Kernel\MC\CompoundTag.cpp" />
     <ClCompile Include="Kernel\MC\CompoundTagVariant.cpp" />
     <ClCompile Include="Kernel\MC\Container.cpp" />
