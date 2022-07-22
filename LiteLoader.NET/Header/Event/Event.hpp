@@ -62,14 +62,12 @@ private:
 
 #include "../MC/AABB.hpp"
 #include "../MC/Types.hpp"
-#include "../MC/Block.hpp"
-#include "../MC/BlockActor.hpp"
 #include "../MC/BlockInstance.hpp"
 #include "../MC/BlockSource.hpp"
 #include "../MC/Container.hpp"
-#include "../MC/ItemInstance.hpp"
 #include "../MC/ItemStack.hpp"
 #include "../MC/Player.hpp"
+#include "../MC/ServerPlayer.hpp"
 #include "../MC/ActorDamageSource.hpp"
 #include "../MC/MCRESULT.hpp"
 #include "../MC/MobEffectInstance.hpp"
@@ -259,7 +257,6 @@ public        \
     ref class
 
 	///////////////////////////// Player Events /////////////////////////////
-
 
 	Class PlayerPreJoinEvent
 		: public EventTemplate<PlayerPreJoinEvent, ::Event::PlayerPreJoinEvent>
@@ -492,6 +489,16 @@ public        \
 		Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
 	};
 
+	Class BlockPlacedByPlayerEvent
+		: public EventTemplate<BlockPlacedByPlayerEvent, ::Event::BlockPlacedByPlayerEvent>
+	{
+		EventAPIs(BlockPlacedByPlayerEvent, ::Event::BlockPlacedByPlayerEvent);
+
+	public:
+		Property_Ptr(MC, Player, mPlayer, Player);
+		Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
+	};
+
 	Class PlayerOpenContainerEvent
 		: public EventTemplate<PlayerOpenContainerEvent, ::Event::PlayerOpenContainerEvent>
 	{
@@ -616,7 +623,7 @@ public        \
 
 
 	///////////////////////////// Block Events /////////////////////////////
-
+	
 	Class BlockInteractedEvent
 		: public EventTemplate<BlockInteractedEvent, ::Event::BlockInteractedEvent>
 	{
@@ -1014,4 +1021,14 @@ public        \
 		Property(int, mDimensionId, DimensionId);
 	};
 
+	Class FormResponsePacketEvent
+		: public EventTemplate<FormResponsePacketEvent, ::Event::FormResponsePacketEvent>
+	{
+		EventAPIs(FormResponsePacketEvent, ::Event::FormResponsePacketEvent);
+
+	public:
+		Property_Ptr(MC, ServerPlayer, mServerPlayer, ServerPlayer);
+		Property(unsigned, mFormId, FormId);
+		Property_String(mJsonData, JsonData);
+	};
 } // namespace LLNET::Event
