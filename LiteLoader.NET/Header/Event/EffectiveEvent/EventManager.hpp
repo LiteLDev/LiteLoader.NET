@@ -294,7 +294,6 @@ namespace LLNET::Event::Effective
 
 			if (methodData.Item6)
 			{
-				Console::WriteLine(elementParamType->FullName);
 				auto enumerator = eventIds.GetEnumerator();
 
 				while (enumerator.MoveNext())
@@ -304,11 +303,8 @@ namespace LLNET::Event::Effective
 					if (_event.Value <= 128)
 						continue;
 
-					Console::WriteLine("    " + _event.Key->FullName);
-
 					if (_isBaseType(elementParamType, _event.Key))
 					{
-						Console::WriteLine("    " + _event.Key->FullName);
 
 						auto subclassCallbackFuncArr = eventManagerData[_event.Value];
 
