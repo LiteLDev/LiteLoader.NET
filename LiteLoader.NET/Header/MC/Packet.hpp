@@ -17,7 +17,7 @@ namespace MC
 	public:
 		__ctor(Packet, ::Packet);
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 
 		property unsigned int Unk2
 		{

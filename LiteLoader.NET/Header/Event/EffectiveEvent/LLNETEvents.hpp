@@ -141,7 +141,7 @@ internal:																												\
 	{																													\
 		NativeEventIsCancelledManager::set(false);																		\
 		auto% _ev = *(eventName*)&ev;																					\
-		EventManager::CallNativeEventInternal(_ev, EventId);															\
+		EventManager::_callNativeEventInternal(_ev, EventId);															\
 		return !_ev.IsCancelled;																						\
 	}																													\
 	static void _init()																									\
@@ -271,7 +271,7 @@ namespace LLNET::Event::Effective::NativeEvents
         static bool _nativeCallback(::Event::PlayerJumpEvent & ev)
         {
             auto% _ev = *(PlayerJumpEvent*)&ev;
-            EventManager::CallNativeEventInternal(_ev, EventId);
+            EventManager::_callNativeEventInternal(_ev, EventId);
             return !_ev.IsCancelled;
         }
         static PlayerJumpEvent()

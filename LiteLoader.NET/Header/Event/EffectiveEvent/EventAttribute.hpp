@@ -12,11 +12,13 @@ namespace LLNET::Event::Effective
     public:
         property EventPriority Priority;
         property bool IgnoreCancelled;
+        property bool IsBaseEventListener;
 
         EventHandlerAttribute()
         {
             Priority = EventPriority::NORMAL;
             IgnoreCancelled = false;
+            IsBaseEventListener = false;
         }
     };
 }

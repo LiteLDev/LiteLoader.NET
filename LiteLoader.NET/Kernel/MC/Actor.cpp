@@ -154,6 +154,10 @@ namespace MC
 	{
 		return NativePtr->isOnGround();
 	}
+	inline int Actor::DimensionId::get()
+	{
+		return (int)NativePtr->getDimensionId();
+	}
 	inline bool Actor::SetOnFire(int time, bool isEffect)
 	{
 		return NativePtr->setOnFire(time, isEffect);

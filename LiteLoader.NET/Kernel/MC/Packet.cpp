@@ -3,7 +3,7 @@ namespace MC
 {
 } // namespace MC
 
-#ifdef INCLUDE_MCAPI
+#ifdef MANUAL_MAINTENANCE
 bool MC::Packet::DisallowBatching()
 {
     auto __ret = ((class ::Packet*)NativePtr)->disallowBatching();

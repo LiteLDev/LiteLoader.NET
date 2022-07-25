@@ -88,6 +88,10 @@ namespace MC
 		{
 			bool get();
 		}
+		property int DimensionId
+		{
+			int get();
+		}
 
 
 #ifdef MANUAL_MAINTENANCE

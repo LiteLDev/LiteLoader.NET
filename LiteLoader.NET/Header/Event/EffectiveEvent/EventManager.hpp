@@ -100,12 +100,14 @@ namespace LLNET::Event::Effective
 			static EventCode _callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs);
 
 		generic<typename TEvent> where TEvent : IEvent
-			static EventCode CallNativeEventInternal(TEvent% ev, __EventId eventId);
-
-		static void _initEvents();
+			static EventCode _callNativeEventInternal(TEvent% ev, __EventId eventId);
 
 		generic<typename TEvent> where TEvent : IEvent, INativeEvent
 			static void _registerEventInternal(__EventId id);
+
+		static void _initEvents();
+
+		static bool _isBaseType(System::Type^ src, System::Type^ target);
 	};
 }
 
@@ -165,6 +167,13 @@ namespace LLNET::Event::Effective
 	generic<typename TListener> where TListener : IEventListener
 		inline void EventManager::RegisterListener(__HMODULE handle)
 	{
+
+		using __IgnoreCancelled = bool;
+		using __IsStatic = bool;
+		using __IsByRef = bool;
+		using __IsBaseEventListener = bool;
+
+
 		auto listenerType = TListener::typeid;
 		auto Methods = listenerType->GetMethods(
 			BindingFlags::Public |
@@ -172,7 +181,7 @@ namespace LLNET::Event::Effective
 			BindingFlags::Static |
 			BindingFlags::Instance);
 
-		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, bool, bool, bool>>;
+		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef, __IsBaseEventListener>>;
 
 		for each (auto method in Methods)
 		{
@@ -189,13 +198,14 @@ namespace LLNET::Event::Effective
 				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
-				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, bool, bool, bool>
+				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef, __IsBaseEventListener>
 				{
 					method,
-					evHandlerAttr->Priority,
-					evHandlerAttr->IgnoreCancelled,
-					!method->IsStatic,
-					false
+						evHandlerAttr->Priority,
+						evHandlerAttr->IgnoreCancelled,
+						!method->IsStatic,
+						false,
+						evHandlerAttr->IsBaseEventListener
 				});
 			}
 		}
@@ -242,7 +252,7 @@ namespace LLNET::Event::Effective
 				_registerEvent(elementParamType);
 
 			auto eventId = eventIds[elementParamType];
-			bool isNativeEventListener = 0 < eventId && eventId <= 128;
+			bool isNativeEventHandler = 0 < eventId && eventId <= 128;
 
 			if (isref)
 			{
@@ -250,10 +260,10 @@ namespace LLNET::Event::Effective
 			}
 			else
 			{
-			    if (isNativeEventListener)
-			    {
+				if (isNativeEventHandler)
+				{
 					throw gcnew RegisterEventListenerException("Parameter of the native event handler must be passed by reference (use 'in' or 'ref' keyword in C#)!  at Handler:<" + listenerType->Name + "." + method->Name + ">");
-			    }
+				}
 			}
 
 			auto eventPriority = (int)methodData.Item2;
@@ -263,15 +273,58 @@ namespace LLNET::Event::Effective
 			if (callbackFuncArr[eventPriority] == nullptr)
 				callbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
 
-			callbackFuncArr[eventPriority]->Add(__CallbackFunctionInfo(method->MethodHandle.GetFunctionPointer(), methodData.Item3, isref, methodData.Item4, methodData.Item4 ? listenerType : nullptr, handle));
+			callbackFuncArr[eventPriority]->Add(
+				__CallbackFunctionInfo(
+					method->MethodHandle.GetFunctionPointer(),
+					methodData.Item3,
+					isref,
+					methodData.Item4,
+					methodData.Item4 ? listenerType : nullptr,
+					handle));
 
-			if (isNativeEventListener)
+			if (isNativeEventHandler)
 			{
 				if (!initializedNativeEvents.Contains(eventId))
 					elementParamType
 					->GetMethod("_init", BindingFlags::Static | BindingFlags::NonPublic)
 					->Invoke(nullptr, System::Array::Empty<System::Type^>());
 				initializedNativeEvents.Add(eventId);
+			}
+
+
+			if (methodData.Item6)
+			{
+				Console::WriteLine(elementParamType->FullName);
+				auto enumerator = eventIds.GetEnumerator();
+
+				while (enumerator.MoveNext())
+				{
+					auto _event = enumerator.Current;
+
+					if (_event.Value <= 128)
+						continue;
+
+					Console::WriteLine("    " + _event.Key->FullName);
+
+					if (_isBaseType(elementParamType, _event.Key))
+					{
+						Console::WriteLine("    " + _event.Key->FullName);
+
+						auto subclassCallbackFuncArr = eventManagerData[_event.Value];
+
+						if (subclassCallbackFuncArr[eventPriority] == nullptr)
+							subclassCallbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
+
+						subclassCallbackFuncArr[eventPriority]->Add(
+							__CallbackFunctionInfo(
+								method->MethodHandle.GetFunctionPointer(),
+								methodData.Item3, 
+								isref, 
+								methodData.Item4, 
+								methodData.Item4 ? listenerType : nullptr, 
+								handle));
+					}
+				}
 			}
 		}
 	}
@@ -385,16 +438,13 @@ namespace LLNET::Event::Effective
 			}
 		}
 
-		if (catchedException)
-			return EventCode::CATCHED_EXCEPTIONS;
-		else
-			return EventCode::SUCCESS;
+		return catchedException ? EventCode::CATCHED_EXCEPTIONS : EventCode::SUCCESS;
 	}
 
 
 
 	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::CallNativeEventInternal(TEvent% ev, __EventId eventId)
+		inline EventCode EventManager::_callNativeEventInternal(TEvent% ev, __EventId eventId)
 	{
 		if (lastExceptions->Count > 0)
 			lastExceptions->Clear();
@@ -410,6 +460,9 @@ namespace LLNET::Event::Effective
 	generic<typename TEvent> where TEvent : IEvent
 		inline EventCode EventManager::_callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs)
 	{
+
+		bool catchedException = false;
+
 		for (int i = 0; i < 6; i++)
 		{
 			auto funcs = pfuncs[i];
@@ -448,10 +501,12 @@ namespace LLNET::Event::Effective
 				catch (Exception^ ex)
 				{
 					lastExceptions->Enqueue(ex);
+					catchedException = true;
 				}
 			}
 		}
-		return EventCode::SUCCESS;
+
+		return catchedException ? EventCode::CATCHED_EXCEPTIONS : EventCode::SUCCESS;
 	}
 
 
@@ -492,5 +547,24 @@ namespace LLNET::Event::Effective
 	inline array<Exception^>^ EventManager::GetLastCallingExceptions()
 	{
 		return lastExceptions->ToArray();
+	}
+
+	bool EventManager::_isBaseType(System::Type^ src, System::Type^ target)
+	{
+		if (target == nullptr)
+			return false;
+
+		System::Type^ current = target->BaseType;
+		if (current == nullptr)
+			return false;
+
+		do
+		{
+			if (current == src)
+				return true;
+
+		} while ((current = current->BaseType) != nullptr);
+
+		return false;
 	}
 }

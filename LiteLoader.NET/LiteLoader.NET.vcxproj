@@ -112,8 +112,8 @@ LibraryBuilder.exe -o ..\Lib\
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
-copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
+      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\ (
+copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -166,8 +166,8 @@ LibraryBuilder.exe -o ..\Lib\
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
-copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
+      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\ (
+copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
