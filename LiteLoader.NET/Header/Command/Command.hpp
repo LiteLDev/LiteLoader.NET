@@ -106,7 +106,7 @@ enum class CommandPermissionLevel : char
 };
 
 public
-enum class OriginType : char
+enum class CommandOriginType : char
 {
     Player = 0,
     Block = 1,
@@ -119,7 +119,11 @@ enum class OriginType : char
     Actor = 8,
     Virtual = 9,
     GameArgument = 10,
-    ActorServer = 11
+    ActorServer = 11,
+    Precompiled = 12,
+    GameDirectorEntity = 13,
+    Script = 14,
+    ExecuteContext = 15
 };
 
 public
