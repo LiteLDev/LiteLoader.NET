@@ -36,9 +36,6 @@
     <ClInclude Include="Tools\PropertryHelper.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Header\MC\Packet.hpp">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\ClassAdapter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -47,9 +44,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Kernel\MC\Packet.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\MC\MobEffect.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
