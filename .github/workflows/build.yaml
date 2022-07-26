@@ -73,7 +73,9 @@ jobs:
         mkdir output/RELEASE/
         mkdir output/RELEASE/LiteLoader
         mkdir output/RELEASE/lib
+        mkdir output/RELEASE/lib/dotnet
         cp -f x64/Release/Ijwhost.dll output/RELEASE/lib/Ijwhost.dll
+        cp -f x64/Release/LLMoney.NET.dll output/RELEASE/lib/dotnet/LLMoney.NET.dll
         cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader/LiteLoader.NET.dll
         cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader/LiteLoader.NET.runtimeconfig.json
         mkdir output/PDB/
