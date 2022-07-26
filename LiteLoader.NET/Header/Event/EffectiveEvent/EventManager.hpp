@@ -141,8 +141,8 @@ namespace LLNET::Event::Effective
 			goto RE_GENERATE_EVENTID;
 		}
 
-		eventIds.Add(eventType, eventId);
-		eventManagerData.Add(eventId, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
+		eventIds.TryAdd(eventType, eventId);
+		eventManagerData.TryAdd(eventIds[eventType], gcnew __PermissionWithCallbackFunctions(6) { nullptr });
 	}
 
 

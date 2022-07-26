@@ -54,7 +54,8 @@ void Init(Logger& logger)
 {
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
-	GlobalClass::ManagedPluginHandler->TryAdd(Assembly::GetExecutingAssembly(), IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
+	auto LLNET_Asm = Assembly::GetExecutingAssembly();
+	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
 }
 
 
@@ -71,6 +72,12 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	{
 		return Assembly::LoadFrom(llLibPath);
 	}
+	
+	auto llLibPath_dotnet = Path::Combine(LITELOADER_LIBRARY_DIR_DOTNETONLY, assemblyName.Name + ".dll");
+	if (File::Exists(llLibPath_dotnet))
+	{
+		return Assembly::LoadFrom(llLibPath_dotnet);
+	}
 
 	auto customPaths = GlobalClass::CustomLibPath[args->RequestingAssembly];
 	for each (auto customPath in customPaths)
@@ -78,13 +85,20 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 		auto libPath = System::IO::Path::Combine(customPath, assemblyName.Name + ".dll");
 		if (File::Exists(libPath))
 		{
-			return System::Reflection::Assembly::LoadFrom(libPath);
+
+			auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
+			auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+			GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+			return Asm;
 		}
 
 		auto libPathWithPlugin = Path::Combine("plugins", customPath, assemblyName.Name + ".dll");
 		if (File::Exists(libPathWithPlugin))
 		{
-			return Assembly::LoadFrom(libPathWithPlugin);
+			auto Asm = Assembly::LoadFrom(libPathWithPlugin);
+			auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+			GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+			return Asm;
 		}
 	}
 

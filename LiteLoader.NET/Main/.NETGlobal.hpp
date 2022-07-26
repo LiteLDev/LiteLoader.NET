@@ -109,11 +109,11 @@ inline bool As(U u)
 ref class GlobalClass {
 internal:
 	static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-	static Dictionary<Assembly^, IntPtr>^ ManagedPluginHandler = gcnew Dictionary<Assembly^, IntPtr>;
+	static Dictionary<Assembly^, IntPtr>^ ManagedModuleHandler = gcnew Dictionary<Assembly^, IntPtr>;
 	static inline HMODULE __GetCurrentModule(Assembly^ asm_)
 	{
 		auto ret = IntPtr::Zero;
-		ManagedPluginHandler->TryGetValue(asm_, ret);
+		ManagedModuleHandler->TryGetValue(asm_, ret);
 		if (ret != IntPtr::Zero)
 			return HMODULE((void*)ret);
 		else

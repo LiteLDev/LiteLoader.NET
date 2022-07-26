@@ -16,6 +16,8 @@
 
 #define LITELOADER_LIBRARY_DIR "plugins/lib"
 
+#define LITELOADER_LIBRARY_DIR_DOTNETONLY "plugins/lib/dotnet"
+
 #define LITELOADER_VERSION LL::getLoaderVersion()
 
 //#define INCLUDE_MCAPI
