@@ -732,7 +732,7 @@ namespace MC
 		East = 5,
 	};
 
-	public enum class MinecraftPacketIds : int {
+	public enum class MinecraftPacketId : int {
 		Login = 0x01,
 		PlayStatus = 0x02,
 		ServerToClientHandshake = 0x03,

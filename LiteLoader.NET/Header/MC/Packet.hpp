@@ -53,9 +53,9 @@ namespace MC
             void set(unsigned int);
         }
 
-        property MinecraftPacketIds Id
+        property MinecraftPacketId Id
         {
-            MinecraftPacketIds get();
+            MinecraftPacketId get();
         }
 
         property String^ Name
