@@ -18,7 +18,7 @@
 #include "../../MC/BlockSource.hpp"
 #include "../../MC/WitherBoss.hpp"
 #include "../../MC/ActorDefinitionIdentifier.hpp"
-#include "../../MC/ArmStand.hpp"
+#include "../../MC/ArmorStand.hpp"
 #include "../../Command/CommandRegistry.hpp"
 #include "../../Command/Command.hpp"
 

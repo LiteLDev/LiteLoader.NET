@@ -226,7 +226,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\Actor.hpp" />
     <ClInclude Include="Header\MC\ActorDamageSource.hpp" />
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
-    <ClInclude Include="Header\MC\ArmStand.hpp" />
+    <ClInclude Include="Header\MC\ArmorStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
     <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
