@@ -297,7 +297,7 @@
     <ClCompile Include="Kernel\MC\ByteArrayTag.cpp">
       <Filter>Kernel\NBT</Filter>
     </ClCompile>
-    <ClCompile Include="Main\LiteLoaderDotNET.cpp">
+    <ClCompile Include="Main\LiteLoaderdotNET.cpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\RemoteCall.cpp">

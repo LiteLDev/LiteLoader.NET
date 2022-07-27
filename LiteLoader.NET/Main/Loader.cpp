@@ -30,7 +30,7 @@ void LoadMain()
 
 	Init(logger);
 
-	logger.info("Loading plugins...");
+	logger.info("Loading .NET plugins...");
 	std::filesystem::directory_iterator files(LLNET_PLUGINS_LOAD_DIR);
 	std::vector<std::filesystem::path> assemblies;
 	for (auto& file : files)
@@ -128,7 +128,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 			if (succeed)
 			{
-				logger.info("Plugin <{}> loaded", iter->filename().string());
+				logger.info(".NET plugin <{}> loaded", iter->filename().string());
 				++count;
 			}
 		}
@@ -156,7 +156,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			logger.error("Uncaught exception Detected!");
 		}
 	}
-	logger.info << count << " plugin(s) loaded" << logger.endl;
+	logger.info << count << " .NET plugin(s) loaded" << logger.endl;
 }
 
 
