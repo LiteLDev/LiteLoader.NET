@@ -411,7 +411,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
     <ClCompile Include="Kernel\Server.cpp" />
     <ClCompile Include="Main\AssemblyInfo.cpp" />
-    <ClCompile Include="Main\LiteLoaderdotNET.cpp" />
+    <ClCompile Include="Main\LiteLoaderDotNET.cpp" />
     <ClCompile Include="Main\PluginAttribute.h" />
     <ClCompile Include="Main\dllmain.cpp" />
     <ClCompile Include="Main\Plugininterface.cpp" />
