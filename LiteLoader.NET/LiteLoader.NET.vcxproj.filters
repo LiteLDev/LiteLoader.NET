@@ -73,9 +73,6 @@
     <Filter Include="Kernel\Event">
       <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\MC\Network">
-      <UniqueIdentifier>{dfc0978f-eb18-41c0-b526-8eb591dd933a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -804,10 +801,10 @@
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\BinaryStream.hpp">
-      <Filter>Header\MC\Network</Filter>
+      <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp">
-      <Filter>Header\MC\Network</Filter>
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include <MC/Packet.hpp>
 #include "Types.hpp"
+#include "BinaryStream.hpp"
 
 namespace MC
 {
@@ -63,7 +64,9 @@ namespace MC
             String^ get();
         };
 
-        virtual bool DisallowBatching();
+        void Write([Out]BinaryStream^ resultStream);
+        StreamReadResult Read(ReadOnlyBinaryStream^ stream);
+        bool DisallowBatching();
 
 #endif // INCLUDE_MCAPI
     };
