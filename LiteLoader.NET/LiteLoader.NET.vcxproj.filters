@@ -375,6 +375,9 @@
     <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\MinecraftPackets.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -383,7 +386,7 @@
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\MC\ArmStand.hpp">
+    <ClInclude Include="Header\MC\ArmorStand.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\Attribute.hpp">
@@ -797,13 +800,16 @@
     <ClInclude Include="Main\Version.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Header\MC\BinaryStream.hpp">
-      <Filter>Header\MC</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\Packet.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
+    <ClInclude Include="Header\MC\BinaryStream.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
     <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\MinecraftPackets.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>

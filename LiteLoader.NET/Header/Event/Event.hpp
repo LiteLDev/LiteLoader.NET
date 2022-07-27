@@ -74,7 +74,7 @@ private:
 #include "../MC/Objective.hpp"
 #include "../MC/WitherBoss.hpp"
 #include "../MC/ActorDefinitionIdentifier.hpp"
-#include "../MC/ArmStand.hpp"
+#include "../MC/ArmorStand.hpp"
 #include "../MC/Vec3.hpp"
 #include "../MC/BlockPos.hpp"
 #include "../MC/ScoreboardId.hpp"
