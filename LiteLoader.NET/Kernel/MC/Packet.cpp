@@ -70,10 +70,10 @@ void MC::Packet::Incompressible::set(unsigned int value)
     ((class ::Packet*)NativePtr)->incompressible = (::uint32_t)value;
 }
 
-MC::MinecraftPacketIds MC::Packet::Id::get()
+MC::MinecraftPacketId MC::Packet::Id::get()
 {
     auto __ret = ((class ::Packet*)NativePtr)->getId();
-    return (MC::MinecraftPacketIds)__ret;
+    return (MC::MinecraftPacketId)__ret;
 }
 
 ::String^ MC::Packet::Name::get()
