@@ -262,6 +262,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\ListTag.hpp" />
     <ClInclude Include="Header\MC\MapItemSavedData.hpp" />
     <ClInclude Include="Header\MC\MCRESULT.hpp" />
+    <ClInclude Include="Header\MC\MinecraftPackets.hpp" />
     <ClInclude Include="Header\MC\Mob.hpp" />
     <ClInclude Include="Header\MC\MobEffect.hpp" />
     <ClInclude Include="Header\MC\MobEffectInstance.hpp" />
@@ -384,6 +385,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\ListTag.cpp" />
     <ClCompile Include="Kernel\MC\MapItemSavedData.cpp" />
     <ClCompile Include="Kernel\MC\MCRESULT.cpp" />
+    <ClCompile Include="Kernel\MC\MinecraftPackets.cpp" />
     <ClCompile Include="Kernel\MC\Mob.cpp" />
     <ClCompile Include="Kernel\MC\MobEffect.cpp" />
     <ClCompile Include="Kernel\MC\MobEffectInstance.cpp" />

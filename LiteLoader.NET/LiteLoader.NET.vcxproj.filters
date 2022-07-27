@@ -375,6 +375,9 @@
     <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\MinecraftPackets.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -804,6 +807,9 @@
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\MinecraftPackets.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
