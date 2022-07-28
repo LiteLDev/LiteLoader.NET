@@ -404,6 +404,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\Tag.cpp" />
     <ClCompile Include="Kernel\MC\TagMemoryChunk.cpp" />
     <ClCompile Include="Kernel\MC\Types.cpp" />
+    <ClCompile Include="Kernel\MC\UserEntityIdentifierComponent.cpp" />
     <ClCompile Include="Kernel\MC\Vec2.cpp" />
     <ClCompile Include="Kernel\MC\Vec3.cpp" />
     <ClCompile Include="Kernel\MC\WitherBoss.cpp" />

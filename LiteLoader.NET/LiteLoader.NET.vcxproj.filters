@@ -378,6 +378,9 @@
     <ClCompile Include="Kernel\MC\MinecraftPackets.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\UserEntityIdentifierComponent.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
