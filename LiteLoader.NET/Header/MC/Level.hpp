@@ -88,7 +88,7 @@ public:
     inline static Actor ^ GetDamageSourceEntity(ActorDamageSource ^ ads);
     inline static void BroadcastText(String ^ text, TextType type);
     inline static void BroadcastTitle(String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
-    inline static void SendPacketForAllPlayer(Packet ^ pkt);
+    inline static void SendPacketForAllPlayers(Packet ^ pkt);
 
 
     ref class ServerCommandOrigin : ClassTemplate<ServerCommandOrigin, ::Level::ServerCommandOrigin>

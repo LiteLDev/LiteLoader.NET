@@ -205,9 +205,9 @@ inline void Level::BroadcastTitle(String^ text, TitleType Type, int FadeInDurati
 {
     ::Level::broadcastTitle(marshalString(text), ::TitleType(Type), FadeInDuration, RemainDuration, FadeOutDuration);
 }
-inline void Level::SendPacketForAllPlayer(Packet ^ pkt)
+inline void Level::SendPacketForAllPlayers(Packet ^ pkt)
 {
-    ::Level::sendPacketForAllPlayer(pkt);
+    ::Level::sendPacketForAllPlayers(pkt);
 }
 inline bool Level::RuncmdAs(Player ^ pl, String^ cmd)
 {

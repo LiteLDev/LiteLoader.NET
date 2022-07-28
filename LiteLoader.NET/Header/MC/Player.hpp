@@ -17,6 +17,7 @@ namespace MC
     ref class ItemStack;
     ref class CompoundTag;
     ref class Packet;
+    ref class SerializedSkin;
 } // namespace MC
 
 namespace MC
@@ -44,6 +45,7 @@ namespace MC
         property NetworkIdentifier^ NetworkIdentifier { MC::NetworkIdentifier^ get(); };
         property Certificate^ Certificate { MC::Certificate^ get(); };
         property Container^ EnderChestContainer { Container^ get(); };
+        property SerializedSkin^ Skin { SerializedSkin^ get(); }
 
         property unsigned char ClientSubId
         {
@@ -802,6 +804,8 @@ namespace MC
         bool Take(Actor^ _0, int _1, int _2);
 
         void UpdateInventoryTransactions();
+
+        void UpdateSkin(SerializedSkin^ skin, int skinId);
 
         void UpdateSpawnChunkView();
 
