@@ -15,6 +15,7 @@
 
 #include "../../Header/Logger.hpp"
 #include "LiteLoader.NET/Header/MC/Packet.hpp"
+#include "LiteLoader.NET/Header/MC/SerializedSkin.hpp"
 
 enum GameType;
 
@@ -88,6 +89,11 @@ namespace MC
     inline Container^ Player::EnderChestContainer::get()
     {
         return gcnew Container(NativePtr->getEnderChestContainer());
+    }
+
+    inline SerializedSkin^ Player::Skin::get()
+    {
+        return gcnew SerializedSkin(&NativePtr->getSkin());
     }
 
     inline Pair<BlockPos, int> Player::RespawnPosition::get()
@@ -1760,6 +1766,11 @@ namespace MC
     void Player::UpdateInventoryTransactions()
     {
         NativePtr->updateInventoryTransactions();
+    }
+
+    void Player::UpdateSkin(SerializedSkin^ skin, int skinId)
+    {
+        NativePtr->updateSkin(*skin->NativePtr, skinId);
     }
 
     void Player::UpdateSpawnChunkView()

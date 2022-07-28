@@ -381,6 +381,9 @@
     <ClCompile Include="Kernel\MC\UserEntityIdentifierComponent.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\SerializedSkin.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -813,6 +816,9 @@
       <Filter>Header\MC</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\MinecraftPackets.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\SerializedSkin.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
