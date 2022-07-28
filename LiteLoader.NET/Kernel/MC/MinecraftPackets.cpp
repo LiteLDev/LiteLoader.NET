@@ -3,5 +3,5 @@
 
 MC::Packet^ MC::MinecraftPackets::CreatePacket(MinecraftPacketId packetId)
 {
-    return gcnew Packet(::MinecraftPackets::createPacket(static_cast<MinecraftPacketIds>(packetId)).get());
+	return static_cast<MC::Packet^>(gcnew __Packet(::MinecraftPackets::createPacket(static_cast<MinecraftPacketIds>(packetId))));
 }
