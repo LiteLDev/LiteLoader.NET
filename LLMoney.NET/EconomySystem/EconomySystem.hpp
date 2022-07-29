@@ -161,9 +161,6 @@ namespace LLMoney
 					(void*)Marshal::GetFunctionPointerForDelegate(beforeEvCallback)));
 				dynamicSymbolsMap.LLMoneyListenAfterEvent(static_cast<LLMoneyCallback>(
 					(void*)Marshal::GetFunctionPointerForDelegate(evCallback)));
-
-				EventManager::RegisterEvent<EconomySystemBeforeEvent^>();
-				EventManager::RegisterEvent<EconomySystemEvent^>();
 			}
 		}
 
