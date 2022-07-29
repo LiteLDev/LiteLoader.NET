@@ -48,11 +48,11 @@ void LoadMain()
 }
 
 #pragma managed
-extern void InitEvents();
+extern void InitEvents(Logger& logger);
 
 void Init(Logger& logger)
 {
-	InitEvents();
+	InitEvents(logger);
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
 	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));

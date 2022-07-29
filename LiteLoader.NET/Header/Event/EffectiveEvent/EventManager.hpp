@@ -1,5 +1,6 @@
 #pragma once
 #include "include.hpp"
+#include "LiteLoader.NET/Header/Logger.hpp"
 
 constexpr int LOWEST = 0;
 constexpr int LOW = 1;
@@ -27,24 +28,13 @@ namespace LLNET::Event::Effective
 	ref class NativeEventIsCancelledManager sealed
 	{
 	internal:
-		/*static Dictionary<int, bool> IsCancelledData;*/
 		static bool current = false;
 
 		inline static void set(bool isCancelled);
 		inline static bool get();
-		/*inline static void add(bool isCancelled);*/
-		/*inline static void remove(int hashcode);*/
 	};
 
-	public enum class EventCode
-	{
-		SUCCESS = 0,
-		UNREGISTERED,
-		CATCHED_EXCEPTIONS
-		//UNKNOWN
-	};
-
-	public ref class EventManager sealed
+	public ref class EventManager abstract sealed
 	{
 	internal:
 
@@ -64,50 +54,35 @@ namespace LLNET::Event::Effective
 		static __EventManagerData eventManagerData;
 		static __EventIds eventIds;
 		static System::Random rand;
-		static Queue<Exception^>^ lastExceptions = gcnew Queue<Exception^>;
 		static List<__EventId> initializedNativeEvents;
+		static Logger::Logger^ logger;
 
 	public:
 		//public API
-		generic<typename TEvent> where TEvent : IEvent
-			static void RegisterEvent();
-
 		generic<typename TListener> where TListener : IEventListener
 			static void RegisterListener(__HMODULE handle);
 
 		generic<typename TListener> where TListener : IEventListener
 			static void RegisterListener();
-
-		generic<typename TEvent> where TEvent : IEvent
-			static EventCode CallEvent(TEvent ev);
-
-		generic<typename TEvent> where TEvent : IEvent
-			static EventCode CallEvent(TEvent ev, __EventId eventId);
-
-		generic<typename TEvent> where TEvent : IEvent
-			static __EventId GetEventId();
-
-		static array<Exception^>^ GetLastCallingExceptions();
+		
+		static void CallEvent(IEvent^ ev);
 
 	private:
 		static void _registerEvent(System::Type^ eventType);
 
 		generic<typename TEvent> where TEvent : IEvent
-			static EventCode _callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs);
+			static void _callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs);
+
+		static bool _isNativeEventId(__EventId eventId);
 
 	internal:
-		generic<typename TEvent> where TEvent : IEvent
-			static EventCode _callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs);
-
-		generic<typename TEvent> where TEvent : IEvent
-			static EventCode _callNativeEventInternal(TEvent% ev, __EventId eventId);
+		generic<typename TEvent> where TEvent : IEvent, INativeEvent
+		static void _callNativeEvent(TEvent% ev, __EventId eventId);
 
 		generic<typename TEvent> where TEvent : IEvent, INativeEvent
-			static void _registerEventInternal(__EventId id);
+			static void _registerNativeEvent(__EventId id);
 
-		static void _initEvents();
-
-		static bool _isBaseType(System::Type^ src, System::Type^ target);
+		static void _setLogger(::Logger& logger);
 	};
 }
 
@@ -118,28 +93,19 @@ namespace LLNET::Event::Effective
 
 namespace LLNET::Event::Effective
 {
-	generic<typename TEvent> where TEvent : IEvent
-		inline void EventManager::RegisterEvent()
+	inline bool EventManager::_isNativeEventId(__EventId eventId)
 	{
-		_registerEvent(TEvent::typeid);
+	    return 0 < eventId && eventId <= 128;
 	}
 
-
-
-	void EventManager::_registerEvent(System::Type^ eventType)
+	inline void EventManager::_registerEvent(System::Type^ eventType)
 	{
 		__EventId eventId = 0;
-
-	RE_GENERATE_EVENTID:
+		
 		do
 		{
 			eventId = __EventId(rand.Next()) ^ __EventId(rand.Next() & 7);
-		} while (eventIds.ContainsValue(eventId));
-
-		if (0 < eventId && eventId <= 128)
-		{
-			goto RE_GENERATE_EVENTID;
-		}
+		} while (eventIds.ContainsValue(eventId) || _isNativeEventId(eventId));
 
 		eventIds.TryAdd(eventType, eventId);
 		eventManagerData.TryAdd(eventIds[eventType], gcnew __PermissionWithCallbackFunctions(6) { nullptr });
@@ -148,7 +114,7 @@ namespace LLNET::Event::Effective
 
 
 	generic<typename TEvent> where TEvent : IEvent, INativeEvent
-		inline void EventManager::_registerEventInternal(__EventId id)
+		inline void EventManager::_registerNativeEvent(__EventId id)
 	{
 		eventIds.Add(TEvent::typeid, id);
 		eventManagerData.Add(id, gcnew __PermissionWithCallbackFunctions(6) { nullptr });
@@ -171,7 +137,6 @@ namespace LLNET::Event::Effective
 		using __IgnoreCancelled = bool;
 		using __IsStatic = bool;
 		using __IsByRef = bool;
-		using __IsBaseEventListener = bool;
 
 
 		auto listenerType = TListener::typeid;
@@ -181,7 +146,7 @@ namespace LLNET::Event::Effective
 			BindingFlags::Static |
 			BindingFlags::Instance);
 
-		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef, __IsBaseEventListener>>;
+		auto listenerMethodDatas = gcnew List<System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef>>;
 
 		for each (auto method in Methods)
 		{
@@ -198,14 +163,13 @@ namespace LLNET::Event::Effective
 				}
 
 				auto evHandlerAttr = static_cast<EventHandlerAttribute^>(evHandlerAttrArr[0]);
-				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef, __IsBaseEventListener>
+				listenerMethodDatas->Add(System::ValueTuple<MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef>
 				{
 					method,
-						evHandlerAttr->Priority,
-						evHandlerAttr->IgnoreCancelled,
-						!method->IsStatic,
-						false,
-						evHandlerAttr->IsBaseEventListener
+					evHandlerAttr->Priority,
+					evHandlerAttr->IgnoreCancelled,
+					!method->IsStatic,
+					false
 				});
 			}
 		}
@@ -252,7 +216,7 @@ namespace LLNET::Event::Effective
 				_registerEvent(elementParamType);
 
 			auto eventId = eventIds[elementParamType];
-			bool isNativeEventHandler = 0 < eventId && eventId <= 128;
+			bool isNativeEventHandler = _isNativeEventId(eventId);
 
 			if (isref)
 			{
@@ -290,83 +254,26 @@ namespace LLNET::Event::Effective
 					->Invoke(nullptr, System::Array::Empty<System::Type^>());
 				initializedNativeEvents.Add(eventId);
 			}
-
-
-			if (methodData.Item6)
-			{
-				auto enumerator = eventIds.GetEnumerator();
-
-				while (enumerator.MoveNext())
-				{
-					auto _event = enumerator.Current;
-
-					if (_event.Value <= 128)
-						continue;
-
-					if (_isBaseType(elementParamType, _event.Key))
-					{
-
-						auto subclassCallbackFuncArr = eventManagerData[_event.Value];
-
-						if (subclassCallbackFuncArr[eventPriority] == nullptr)
-							subclassCallbackFuncArr[eventPriority] = gcnew List<__CallbackFunctionInfo>;
-
-						subclassCallbackFuncArr[eventPriority]->Add(
-							__CallbackFunctionInfo(
-								method->MethodHandle.GetFunctionPointer(),
-								methodData.Item3, 
-								isref, 
-								methodData.Item4, 
-								methodData.Item4 ? listenerType : nullptr, 
-								handle));
-					}
-				}
-			}
 		}
 	}
 
-
-
-	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::CallEvent(TEvent ev)
+	inline void EventManager::CallEvent(IEvent^ ev)
 	{
-		return CallEvent(ev, 0);
+		for (auto eventType = ev->GetType(); eventType != EventBase::typeid && eventType != Object::typeid; eventType = eventType->BaseType)
+		{
+			if (!eventIds.ContainsKey(eventType))
+				continue;
+
+			auto funcs = eventManagerData[eventIds[eventType]];
+            const pin_ptr<List<__CallbackFunctionInfo>^> pFuncs = &funcs[0];
+
+			_callEvent(ev, pFuncs);
+		}
 	}
 
-
 	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::CallEvent(TEvent ev, __EventId eventId)
+		inline void EventManager::_callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs)
 	{
-		if (eventId != 0)
-			goto SKIP_CHECK;
-
-		auto eventType = ev->GetType();
-		if (!eventIds.ContainsKey(eventType))
-			return EventCode::UNREGISTERED;
-
-		eventId = eventIds[eventType];
-
-	SKIP_CHECK:
-
-		if (lastExceptions->Count > 0)
-			lastExceptions->Clear();
-
-		auto functions = eventManagerData[eventId];
-		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
-
-		if (eventId > 128)
-			return _callEvent(ev, pfunctions);
-		else
-			return _callNativeEvent(ev, pfunctions);
-	}
-
-
-
-	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::_callEvent(TEvent ev, List<__CallbackFunctionInfo>^* pfuncs)
-	{
-		bool catchedException = false;
-
 		for (int i = 0; i < 6; i++)
 		{
 			auto funcs = pfuncs[i];
@@ -375,6 +282,8 @@ namespace LLNET::Event::Effective
 
 			for each (auto func in funcs)
 			{
+				String^ handlerName = func.Item1.ToString();
+
 				int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (func.Item4 ? IS_INSTANCE : 0);
 
 				try
@@ -428,91 +337,21 @@ namespace LLNET::Event::Effective
 				}
 				catch (Exception^ ex)
 				{
-					lastExceptions->Enqueue(ex);
-					catchedException = true;
+					if (logger != nullptr)
+					    logger->error->WriteLine("Exception thrown when handling an event:" + System::Environment::NewLine + ex);
 				}
 			}
 		}
-
-		return catchedException ? EventCode::CATCHED_EXCEPTIONS : EventCode::SUCCESS;
 	}
 
-
-
-	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::_callNativeEventInternal(TEvent% ev, __EventId eventId)
+	generic<typename TEvent> where TEvent : IEvent, INativeEvent
+	    inline void EventManager::_callNativeEvent(TEvent% ev, __EventId eventId)
 	{
-		if (lastExceptions->Count > 0)
-			lastExceptions->Clear();
-
 		auto functions = eventManagerData[eventId];
 		pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
 
-		return _callNativeEvent(ev, pfunctions);
+		return _callEvent(ev, pfunctions);
 	}
-
-
-
-	generic<typename TEvent> where TEvent : IEvent
-		inline EventCode EventManager::_callNativeEvent(TEvent% ev, List<__CallbackFunctionInfo>^* pfuncs)
-	{
-
-		bool catchedException = false;
-
-		for (int i = 0; i < 6; i++)
-		{
-			auto funcs = pfuncs[i];
-			if (funcs == nullptr)
-				continue;
-			for each (auto func in funcs)
-			{
-				int callingmode = IS_REF | (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item4 ? IS_INSTANCE : 0);
-
-				try
-				{
-					switch (callingmode)
-					{
-					case IS_REF:
-
-						((void(*)(TEvent%))(void*)func.Item1)(ev);
-						break;
-
-					case IS_INSTANCE_AND_REF:
-
-						((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-						break;
-
-					case IS_REF_AND_IGNORECANCELLED:
-
-						if (!ev->IsCancelled)
-							((void(*)(TEvent%))(void*)func.Item1)(ev);
-						break;
-
-					case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
-						if (!ev->IsCancelled)
-							((void(*)(Object^, TEvent%))(void*)func.Item1)(System::Activator::CreateInstance(func.Item5), ev);
-						break;
-					}
-				}
-				catch (Exception^ ex)
-				{
-					lastExceptions->Enqueue(ex);
-					catchedException = true;
-				}
-			}
-		}
-
-		return catchedException ? EventCode::CATCHED_EXCEPTIONS : EventCode::SUCCESS;
-	}
-
-
-
-	generic<typename TEvent> where TEvent : IEvent
-		inline EventManager::__EventId EventManager::GetEventId()
-	{
-		return eventIds[TEvent::typeid];
-	}
-
 
 
 	inline void NativeEventIsCancelledManager::set(bool isCancelled)
@@ -525,42 +364,13 @@ namespace LLNET::Event::Effective
 		return current;
 	}
 
-	//inline void NativeEventIsCancelledManager::add( bool isCancelled)
-	//{
-	//	IsCancelledData.Add(hashcode, isCancelled);
-	//}
-
-	//inline void NativeEventIsCancelledManager::remove(int hashcode)
-	//{
-	//	IsCancelledData.Remove(hashcode);
-	//}
-
 	inline void EventBase::Call()
 	{
 		EventManager::CallEvent(this);
 	}
 
-	inline array<Exception^>^ EventManager::GetLastCallingExceptions()
+    inline void EventManager::_setLogger(::Logger& value)
 	{
-		return lastExceptions->ToArray();
-	}
-
-	bool EventManager::_isBaseType(System::Type^ src, System::Type^ target)
-	{
-		if (target == nullptr)
-			return false;
-
-		System::Type^ current = target->BaseType;
-		if (current == nullptr)
-			return false;
-
-		do
-		{
-			if (current == src)
-				return true;
-
-		} while ((current = current->BaseType) != nullptr);
-
-		return false;
+	    logger = gcnew Logger::Logger(marshalString(value.title));
 	}
 }
