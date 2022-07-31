@@ -34,6 +34,12 @@ jobs:
         submodules: 'true'
         fetch-depth: 0
 
+    - name: Update SDK
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        git config submodule.LiteLoaderSDK.branch main
+        git submodule update --init --recursive --remote
+
     # - name: Get information from Version.h file (TODO)
     #   working-directory: ${{env.GITHUB_WORKSPACE}}
     #   id: ver
