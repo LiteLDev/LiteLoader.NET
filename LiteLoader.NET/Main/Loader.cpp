@@ -30,12 +30,16 @@ List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
 
 
 namespace LLNET {
+	public delegate void EntryPropotype(void*, void*);
 	public ref class __Entry
 	{
 	public:
 		static void InitAndLoadPlugins(void* pLogger, void* std_vector_assemblies)
 		{
 			Init();
+
+			reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
+
 			LoadPlugins(
 				*reinterpret_cast<std::vector<std::filesystem::path>*>(std_vector_assemblies),
 				*reinterpret_cast<::Logger*>(pLogger));
@@ -51,9 +55,6 @@ void __entry(void* pLogger, void* std_vector_assemblies) { LLNET::__Entry::InitA
 #include <sstream>
 
 #pragma unmanaged
-#include "../Extra/nethost.h"
-#include "../Extra/hostfxr.h"
-#include "../Extra/coreclr_delegates.h"
 
 std::vector<std::filesystem::path> GetAllAssemblies();
 
@@ -61,140 +62,7 @@ void LoadMain()
 {
 	Logger logger(LLNET_LOADER_NAME);
 
-	auto nethost_dll = LoadLibrary(TEXT(DOTNET_NETHOST_DLL_PATH));
-
-	if (nethost_dll == nullptr)
-	{
-		logger.error("Cannot load nethost.dll!");
-		throw std::exception();
-	}
-
-	auto get_hostfxr_path_fn = reinterpret_cast<
-		int(__stdcall*)(char_t*, size_t*, const struct get_hostfxr_parameters*)>(
-			GetProcAddress(nethost_dll, "get_hostfxr_path"));
-
-	if (get_hostfxr_path_fn == nullptr)
-	{
-		logger.error("Cannot get exported function from <nethost.dll>!");
-		throw std::exception();
-	}
-
-	char_t buffer[MAX_PATH];
-	size_t buffer_size = sizeof(buffer) / sizeof(char_t);
-	int rc = get_hostfxr_path_fn(buffer, &buffer_size, nullptr);
-
-	FreeLibrary(nethost_dll);
-
-
-
-	if (rc == 0)
-	{
-		auto assemblies = GetAllAssemblies();
-		__entry(&logger, &assemblies);
-	}
-	else
-	{
-		if (!std::filesystem::exists(DOTNET_RUNTIME_DIR))
-		{
-			logger.error("Cannot find local .NET runtime path!");
-			throw std::exception();
-		}
-		else
-		{
-			auto hostfxr_dll = LoadLibrary(TEXT(DOTNET_RUNTINE_HOSTFXR_DLL_PATH));
-
-			if (hostfxr_dll == nullptr)
-			{
-				logger.error("Cannot load hostfxr.dll!");
-				throw std::exception();
-			}
-
-			auto init_fptr = reinterpret_cast<hostfxr_initialize_for_runtime_config_fn>(
-				GetProcAddress(hostfxr_dll, "hostfxr_initialize_for_runtime_config"));
-
-			auto get_delegate_fptr = reinterpret_cast<hostfxr_get_runtime_delegate_fn>(
-				GetProcAddress(hostfxr_dll, "hostfxr_get_runtime_delegate"));
-
-			auto close_fptr = reinterpret_cast<hostfxr_close_fn>(
-				GetProcAddress(hostfxr_dll, "hostfxr_close"));
-
-			if (init_fptr == nullptr || get_delegate_fptr == nullptr || close_fptr == nullptr)
-			{
-				logger.error("Cannot get exported function from <hostfxr.dll>!");
-				throw std::exception();
-			}
-
-
-
-			load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
-			hostfxr_handle cxt = nullptr;
-
-			int rc = init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
-
-			constexpr auto to_hex_string = [](int i)->std::string
-			{
-				std::stringstream ioss;
-				string s_temp;
-				ioss << std::setiosflags(std::ios::uppercase) << std::hex << std::showbase << i;
-				ioss >> s_temp;
-				return s_temp;
-			};
-
-			if (rc != 0 || cxt == nullptr)
-			{
-				logger.error("Init failed: {}", to_hex_string(rc));
-				close_fptr(cxt);
-				throw std::exception();
-			}
-
-			rc = get_delegate_fptr(
-				cxt,
-				hdt_load_assembly_and_get_function_pointer,
-				reinterpret_cast<void**>(&load_assembly_and_get_function_pointer));
-
-			if (rc != 0 || load_assembly_and_get_function_pointer == nullptr)
-			{
-				logger.error("Get delegate failed: {}", to_hex_string(rc));
-				close_fptr(cxt);
-				throw std::exception();
-			}
-
-
-
-			component_entry_point_fn initAndLoadPlugins_fptr = nullptr;
-
-			rc = load_assembly_and_get_function_pointer(
-				TEXT(LLNET_LOADER_PATH),
-				TEXT(LLNET_MANAGED_ENTRY_CLASS),
-				TEXT(LLNET_MANAGED_ENTRY_METHOD),
-				nullptr,
-				nullptr,
-				reinterpret_cast<void**>(&initAndLoadPlugins_fptr));
-
-
-			if (rc != 0 || initAndLoadPlugins_fptr == nullptr)
-			{
-				logger.error("Load LiteLoader.NET failed: {}", to_hex_string(rc));
-				close_fptr(cxt);
-				throw std::exception();
-			}
-
-
-
-			auto assemblies = GetAllAssemblies();
-
-			struct managed_entry_args
-			{
-				void* pLogger;
-				void* std_vector_assemblies;
-			}
-			args{ &logger,&assemblies };
-
-			initAndLoadPlugins_fptr(&args, sizeof(managed_entry_args));
-		}
-	}
-
-	logger.info("Loading .NET plugins...");
+	__entry(&logger, &GetAllAssemblies());
 }
 
 std::vector<std::filesystem::path> GetAllAssemblies()

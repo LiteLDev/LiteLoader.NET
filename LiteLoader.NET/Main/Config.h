@@ -16,7 +16,7 @@
 
 #define LLNET_RUNTIME_CONFIG_JSON_PATH "plugins/LiteLoader/LiteLoader.NET.runtimeconfig.json"
 
-#define LLNET_LOADER_PATH "plugins/LiteLoader/LiteLoader.NET"
+#define LLNET_LOADER_PATH "plugins/LiteLoader/LiteLoader.NET.dll"
 
 #define LLNET_MANAGED_ENTRY_CLASS "LLNET.__Entry"
 
