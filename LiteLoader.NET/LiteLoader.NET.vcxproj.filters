@@ -73,6 +73,9 @@
     <Filter Include="Kernel\Event">
       <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra\net_native">
+      <UniqueIdentifier>{715adb0f-1875-4f7b-9dbd-f3e0d50d1d33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -820,6 +823,15 @@
     </ClInclude>
     <ClInclude Include="Header\MC\SerializedSkin.hpp">
       <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Extra\coreclr_delegates.h">
+      <Filter>Extra\net_native</Filter>
+    </ClInclude>
+    <ClInclude Include="Extra\hostfxr.h">
+      <Filter>Extra\net_native</Filter>
+    </ClInclude>
+    <ClInclude Include="Extra\nethost.h">
+      <Filter>Extra\net_native</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

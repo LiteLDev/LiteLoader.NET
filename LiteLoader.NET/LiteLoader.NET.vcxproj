@@ -172,7 +172,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Extra\coreclr_delegates.h" />
+    <ClInclude Include="Extra\hostfxr.h" />
     <ClInclude Include="Extra\mutex.h" />
+    <ClInclude Include="Extra\nethost.h" />
     <ClInclude Include="Extra\PluginManager.h" />
     <ClInclude Include="Header\AllowListAPI.h" />
     <ClInclude Include="Header\Command\Command.hpp" />
