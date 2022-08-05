@@ -1,14 +1,21 @@
 #pragma once
-
-#define LLNET_LOADER_NAME "LiteLoader.NET"
+#include "Info.h"
 
 #define LLNET_LOADER_NAME_WITH_EXTENSION "LiteLoader.NET.dll"
 
-#define LLNET_LOADER_DESCRIPTION ".NET development platform for LiteLoaderBDS"
 
-#define LLNET_ENTRY_CLASS "PluginMain.Plugin"
 
-#define LLNET_ENTRY_METHOD "OnPostInit"
+#define LLNET_PLUGIN_ENTRY_CLASS "PluginMain.Plugin"
+
+#define LLNET_PLUGIN_ENTRY_METHOD "OnPostInit"
+
+#define LLNET_MANAGED_ENTRY_CLASS "LLNET.__Entry, LiteLoader.NET"
+
+#define LLNET_MANAGED_ENTRY_DELEGATE_TYPE "LLNET.__Entry+EntryPropotype, LiteLoader.NET"
+
+#define LLNET_MANAGED_ENTRY_METHOD "InitAndLoadPlugins"
+
+
 
 #define LLNET_PLUGINS_LOAD_DIR "plugins"
 
@@ -17,12 +24,6 @@
 #define LLNET_RUNTIME_CONFIG_JSON_PATH "plugins/LiteLoader/LiteLoader.NET.runtimeconfig.json"
 
 #define LLNET_LOADER_PATH "plugins/LiteLoader/LiteLoader.NET.dll"
-
-#define LLNET_MANAGED_ENTRY_CLASS "LLNET.__Entry, LiteLoader.NET"
-
-#define LLNET_MANAGED_ENTRY_DELEGATE_TYPE "LLNET.__Entry+EntryPropotype, LiteLoader.NET"
-
-#define LLNET_MANAGED_ENTRY_METHOD "InitAndLoadPlugins"
 
 
 

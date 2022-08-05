@@ -26,7 +26,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	return TRUE;
 }
 
-Logger logger(LLNET_LOADER_NAME);
+Logger logger(LLNET_INFO_LOADER_NAME);
 
 enum StatusCode
 {

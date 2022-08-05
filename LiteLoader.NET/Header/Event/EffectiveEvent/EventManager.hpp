@@ -52,7 +52,7 @@ namespace LLNET::Event::Effective
         static __EventIds eventIds;
         static System::Random rand;
         static List<__EventId> initializedNativeEvents;
-        static Logger::Logger^ logger = gcnew Logger::Logger(LLNET_LOADER_NAME);
+        static Logger::Logger^ logger = gcnew Logger::Logger(LLNET_INFO_LOADER_NAME);
 
     public:
         //public API

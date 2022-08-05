@@ -833,6 +833,12 @@
     <ClInclude Include="Extra\nethost.h">
       <Filter>Extra\net_native</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Version.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Info.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
@@ -840,7 +846,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource\LiteLoader.NET.rc">
+    <ResourceCompile Include="Resource\Resource.rc">
       <Filter>Resource</Filter>
     </ResourceCompile>
   </ItemGroup>

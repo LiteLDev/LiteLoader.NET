@@ -64,7 +64,7 @@ std::vector<std::filesystem::path> GetAllAssemblies();
 
 void LoadMain()
 {
-	Logger logger(LLNET_LOADER_NAME);
+	Logger logger(LLNET_INFO_LOADER_NAME);
 
 	__entry(&logger, &GetAllAssemblies());
 }
@@ -94,7 +94,7 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
+	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
@@ -103,7 +103,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	using File = System::IO::File;
 
 	AssemblyName assemblyName(args->Name);
-	if (assemblyName.Name == LLNET_LOADER_NAME)
+	if (assemblyName.Name == LLNET_INFO_LOADER_NAME)
 		return Assembly::GetExecutingAssembly();
 
 	auto llLibPath = Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll");
@@ -150,7 +150,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 	size_t count = 0;
 	for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
 	{
-		if (iter->filename() == LLNET_LOADER_NAME)
+		if (iter->filename() == LLNET_INFO_LOADER_NAME)
 			continue;
 		try
 		{
@@ -203,11 +203,11 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 {
 	try
 	{
-		auto plugin = Asm->GetType(TEXT(LLNET_ENTRY_CLASS));
+		auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
 		if (plugin == nullptr)
 			return false;
 
-		auto method = plugin->GetMethod(TEXT(LLNET_ENTRY_METHOD));
+		auto method = plugin->GetMethod(TEXT(LLNET_PLUGIN_ENTRY_METHOD));
 		if (method == nullptr)
 			return false;
 

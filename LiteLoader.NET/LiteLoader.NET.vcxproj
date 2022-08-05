@@ -312,10 +312,12 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Main\ClassTemplate.h" />
     <ClInclude Include="Main\Config.h" />
     <ClInclude Include="Main\Global.hpp" />
+    <ClInclude Include="Main\Info.h" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
     <ClInclude Include="Main\Version.h" />
     <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Resource\Version.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
@@ -430,7 +432,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource\LiteLoader.NET.rc" />
+    <ResourceCompile Include="Resource\Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
