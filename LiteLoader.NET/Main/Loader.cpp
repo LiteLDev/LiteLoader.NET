@@ -30,13 +30,17 @@ List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
 
 
 namespace LLNET {
-	public delegate void EntryPropotype(void*, void*);
 	public ref class __Entry
 	{
 	public:
+		delegate void EntryPropotype(void*, void*);
+
 		static void InitAndLoadPlugins(void* pLogger, void* std_vector_assemblies)
 		{
 			Init();
+
+			Console::WriteLine(__Entry::typeid->AssemblyQualifiedName);
+			Console::WriteLine(EntryPropotype::typeid->AssemblyQualifiedName);
 
 			reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
 

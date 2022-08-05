@@ -28,6 +28,55 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 
 Logger logger(LLNET_LOADER_NAME);
 
+enum StatusCode
+{
+	// Success
+	_Success = 0,
+	Success_HostAlreadyInitialized = 0x00000001,
+	Success_DifferentRuntimeProperties = 0x00000002,
+
+	// Failure
+	InvalidArgFailure = 0x80008081,
+	CoreHostLibLoadFailure = 0x80008082,
+	CoreHostLibMissingFailure = 0x80008083,
+	CoreHostEntryPointFailure = 0x80008084,
+	CoreHostCurHostFindFailure = 0x80008085,
+	// unused                           = 0x80008086,
+	CoreClrResolveFailure = 0x80008087,
+	CoreClrBindFailure = 0x80008088,
+	CoreClrInitFailure = 0x80008089,
+	CoreClrExeFailure = 0x8000808a,
+	ResolverInitFailure = 0x8000808b,
+	ResolverResolveFailure = 0x8000808c,
+	LibHostCurExeFindFailure = 0x8000808d,
+	LibHostInitFailure = 0x8000808e,
+	// unused                           = 0x8000808f,
+	LibHostExecModeFailure = 0x80008090,
+	LibHostSdkFindFailure = 0x80008091,
+	LibHostInvalidArgs = 0x80008092,
+	InvalidConfigFile = 0x80008093,
+	AppArgNotRunnable = 0x80008094,
+	AppHostExeNotBoundFailure = 0x80008095,
+	FrameworkMissingFailure = 0x80008096,
+	HostApiFailed = 0x80008097,
+	HostApiBufferTooSmall = 0x80008098,
+	LibHostUnknownCommand = 0x80008099,
+	LibHostAppRootFindFailure = 0x8000809a,
+	SdkResolverResolveFailure = 0x8000809b,
+	FrameworkCompatFailure = 0x8000809c,
+	FrameworkCompatRetry = 0x8000809d,
+	// unused                           = 0x8000809e,
+	BundleExtractionFailure = 0x8000809f,
+	BundleExtractionIOError = 0x800080a0,
+	LibHostDuplicateProperty = 0x800080a1,
+	HostApiUnsupportedVersion = 0x800080a2,
+	HostInvalidState = 0x800080a3,
+	HostPropertyNotFound = 0x800080a4,
+	CoreHostIncompatibleConfig = 0x800080a5,
+	HostApiUnsupportedScenario = 0x800080a6,
+	HostFeatureDisabled = 0x800080a7,
+};
+
 void error_writer(const char_t* message)
 {
 	logger.warn("hostfxr: {}", TextEncoding::fromUnicode(std::wstring(message)));
@@ -86,7 +135,7 @@ extern "C" _declspec(dllexport) void onPostInit()
 		load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
 		hostfxr_handle cxt = nullptr;
 
-		int rc = init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
+		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
 
 		constexpr auto to_hex_string = [](int i)->std::string
 		{
@@ -104,7 +153,7 @@ extern "C" _declspec(dllexport) void onPostInit()
 			throw std::exception();
 		}
 
-		rc = get_delegate_fptr(
+		rc = (StatusCode)get_delegate_fptr(
 			cxt,
 			hdt_load_assembly_and_get_function_pointer,
 			reinterpret_cast<void**>(&load_assembly_and_get_function_pointer));
@@ -118,13 +167,13 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 
 
-		component_entry_point_fn initAndLoadPlugins_fptr = nullptr;
+		void(*initAndLoadPlugins_fptr)(Logger*, std::vector<std::filesystem::path>*) = nullptr;
 
-		rc = load_assembly_and_get_function_pointer(
-			TEXT(LLNET_LOADER_PATH),
+		rc = (StatusCode)load_assembly_and_get_function_pointer(
+			std::filesystem::path(LLNET_LOADER_PATH).c_str(),
 			TEXT(LLNET_MANAGED_ENTRY_CLASS),
 			TEXT(LLNET_MANAGED_ENTRY_METHOD),
-			TEXT("LLNET.__Entry.EntryPropotype"),
+			TEXT(LLNET_MANAGED_ENTRY_DELEGATE_TYPE),
 			nullptr,
 			reinterpret_cast<void**>(&initAndLoadPlugins_fptr));
 
@@ -141,14 +190,7 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 		auto assemblies = GetAllAssemblies();
 
-		struct managed_entry_args
-		{
-			void* pLogger;
-			void* std_vector_assemblies;
-		}
-		args{ &logger,&assemblies };
-
-		initAndLoadPlugins_fptr(&args, sizeof(managed_entry_args));
+		initAndLoadPlugins_fptr(&logger, &assemblies);
 	}
 
 }

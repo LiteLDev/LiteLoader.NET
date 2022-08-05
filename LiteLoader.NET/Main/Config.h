@@ -18,7 +18,9 @@
 
 #define LLNET_LOADER_PATH "plugins/LiteLoader/LiteLoader.NET.dll"
 
-#define LLNET_MANAGED_ENTRY_CLASS "LLNET.__Entry"
+#define LLNET_MANAGED_ENTRY_CLASS "LLNET.__Entry, LiteLoader.NET"
+
+#define LLNET_MANAGED_ENTRY_DELEGATE_TYPE "LLNET.__Entry+EntryPropotype, LiteLoader.NET"
 
 #define LLNET_MANAGED_ENTRY_METHOD "InitAndLoadPlugins"
 
