@@ -84,23 +84,6 @@ enum StatusCode
 
 
 
-auto to_hex_string(int i)->std::string
-{
-	char ret[11]{ '0','x' };
-	char* p = ret + 9;
-
-	while (i)
-	{
-		*(p--) = "0123456789abcdef"[i - ((i >> 4) << 4)];
-	}
-
-	ret[10] = '\0';
-
-	return std::string(ret);
-};
-
-
-
 void error_writer(const char_t* message)
 {
 	logger.warn("<hostfxr.dll>: {}", TextEncoding::fromUnicode(std::wstring(message)));
@@ -171,19 +154,19 @@ extern "C" _declspec(dllexport) void onPostInit()
 		hostfxr_initialize_parameters init_parameters
 		{
 			sizeof(hostfxr_initialize_parameters),
-			TEXT(DOTNET_RUNTINE_HOSTFXR_DLL_PATH),
+			TEXT("bedrock_server_mod.exe"),
 			TEXT(DOTNET_RUNTIME_DIR)
 		};
 
 
 
-		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), &init_parameters, &cxt);
+		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
 
 
 
 		if (rc != 0 || cxt == nullptr)
 		{
-			logger.error("Init failed: {}", to_hex_string(rc));
+			logger.error("Init failed: {}", IntToHexStr(rc, true, false, false));
 			close_fptr(cxt);
 			throw std::exception();
 		}
@@ -195,7 +178,7 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 		if (rc != 0 || load_assembly_and_get_function_pointer == nullptr)
 		{
-			logger.error("Get delegate failed: {}", to_hex_string(rc));
+			logger.error("Get delegate failed: {}", IntToHexStr(rc, true, false, false));
 			close_fptr(cxt);
 			throw std::exception();
 		}
@@ -215,7 +198,7 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 		if (rc != 0 || initAndLoadPlugins_fptr == nullptr)
 		{
-			logger.error("Load LiteLoader.NET failed: {}", to_hex_string(rc));
+			logger.error("Load LiteLoader.NET failed: {}", IntToHexStr(rc, true, false, false));
 
 			close_fptr(cxt);
 			throw std::exception();

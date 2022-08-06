@@ -39,9 +39,6 @@ namespace LLNET {
 		{
 			Init();
 
-			Console::WriteLine(__Entry::typeid->AssemblyQualifiedName);
-			Console::WriteLine(EntryPropotype::typeid->AssemblyQualifiedName);
-
 			reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
 
 			LoadPlugins(

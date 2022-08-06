@@ -19,7 +19,7 @@
 
 #define LLNET_PLUGINS_LOAD_DIR "plugins"
 
-#define LLNET_LIBRARY_DIR_DOTNETONLY "plugins/lib/dotnet"
+#define LLNET_LIBRARY_DIR_DOTNETONLY "plugins/lib/managed"
 
 #define LLNET_RUNTIME_CONFIG_JSON_PATH "plugins/LiteLoader/LiteLoader.NET.runtimeconfig.json"
 
@@ -35,11 +35,11 @@
 
 
 
-#define DOTNET_RUNTIME_DIR "plugins/lib/dotnet/runtime"
+#define DOTNET_RUNTIME_DIR "plugins/lib/managed/dotnet"
 
-#define DOTNET_RUNTINE_HOSTFXR_DLL_PATH "plugins/lib/dotnet/runtime/hostfxr.dll"
+#define DOTNET_RUNTINE_HOSTFXR_DLL_PATH "plugins/lib/managed/dotnet/6.0.0/host/fxr/6.0.0/hostfxr.dll"
 
-#define DOTNET_NETHOST_DLL_PATH "plugins/lib/dotnet/nethost.dll"
+//#define DOTNET_NETHOST_DLL_PATH "plugins/lib/managed/nethost.dll"
 
 
 //#define INCLUDE_MCAPI
