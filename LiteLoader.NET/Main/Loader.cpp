@@ -99,8 +99,8 @@ void Init()
 
 
 Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) {
-	using Path = System::IO::Path;
-	using File = System::IO::File;
+	using System::IO::Path;
+	using System::IO::File;
 
 	AssemblyName assemblyName(args->Name);
 	if (assemblyName.Name == LLNET_INFO_LOADER_NAME)
@@ -195,7 +195,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			logger.error("Uncaught exception Detected!");
 		}
 	}
-	logger.info << count << " .NET plugin(s) loaded" << logger.endl;
+	logger.info("{} .NET plugin(s) loaded", count);
 }
 
 

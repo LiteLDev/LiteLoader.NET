@@ -137,13 +137,19 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
 
-		constexpr auto to_hex_string = [](int i)->std::string
+		constexpr auto to_hex_string =  [](int i)->std::string 
 		{
-			std::stringstream ioss;
-			string s_temp;
-			ioss << std::setiosflags(std::ios::uppercase) << std::hex << std::showbase << i;
-			ioss >> s_temp;
-			return s_temp;
+			char ret[11]{ '0','x' };
+			char* p = ret + 9;
+
+			while (i)
+			{
+				*(p--) = "0123456789abcdef"[i - ((i >> 4) << 4)];
+			}
+
+			ret[10] = '\0';
+
+			return std::string(ret);
 		};
 
 		if (rc != 0 || cxt == nullptr)
