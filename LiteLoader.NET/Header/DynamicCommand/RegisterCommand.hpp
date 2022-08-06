@@ -12,6 +12,19 @@ namespace LLNET::DynamicCommand {
 	{
 		auto cmdType = TCommand::typeid;
 
+		if (CommandManager::isRegCmdEventRaised)
+			return _registerCommandInternal(cmdType);
+		else
+			CommandManager::unregisteredCmdList->Add(cmdType);
+
+		return true;
+	}
+
+
+
+	bool DynamicCommand::_registerCommandInternal(System::Type^ cmdType)
+	{
+
 #pragma region CommandAttribute
 
 		auto cmdAttrArr = cmdType->GetCustomAttributes(CommandAttribute::typeid, false);
@@ -101,7 +114,7 @@ namespace LLNET::DynamicCommand {
 			auto paramAttr = static_cast<CommandParameterAttribute^>(paramAttrArr[0]);
 
 			String^ paramEnumName = nullptr;
-			
+
 			if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
 			{
 				if (isKVPair)
@@ -318,7 +331,7 @@ namespace LLNET::DynamicCommand {
 			instance->AddOverload(strList);
 
 
-		cmdData->cmd = gcnew TCommand();
+		cmdData->cmd = static_cast<ICommand^>(System::Activator::CreateInstance(cmdType));
 
 
 		auto cmdInterfaces = cmdType->GetInterfaces();

@@ -1,5 +1,6 @@
 #pragma once
 #include "DynamicCommand.h"
+#include <EventAPI.h>
 
 namespace LLNET::DynamicCommand::Internal {
 	public ref class CommandManager {
@@ -58,5 +59,32 @@ namespace LLNET::DynamicCommand::Internal {
 		};
 
 		static List<NativeDynamicCommandCallback^>^ callbackInstance = gcnew List<NativeDynamicCommandCallback^>;
+
+
+
+		static List<System::Type^>^ unregisteredCmdList = gcnew List<System::Type^>;
+
+		static bool isRegCmdEventRaised = false;
+
+		static bool OnRegCmdEvent(::Event::RegCmdEvent ev)
+		{
+			for each (auto var in unregisteredCmdList)
+			{
+				DynamicCommand::_registerCommandInternal(var);
+			}
+
+			auto temp = unregisteredCmdList;
+			unregisteredCmdList = nullptr;
+			delete temp;
+
+			isRegCmdEventRaised = true;
+
+			return true;
+		}
+
+		static CommandManager()
+		{
+			::Event::RegCmdEvent::subscribe(OnRegCmdEvent);
+		}
 	};
 }
