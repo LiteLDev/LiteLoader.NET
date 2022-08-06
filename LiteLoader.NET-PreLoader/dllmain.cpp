@@ -6,6 +6,7 @@
 #include "hostfxr.h"
 #include "coreclr_delegates.h"
 #include "nethost.h"
+#include <Utils/StringHelper.h>
 
 #pragma comment(lib, "../SDK/Lib/SymDBHelper.lib")
 #pragma comment(lib, "../SDK/Lib/LiteLoader.lib")
@@ -26,7 +27,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	return TRUE;
 }
 
+
+
 Logger logger(LLNET_INFO_LOADER_NAME);
+
+
 
 enum StatusCode
 {
@@ -77,16 +82,41 @@ enum StatusCode
 	HostFeatureDisabled = 0x800080a7,
 };
 
+
+
+auto to_hex_string(int i)->std::string
+{
+	char ret[11]{ '0','x' };
+	char* p = ret + 9;
+
+	while (i)
+	{
+		*(p--) = "0123456789abcdef"[i - ((i >> 4) << 4)];
+	}
+
+	ret[10] = '\0';
+
+	return std::string(ret);
+};
+
+
+
 void error_writer(const char_t* message)
 {
-	logger.warn("hostfxr: {}", TextEncoding::fromUnicode(std::wstring(message)));
+	logger.warn("<hostfxr.dll>: {}", TextEncoding::fromUnicode(std::wstring(message)));
 }
 
+
+
 std::vector<std::filesystem::path> GetAllAssemblies();
+
+
 
 extern "C" _declspec(dllexport) void onPostInit()
 {
 
+
+	logger.debug("Find local .NET runtime.  at: <{}>", DOTNET_RUNTIME_DIR);
 
 	if (!std::filesystem::exists(DOTNET_RUNTIME_DIR))
 	{
@@ -95,6 +125,8 @@ extern "C" _declspec(dllexport) void onPostInit()
 	}
 	else
 	{
+		logger.debug("Load hostfxr.dll.  at: <{}>", DOTNET_RUNTINE_HOSTFXR_DLL_PATH);
+
 		auto hostfxr_dll = LoadLibrary(TEXT(DOTNET_RUNTINE_HOSTFXR_DLL_PATH));
 
 		if (hostfxr_dll == nullptr)
@@ -125,32 +157,29 @@ extern "C" _declspec(dllexport) void onPostInit()
 
 
 
-		auto fptr = set_error_writer_fptr(error_writer);
-
-		if (fptr != nullptr)
+		if (set_error_writer_fptr(error_writer) != nullptr)
 		{
-			logger.warn("QAQ");
+			logger.warn("<hostfxr.dll>: Set error writer failed.");
 		}
 
+
+
 		load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
+
 		hostfxr_handle cxt = nullptr;
 
-		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
-
-		constexpr auto to_hex_string =  [](int i)->std::string 
+		hostfxr_initialize_parameters init_parameters
 		{
-			char ret[11]{ '0','x' };
-			char* p = ret + 9;
-
-			while (i)
-			{
-				*(p--) = "0123456789abcdef"[i - ((i >> 4) << 4)];
-			}
-
-			ret[10] = '\0';
-
-			return std::string(ret);
+			sizeof(hostfxr_initialize_parameters),
+			TEXT(DOTNET_RUNTINE_HOSTFXR_DLL_PATH),
+			TEXT(DOTNET_RUNTIME_DIR)
 		};
+
+
+
+		auto rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), &init_parameters, &cxt);
+
+
 
 		if (rc != 0 || cxt == nullptr)
 		{
