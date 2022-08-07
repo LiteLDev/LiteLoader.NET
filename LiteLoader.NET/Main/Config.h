@@ -37,7 +37,6 @@
 
 #define DOTNET_RUNTIME_DIR "plugins/lib/managed/dotnet"
 
-#define DOTNET_RUNTINE_HOSTFXR_DLL_PATH "plugins/lib/managed/dotnet/6.0.0/host/fxr/6.0.0/hostfxr.dll"
 
 //#define DOTNET_NETHOST_DLL_PATH "plugins/lib/managed/nethost.dll"
 
