@@ -35,10 +35,10 @@
 
 
 
-#define DOTNET_RUNTIME_DIR "plugins/lib/managed/dotnet"
+#define DOTNET_RUNTIME_DIR "plugins/lib/managed/shared/Microsoft.NETCore.App/6.0.7"
 
 
-//#define DOTNET_NETHOST_DLL_PATH "plugins/lib/managed/nethost.dll"
+//#define DOTNET_NETHOST_DLL_PATH "plugins/lib/managed/host/nethost.dll"
 
 
 //#define INCLUDE_MCAPI
