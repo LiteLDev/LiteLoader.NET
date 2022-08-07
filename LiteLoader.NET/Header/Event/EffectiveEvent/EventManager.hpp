@@ -52,7 +52,7 @@ namespace LLNET::Event::Effective
         static __EventIds eventIds;
         static System::Random rand;
         static List<__EventId> initializedNativeEvents;
-        static Logger::Logger^ logger;
+        static Logger::Logger^ logger = gcnew Logger::Logger(LLNET_INFO_LOADER_NAME);
 
     public:
         //public API
@@ -79,7 +79,6 @@ namespace LLNET::Event::Effective
         generic <typename TEvent> where TEvent : IEvent, INativeEvent
         static void _registerNativeEvent(__EventId id);
 
-        static void _setLogger(::Logger& logger);
     };
 }
 
@@ -376,10 +375,5 @@ namespace LLNET::Event::Effective
     inline void EventBase::Call()
     {
         EventManager::CallEvent(this);
-    }
-
-    inline void EventManager::_setLogger(::Logger& value)
-    {
-        logger = gcnew Logger::Logger(marshalString(value.title));
     }
 }

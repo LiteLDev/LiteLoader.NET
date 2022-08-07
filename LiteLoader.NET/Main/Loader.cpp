@@ -5,32 +5,71 @@
 #include "IPluginInitializer.hpp"
 
 
+
+#pragma managed
+
+//managed
 Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args);
 
-void Init(Logger& logger);
+//managed
+void Init();
 
 //inline void InitializePluginHandler(std::filesystem::path const& path, Assembly^ Asm);
 
+//managed
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm);
 
+//managed
 bool LoadByCustomEntry(Logger& logger, Assembly^ Asm);
 
+//managed
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger);
 
+//managed
 List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
+
+
+namespace LLNET {
+	public ref class __Entry
+	{
+	public:
+		delegate void EntryPropotype(void*, void*);
+
+		static void InitAndLoadPlugins(void* pLogger, void* std_vector_assemblies)
+		{
+			Init();
+
+			reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
+
+			LoadPlugins(
+				*reinterpret_cast<std::vector<std::filesystem::path>*>(std_vector_assemblies),
+				*reinterpret_cast<::Logger*>(pLogger));
+		}
+	};
+}
+
+void __entry(void* pLogger, void* std_vector_assemblies) { LLNET::__Entry::InitAndLoadPlugins(pLogger, std_vector_assemblies); }
 
 #pragma unmanaged
 #include "Global.hpp"
 #include <Utils/Hash.h>
+#include <sstream>
 
 #pragma unmanaged
+
+std::vector<std::filesystem::path> GetAllAssemblies();
+
 void LoadMain()
 {
-	Logger logger(LLNET_LOADER_NAME);
+	Logger logger(LLNET_INFO_LOADER_NAME);
 
-	Init(logger);
+	logger.consoleLevel = 5;
 
-	logger.info("Loading .NET plugins...");
+	__entry(&logger, &GetAllAssemblies());
+}
+
+std::vector<std::filesystem::path> GetAllAssemblies()
+{
 	std::filesystem::directory_iterator files(LLNET_PLUGINS_LOAD_DIR);
 	std::vector<std::filesystem::path> assemblies;
 	for (auto& file : files)
@@ -43,28 +82,27 @@ void LoadMain()
 			assemblies.emplace_back(filePath);
 		}
 	}
-
-	LoadPlugins(assemblies, logger);
+	return assemblies;
 }
 
 #pragma managed
-extern void InitEvents(Logger& logger);
+extern void InitEvents();
 
-void Init(Logger& logger)
+void Init()
 {
-	InitEvents(logger);
+	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_LOADER_NAME)->handle));
+	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
 Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) {
-	using Path = System::IO::Path;
-	using File = System::IO::File;
+	using System::IO::Path;
+	using System::IO::File;
 
 	AssemblyName assemblyName(args->Name);
-	if (assemblyName.Name == LLNET_LOADER_NAME)
+	if (assemblyName.Name == LLNET_INFO_LOADER_NAME)
 		return Assembly::GetExecutingAssembly();
 
 	auto llLibPath = Path::Combine(LITELOADER_LIBRARY_DIR, assemblyName.Name + ".dll");
@@ -72,8 +110,8 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	{
 		return Assembly::LoadFrom(llLibPath);
 	}
-	
-	auto llLibPath_dotnet = Path::Combine(LITELOADER_LIBRARY_DIR_DOTNETONLY, assemblyName.Name + ".dll");
+
+	auto llLibPath_dotnet = Path::Combine(LLNET_LIBRARY_DIR_DOTNETONLY, assemblyName.Name + ".dll");
 	if (File::Exists(llLibPath_dotnet))
 	{
 		return Assembly::LoadFrom(llLibPath_dotnet);
@@ -108,14 +146,41 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
+	using System::Reflection::PortableExecutable::PEReader;
+	using System::IO::File;
+	using System::IO::FileStream;
+	using System::IO::FileMode;
+	using System::IO::FileAccess;
+	using System::IO::FileShare;
+
 	size_t count = 0;
 	for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
 	{
-		if (iter->filename() == LLNET_LOADER_NAME)
+		if (iter->filename() == LLNET_INFO_LOADER_NAME)
 			continue;
+
+		auto path = marshalString(iter->string());
+
 		try
 		{
-			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
+
+
+			bool isManagedAssembly = false;
+			auto file = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::ReadWrite);
+			auto reader = gcnew PEReader(file);
+
+			if (reader->HasMetadata)
+				isManagedAssembly = true;
+
+			file->Close();
+
+			if (!isManagedAssembly)
+			{
+				continue;
+			}
+
+
+			auto Asm = Assembly::LoadFrom(path);
 
 			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
 
@@ -146,29 +211,23 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 			logger.error(marshalString(ex->ToString()));
 		}
-		catch (const std::exception& ex)
-		{
-			logger.error("Uncaught std::exception Detected!");
-			logger.error(ex.what());
-		}
-		catch (...)
-		{
-			logger.error("Uncaught exception Detected!");
-		}
+
+
 	}
-	logger.info << count << " .NET plugin(s) loaded" << logger.endl;
+	logger.info("{} .NET plugin(s) loaded", count);
 }
 
 
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 {
+
 	try
 	{
-		auto plugin = Asm->GetType(TEXT(LLNET_ENTRY_CLASS));
+		auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
 		if (plugin == nullptr)
 			return false;
 
-		auto method = plugin->GetMethod(TEXT(LLNET_ENTRY_METHOD));
+		auto method = plugin->GetMethod(TEXT(LLNET_PLUGIN_ENTRY_METHOD));
 		if (method == nullptr)
 			return false;
 
@@ -190,17 +249,6 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 	{
 		logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 		logger.error(marshalString(ex->ToString()));
-		return false;
-	}
-	catch (const std::exception& ex)
-	{
-		logger.error("Uncaught std::exception Detected!");
-		logger.error(ex.what());
-		return false;
-	}
-	catch (...)
-	{
-		logger.error("Uncaught exception Detected!");
 		return false;
 	}
 }
@@ -282,17 +330,6 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
 	{
 		logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 		logger.error(marshalString(ex->ToString()));
-		return false;
-	}
-	catch (const std::exception& ex)
-	{
-		logger.error("Uncaught std::exception Detected!");
-		logger.error(ex.what());
-		return false;
-	}
-	catch (...)
-	{
-		logger.error("Uncaught exception Detected!");
 		return false;
 	}
 }

@@ -111,7 +111,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with:
         name: LiteLoader.NET-actions-${{ github.run_number }}
-        path: ${{ github.workspace }}\output\RELEASE
+        path: ${{ github.workspace }}\x64\Release
 
     - name: Upload PDB
       uses: actions/upload-artifact@v3.1.0

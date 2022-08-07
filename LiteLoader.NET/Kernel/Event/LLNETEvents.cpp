@@ -1,11 +1,9 @@
 #include "../../Header/Event/EffectiveEvent/EventManager.hpp"
 #include "../../Header/Event/EffectiveEvent/LLNETEvents.hpp"
 
-void InitEvents(::Logger& logger)
+void InitEvents()
 {
     using namespace LLNET::Event::Effective;
-
-    EventManager::_setLogger(logger);
 
 #define REGISTER_NATIVE_EVENT(_event) EventManager::_registerNativeEvent<_event>(_event::EventId)
 

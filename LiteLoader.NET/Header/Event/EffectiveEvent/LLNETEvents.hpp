@@ -149,7 +149,7 @@ internal:																												\
 		auto delfunc = gcnew _delNativeCallback(&_nativeCallback);														\
 		GCHandle::Alloc(delfunc);																						\
 		::Event::EventManager<::Event::eventName>::addEventListenerRef(													\
-			LLNET_LOADER_NAME,																							\
+			LLNET_INFO_LOADER_NAME,																							\
 			static_cast<bool(*)(::Event::eventName&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));			\
 	}
 
@@ -279,7 +279,7 @@ namespace LLNET::Event::Effective::NativeEvents
             auto delfunc = gcnew _delNativeCallback(&_nativeCallback);
             GCHandle::Alloc(delfunc);
             ::Event::EventManager<::Event::PlayerJumpEvent>::addEventListenerRef(
-                LLNET_LOADER_NAME,
+                LLNET_INFO_LOADER_NAME,
                 static_cast<bool(*)(::Event::PlayerJumpEvent&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));
         }*/
 
