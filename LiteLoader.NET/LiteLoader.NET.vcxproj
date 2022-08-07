@@ -290,6 +290,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\Vec2.hpp" />
     <ClInclude Include="Header\MC\Vec3.hpp" />
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
+    <ClInclude Include="Header\NativeAPI.hpp" />
     <ClInclude Include="Header\PlayerInfo.h" />
     <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
@@ -415,6 +416,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\Vec2.cpp" />
     <ClCompile Include="Kernel\MC\Vec3.cpp" />
     <ClCompile Include="Kernel\MC\WitherBoss.cpp" />
+    <ClCompile Include="Kernel\NativeAPI.cpp" />
+    <ClCompile Include="Kernel\NativeAPIHelper.cpp" />
     <ClCompile Include="Kernel\PlayerInfo.cpp" />
     <ClCompile Include="Kernel\RemoteCall.cpp" />
     <ClCompile Include="Kernel\Schedule.cpp" />

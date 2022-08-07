@@ -387,6 +387,12 @@
     <ClCompile Include="Kernel\MC\SerializedSkin.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\NativeAPIHelper.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\NativeAPI.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -838,6 +844,9 @@
     </ClInclude>
     <ClInclude Include="Main\Info.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\NativeAPI.hpp">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
