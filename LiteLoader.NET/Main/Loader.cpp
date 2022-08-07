@@ -63,6 +63,8 @@ void LoadMain()
 {
 	Logger logger(LLNET_INFO_LOADER_NAME);
 
+	logger.consoleLevel = 5;
+
 	__entry(&logger, &GetAllAssemblies());
 }
 
@@ -144,14 +146,41 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
+	using System::Reflection::PortableExecutable::PEReader;
+	using System::IO::File;
+	using System::IO::FileStream;
+	using System::IO::FileMode;
+	using System::IO::FileAccess;
+	using System::IO::FileShare;
+
 	size_t count = 0;
 	for (auto iter = assemblyPaths.begin(); iter != assemblyPaths.end(); ++iter)
 	{
 		if (iter->filename() == LLNET_INFO_LOADER_NAME)
 			continue;
+
+		auto path = marshalString(iter->string());
+
 		try
 		{
-			auto Asm = Assembly::LoadFrom(marshalString(iter->string()));
+
+
+			bool isManagedAssembly = false;
+			auto file = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::ReadWrite);
+			auto reader = gcnew PEReader(file);
+
+			if (reader->HasMetadata)
+				isManagedAssembly = true;
+
+			file->Close();
+
+			if (!isManagedAssembly)
+			{
+				continue;
+			}
+
+
+			auto Asm = Assembly::LoadFrom(path);
 
 			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
 
@@ -182,15 +211,8 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 			logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 			logger.error(marshalString(ex->ToString()));
 		}
-		catch (const std::exception& ex)
-		{
-			logger.error("Uncaught std::exception Detected!");
-			logger.error(ex.what());
-		}
-		catch (...)
-		{
-			logger.error("Uncaught exception Detected!");
-		}
+
+
 	}
 	logger.info("{} .NET plugin(s) loaded", count);
 }
@@ -198,6 +220,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 {
+
 	try
 	{
 		auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
@@ -226,17 +249,6 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 	{
 		logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 		logger.error(marshalString(ex->ToString()));
-		return false;
-	}
-	catch (const std::exception& ex)
-	{
-		logger.error("Uncaught std::exception Detected!");
-		logger.error(ex.what());
-		return false;
-	}
-	catch (...)
-	{
-		logger.error("Uncaught exception Detected!");
 		return false;
 	}
 }
@@ -318,17 +330,6 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
 	{
 		logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
 		logger.error(marshalString(ex->ToString()));
-		return false;
-	}
-	catch (const std::exception& ex)
-	{
-		logger.error("Uncaught std::exception Detected!");
-		logger.error(ex.what());
-		return false;
-	}
-	catch (...)
-	{
-		logger.error("Uncaught exception Detected!");
 		return false;
 	}
 }
