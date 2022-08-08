@@ -393,6 +393,9 @@
     <ClCompile Include="Kernel\NativeAPI.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="Main\GlobalClass.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -847,6 +850,9 @@
     </ClInclude>
     <ClInclude Include="Header\NativeAPI.hpp">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\GlobalClass.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

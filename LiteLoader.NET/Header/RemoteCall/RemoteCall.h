@@ -453,7 +453,7 @@ namespace LLNET::RemoteCall
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn) {
-			return DynamicExportFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, fn, GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
+			return DynamicExportFunctionRegister::RegisterExportFunction<TDelegate>(nameSpace, funcName, fn, GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly()));
 		};
 
 

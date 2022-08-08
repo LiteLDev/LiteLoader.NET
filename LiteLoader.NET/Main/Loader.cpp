@@ -111,32 +111,44 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 		return Assembly::LoadFrom(llLibPath);
 	}
 
-	auto llLibPath_dotnet = Path::Combine(LLNET_LIBRARY_DIR_DOTNETONLY, assemblyName.Name + ".dll");
-	if (File::Exists(llLibPath_dotnet))
+	auto llLibPathManaged = Path::Combine(LLNET_LIBRARY_DIR_DOTNETONLY, assemblyName.Name + ".dll");
+	if (File::Exists(llLibPathManaged))
 	{
-		return Assembly::LoadFrom(llLibPath_dotnet);
+		return Assembly::LoadFrom(llLibPathManaged);
 	}
 
-	auto customPaths = GlobalClass::CustomLibPath[args->RequestingAssembly];
-	for each (auto customPath in customPaths)
+	if (GlobalClass::RUNTIME_SHARED_LIB_DIR != nullptr)
 	{
-		auto libPath = System::IO::Path::Combine(customPath, assemblyName.Name + ".dll");
-		if (File::Exists(libPath))
+		auto runtimeSharedLibPath = Path::Combine(const_cast<String^>(GlobalClass::RUNTIME_SHARED_LIB_DIR), assemblyName.Name + ".dll");
+		if (File::Exists(runtimeSharedLibPath))
 		{
-
-			auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
-			auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-			GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
-			return Asm;
+			return Assembly::LoadFrom(runtimeSharedLibPath);
 		}
+	}
 
-		auto libPathWithPlugin = Path::Combine("plugins", customPath, assemblyName.Name + ".dll");
-		if (File::Exists(libPathWithPlugin))
+	List<String^>^ customPaths = nullptr;
+	if (GlobalClass::CustomLibPath->TryGetValue(args->RequestingAssembly, customPaths))
+	{
+		for each (auto customPath in customPaths)
 		{
-			auto Asm = Assembly::LoadFrom(libPathWithPlugin);
-			auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-			GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
-			return Asm;
+			auto libPath = System::IO::Path::Combine(customPath, assemblyName.Name + ".dll");
+			if (File::Exists(libPath))
+			{
+
+				auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
+				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+				GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+				return Asm;
+			}
+
+			auto libPathWithPlugin = Path::Combine("plugins", customPath, assemblyName.Name + ".dll");
+			if (File::Exists(libPathWithPlugin))
+			{
+				auto Asm = Assembly::LoadFrom(libPathWithPlugin);
+				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+				GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+				return Asm;
+			}
 		}
 	}
 

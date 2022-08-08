@@ -94,7 +94,7 @@ ref class Global {
 internal:
     static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
     static Dictionary<Assembly^, IntPtr>^ ManagedModuleHandler = gcnew Dictionary<Assembly^, IntPtr>;
-    static inline HMODULE __GetCurrentModule(Assembly^ asm_)
+    static inline HMODULE GetCurrentModule(Assembly^ asm_)
     {
         return HMODULE((void*)ManagedModuleHandler[asm_]);
     }

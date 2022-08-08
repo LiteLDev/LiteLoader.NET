@@ -237,7 +237,7 @@ namespace LLNET::DynamicCommand {
 			cmdAttr->Permission,
 			gcnew MC::CommandFlag(cmdAttr->Flag1),
 			gcnew MC::CommandFlag(cmdAttr->Flag2),
-			IntPtr(GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly())));
+			IntPtr(GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())));
 
 		for each (auto alia in cmdData->Alias)
 		{

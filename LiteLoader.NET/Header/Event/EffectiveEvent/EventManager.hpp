@@ -118,7 +118,7 @@ namespace LLNET::Event::Effective
     generic <typename TListener> where TListener : IEventListener
     void EventManager::RegisterListener()
     {
-        RegisterListener<TListener>(IntPtr(GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly())));
+        RegisterListener<TListener>(IntPtr(GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())));
     }
 
 

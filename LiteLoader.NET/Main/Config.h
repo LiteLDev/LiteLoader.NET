@@ -35,7 +35,7 @@
 
 
 
-#define DOTNET_RUNTIME_DIR "plugins/lib/managed/"
+#define DOTNET_RUNTIME_DIR "plugins/lib/managed/dotnet"
 
 
 

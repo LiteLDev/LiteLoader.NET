@@ -313,6 +313,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Main\ClassTemplate.h" />
     <ClInclude Include="Main\Config.h" />
     <ClInclude Include="Main\Global.hpp" />
+    <ClInclude Include="Main\GlobalClass.h" />
     <ClInclude Include="Main\Info.h" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
@@ -424,6 +425,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
     <ClCompile Include="Kernel\Server.cpp" />
     <ClCompile Include="Main\AssemblyInfo.cpp" />
+    <ClCompile Include="Main\GlobalClass.cpp" />
     <ClCompile Include="Main\LiteLoaderDotNET.cpp" />
     <ClCompile Include="Main\PluginAttribute.h" />
     <ClCompile Include="Main\dllmain.cpp" />

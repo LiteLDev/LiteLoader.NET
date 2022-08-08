@@ -8,38 +8,22 @@
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
-#define CATCH                                                                                   \
-    catch (const std::exception& ex)                                                            \
-    {                                                                                           \
-        auto color = Console::ForegroundColor;                                                  \
-        Console::ForegroundColor = System::ConsoleColor::Red;                                   \
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "std::exception");          \
-        System::Console::WriteLine(marshalString(ex.what()));                                   \
-        Console::ForegroundColor = color;                                                       \
-    }                                                                                           \
-    catch (System::Exception ^ ex)                                                              \
-    {                                                                                           \
-        auto color = Console::ForegroundColor;                                                  \
-        Console::ForegroundColor = System::ConsoleColor::Red;                                   \
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString()); \
-        System::Console::WriteLine(ex->ToString());                                             \
-        Console::ForegroundColor = color;                                                       \
-    }                                                                                           \
-    catch (...)                                                                                 \
-    {                                                                                           \
-        auto color = Console::ForegroundColor;                                                  \
-        Console::ForegroundColor = System::ConsoleColor::Red;                                   \
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");               \
-        Console::ForegroundColor = color;                                                       \
+#define CATCH																								\
+    catch (System::Exception ^ ex)																			\
+    {																										\
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());	\
+        GlobalClass::logger->error->WriteLine(ex->ToString());												\
+    }																										\
+    catch (...)																								\
+    {																										\
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");				\
     }
 
-#define NULL_ARG_CHEEK(arg)           \
-    if (ReferenceEquals(arg, nullptr)) \
+#define NULL_ARG_CHEEK(arg)														\
+    if (ReferenceEquals(arg, nullptr))											\
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
-#define CLASS \
-public        \
-    ref class
+#define CLASS public ref class
 
 using System::Console;
 using System::GC;
@@ -106,17 +90,4 @@ inline bool As(U u)
 	return safe_cast<T>(u);
 }
 
-ref class GlobalClass {
-internal:
-	static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-	static Dictionary<Assembly^, IntPtr>^ ManagedModuleHandler = gcnew Dictionary<Assembly^, IntPtr>;
-	static inline HMODULE __GetCurrentModule(Assembly^ asm_)
-	{
-		auto ret = IntPtr::Zero;
-		ManagedModuleHandler->TryGetValue(asm_, ret);
-		if (ret != IntPtr::Zero)
-			return HMODULE((void*)ret);
-		else
-			return MODULE;
-	}
-};
+#include "GlobalClass.h"
