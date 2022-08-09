@@ -53,11 +53,23 @@ inline Player ^ Level::GetPlayer(String^ info)
 }
 inline Player ^ Level::GetPlayer(ActorUniqueID ^ id)
 {
-    return gcnew Player(NativePtr->getPlayer(id));
+    const auto player = NativePtr->getPlayer(*id);
+    return player != nullptr ? gcnew Player(player) : nullptr;
 }
 inline Actor ^ Level::GetEntity(ActorUniqueID ^ id)
 {
-    return gcnew Actor(::Level::getEntity(*id));
+    const auto entity = ::Level::getEntity(*id);
+    return entity != nullptr ? gcnew Actor(entity) : nullptr;
+}
+inline Actor^ Level::GetRuntimeEntity(ActorRuntimeID^ id, bool _)
+{
+    const auto entity = NativePtr->getRuntimeEntity(*id, _);
+    return entity != nullptr ? gcnew Actor(entity) : nullptr;
+}
+inline Player^ Level::GetRuntimePlayer(ActorRuntimeID^ id)
+{
+    const auto player = NativePtr->getRuntimePlayer(*id);
+    return player != nullptr ? gcnew Player(player) : nullptr;
 }
 inline List<Actor ^> ^ Level::GetAllEntities(int dimId)
 {
@@ -93,9 +105,10 @@ inline bool Level::CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float ra
 {
     return ::Level::createExplosion(::Vec3(pos), dimId, source, radius, createFire, canBreak);
 }
-inline MapItemSavedData ^ Level::GetMapSavedData(ActorUniqueID ^ a0)
+inline MapItemSavedData ^ Level::GetMapSavedData(ActorUniqueID ^ id)
 {
-    return gcnew MapItemSavedData(NativePtr->getMapSavedData(*a0));
+    const auto data = NativePtr->getMapSavedData(*id);
+    return data != nullptr ? gcnew MapItemSavedData(data) : nullptr;
 }
 inline Actor^ Level::CloneMob(Vec3 pos, int dimid, Actor^ ac)
 {

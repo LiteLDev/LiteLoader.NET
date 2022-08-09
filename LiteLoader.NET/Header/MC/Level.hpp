@@ -48,6 +48,8 @@ public:
     /// UniqueID
     inline /*static*/ Player ^ GetPlayer(ActorUniqueID ^ id);
     inline static Actor ^ GetEntity(ActorUniqueID ^ id);
+    inline Actor^ GetRuntimeEntity(ActorRuntimeID^ id, bool _);
+    inline Player^ GetRuntimePlayer(ActorRuntimeID^ id);
     inline static List<Actor ^> ^ GetAllEntities(int dimId);
     inline static List<Actor ^> ^ GetAllEntities();
     inline static Actor ^ SpawnMob(Vec3 pos, int dimId, String ^ typeName);
