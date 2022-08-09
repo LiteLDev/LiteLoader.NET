@@ -626,6 +626,25 @@ namespace LLNET::Event::Effective::NativeEvents
     };
 #undef EVENTNAME
 
+#define EVENTNAME PlayerInteractEntityEvent
+    EventClass(EVENTNAME)
+    {
+        NativeCallback(EVENTNAME);
+
+    public:
+        IEventAPIs(61, EVENTNAME);
+
+        enum class InteractiveModeType
+		{
+			RightClick,
+			LeftClick
+		};
+
+        _Property_Instance(MC, ActorRuntimeID, mTargetId, TargetId, EVENTNAME);
+        _Property_Enum(InteractiveModeType, ::Event::PlayerInteractEntityEvent::InteractiveMode, mInteractiveMode, InteractiveMode, EVENTNAME);
+    };
+#undef EVENTNAME
+
     ///////////////////////////// Block Events /////////////////////////////
 
 #define EVENTNAME BlockInteractedEvent
@@ -1014,19 +1033,6 @@ namespace LLNET::Event::Effective::NativeEvents
         _Property_Ptr(MC, ArmorStand, mArmorStand, ArmorStand, EVENTNAME);
         _Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
         _Property(int, mSlot, Slot, EVENTNAME);
-    };
-#undef EVENTNAME
-
-#define EVENTNAME ItemUseOnActorEvent
-    EventClass(EVENTNAME)
-    {
-        NativeCallback(EVENTNAME);
-
-    public:
-        IEventAPIs(61, EVENTNAME);
-
-        _Property_Instance(MC, ActorRuntimeID, mTarget, Target, EVENTNAME);
-        _Property(int, mInteractiveMode, InteractiveMode, EVENTNAME);
     };
 #undef EVENTNAME
 
