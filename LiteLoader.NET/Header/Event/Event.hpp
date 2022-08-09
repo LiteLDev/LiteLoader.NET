@@ -621,6 +621,22 @@ public        \
 		Property(int, mExp, Exp);
 	};
 
+	Class PlayerInteractEntityEvent
+		: public EventTemplate<PlayerInteractEntityEvent, ::Event::PlayerInteractEntityEvent>
+	{
+		EventAPIs(PlayerInteractEntityEvent, ::Event::PlayerInteractEntityEvent);
+
+	public:
+		enum class InteractiveModeType
+		{
+			RightClick,
+			LeftClick
+		};
+
+		Property_Ptr(MC, ServerPlayer, mPlayer, Player);
+		Property_Instance(MC, ActorRuntimeID, mTargetId, TargetId);
+		Property_Enum(InteractiveModeType, ::Event::PlayerInteractEntityEvent::InteractiveMode, mInteractiveMode, InteractiveMode);
+	};
 
 	///////////////////////////// Block Events /////////////////////////////
 	
@@ -928,16 +944,6 @@ public        \
 		Property_Ptr(MC, ArmorStand, mArmorStand, ArmorStand);
 		Property_Ptr(MC, Player, mPlayer, Player);
 		Property(int, mSlot, Slot);
-	};
-
-	Class ItemUseOnActorEvent
-		: public EventTemplate<ItemUseOnActorEvent, ::Event::ItemUseOnActorEvent>
-	{
-		EventAPIs(ItemUseOnActorEvent, ::Event::ItemUseOnActorEvent);
-
-	public:
-		Property_Instance(MC, ActorRuntimeID, mTarget, Target);
-		Property(int, mInteractiveMode, InteractiveMode);
 	};
 
 	///////////////////////////// Other Events /////////////////////////////

@@ -270,8 +270,7 @@ namespace LLNET::Form
         ref class Slider : public CustomFormElement
     {
         String^ title;
-        // TODO make it a float type (firstly in SDK)
-        int min, max, step, def;
+        double min, max, step, def;
 
     public:
         property String^ Title
@@ -288,56 +287,56 @@ namespace LLNET::Form
             }
         };
 
-        property int Min
+        property double Min
         {
-            int get()
+            double get()
             {
                 return min;
             };
 
-            void set(int value)
+            void set(double value)
             {
                 min = value;
                 reSetGeneratedForm();
             }
         };
 
-        property int Max
+        property double Max
         {
-            int get()
+            double get()
             {
                 return max;
             };
 
-            void set(int value)
+            void set(double value)
             {
                 max = value;
                 reSetGeneratedForm();
             }
         };
 
-        property int Step
+        property double Step
         {
-            int get()
+            double get()
             {
                 return step;
             };
 
-            void set(int value)
+            void set(double value)
             {
                 step = value;
                 reSetGeneratedForm();
             }
         };
 
-        property int Def
+        property double Def
         {
-            int get()
+            double get()
             {
                 return def;
             };
 
-            void set(int value)
+            void set(double value)
             {
                 def = value;
                 reSetGeneratedForm();
@@ -349,9 +348,9 @@ namespace LLNET::Form
             virtual Type get() override { return Type::Slider; }
         }
 
-        inline Slider(String^ name, String^ title, int min, int max, int step, int def);
-        inline Slider(String^ name, String^ title, int min, int max, int step);
-        inline Slider(String^ name, String^ title, int min, int max);
+        inline Slider(String^ name, String^ title, double min, double max, double step, double def);
+        inline Slider(String^ name, String^ title, double min, double max, double step);
+        inline Slider(String^ name, String^ title, double min, double max);
     };
 
     public

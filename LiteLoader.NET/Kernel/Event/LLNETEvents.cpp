@@ -39,6 +39,7 @@ void InitEvents()
     REGISTER_NATIVE_EVENT(NativeEvents::PlayerOpenContainerScreenEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::PlayerUseFrameBlockEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::PlayerExperienceAddEvent);
+    REGISTER_NATIVE_EVENT(NativeEvents::PlayerInteractEntityEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::MobHurtEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::MobDieEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::EntityExplodeEvent);
@@ -49,7 +50,6 @@ void InitEvents()
     REGISTER_NATIVE_EVENT(NativeEvents::NpcCmdEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::ProjectileSpawnEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::ProjectileCreatedEvent);
-    REGISTER_NATIVE_EVENT(NativeEvents::ItemUseOnActorEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::BlockInteractedEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::ArmorStandChangeEvent);
     REGISTER_NATIVE_EVENT(NativeEvents::BlockExplodeEvent);

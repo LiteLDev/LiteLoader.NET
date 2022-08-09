@@ -312,7 +312,7 @@ namespace LLNET::Form
     }
 
 
-    inline Slider::Slider(String^ name, String^ title, int min, int max, int step, int def)
+    inline Slider::Slider(String^ name, String^ title, double min, double max, double step, double def)
     {
         Name = name;
         this->title = title;
@@ -322,12 +322,12 @@ namespace LLNET::Form
         this->def = def;
     }
 
-    inline Slider::Slider(String^ name, String^ title, int min, int max, int step)
+    inline Slider::Slider(String^ name, String^ title, double min, double max, double step)
         : Slider(name, title, min, max, step, 0)
     {
     }
 
-    inline Slider::Slider(String^ name, String^ title, int min, int max)
+    inline Slider::Slider(String^ name, String^ title, double min, double max)
         : Slider(name, title, min, max, 1, 0)
     {
     }
