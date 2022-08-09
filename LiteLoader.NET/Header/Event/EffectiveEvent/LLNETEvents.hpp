@@ -640,6 +640,7 @@ namespace LLNET::Event::Effective::NativeEvents
 			LeftClick
 		};
 
+        _Property_Ptr(MC, ServerPlayer, mPlayer, Player, EVENTNAME);
         _Property_Instance(MC, ActorRuntimeID, mTargetId, TargetId, EVENTNAME);
         _Property_Enum(InteractiveModeType, ::Event::PlayerInteractEntityEvent::InteractiveMode, mInteractiveMode, InteractiveMode, EVENTNAME);
     };
