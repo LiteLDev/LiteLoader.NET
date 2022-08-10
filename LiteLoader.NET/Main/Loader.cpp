@@ -159,8 +159,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
-	FixCLRFatalError();
-
+	FixCLRFatalError(logger);
 
 	using System::Reflection::PortableExecutable::PEReader;
 	using System::IO::File;
