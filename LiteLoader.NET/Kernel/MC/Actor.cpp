@@ -318,11 +318,11 @@ void MC::Actor::AddPassenger(MC::Actor^ _0)
 //    ((class ::Actor*)NativePtr)->__unk_vfn_82();
 //}
 
-bool MC::Actor::CanInteractWithOtherEntitiesInGame()
+/*bool MC::Actor::CanInteractWithOtherEntitiesInGame()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->canInteractWithOtherEntitiesInGame();
 	return __ret;
-}
+}*/
 
 //void MC::Actor::UnkVfn88()
 //{
@@ -424,11 +424,11 @@ bool MC::Actor::CanFreeze()
 	return __ret;
 }
 
-bool MC::Actor::CanChangeDimensions()
+/*bool MC::Actor::CanChangeDimensions()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->canChangeDimensions();
 	return __ret;
-}
+}*/
 
 //void MC::Actor::UnkVfn181()
 //{
@@ -1580,11 +1580,11 @@ void MC::Actor::TeleportPassengersTo(MC::Vec3 _0, int _1, int _2)
 //    return _tmp__ret;
 //}
 
-bool MC::Actor::TryMoveChunks()
+/*bool MC::Actor::TryMoveChunks()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->tryMoveChunks();
 	return __ret;
-}
+}*/
 
 void MC::Actor::UpdateAnimationComponentOnServer()
 {
@@ -2690,11 +2690,11 @@ bool MC::Actor::HasTeleported::get()
 	return __ret;
 }
 
-bool MC::Actor::HasTickingArea::get()
+/*bool MC::Actor::HasTickingArea::get()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->hasTickingArea();
 	return __ret;
-}
+}*/
 
 bool MC::Actor::HasTotemEquipped::get()
 {

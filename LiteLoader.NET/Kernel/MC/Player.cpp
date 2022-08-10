@@ -909,11 +909,11 @@ namespace MC
     //	((class ::Player*)NativePtr)->__unk_vfn_82();
     //}
 
-    bool Player::CanInteractWithOtherEntitiesInGame()
+    /*bool Player::CanInteractWithOtherEntitiesInGame()
     {
         auto __ret = NativePtr->canInteractWithOtherEntitiesInGame();
         return __ret;
-    }
+    }*/
 
     //void MC::Player::UnkVfn88()
     //{
@@ -1062,11 +1062,11 @@ namespace MC
         return __ret;
     }
 
-    bool Player::CanChangeDimensions()
+    /*bool Player::CanChangeDimensions()
     {
         auto __ret = NativePtr->canChangeDimensions();
         return __ret;
-    }
+    }*/
 
     //void MC::Player::UnkVfn181()
     //{

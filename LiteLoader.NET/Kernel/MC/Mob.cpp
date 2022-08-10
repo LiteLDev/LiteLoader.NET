@@ -105,11 +105,11 @@ void MC::Mob::AddPassenger(MC::Actor^ _0)
 //    ((class ::Mob*)NativePtr)->__unk_vfn_82();
 //}
 
-bool MC::Mob::CanInteractWithOtherEntitiesInGame()
+/*bool MC::Mob::CanInteractWithOtherEntitiesInGame()
 {
 	auto __ret = ((class ::Mob*)NativePtr)->canInteractWithOtherEntitiesInGame();
 	return __ret;
-}
+}*/
 
 //void MC::Mob::UnkVfn88()
 //{
@@ -217,11 +217,11 @@ bool MC::Mob::CanFreeze()
 	return __ret;
 }
 
-bool MC::Mob::CanChangeDimensions()
+/*bool MC::Mob::CanChangeDimensions()
 {
 	auto __ret = ((class ::Mob*)NativePtr)->canChangeDimensions();
 	return __ret;
-}
+}*/
 
 //void MC::Mob::UnkVfn181()
 //{

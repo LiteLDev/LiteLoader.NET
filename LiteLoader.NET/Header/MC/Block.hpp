@@ -53,9 +53,9 @@ public:
         int get();
     }
 
-    property MC::Block ^ DefaultState {
+    /*property MC::Block ^ DefaultState {
         MC::Block ^ get();
-    }
+    }*/
 
         property ::String^
         DescriptionId {

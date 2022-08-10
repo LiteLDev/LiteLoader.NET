@@ -80,10 +80,10 @@ namespace MC
         return uuid;
     }
 
-    Vec3 ReadOnlyBinaryStream::GetVec3()
+    /*Vec3 ReadOnlyBinaryStream::GetVec3()
     {
         ::Vec3 vec3;
         NativePtr->readType(vec3);
         return vec3;
-    }
+    }*/
 }

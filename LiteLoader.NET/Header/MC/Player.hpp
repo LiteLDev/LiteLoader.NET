@@ -491,7 +491,7 @@ namespace MC
 
         //virtual void UnkVfn82() override;
 
-        bool CanInteractWithOtherEntitiesInGame() override;
+        //bool CanInteractWithOtherEntitiesInGame() override;
 
         //virtual void UnkVfn88() override;
 
@@ -543,7 +543,7 @@ namespace MC
 
         virtual int GetPortalWaitTime();
 
-        bool CanChangeDimensions() override;
+        //bool CanChangeDimensions() override;
 
         //virtual void UnkVfn181() override;
 

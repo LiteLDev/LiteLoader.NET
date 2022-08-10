@@ -84,6 +84,6 @@ namespace MC
         unsigned int GetUnsignedVarInt();
         unsigned __int64 GetUnsignedVarInt64();
         Mce::UUID GetUUID();
-        Vec3 GetVec3();
+        //Vec3 GetVec3();
     };
 }
