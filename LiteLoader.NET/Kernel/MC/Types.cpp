@@ -10,13 +10,22 @@ namespace MC
 		: ClassTemplate(::ActorRuntimeID())
 	{
 	}
-	inline long long ActorRuntimeID::get()
+	ActorRuntimeID::ActorRuntimeID(unsigned long long id)
+		: ClassTemplate(::ActorRuntimeID())
 	{
-		return NativePtr->get();
+		NativePtr->id = id;
 	}
-	inline ActorRuntimeID::operator long long()
+	inline unsigned long long ActorRuntimeID::Id::get()
 	{
-		return ((long long)*NativePtr);
+		return NativePtr->id;
+	}
+	inline void ActorRuntimeID::Id::set(unsigned long long value)
+	{
+		NativePtr->id = value;
+	}
+	inline ActorRuntimeID::operator unsigned long long(ActorRuntimeID^ id)
+	{
+		return *id->NativePtr;
 	}
 } // namespace MC\
 

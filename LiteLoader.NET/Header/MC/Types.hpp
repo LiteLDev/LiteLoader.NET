@@ -324,6 +324,7 @@ namespace MC
 	[StructLayout(LayoutKind::Sequential, Size = sizeof(::ActorUniqueID))]
 	public value struct ActorUniqueID
 	{
+		long long id;
 	internal:
 		operator ::ActorUniqueID()
 		{
@@ -336,11 +337,14 @@ namespace MC
 		ActorUniqueID(::ActorUniqueID const* p)
 			:id(p->id) {}
 	public:
-		long long id;
 		ActorUniqueID(long long i)
 			:id(i) {}
 
-		long long get() { return id; }
+		property long long Id
+		{
+		    long long get() { return id; }
+		    void set(long long value) { id = value; }
+		}
 
 		static operator long long(ActorUniqueID obj)
 		{
@@ -366,6 +370,7 @@ namespace MC
 			return id;
 		}
 	};
+
 	public
 	ref class ActorRuntimeID : ClassTemplate<ActorRuntimeID, ::ActorRuntimeID>
 	{
@@ -373,8 +378,9 @@ namespace MC
 		__ctor_all(ActorRuntimeID, ::ActorRuntimeID);
 
 		ActorRuntimeID();
-		inline long long get();
-		inline operator long long();
+		ActorRuntimeID(unsigned long long id);
+		property unsigned long long Id { unsigned long long get(); void set(unsigned long long); }
+		static operator unsigned long long(ActorRuntimeID^ id);
 	};
 
 
