@@ -3,6 +3,7 @@
 #include "PluginAttribute.h"
 #include "PluginManager.h"
 #include "IPluginInitializer.hpp"
+#include "FixCLRFatalError.h"
 
 
 
@@ -158,6 +159,9 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
+	FixCLRFatalError();
+
+
 	using System::Reflection::PortableExecutable::PEReader;
 	using System::IO::File;
 	using System::IO::FileStream;

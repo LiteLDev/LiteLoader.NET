@@ -852,6 +852,7 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Main\GlobalClass.h">
+    <ClInclude Include="Main\FixCLRFatalError.h">
       <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
