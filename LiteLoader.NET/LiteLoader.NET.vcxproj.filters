@@ -812,6 +812,9 @@
     <ClInclude Include="Main\Version.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="Main\FixCLRFatalError.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
