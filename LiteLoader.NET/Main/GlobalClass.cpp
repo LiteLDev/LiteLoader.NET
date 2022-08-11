@@ -1,5 +1,6 @@
 #include "GlobalClass.h"
 
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 inline void GlobalClass::Init()
 {

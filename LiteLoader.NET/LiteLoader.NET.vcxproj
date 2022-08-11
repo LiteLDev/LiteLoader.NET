@@ -224,7 +224,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
     <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Header\LLAPI.h" />
-    <ClInclude Include="Header\Logger.hpp" />
+    <ClInclude Include="Header\Logger\Logger.hpp" />
+    <ClInclude Include="Header\Logger\LoggerManager.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
     <ClInclude Include="Header\MC\Actor.hpp" />
     <ClInclude Include="Header\MC\ActorDamageSource.hpp" />
@@ -326,6 +327,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Tools\PropertryHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Extra\i18nQAQ.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
@@ -352,7 +354,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
     <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
-    <ClCompile Include="Kernel\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\LoggerManager.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
     <ClCompile Include="Kernel\MC\Actor.cpp" />
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp" />

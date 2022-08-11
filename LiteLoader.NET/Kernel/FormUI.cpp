@@ -2,6 +2,8 @@
 
 #include "../Header/MC/Player.hpp"
 
+#include "../Header/Logger/Logger.hpp"
+
 
 namespace LLNET::Form
 {
