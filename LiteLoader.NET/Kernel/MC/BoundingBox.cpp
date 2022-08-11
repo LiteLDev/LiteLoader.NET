@@ -4,6 +4,8 @@
 
 #include "../../Tools/NativeCallbackConverter.hpp"
 
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
+
 
 namespace MC {
 	DelegateToNativeHelper(ForEachBlockInBoxHelper, BoundingBox::ForEachBlockInBoxHandler, void, ::BlockPos const& pos) {

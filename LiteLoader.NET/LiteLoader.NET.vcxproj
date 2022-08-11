@@ -112,8 +112,8 @@ LibraryBuilder.exe -o ..\Lib\
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
-copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
+      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\ (
+copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -166,13 +166,16 @@ LibraryBuilder.exe -o ..\Lib\
 </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\ (
-copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
+      <Command>if exist $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\ (
+copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Extra\coreclr_delegates.h" />
+    <ClInclude Include="Extra\hostfxr.h" />
     <ClInclude Include="Extra\mutex.h" />
+    <ClInclude Include="Extra\nethost.h" />
     <ClInclude Include="Extra\PluginManager.h" />
     <ClInclude Include="Header\AllowListAPI.h" />
     <ClInclude Include="Header\Command\Command.hpp" />
@@ -221,12 +224,13 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\Impl\FormPacketHelper.h" />
     <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
     <ClInclude Include="Header\LLAPI.h" />
-    <ClInclude Include="Header\Logger.hpp" />
+    <ClInclude Include="Header\Logger\Logger.hpp" />
+    <ClInclude Include="Header\Logger\LoggerManager.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
     <ClInclude Include="Header\MC\Actor.hpp" />
     <ClInclude Include="Header\MC\ActorDamageSource.hpp" />
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
-    <ClInclude Include="Header\MC\ArmStand.hpp" />
+    <ClInclude Include="Header\MC\ArmorStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
     <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
@@ -262,6 +266,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ListTag.hpp" />
     <ClInclude Include="Header\MC\MapItemSavedData.hpp" />
     <ClInclude Include="Header\MC\MCRESULT.hpp" />
+    <ClInclude Include="Header\MC\MinecraftPackets.hpp" />
     <ClInclude Include="Header\MC\Mob.hpp" />
     <ClInclude Include="Header\MC\MobEffect.hpp" />
     <ClInclude Include="Header\MC\MobEffectInstance.hpp" />
@@ -273,6 +278,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp" />
     <ClInclude Include="Header\MC\ScoreboardId.hpp" />
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
+    <ClInclude Include="Header\MC\SerializedSkin.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
     <ClInclude Include="Header\MC\ShortTag.hpp" />
     <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
@@ -285,6 +291,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Header\MC\Vec2.hpp" />
     <ClInclude Include="Header\MC\Vec3.hpp" />
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
+    <ClInclude Include="Header\NativeAPI.hpp" />
     <ClInclude Include="Header\PlayerInfo.h" />
     <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
@@ -307,16 +314,20 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClInclude Include="Main\ClassTemplate.h" />
     <ClInclude Include="Main\Config.h" />
     <ClInclude Include="Main\Global.hpp" />
+    <ClInclude Include="Main\GlobalClass.h" />
+    <ClInclude Include="Main\Info.h" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
     <ClInclude Include="Main\PluginManager.h" />
     <ClInclude Include="Main\Version.h" />
     <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Resource\Version.h" />
     <ClInclude Include="Tools\ClassTemplateHelper.h" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
     <ClInclude Include="Tools\PropertryHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Extra\i18nQAQ.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
@@ -343,7 +354,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
     <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
-    <ClCompile Include="Kernel\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\LoggerManager.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
     <ClCompile Include="Kernel\MC\Actor.cpp" />
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp" />
@@ -384,6 +396,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ListTag.cpp" />
     <ClCompile Include="Kernel\MC\MapItemSavedData.cpp" />
     <ClCompile Include="Kernel\MC\MCRESULT.cpp" />
+    <ClCompile Include="Kernel\MC\MinecraftPackets.cpp" />
     <ClCompile Include="Kernel\MC\Mob.cpp" />
     <ClCompile Include="Kernel\MC\MobEffect.cpp" />
     <ClCompile Include="Kernel\MC\MobEffectInstance.cpp" />
@@ -395,6 +408,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\ScoreboardId.cpp" />
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
+    <ClCompile Include="Kernel\MC\SerializedSkin.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
     <ClCompile Include="Kernel\MC\ShortTag.cpp" />
     <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
@@ -402,15 +416,19 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <ClCompile Include="Kernel\MC\Tag.cpp" />
     <ClCompile Include="Kernel\MC\TagMemoryChunk.cpp" />
     <ClCompile Include="Kernel\MC\Types.cpp" />
+    <ClCompile Include="Kernel\MC\UserEntityIdentifierComponent.cpp" />
     <ClCompile Include="Kernel\MC\Vec2.cpp" />
     <ClCompile Include="Kernel\MC\Vec3.cpp" />
     <ClCompile Include="Kernel\MC\WitherBoss.cpp" />
+    <ClCompile Include="Kernel\NativeAPI.cpp" />
+    <ClCompile Include="Kernel\NativeAPIHelper.cpp" />
     <ClCompile Include="Kernel\PlayerInfo.cpp" />
     <ClCompile Include="Kernel\RemoteCall.cpp" />
     <ClCompile Include="Kernel\Schedule.cpp" />
     <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
     <ClCompile Include="Kernel\Server.cpp" />
     <ClCompile Include="Main\AssemblyInfo.cpp" />
+    <ClCompile Include="Main\GlobalClass.cpp" />
     <ClCompile Include="Main\LiteLoaderDotNET.cpp" />
     <ClCompile Include="Main\PluginAttribute.h" />
     <ClCompile Include="Main\dllmain.cpp" />
@@ -422,7 +440,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource\LiteLoader.NET.rc" />
+    <ResourceCompile Include="Resource\Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

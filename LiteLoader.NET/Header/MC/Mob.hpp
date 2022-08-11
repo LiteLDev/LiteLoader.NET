@@ -439,7 +439,7 @@ namespace MC
 
         //virtual void UnkVfn82() override;
 
-        virtual bool CanInteractWithOtherEntitiesInGame() override;
+        //virtual bool CanInteractWithOtherEntitiesInGame() override;
 
         //virtual void UnkVfn88() override;
 
@@ -477,7 +477,7 @@ namespace MC
 
         virtual bool CanFreeze() override;
 
-        virtual bool CanChangeDimensions() override;
+        //virtual bool CanChangeDimensions() override;
 
         //virtual void UnkVfn181() override;
 

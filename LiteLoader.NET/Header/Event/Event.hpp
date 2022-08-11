@@ -74,14 +74,14 @@ private:
 #include "../MC/Objective.hpp"
 #include "../MC/WitherBoss.hpp"
 #include "../MC/ActorDefinitionIdentifier.hpp"
-#include "../MC/ArmStand.hpp"
+#include "../MC/ArmorStand.hpp"
 #include "../MC/Vec3.hpp"
 #include "../MC/BlockPos.hpp"
 #include "../MC/ScoreboardId.hpp"
 #include "../Command/CommandRegistry.hpp"
 #include "../Command/CommandParameterData.hpp"
 
-#include "../Logger.hpp"
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 namespace LLNET::Event
 {
@@ -621,6 +621,22 @@ public        \
 		Property(int, mExp, Exp);
 	};
 
+	Class PlayerInteractEntityEvent
+		: public EventTemplate<PlayerInteractEntityEvent, ::Event::PlayerInteractEntityEvent>
+	{
+		EventAPIs(PlayerInteractEntityEvent, ::Event::PlayerInteractEntityEvent);
+
+	public:
+		enum class InteractiveModeType
+		{
+			RightClick,
+			LeftClick
+		};
+
+		Property_Ptr(MC, ServerPlayer, mPlayer, Player);
+		Property_Instance(MC, ActorRuntimeID, mTargetId, TargetId);
+		Property_Enum(InteractiveModeType, ::Event::PlayerInteractEntityEvent::InteractiveMode, mInteractiveMode, InteractiveMode);
+	};
 
 	///////////////////////////// Block Events /////////////////////////////
 	
@@ -928,16 +944,6 @@ public        \
 		Property_Ptr(MC, ArmorStand, mArmorStand, ArmorStand);
 		Property_Ptr(MC, Player, mPlayer, Player);
 		Property(int, mSlot, Slot);
-	};
-
-	Class ItemUseOnActorEvent
-		: public EventTemplate<ItemUseOnActorEvent, ::Event::ItemUseOnActorEvent>
-	{
-		EventAPIs(ItemUseOnActorEvent, ::Event::ItemUseOnActorEvent);
-
-	public:
-		Property_Instance(MC, ActorRuntimeID, mTarget, Target);
-		Property(int, mInteractiveMode, InteractiveMode);
 	};
 
 	///////////////////////////// Other Events /////////////////////////////

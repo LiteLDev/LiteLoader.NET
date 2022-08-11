@@ -6,18 +6,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-main:
     runs-on: macos-latest
 
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.0.2
+      with:
+        ref: main
+
+    - name: Update SDK
+      run: |
+        git config submodule.LiteLoaderSDK.branch main
+        git submodule update --init --recursive --remote
+
+    - name: Push
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git commit -am "fetch upstream SDK" || exit 0
+        git push || exit 0
+
+  update-beta:
+    runs-on: macos-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3.0.2
       with:
         ref: beta
 
     - name: Update SDK
-      run: git submodule update --init --recursive --remote
+      run: |
+        git config submodule.LiteLoaderSDK.branch beta
+        git submodule update --init --recursive --remote
 
     - name: Push
       run: |

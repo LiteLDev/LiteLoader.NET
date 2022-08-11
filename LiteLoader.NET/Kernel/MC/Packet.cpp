@@ -3,13 +3,7 @@ namespace MC
 {
 } // namespace MC
 
-#ifdef INCLUDE_MCAPI
-bool MC::Packet::DisallowBatching()
-{
-    auto __ret = ((class ::Packet*)NativePtr)->disallowBatching();
-    return __ret;
-}
-
+#ifdef MANUAL_MAINTENANCE
 unsigned int MC::Packet::Unk2::get()
 {
     return NativePtr->unk2;
@@ -17,17 +11,17 @@ unsigned int MC::Packet::Unk2::get()
 
 void MC::Packet::Unk2::set(unsigned int value)
 {
-    ((class ::Packet*)NativePtr)->unk2 = value;
+    NativePtr->unk2 = value;
 }
 
 MC::PacketReliability MC::Packet::ReliableOrdered::get()
 {
-    return (MC::PacketReliability)NativePtr->reliableOrdered;
+    return static_cast<PacketReliability>(NativePtr->reliableOrdered);
 }
 
 void MC::Packet::ReliableOrdered::set(MC::PacketReliability value)
 {
-    ((class ::Packet*)NativePtr)->reliableOrdered = (::PacketReliability)value;
+    NativePtr->reliableOrdered = static_cast<::PacketReliability>(value);
 }
 
 unsigned char MC::Packet::ClientSubId::get()
@@ -37,7 +31,7 @@ unsigned char MC::Packet::ClientSubId::get()
 
 void MC::Packet::ClientSubId::set(unsigned char value)
 {
-    ((class ::Packet*)NativePtr)->clientSubId = value;
+    NativePtr->clientSubId = value;
 }
 
 unsigned long long MC::Packet::Unk24::get()
@@ -47,7 +41,7 @@ unsigned long long MC::Packet::Unk24::get()
 
 void MC::Packet::Unk24::set(unsigned long long value)
 {
-    ((class ::Packet*)NativePtr)->unk24 = (::uint64_t)value;
+    NativePtr->unk24 = value;
 }
 
 unsigned long long MC::Packet::Unk40::get()
@@ -57,7 +51,7 @@ unsigned long long MC::Packet::Unk40::get()
 
 void MC::Packet::Unk40::set(unsigned long long value)
 {
-    ((class ::Packet*)NativePtr)->unk40 = (::uint64_t)value;
+    NativePtr->unk40 = value;
 }
 
 unsigned int MC::Packet::Incompressible::get()
@@ -67,18 +61,34 @@ unsigned int MC::Packet::Incompressible::get()
 
 void MC::Packet::Incompressible::set(unsigned int value)
 {
-    ((class ::Packet*)NativePtr)->incompressible = (::uint32_t)value;
+    NativePtr->incompressible = value;
 }
 
-MC::MinecraftPacketIds MC::Packet::Id::get()
+MC::MinecraftPacketId MC::Packet::Id::get()
 {
-    auto __ret = ((class ::Packet*)NativePtr)->getId();
-    return (MC::MinecraftPacketIds)__ret;
+    return static_cast<MinecraftPacketId>(NativePtr->getId());
 }
 
-::String^ MC::Packet::Name::get()
+String^ MC::Packet::Name::get()
 {
-    auto __ret = ((class ::Packet*)NativePtr)->getName();
-    return clix::marshalString<clix::E_UTF8>(__ret);
+    return marshalString<E_UTF8>(NativePtr->getName());
 }
+
+bool MC::Packet::DisallowBatching()
+{
+    return NativePtr->disallowBatching();
+}
+
+void MC::Packet::Write([Out]BinaryStream^ resultStream)
+{
+    ::BinaryStream stream = ::BinaryStream();
+    NativePtr->write(stream);
+    resultStream = gcnew BinaryStream(&stream);
+}
+
+MC::StreamReadResult MC::Packet::Read(ReadOnlyBinaryStream^ stream)
+{
+    return static_cast<StreamReadResult>(NativePtr->read(*stream->NativePtr));
+}
+
 #endif // INCLUDE_MCAPI

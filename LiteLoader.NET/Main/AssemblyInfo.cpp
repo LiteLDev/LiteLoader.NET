@@ -2,18 +2,17 @@ using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 
-#include "Config.h"
 #include "Version.h"
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly:AssemblyTitle(LLNET_LOADER_NAME)];
-[assembly:AssemblyDescription(LLNET_LOADER_DESCRIPTION)];
+[assembly:AssemblyTitle(LLNET_INFO_LOADER_NAME)];
+[assembly:AssemblyDescription(LLNET_INFO_LOADER_DESCRIPTION)];
 [assembly:AssemblyConfiguration("")];
-[assembly:AssemblyCompany("LiteLoader Developer")];
-[assembly:AssemblyProduct(LLNET_LOADER_NAME)];
-[assembly:AssemblyCopyright("Copyright (c) 2020-2022 LiteLoaderBDS Developers")];
+[assembly:AssemblyCompany(LLNET_INFO_AUTHOR)];
+[assembly:AssemblyProduct(LLNET_INFO_LOADER_NAME)];
+[assembly:AssemblyCopyright(LLNET_INFO_COPYRIGHT)];
 [assembly:AssemblyTrademark("")];
 [assembly:AssemblyCulture("")];
 

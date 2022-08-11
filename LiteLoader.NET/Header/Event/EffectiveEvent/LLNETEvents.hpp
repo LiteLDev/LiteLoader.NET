@@ -18,7 +18,7 @@
 #include "../../MC/BlockSource.hpp"
 #include "../../MC/WitherBoss.hpp"
 #include "../../MC/ActorDefinitionIdentifier.hpp"
-#include "../../MC/ArmStand.hpp"
+#include "../../MC/ArmorStand.hpp"
 #include "../../Command/CommandRegistry.hpp"
 #include "../../Command/Command.hpp"
 
@@ -141,7 +141,7 @@ internal:																												\
 	{																													\
 		NativeEventIsCancelledManager::set(false);																		\
 		auto% _ev = *(eventName*)&ev;																					\
-		EventManager::CallNativeEventInternal(_ev, EventId);															\
+		EventManager::_callNativeEvent(_ev, EventId);															\
 		return !_ev.IsCancelled;																						\
 	}																													\
 	static void _init()																									\
@@ -149,7 +149,7 @@ internal:																												\
 		auto delfunc = gcnew _delNativeCallback(&_nativeCallback);														\
 		GCHandle::Alloc(delfunc);																						\
 		::Event::EventManager<::Event::eventName>::addEventListenerRef(													\
-			LLNET_LOADER_NAME,																							\
+			LLNET_INFO_LOADER_NAME,																							\
 			static_cast<bool(*)(::Event::eventName&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));			\
 	}
 
@@ -271,7 +271,7 @@ namespace LLNET::Event::Effective::NativeEvents
         static bool _nativeCallback(::Event::PlayerJumpEvent & ev)
         {
             auto% _ev = *(PlayerJumpEvent*)&ev;
-            EventManager::CallNativeEventInternal(_ev, EventId);
+            EventManager::_callNativeEvent(_ev, EventId);
             return !_ev.IsCancelled;
         }
         static PlayerJumpEvent()
@@ -279,7 +279,7 @@ namespace LLNET::Event::Effective::NativeEvents
             auto delfunc = gcnew _delNativeCallback(&_nativeCallback);
             GCHandle::Alloc(delfunc);
             ::Event::EventManager<::Event::PlayerJumpEvent>::addEventListenerRef(
-                LLNET_LOADER_NAME,
+                LLNET_INFO_LOADER_NAME,
                 static_cast<bool(*)(::Event::PlayerJumpEvent&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));
         }*/
 
@@ -623,6 +623,26 @@ namespace LLNET::Event::Effective::NativeEvents
 
         _Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
         _Property(int, mExp, Exp, EVENTNAME);
+    };
+#undef EVENTNAME
+
+#define EVENTNAME PlayerInteractEntityEvent
+    EventClass(EVENTNAME)
+    {
+        NativeCallback(EVENTNAME);
+
+    public:
+        IEventAPIs(61, EVENTNAME);
+
+        enum class InteractiveModeType
+		{
+			RightClick,
+			LeftClick
+		};
+
+        _Property_Ptr(MC, ServerPlayer, mPlayer, Player, EVENTNAME);
+        _Property_Instance(MC, ActorRuntimeID, mTargetId, TargetId, EVENTNAME);
+        _Property_Enum(InteractiveModeType, ::Event::PlayerInteractEntityEvent::InteractiveMode, mInteractiveMode, InteractiveMode, EVENTNAME);
     };
 #undef EVENTNAME
 
@@ -1014,19 +1034,6 @@ namespace LLNET::Event::Effective::NativeEvents
         _Property_Ptr(MC, ArmorStand, mArmorStand, ArmorStand, EVENTNAME);
         _Property_Ptr(MC, Player, mPlayer, Player, EVENTNAME);
         _Property(int, mSlot, Slot, EVENTNAME);
-    };
-#undef EVENTNAME
-
-#define EVENTNAME ItemUseOnActorEvent
-    EventClass(EVENTNAME)
-    {
-        NativeCallback(EVENTNAME);
-
-    public:
-        IEventAPIs(61, EVENTNAME);
-
-        _Property_Instance(MC, ActorRuntimeID, mTarget, Target, EVENTNAME);
-        _Property(int, mInteractiveMode, InteractiveMode, EVENTNAME);
     };
 #undef EVENTNAME
 

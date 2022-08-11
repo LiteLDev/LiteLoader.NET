@@ -233,7 +233,7 @@ namespace LLNET::DynamicCommand
 	{
 
 		if (handle == IntPtr::Zero)
-			handle = IntPtr(GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
+			handle = IntPtr(GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly()));
 
 
 		std::unordered_map<std::string, std::vector<std::string>> enumsMap;
@@ -484,7 +484,7 @@ namespace LLNET::DynamicCommand
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2)
 	{
-		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly()));
+		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly()));
 		return gcnew DynamicCommandInstance(a.release(), true);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1)
@@ -600,7 +600,7 @@ namespace LLNET::DynamicCommand
 			marshalString(description),
 			::CommandPermissionLevel(permission),
 			::CommandFlag{ (::CommandFlagValue(flag->value)) },
-			GlobalClass::__GetCurrentModule(Assembly::GetCallingAssembly())).release(),
+			GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())).release(),
 			true)
 	{
 	}

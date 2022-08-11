@@ -234,11 +234,11 @@ int MC::Block::Color::get()
     return __ret;
 }
 
-MC::Block ^ MC::Block::DefaultState::get()
+/*MC::Block ^ MC::Block::DefaultState::get()
 {
     auto& __ret = ((class ::Block*)NativePtr)->getDefaultState();
     return (MC::Block ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Block((class ::Block*)&__ret));
-}
+}*/
 
 ::String^ MC::Block::DescriptionId::get()
 {

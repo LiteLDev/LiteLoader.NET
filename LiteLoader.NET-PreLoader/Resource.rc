@@ -8,6 +8,7 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "winres.h"
+#include "Version.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -51,35 +52,31 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,4,1,0
- PRODUCTVERSION 2,4,1,0
+ FILEVERSION FILE_VERSION_FILE_VERSION
+ PRODUCTVERSION FILE_VERSION_PRODUCT_VERSION
  FILEFLAGSMASK 0x3fL
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
+ FILEFLAGS PLUGIN_FILE_VERSION_FLAG
  FILEOS 0x40004L
  FILETYPE 0x0L
  FILESUBTYPE 0x0L
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "080404b0"
+        BLOCK "040004b0"
         BEGIN
-            VALUE "CompanyName", "LiteLoaderDev"
-            VALUE "FileDescription", ".NET development platform for LiteLoaderBDS"
-            VALUE "FileVersion", "2.4.1.0"
-            VALUE "InternalName", "LiteLoader.NET.dll"
-            VALUE "LegalCopyright", "LiteLoader Developer"
-            VALUE "OriginalFilename", "LiteLoader.NET.dll"
-            VALUE "ProductName", "LiteLoader.NET"
-            VALUE "ProductVersion", "2.4.1.0"
+            VALUE "CompanyName", FILE_VERSION_COMPANY_NAME
+            VALUE "FileDescription", FILE_VERSION_FILE_DESCRIPTION
+            VALUE "FileVersion", FILE_VERSION_FILE_VERSION_STRING
+            VALUE "InternalName", FILE_VERSION_INTERNAL_NAME
+            VALUE "LegalCopyright", FILE_VERSION_LEGAL_COPYRIGHT
+            VALUE "OriginalFilename", FILE_VERSION_ORIGINAL_FILENAME
+            VALUE "ProductName", FILE_VERSION_PRODUCT_NAME
+            VALUE "ProductVersion", FILE_VERSION_PRODUCT_VERSION_STRING
         END
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x804, 1200
+        VALUE "Translation", 0x400, 1200
     END
 END
 

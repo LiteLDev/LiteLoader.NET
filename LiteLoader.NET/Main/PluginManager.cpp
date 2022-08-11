@@ -33,7 +33,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
-			GlobalClass::ManagedPluginHandler->TryAdd(Asm, IntPtr(handle));
+			GlobalClass::ManagedModuleHandler->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;

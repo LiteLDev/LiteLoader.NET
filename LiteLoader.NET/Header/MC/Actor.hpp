@@ -88,6 +88,10 @@ namespace MC
 		{
 			bool get();
 		}
+		property int DimensionId
+		{
+			int get();
+		}
 
 
 #ifdef MANUAL_MAINTENANCE
@@ -813,10 +817,10 @@ namespace MC
 			bool get();
 		}
 
-		property bool HasTickingArea
+		/*property bool HasTickingArea
 		{
 			bool get();
-		}
+		}*/
 
 		property bool HasTotemEquipped
 		{
@@ -1157,7 +1161,7 @@ namespace MC
 
 		//virtual void UnkVfn82();
 
-		virtual bool CanInteractWithOtherEntitiesInGame();
+		//virtual bool CanInteractWithOtherEntitiesInGame();
 
 		//virtual void UnkVfn88();
 
@@ -1193,7 +1197,7 @@ namespace MC
 
 		virtual bool CanFreeze();
 
-		virtual bool CanChangeDimensions();
+		//virtual bool CanChangeDimensions();
 
 		//virtual void UnkVfn181();
 
@@ -1585,7 +1589,7 @@ namespace MC
 
 		//::System::Collections::Generic::List<MC::ItemDescriptor^>^ TryGetEquippableSlotAllowedItems(int _0);
 
-		bool TryMoveChunks();
+		//bool TryMoveChunks();
 
 		void UpdateAnimationComponentOnServer();
 

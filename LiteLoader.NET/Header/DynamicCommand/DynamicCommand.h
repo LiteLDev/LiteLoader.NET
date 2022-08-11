@@ -232,6 +232,8 @@ namespace LLNET::DynamicCommand
 		generic<typename TCommand>
 		where TCommand:ICommand, gcnew()
 			static bool RegisterCommand();
+		internal:
+			static bool _registerCommandInternal(System::Type^ cmdType);
 	};
 	public
 	ref class DynamicCommandInstance : ClassTemplate<DynamicCommandInstance, ::DynamicCommandInstance>
