@@ -69,12 +69,22 @@ void LogInfoForFatalError(UINT exitCode, LPCWSTR pszMessage, LPCWSTR errorSource
 	{
 		std::cout << "[fixClrFatalError] CLR Fatal Error." << std::endl;
 		std::cout << "[fixClrFatalError] ExitCode : " << exitCode << std::endl;
-		if (pszMessage != nullptr)
-			std::cout << "[fixClrFatalError] pszMessage : " << *pszMessage << std::endl;
+		if (pszMessage != nullptr) {
+			std::cout << "[fixClrFatalError] pszMessage : ";
+			wprintf_s(pszMessage);
+			std::cout << std::endl;
+		}
 		if (errorSource != nullptr)
-			std::cout << "[fixClrFatalError] errorSource : " << *errorSource << std::endl;
-		if (argExceptionString != nullptr)
-			std::cout << "[fixClrFatalError] argExceptionString : " << *argExceptionString << std::endl;
+		{
+			std::cout << "[fixClrFatalError] errorSource : ";
+			wprintf_s(errorSource);
+			std::cout << std::endl;
+		}
+		if (argExceptionString != nullptr) {
+			std::cout << "[fixClrFatalError] argExceptionString : ";
+			wprintf_s(argExceptionString);
+			std::cout << std::endl;
+		}
 	}
 	//throw an exception which could be caught outside ,otherwise the program will be terminated by clr
 	throw new std::exception("CLR Fatal Error");
@@ -88,12 +98,22 @@ void EEPolicy_LogFatalError(UINT exitCode, UINT_PTR address, LPCWSTR pszMessage,
 	std::cout << "[fixClrFatalError] CLR Fatal Error." << std::endl;
 	std::cout << "[fixClrFatalError] Address : " << address << std::endl;
 	std::cout << "[fixClrFatalError] ExitCode : " << exitCode << std::endl;
-	if (pszMessage != nullptr)
-		std::cout << "[fixClrFatalError] pszMessage : " << *pszMessage << std::endl;
+	if (pszMessage != nullptr) {
+		std::cout << "[fixClrFatalError] pszMessage : ";
+		wprintf_s(pszMessage);
+		std::cout << std::endl;
+	}
 	if (errorSource != nullptr)
-		std::cout << "[fixClrFatalError] errorSource : " << *errorSource << std::endl;
-	if (argExceptionString != nullptr)
-		std::cout << "[fixClrFatalError] argExceptionString : " << *argExceptionString << std::endl;
+	{
+		std::cout << "[fixClrFatalError] errorSource : ";
+		wprintf_s(errorSource);
+		std::cout << std::endl;
+	}
+	if (argExceptionString != nullptr) {
+		std::cout << "[fixClrFatalError] argExceptionString : ";
+		wprintf_s(argExceptionString);
+		std::cout << std::endl;
+	}
 	if (pExceptionInfo != nullptr) {
 		std::cout << "[fixClrFatalError] ExceptionAddress : " << pExceptionInfo->ExceptionRecord->ExceptionAddress << std::endl;
 		//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L426
