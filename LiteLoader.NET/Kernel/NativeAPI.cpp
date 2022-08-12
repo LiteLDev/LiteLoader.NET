@@ -1,1 +1,1 @@
-#include "../Header/NativeAPI.hpp"
+#include <LiteLoader.NET/Header/NativeAPI.hpp>

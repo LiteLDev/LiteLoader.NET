@@ -1,5 +1,5 @@
 #pragma once
-#include <LiteLoader.NET/Main/.NETGlobal.hpp>
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
 using LoggerID = uint64_t;
 

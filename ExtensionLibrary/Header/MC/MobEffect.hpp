@@ -2,9 +2,9 @@
 
 #include <MC/MobEffect.hpp>
 
-#include "../../Tools/.NETGlobal.hpp"
-#include "../../Tools/ClassAdapter.hpp"
-#include "../../Tools/PropertryHelper.h"
+#include <ExtensionLibrary/Tools/DotNETGlobal.hpp>
+#include <ExtensionLibrary/Tools/ClassAdapter.hpp>
+#include <ExtensionLibrary/Tools/PropertryHelper.hpp>
 
 namespace MC::Extensions
 {

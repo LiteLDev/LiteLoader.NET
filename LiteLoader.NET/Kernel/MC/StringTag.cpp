@@ -1,4 +1,4 @@
-#include "../../Header/MC/StringTag.hpp"
+#include <LiteLoader.NET/Header/MC/StringTag.hpp>
 namespace MC
 {
 

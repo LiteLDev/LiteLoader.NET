@@ -12,13 +12,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tools\.NETGlobal.hpp">
+    <ClInclude Include="Tools\ClassTemplate.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\ClassTemplate.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\ClassTemplateHelper.h">
+    <ClInclude Include="Tools\ClassTemplateHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\clix.hpp">
@@ -27,13 +24,13 @@
     <ClInclude Include="Tools\Global.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\mutex.h">
+    <ClInclude Include="Tools\mutex.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\PropertryHelper.h">
+    <ClInclude Include="Tools\PropertryHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\ClassAdapter.hpp">
@@ -42,6 +39,7 @@
     <ClInclude Include="Header\MC\MobEffect.hpp">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="Tools\DotNETGlobal.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\MobEffect.cpp">

@@ -1,4 +1,4 @@
-#include "../../Header/MC/Mob.hpp"
+#include <LiteLoader.NET/Header/MC/Mob.hpp>
 namespace MC
 {
 	inline bool Mob::RefreshInventory()
@@ -9,11 +9,11 @@ namespace MC
 
 #ifdef MANUAL_MAINTENANCE
 
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/Player.hpp"
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
 
 void MC::Mob::OutOfWorld()
 {

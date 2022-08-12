@@ -1,4 +1,4 @@
-#include "../../Header/MC/ServerPlayer.hpp"
+#include <LiteLoader.NET/Header/MC/ServerPlayer.hpp>
 namespace MC
 {
 }

@@ -2,7 +2,7 @@ using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 
-#include "Version.h"
+#include "Version.hpp"
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改

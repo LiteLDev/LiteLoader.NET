@@ -1,5 +1,5 @@
-#include "../Header/LLAPI.h"
-#include "../Main/PluginManager.h"
+#include <LiteLoader.NET/Header/LLAPI.hpp>
+#include <LiteLoader.NET/Main/PluginManager.hpp>
 
 LLNET::LL::Version::Version(::LL::Version& v)
 {

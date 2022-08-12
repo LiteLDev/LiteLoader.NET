@@ -1,6 +1,6 @@
-#include "../../Header/MC/ActorDefinitionIdentifier.hpp"
+#include <LiteLoader.NET/Header/MC/ActorDefinitionIdentifier.hpp>
 
-#include "../../Header/MC/HashedString.hpp"
+#include <LiteLoader.NET/Header/MC/HashedString.hpp>
 
 namespace MC
 {

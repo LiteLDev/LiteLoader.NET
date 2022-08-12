@@ -1,5 +1,5 @@
-#include "../../Header/Command/CommandMessage.hpp"
-#include "../../Header/Command/CommandOrigin.hpp"
+#include <LiteLoader.NET/Header/Command/CommandMessage.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOrigin.hpp>
 
 namespace MC
 {

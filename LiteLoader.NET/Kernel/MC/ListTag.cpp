@@ -1,4 +1,4 @@
-#include "../../Header/MC/ListTag.hpp"
+#include <LiteLoader.NET/Header/MC/ListTag.hpp>
 namespace MC
 {
 inline ListTag ^ ListTag::Create()

@@ -1,34 +1,16 @@
-﻿#include <LLAPI.h>
-#include <I18nAPI.h>
-#include "Version.h"
-#include <LoggerAPI.h>
-#include <LiteLoader.NET/Main/Config.h>
-#include "hostfxr.h"
-#include "coreclr_delegates.h"
+﻿#include <LoggerAPI.h>
+#include <LiteLoader.NET/Main/Config.hpp>
+#include "hostfxr.hpp"
+#include "coreclr_delegates.hpp"
 #include <Utils/StringHelper.h>
 
 //#define NETHOST_USE_AS_STATIC
-#include "nethost.h"
+#include "nethost.hpp"
 
 #pragma comment(lib, "../SDK/Lib/SymDBHelper.lib")
 #pragma comment(lib, "../SDK/Lib/LiteLoader.lib")
 #pragma comment(lib, "../Lib/nethost.lib")
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved
-)
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
 
 
 
@@ -98,135 +80,132 @@ std::vector<std::filesystem::path> GetAllAssemblies();
 
 
 
-extern "C" _declspec(dllexport) void onPostInit()
+void entry()
 {
-	logger.consoleLevel = 5;
+    logger.consoleLevel = 5;
 
 
-	auto hostfxr_path = new char_t[MAX_PATH];
-	size_t buffer_size = sizeof(char_t[MAX_PATH]) / sizeof(char_t);
+    auto hostfxr_path = new char_t[MAX_PATH];
+    size_t buffer_size = sizeof(char_t[MAX_PATH]) / sizeof(char_t);
 
 	get_hostfxr_parameters get_hostfxr_params
 	{
-		sizeof(get_hostfxr_parameters),
-		nullptr,
+        sizeof(get_hostfxr_parameters),
+        nullptr,
 		nullptr
 	};
 
-	auto rc = (StatusCode)get_hostfxr_path(hostfxr_path, &buffer_size, &get_hostfxr_params);
+    auto rc = (StatusCode)get_hostfxr_path(hostfxr_path, &buffer_size, &get_hostfxr_params);
 
-	if (rc != StatusCode::_Success)
-	{
-		logger.warn("Cannot fine global .NET runtime, try using the local runtime.");
-		get_hostfxr_params.dotnet_root = TEXT(DOTNET_RUNTIME_DIR);
-		rc = (StatusCode)get_hostfxr_path(hostfxr_path, &buffer_size, &get_hostfxr_params);
-
-
-		if (rc != StatusCode::_Success || hostfxr_path == nullptr)
-		{
-			logger.error("Cannot find .NET runtime!");
-			throw std::exception();
-		}
-	}
+    if (rc != StatusCode::_Success)
+    {
+        logger.warn("Cannot fine global .NET runtime, try using the local runtime.");
+        get_hostfxr_params.dotnet_root = TEXT(DOTNET_RUNTIME_DIR);
+        rc = (StatusCode)get_hostfxr_path(hostfxr_path, &buffer_size, &get_hostfxr_params);
 
 
-	auto hostfxr_dll = LoadLibrary(hostfxr_path);
-
-	delete[] hostfxr_path;
-
-	if (hostfxr_dll == nullptr)
-	{
-		logger.error("Cannot load hostfxr.dll!");
-		throw std::exception();
-	}
+        if (rc != StatusCode::_Success || hostfxr_path == nullptr)
+        {
+            logger.error("Cannot find .NET runtime!");
+            throw std::exception();
+        }
+    }
 
 
+    auto hostfxr_dll = LoadLibrary(hostfxr_path);
 
-	auto init_fptr = reinterpret_cast<hostfxr_initialize_for_runtime_config_fn>(
-		GetProcAddress(hostfxr_dll, "hostfxr_initialize_for_runtime_config"));
+    delete[] hostfxr_path;
 
-	auto get_delegate_fptr = reinterpret_cast<hostfxr_get_runtime_delegate_fn>(
-		GetProcAddress(hostfxr_dll, "hostfxr_get_runtime_delegate"));
-
-	auto close_fptr = reinterpret_cast<hostfxr_close_fn>(
-		GetProcAddress(hostfxr_dll, "hostfxr_close"));
-
-	auto set_error_writer_fptr = reinterpret_cast<hostfxr_set_error_writer_fn>(
-		GetProcAddress(hostfxr_dll, "hostfxr_set_error_writer"));
+    if (hostfxr_dll == nullptr)
+    {
+        logger.error("Cannot load hostfxr.dll!");
+        throw std::exception();
+    }
 
 
+    auto init_fptr = reinterpret_cast<hostfxr_initialize_for_runtime_config_fn>(
+        GetProcAddress(hostfxr_dll, "hostfxr_initialize_for_runtime_config"));
 
-	if (init_fptr == nullptr || get_delegate_fptr == nullptr || close_fptr == nullptr || set_error_writer_fptr == nullptr)
-	{
-		logger.error("Cannot get exported function from <hostfxr.dll>!");
-		throw std::exception();
-	}
+    auto get_delegate_fptr = reinterpret_cast<hostfxr_get_runtime_delegate_fn>(
+        GetProcAddress(hostfxr_dll, "hostfxr_get_runtime_delegate"));
 
+    auto close_fptr = reinterpret_cast<hostfxr_close_fn>(
+        GetProcAddress(hostfxr_dll, "hostfxr_close"));
 
-
-	if (set_error_writer_fptr(error_writer) != nullptr)
-	{
-		logger.warn("<hostfxr.dll>: Set error writer failed.");
-	}
+    auto set_error_writer_fptr = reinterpret_cast<hostfxr_set_error_writer_fn>(
+        GetProcAddress(hostfxr_dll, "hostfxr_set_error_writer"));
 
 
-
-	load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
-
-	hostfxr_handle cxt = nullptr;
-
-
-
-	rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
+    if (init_fptr == nullptr || get_delegate_fptr == nullptr || close_fptr == nullptr || set_error_writer_fptr == nullptr)
+    {
+        logger.error("Cannot get exported function from <hostfxr.dll>!");
+        throw std::exception();
+    }
 
 
+    if (set_error_writer_fptr(error_writer) != nullptr)
+    {
+        logger.warn("<hostfxr.dll>: Set error writer failed.");
+    }
 
-	if (rc != 0 || cxt == nullptr)
-	{
-		logger.error("Init failed: {}", IntToHexStr(rc, true, false, false));
-		close_fptr(cxt);
-		throw std::exception();
-	}
 
-	rc = (StatusCode)get_delegate_fptr(
-		cxt,
-		hdt_load_assembly_and_get_function_pointer,
-		reinterpret_cast<void**>(&load_assembly_and_get_function_pointer));
+    load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer = nullptr;
 
-	if (rc != 0 || load_assembly_and_get_function_pointer == nullptr)
-	{
-		logger.error("Get delegate failed: {}", IntToHexStr(rc, true, false, false));
-		close_fptr(cxt);
-		throw std::exception();
-	}
+    hostfxr_handle cxt = nullptr;
+
+
+    rc = (StatusCode)init_fptr(TEXT(LLNET_RUNTIME_CONFIG_JSON_PATH), nullptr, &cxt);
+
+
+    if (rc != 0 || cxt == nullptr)
+    {
+        logger.error("Init failed: {}", IntToHexStr(rc, true, false, false));
+        close_fptr(cxt);
+        throw std::exception();
+    }
+
+    rc = (StatusCode)get_delegate_fptr(
+        cxt,
+        hdt_load_assembly_and_get_function_pointer,
+        reinterpret_cast<void**>(&load_assembly_and_get_function_pointer));
+
+    if (rc != 0 || load_assembly_and_get_function_pointer == nullptr)
+    {
+        logger.error("Get delegate failed: {}", IntToHexStr(rc, true, false, false));
+        close_fptr(cxt);
+        throw std::exception();
+    }
 
 
 
 	void(*initAndLoadPlugins_fptr)(Logger*, std::vector<std::filesystem::path>*) = nullptr;
 
-	rc = (StatusCode)load_assembly_and_get_function_pointer(
-		std::filesystem::path(LLNET_LOADER_PATH).c_str(),
-		TEXT(LLNET_MANAGED_ENTRY_CLASS),
-		TEXT(LLNET_MANAGED_ENTRY_METHOD),
-		TEXT(LLNET_MANAGED_ENTRY_DELEGATE_TYPE),
-		nullptr,
-		reinterpret_cast<void**>(&initAndLoadPlugins_fptr));
+    rc = (StatusCode)load_assembly_and_get_function_pointer(
+        std::filesystem::path(LLNET_LOADER_PATH).c_str(),
+        TEXT(LLNET_MANAGED_ENTRY_CLASS),
+        TEXT(LLNET_MANAGED_ENTRY_METHOD),
+        TEXT(LLNET_MANAGED_ENTRY_DELEGATE_TYPE),
+        nullptr,
+        reinterpret_cast<void**>(&initAndLoadPlugins_fptr));
 
 
-	if (rc != 0 || initAndLoadPlugins_fptr == nullptr)
-	{
-		logger.error("Load LiteLoader.NET failed: {}", IntToHexStr(rc, true, false, false));
+    if (rc != 0 || initAndLoadPlugins_fptr == nullptr)
+    {
+        logger.error("Load LiteLoader.NET failed: {}", IntToHexStr(rc, true, false, false));
 
-		close_fptr(cxt);
-		throw std::exception();
-	}
+        close_fptr(cxt);
+        throw std::exception();
+    }
 
 
+    auto assemblies = GetAllAssemblies();
 
-	auto assemblies = GetAllAssemblies();
+    initAndLoadPlugins_fptr(&logger, &assemblies);
+}
 
-	initAndLoadPlugins_fptr(&logger, &assemblies);
-
+extern "C" _declspec(dllexport) void onPostInit()
+{
+    entry();
 }
 
 std::vector<std::filesystem::path> GetAllAssemblies()

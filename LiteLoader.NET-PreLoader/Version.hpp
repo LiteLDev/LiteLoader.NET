@@ -1,5 +1,5 @@
 #pragma once
-#include <LiteLoader.NET/Main/Info.h>
+#include <LiteLoader.NET/Main/Info.hpp>
 
 // Plugin Information, used in dllmain.cpp for register plugin
 #define PLUGIN_NAME                 LLNET_INFO_LOADER_NAME "-PreLoader"

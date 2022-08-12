@@ -1,8 +1,8 @@
-#include "../../Header/MC/ScorePacketInfo.hpp"
+#include <LiteLoader.NET/Header/MC/ScorePacketInfo.hpp>
 
 #ifdef INCLUDE_MCAPI
 
-#include "../../Header/MC/ScoreboardId.hpp"
+#include <LiteLoader.NET/Header/MC/ScoreboardId.hpp>
 
 MC::ScorePacketInfo::ScorePacketInfo(MC::ScoreboardId ^ s, ::String^ obj_name, MC::IdentityDefinition::Type type, unsigned int num, ::String^ fake)
 {

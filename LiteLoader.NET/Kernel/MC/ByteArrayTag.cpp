@@ -1,5 +1,5 @@
-#include "../../Header/MC/ByteArrayTag.hpp"
-#include "../../Header/MC/TagMemoryChunk.hpp"
+#include <LiteLoader.NET/Header/MC/ByteArrayTag.hpp>
+#include <LiteLoader.NET/Header/MC/TagMemoryChunk.hpp>
 namespace MC
 {
 

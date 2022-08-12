@@ -1,4 +1,4 @@
-﻿#include "../../Header/MC/MinecraftPackets.hpp"
+﻿#include <LiteLoader.NET/Header/MC/MinecraftPackets.hpp>
 #include "MC/MinecraftPackets.hpp"
 
 MC::Packet^ MC::MinecraftPackets::CreatePacket(MinecraftPacketId packetId)

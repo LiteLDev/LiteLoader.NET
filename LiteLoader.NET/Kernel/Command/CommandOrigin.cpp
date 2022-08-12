@@ -1,18 +1,18 @@
-#include "../../Header/Command/CommandOrigin.hpp"
+#include <LiteLoader.NET/Header/Command/CommandOrigin.hpp>
 
-#include "../../Header/MC/ServerPlayer.hpp"
-#include "../../Header/MC/Level.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/Vec2.hpp"
-#include "../../Header/MC/Dimension.hpp"
-#include "../../Header/MC/NetworkIdentifier.hpp"
-#include "../../Header/Command/CommandOriginIdentity.hpp"
-#include "../../Header/Command/CommandOriginData.hpp"
-#include "../../Header/Command/CommandPositionFloat.hpp"
-#include "../../Header/MC/CompoundTag.hpp"
-#include "../../Header/Command/CommandArea.hpp"
-#include "../../Header/Command/Command.hpp"
+#include <LiteLoader.NET/Header/MC/ServerPlayer.hpp>
+#include <LiteLoader.NET/Header/MC/Level.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/Vec2.hpp>
+#include <LiteLoader.NET/Header/MC/Dimension.hpp>
+#include <LiteLoader.NET/Header/MC/NetworkIdentifier.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOriginIdentity.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOriginData.hpp>
+#include <LiteLoader.NET/Header/Command/CommandPositionFloat.hpp>
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
+#include <LiteLoader.NET/Header/Command/CommandArea.hpp>
+#include <LiteLoader.NET/Header/Command/Command.hpp>
 
 enum AbilitiesIndex;
 enum CommandOriginType : char;

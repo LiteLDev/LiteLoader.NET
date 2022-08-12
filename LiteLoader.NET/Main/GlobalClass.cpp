@@ -1,4 +1,4 @@
-#include "GlobalClass.h"
+#include "DotNETGlobal.hpp"
 
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
 

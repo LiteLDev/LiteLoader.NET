@@ -1,6 +1,6 @@
-#include "../../Header/Command/CommandOutputParameter.hpp"
-#include "../../Header/MC/Player.hpp"
-#include "../../Header/MC/BlockPos.hpp"
+#include <LiteLoader.NET/Header/Command/CommandOutputParameter.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 namespace MC
 {
 inline CommandOutputParameter ^ CommandOutputParameter::Create(CommandSelectorResults<::Actor> ^ cr)

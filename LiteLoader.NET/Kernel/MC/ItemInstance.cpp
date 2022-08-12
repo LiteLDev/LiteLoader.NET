@@ -1,4 +1,4 @@
-#include "../../Header/MC/ItemInstance.hpp"
+#include <LiteLoader.NET/Header/MC/ItemInstance.hpp>
 namespace MC
 {
 }

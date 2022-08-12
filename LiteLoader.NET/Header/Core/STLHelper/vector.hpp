@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../Main/.NETGlobal.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
 namespace LLNET::Core::Std
 {

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <MC/BlockInstance.hpp>
 #include "Types.hpp"
 #include "Block.hpp"
@@ -30,15 +30,15 @@ namespace MC
 		/// <summary>
 		/// Create a instance of the MC.BlockInstance class from block, position, and dimension id.
 		/// </summary>
-		/// <param name="block">£­Block</param>
-		/// <param name="pos">£­Position</param>
+		/// <param name="block">-Block</param>
+		/// <param name="pos">-Position</param>
 		/// <param name="dimid">
-		/// £­Dimension id
-		/// <para>¡¡</para>
+		/// -Dimension id
+		/// <para>ã€€</para>
 		/// <para>dimid:</para>
-		/// <para>¡¡¡¡0 : OverWorld</para>
-		/// <para>¡¡¡¡1 : The Nether</para>
-		/// <para>¡¡¡¡2 : The End</para>
+		/// <para>ã€€ã€€0 : OverWorld</para>
+		/// <para>ã€€ã€€1 : The Nether</para>
+		/// <para>ã€€ã€€2 : The End</para>
 		/// </param>
 		/// <returns>A instance of the MC.BlockInstance</returns>
 		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos, int dimid);
@@ -47,8 +47,8 @@ namespace MC
 		/// <summary>
 		/// Create a instance of the MC.BlockInstance class from block and block position with default dimension id.
 		/// </summary>
-		/// <param name="block">£­Block</param>
-		/// <param name="pos">£­Block Position</param>
+		/// <param name="block">-Block</param>
+		/// <param name="pos">-Block Position</param>
 		/// <returns>A instance of the MC.BlockInstance</returns>
 		static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos);
 
@@ -75,14 +75,14 @@ namespace MC
 		/// <summary>
 		/// Break this block naturally with tool.
 		/// </summary>
-		/// <param name="tool">£­The item of tool</param>
+		/// <param name="tool">-The item of tool</param>
 		inline bool BreakNaturally(ItemStack^ tool, bool isCreativeMode);
 
 
 		/// <summary>
 		/// Break this block naturally with tool.
 		/// </summary>
-		/// <param name="tool">£­The item of tool</param>
+		/// <param name="tool">-The item of tool</param>
 		inline bool BreakNaturally(ItemStack^ tool);
 
 
