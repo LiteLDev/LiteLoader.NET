@@ -1,4 +1,4 @@
-#include "../../Header/MC/MCRESULT.hpp"
+#include <LiteLoader.NET/Header/MC/MCRESULT.hpp>
 namespace MC
 {
 array<unsigned char> ^ MCRESULT::Filler::get()

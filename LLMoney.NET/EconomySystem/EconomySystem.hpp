@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Tools/Using.hpp"
-#include "../Tools/StringHelper.hpp"
+#include <LLMoney.NET/Tools/Using.hpp>
+#include <LLMoney.NET/Tools/StringHelper.hpp>
 #include <string>
 #include <Windows.h>
 

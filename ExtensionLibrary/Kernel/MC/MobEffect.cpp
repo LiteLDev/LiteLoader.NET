@@ -1,4 +1,4 @@
-#include "../../Header/MC/MobEffect.hpp"
+#include <ExtensionLibrary/Header/MC/MobEffect.hpp>
 #pragma once
 
 namespace MC::Extensions

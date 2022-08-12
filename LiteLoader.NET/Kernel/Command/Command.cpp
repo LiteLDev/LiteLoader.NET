@@ -1,4 +1,4 @@
-#include "../../Header/Command/Command.hpp"
+#include <LiteLoader.NET/Header/Command/Command.hpp>
 
 namespace MC
 {

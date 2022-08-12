@@ -1,4 +1,4 @@
-#include "../Header/PlayerInfo.h"
+#include <LiteLoader.NET/Header/PlayerInfo.hpp>
 
 namespace LLNET::PlayerInfo {
     inline bool PlayerInfoAPI::Insert(System::String^ name, System::String^ xuid, System::String^ uuid)

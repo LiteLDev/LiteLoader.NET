@@ -1,7 +1,7 @@
 #pragma once
 #include <Impl/FormPacketHelper.h>
-#include "../FormUI.hpp"
-#include "../../Tools/NativeCallbackConverter.hpp"
+#include <LiteLoader.NET/Header/FormUI.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
 
 namespace MC
 {

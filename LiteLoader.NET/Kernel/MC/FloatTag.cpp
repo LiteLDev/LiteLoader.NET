@@ -1,4 +1,4 @@
-#include "../../Header/MC/FloatTag.hpp"
+#include <LiteLoader.NET/Header/MC/FloatTag.hpp>
 namespace MC
 {
 inline float ^ FloatTag::Value()

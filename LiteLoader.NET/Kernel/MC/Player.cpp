@@ -1,17 +1,17 @@
-#include "../../Header/MC/Player.hpp"
+#include <LiteLoader.NET/Header/MC/Player.hpp>
 
-#include "../../Header/MC/CompoundTag.hpp"
-#include "../../Header/MC/NetworkIdentifier.hpp"
-#include "../../Header/MC/Certificate.hpp"
-#include "../../Header/MC/Container.hpp"
-#include "../../Header/MC/ScorePacketInfo.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/Vec2.hpp"
-#include "../../Header/MC/Attribute.hpp"
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/Tick.hpp"
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
+#include <LiteLoader.NET/Header/MC/NetworkIdentifier.hpp>
+#include <LiteLoader.NET/Header/MC/Certificate.hpp>
+#include <LiteLoader.NET/Header/MC/Container.hpp>
+#include <LiteLoader.NET/Header/MC/ScorePacketInfo.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/Vec2.hpp>
+#include <LiteLoader.NET/Header/MC/Attribute.hpp>
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Tick.hpp>
 
 #include "LiteLoader.NET/Header/MC/Packet.hpp"
 #include "LiteLoader.NET/Header/MC/SerializedSkin.hpp"

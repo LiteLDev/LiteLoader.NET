@@ -1,7 +1,7 @@
 #include <LoggerAPI.h>
-#include ".NETGlobal.hpp"
-#include "PluginAttribute.h"
-#include "PluginManager.h"
+#include "DotNETGlobal.hpp"
+#include "PluginAttribute.hpp"
+#include "PluginManager.hpp"
 #include "IPluginInitializer.hpp"
 
 

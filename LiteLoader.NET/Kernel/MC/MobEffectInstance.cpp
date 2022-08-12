@@ -1,4 +1,4 @@
-#include "../../Header/MC/MobEffectInstance.hpp"
+#include <LiteLoader.NET/Header/MC/MobEffectInstance.hpp>
 namespace MC
 {
 array<char> ^ MobEffectInstance::Filler::get()

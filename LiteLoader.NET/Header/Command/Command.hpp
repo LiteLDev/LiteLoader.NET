@@ -1,6 +1,6 @@
 #pragma once
 #include <MC/Command.hpp>
-#include "../MC/Types.hpp"
+#include <LiteLoader.NET/Header/MC/Types.hpp>
 
 class __Command : public Command
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Header/LLAPI.h"
+#include <LiteLoader.NET/Header/LLAPI.hpp>
 namespace LLNET {
 	using namespace LLNET::LL;
 	private ref class PluginManager abstract

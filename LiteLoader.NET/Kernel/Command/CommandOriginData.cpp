@@ -1,4 +1,4 @@
-#include "../../Header/Command/CommandOriginData.hpp"
+#include <LiteLoader.NET/Header/Command/CommandOriginData.hpp>
 
 namespace MC {
     CommandOriginData^ CommandOriginData::Create(CommandOriginData^ val)

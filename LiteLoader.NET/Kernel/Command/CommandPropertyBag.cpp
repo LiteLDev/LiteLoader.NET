@@ -1,6 +1,6 @@
-#include "../../Header/Command/CommandPropertyBag.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/Command/CommandPropertyBag.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 namespace MC
 {
 inline void CommandPropertyBag::AddToResultList(String^ str0, String^ str1)

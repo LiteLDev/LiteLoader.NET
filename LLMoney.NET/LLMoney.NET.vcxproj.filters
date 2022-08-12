@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main\dllmain.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="Main\AssemblyInfo.cpp">
       <Filter>Main</Filter>
     </ClCompile>

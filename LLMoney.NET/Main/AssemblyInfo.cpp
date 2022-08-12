@@ -2,7 +2,7 @@ using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
 using namespace System::Runtime::InteropServices;
 
-#include "../../LiteLoader.NET/Main/Version.h"
+#include <LiteLoader.NET/Main/Version.hpp>
 
 [assembly:AssemblyTitle("LLMoney.NET")];
 [assembly: AssemblyDescription("")] ;

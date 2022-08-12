@@ -1,4 +1,4 @@
-﻿#include "../../Header/MC/ColorFormat.hpp"
+﻿#include <LiteLoader.NET/Header/MC/ColorFormat.hpp>
 
 namespace MC
 {

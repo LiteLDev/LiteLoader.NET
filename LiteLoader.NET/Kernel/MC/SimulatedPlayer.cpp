@@ -1,4 +1,4 @@
-﻿#include "../../Header/MC/SimulatedPlayer.hpp"
+﻿#include <LiteLoader.NET/Header/MC/SimulatedPlayer.hpp>
 
 #include "LiteLoader.NET/Header/MC/ItemStack.hpp"
 

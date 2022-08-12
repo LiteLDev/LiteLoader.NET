@@ -1,4 +1,4 @@
 #pragma once
-#include "../../Header/MC/MapItemSavedData.hpp"
+#include <LiteLoader.NET/Header/MC/MapItemSavedData.hpp>
 namespace MC {
 }

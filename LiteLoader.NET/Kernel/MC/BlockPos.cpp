@@ -1,6 +1,6 @@
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BoundingBox.hpp"
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BoundingBox.hpp>
 
 namespace MC {
 	inline Vec3 BlockPos::ToVec3()

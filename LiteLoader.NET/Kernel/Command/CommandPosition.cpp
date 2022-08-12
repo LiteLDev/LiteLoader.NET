@@ -1,8 +1,8 @@
-#include "../../Header/Command/CommandPosition.hpp"
-#include "../../Header/Command/CommandOrigin.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/CompoundTag.hpp"
+#include <LiteLoader.NET/Header/Command/CommandPosition.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOrigin.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
 namespace MC
 {
 

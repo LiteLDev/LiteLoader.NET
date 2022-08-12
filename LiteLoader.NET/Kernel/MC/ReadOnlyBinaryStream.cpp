@@ -1,5 +1,5 @@
-#include "../../Header/MC/ReadOnlyBinaryStream.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/ReadOnlyBinaryStream.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 
 namespace MC
 {

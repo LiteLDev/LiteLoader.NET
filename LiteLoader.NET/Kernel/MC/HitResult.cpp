@@ -1,7 +1,7 @@
-#include "../../Header/MC/HitResult.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/Actor.hpp"
+#include <LiteLoader.NET/Header/MC/HitResult.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Actor.hpp>
 
 namespace MC {
 	FaceID HitResult::Facing::get() {

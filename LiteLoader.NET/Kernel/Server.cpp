@@ -1,4 +1,4 @@
-#include "../Header/Server.h"
+#include <LiteLoader.NET/Header/Server.hpp>
 namespace LLNET::LL
 {
 inline String^ ServerAPI::GetBdsVersion()

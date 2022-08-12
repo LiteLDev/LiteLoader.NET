@@ -3,8 +3,8 @@
 #include "MC/ServerPlayer.hpp"
 #include "MC/Player.hpp"
 
-#include "../Tools/NativeCallbackConverter.hpp"
-#include "../Main/ClassTemplate.h"
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 //#define DEBUG
 

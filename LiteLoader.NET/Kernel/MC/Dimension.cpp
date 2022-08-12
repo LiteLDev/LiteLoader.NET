@@ -1,5 +1,5 @@
-#include "../../Header/MC/Dimension.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/Dimension.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 namespace MC
 {
 }

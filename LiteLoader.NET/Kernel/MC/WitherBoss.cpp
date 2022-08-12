@@ -1,7 +1,7 @@
-#include "../../Header/MC/WitherBoss.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/Vec2.hpp"
-#include "../../Header/MC/MobEffectInstance.hpp"
+#include <LiteLoader.NET/Header/MC/WitherBoss.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/Vec2.hpp>
+#include <LiteLoader.NET/Header/MC/MobEffectInstance.hpp>
 
 namespace MC
 {

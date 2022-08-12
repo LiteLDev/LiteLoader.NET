@@ -1,8 +1,8 @@
 #pragma once
 #include <MC/Types.hpp>
 
-#include <LiteLoader.NET/Main/.NETGlobal.hpp>
-#include <LiteLoader.NET/Main/ClassTemplate.h>
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 namespace MC
 {

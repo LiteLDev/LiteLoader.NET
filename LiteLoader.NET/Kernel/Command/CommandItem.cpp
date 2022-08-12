@@ -1,6 +1,6 @@
-#include "../../Header/Command/CommandItem.hpp"
-#include "../../Header/Command/CommandOutput.hpp"
-#include "../../Header/MC/ItemInstance.hpp"
+#include <LiteLoader.NET/Header/Command/CommandItem.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOutput.hpp>
+#include <LiteLoader.NET/Header/MC/ItemInstance.hpp>
 
 namespace MC {
 	inline CommandItem::CommandItem(unsigned __int64 uint64)

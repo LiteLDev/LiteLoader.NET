@@ -1,5 +1,5 @@
-#include "../../Extra/mutex.h"
-#include "../../Header/MC/ItemStack.hpp"
+#include <LiteLoader.NET/Extra/mutex.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
 #include <memory>
 namespace MC
 {
