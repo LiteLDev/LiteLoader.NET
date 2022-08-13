@@ -1,7 +1,7 @@
 #pragma unmanaged
 #include <I18nAPI.h>
 
-std::string I18N::get(const std::string& key, const std::string& langCode) {
+std::string I18nBase::get(const std::string& key, const std::string& langCode) {
     auto& langc = (langCode.empty() ? defaultLocaleName : langCode);
     auto langType = langc.substr(0, 2);
     if (langData.count(langc)) { // If there is lang data for the language
@@ -45,16 +45,15 @@ std::string I18N::get(const std::string& key, const std::string& langCode) {
     return key;
 }
 
-I18N* I18N::clone() {
+std::string I18nBase::getDefaultLocaleName() {
+    return this->defaultLocaleName;
+}
+
+I18nBase* I18nBase::clone() {
     if (getType() == Type::SingleFile) {
         return new SingleFileI18N(*(SingleFileI18N*)this);
-    }
-    else if (getType() == Type::MultiFile) {
+    } else if (getType() == Type::MultiFile) {
         return new MultiFileI18N(*(MultiFileI18N*)this);
     }
     return nullptr;
-}
-
-std::string I18N::getDefaultLocaleName() {
-    return this->defaultLocaleName;
 }
