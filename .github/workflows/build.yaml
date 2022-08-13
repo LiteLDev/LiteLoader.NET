@@ -49,31 +49,32 @@ jobs:
 
     - name: Download Server
       working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: bash
       run: |
         mkdir -p SDK/Tools/Server
         ServerLink=$(cat 'Scripts/LINK.txt')
         curl -L -o SDK/Tools/Server/server.zip "$ServerLink"
         unzip SDK/Tools/Server/server.zip -d SDK/Tools/Server/ > /dev/null
-      shell: bash
 
     - name: Build Library
       working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: cmd
       run: |
         cd SDK\Tools
         LibraryBuilder.exe -o ..\Lib Server
-      shell: cmd
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+    # - name: Add MSBuild to PATH
+    #   uses: microsoft/setup-msbuild@v1.1
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
-    - name: copy dll and pdb files
+    - name: Copy dll and pdb files
       working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: bash
       run: |
         mkdir output/
         mkdir output/RELEASE/
@@ -88,7 +89,6 @@ jobs:
         cp -f x64/Release/*.pdb output/PDB/
         # mkdir output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
         # cp -r Data/* output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
-      shell: bash
 
     - name: Pack Release
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -101,23 +101,11 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       id: rel
       if: startsWith(github.ref, 'refs/tags/')
+      shell: bash
       run: |
           echo ::set-output name=tag::${GITHUB_REF#refs/tags/*}
           mv LiteLoader.NET.zip LiteLoader.NET-${GITHUB_REF#refs/tags/*}.zip
           mv PDB.zip PDB-${GITHUB_REF#refs/tags/*}.zip
-      shell: bash
-
-    - name: Upload Release
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: LiteLoader.NET-actions-${{ github.run_number }}
-        path: ${{ github.workspace }}\x64\Release
-
-    - name: Upload PDB
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: PDB-actions-${{ github.run_number }}
-        path: ${{ github.workspace }}\output\PDB
 
     - name: Create New Release
       uses: softprops/action-gh-release@v0.1.14
@@ -127,18 +115,24 @@ jobs:
         files: |
           ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
           ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
-        prerelease: contains(github.ref, 'pre')
+        prerelease: ${{ contains(github.ref, 'pre') }}
       env:
         GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
 
-    - name: Update SDK
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        cd Scripts
-        ./UploadSDK.cmd action
-      env:
-        REPO_KEY: ${{secrets.PUSH_TOKEN}}
-        USERNAME: github-actions[bot]
-      shell: cmd
+    # - name: Update SDK (TODO)
+    #   working-directory: ${{env.GITHUB_WORKSPACE}}
+    #   env:
+    #     REPO_KEY: ${{secrets.PUSH_TOKEN}}
+    #     USERNAME: github-actions[bot]
+    #   shell: cmd
+    #   run: |
+    #     git config --global user.name "github-actions[bot]"
+    #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    #     cd Scripts
+    #     ./UploadSDK.cmd action
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: LiteLoader.NET-actions-${{ github.run_number }}
+        path: ${{ github.workspace }}\x64\Release
