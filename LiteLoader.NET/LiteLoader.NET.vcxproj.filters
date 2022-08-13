@@ -405,7 +405,7 @@
     <ClCompile Include="Kernel\Logger\LoggerManager.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Extra\i18nFix.cpp">
+    <ClCompile Include="Extra\i18n.cpp">
       <Filter>Extra</Filter>
     </ClCompile>
   </ItemGroup>
