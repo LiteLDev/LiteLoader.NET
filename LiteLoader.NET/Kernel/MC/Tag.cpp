@@ -1,17 +1,17 @@
-#include "../../Header/MC/Tag.hpp"
+#include <LiteLoader.NET/Header/MC/Tag.hpp>
 
-#include "../../Header/MC/EndTag.hpp"
-#include "../../Header/MC/ByteTag.hpp"
-#include "../../Header/MC/ShortTag.hpp"
-#include "../../Header/MC/IntTag.hpp"
-#include "../../Header/MC/Int64Tag.hpp"
-#include "../../Header/MC/FloatTag.hpp"
-#include "../../Header/MC/DoubleTag.hpp"
-#include "../../Header/MC/ByteArrayTag.hpp"
-#include "../../Header/MC/StringTag.hpp"
-#include "../../Header/MC/ListTag.hpp"
-#include "../../Header/MC/IntArrayTag.hpp"
-#include "../../Header/MC/CompoundTag.hpp"
+#include <LiteLoader.NET/Header/MC/EndTag.hpp>
+#include <LiteLoader.NET/Header/MC/ByteTag.hpp>
+#include <LiteLoader.NET/Header/MC/ShortTag.hpp>
+#include <LiteLoader.NET/Header/MC/IntTag.hpp>
+#include <LiteLoader.NET/Header/MC/Int64Tag.hpp>
+#include <LiteLoader.NET/Header/MC/FloatTag.hpp>
+#include <LiteLoader.NET/Header/MC/DoubleTag.hpp>
+#include <LiteLoader.NET/Header/MC/ByteArrayTag.hpp>
+#include <LiteLoader.NET/Header/MC/StringTag.hpp>
+#include <LiteLoader.NET/Header/MC/ListTag.hpp>
+#include <LiteLoader.NET/Header/MC/IntArrayTag.hpp>
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
 
 namespace MC
 {

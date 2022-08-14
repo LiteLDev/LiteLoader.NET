@@ -1,6 +1,6 @@
 #pragma once
-#include "../../../Tools/clix.hpp"
-#include "../../../Main/ClassTemplate.h"
+#include <LiteLoader.NET/Tools/clix.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 #include <optional>
 

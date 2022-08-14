@@ -1,4 +1,4 @@
-#include "../Header/Schedule.h"
+#include <LiteLoader.NET/Header/Schedule.hpp>
 namespace LLNET::Schedule
 {
 ScheduleTask::ScheduleTask(::ScheduleTask& s)

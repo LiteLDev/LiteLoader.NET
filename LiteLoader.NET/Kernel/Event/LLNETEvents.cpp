@@ -1,5 +1,5 @@
-#include "../../Header/Event/EffectiveEvent/EventManager.hpp"
-#include "../../Header/Event/EffectiveEvent/LLNETEvents.hpp"
+#include <LiteLoader.NET/Header/Event/EffectiveEvent/EventManager.hpp>
+#include <LiteLoader.NET/Header/Event/EffectiveEvent/LLNETEvents.hpp>
 
 void InitEvents()
 {

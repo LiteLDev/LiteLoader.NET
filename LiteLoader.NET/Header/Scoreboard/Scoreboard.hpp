@@ -1,9 +1,9 @@
 #pragma once
 #include <MC/Scoreboard.hpp>
-#include "../../Main/.NETGlobal.hpp"
-#include "../../Main/ClassTemplate.h"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
-#include "../../Header/MC/ScoreboardId.hpp"
+#include <LiteLoader.NET/Header/MC/ScoreboardId.hpp>
 
 namespace MC
 {

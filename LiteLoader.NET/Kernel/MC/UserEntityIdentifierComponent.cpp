@@ -1,6 +1,6 @@
-﻿#include "../../Header/MC/UserEntityIdentifierComponent.hpp"
+﻿#include <LiteLoader.NET/Header/MC/UserEntityIdentifierComponent.hpp>
 
-#include "LiteLoader.NET/Header/MC/NetworkIdentifier.hpp"
+#include <LiteLoader.NET/Header/MC/NetworkIdentifier.hpp>
 
 namespace MC
 {

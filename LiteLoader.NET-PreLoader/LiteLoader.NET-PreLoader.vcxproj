@@ -80,11 +80,11 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="coreclr_delegates.h" />
-    <ClInclude Include="hostfxr.h" />
-    <ClInclude Include="nethost.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Version.h" />
+    <ClInclude Include="coreclr_delegates.hpp" />
+    <ClInclude Include="hostfxr.hpp" />
+    <ClInclude Include="nethost.hpp" />
+    <ClInclude Include="resource.hpp" />
+    <ClInclude Include="Version.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />

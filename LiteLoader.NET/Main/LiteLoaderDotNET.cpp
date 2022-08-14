@@ -2,7 +2,7 @@
 #include <Utils/WinHelper.h>
 #include <LLAPI.h>
 
-#include "Config.h"
+#include "Config.hpp"
 
 using namespace std;
 
@@ -10,7 +10,7 @@ using namespace std;
 extern void LoadMain();
 
 
-#pragma unmanaged
+//#pragma unmanaged
 //void LoadConfigFile()
 //{
 //    auto content = ReadAllFile(LITELOADER_CONFIG_FILE);

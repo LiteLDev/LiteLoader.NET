@@ -1,4 +1,4 @@
-#include "../../Header/MC/Int64Tag.hpp"
+#include <LiteLoader.NET/Header/MC/Int64Tag.hpp>
 namespace MC
 {
 inline int64_t ^ Int64Tag::Value()

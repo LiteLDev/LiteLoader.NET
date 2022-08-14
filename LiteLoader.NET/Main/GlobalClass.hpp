@@ -1,5 +1,5 @@
 #pragma once
-#include ".NETGlobal.hpp"
+//#include "DotNETGlobal.hpp"
 
 namespace LLNET::Logger
 {

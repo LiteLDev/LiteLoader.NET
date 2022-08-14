@@ -1,6 +1,6 @@
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/HitResult.hpp"
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/HitResult.hpp>
 
 namespace MC {
 

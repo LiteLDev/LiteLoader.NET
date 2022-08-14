@@ -60,7 +60,7 @@ using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
 using LLNET::Core::Pair;
 
-#include "../Tools/clix.hpp"
+#include "clix.hpp"
 using namespace clix;
 
 inline String^ marshalString(std::string const& str) {

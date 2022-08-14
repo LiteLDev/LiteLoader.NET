@@ -1,7 +1,7 @@
 #pragma once
 #include <MC/CommandOrigin.hpp>
 #include "Command.hpp"
-#include "../MC/Types.hpp"
+#include <LiteLoader.NET/Header/MC/Types.hpp>
 
 namespace MC
 {

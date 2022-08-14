@@ -1,4 +1,4 @@
-#include "../../Header/Command/CommandVersion.hpp"
+#include <LiteLoader.NET/Header/Command/CommandVersion.hpp>
 namespace MC
 {
 inline CommandVersion ^ CommandVersion::Create()

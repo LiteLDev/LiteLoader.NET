@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Header/MC/BinaryStream.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/BinaryStream.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 
 namespace MC
 {

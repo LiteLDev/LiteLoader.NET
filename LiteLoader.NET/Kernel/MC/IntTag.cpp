@@ -1,4 +1,4 @@
-#include "../../Header/MC/IntTag.hpp"
+#include <LiteLoader.NET/Header/MC/IntTag.hpp>
 namespace MC
 {
 inline int ^ IntTag::Value()

@@ -1,5 +1,5 @@
-#include "../../Header/MC/ActorDamageSource.hpp"
-#include "../../Header/MC/Actor.hpp"
+#include <LiteLoader.NET/Header/MC/ActorDamageSource.hpp>
+#include <LiteLoader.NET/Header/MC/Actor.hpp>
 
 namespace MC
 {

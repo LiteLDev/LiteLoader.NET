@@ -172,12 +172,12 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Extra\coreclr_delegates.h" />
-    <ClInclude Include="Extra\hostfxr.h" />
-    <ClInclude Include="Extra\mutex.h" />
-    <ClInclude Include="Extra\nethost.h" />
-    <ClInclude Include="Extra\PluginManager.h" />
-    <ClInclude Include="Header\AllowListAPI.h" />
+    <ClInclude Include="Extra\coreclr_delegates.hpp" />
+    <ClInclude Include="Extra\hostfxr.hpp" />
+    <ClInclude Include="Extra\mutex.hpp" />
+    <ClInclude Include="Extra\nethost.hpp" />
+    <ClInclude Include="Extra\PluginManager.hpp" />
+    <ClInclude Include="Header\AllowListAPI.hpp" />
     <ClInclude Include="Header\Command\Command.hpp" />
     <ClInclude Include="Header\Command\CommandArea.hpp" />
     <ClInclude Include="Header\Command\CommandFlag.hpp" />
@@ -196,13 +196,13 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\Command\CommandRegistry.hpp" />
     <ClInclude Include="Header\Command\CommandSelector.hpp" />
     <ClInclude Include="Header\Command\CommandVersion.hpp" />
-    <ClInclude Include="Header\Core\Exceptions.h" />
+    <ClInclude Include="Header\Core\Exceptions.hpp" />
     <ClInclude Include="Header\Core\Pair.hpp" />
-    <ClInclude Include="Header\Core\SecondaryRankPtr.h" />
+    <ClInclude Include="Header\Core\SecondaryRankPtr.hpp" />
     <ClInclude Include="Header\Core\STLHelper\optional.hpp" />
     <ClInclude Include="Header\Core\STLHelper\string.hpp" />
     <ClInclude Include="Header\Core\STLHelper\vector.hpp" />
-    <ClInclude Include="Header\DynamicCommand\DynamicCommand.h" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp" />
     <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
@@ -219,11 +219,11 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\Event\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
     <ClInclude Include="Header\GlobalSurvice.hpp" />
-    <ClInclude Include="Header\Hook.h" />
+    <ClInclude Include="Header\Hook.hpp" />
     <ClInclude Include="Header\I18n.hpp" />
-    <ClInclude Include="Header\Impl\FormPacketHelper.h" />
+    <ClInclude Include="Header\Impl\FormPacketHelper.hpp" />
     <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
-    <ClInclude Include="Header\LLAPI.h" />
+    <ClInclude Include="Header\LLAPI.hpp" />
     <ClInclude Include="Header\Logger\Logger.hpp" />
     <ClInclude Include="Header\Logger\LoggerManager.hpp" />
     <ClInclude Include="Header\MC\AABB.hpp" />
@@ -292,7 +292,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\Vec3.hpp" />
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
     <ClInclude Include="Header\NativeAPI.hpp" />
-    <ClInclude Include="Header\PlayerInfo.h" />
+    <ClInclude Include="Header\PlayerInfo.hpp" />
     <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
     <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
     <ClInclude Include="Header\RemoteCall\ImportAs.hpp" />
@@ -303,31 +303,31 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp" />
     <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
-    <ClInclude Include="Header\RemoteCall\RemoteCall.h" />
+    <ClInclude Include="Header\RemoteCall\RemoteCall.hpp" />
     <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\Value.hpp" />
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
-    <ClInclude Include="Header\Schedule.h" />
+    <ClInclude Include="Header\Schedule.hpp" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
-    <ClInclude Include="Header\Server.h" />
-    <ClInclude Include="Main\.NETGlobal.hpp" />
-    <ClInclude Include="Main\ClassTemplate.h" />
-    <ClInclude Include="Main\Config.h" />
+    <ClInclude Include="Header\Server.hpp" />
+    <ClInclude Include="Main\DotNETGlobal.hpp" />
+    <ClInclude Include="Main\ClassTemplate.hpp" />
+    <ClInclude Include="Main\Config.hpp" />
     <ClInclude Include="Main\Global.hpp" />
-    <ClInclude Include="Main\GlobalClass.h" />
-    <ClInclude Include="Main\Info.h" />
+    <ClInclude Include="Main\GlobalClass.hpp" />
+    <ClInclude Include="Main\Info.hpp" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
-    <ClInclude Include="Main\PluginManager.h" />
-    <ClInclude Include="Main\Version.h" />
-    <ClInclude Include="Resource\resource.h" />
-    <ClInclude Include="Resource\Version.h" />
-    <ClInclude Include="Tools\ClassTemplateHelper.h" />
+    <ClInclude Include="Main\PluginManager.hpp" />
+    <ClInclude Include="Main\Version.hpp" />
+    <ClInclude Include="Resource\resource.hpp" />
+    <ClInclude Include="Resource\Version.hpp" />
+    <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
-    <ClInclude Include="Tools\PropertryHelper.h" />
+    <ClInclude Include="Tools\PropertryHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Extra\i18nQAQ.cpp" />
+    <ClCompile Include="Extra\i18n.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
@@ -430,7 +430,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Main\AssemblyInfo.cpp" />
     <ClCompile Include="Main\GlobalClass.cpp" />
     <ClCompile Include="Main\LiteLoaderDotNET.cpp" />
-    <ClCompile Include="Main\PluginAttribute.h" />
+    <ClCompile Include="Main\PluginAttribute.hpp" />
     <ClCompile Include="Main\dllmain.cpp" />
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />

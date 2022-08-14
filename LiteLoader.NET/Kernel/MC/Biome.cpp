@@ -1,4 +1,4 @@
-#include "../../Header/MC/Biome.hpp"
+#include <LiteLoader.NET/Header/MC/Biome.hpp>
 
 namespace MC
 {

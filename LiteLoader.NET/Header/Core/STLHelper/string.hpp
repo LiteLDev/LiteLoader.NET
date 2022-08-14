@@ -1,6 +1,6 @@
 #pragma once
-#include "../../../Tools/clix.hpp"
-#include "../../../Main/ClassTemplate.h"
+#include <LiteLoader.NET/Tools/clix.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 #include <memory>
 
 namespace LLNET::Core::Std
@@ -197,7 +197,7 @@ namespace LLNET::Core::Std
 
 		//find_first_of
 
-		//¿ª°Ú
+		//å¼€æ‘†
 
 		String^ ToString() override
 		{

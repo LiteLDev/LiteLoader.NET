@@ -1,5 +1,5 @@
 #pragma once
-#include "Config.h"
+#include "Config.hpp"
 
 #define __TO_VERSION_STRING(ver) #ver
 

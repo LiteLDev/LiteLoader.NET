@@ -1,4 +1,4 @@
-#include "../../Header/MC/EndTag.hpp"
+#include <LiteLoader.NET/Header/MC/EndTag.hpp>
 namespace MC
 {
 inline const nullptr_t EndTag::Value()

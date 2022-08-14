@@ -1,4 +1,4 @@
-#include "../../Header/MC/ShortTag.hpp"
+#include <LiteLoader.NET/Header/MC/ShortTag.hpp>
 namespace MC
 {
 inline short ^ ShortTag::Value()

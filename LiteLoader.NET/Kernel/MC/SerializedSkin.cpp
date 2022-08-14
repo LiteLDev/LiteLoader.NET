@@ -1,4 +1,4 @@
-﻿#include "../../Header/MC/SerializedSkin.hpp"
+﻿#include <LiteLoader.NET/Header/MC/SerializedSkin.hpp>
 
 namespace MC
 {

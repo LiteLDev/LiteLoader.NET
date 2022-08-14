@@ -1,4 +1,4 @@
-#include "../../Header/MC/MobEffect.hpp"
+#include <LiteLoader.NET/Header/MC/MobEffect.hpp>
 
 namespace MC
 {

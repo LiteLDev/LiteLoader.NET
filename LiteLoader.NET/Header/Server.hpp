@@ -1,6 +1,6 @@
 #pragma once
 #include <ServerAPI.h>
-#include "../Main/.NETGlobal.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 namespace LLNET::LL
 {
 public

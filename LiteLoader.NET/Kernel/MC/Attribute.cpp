@@ -1,4 +1,4 @@
-#include "../../Header/MC/Attribute.hpp"
+#include <LiteLoader.NET/Header/MC/Attribute.hpp>
 namespace MC
 {
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include <MC/CommandOutput.hpp>
-#include "../../Header/MC/Types.hpp"
+#include <LiteLoader.NET/Header/MC/Types.hpp>
 
 enum CommandOutputType;
 

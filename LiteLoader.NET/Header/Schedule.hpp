@@ -1,6 +1,6 @@
 #pragma once
 #include <ScheduleAPI.h>
-#include "../Main/.NETGlobal.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 namespace LLNET::Schedule
 {
 public

@@ -12,15 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\MobEffect.hpp" />
-    <ClInclude Include="Tools\.NETGlobal.hpp" />
+    <ClInclude Include="Tools\DotNETGlobal.hpp" />
     <ClInclude Include="Tools\ClassAdapter.hpp" />
-    <ClInclude Include="Tools\ClassTemplate.h" />
-    <ClInclude Include="Tools\ClassTemplateHelper.h" />
+    <ClInclude Include="Tools\ClassTemplate.hpp" />
+    <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
     <ClInclude Include="Tools\clix.hpp" />
     <ClInclude Include="Tools\Global.hpp" />
-    <ClInclude Include="Tools\mutex.h" />
+    <ClInclude Include="Tools\mutex.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
-    <ClInclude Include="Tools\PropertryHelper.h" />
+    <ClInclude Include="Tools\PropertryHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />

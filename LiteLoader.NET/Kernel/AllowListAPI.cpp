@@ -1,1 +1,1 @@
-#include "../Header/AllowListAPI.h"
+#include <LiteLoader.NET/Header/AllowListAPI.hpp>

@@ -210,7 +210,7 @@
     <ClCompile Include="Main\AssemblyInfo.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Main\PluginAttribute.h">
+    <ClCompile Include="Main\PluginAttribute.hpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Main\dllmain.cpp">
@@ -405,7 +405,7 @@
     <ClCompile Include="Kernel\Logger\LoggerManager.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Extra\i18nQAQ.cpp">
+    <ClCompile Include="Extra\i18n.cpp">
       <Filter>Extra</Filter>
     </ClCompile>
   </ItemGroup>
@@ -515,7 +515,7 @@
     <ClInclude Include="Header\MC\WitherBoss.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\AllowListAPI.h">
+    <ClInclude Include="Header\AllowListAPI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\Event.hpp">
@@ -524,28 +524,28 @@
     <ClInclude Include="Header\FormUI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Hook.h">
+    <ClInclude Include="Header\Hook.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\LLAPI.h">
+    <ClInclude Include="Header\LLAPI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\PlayerInfo.h">
+    <ClInclude Include="Header\PlayerInfo.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Schedule.h">
+    <ClInclude Include="Header\Schedule.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Server.h">
+    <ClInclude Include="Header\Server.hpp">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Main\Global.hpp">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Main\PluginManager.h">
+    <ClInclude Include="Main\PluginManager.hpp">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Main\.NETGlobal.hpp">
+    <ClInclude Include="Main\DotNETGlobal.hpp">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\ItemStackBase.hpp">
@@ -644,13 +644,13 @@
     <ClInclude Include="Header\MC\StringTag.hpp">
       <Filter>Header\NBT</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Config.h">
+    <ClInclude Include="Main\Config.hpp">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\Exceptions.h">
+    <ClInclude Include="Header\Core\Exceptions.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\SecondaryRankPtr.h">
+    <ClInclude Include="Header\Core\SecondaryRankPtr.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
@@ -659,7 +659,7 @@
     <ClInclude Include="Tools\clix.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\PropertryHelper.h">
+    <ClInclude Include="Tools\PropertryHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\Actor.hpp">
@@ -671,19 +671,19 @@
     <ClInclude Include="Header\MC\Player.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Impl\FormPacketHelper.h">
+    <ClInclude Include="Header\Impl\FormPacketHelper.hpp">
       <Filter>Header\Impl</Filter>
     </ClInclude>
-    <ClInclude Include="Main\ClassTemplate.h">
+    <ClInclude Include="Main\ClassTemplate.hpp">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\resource.h">
+    <ClInclude Include="Resource\resource.hpp">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Extra\mutex.h">
+    <ClInclude Include="Extra\mutex.hpp">
       <Filter>Extra</Filter>
     </ClInclude>
-    <ClInclude Include="Extra\PluginManager.h">
+    <ClInclude Include="Extra\PluginManager.hpp">
       <Filter>Extra</Filter>
     </ClInclude>
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp">
@@ -695,13 +695,13 @@
     <ClInclude Include="Header\Core\STLHelper\optional.hpp">
       <Filter>Header\Core\STLHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\ClassTemplateHelper.h">
+    <ClInclude Include="Tools\ClassTemplateHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Header\Core\STLHelper\vector.hpp">
       <Filter>Header\Core\STLHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\DynamicCommand.h">
+    <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp">
       <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp">
@@ -761,7 +761,7 @@
     <ClInclude Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.hpp">
       <Filter>Header\RemoteCall\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\RemoteCall.h">
+    <ClInclude Include="Header\RemoteCall\RemoteCall.hpp">
       <Filter>Header\RemoteCall</Filter>
     </ClInclude>
     <ClInclude Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.hpp">
@@ -824,7 +824,7 @@
     <ClInclude Include="Header\MC\ColorFormat.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Version.h">
+    <ClInclude Include="Main\Version.hpp">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\Packet.hpp">
@@ -842,25 +842,25 @@
     <ClInclude Include="Header\MC\SerializedSkin.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Extra\coreclr_delegates.h">
+    <ClInclude Include="Extra\coreclr_delegates.hpp">
       <Filter>Extra\net_native</Filter>
     </ClInclude>
-    <ClInclude Include="Extra\hostfxr.h">
+    <ClInclude Include="Extra\hostfxr.hpp">
       <Filter>Extra\net_native</Filter>
     </ClInclude>
-    <ClInclude Include="Extra\nethost.h">
+    <ClInclude Include="Extra\nethost.hpp">
       <Filter>Extra\net_native</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\Version.h">
+    <ClInclude Include="Resource\Version.hpp">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Info.h">
+    <ClInclude Include="Main\Info.hpp">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\NativeAPI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Main\GlobalClass.h">
+    <ClInclude Include="Main\GlobalClass.hpp">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\Logger\Logger.hpp">

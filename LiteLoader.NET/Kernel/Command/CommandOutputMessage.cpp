@@ -1,4 +1,4 @@
-#include "../../Header/Command/CommandOutputMessage.hpp"
+#include <LiteLoader.NET/Header/Command/CommandOutputMessage.hpp>
 
 enum CommandOutputMessageType;
 

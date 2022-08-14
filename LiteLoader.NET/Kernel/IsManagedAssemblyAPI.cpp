@@ -1,5 +1,5 @@
 #pragma once
-#include "../Header/IsManagedAssemblyAPI.hpp"
+#include <LiteLoader.NET/Header/IsManagedAssemblyAPI.hpp>
 
 #pragma managed
 _declspec(noinline) bool __isManagedAssembly(const char* _path)

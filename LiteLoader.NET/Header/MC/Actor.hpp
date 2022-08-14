@@ -1,7 +1,7 @@
 #pragma once
 #include <MC/Actor.hpp>
 
-#include <LiteLoader.NET/Main/ClassTemplate.h>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 namespace MC
 {

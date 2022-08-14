@@ -1,7 +1,7 @@
 #pragma once
 #include <HookAPI.h>
-#include "../Main/.NETGlobal.hpp"
-#include "../Header/Core/SecondaryRankPtr.h"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include "Core/SecondaryRankPtr.hpp"
 
 namespace LLNET {
 	namespace Hook {

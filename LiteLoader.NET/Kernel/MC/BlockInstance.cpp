@@ -1,11 +1,11 @@
-#include "../../Header/MC/BlockInstance.hpp"
+#include <LiteLoader.NET/Header/MC/BlockInstance.hpp>
 
-#include "../../Header/MC/Block.hpp"
-#include "../../Header/MC/BlockSource.hpp"
-#include "../../Header/MC/BlockActor.hpp"
-#include "../../Header/MC/Container.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/ItemStack.hpp"
+#include <LiteLoader.NET/Header/MC/Block.hpp>
+#include <LiteLoader.NET/Header/MC/BlockSource.hpp>
+#include <LiteLoader.NET/Header/MC/BlockActor.hpp>
+#include <LiteLoader.NET/Header/MC/Container.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
 
 namespace MC
 {

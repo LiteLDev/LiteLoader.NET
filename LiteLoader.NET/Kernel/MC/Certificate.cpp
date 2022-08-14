@@ -1,4 +1,4 @@
-#include "../../Header/MC/Certificate.hpp"
+#include <LiteLoader.NET/Header/MC/Certificate.hpp>
 namespace MC
 {
 }

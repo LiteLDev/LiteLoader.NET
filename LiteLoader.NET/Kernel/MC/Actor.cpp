@@ -1,18 +1,18 @@
-#include "../../Header/MC/Actor.hpp"
+#include <LiteLoader.NET/Header/MC/Actor.hpp>
 
-#include "../../Header/MC/BlockSource.hpp"
-#include "../../Header/MC/Tick.hpp"
-#include "../../Header/MC/BlockInstance.hpp"
-#include "../../Header/MC/UserEntityIdentifierComponent.hpp"
-#include "../../Header/MC/MobEffect.hpp"
-#include "../../Header/MC/Vec2.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/CompoundTag.hpp"
-#include "../../Header/MC/MobEffectInstance.hpp"
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/Level.hpp"
-#include "../../Header/MC/Player.hpp"
+#include <LiteLoader.NET/Header/MC/BlockSource.hpp>
+#include <LiteLoader.NET/Header/MC/Tick.hpp>
+#include <LiteLoader.NET/Header/MC/BlockInstance.hpp>
+#include <LiteLoader.NET/Header/MC/UserEntityIdentifierComponent.hpp>
+#include <LiteLoader.NET/Header/MC/MobEffect.hpp>
+#include <LiteLoader.NET/Header/MC/Vec2.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
+#include <LiteLoader.NET/Header/MC/MobEffectInstance.hpp>
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Level.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
 
 namespace MC
 {

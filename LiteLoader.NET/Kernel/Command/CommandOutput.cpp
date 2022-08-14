@@ -1,8 +1,8 @@
-#include "../../Header/Command/CommandOutput.hpp"
-#include "../../Header/Command/CommandOutputParameter.hpp"
-#include "../../Header/Command/CommandOutputMessage.hpp"
-#include "../../Header/Command/CommandPropertyBag.hpp"
-#include "../../Header/MC/Actor.hpp"
+#include <LiteLoader.NET/Header/Command/CommandOutput.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOutputParameter.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOutputMessage.hpp>
+#include <LiteLoader.NET/Header/Command/CommandPropertyBag.hpp>
+#include <LiteLoader.NET/Header/MC/Actor.hpp>
 #include <memory>
 
 enum CommandOutputType;

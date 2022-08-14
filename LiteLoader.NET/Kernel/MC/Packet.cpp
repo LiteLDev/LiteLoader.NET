@@ -1,4 +1,4 @@
-#include "../../Header/MC/Packet.hpp"
+#include <LiteLoader.NET/Header/MC/Packet.hpp>
 namespace MC
 {
 } // namespace MC

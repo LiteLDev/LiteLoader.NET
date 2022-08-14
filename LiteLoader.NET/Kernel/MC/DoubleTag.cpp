@@ -1,4 +1,4 @@
-#include "../../Header/MC/DoubleTag.hpp"
+#include <LiteLoader.NET/Header/MC/DoubleTag.hpp>
 namespace MC
 {
 inline double ^ DoubleTag::Value()

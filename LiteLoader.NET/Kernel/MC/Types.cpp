@@ -1,8 +1,8 @@
-#include "../../Header/MC/Types.hpp"
+#include <LiteLoader.NET/Header/MC/Types.hpp>
 
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 
 namespace MC
 {

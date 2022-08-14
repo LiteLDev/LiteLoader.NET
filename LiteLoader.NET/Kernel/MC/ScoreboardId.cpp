@@ -1,4 +1,4 @@
-#include "../../Header/MC/ScoreboardId.hpp"
+#include <LiteLoader.NET/Header/MC/ScoreboardId.hpp>
 namespace MC
 {
 ScoreboardId::ScoreboardId()
