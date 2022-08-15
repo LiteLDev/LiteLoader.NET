@@ -1,4 +1,22 @@
 
+// 8/15/2022 - LazuliKao 
+//it might not be the best solution but currently, I only have done this.
+//
+//without this fix, as long as any function called in managed code will lose
+//  native "try catch", and all fatal exceptions will be handled by "coreclr"
+//  instead of already written C++ "try catch", which causes a fatal error
+//  and terminate the program.
+//the solution is to hook "coreclr.dll" and redirect the `LogInfoForFatalError` function
+//```
+//PublicSymbol    ?LogInfoForFatalError@@YAXIPEB_W00@Z
+//RelativeVirtualAddress  2480668
+//```
+//(This method will be called by "coreclr" during a fatal error, after 
+// which the program will be terminated)
+//By throwing a C++ exception directly in this method, you can catch
+//the exception outside, instead of terminating the program.
+
+
 inline uintptr_t FindSignature(uintptr_t rangeStart, uintptr_t rangeEnd, const char* szSignature)
 {
 	const char* pattern = szSignature;
@@ -136,6 +154,8 @@ inline void FixCLRFatalError(Logger& logger)
 		{
 			void* baseAddress = mod->BaseAddress.ToPointer();
 			int size = mod->ModuleMemorySize;
+			//To update signature please use this : https://github.com/LazuliKao/CoreClrPatch/blob/main/build.fsx
+			
 			//?LogInfoForFatalError@@YAXIPEB_W00@Z
 			//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L324
 			uintptr_t result = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
