@@ -309,11 +309,11 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.hpp" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
-    <ClInclude Include="Main\FixCLRFatalError.h" />
     <ClInclude Include="Header\Server.hpp" />
     <ClInclude Include="Main\DotNETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.hpp" />
     <ClInclude Include="Main\Config.hpp" />
+    <ClInclude Include="Main\FixCLRFatalError.h" />
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\GlobalClass.hpp" />
     <ClInclude Include="Main\Info.hpp" />
@@ -327,7 +327,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
     <ClInclude Include="Tools\PropertryHelper.hpp" />
   </ItemGroup>
-  <ItemGroup> 
+  <ItemGroup>
     <ClCompile Include="Extra\i18n.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
@@ -355,7 +355,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
     <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
-    <ClCompile Include="Kernel\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\LoggerManager.cpp" />
     <ClCompile Include="Kernel\MC\AABB.cpp" />
     <ClCompile Include="Kernel\MC\Actor.cpp" />
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp" />

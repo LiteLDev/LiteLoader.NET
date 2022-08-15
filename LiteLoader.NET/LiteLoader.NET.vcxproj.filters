@@ -76,6 +76,12 @@
     <Filter Include="Extra\net_native">
       <UniqueIdentifier>{715adb0f-1875-4f7b-9dbd-f3e0d50d1d33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Logger">
+      <UniqueIdentifier>{0e00fe85-d6d7-48d6-a04a-ddbde7f40b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel\Logger">
+      <UniqueIdentifier>{5eed7d25-5396-4592-9ec4-4b4b45f12f88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -190,9 +196,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\LLAPI.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\Logger.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\PlayerInfo.cpp">
@@ -395,7 +398,7 @@
     </ClCompile>
     <ClCompile Include="Main\GlobalClass.cpp">
       <Filter>Main</Filter>
-    </ClCompile> 
+    </ClCompile>
     <ClCompile Include="Kernel\Logger\Logger.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
@@ -856,8 +859,16 @@
     </ClInclude>
     <ClInclude Include="Header\NativeAPI.hpp">
       <Filter>Header</Filter>
-    </ClInclude> 
+    </ClInclude>
     <ClInclude Include="Main\GlobalClass.hpp">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Logger\Logger.hpp">
+      <Filter>Header\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Logger\LoggerManager.hpp">
+      <Filter>Header\Logger</Filter>
+    </ClInclude>
     <ClInclude Include="Main\FixCLRFatalError.h">
       <Filter>Main</Filter>
     </ClInclude>

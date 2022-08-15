@@ -13,9 +13,11 @@
 #include <LiteLoader.NET/Header/MC/AABB.hpp>
 #include <LiteLoader.NET/Header/MC/Tick.hpp>
 
-#include "../../Header/Logger.hpp"
 #include "LiteLoader.NET/Header/MC/Packet.hpp"
 #include "LiteLoader.NET/Header/MC/SerializedSkin.hpp"
+
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
+
 
 enum GameType;
 
