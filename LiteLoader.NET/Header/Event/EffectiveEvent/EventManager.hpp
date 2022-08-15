@@ -1,6 +1,6 @@
 #pragma once
 #include "include.hpp"
-#include <LiteLoader.NET/Header/Logger/Logger.hpp>
+#include "LiteLoader.NET/Header/Logger.hpp"
 
 constexpr int LOWEST = 0;
 constexpr int LOW = 1;

@@ -1,5 +1,6 @@
 #pragma once
 #include ".NETGlobal.hpp"
+#include <LiteLoader.NET/Header/Logger.hpp>
 
 namespace LLNET::Logger
 {

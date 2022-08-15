@@ -81,7 +81,7 @@ private:
 #include "../Command/CommandRegistry.hpp"
 #include "../Command/CommandParameterData.hpp"
 
-#include <LiteLoader.NET/Header/Logger/Logger.hpp>
+#include "../Logger.hpp"
 
 namespace LLNET::Event
 {
