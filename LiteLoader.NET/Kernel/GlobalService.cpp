@@ -1,9 +1,9 @@
-#include "../Header/GlobalSurvice.hpp"
+#include <LiteLoader.NET/Header/GlobalSurvice.hpp>
 
 #include <MC/CommandParameterData.hpp>
 
-#include "../Header/MC/Level.hpp"
-#include "../Header/Command/CommandRegistry.hpp"
+#include <LiteLoader.NET/Header/MC/Level.hpp>
+#include <LiteLoader.NET/Header/Command/CommandRegistry.hpp>
 
 
 #include <MC/RakNet.hpp>

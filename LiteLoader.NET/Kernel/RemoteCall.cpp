@@ -1,4 +1,4 @@
-#include "../Header/RemoteCall/RemoteCall.h"
+#include <LiteLoader.NET/Header/RemoteCall/RemoteCall.hpp>
 namespace LLNET::RemoteCall
 {
 	DelegateToNativeHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, ::RemoteCall::ValueType, std::vector<::RemoteCall::ValueType> vec)

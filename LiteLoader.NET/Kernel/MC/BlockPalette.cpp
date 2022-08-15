@@ -1,4 +1,4 @@
-#include "../../Header/MC/BlockPalette.hpp"
+#include <LiteLoader.NET/Header/MC/BlockPalette.hpp>
 namespace MC
 {
 }

@@ -1,4 +1,4 @@
-#include "../../Header/MC/IdentityDefinition.hpp"
+#include <LiteLoader.NET/Header/MC/IdentityDefinition.hpp>
 namespace MC
 {
 }

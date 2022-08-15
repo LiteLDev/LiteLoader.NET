@@ -1,4 +1,4 @@
-#include "../Header/LLAPI.h"
+#include <LiteLoader.NET/Header/LLAPI.hpp>
 
 using System::Attribute;
 using System::AttributeUsageAttribute;

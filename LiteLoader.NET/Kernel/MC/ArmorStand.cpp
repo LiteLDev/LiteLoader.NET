@@ -1,6 +1,6 @@
-#include "../../Header/MC/ArmorStand.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
+#include <LiteLoader.NET/Header/MC/ArmorStand.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 
 namespace MC
 {

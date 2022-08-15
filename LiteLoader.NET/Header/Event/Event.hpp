@@ -1,7 +1,7 @@
 #pragma once
 #include <EventAPI.h>
-#include "../../Main/.NETGlobal.hpp"
-#include "../../Tools/PropertryHelper.h"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Tools/PropertryHelper.hpp>
 
 #define EventAPIs(RefEvent, NativeEvent)                                                                                    \
 public:                                                                                                                     \
@@ -60,26 +60,26 @@ public:                                                                         
                                                                                                                             \
 private:
 
-#include "../MC/AABB.hpp"
-#include "../MC/Types.hpp"
-#include "../MC/BlockInstance.hpp"
-#include "../MC/BlockSource.hpp"
-#include "../MC/Container.hpp"
-#include "../MC/ItemStack.hpp"
-#include "../MC/Player.hpp"
-#include "../MC/ServerPlayer.hpp"
-#include "../MC/ActorDamageSource.hpp"
-#include "../MC/MCRESULT.hpp"
-#include "../MC/MobEffectInstance.hpp"
-#include "../MC/Objective.hpp"
-#include "../MC/WitherBoss.hpp"
-#include "../MC/ActorDefinitionIdentifier.hpp"
-#include "../MC/ArmorStand.hpp"
-#include "../MC/Vec3.hpp"
-#include "../MC/BlockPos.hpp"
-#include "../MC/ScoreboardId.hpp"
-#include "../Command/CommandRegistry.hpp"
-#include "../Command/CommandParameterData.hpp"
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Types.hpp>
+#include <LiteLoader.NET/Header/MC/BlockInstance.hpp>
+#include <LiteLoader.NET/Header/MC/BlockSource.hpp>
+#include <LiteLoader.NET/Header/MC/Container.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/ServerPlayer.hpp>
+#include <LiteLoader.NET/Header/MC/ActorDamageSource.hpp>
+#include <LiteLoader.NET/Header/MC/MCRESULT.hpp>
+#include <LiteLoader.NET/Header/MC/MobEffectInstance.hpp>
+#include <LiteLoader.NET/Header/MC/Objective.hpp>
+#include <LiteLoader.NET/Header/MC/WitherBoss.hpp>
+#include <LiteLoader.NET/Header/MC/ActorDefinitionIdentifier.hpp>
+#include <LiteLoader.NET/Header/MC/ArmorStand.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/ScoreboardId.hpp>
+#include <LiteLoader.NET/Header/Command/CommandRegistry.hpp>
+#include <LiteLoader.NET/Header/Command/CommandParameterData.hpp>
 
 #include "../Logger.hpp"
 

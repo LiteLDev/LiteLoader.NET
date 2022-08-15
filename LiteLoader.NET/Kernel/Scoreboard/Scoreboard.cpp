@@ -1,6 +1,6 @@
-#include "../../Header/Scoreboard/Scoreboard.hpp"
-#include "../../Header/MC/Player.hpp"
-#include "../../Header/MC/Objective.hpp"
+#include <LiteLoader.NET/Header/Scoreboard/Scoreboard.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/Objective.hpp>
 
 namespace MC
 {

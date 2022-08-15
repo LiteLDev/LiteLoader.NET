@@ -1,5 +1,5 @@
 #pragma once
-#include "../ValueType.hpp"
+#include <LiteLoader.NET/Header/RemoteCall/ValueType.hpp>
 
 namespace LLNET::RemoteCall::Internal
 {

@@ -1,19 +1,19 @@
-#include "../../Header/MC/Level.hpp"
+#include <LiteLoader.NET/Header/MC/Level.hpp>
 
-#include "../../Header/MC/Player.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/MapItemSavedData.hpp"
-#include "../../Header/MC/Block.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/BlockSource.hpp"
-#include "../../Header/MC/BlockInstance.hpp"
-#include "../../Header/MC/BlockActor.hpp"
-#include "../../Header/MC/Dimension.hpp"
-#include "../../Header/MC/Container.hpp"
-#include "../../Header/MC/BlockPalette.hpp"
-#include "../../Header/MC/ActorDamageSource.hpp"
-#include "../../Header/MC/Packet.hpp"
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/MapItemSavedData.hpp>
+#include <LiteLoader.NET/Header/MC/Block.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/BlockSource.hpp>
+#include <LiteLoader.NET/Header/MC/BlockInstance.hpp>
+#include <LiteLoader.NET/Header/MC/BlockActor.hpp>
+#include <LiteLoader.NET/Header/MC/Dimension.hpp>
+#include <LiteLoader.NET/Header/MC/Container.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPalette.hpp>
+#include <LiteLoader.NET/Header/MC/ActorDamageSource.hpp>
+#include <LiteLoader.NET/Header/MC/Packet.hpp>
 
 namespace MC
 {

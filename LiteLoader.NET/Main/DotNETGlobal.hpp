@@ -3,8 +3,8 @@
 #include <stdint.h>
 
 #include "Global.hpp"
-#include "../Header/Core/Pair.hpp"
-#include "../Header/Core/Exceptions.h"
+#include <LiteLoader.NET/Header/Core/Pair.hpp>
+#include <LiteLoader.NET/Header/Core/Exceptions.hpp>
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
@@ -48,7 +48,7 @@ using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
 using LLNET::Core::Pair;
 
-#include "../Tools/clix.hpp"
+#include <LiteLoader.NET/Tools/clix.hpp>
 using namespace clix;
 
 inline String^ marshalString(std::string const& str) 
@@ -90,4 +90,4 @@ inline bool As(U u)
 	return safe_cast<T>(u);
 }
 
-#include "GlobalClass.h"
+#include "GlobalClass.hpp"

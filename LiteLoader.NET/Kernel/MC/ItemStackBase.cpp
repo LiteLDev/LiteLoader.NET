@@ -1,4 +1,4 @@
-#include "../../Header/MC/ItemStackBase.hpp"
+#include <LiteLoader.NET/Header/MC/ItemStackBase.hpp>
 namespace MC
 {
 int ItemStackBase::Count::get()
@@ -19,7 +19,7 @@ short MC::ItemStackBase::Id::get()
 
 #ifdef MANUAL_MAINTENANCE
 
-#include "../../Header/MC/HashedString.hpp"
+#include <LiteLoader.NET/Header/MC/HashedString.hpp>
 
 void MC::ItemStackBase::SetNull()
 {

@@ -1,6 +1,8 @@
-#include "../Header/FormUI.hpp"
+#include <LiteLoader.NET/Header/FormUI.hpp>
 
-#include "../Header/MC/Player.hpp"
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 
 namespace LLNET::Form

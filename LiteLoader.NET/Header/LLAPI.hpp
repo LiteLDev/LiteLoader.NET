@@ -1,9 +1,9 @@
 #pragma once
 #include <LLAPI.h>
 #include <Utils/Hash.h>
-#include "../Main/.NETGlobal.hpp"
-#include "../Tools/PropertryHelper.h"
-#include "../Tools/clix.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Tools/PropertryHelper.hpp>
+#include <LiteLoader.NET/Tools/clix.hpp>
 namespace LLNET::LL
 {
 	using namespace clix;

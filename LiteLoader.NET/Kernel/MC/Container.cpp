@@ -1,7 +1,7 @@
-#include "../../Header/MC/Container.hpp"
+#include <LiteLoader.NET/Header/MC/Container.hpp>
 
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 
 namespace MC
 {

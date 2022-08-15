@@ -1,4 +1,4 @@
-#include "../../Header/MC/NetworkIdentifier.hpp"
+#include <LiteLoader.NET/Header/MC/NetworkIdentifier.hpp>
 namespace MC
 {
 inline String^ NetworkIdentifier::IP::get()

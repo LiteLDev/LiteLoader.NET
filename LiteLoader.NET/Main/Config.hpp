@@ -1,5 +1,5 @@
 #pragma once
-#include "Info.h"
+#include "Info.hpp"
 
 #define LLNET_LOADER_NAME_WITH_EXTENSION "LiteLoader.NET.dll"
 

@@ -1,9 +1,9 @@
-#include "../../Header/MC/Block.hpp"
+#include <LiteLoader.NET/Header/MC/Block.hpp>
 
-#include "../../Header/MC/CompoundTag.hpp"
-#include "../../Header/MC/BlockPos.hpp"
-#include "../../Header/MC/AABB.hpp"
-#include "../../Header/MC/Vec3.hpp"
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/AABB.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
 
 namespace MC
 {

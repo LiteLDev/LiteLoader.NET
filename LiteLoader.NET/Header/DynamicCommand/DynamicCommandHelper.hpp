@@ -1,5 +1,5 @@
 #pragma once
-#include "DynamicCommand.h"
+#include "DynamicCommand.hpp"
 #include <EventAPI.h>
 
 namespace LLNET::DynamicCommand::Internal {

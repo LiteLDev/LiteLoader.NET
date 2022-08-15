@@ -1,21 +1,21 @@
 #pragma once
 #include <DynamicCommandAPI.h>
-#include "../../Main/.NETGlobal.hpp"
-#include "../../Tools/PropertryHelper.h"
-#include "../Command/Command.hpp"
-#include "../Command/CommandOrigin.hpp"
-#include "../Command/CommandParameterData.hpp"
-#include "../Command/CommandOutput.hpp"
-#include "../Command/CommandMessage.hpp"
-#include "../Command/CommandItem.hpp"
-#include "../MC/Player.hpp"
-#include "../MC/BlockPos.hpp"
-#include "../MC/Vec3.hpp"
-#include "../MC/ItemStack.hpp"
-#include "../MC/Block.hpp"
-#include "../MC/Command.hpp"
-#include "../MC/ActorDefinitionIdentifier.hpp"
-#include "../Core/STLHelper/string.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Tools/PropertryHelper.hpp>
+#include <LiteLoader.NET/Header/Command/Command.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOrigin.hpp>
+#include <LiteLoader.NET/Header/Command/CommandParameterData.hpp>
+#include <LiteLoader.NET/Header/Command/CommandOutput.hpp>
+#include <LiteLoader.NET/Header/Command/CommandMessage.hpp>
+#include <LiteLoader.NET/Header/Command/CommandItem.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/Block.hpp>
+#include <MC/Command.hpp>
+#include <LiteLoader.NET/Header/MC/ActorDefinitionIdentifier.hpp>
+#include <LiteLoader.NET/Header/Core/STLHelper/string.hpp>
 #include <MC/JsonHelpers.hpp>
 
 struct __ParameterData : public ::DynamicCommand::ParameterData

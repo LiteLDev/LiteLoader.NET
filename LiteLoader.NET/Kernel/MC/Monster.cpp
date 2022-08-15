@@ -1,12 +1,12 @@
-#include "../../Header/MC/Monster.hpp"
+#include <LiteLoader.NET/Header/MC/Monster.hpp>
 namespace MC
 {
 }
 
 #ifdef INCLUDE_MCAPI
 
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 
 bool MC::Monster::isRuntimePredictedMovementEnabled()
 {

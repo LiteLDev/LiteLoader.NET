@@ -1,4 +1,4 @@
-#include "../../Header/MC/ByteTag.hpp"
+#include <LiteLoader.NET/Header/MC/ByteTag.hpp>
 namespace MC
 {
 inline unsigned char ByteTag::Value()

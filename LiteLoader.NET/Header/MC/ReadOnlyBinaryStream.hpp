@@ -3,7 +3,7 @@
 #include <MC/ReadOnlyBinaryStream.hpp>
 #include <MC/RakNet.hpp>
 #include "Types.hpp"
-#include "../Core/STLHelper/string.hpp"
+#include <LiteLoader.NET/Header/Core/STLHelper/string.hpp>
 
 namespace MC
 {

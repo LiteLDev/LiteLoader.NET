@@ -1,4 +1,4 @@
-#include "GlobalClass.h"
+#include "DotNETGlobal.hpp"
 
 
 inline void GlobalClass::Init()

@@ -1,1 +1,1 @@
-#include "../../Header/MC/Vec2.hpp"
+#include <LiteLoader.NET/Header/MC/Vec2.hpp>

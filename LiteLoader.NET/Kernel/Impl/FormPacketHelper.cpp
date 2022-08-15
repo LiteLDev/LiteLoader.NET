@@ -1,4 +1,4 @@
-#include "../../Header/Impl/FormPacketHelper.h"
+#include <LiteLoader.NET/Header/Impl/FormPacketHelper.hpp>
 
 namespace LLNET::Helper
 {

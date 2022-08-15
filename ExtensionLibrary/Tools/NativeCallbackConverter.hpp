@@ -15,23 +15,23 @@ interface class NativeCallbackHandler : System::IDisposable
 };
 
 /**
- * .Net-Native»Øµ÷×ª»»¹¤¾ß
+ * .NET-Nativeå›è°ƒè½¬æ¢å·¥å…·
  *
- * class_name          : ÀàÃû   ·½±ãµ÷ÓÃ
- * callback_delegate   : .NetÎ¯ÍĞÀàĞÍ
- * ret                 : Native»Øµ÷º¯Êı·µ»ØÀàĞÍ
- * ...                 : Native»Øµ÷º¯Êı²ÎÊıÁĞ±í
+ * class_name          : ç±»å   æ–¹ä¾¿è°ƒç”¨
+ * callback_delegate   : .NETå§”æ‰˜ç±»å‹
+ * ret                 : Nativeå›è°ƒå‡½æ•°è¿”å›ç±»å‹
+ * ...                 : Nativeå›è°ƒå‡½æ•°å‚æ•°åˆ—è¡¨
  *
  * ====================API======================
  *
- * class_name::Create(dlegate^ callback) :·µ»Ø°üº¬Nativeº¯ÊıÖ¸ÕëÓë×ª»»Æ÷ÊµÀıµÄPair
+ * class_name::Create(dlegate^ callback) :è¿”å›åŒ…å«Nativeå‡½æ•°æŒ‡é’ˆä¸è½¬æ¢å™¨å®ä¾‹çš„Pair
  * class_name:
- *    GCHandle gch:·ÀÖ¹»ØÊÕ.Net»Øµ÷Î¯ÍĞµÄhandle
- *    callback_delegate^ delfunc:.Net»Øµ÷Î¯ÍĞ
+ *    GCHandle gch:é˜²æ­¢å›æ”¶.NETå›è°ƒå§”æ‰˜çš„handle
+ *    callback_delegate^ delfunc:.NETå›è°ƒå§”æ‰˜
  *
  * Ps:
- * ÎÈ¶¨ĞÔÎ´Öª£¬ÇÒ×ª»»Æ÷ÊµÀıµÄ»ØÊÕ»áµ¼ÖÂ.NetÎ¯ÍĞÊµÀıµÄÊÍ·ÅÓëNativeº¯ÊıÖ¸ÕëµÄÊ§Ğ§
- * µÈ´ıÎÈ¶¨ĞÔ²âÊÔ.jpg
+ * ç¨³å®šæ€§æœªçŸ¥ï¼Œä¸”è½¬æ¢å™¨å®ä¾‹çš„å›æ”¶ä¼šå¯¼è‡´.NETå§”æ‰˜å®ä¾‹çš„é‡Šæ”¾ä¸Nativeå‡½æ•°æŒ‡é’ˆçš„å¤±æ•ˆ
+ * ç­‰å¾…ç¨³å®šæ€§æµ‹è¯•.jpg
  */
 #define DelegateToNativeHelper(class_name, callback_delegate, ret, ...)                                                                             \
                                                                                                                                                     \

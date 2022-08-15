@@ -1,6 +1,6 @@
 #pragma once
 #include <AllowListAPI.h>
-#include "../Main/.NETGlobal.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
 namespace LLNET::AllowList
 {
@@ -8,12 +8,12 @@ namespace LLNET::AllowList
 	/// For managing AllowList
 	/// <example>
 	/// <para>[Usage]</para>
-	/// <para>¡¡AllowListManager().has("steve"[, "114514"]);</para>
-	/// <para>¡¡AllowListManager().add("alex"[, "11451419", true]).reload();</para>
-	/// <para>¡¡AllowListManager().remove("mojang"[, "233333"]).reload();</para>
-	/// <para>¡¡AllowListManager().add(...).remove(...).reload();</para>
+	/// <para>ã€€AllowListManager().has("steve"[, "114514"]);</para>
+	/// <para>ã€€AllowListManager().add("alex"[, "11451419", true]).reload();</para>
+	/// <para>ã€€AllowListManager().remove("mojang"[, "233333"]).reload();</para>
+	/// <para>ã€€AllowListManager().add(...).remove(...).reload();</para>
 	/// <para>[Note]</para>
-	/// <para>¡¡If you don't call reload after add/remove, the changes will only write to file
+	/// <para>ã€€If you don't call reload after add/remove, the changes will only write to file
 	/// but it will not take effect in the game.
 	/// This means the player you added won't be able to join the game until reloading</para>
 	/// </example> 

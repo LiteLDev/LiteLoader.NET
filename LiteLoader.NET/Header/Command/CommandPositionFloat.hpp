@@ -1,6 +1,6 @@
 #pragma once
 #include <MC/CommandPositionFloat.hpp>
-#include "../MC/Types.hpp"
+#include <LiteLoader.NET/Header/MC/Types.hpp>
 #include "CommandPosition.hpp"
 namespace MC
 {

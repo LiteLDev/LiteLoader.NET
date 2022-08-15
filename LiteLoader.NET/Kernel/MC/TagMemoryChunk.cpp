@@ -1,4 +1,4 @@
-#include "../../Header/MC/TagMemoryChunk.hpp"
+#include <LiteLoader.NET/Header/MC/TagMemoryChunk.hpp>
 namespace MC
 {
 size_t TagMemoryChunk::Capacity::get()

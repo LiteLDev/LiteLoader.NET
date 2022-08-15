@@ -1,7 +1,7 @@
 #pragma once
 
-#include ".NETGlobal.hpp"
-#include "ClassTemplateHelper.h"
+#include "DotNETGlobal.hpp"
+#include <LiteLoader.NET/Tools/ClassTemplateHelper.hpp>
 
 template <typename REFCLASS, typename NATIVECLASS>
 public ref class ClassTemplate abstract

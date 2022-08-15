@@ -1,19 +1,21 @@
 #pragma once
-#include "../../Extra/mutex.h"
+#include <LiteLoader.NET/Extra/mutex.hpp>
 #include <RemoteCallAPI.h>
-#include "../../Main/.NETGlobal.hpp"
-#include "../../Tools/NativeCallbackConverter.hpp"
-#include "../../Main/ClassTemplate.h"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
+#include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
-#include "../../Header/MC/CompoundTag.hpp"
-#include "../../Header/MC/ItemStack.hpp"
-#include "../../Header/MC/BlockInstance.hpp"
-#include "../../Header/MC/Player.hpp"
-#include "../../Header/MC/Actor.hpp"
-#include "../../Header/MC/BlockActor.hpp"
-#include "../../Header/MC/Container.hpp"
-#include "../../Header/MC/Vec3.hpp"
-#include "../../Header/MC/BlockPos.hpp"
+#include <LiteLoader.NET/Header/MC/CompoundTag.hpp>
+#include <LiteLoader.NET/Header/MC/ItemStack.hpp>
+#include <LiteLoader.NET/Header/MC/BlockInstance.hpp>
+#include <LiteLoader.NET/Header/MC/Player.hpp>
+#include <LiteLoader.NET/Header/MC/Actor.hpp>
+#include <LiteLoader.NET/Header/MC/BlockActor.hpp>
+#include <LiteLoader.NET/Header/MC/Container.hpp>
+#include <LiteLoader.NET/Header/MC/Vec3.hpp>
+#include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 //#define REMOTECALL_DEBUG
 

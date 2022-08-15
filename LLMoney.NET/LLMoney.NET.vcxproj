@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClCompile Include="EconomySystem\EconomySystem.cpp" />
     <ClCompile Include="Main\AssemblyInfo.cpp" />
-    <ClCompile Include="Main\dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EconomySystem\EconomySystem.hpp" />
