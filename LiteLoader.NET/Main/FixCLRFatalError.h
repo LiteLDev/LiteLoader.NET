@@ -105,7 +105,7 @@ void LogInfoForFatalError(UINT exitCode, LPCWSTR pszMessage, LPCWSTR errorSource
 		}
 	}
 	//throw an exception which could be caught outside ,otherwise the program will be terminated by clr
-	throw new std::exception("CLR Fatal Error");
+	throw;
 }
 #pragma unmanaged
 void EEPolicy_LogFatalError(UINT exitCode, UINT_PTR address, LPCWSTR pszMessage, PEXCEPTION_POINTERS pExceptionInfo, LPCWSTR errorSource, LPCWSTR argExceptionString)
