@@ -3,7 +3,7 @@
 #include "PluginAttribute.hpp"
 #include "PluginManager.hpp"
 #include "IPluginInitializer.hpp"
-#include "FixCLRFatalError.h"
+#include "FixCLRFatalError.hpp"
 
 
 

@@ -869,7 +869,7 @@
     <ClInclude Include="Header\Logger\LoggerManager.hpp">
       <Filter>Header\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="Main\FixCLRFatalError.h">
+    <ClInclude Include="Main\FixCLRFatalError.hpp">
       <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>

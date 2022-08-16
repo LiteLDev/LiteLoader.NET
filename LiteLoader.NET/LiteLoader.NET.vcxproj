@@ -313,7 +313,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Main\DotNETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.hpp" />
     <ClInclude Include="Main\Config.hpp" />
-    <ClInclude Include="Main\FixCLRFatalError.h" />
+    <ClInclude Include="Main\FixCLRFatalError.hpp" />
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\GlobalClass.hpp" />
     <ClInclude Include="Main\Info.hpp" />
