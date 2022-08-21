@@ -14,6 +14,9 @@
 #include <LiteLoader.NET/Header/MC/Level.hpp>
 #include <LiteLoader.NET/Header/MC/Player.hpp>
 
+#include "LiteLoader.NET/Header/MC/Attribute.hpp"
+#include "LiteLoader.NET/Header/MC/AttributeInstance.hpp"
+
 namespace MC
 {
 	String^ Actor::TypeName::get()
@@ -1631,6 +1634,11 @@ MC::Vec2 MC::Actor::GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2)
 MC::Vec3 MC::Actor::GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2)
 {
 	return ::Actor::getViewVector(_0, _1, _2);
+}
+
+MC::AttributeInstance^ MC::Actor::GetAttribute(MC::Attribute^ attributeType)
+{
+    return gcnew AttributeInstance(NativePtr->getMutableAttribute(*attributeType->NativePtr));
 }
 
 MC::Vec3 MC::Actor::FeetPosition::get()

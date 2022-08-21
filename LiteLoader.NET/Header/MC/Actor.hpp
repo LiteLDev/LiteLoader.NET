@@ -18,6 +18,8 @@ namespace MC
 	ref class Level;
 	ref class Mob;
 	ref class Player;
+	ref class AttributeInstance;
+	ref class Attribute;
 } // namespace MC
 
 #include "BlockInstance.hpp"
@@ -1608,6 +1610,8 @@ namespace MC
 		static MC::Vec2 GetInterpolatedRotation(MC::Vec2 _0, MC::Vec2 _1, float _2);
 
 		static MC::Vec3 GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2);
+
+		MC::AttributeInstance^ GetAttribute(MC::Attribute^ attributeType);
 
 		static property float DEFAULT_AMBIENT_SOUND_INTERVAL
 		{

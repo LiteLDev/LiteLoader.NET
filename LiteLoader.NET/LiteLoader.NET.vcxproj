@@ -232,6 +232,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
     <ClInclude Include="Header\MC\ArmorStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
+    <ClInclude Include="Header\MC\AttributeInstance.hpp" />
     <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
     <ClInclude Include="Header\MC\Block.hpp" />
@@ -280,6 +281,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\SerializedSkin.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
+    <ClInclude Include="Header\MC\SharedAttributes.hpp" />
     <ClInclude Include="Header\MC\ShortTag.hpp" />
     <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
     <ClInclude Include="Header\MC\StringTag.hpp" />
@@ -363,6 +365,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\ActorDefinitionIdentifier.cpp" />
     <ClCompile Include="Kernel\MC\ArmorStand.cpp" />
     <ClCompile Include="Kernel\MC\Attribute.cpp" />
+    <ClCompile Include="Kernel\MC\AttributeInstance.cpp" />
     <ClCompile Include="Kernel\MC\BinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\Biome.cpp" />
     <ClCompile Include="Kernel\MC\Block.cpp" />
@@ -411,6 +414,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\SerializedSkin.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
+    <ClCompile Include="Kernel\MC\SharedAttributes.cpp" />
     <ClCompile Include="Kernel\MC\ShortTag.cpp" />
     <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
     <ClCompile Include="Kernel\MC\StringTag.cpp" />
