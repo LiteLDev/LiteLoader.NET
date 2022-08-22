@@ -47,10 +47,6 @@ namespace MC
 			{
 				return AsString();
 			}
-			UUID FromString(String^ str)
-			{
-				return ::mce::UUID::fromString(marshalString(str));
-			}
 			property bool IsEmpty
 			{
 				bool get()
@@ -59,7 +55,11 @@ namespace MC
 					return ((::mce::UUID*)p)->isEmpty();
 				}
 			}
-			UUID SeedFromString(String^ str)
+			static UUID FromString(String^ str)
+			{
+				return ::mce::UUID::fromString(marshalString(str));
+			}
+			static UUID SeedFromString(String^ str)
 			{
 				return ::mce::UUID::seedFromString(marshalString(str));
 			}
