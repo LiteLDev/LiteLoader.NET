@@ -21,11 +21,11 @@ inline void ChunkBlockPos::Z::set(char mz)
 }
 inline short ChunkBlockPos::Y::get()
 {
-    return NativePtr->y;
+    return NativePtr->y.mVal;
 }
 inline void ChunkBlockPos::Y::set(short my)
 {
-    NativePtr->y = my;
+    NativePtr->y.mVal = my;
 }
 
 ChunkBlockPos ^ ChunkBlockPos::Create()
