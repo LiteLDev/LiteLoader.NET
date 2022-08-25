@@ -21,10 +21,6 @@ public:
     __ctor_all(ScoreInfo, ::ScoreInfo);
 
 public:
-    property array<char> ^ Filler {
-        array<char> ^ get();
-        void set(array<char> ^);
-    };
     property MC::Objective ^ Objective {
         MC::Objective ^ get();
     };
