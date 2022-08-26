@@ -408,6 +408,15 @@
     <ClCompile Include="Extra\i18n.cpp">
       <Filter>Extra</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\MC\SharedAttributes.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\AttributeInstance.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\AttributeModifier.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -871,6 +880,15 @@
     </ClInclude>
     <ClInclude Include="Main\FixCLRFatalError.hpp">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\SharedAttributes.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\AttributeInstance.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\AttributeModifier.hpp">
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
