@@ -87,4 +87,10 @@ namespace MC
     {
         return NativePtr == other->NativePtr;
     }
+
+    bool AttributeModifier::Equals(Object^ other)
+    {
+        AttributeModifier^ otherModifier = dynamic_cast<AttributeModifier^>(other);
+        return otherModifier != nullptr && Equals(otherModifier);
+    }
 }

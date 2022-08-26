@@ -43,5 +43,6 @@ namespace MC
         property bool IsSerializable { bool get(); void set(bool value); }
 
         virtual bool Equals(AttributeModifier^ other);
+        bool Equals(Object^ other) override;
     };
 } // namespace MC

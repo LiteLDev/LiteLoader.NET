@@ -89,7 +89,13 @@ namespace MC
 
     bool AttributeInstance::HasModifier(AttributeModifier^ modifier)
     {
-        return NativePtr->hasModifier(std::shared_ptr<::AttributeModifier>(modifier->NativePtr));
+        for (auto temp :NativePtr->getModifiers())
+        {
+            if (temp == *modifier->NativePtr)
+                return true;
+        }
+
+        return false;
     }
 
     bool AttributeInstance::HasModifier(Mce::UUID id)
@@ -152,9 +158,9 @@ namespace MC
         NativePtr->serializationSetRange(min, defaultCurrent, max);
     }
 
-    void AttributeInstance::SerializationSetValue(float value, AttributeValueType type, float defaultValue)
+    void AttributeInstance::SerializationSetValue(float value, AttributeValueType type, float limit)
     {
-        NativePtr->serializationSetValue(value, static_cast<int>(type), defaultValue);
+        NativePtr->serializationSetValue(value, static_cast<int>(type), limit);
     }
 
     void AttributeInstance::SetDefaultValue(float value, AttributeValueType type)
@@ -177,8 +183,14 @@ namespace MC
         NativePtr->updateModifier(modifier);
     }
 
-    bool AttributeInstance::operator==(AttributeInstance^ obj1, AttributeInstance^ obj2)
+    bool AttributeInstance::Equals(AttributeInstance^ other)
     {
-        return obj1->NativePtr == obj2->NativePtr;
+        return NativePtr == other->NativePtr;
+    }
+
+    bool AttributeInstance::Equals(Object^ other)
+    {
+        AttributeInstance^ otherModifier = dynamic_cast<AttributeInstance^>(other);
+        return otherModifier != nullptr && Equals(otherModifier);
     }
 }

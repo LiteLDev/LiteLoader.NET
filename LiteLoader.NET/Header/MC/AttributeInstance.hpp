@@ -6,14 +6,15 @@
 
 namespace MC
 {
-    enum class AttributeValueType
+    public enum class AttributeValueType
     {
         Min,
         Max,
         Current
     };
 
-    public ref class AttributeInstance : ClassTemplate<AttributeInstance, ::AttributeInstance>
+    public ref class AttributeInstance : ClassTemplate<AttributeInstance, ::AttributeInstance>,
+                                         System::IEquatable<AttributeInstance^>
     {
     public:
         __ctor(AttributeInstance, ::AttributeInstance);
@@ -53,12 +54,13 @@ namespace MC
         void ResetToMaxValue();
         void ResetToMinValue();
         void SerializationSetRange(float min, float defaultCurrent, float max);
-        void SerializationSetValue(float value, AttributeValueType type, float defaultValue);
+        void SerializationSetValue(float value, AttributeValueType type, float limit);
         void SetDefaultValue(float value, AttributeValueType type);
         void SetDefaultValueOnly(float value);
         //void SetDelegate(AttributeInstanceDelegate^);
         void SetRange(float min, float current, float max);
         void UpdateModifier(AttributeModifier^ modifier);
-        static bool operator ==(AttributeInstance^ obj1, AttributeInstance^ obj2);
+        virtual bool Equals(AttributeInstance^ other);
+        bool Equals(Object^ other) override;
     };
 } // namespace MC
