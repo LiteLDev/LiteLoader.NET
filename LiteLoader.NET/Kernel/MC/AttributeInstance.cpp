@@ -4,11 +4,13 @@ namespace MC
 {
     AttributeInstance::AttributeInstance(AttributeInstance^ attr)
     {
+        OwnsNativeInstance = true;
         NativePtr = new ::AttributeInstance(*attr->NativePtr);
     }
 
     AttributeInstance::AttributeInstance()
     {
+        OwnsNativeInstance = true;
         NativePtr = new ::AttributeInstance();
     }
 
@@ -57,14 +59,42 @@ namespace MC
         return NativePtr->hasTemporalBuffs();
     }
 
-    float AttributeInstance::GetDefaultValue(ValueType type)
+    void AttributeInstance::AddModifier(AttributeModifier^ modifier)
+    {
+        NativePtr->addModifier(modifier);
+    }
+
+    float AttributeInstance::GetDefaultValue(AttributeValueType type)
     {
         return NativePtr->getDefaultValue(static_cast<int>(type));
     }
 
-    bool AttributeInstance::HasModifier(Mce::UUID^ uuid)
+    AttributeModifier^ AttributeInstance::GetModifier(Mce::UUID id)
     {
-        return NativePtr->hasModifier(uuid);
+        return gcnew AttributeModifier(&NativePtr->getModifier(id));
+    }
+
+    List<AttributeModifier^>^ AttributeInstance::GetModifiers()
+    {
+        auto modifiers = NativePtr->getModifiers();
+        auto result = gcnew List<AttributeModifier^>();
+
+        for (auto modifier : modifiers)
+        {
+            result->Add(gcnew AttributeModifier(&modifier));
+        }
+
+        return result;
+    }
+
+    bool AttributeInstance::HasModifier(AttributeModifier^ modifier)
+    {
+        return NativePtr->hasModifier(std::shared_ptr<::AttributeModifier>(modifier->NativePtr));
+    }
+
+    bool AttributeInstance::HasModifier(Mce::UUID id)
+    {
+        return NativePtr->hasModifier(id);
     }
 
     void AttributeInstance::Notify(long long _0)
@@ -87,9 +117,14 @@ namespace MC
         NativePtr->removeBuffs();
     }
 
-    bool AttributeInstance::RemoveModifier(Mce::UUID^ uuid)
+    void AttributeInstance::RemoveModifier(AttributeModifier^ modifier)
     {
-        return NativePtr->removeModifier(uuid);
+        NativePtr->removeModifier(modifier);
+    }
+
+    bool AttributeInstance::RemoveModifier(Mce::UUID id)
+    {
+        return NativePtr->removeModifier(id);
     }
 
     void AttributeInstance::RemoveModifiers()
@@ -112,17 +147,17 @@ namespace MC
         NativePtr->resetToMinValue();
     }
 
-    void AttributeInstance::SerializationSetRange(float _0, float _1, float _2)
+    void AttributeInstance::SerializationSetRange(float min, float defaultCurrent, float max)
     {
-        NativePtr->serializationSetRange(_0, _1, _2);
+        NativePtr->serializationSetRange(min, defaultCurrent, max);
     }
 
-    void AttributeInstance::SerializationSetValue(float _0, ValueType type, float _2)
+    void AttributeInstance::SerializationSetValue(float value, AttributeValueType type, float defaultValue)
     {
-        NativePtr->serializationSetValue(_0, static_cast<int>(type), _2);
+        NativePtr->serializationSetValue(value, static_cast<int>(type), defaultValue);
     }
 
-    void AttributeInstance::SetDefaultValue(float value, ValueType type)
+    void AttributeInstance::SetDefaultValue(float value, AttributeValueType type)
     {
         NativePtr->setDefaultValue(value, static_cast<int>(type));
     }
@@ -132,8 +167,18 @@ namespace MC
         NativePtr->setDefaultValueOnly(value);
     }
 
-    void AttributeInstance::SetRange(float _0, float _1, float _2)
+    void AttributeInstance::SetRange(float min, float current, float max)
     {
-        NativePtr->setRange(_0, _1, _2);
+        NativePtr->setRange(min, current, max);
+    }
+
+    void AttributeInstance::UpdateModifier(AttributeModifier^ modifier)
+    {
+        NativePtr->updateModifier(modifier);
+    }
+
+    bool AttributeInstance::operator==(AttributeInstance^ obj1, AttributeInstance^ obj2)
+    {
+        return obj1->NativePtr == obj2->NativePtr;
     }
 }
