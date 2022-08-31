@@ -128,7 +128,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MP8 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -208,14 +208,11 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
     <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp" />
     <ClInclude Include="Header\Event.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\include.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp" />
+    <ClInclude Include="Header\Event\EventAttribute.hpp" />
+    <ClInclude Include="Header\Event\EventManager.hpp" />
+    <ClInclude Include="Header\Event\EventListener.hpp" />
+    <ClInclude Include="Header\Event\IEvent.hpp" />
+    <ClInclude Include="Header\Event\include.hpp" />
     <ClInclude Include="Header\Event\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
     <ClInclude Include="Header\GlobalSurvice.hpp" />
@@ -351,7 +348,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
     <ClCompile Include="Kernel\Event\Event.cpp" />
-    <ClCompile Include="Kernel\Event\LLNETEvents.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />

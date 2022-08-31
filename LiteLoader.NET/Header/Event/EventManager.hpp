@@ -20,7 +20,7 @@ constexpr int IS_REF_AND_IGNORECANCELLED = IS_REF | IS_IGNORECANCELLED;
 constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | IS_IGNORECANCELLED;
 
 
-namespace LLNET::Event::Effective
+namespace LLNET::Event
 {
     ref class NativeEventIsCancelledManager sealed
     {
@@ -73,10 +73,10 @@ namespace LLNET::Event::Effective
         static bool _isNativeEventId(__EventId eventId);
 
     internal:
-        generic <typename TEvent> where TEvent : IEvent, INativeEvent
-        static void _callNativeEvent(TEvent% ev, __EventId eventId);
+        generic <typename TEvent> where TEvent : IEvent
+        static void _callNativeEvent(TEvent ev, __EventId eventId);
 
-        generic <typename TEvent> where TEvent : IEvent, INativeEvent
+        generic <typename TEvent> where TEvent : IEvent
         static void _registerNativeEvent(__EventId id);
 
     };
@@ -85,7 +85,7 @@ namespace LLNET::Event::Effective
 
 //#include "LLNETEvents.hpp"
 
-namespace LLNET::Event::Effective
+namespace LLNET::Event
 {
     inline bool EventManager::_isNativeEventId(__EventId eventId)
     {
@@ -107,7 +107,7 @@ namespace LLNET::Event::Effective
     }
 
 
-    generic <typename TEvent> where TEvent : IEvent, INativeEvent
+    generic <typename TEvent> where TEvent : IEvent
     void EventManager::_registerNativeEvent(__EventId id)
     {
         eventIds.Add(TEvent::typeid, id);
@@ -136,7 +136,6 @@ namespace LLNET::Event::Effective
             BindingFlags::NonPublic |
             BindingFlags::Static |
             BindingFlags::Instance);
-
         auto listenerMethodDatas = gcnew List<System::ValueTuple<
             MethodInfo^, EventPriority, __IgnoreCancelled, __IsStatic, __IsByRef>>;
 
@@ -221,7 +220,7 @@ namespace LLNET::Event::Effective
             {
                 methodData.Item5 = true;
             }
-            else
+            /*else
             {
                 if (isNativeEventHandler)
                 {
@@ -229,7 +228,7 @@ namespace LLNET::Event::Effective
                         "Parameter of the native event handler must be passed by reference (use 'in' or 'ref' keyword in C#)!  at Handler:<"
                         + listenerType->Name + "." + method->Name + ">");
                 }
-            }
+            }*/
 
             auto eventPriority = static_cast<int>(methodData.Item2);
 
@@ -352,8 +351,8 @@ namespace LLNET::Event::Effective
         }
     }
 
-    generic <typename TEvent> where TEvent : IEvent, INativeEvent
-    void EventManager::_callNativeEvent(TEvent% ev, __EventId eventId)
+    generic <typename TEvent> where TEvent : IEvent
+    void EventManager::_callNativeEvent(TEvent ev, __EventId eventId)
     {
         auto functions = eventManagerData[eventId];
         pin_ptr<List<__CallbackFunctionInfo>^> pfunctions = &functions[0];
