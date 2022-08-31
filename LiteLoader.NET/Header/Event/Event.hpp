@@ -39,7 +39,6 @@ internal:																													\
 	delegate bool _delNativeCallback(::Event::EventName&);																	\
     static bool _nativeCallback(::Event::EventName& ev)																		\
     {																														\
-	    NativeEventIsCancelledManager::set(false);																			\
 	    auto _ev = Translate(ev);																							\
 	    EventManager::_callNativeEvent(_ev, Id);																			\
 	    return !_ev->IsCancelled;																							\
@@ -133,6 +132,7 @@ namespace LLNET::Event
     template <typename REFEVENT, typename NATIVEEVENT>
     public ref class EventTemplate : IEvent, ICancellable
     {
+        bool isCancelled;
     protected:
         NATIVEEVENT* _this;
         bool ownsNativeInstance;
@@ -141,15 +141,8 @@ namespace LLNET::Event
         delegate bool EventHandler(REFEVENT^ ev);
         virtual property bool IsCancelled
         {
-            bool get()
-            {
-                return NativeEventIsCancelledManager::get();
-            }
-
-            void set(bool value)
-            {
-                NativeEventIsCancelledManager::set(value);
-            }
+            bool get() { return isCancelled; };
+            void set(bool value) { isCancelled = value; };
         }
 
     protected:

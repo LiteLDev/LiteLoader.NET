@@ -22,15 +22,6 @@ constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | I
 
 namespace LLNET::Event
 {
-    ref class NativeEventIsCancelledManager sealed
-    {
-    internal:
-        static bool current = false;
-
-        inline static void set(bool isCancelled);
-        inline static bool get();
-    };
-
     public ref class EventManager abstract sealed
     {
     internal:
@@ -78,7 +69,6 @@ namespace LLNET::Event
 
         generic <typename TEvent> where TEvent : IEvent
         static void _registerNativeEvent(__EventId id);
-
     };
 }
 
@@ -360,16 +350,6 @@ namespace LLNET::Event
         return _callEvent(ev, pfunctions);
     }
 
-
-    inline void NativeEventIsCancelledManager::set(bool isCancelled)
-    {
-        current = isCancelled;
-    }
-
-    inline bool NativeEventIsCancelledManager::get()
-    {
-        return current;
-    }
 
     inline void EventBase::Call()
     {
