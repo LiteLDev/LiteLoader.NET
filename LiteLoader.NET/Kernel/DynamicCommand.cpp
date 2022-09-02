@@ -827,7 +827,7 @@ namespace LLNET::DynamicCommand
 		std::vector<std::string> stdvector;
 		for each (auto var in values)
 			stdvector.emplace_back(marshalString(var));
-		return (*NativePtr).addSoftEnumValues(marshalString(name), stdvector);
+		return (*NativePtr).removeSoftEnumValues(marshalString(name), stdvector);
 	}
 
 	inline List<String^>^ DynamicCommandInstance::GetSoftEnumValues(String^ name)

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LLNET::Event::Effective
+namespace LLNET::Event
 {
     using System::AttributeUsageAttribute;
     using System::AttributeTargets;

@@ -67,9 +67,6 @@
     <Filter Include="Header\Event">
       <UniqueIdentifier>{1f247153-bd56-4e44-837f-388cd13c1e36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\Event\EffectiveEvent">
-      <UniqueIdentifier>{e70dde21-b367-4d5e-a5a5-66b6ba4be02f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Kernel\Event">
       <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
     </Filter>
@@ -360,9 +357,6 @@
     <ClCompile Include="Kernel\Event\Event.cpp">
       <Filter>Kernel\Event</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel\Event\LLNETEvents.cpp">
-      <Filter>Kernel\Event</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
@@ -405,8 +399,14 @@
     <ClCompile Include="Kernel\Logger\LoggerManager.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Extra\i18n.cpp">
-      <Filter>Extra</Filter>
+    <ClCompile Include="Kernel\MC\SharedAttributes.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\AttributeInstance.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\MC\AttributeModifier.cpp">
+      <Filter>Kernel\MC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -791,30 +791,6 @@
     <ClInclude Include="Header\Event\Event.hpp">
       <Filter>Header\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\include.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp">
-      <Filter>Header\Event\EffectiveEvent</Filter>
-    </ClInclude>
     <ClInclude Include="Header\IsManagedAssemblyAPI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
@@ -868,6 +844,33 @@
     </ClInclude>
     <ClInclude Include="Header\Logger\LoggerManager.hpp">
       <Filter>Header\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\FixCLRFatalError.hpp">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\SharedAttributes.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\AttributeInstance.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\AttributeModifier.hpp">
+      <Filter>Header\MC</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\EventAttribute.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\EventListener.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\EventManager.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\IEvent.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\include.hpp">
+      <Filter>Header\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

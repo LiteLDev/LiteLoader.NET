@@ -75,7 +75,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MP8 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -128,7 +128,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>NDEBUG;TEMPLATE_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/utf-8 /MP8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MP8 /bigobj %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4828;4635;6385;4793;4099;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -208,14 +208,11 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
     <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp" />
     <ClInclude Include="Header\Event.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventAttribute.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventCallbackHandler.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventManager.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\EventListener.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\INativeEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\IEvent.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\include.hpp" />
-    <ClInclude Include="Header\Event\EffectiveEvent\LLNETEvents.hpp" />
+    <ClInclude Include="Header\Event\EventAttribute.hpp" />
+    <ClInclude Include="Header\Event\EventManager.hpp" />
+    <ClInclude Include="Header\Event\EventListener.hpp" />
+    <ClInclude Include="Header\Event\IEvent.hpp" />
+    <ClInclude Include="Header\Event\include.hpp" />
     <ClInclude Include="Header\Event\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
     <ClInclude Include="Header\GlobalSurvice.hpp" />
@@ -232,6 +229,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
     <ClInclude Include="Header\MC\ArmorStand.hpp" />
     <ClInclude Include="Header\MC\Attribute.hpp" />
+    <ClInclude Include="Header\MC\AttributeInstance.hpp" />
+    <ClInclude Include="Header\MC\AttributeModifier.hpp" />
     <ClInclude Include="Header\MC\BinaryStream.hpp" />
     <ClInclude Include="Header\MC\Biome.hpp" />
     <ClInclude Include="Header\MC\Block.hpp" />
@@ -280,6 +279,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
     <ClInclude Include="Header\MC\SerializedSkin.hpp" />
     <ClInclude Include="Header\MC\ServerPlayer.hpp" />
+    <ClInclude Include="Header\MC\SharedAttributes.hpp" />
     <ClInclude Include="Header\MC\ShortTag.hpp" />
     <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
     <ClInclude Include="Header\MC\StringTag.hpp" />
@@ -313,6 +313,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Main\DotNETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.hpp" />
     <ClInclude Include="Main\Config.hpp" />
+    <ClInclude Include="Main\FixCLRFatalError.hpp" />
     <ClInclude Include="Main\Global.hpp" />
     <ClInclude Include="Main\GlobalClass.hpp" />
     <ClInclude Include="Main\Info.hpp" />
@@ -327,7 +328,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Tools\PropertryHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Extra\i18n.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
@@ -347,7 +347,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
     <ClCompile Include="Kernel\DynamicCommand.cpp" />
     <ClCompile Include="Kernel\Event\Event.cpp" />
-    <ClCompile Include="Kernel\Event\LLNETEvents.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook.cpp" />
@@ -362,6 +361,8 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\ActorDefinitionIdentifier.cpp" />
     <ClCompile Include="Kernel\MC\ArmorStand.cpp" />
     <ClCompile Include="Kernel\MC\Attribute.cpp" />
+    <ClCompile Include="Kernel\MC\AttributeInstance.cpp" />
+    <ClCompile Include="Kernel\MC\AttributeModifier.cpp" />
     <ClCompile Include="Kernel\MC\BinaryStream.cpp" />
     <ClCompile Include="Kernel\MC\Biome.cpp" />
     <ClCompile Include="Kernel\MC\Block.cpp" />
@@ -410,6 +411,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
     <ClCompile Include="Kernel\MC\SerializedSkin.cpp" />
     <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
+    <ClCompile Include="Kernel\MC\SharedAttributes.cpp" />
     <ClCompile Include="Kernel\MC\ShortTag.cpp" />
     <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
     <ClCompile Include="Kernel\MC\StringTag.cpp" />

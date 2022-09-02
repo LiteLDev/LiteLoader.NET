@@ -4,21 +4,6 @@
 
 namespace MC
 {
-array<char> ^ ScoreInfo::Filler::get()
-{
-    auto ret = gcnew array<char>(16);
-    pin_ptr<char> p = &ret[0];
-    memcpy(p, NativePtr->filler, 16);
-    return ret;
-};
-void ScoreInfo::Filler::set(array<char> ^ value)
-{
-    if (value->Length != 16)
-        throw gcnew System::IndexOutOfRangeException;
-    pin_ptr<char> p = &value[0];
-    memcpy(NativePtr->filler, p, 16);
-}
-
 Objective ^ ScoreInfo::Objective::get()
 {
     return gcnew MC::Objective(NativePtr->getObjective());

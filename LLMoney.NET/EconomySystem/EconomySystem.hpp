@@ -47,7 +47,7 @@ struct dynamicSymbolsMap_type
 namespace LLMoney
 {
 	using LLNET::Logger::Logger;
-	using namespace LLNET::Event::Effective;
+	using namespace LLNET::Event;
 
 	public ref class LLMoneyException :LLNET::Core::LiteLoaderDotNETException
 	{

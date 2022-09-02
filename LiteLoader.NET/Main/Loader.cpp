@@ -3,6 +3,7 @@
 #include "PluginAttribute.hpp"
 #include "PluginManager.hpp"
 #include "IPluginInitializer.hpp"
+#include "FixCLRFatalError.hpp"
 
 
 
@@ -158,6 +159,8 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
+	FixCLRFatalError(logger);
+
 	using System::Reflection::PortableExecutable::PEReader;
 	using System::IO::File;
 	using System::IO::FileStream;
@@ -175,8 +178,6 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 		try
 		{
-
-
 			bool isManagedAssembly = false;
 			auto file = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::ReadWrite);
 			auto reader = gcnew PEReader(file);
@@ -233,23 +234,25 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 {
 
+	auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
+	if (plugin == nullptr)
+		return false;
+
+	auto method = plugin->GetMethod(TEXT(LLNET_PLUGIN_ENTRY_METHOD));
+	if (method == nullptr)
+		return false;
+
+	if (method->ReturnType != void::typeid)
+		return false;
+
+	if (method->GetParameters()->Length > 0)
+		return false;
+
 	try
 	{
-		auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
-		if (plugin == nullptr)
-			return false;
-
-		auto method = plugin->GetMethod(TEXT(LLNET_PLUGIN_ENTRY_METHOD));
-		if (method == nullptr)
-			return false;
-
-		method->Invoke(nullptr, nullptr);
+		reinterpret_cast<void(*)()>((void*)method->MethodHandle.GetFunctionPointer())();
 
 		return true;
-	}
-	catch (System::NullReferenceException^)
-	{
-		return false;
 	}
 	catch (System::Reflection::TargetInvocationException^ ex)
 	{
