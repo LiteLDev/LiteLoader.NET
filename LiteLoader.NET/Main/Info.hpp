@@ -1,6 +1,8 @@
 #pragma once
 #define PLUGIN_VERSION_DEV     0
+
 #define PLUGIN_VERSION_BETA    1
+
 #define PLUGIN_VERSION_RELEASE 2
 
 
