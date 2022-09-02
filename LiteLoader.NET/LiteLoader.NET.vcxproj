@@ -328,7 +328,6 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Tools\PropertryHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Extra\i18n.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
     <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />

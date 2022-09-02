@@ -399,9 +399,6 @@
     <ClCompile Include="Kernel\Logger\LoggerManager.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Extra\i18n.cpp">
-      <Filter>Extra</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\MC\SharedAttributes.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
