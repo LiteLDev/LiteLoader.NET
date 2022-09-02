@@ -2,7 +2,6 @@ name: Build
 
 on:
   push:
-    branches-ignore: main
     paths:
       - '**.cpp'
       - '**.cc'
@@ -13,6 +12,15 @@ on:
       - '**.hxx'
       - '**.h'
   pull_request:
+    paths:
+      - '**.cpp'
+      - '**.cc'
+      - '**.cxx'
+      - '**.c'
+      - '**.hpp'
+      - '**.hh'
+      - '**.hxx'
+      - '**.h'
   workflow_dispatch:
 
 env:
