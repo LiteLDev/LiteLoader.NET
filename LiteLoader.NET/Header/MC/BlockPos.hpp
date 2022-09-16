@@ -162,22 +162,22 @@ namespace MC
 		double DistanceTo(BlockPos a) {
 			return (*this - a).Length;
 		}
-
+	/*
 	public:
 		inline static BlockPos Max(BlockPos% a, BlockPos% b)
 		{
 			pin_ptr<BlockPos> pa = &a;
 			pin_ptr<BlockPos> pb = &b;
-			return ::BlockPos::max(*(::BlockPos*)pa, *(::BlockPos*)pb);
+            return ::BlockPos::MAX(*(::BlockPos*)pa, *(::BlockPos*)pb);
 		}
 
 		inline static BlockPos Min(BlockPos% a, BlockPos% b)
 		{
 			pin_ptr<BlockPos> pa = &a;
 			pin_ptr<BlockPos> pb = &b;
-			return ::BlockPos::min(*(::BlockPos*)pa, *(::BlockPos*)pb);
+            return ::BlockPos::MIN(*(::BlockPos*)pa, *(::BlockPos*)pb);
 		}
-
+	*/
 	public:
 		inline Vec3 ToVec3();
 		inline Vec3 BottomCenter();

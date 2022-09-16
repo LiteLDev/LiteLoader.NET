@@ -231,19 +231,19 @@ namespace MC {
 		inline Vec3 Cross(Vec3 a, Vec3 b) {
 			return Vec3{ a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x };
 		}
-
+        /*
 		inline static Vec3 Max(Vec3 a, Vec3 b) {
 			pin_ptr<Vec3> pa = &a;
 			pin_ptr<Vec3> pb = &b;
-			return ::Vec3::max(*(::Vec3*)pa, *(::Vec3*)pb);
+            return ::Vec3::MAX(*(::Vec3*)pa, *(::Vec3*)pb);
 		}
 
 		inline static Vec3 Min(Vec3 a, Vec3 b) {
 			pin_ptr<Vec3> pa = &a;
 			pin_ptr<Vec3> pb = &b;
-			return ::Vec3::min(*(::Vec3*)pa, *(::Vec3*)pb);
+			return ::Vec3::MIN(*(::Vec3*)pa, *(::Vec3*)pb);
 		}
-
+		*/
 		property size_t HashVal {
 			size_t get() {
 				pin_ptr<Vec3> p = this;

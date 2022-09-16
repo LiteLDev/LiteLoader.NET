@@ -1064,7 +1064,7 @@ public        \
         Property_Enum(OperationEnum, ::Event::ScriptPluginManagerEvent::Operation, operation, Operation);
         Property_String(target, Target);
         Property_String(otherInfo, OtherInfo);
-        Property_String(pluginExtention, PluginExtention);
+        // Property_String(pluginExtention, PluginExtention);
         Property(bool, success, Success);
     };
 
