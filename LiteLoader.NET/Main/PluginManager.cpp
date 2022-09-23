@@ -28,10 +28,10 @@ namespace LLNET
 		if (handle == nullptr)
 			handle = MODULE;
 
-		auto ret = ::RegisterPlugin(handle, _name, marshalString(introduction), (::LL::Version)version, stdmap);
+		auto ret = ::RegisterPlugin(handle, _name, marshalString(introduction), (::ll::Version)version, stdmap);
 		if (ret)
 		{
-			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::LL::getPlugin(_name)), Asm));
+			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
 			GlobalClass::ManagedModuleHandler->TryAdd(Asm, IntPtr(handle));
 		}
 
@@ -117,6 +117,6 @@ namespace LLNET
 	bool PluginManager::unRegisterPlugin(System::String^ name)
 	{
 		PluginManager::ManagedPluginData->Remove(name);
-		return ::PluginManager::unRegisterPlugin(marshalString(name));
+		return ::ll::PluginManager::unRegisterPlugin(marshalString(name));
 	}
 } // namespace LLNET
