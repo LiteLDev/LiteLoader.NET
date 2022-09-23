@@ -5,7 +5,7 @@
 #include <LiteLoader.NET/Header/MC/Actor.hpp>
 #include <memory>
 
-enum CommandOutputType;
+enum class CommandOutputType;
 
 namespace MC
 {

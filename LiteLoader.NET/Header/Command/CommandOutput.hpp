@@ -2,7 +2,7 @@
 #include <mc/CommandOutput.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
-enum CommandOutputType;
+enum class CommandOutputType;
 
 namespace MC
 {
