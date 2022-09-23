@@ -20,10 +20,10 @@ public:
 
     static CommandPosition ^ Create(Vec3 vec);
     static CommandPosition ^ Create();
-    BlockPos GetBlockPos(CommandOrigin ^ co, Vec3 vec);
+    BlockPos GetBlockPos(int v1, CommandOrigin ^ co, Vec3 vec);
     BlockPos GetBlockPos(Vec3 vec0, Vec3 vec1);
     Vec3 GetPosition(Vec3 vec0, Vec3 vec1);
-    Vec3 GetPosition(CommandOrigin ^ co, Vec3 vec0);
+    Vec3 GetPosition(int v1,CommandOrigin ^ co, Vec3 vec0);
     void Load(CompoundTag ^ ct);
     CompoundTag ^ Serialize();
 };

@@ -16,9 +16,9 @@ namespace MC
 		return gcnew CommandPosition(::CommandPosition());
 	}
 
-	BlockPos MC::CommandPosition::GetBlockPos(CommandOrigin^ co, Vec3 vec)
+	BlockPos MC::CommandPosition::GetBlockPos(int v1, CommandOrigin ^ co, Vec3 vec)
 	{
-		return BlockPos(NativePtr->getBlockPos((::CommandOrigin&)co, (::Vec3&)vec));
+        return BlockPos(NativePtr->getBlockPos(v1, (::CommandOrigin&)co, (::Vec3&)vec));
 	}
 
 	BlockPos CommandPosition::GetBlockPos(Vec3 vec0, Vec3 vec1)
@@ -29,9 +29,9 @@ namespace MC
 	{
 		return NativePtr->getPosition((::Vec3)vec0, (::Vec3)vec1);
 	}
-	Vec3  CommandPosition::GetPosition(CommandOrigin^ co, Vec3 vec0)
+	Vec3  CommandPosition::GetPosition(int v1,CommandOrigin^ co, Vec3 vec0)
 	{
-		return NativePtr->getPosition((::CommandOrigin&)co, vec0);
+        return NativePtr->getPosition(v1,(::CommandOrigin&) co, vec0);
 	}
 	void CommandPosition::Load(CompoundTag^ ct)
 	{
