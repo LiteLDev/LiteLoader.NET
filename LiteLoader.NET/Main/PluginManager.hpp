@@ -14,7 +14,7 @@ namespace LLNET {
 		static Assembly^ getPluginAssembly(Plugin^ plugin);
 		static bool hasPlugin(System::String^ name, bool includeNativePlugin, bool includeScriptPlugin);
 		static Dictionary<System::String^, Plugin^>^ getAllPlugins(bool includeNativePlugin, bool includeScriptPlugin);
-		//static bool unRegisterPlugin(System::String^ name);
+		static bool unRegisterPlugin(System::String^ name);
 	internal:
 		using PluginTuple = System::Tuple< Plugin^, Assembly^>;
 		static Dictionary<String^, PluginTuple^>^ ManagedPluginData = gcnew Dictionary<String^, PluginTuple^>;

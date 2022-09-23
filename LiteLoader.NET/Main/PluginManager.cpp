@@ -114,9 +114,9 @@ namespace LLNET
 		}
 		return ret;
 	}
-	//bool PluginManager::unRegisterPlugin(System::String^ name)
-	//{
-	//	PluginManager::ManagedPluginData->Remove(name);
-	//	return ::PluginManager::unRegisterPlugin(marshalString(name));
-	//}
+	bool PluginManager::unRegisterPlugin(System::String^ name)
+	{
+		PluginManager::ManagedPluginData->Remove(name);
+		return ::PluginManager::unRegisterPlugin(marshalString(name));
+	}
 } // namespace LLNET
