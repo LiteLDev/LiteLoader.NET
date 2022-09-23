@@ -1,34 +1,34 @@
 #include <LiteLoader.NET/Header/LLAPI.hpp>
 #include <LiteLoader.NET/Main/PluginManager.hpp>
 
-LLNET::LL::Version::Version(::LL::Version& v)
+LLNET::LL::Version::Version(::ll::Version& v)
 {
-    _this = new ::LL::Version(std::move(v));
+    _this = new ::ll::Version(std::move(v));
 }
 
 LLNET::LL::Version::Version()
 {
-    _this = new ::LL::Version;
+    _this = new ::ll::Version;
 }
 
 LLNET::LL::Version::Version(int major)
 {
-    _this = new ::LL::Version(major);
+    _this = new ::ll::Version(major);
 }
 
 LLNET::LL::Version::Version(int major, int minor)
 {
-    _this = new ::LL::Version(major, minor);
+    _this = new ::ll::Version(major, minor);
 }
 
 LLNET::LL::Version::Version(int major, int minor, int revision)
 {
-    _this = new ::LL::Version(major, minor, revision);
+    _this = new ::ll::Version(major, minor, revision);
 }
 
 LLNET::LL::Version::Version(int major, int minor, int revision, StatusEnum status)
 {
-    _this = new ::LL::Version(major, minor, revision, ::LL::Version::Status(status));
+    _this = new ::ll::Version(major, minor, revision, ::ll::Version::Status(status));
 }
 
 LLNET::LL::Version::!Version()
@@ -66,12 +66,12 @@ bool LLNET::LL::Version::operator>=(Version^ a, Version^ b)
     return b < a || b == a;
 }
 
-LLNET::LL::Version::operator::LL::Version ()
+LLNET::LL::Version::operator::ll::Version ()
 {
     return *_this;
 }
 
-::LL::Version* LLNET::LL::Version::ToPointer()
+::ll::Version* LLNET::LL::Version::ToPointer()
 {
     return _this;
 }
@@ -88,27 +88,27 @@ System::String^ LLNET::LL::Version::ToString()
 
 LLNET::LL::Version^ LLNET::LL::Version::Parse(System::String^ str)
 {
-    return gcnew Version(::LL::Version::parse(marshalString(str)));
+    return gcnew Version(::ll::Version::parse(marshalString(str)));
 }
 
 System::String^ LLNET::LL::LLAPI::GetLoaderVersionString()
 {
-    return marshalString(::LL::getLoaderVersionString());
+    return marshalString(::ll::getLoaderVersionString());
 }
 
 LLNET::LL::Version^ LLNET::LL::LLAPI::GetLoaderVersion()
 {
-    return gcnew Version(::LL::getLoaderVersion());
+    return gcnew Version(::ll::getLoaderVersion());
 }
 
 bool LLNET::LL::LLAPI::IsDebugMode()
 {
-    return ::LL::isDebugMode();
+    return ::ll::isDebugMode();
 }
 
 System::String^ LLNET::LL::LLAPI::GetDataPath(System::String^ pluginName)
 {
-    return marshalString(::LL::getDataPath(marshalString(pluginName)));
+    return marshalString(::ll::getDataPath(marshalString(pluginName)));
 }
 
 inline bool LLNET::LL::LLAPI::RegisterPlugin(System::String ^ name, System::String ^ desc, System::Version ^ version)
@@ -215,13 +215,13 @@ bool LLNET::LL::Plugin::IsManagedPlugin()
     return PluginManager::ManagedPluginData->ContainsKey(this->Name);
 }
 
-LLNET::LL::Plugin::Plugin(::LL::Plugin& p)
-    :_this(new ::LL::Plugin(std::move(p))),
+LLNET::LL::Plugin::Plugin(::ll::Plugin& p)
+    :_this(new ::ll::Plugin(std::move(p))),
     ownsNativeInstance(true)
 {
 }
 
-LLNET::LL::Plugin::Plugin(::LL::Plugin* p)
+LLNET::LL::Plugin::Plugin(::ll::Plugin* p)
     : _this(p),
     ownsNativeInstance(false)
 {

@@ -94,7 +94,7 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::LL::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 

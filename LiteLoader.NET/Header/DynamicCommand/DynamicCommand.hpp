@@ -32,7 +32,7 @@ public:
 	inline void SetDescription(std::string& s);
 	inline std::string GetIdentifier();
 	inline void SetIdentifier(std::string& s);
-	inline bool GetOptional();
+	//inline bool GetOptional();
 	inline void SetOptional(bool b);
 	inline CommandParameterOption GetOption();
 	inline void SetOption(CommandParameterOption o);

@@ -3,17 +3,17 @@ namespace LLNET::LL
 {
 inline String^ ServerAPI::GetBdsVersion()
 {
-    return marshalString(::LL::getBdsVersion());
+    return marshalString(::ll::getBdsVersion());
 }
 
 inline int ServerAPI::GetServerProtocolVersion()
 {
-    return ::LL::getServerProtocolVersion();
+    return ::ll::getServerProtocolVersion();
 }
 
 inline bool ServerAPI::SetServerMotd(String^ d)
 {
-    return ::LL::setServerMotd(marshalString(d));
+    return ::ll::setServerMotd(marshalString(d));
 }
 
 } // namespace LLNET::LL

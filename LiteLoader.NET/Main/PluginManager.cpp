@@ -2,7 +2,6 @@
 #include <LiteLoader.NET/Header/Core/Exceptions.hpp>
 #include <LiteLoader.NET/Extra/PluginManager.hpp>
 #include <filesystem>
-
 namespace LLNET
 {
 	bool PluginManager::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ Asm)
@@ -18,7 +17,7 @@ namespace LLNET
 	null:
 		auto _name = marshalString(name);
 
-		auto plugin = ::LL::getPlugin(_name);
+		auto plugin = ::ll::getPlugin(_name);
 		HMODULE handle = nullptr;
 		if (plugin != nullptr)
 			handle = plugin->handle;
@@ -40,7 +39,7 @@ namespace LLNET
 	}
 	Plugin^ PluginManager::getPlugin(System::IntPtr handle)
 	{
-		auto pPlugin = ::LL::getPlugin((HMODULE)(void*)handle);
+		auto pPlugin = ::ll::getPlugin((HMODULE)(void*)handle);
 		if (pPlugin == nullptr)
 			return nullptr;
 		return gcnew Plugin(pPlugin);
@@ -54,12 +53,12 @@ namespace LLNET
 				return ret->Item1;
 		}
 
-		auto pPlugin = ::LL::getPlugin(marshalString(name));
+		auto pPlugin = ::ll::getPlugin(marshalString(name));
 		if (pPlugin == nullptr)
 			return nullptr;
-		if (!includeScriptPlugin && pPlugin->type == ::LL::Plugin::PluginType::ScriptPlugin)
+		if (!includeScriptPlugin && pPlugin->type == ::ll::Plugin::PluginType::ScriptPlugin)
 			return nullptr;
-		if (!includeNativePlugin && pPlugin->type == ::LL::Plugin::PluginType::DllPlugin)
+		if (!includeNativePlugin && pPlugin->type == ::ll::Plugin::PluginType::DllPlugin)
 			return nullptr;
 		return gcnew Plugin(pPlugin);
 	}
@@ -86,28 +85,28 @@ namespace LLNET
 		ret = PluginManager::ManagedPluginData->ContainsKey(name);
 		if (ret)
 			return ret;
-		auto pPlugin = ::LL::getPlugin(marshalString(name));
+		auto pPlugin = ::ll::getPlugin(marshalString(name));
 		if (pPlugin == nullptr)
 			return false;
-		if (!includeScriptPlugin && pPlugin->type == ::LL::Plugin::PluginType::ScriptPlugin)
+		if (!includeScriptPlugin && pPlugin->type == ::ll::Plugin::PluginType::ScriptPlugin)
 			return false;
-		if (!includeNativePlugin && pPlugin->type == ::LL::Plugin::PluginType::DllPlugin)
+		if (!includeNativePlugin && pPlugin->type == ::ll::Plugin::PluginType::DllPlugin)
 			return false;
 		return true;
 	}
 	Dictionary<System::String^, Plugin^>^ PluginManager::getAllPlugins(bool includeNativePlugin, bool includeScriptPlugin)
 	{
 		auto ret = gcnew Dictionary<System::String^, Plugin^>;
-		auto& PluginMap = ::LL::getAllPlugins();
+		auto& PluginMap = ::ll::getAllPlugins();
 		for (auto& kv : PluginMap)
 		{
 			switch (kv.second->type)
 			{
-			case ::LL::Plugin::PluginType::DllPlugin:
+			case ::ll::Plugin::PluginType::DllPlugin:
 				if (includeNativePlugin)
 					ret->Add(marshalString(kv.first), gcnew Plugin(kv.second));
 				break;
-			case ::LL::Plugin::PluginType::ScriptPlugin:
+			case ::ll::Plugin::PluginType::ScriptPlugin:
 				if (includeScriptPlugin)
 					ret->Add(marshalString(kv.first), gcnew Plugin(kv.second));
 				break;
@@ -118,6 +117,6 @@ namespace LLNET
 	bool PluginManager::unRegisterPlugin(System::String^ name)
 	{
 		PluginManager::ManagedPluginData->Remove(name);
-		return ::LL::PluginManager::unRegisterPlugin(marshalString(name));
+		return ::PluginManager::unRegisterPlugin(marshalString(name));
 	}
 } // namespace LLNET

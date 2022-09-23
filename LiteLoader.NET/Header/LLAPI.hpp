@@ -20,7 +20,7 @@ namespace LLNET::LL
 		};
 
 	internal:
-		Version(::LL::Version& v);
+		Version(::ll::Version& v);
 	public:
 		Version();
 		Version(int major);
@@ -39,19 +39,19 @@ namespace LLNET::LL
 		Property(int, major, Major);
 		Property(int, minor, Minor);
 		Property(int, revision, Revision);
-		Property_Enum(StatusEnum, ::LL::Version::Status, status, Status);
+		Property_Enum(StatusEnum, ::ll::Version::Status, status, Status);
 
 	internal:
-		operator ::LL::Version();
+		operator ::ll::Version();
 	public:
-		::LL::Version* ToPointer();
+		::ll::Version* ToPointer();
 		System::IntPtr ToIntPtr();
 
 		String^ ToString() override;
 		static Version^ Parse(String^ str);
 
 	private:
-		::LL::Version* _this;
+		::ll::Version* _this;
 	};
 
 	public
@@ -68,8 +68,8 @@ namespace LLNET::LL
 		bool IsManagedPlugin();
 
 	public:
-		Plugin(::LL::Plugin& p);
-		Plugin(::LL::Plugin* p);
+		Plugin(::ll::Plugin& p);
+		Plugin(::ll::Plugin* p);
 		~Plugin();
 
 		Property_String(name, Name);
@@ -94,7 +94,7 @@ namespace LLNET::LL
 					ret->Add(marshalString(kv.first), marshalString(kv.second));
 				return ret;
 			}
-		} Property_Enum(PluginTypeEnum, ::LL::Plugin::PluginType, type, Type);
+		} Property_Enum(PluginTypeEnum, ::ll::Plugin::PluginType, type, Type);
 
 		// Get a Function by Symbol String
 		generic<typename TDelegate>
@@ -110,7 +110,7 @@ namespace LLNET::LL
 
 	private:
 		bool ownsNativeInstance;
-		::LL::Plugin* _this;
+		::ll::Plugin* _this;
 	};
 
 	public

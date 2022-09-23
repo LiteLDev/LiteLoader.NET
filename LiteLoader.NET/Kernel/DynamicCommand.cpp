@@ -928,10 +928,10 @@ inline void __ParameterData::SetIdentifier(std::string& s)
 	identifier = s;
 }
 
-inline bool __ParameterData::GetOptional()
-{
-	return option;
-}
+//inline bool __ParameterData::GetOptional()
+//{
+//	return option;
+//}
 
 inline void __ParameterData::SetOptional(bool b)
 {
