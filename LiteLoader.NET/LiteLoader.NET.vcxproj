@@ -85,7 +85,7 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
