@@ -2,6 +2,7 @@
 #include "Types.hpp"
 
 #include <mc/BlockPos.hpp>
+#include <mc/ChunkBlockPos.hpp>
 #include "Vec3.hpp"
 
 namespace MC

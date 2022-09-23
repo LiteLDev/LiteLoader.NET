@@ -1,5 +1,5 @@
-#include <LiteLoader.NET/Header/MC/ChunkBlockPos.hpp>
 #include <LiteLoader.NET/Header/MC/BlockPos.hpp>
+#include <LiteLoader.NET/Header/MC/ChunkBlockPos.hpp>
 namespace MC
 {
 
