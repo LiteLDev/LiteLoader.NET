@@ -22,17 +22,17 @@ namespace MC {
 		return ((::BoundingBox*)p)->toAABB();
 	}
 
-	inline BoundingBox BoundingBox::Merge(BoundingBox% a) {
-		pin_ptr<BoundingBox> pthis = this;
-		pin_ptr<BoundingBox> pa = &a;
-		return ((::BoundingBox*)pthis)->merge(*(::BoundingBox*)pa);
-	}
+	//inline BoundingBox BoundingBox::Merge(BoundingBox% a) {
+	//	pin_ptr<BoundingBox> pthis = this;
+	//	pin_ptr<BoundingBox> pa = &a;
+	//	return ((::BoundingBox*)pthis)->merge(*(::BoundingBox*)pa);
+	//}
 
-	inline BoundingBox BoundingBox::Merge(BlockPos% a) {
-		pin_ptr<BoundingBox> pthis = this;
-		pin_ptr<BlockPos> pa = &a;
-		return ((::BoundingBox*)pthis)->merge(*(::BlockPos*)pa);
-	}
+	//inline BoundingBox BoundingBox::Merge(BlockPos% a) {
+	//	pin_ptr<BoundingBox> pthis = this;
+	//	pin_ptr<BlockPos> pa = &a;
+	//	return ((::BoundingBox*)pthis)->merge(*(::BlockPos*)pa);
+	//}
 
 	inline void BoundingBox::ForEachBlockInBox(ForEachBlockInBoxHandler^ todo) {
 		pin_ptr<BoundingBox> p = this;
