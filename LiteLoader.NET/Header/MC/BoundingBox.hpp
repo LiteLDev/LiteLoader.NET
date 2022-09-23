@@ -40,9 +40,9 @@ namespace MC {
 
 		inline AABB ToAABB();
 
-		BoundingBox Merge(BoundingBox% a);
+		//BoundingBox Merge(BoundingBox% a);
 
-		BoundingBox Merge(BlockPos% a);
+		//BoundingBox Merge(BlockPos% a);
 
 	public:
 		property BlockPos% default[int]{
@@ -59,7 +59,7 @@ namespace MC {
 		/// <summary>
 		/// More Faster
 		/// </summary>
-		/// <param name="pfunc">£­Function Pointer</param>
+		/// <param name="pfunc">ï¿½ï¿½Function Pointer</param>
 		void ForEachBlockInBox_pFunc(void(*pfunc)(const BlockPos%)) {
 			pin_ptr<BoundingBox> p = this;
 			((::BoundingBox*)p)->forEachBlockInBox((void(*)(const ::BlockPos&))(pfunc));
