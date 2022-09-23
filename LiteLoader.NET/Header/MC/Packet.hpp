@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Packet.hpp>
+#include <mc/Packet.hpp>
 #include "Types.hpp"
 #include "BinaryStream.hpp"
 

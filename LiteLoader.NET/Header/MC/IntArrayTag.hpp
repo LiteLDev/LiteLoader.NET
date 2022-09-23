@@ -1,7 +1,7 @@
 #pragma once
 #include "Tag.hpp"
 #include "TagMemoryChunk.hpp"
-#include <MC/IntArrayTag.hpp>
+#include <mc/IntArrayTag.hpp>
 
 namespace MC
 {

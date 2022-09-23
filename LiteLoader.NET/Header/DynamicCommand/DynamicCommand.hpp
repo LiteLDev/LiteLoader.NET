@@ -13,10 +13,10 @@
 #include <LiteLoader.NET/Header/MC/Vec3.hpp>
 #include <LiteLoader.NET/Header/MC/ItemStack.hpp>
 #include <LiteLoader.NET/Header/MC/Block.hpp>
-#include <MC/Command.hpp>
+#include <mc/Command.hpp>
 #include <LiteLoader.NET/Header/MC/ActorDefinitionIdentifier.hpp>
 #include <LiteLoader.NET/Header/Core/STLHelper/string.hpp>
-#include <MC/JsonHelpers.hpp>
+#include <mc/JsonHelpers.hpp>
 
 struct __ParameterData : public ::DynamicCommand::ParameterData
 {

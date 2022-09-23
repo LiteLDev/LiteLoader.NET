@@ -14,7 +14,7 @@
 #include "IntArrayTag.hpp"
 #include "CompoundTag.hpp"
 
-#include <MC/CompoundTagVariant.hpp>
+#include <mc/CompoundTagVariant.hpp>
 
 namespace MC
 {

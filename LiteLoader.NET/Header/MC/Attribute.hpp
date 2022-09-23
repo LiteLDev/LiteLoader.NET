@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Attribute.hpp>
+#include <mc/Attribute.hpp>
 #include "Types.hpp"
 namespace MC
 {

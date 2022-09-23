@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Command.hpp>
+#include <mc/Command.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
 class __Command : public Command

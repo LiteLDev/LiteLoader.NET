@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/MobEffectInstance.hpp>
+#include <mc/MobEffectInstance.hpp>
 #include "Types.hpp"
 
 namespace MC

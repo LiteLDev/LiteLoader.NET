@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/IdentityDefinition.hpp>
+#include <mc/IdentityDefinition.hpp>
 #include "Types.hpp"
 
 namespace MC

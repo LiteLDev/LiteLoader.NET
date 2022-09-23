@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Vec2.hpp>
+#include <mc/Vec2.hpp>
 #include "Types.hpp"
 namespace MC
 {

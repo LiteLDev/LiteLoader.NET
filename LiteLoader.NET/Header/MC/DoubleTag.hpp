@@ -1,6 +1,6 @@
 #pragma once
 #include "Tag.hpp"
-#include <MC/DoubleTag.hpp>
+#include <mc/DoubleTag.hpp>
 
 namespace MC
 {

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <MC/SimulatedPlayer.hpp>
+#include <mc/SimulatedPlayer.hpp>
 #include "BlockPos.hpp"
 #include "ServerPlayer.hpp"
 

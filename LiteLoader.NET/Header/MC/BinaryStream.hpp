@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ReadOnlyBinaryStream.hpp"
-#include <MC/BinaryStream.hpp>
+#include <mc/BinaryStream.hpp>
 
 namespace MC
 {

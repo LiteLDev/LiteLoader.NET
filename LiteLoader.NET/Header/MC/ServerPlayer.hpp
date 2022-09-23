@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ServerPlayer.hpp>
+#include <mc/ServerPlayer.hpp>
 #include "Player.hpp"
 
 namespace MC

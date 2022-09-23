@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Scoreboard.hpp>
+#include <mc/Scoreboard.hpp>
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 

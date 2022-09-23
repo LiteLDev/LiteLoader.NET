@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Dimension.hpp>
+#include <mc/Dimension.hpp>
 #include "Types.hpp"
 
 namespace MC

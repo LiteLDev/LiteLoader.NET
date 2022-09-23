@@ -1,6 +1,6 @@
 #pragma once
 #include "Tag.hpp"
-#include <MC/Int64Tag.hpp>
+#include <mc/Int64Tag.hpp>
 
 namespace MC
 {

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <MC/BlockInstance.hpp>
+#include <mc/BlockInstance.hpp>
 #include "Types.hpp"
 #include "Block.hpp"
 #include "BlockActor.hpp"

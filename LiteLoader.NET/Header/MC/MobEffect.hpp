@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/MobEffect.hpp>
+#include <mc/MobEffect.hpp>
 #include "Types.hpp"
 
 #pragma make_public(::MobEffect)

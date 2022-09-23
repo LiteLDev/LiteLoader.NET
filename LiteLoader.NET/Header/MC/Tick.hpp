@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Tick.hpp>
+#include <mc/Tick.hpp>
 #include "Types.hpp"
 
 namespace MC

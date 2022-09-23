@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/CommandOrigin.hpp>
+#include <mc/CommandOrigin.hpp>
 #include "Command.hpp"
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 

@@ -1,6 +1,6 @@
 #pragma once
-#include <MC/CommandRegistry.hpp>
-#include <MC/Types.hpp>
+#include <mc/CommandRegistry.hpp>
+#include <mc/Types.hpp>
 
 namespace MC
 {

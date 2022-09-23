@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ActorDefinitionIdentifier.hpp>
+#include <mc/ActorDefinitionIdentifier.hpp>
 #include "Types.hpp"
 
 namespace MC

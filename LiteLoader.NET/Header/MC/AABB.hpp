@@ -1,7 +1,7 @@
 #pragma once
 #include "Types.hpp"
-#include <MC/AABB.hpp>
-#include <MC/HitResult.hpp>
+#include <mc/AABB.hpp>
+#include <mc/HitResult.hpp>
 
 #include "Vec3.hpp"
 

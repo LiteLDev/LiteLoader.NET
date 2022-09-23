@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <MC/AttributeInstance.hpp>
+#include <mc/AttributeInstance.hpp>
 #include <LiteLoader.NET/Header/MC/Attribute.hpp>
 #include <LiteLoader.NET/Header/MC/AttributeModifier.hpp>
 #include "Types.hpp"

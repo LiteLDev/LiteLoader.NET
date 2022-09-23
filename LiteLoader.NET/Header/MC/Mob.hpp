@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Mob.hpp>
+#include <mc/Mob.hpp>
 #include "Actor.hpp"
 
 

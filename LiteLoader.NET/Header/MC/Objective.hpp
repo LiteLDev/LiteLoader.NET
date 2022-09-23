@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Objective.hpp>
+#include <mc/Objective.hpp>
 #include "Types.hpp"
 
 namespace MC

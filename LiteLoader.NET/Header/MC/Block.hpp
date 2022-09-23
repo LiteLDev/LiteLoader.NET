@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Block.hpp>
+#include <mc/Block.hpp>
 #include "Types.hpp"
 
 namespace MC

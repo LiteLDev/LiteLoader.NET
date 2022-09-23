@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/HitResult.hpp>
+#include <mc/HitResult.hpp>
 #include "Types.hpp"
 
 namespace MC {

@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ActorDamageSource.hpp>
+#include <mc/ActorDamageSource.hpp>
 #include "Types.hpp"
 
 namespace MC

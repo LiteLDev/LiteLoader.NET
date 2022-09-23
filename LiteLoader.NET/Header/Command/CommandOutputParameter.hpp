@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/CommandOutputParameter.hpp>
+#include <mc/CommandOutputParameter.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
 class Actor;

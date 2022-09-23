@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Certificate.hpp>
+#include <mc/Certificate.hpp>
 #include "Types.hpp"
 namespace MC
 {

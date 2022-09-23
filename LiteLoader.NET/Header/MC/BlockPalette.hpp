@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/BlockPalette.hpp>
+#include <mc/BlockPalette.hpp>
 #include "Types.hpp"
 namespace MC
 {

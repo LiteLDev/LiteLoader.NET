@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Vec3.hpp>
+#include <mc/Vec3.hpp>
 #include "Types.hpp"
 #include "Vec2.hpp"
 

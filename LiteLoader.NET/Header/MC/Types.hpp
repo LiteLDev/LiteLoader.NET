@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Types.hpp>
+#include <mc/Types.hpp>
 
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>

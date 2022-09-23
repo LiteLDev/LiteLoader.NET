@@ -1,7 +1,7 @@
 #pragma once
 
-#include <MC/ItemStack.hpp>
-#include <MC/ItemInstance.hpp>
+#include <mc/ItemStack.hpp>
+#include <mc/ItemInstance.hpp>
 #include "ItemStackBase.hpp"
 #include "ItemInstance.hpp"
 #include "Types.hpp"

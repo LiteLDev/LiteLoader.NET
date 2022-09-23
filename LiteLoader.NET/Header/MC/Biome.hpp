@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Types.hpp"
-#include <MC/Biome.hpp>
+#include <mc/Biome.hpp>
 namespace MC
 {
 	public enum class VanillaBiomeTypes {};

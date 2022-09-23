@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/WitherBoss.hpp>
+#include <mc/WitherBoss.hpp>
 #include "Types.hpp"
 #include "Monster.hpp"
 

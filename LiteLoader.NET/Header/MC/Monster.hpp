@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Monster.hpp>
+#include <mc/Monster.hpp>
 #include "Types.hpp"
 #include "Mob.hpp"
 namespace MC

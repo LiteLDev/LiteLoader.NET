@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/UserEntityIdentifierComponent.hpp>
+#include <mc/UserEntityIdentifierComponent.hpp>
 #include "NetworkIdentifier.hpp"
 #include "Certificate.hpp"
 #include "Types.hpp"

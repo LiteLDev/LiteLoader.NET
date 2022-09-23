@@ -11,7 +11,7 @@
 #include "IntArrayTag.hpp"
 #include "ListTag.hpp"
 
-#include <MC/CompoundTag.hpp>
+#include <mc/CompoundTag.hpp>
 
 using System::Collections::Generic::Dictionary;
 

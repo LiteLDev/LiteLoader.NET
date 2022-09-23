@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ScoreboardId.hpp>
+#include <mc/ScoreboardId.hpp>
 #include "Types.hpp"
 
 namespace MC

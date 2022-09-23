@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ItemStackBase.hpp>
+#include <mc/ItemStackBase.hpp>
 
 #include "Types.hpp"
 

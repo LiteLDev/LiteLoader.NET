@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/MCRESULT.hpp>
+#include <mc/MCRESULT.hpp>
 #include "Types.hpp"
 
 namespace MC

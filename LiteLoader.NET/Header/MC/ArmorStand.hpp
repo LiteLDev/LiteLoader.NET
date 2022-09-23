@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ArmorStand.hpp>
+#include <mc/ArmorStand.hpp>
 #include "Types.hpp"
 #include "Mob.hpp"
 

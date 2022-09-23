@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ItemInstance.hpp>
+#include <mc/ItemInstance.hpp>
 #include "Types.hpp"
 
 namespace MC

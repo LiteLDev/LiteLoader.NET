@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/CommandFlag.hpp>
+#include <mc/CommandFlag.hpp>
 namespace MC
 {
 	public enum class CommandFlagValue : char

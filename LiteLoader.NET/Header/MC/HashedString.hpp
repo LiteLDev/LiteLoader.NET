@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/HashedString.hpp>
+#include <mc/HashedString.hpp>
 #include "Types.hpp"
 namespace MC
 {

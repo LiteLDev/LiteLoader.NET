@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/CommandOutputMessage.hpp>
+#include <mc/CommandOutputMessage.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 enum CommandOutputMessageType;
 namespace MC

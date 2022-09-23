@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/BoundingBox.hpp>
+#include <mc/BoundingBox.hpp>
 #include "Types.hpp"
 #include "BlockPos.hpp"
 

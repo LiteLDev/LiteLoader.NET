@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/ScorePacketInfo.hpp>
+#include <mc/ScorePacketInfo.hpp>
 #include "Types.hpp"
 #include "IdentityDefinition.hpp"
 

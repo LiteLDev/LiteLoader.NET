@@ -1,8 +1,8 @@
 #pragma once
-#include <MC/Player.hpp>
+#include <mc/Player.hpp>
 #include "BlockPos.hpp"
 #include "Mob.hpp"
-#include <MC/MobEffect.hpp>
+#include <mc/MobEffect.hpp>
 
 namespace MC
 {

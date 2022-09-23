@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/NetworkIdentifier.hpp>
+#include <mc/NetworkIdentifier.hpp>
 #include "Types.hpp"
 
 namespace MC

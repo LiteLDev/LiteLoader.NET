@@ -1,7 +1,7 @@
 #pragma once
 
-#include <MC/ReadOnlyBinaryStream.hpp>
-#include <MC/RakNet.hpp>
+#include <mc/ReadOnlyBinaryStream.hpp>
+#include <mc/RakNet.hpp>
 #include "Types.hpp"
 #include <LiteLoader.NET/Header/Core/STLHelper/string.hpp>
 

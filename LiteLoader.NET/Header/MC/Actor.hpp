@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/Actor.hpp>
+#include <mc/Actor.hpp>
 
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 

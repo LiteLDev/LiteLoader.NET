@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <MC/SerializedSkin.hpp>
+#include <mc/SerializedSkin.hpp>
 #include "Types.hpp"
 #include "ReadOnlyBinaryStream.hpp"
 #include "BinaryStream.hpp"

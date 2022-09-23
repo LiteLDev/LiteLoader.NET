@@ -1,22 +1,22 @@
 #include <LiteLoader.NET/Header/GlobalSurvice.hpp>
 
-#include <MC/CommandParameterData.hpp>
+#include <mc/CommandParameterData.hpp>
 
 #include <LiteLoader.NET/Header/MC/Level.hpp>
 #include <LiteLoader.NET/Header/Command/CommandRegistry.hpp>
 
 
-#include <MC/RakNet.hpp>
-#include <MC/Minecraft.hpp>
-#include <MC/MinecraftCommands.hpp>
-#include <MC/RakNetServerLocator.hpp>
-#include <MC/ServerLevel.hpp>
-#include <MC/ServerNetworkHandler.hpp>
-#include <MC/DBStorage.hpp>
-#include <MC/Scoreboard.hpp>
-#include <MC/AllowListFile.hpp>
-#include <MC/PropertiesSettings.hpp>
-#include <MC/LevelStorage.hpp>
+#include <mc/RakNet.hpp>
+#include <mc/Minecraft.hpp>
+#include <mc/MinecraftCommands.hpp>
+#include <mc/RakNetServerLocator.hpp>
+#include <mc/ServerLevel.hpp>
+#include <mc/ServerNetworkHandler.hpp>
+#include <mc/DBStorage.hpp>
+#include <mc/Scoreboard.hpp>
+#include <mc/AllowListFile.hpp>
+#include <mc/PropertiesSettings.hpp>
+#include <mc/LevelStorage.hpp>
 #include <GlobalServiceAPI.h>
 
 namespace LLNET

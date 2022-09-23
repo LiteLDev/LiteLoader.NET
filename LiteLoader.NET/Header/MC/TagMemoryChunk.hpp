@@ -1,6 +1,6 @@
 #pragma once
 #include "Types.hpp"
-#include <MC/TagMemoryChunk.hpp>
+#include <mc/TagMemoryChunk.hpp>
 #include <memory>
 namespace MC
 {

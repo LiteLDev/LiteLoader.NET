@@ -1,5 +1,5 @@
 #pragma once
-#include <MC/CommandParameterData.hpp>
+#include <mc/CommandParameterData.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
 namespace MC

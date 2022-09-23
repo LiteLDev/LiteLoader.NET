@@ -1,7 +1,7 @@
 #pragma once
 #include "Types.hpp"
 
-#include <MC/BlockPos.hpp>
+#include <mc/BlockPos.hpp>
 #include "Vec3.hpp"
 
 namespace MC
