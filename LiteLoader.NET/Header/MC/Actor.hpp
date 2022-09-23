@@ -1245,7 +1245,7 @@ namespace MC
 
 		virtual void ServerInitItemStackIds();
 
-		virtual void Reset();
+		//virtual void Reset();
 
 		virtual void Remove();
 
@@ -1529,7 +1529,7 @@ namespace MC
 
 		void RemoveEffect(int _0);
 
-		void RemoveEffectParticles();
+		//void RemoveEffectParticles();
 
 		void RemovePersistingTrade();
 

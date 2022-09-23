@@ -551,10 +551,10 @@ void MC::Actor::ServerInitItemStackIds()
 	((class ::Actor*)NativePtr)->_serverInitItemStackIds();
 }
 
-void MC::Actor::Reset()
-{
-	((class ::Actor*)NativePtr)->reset();
-}
+//void MC::Actor::Reset()
+//{
+//	((class ::Actor*)NativePtr)->reset();
+//}
 
 void MC::Actor::Remove()
 {
@@ -1410,10 +1410,10 @@ void MC::Actor::RemoveEffect(int _0)
 	((class ::Actor*)NativePtr)->removeEffect(_0);
 }
 
-void MC::Actor::RemoveEffectParticles()
-{
-	((class ::Actor*)NativePtr)->removeEffectParticles();
-}
+//void MC::Actor::RemoveEffectParticles()
+//{
+//	((class ::Actor*)NativePtr)->removeEffectParticles();
+//}
 
 void MC::Actor::RemovePersistingTrade()
 {

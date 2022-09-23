@@ -1,7 +1,7 @@
 #pragma once
 #include <mc/CommandOutputMessage.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
-enum class CommandOutputMessageType;
+enum  CommandOutputMessageType;
 namespace MC
 {
 public

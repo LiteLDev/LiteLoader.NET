@@ -19,7 +19,7 @@
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 
-enum GameType;
+enum class GameType;
 
 namespace MC
 {
