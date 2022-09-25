@@ -575,16 +575,6 @@ public        \
         Property_Ptr(MC, ItemStack, mNewItemStack, NewItemStack);
     };
 
-    Class PlayerMoveEvent
-        : public EventTemplate<PlayerMoveEvent, ::Event::PlayerMoveEvent>
-    {
-        EventAPIs(PlayerMoveEvent, 27);
-
-    public:
-        Property_Ptr(MC, Player, mPlayer, Player);
-        Property_ValueType(MC, Vec3, mPos, Pos);
-    };
-
     Class PlayerSprintEvent
         : public EventTemplate<PlayerSprintEvent, ::Event::PlayerSprintEvent>
     {

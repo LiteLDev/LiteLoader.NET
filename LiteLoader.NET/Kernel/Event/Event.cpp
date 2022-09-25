@@ -30,7 +30,6 @@ void InitEvents()
     REGISTER_NATIVE_EVENT(PlayerOpenContainerEvent);
     REGISTER_NATIVE_EVENT(PlayerCloseContainerEvent);
     REGISTER_NATIVE_EVENT(PlayerInventoryChangeEvent);
-    REGISTER_NATIVE_EVENT(PlayerMoveEvent);
     REGISTER_NATIVE_EVENT(PlayerSprintEvent);
     REGISTER_NATIVE_EVENT(PlayerSetArmorEvent);
     REGISTER_NATIVE_EVENT(PlayerUseRespawnAnchorEvent);
