@@ -19,3 +19,8 @@ inline System::IntPtr LLNET::Hook::HookAPI::dlsym_real(System::String^ name)
 {
     return System::IntPtr(::dlsym_real(marshalString(name).c_str()));
 }
+
+inline uintptr_t LLNET::Hook::HookAPI::findSig(String^ szSignature)
+{
+    return ll::hook::findSig(marshalString(szSignature).c_str());
+}

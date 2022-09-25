@@ -8,9 +8,14 @@ namespace LLNET::Hook
 	public ref class HookSymbolAttribute :public System::Attribute
 	{
 	public:
-
+		                      
 		property String^ Sym;
 
-		HookSymbolAttribute(String^ sym);
+		property String^ Sig;
+
+		property void* Add;
+
+		HookSymbolAttribute(String^ symbol_or_signature);
+		HookSymbolAttribute(intptr_t add);
 	};
 }

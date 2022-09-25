@@ -6,4 +6,9 @@ namespace LLNET::Hook
 	{
 		Sym = sym;
 	}
+
+	HookSymbolAttribute::HookSymbolAttribute(intptr_t add)
+	{
+		Add = (void*)add;
+	}
 }

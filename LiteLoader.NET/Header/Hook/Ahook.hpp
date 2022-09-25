@@ -7,7 +7,7 @@
 namespace LLNET::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
-		public ref class THookBase abstract
+		public ref class AHookBase abstract
 	{
 	internal:
 		TDelegate _original;
@@ -31,7 +31,7 @@ namespace LLNET::Hook
 
 	using namespace System::Reflection;
 
-	public ref class Thook abstract
+	public ref class Ahook abstract
 	{
 	internal:
 		static List<System::Delegate^> HookedFunctions;
@@ -39,12 +39,8 @@ namespace LLNET::Hook
 	public:
 		generic<typename T, typename TDelegate>
 		where TDelegate : System::Delegate
-		where T : THookBase<TDelegate>, gcnew()
+		where T : AHookBase<TDelegate>, gcnew()
 			static void RegisterHook();
-
-		//generic<typename TDelegate>
-		//where TDelegate: System::Delegate
-		//static TDelegate HookFunction(String^ symbol, TDelegate newFunc, TDelegate original);
 	};
 
 
@@ -53,8 +49,8 @@ namespace LLNET::Hook
 
 	generic<typename T, typename TDelegate>
 	where TDelegate : System::Delegate
-	where T : THookBase<TDelegate>, gcnew()
-		inline void Thook::RegisterHook()
+	where T : AHookBase<TDelegate>, gcnew()
+		inline void Ahook::RegisterHook()
 	{
 		auto hookType = T::typeid;
 		auto hookAttributes = hookType->GetCustomAttributes(HookSymbolAttribute::typeid, false);
@@ -62,8 +58,8 @@ namespace LLNET::Hook
 		if (hookAttributes == nullptr || hookAttributes->Length == 0)
 			throw gcnew System::NullReferenceException;
 
-		auto sym = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
-		if (sym == nullptr)
+		auto add = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Add;
+		if (add == 0)
 			throw gcnew System::NullReferenceException;
 
 		auto instance = gcnew T();
@@ -81,28 +77,10 @@ namespace LLNET::Hook
 
 		void* pOriginal = nullptr;
 
-		::THookRegister(marshalString(sym).c_str(), pHook, (void**)&pOriginal);
+		::THookRegister(add, pHook, (void**)&pOriginal);
 		if (pOriginal == nullptr)
 			throw gcnew LLNET::Core::HookFailedException;
 
 		instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
 	}
-
-	//generic<typename TDelegate>
-	//where TDelegate: System::Delegate
-	//inline TDelegate Thook::HookFunction(String^ symbol, TDelegate newFunc, TDelegate original)
-	//{
-	//	NULL_ARG_CHEEK(symbol);
-	//	NULL_ARG_CHEEK(newFunc);
-
-	//	GC::KeepAlive(newFunc);
-	//	GCHandle::Alloc(newFunc);
-
-	//	HookedFunctions.Add(newFunc);
-
-	//	newFunc->Method->MethodHandle.GetFunctionPointer()
-
-
-	//	return TDelegate();
-	//}
 }

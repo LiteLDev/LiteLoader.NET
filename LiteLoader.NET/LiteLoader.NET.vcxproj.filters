@@ -423,6 +423,12 @@
     <ClCompile Include="Kernel\Hook\HookSymbolAttribute.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\Hook\Ahook.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Hook\Shook.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -894,6 +900,12 @@
       <Filter>Header\Hook</Filter>
     </ClInclude>
     <ClInclude Include="Header\Hook\HookSymbolAttribute.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\Ahook.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\Shook.hpp">
       <Filter>Header\Hook</Filter>
     </ClInclude>
   </ItemGroup>

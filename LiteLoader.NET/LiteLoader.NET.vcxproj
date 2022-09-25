@@ -218,8 +218,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClInclude Include="Header\Event\Event.hpp" />
     <ClInclude Include="Header\FormUI.hpp" />
     <ClInclude Include="Header\GlobalSurvice.hpp" />
+    <ClInclude Include="Header\Hook\Ahook.hpp" />
     <ClInclude Include="Header\Hook\HookAPI.hpp" />
     <ClInclude Include="Header\Hook\HookSymbolAttribute.hpp" />
+    <ClInclude Include="Header\Hook\Shook.hpp" />
     <ClInclude Include="Header\Hook\Thook.hpp" />
     <ClInclude Include="Header\Hook\THookRegister.hpp" />
     <ClInclude Include="Header\I18n.hpp" />
@@ -354,8 +356,10 @@ copy /Y $(TargetPath) $(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\
     <ClCompile Include="Kernel\Event\Event.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />
+    <ClCompile Include="Kernel\Hook\Ahook.cpp" />
     <ClCompile Include="Kernel\Hook\HookAPI.cpp" />
     <ClCompile Include="Kernel\Hook\HookSymbolAttribute.cpp" />
+    <ClCompile Include="Kernel\Hook\Shook.cpp" />
     <ClCompile Include="Kernel\Hook\Thook.cpp" />
     <ClCompile Include="Kernel\Hook\THookRegister.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
