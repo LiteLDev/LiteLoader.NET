@@ -79,6 +79,12 @@
     <Filter Include="Kernel\Logger">
       <UniqueIdentifier>{5eed7d25-5396-4592-9ec4-4b4b45f12f88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Hook">
+      <UniqueIdentifier>{c82d8391-c361-4bf2-b776-732d0d6a0988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel\Hook">
+      <UniqueIdentifier>{866419db-a4ac-4e1a-b1b4-a349c5f79956}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -187,9 +193,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\FormUI.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\Hook.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\LLAPI.cpp">
@@ -408,6 +411,18 @@
     <ClCompile Include="Kernel\MC\AttributeModifier.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\Hook\HookAPI.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Hook\THookRegister.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Hook\Thook.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Hook\HookSymbolAttribute.cpp">
+      <Filter>Kernel\Hook</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -522,9 +537,6 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\FormUI.hpp">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Hook.hpp">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\LLAPI.hpp">
@@ -871,6 +883,18 @@
     </ClInclude>
     <ClInclude Include="Header\Event\include.hpp">
       <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\HookAPI.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\THookRegister.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\Thook.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Hook\HookSymbolAttribute.hpp">
+      <Filter>Header\Hook</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

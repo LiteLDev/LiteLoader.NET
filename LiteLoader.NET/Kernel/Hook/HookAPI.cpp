@@ -1,4 +1,4 @@
-#include <LiteLoader.NET/Header/Hook.hpp>
+#include <LiteLoader.NET/Header/Hook/HookAPI.hpp>
 
 inline int LLNET::Hook::HookAPI::HookFunction(void* oldfunc, void** poutold, void* newfunc)
 {
