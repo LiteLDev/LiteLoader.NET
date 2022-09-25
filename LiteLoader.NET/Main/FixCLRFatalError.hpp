@@ -158,7 +158,7 @@ inline void FixCLRFatalError(Logger& logger)
 			//?LogInfoForFatalError@@YAXIPEB_W00@Z
 			//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L324
 			uintptr_t result = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
-				"48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 41 54 41 56 41 57 48 81 EC B0 00 00 00 4D 8B E1 4D 8B F0 48 8B DA 8B F9 44 8B 15 ? ? ? 00 65 48 8B 04 25 58 00 00 00 B9 30 01 00 00 4E 8B 3C D0 49 8B 34 0F 48 89 74 24 60 33 C0 F0 48 0F B1 35 ? ? ? 00 48 3B C6 75 11 48 8D 0D ? ? ? 00 E8 ? ? FE FF E9 85 01 00 00 48 85 C0 74 23 BB 01 00 00 00 EB 0B 33 D2 8D 4A 32 FF 15 ? ? ?");
+				"48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 41 54 41 56 41 57 48 81 EC ? 00 00 00 4D 8B E1 4D 8B F0 48 8B DA 8B F9 44 8B 15 ? ? ? 00 65 48 8B 04 25 58 00 00 00 B9 30 01 00 00 4E 8B 3C D0 49 8B 34 0F 48 89 74 24 60 33 C0 F0 48 0F B1 35 ? ? ? 00 48 3B C6 75 11 48 8D 0D ? ? ? 00 E8 ? ? FE FF E9 ? 01 00 00 48 85 C0 74 ? ? ? ? ? ? ? ? ? ? ? ? ? FF ? ? ? ?");
 			if (result != 0)
 			{
 				HookFunction((void*)result, &oldLogInfoForFatalError, (void*)(LogInfoForFatalError));
