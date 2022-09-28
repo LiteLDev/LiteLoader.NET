@@ -429,6 +429,9 @@
     <ClCompile Include="Kernel\Hook\Shook.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\I18n.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">

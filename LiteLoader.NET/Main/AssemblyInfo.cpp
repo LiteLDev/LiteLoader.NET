@@ -8,13 +8,13 @@ using namespace System::Runtime::InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly:AssemblyTitle(LLNET_INFO_LOADER_NAME)];
-[assembly:AssemblyDescription(LLNET_INFO_LOADER_DESCRIPTION)];
-[assembly:AssemblyConfiguration("")];
-[assembly:AssemblyCompany(LLNET_INFO_AUTHOR)];
-[assembly:AssemblyProduct(LLNET_INFO_LOADER_NAME)];
-[assembly:AssemblyCopyright(LLNET_INFO_COPYRIGHT)];
-[assembly:AssemblyTrademark("")];
-[assembly:AssemblyCulture("")];
+[assembly:AssemblyDescription(LLNET_INFO_LOADER_DESCRIPTION)] ;
+[assembly:AssemblyConfiguration("")] ;
+[assembly:AssemblyCompany(LLNET_INFO_AUTHOR)] ;
+[assembly:AssemblyProduct(LLNET_INFO_LOADER_NAME)] ;
+[assembly:AssemblyCopyright(LLNET_INFO_COPYRIGHT)] ;
+[assembly:AssemblyTrademark("")] ;
+[assembly:AssemblyCulture("")] ;
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
 //对 COM 组件不可见。如果需要从 COM 访问此程序集中的类型
@@ -35,4 +35,7 @@ using namespace System::Runtime::InteropServices;
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly:AssemblyVersion(LLNET_ASSEMBLY_VERSION)];
-[assembly:AssemblyFileVersion(LLNET_ASSEMBLY_FILE_VERSION)];
+[assembly:AssemblyFileVersion(LLNET_ASSEMBLY_FILE_VERSION)] ;
+
+
+[assembly:InternalsVisibleTo("LLMoney.NET")] ;
