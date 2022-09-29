@@ -63,7 +63,6 @@
       <AdditionalOptions>/utf-8</AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DiagnosticsFormat>Column</DiagnosticsFormat>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -106,7 +105,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
       <AdditionalOptions>/utf-8</AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DiagnosticsFormat>Column</DiagnosticsFormat>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>

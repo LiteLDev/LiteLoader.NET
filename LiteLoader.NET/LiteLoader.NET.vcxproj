@@ -68,7 +68,6 @@
       <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DiagnosticsFormat>Column</DiagnosticsFormat>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
@@ -113,7 +112,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
       <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DiagnosticsFormat>Column</DiagnosticsFormat>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
