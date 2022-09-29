@@ -51,10 +51,10 @@ echo [INFO] Removing LiteLoaderSDK.NET\refs
 rd /s /q LiteLoaderSDK.NET\refs
 
 @REM copy all from build/sdk to LiteLoaderSDK.NET
-xcopy /e /y /i /q x64\Release\LiteLoader.NET.dll LiteLoaderSDK.NET\refs\LiteLoader
-xcopy /e /y /i /q x64\Release\LiteLoader.NET.xml LiteLoaderSDK.NET\refs\LiteLoader
-xcopy /e /y /i /q x64\Release\LLMoney.NET.dll LiteLoaderSDK.NET\refs\LLMoney
-xcopy /e /y /i /q x64\Release\LLMoney.NET.xml LiteLoaderSDK.NET\refs\LLMoney
+xcopy /e /y /i /q x64\Release\LiteLoader.NET.dll LiteLoaderSDK.NET\refs\LiteLoader\
+xcopy /e /y /i /q x64\Release\LiteLoader.NET.xml LiteLoaderSDK.NET\refs\LiteLoader\
+xcopy /e /y /i /q x64\Release\LLMoney.NET.dll LiteLoaderSDK.NET\refs\LLMoney\
+xcopy /e /y /i /q x64\Release\LLMoney.NET.xml LiteLoaderSDK.NET\refs\LLMoney\
 
 cd LiteLoaderSDK.NET
 for /f "delims=" %%i in ('git status . -s') do set LL_SDK_NOW_STATUS=%%i
