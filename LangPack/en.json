@@ -1,0 +1,45 @@
+{
+    "llnet": {
+        "main": {},
+        "pluginLoader": {
+            "loadMain": {
+                "loadingPlugins": "Loading .NET plugins...",
+                "done": "{} .NET plugin(s) loaded"
+            },
+            "loadPlugin": {
+                "success": ".NET plugin <{}> loaded",
+                "fail": ""
+            }
+        },
+        "exception": {
+            "managed": {
+                "nullArgCheck": "Cannot be null.",
+                "defaultMessage": "Uncaught {0} detected!"
+            },
+            "native": {
+                "defaultMessage": "Uncaught {} Detected!"
+            }
+        },
+        "eventSystem": {
+            "exceptionMessage": {
+                "handler": {
+                    "nonStaticOrNoDefaultCtor": "Handler must be static or it's class must have default constructor!  at Handler:<{0}.{1}>",
+                    "errorReturnType": "Handler.ReturnType must be System.Void!  at Handler:<{0}.{1}>",
+                    "errorParameter": "Handler can only have one parameter which the type is based on IEvent!  at Handler:<{0}.{1}>"
+                }
+            },
+            "eventHandling": {
+                "exceptionCatched": "Exception thrown when handling an event: {0}{1}"
+            }
+        },
+        "dynamicCommand": {
+            "exceptionMessage": {
+                "missingCommandAttribute": "Missing CommandAttribute!",
+                "emptyCommandName": "Empty Command Name!",
+                "notWritableProperty": "Property Cannot Be Written! Property:<{0}>",
+                "setAliasFail": "Set Alias Failed! at alia:<{}>"
+            }
+        },
+        "fixClrFatalError": {}
+    }
+}

@@ -210,15 +210,6 @@ namespace LLNET::Event
             {
                 methodData.Item5 = true;
             }
-            /*else
-            {
-                if (isNativeEventHandler)
-                {
-                    throw gcnew RegisterEventListenerException(
-                        "Parameter of the native event handler must be passed by reference (use 'in' or 'ref' keyword in C#)!  at Handler:<"
-                        + listenerType->Name + "." + method->Name + ">");
-                }
-            }*/
 
             auto eventPriority = static_cast<int>(methodData.Item2);
 
