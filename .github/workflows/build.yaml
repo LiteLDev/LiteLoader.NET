@@ -56,7 +56,7 @@ jobs:
     #   shell: bash
 
     - name: Download Server
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       shell: bash
       run: |
         mkdir -p SDK/Tools/Server
@@ -65,7 +65,7 @@ jobs:
         unzip SDK/Tools/Server/server.zip -d SDK/Tools/Server/ > /dev/null
 
     - name: Build Library
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       shell: cmd
       run: |
         cd SDK\Tools
@@ -99,14 +99,14 @@ jobs:
         # cp -r Data/* output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
 
     - name: Pack Release
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       if: startsWith(github.ref, 'refs/tags/')
       run: |
         Compress-Archive -Path output\RELEASE\* LiteLoader.NET.zip
         Compress-Archive -Path output\PDB\* PDB.zip
 
     - name: Prepare for creating Release
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       id: rel
       if: startsWith(github.ref, 'refs/tags/')
       shell: bash
@@ -125,19 +125,18 @@ jobs:
           ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
         prerelease: ${{ contains(github.ref, 'pre') }}
       env:
-        GITHUB_REPOSITORY: ${{env.GITHUB_ACTION_REPOSITORY}}
+        GITHUB_REPOSITORY: ${{ env.GITHUB_ACTION_REPOSITORY }}
 
-    # - name: Update SDK (TODO)
-    #   working-directory: ${{env.GITHUB_WORKSPACE}}
-    #   env:
-    #     REPO_KEY: ${{secrets.PUSH_TOKEN}}
-    #     USERNAME: github-actions[bot]
-    #   shell: cmd
-    #   run: |
-    #     git config --global user.name "github-actions[bot]"
-    #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    #     cd Scripts
-    #     ./UploadSDK.cmd action
+    - name: Update LiteLoaderSDK.NET
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
+      env:
+        REPO_KEY: ${{secrets.PUSH_TOKEN}}
+        USERNAME: github-actions[bot]
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        cd Scripts
+        ./UploadSDK.cmd action
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3.1.0
