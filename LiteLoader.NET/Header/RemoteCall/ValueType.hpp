@@ -42,7 +42,7 @@ namespace LLNET::RemoteCall {
 		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
 		/// indicated by an array of RemoteCall.Valuetype.
 		/// </summary>
-		/// <param name="v">£≠An array of RemoteCall.Valuetype</param>
+		/// <param name="v">ÔºçAn array of RemoteCall.Valuetype</param>
 		Valuetype(array<Valuetype^>^ v)
 		{
 			auto len = (int)v->Length;
@@ -60,7 +60,7 @@ namespace LLNET::RemoteCall {
 		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
 		/// indicated by a System.Collections.Generic.List of RemoteCall.Valuetype.
 		/// </summary>
-		/// <param name="v">£≠A System.Collections.Generic.List of RemoteCall.Valuetype.</param>
+		/// <param name="v">ÔºçA System.Collections.Generic.List of RemoteCall.Valuetype.</param>
 		Valuetype(List<Valuetype^>^ v)
 		{
 			auto len = v->Count;
@@ -79,7 +79,7 @@ namespace LLNET::RemoteCall {
 		/// Initializes a new instance of the RemoteCall.Valuetype class to the value
 		/// indicated by a System.Collections.Generic.List of System.String.
 		/// </summary>
-		/// <param name="v">£≠A System.Collections.Generic.List of System.String.</param>
+		/// <param name="v">ÔºçA System.Collections.Generic.List of System.String.</param>
 		Valuetype(List<String^>^ v)
 		{
 			auto len = v->Count;

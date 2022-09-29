@@ -7,15 +7,15 @@ namespace LLNET::DynamicCommand {
 	/// <summary>
 	/// Inherited this interface to register a new command by DynamicCommand.RegisterCommand&lt;ICommand&gt;().
 	/// <example>
-	/// <para>¡¡</para>
+	/// <para>ã€€</para>
 	/// <code>
 	/// <para>[Command("examplecmd", Description = "example command.", Permission = MC.CommandPermissionLevel.Any)]</para>
 	/// <para>class ExampleCommand : ICommand</para>
 	/// <para>{</para>
-	/// <para>¡¡¡¡void Execute(MC.CommandOrigin origin, MC.CommandOutput output){ }</para>
-	/// <para>¡¡</para>
-	/// <para>¡¡¡¡[CommandParameter(ParamType.String)]</para>
-	/// <para>¡¡¡¡string? Parameter_1 { get; set; }</para>
+	/// <para>ã€€ã€€void Execute(MC.CommandOrigin origin, MC.CommandOutput output){ }</para>
+	/// <para>ã€€</para>
+	/// <para>ã€€ã€€[CommandParameter(ParamType.String)]</para>
+	/// <para>ã€€ã€€string? Parameter_1 { get; set; }</para>
 	/// <para>};</para>
 	/// </code>
 	/// </example>

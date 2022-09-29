@@ -1,7 +1,8 @@
 ﻿#include <LoggerAPI.h>
 #include <LiteLoader.NET/Main/Config.hpp>
-#include "hostfxr.hpp"
 #include "coreclr_delegates.hpp"
+#include "hostfxr.hpp"
+#include "nethost.hpp"
 #include <Utils/StringHelper.h>
 
 //#define NETHOST_USE_AS_STATIC

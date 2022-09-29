@@ -70,9 +70,6 @@
     <Filter Include="Kernel\Event">
       <UniqueIdentifier>{c8db34a5-d485-4d2c-b0ea-2f4fb9542f12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Extra\net_native">
-      <UniqueIdentifier>{715adb0f-1875-4f7b-9dbd-f3e0d50d1d33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header\Logger">
       <UniqueIdentifier>{0e00fe85-d6d7-48d6-a04a-ddbde7f40b60}</UniqueIdentifier>
     </Filter>
@@ -838,15 +835,6 @@
     </ClInclude>
     <ClInclude Include="Header\MC\SerializedSkin.hpp">
       <Filter>Header\MC</Filter>
-    </ClInclude>
-    <ClInclude Include="Extra\coreclr_delegates.hpp">
-      <Filter>Extra\net_native</Filter>
-    </ClInclude>
-    <ClInclude Include="Extra\hostfxr.hpp">
-      <Filter>Extra\net_native</Filter>
-    </ClInclude>
-    <ClInclude Include="Extra\nethost.hpp">
-      <Filter>Extra\net_native</Filter>
     </ClInclude>
     <ClInclude Include="Resource\Version.hpp">
       <Filter>Resource</Filter>

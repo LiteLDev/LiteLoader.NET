@@ -14,7 +14,7 @@ namespace LLNET::DynamicCommand {
 	public ref class CommandAttribute :Attribute
 	{
 	public:
-		/// <param name="name">£≠Command name, lower-case only.</param>
+		/// <param name="name">ÔºçCommand name, lower-case only.</param>
 		CommandAttribute(String^ name)
 			:Name(name)
 		{
@@ -60,7 +60,7 @@ namespace LLNET::DynamicCommand {
 		/// <summary>
 		/// 
 		/// </summary>
-		/// /// <param name="alia">£≠Command Alia.</param>
+		/// /// <param name="alia">ÔºçCommand Alia.</param>
 		CommandAliasAttribute(String^ alia)
 			:Alia(alia)
 		{
@@ -93,7 +93,7 @@ namespace LLNET::DynamicCommand {
 		/// 
 		/// </summary>
 		/// <param name="paramType">
-		/// <para>£≠Command parameter type.</para>
+		/// <para>ÔºçCommand parameter type.</para>
 		/// <para>Please check the parameter type, or you will get a cute exception.</para>
 		/// </param>
 		CommandParameterAttribute(DynamicCommand::ParameterType paramType)

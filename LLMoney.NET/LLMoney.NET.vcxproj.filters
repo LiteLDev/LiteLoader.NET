@@ -7,7 +7,7 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{972d9681-e4c8-4e06-b15b-882f3594be17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EconomySystem">
+    <Filter Include="Header">
       <UniqueIdentifier>{adbc471e-bc80-44e1-a703-8a255a941083}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -16,14 +16,11 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="EconomySystem\EconomySystem.cpp">
-      <Filter>EconomySystem</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tools\Using.hpp">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\CSharpKeywords.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\clix.hpp">
@@ -33,7 +30,7 @@
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="EconomySystem\EconomySystem.hpp">
-      <Filter>EconomySystem</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

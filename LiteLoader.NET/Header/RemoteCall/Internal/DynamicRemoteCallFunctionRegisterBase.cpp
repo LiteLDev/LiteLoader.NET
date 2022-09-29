@@ -211,7 +211,7 @@ namespace LLNET::RemoteCall::Internal {
 			locals.Add(loop_i_index, il->DeclareLocal(int::typeid));
 
 			//	>stack:1<
-			//	£­object
+			//	ï¼object
 
 			il->Emit(oc::Stloc_S, locals[local_arg_list_index]);
 
@@ -244,7 +244,7 @@ namespace LLNET::RemoteCall::Internal {
 
 			il->Emit(oc::Ldloc_S, locals[local_pValueType_index]);
 			//	>stack:1<
-			//	1£­argN ::RemoteCall::ValueType pointer
+			//	1ï¼argN ::RemoteCall::ValueType pointer
 			// 
 			//emplace back to ArrayType
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
@@ -277,7 +277,7 @@ namespace LLNET::RemoteCall::Internal {
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_index]);
 			il->EmitCall(oc::Call, _HelperMethod(_delete_ArrayType), nullptr);
 			//	>stack:1<
-			//	1£­returned pointer
+			//	1ï¼returned pointer
 		}
 		break;
 		case ValidType::Dictionary:
@@ -310,7 +310,7 @@ namespace LLNET::RemoteCall::Internal {
 			locals.Add(local_keyValuePair_index, il->DeclareLocal(getCurrentMethod->ReturnType));
 
 			//	>stack:1<
-			//	£­object
+			//	ï¼object
 
 			il->Emit(oc::Stloc_S, locals[local_arg_dictionary_index]);
 
@@ -374,7 +374,7 @@ namespace LLNET::RemoteCall::Internal {
 			il->Emit(oc::Ldloc_S, locals[local_pObjectType_index]);
 			il->EmitCall(oc::Call, _HelperMethod(_delete_ObjectType), nullptr);
 			//	>stack:1<
-			//	1£­returned pointer
+			//	1ï¼returned pointer
 		}
 		break;
 		case ValidType::Void:
@@ -479,14 +479,14 @@ namespace LLNET::RemoteCall::Internal {
 			locals.Add(local_pArrayType_form_ValueType_index, il->DeclareLocal(VOID_POINTER_TYPE));
 
 			//	>stack:1<
-			//	1£­::RemoteCall::ValueType pointer
+			//	1ï¼::RemoteCall::ValueType pointer
 			il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_from_ValueType), nullptr);
 			il->Emit(oc::Stloc_S, locals[local_pArrayType_form_ValueType_index]);
 
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]);
 			il->EmitCall(oc::Call, _HelperMethod(_get_ArrayType_size), nullptr);
 			//	>stack:1<
-			//	1£­size int
+			//	1ï¼size int
 			il->Emit(oc::Stloc_S, locals[loop_size_index]);
 
 
@@ -511,23 +511,23 @@ namespace LLNET::RemoteCall::Internal {
 
 			il->Emit(oc::Ldloc_S, locals[ret_list_index]);
 			//	>stack:1<
-			//	1£­list instance
+			//	1ï¼list instance
 			il->Emit(oc::Ldloc_S, locals[local_pArrayType_form_ValueType_index]);
 			il->Emit(oc::Ldloc_S, locals[loop_i_index]);
 			//	>stack:3<
-			//	1£­list instance
-			//	2£­::RemoteCall::ArrayType pointer
-			//	3£­i
+			//	1ï¼list instance
+			//	2ï¼::RemoteCall::ArrayType pointer
+			//	3ï¼i
 
 			il->EmitCall(oc::Call, _HelperMethod(_get_ValueType_from_ArrayType_by_index), nullptr);
 			//	>stack:2<
-			//	1£­list instance
-			//	2£­returned ::RemoteCall::ValueType pointer
+			//	1ï¼list instance
+			//	2ï¼returned ::RemoteCall::ValueType pointer
 
 			IL_ValueTypeToManagedObject(il, info.genericArgs[0], locals);
 			//	>stack:2<
-			//	1£­list instance
-			//	2£­returned object
+			//	1ï¼list instance
+			//	2ï¼returned object
 
 			il->EmitCall(oc::Call, AddMethod, nullptr);
 			//	>stack:0<
@@ -549,7 +549,7 @@ namespace LLNET::RemoteCall::Internal {
 
 			il->Emit(oc::Ldloc_S, locals[ret_list_index]);
 			//	>stack:0<
-			//	1£­return val
+			//	1ï¼return val
 		}
 		break;
 		case ValidType::Dictionary:
@@ -569,7 +569,7 @@ namespace LLNET::RemoteCall::Internal {
 			locals.Add(local_pValueType_should_delete_index, il->DeclareLocal(VOID_POINTER_TYPE));
 
 			//	>stack:1<
-			//	1£­::RemoteCall::ValueType pointer
+			//	1ï¼::RemoteCall::ValueType pointer
 			il->EmitCall(oc::Call, _HelperMethod(_get_ObjectType_from_ValueType), nullptr);
 			il->Emit(oc::Stloc_S, locals[local_pObjectType_form_ValueType_index]);
 
@@ -634,7 +634,7 @@ namespace LLNET::RemoteCall::Internal {
 
 			il->Emit(oc::Ldloc_S, locals[ret_dictionary_index]);
 			//	>stack:0<
-			//	1£­return val
+			//	1ï¼return val
 		}
 		break;
 		case ValidType::Void:
