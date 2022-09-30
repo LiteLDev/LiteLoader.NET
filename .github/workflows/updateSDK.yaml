@@ -13,7 +13,7 @@ jobs:
       - name: Checkout the main branch
         uses: actions/checkout@v3.0.2
         with:
-          ref: beta
+          ref: dev
 
       - name: Update submodules
         run: |
