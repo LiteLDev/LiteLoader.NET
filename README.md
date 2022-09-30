@@ -1,6 +1,6 @@
 # LiteLoader.NET
-**.NET development platform for LiteLoaderBDS**  
+### .NET developer platform support for LiteLoaderBDS
 👉[LiteLoaderBDS](https://github.com/LiteLDev/LiteLoaderBDS)👈  
-✨[Docs](https://docs.litebds.com/#/)✨  
+✨[Docs](https://docs.litebds.com/en/#/DotNETPluginDevelopment/)✨  
 💡[SDK](https://github.com/LiteLDev/LiteLoaderSDK.NET)💡  
-☕[Example](https://github.com/StarsDream00/LiteLoader.NETPlugins)☕
+☕[Example](https://github.com/StarsDream00/LLNETExamplePlugins)☕
