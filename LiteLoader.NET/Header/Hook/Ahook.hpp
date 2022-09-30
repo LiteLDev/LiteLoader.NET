@@ -31,7 +31,7 @@ namespace LLNET::Hook
 
 	using namespace System::Reflection;
 
-	public ref class Ahook abstract
+	public ref class Ahook sealed
 	{
 	internal:
 		static List<System::Delegate^> HookedFunctions;
@@ -41,9 +41,13 @@ namespace LLNET::Hook
 		where TDelegate : System::Delegate
 		where T : AHookBase<TDelegate>, gcnew()
 			static void RegisterHook();
+
+		generic<typename TDelegate> where TDelegate : System::Delegate
+			static TDelegate HookFunction(void* address, TDelegate newFunc);
+
+		generic<typename TDelegate> where TDelegate : System::Delegate
+			static TDelegate HookFunction(intptr_t address, TDelegate newFunc);
 	};
-
-
 
 
 
@@ -59,28 +63,41 @@ namespace LLNET::Hook
 			throw gcnew System::NullReferenceException;
 
 		auto add = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Add;
-		if (add == 0)
-			throw gcnew System::NullReferenceException;
-
 		auto instance = gcnew T();
-		auto hookFunc = instance->Hook;
 
-		if (hookFunc == nullptr)
-			throw gcnew System::NullReferenceException;
+		instance->_original = HookFunction(add, instance->Hook);
+	}
 
-		GC::KeepAlive(instance->Hook);
-		GCHandle::Alloc(instance->Hook);
 
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(hookFunc);
 
-		HookedFunctions.Add(hookFunc);
+	generic<typename TDelegate>
+	inline TDelegate Ahook::HookFunction(void* address, TDelegate newFunc)
+	{
+		NULL_ARG_CHEEK(newFunc);
+
+		if (address == nullptr)
+			throw gcnew System::ArgumentNullException("address", "Cannot be null");
+
+		GC::KeepAlive(newFunc);
+		GCHandle::Alloc(newFunc);
+
+		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
+
+		HookedFunctions.Add(newFunc);
 
 		void* pOriginal = nullptr;
 
-		::THookRegister(add, pHook, (void**)&pOriginal);
+		::THookRegister(address, pHook, (void**)&pOriginal);
+
 		if (pOriginal == nullptr)
 			throw gcnew LLNET::Core::HookFailedException;
 
-		instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+	}
+
+	generic<typename TDelegate>
+	inline TDelegate Ahook::HookFunction(intptr_t address, TDelegate newFunc)
+	{
+		return HookFunction((void*)address, newFunc);
 	}
 }

@@ -31,7 +31,7 @@ namespace LLNET::Hook
 
 	using namespace System::Reflection;
 
-	public ref class Shook abstract
+	public ref class Shook sealed
 	{
 	internal:
 		static List<System::Delegate^> HookedFunctions;
@@ -41,9 +41,10 @@ namespace LLNET::Hook
 		where TDelegate : System::Delegate
 		where T : SHookBase<TDelegate>, gcnew()
 			static void RegisterHook();
+
+		generic<typename TDelegate> where TDelegate : System::Delegate
+			static TDelegate HookFunction(String^ signature, TDelegate newFunc);
 	};
-
-
 
 
 
@@ -58,29 +59,32 @@ namespace LLNET::Hook
 		if (hookAttributes == nullptr || hookAttributes->Length == 0)
 			throw gcnew System::NullReferenceException;
 
-		auto add = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
-		if (add == nullptr)
-			throw gcnew System::NullReferenceException;
-
+		auto sig = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
 		auto instance = gcnew T();
-		auto hookFunc = instance->Hook;
 
-		if (hookFunc == nullptr)
-			throw gcnew System::NullReferenceException;
+		instance->_original = HookFunction(sig, instance->Hook);
+	}
 
-		GC::KeepAlive(instance->Hook);
-		GCHandle::Alloc(instance->Hook);
+	generic<typename TDelegate>
+	inline TDelegate Shook::HookFunction(String^ signature, TDelegate newFunc)
+	{
+		NULL_ARG_CHEEK(newFunc);
+		NULL_ARG_CHEEK(signature);
 
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(hookFunc);
+		GC::KeepAlive(newFunc);
+		GCHandle::Alloc(newFunc);
 
-		HookedFunctions.Add(hookFunc);
+		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
+
+		HookedFunctions.Add(newFunc);
 
 		void* pOriginal = nullptr;
 
-		::THookRegister((void*)ll::hook::findSig(marshalString(add).c_str()), pHook, (void**)&pOriginal);
+		::THookRegister((void*)ll::hook::findSig(marshalString(signature).c_str()), pHook, (void**)&pOriginal);
+
 		if (pOriginal == nullptr)
 			throw gcnew LLNET::Core::HookFailedException;
 
-		instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
 	}
 }

@@ -82,6 +82,9 @@
     <Filter Include="Kernel\Hook">
       <UniqueIdentifier>{866419db-a4ac-4e1a-b1b4-a349c5f79956}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\PluginSystem">
+      <UniqueIdentifier>{aa4d23c2-b01c-403e-8250-8043fbd0a9c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -207,19 +210,10 @@
     <ClCompile Include="Main\AssemblyInfo.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Main\PluginAttribute.hpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="Main\dllmain.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Main\Plugininterface.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="Main\Loader.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Main\PluginManager.cpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\MC\ItemStackBase.cpp">
@@ -429,6 +423,15 @@
     <ClCompile Include="Kernel\I18n.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="Main\PluginManager.cpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\PluginAttribute.hpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Plugininterface.cpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -558,9 +561,6 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Main\Global.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\PluginManager.hpp">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Main\DotNETGlobal.hpp">
@@ -740,9 +740,6 @@
     <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp">
       <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
-    <ClInclude Include="Main\IPluginInitializer.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\BoundingBox.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -898,6 +895,15 @@
     </ClInclude>
     <ClInclude Include="Header\Hook\Shook.hpp">
       <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\IPluginInitializer.hpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\PluginManager.hpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\PluginOwnData.hpp">
+      <Filter>Main\PluginSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

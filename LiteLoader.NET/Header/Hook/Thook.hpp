@@ -42,12 +42,10 @@ namespace LLNET::Hook
 		where T : THookBase<TDelegate>, gcnew()
 			static void RegisterHook();
 
-		//generic<typename TDelegate>
-		//where TDelegate: System::Delegate
-		//static TDelegate HookFunction(String^ symbol, TDelegate newFunc, TDelegate original);
+		generic<typename TDelegate>
+		where TDelegate: System::Delegate
+		static TDelegate HookFunction(String^ symbol, TDelegate newFunc);
 	};
-
-
 
 
 
@@ -63,46 +61,32 @@ namespace LLNET::Hook
 			throw gcnew System::NullReferenceException;
 
 		auto sym = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
-		if (sym == nullptr)
-			throw gcnew System::NullReferenceException;
 
 		auto instance = gcnew T();
-		auto hookFunc = instance->Hook;
 
-		if (hookFunc == nullptr)
-			throw gcnew System::NullReferenceException;
+		instance->_original = HookFunction(sym, instance->Hook);
+	}
 
-		GC::KeepAlive(instance->Hook);
-		GCHandle::Alloc(instance->Hook);
+	generic<typename TDelegate>
+	inline TDelegate Thook::HookFunction(String^ symbol, TDelegate newFunc)
+	{
+		NULL_ARG_CHEEK(newFunc);
+		NULL_ARG_CHEEK(symbol);
 
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(hookFunc);
+		GC::KeepAlive(newFunc);
+		GCHandle::Alloc(newFunc);
 
-		HookedFunctions.Add(hookFunc);
+		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
+
+		HookedFunctions.Add(newFunc);
 
 		void* pOriginal = nullptr;
 
-		::THookRegister(marshalString(sym).c_str(), pHook, (void**)&pOriginal);
+		::THookRegister(marshalString(symbol).c_str(), pHook, (void**)&pOriginal);
+
 		if (pOriginal == nullptr)
 			throw gcnew LLNET::Core::HookFailedException;
 
-		instance->_original = (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
 	}
-
-	//generic<typename TDelegate>
-	//where TDelegate: System::Delegate
-	//inline TDelegate Thook::HookFunction(String^ symbol, TDelegate newFunc, TDelegate original)
-	//{
-	//	NULL_ARG_CHEEK(symbol);
-	//	NULL_ARG_CHEEK(newFunc);
-
-	//	GC::KeepAlive(newFunc);
-	//	GCHandle::Alloc(newFunc);
-
-	//	HookedFunctions.Add(newFunc);
-
-	//	newFunc->Method->MethodHandle.GetFunctionPointer()
-
-
-	//	return TDelegate();
-	//}
 }
