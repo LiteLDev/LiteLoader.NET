@@ -1,0 +1,75 @@
+name: PR Check
+
+on:
+  pull_request:
+    paths:
+      - '**.cpp'
+      - '**.cc'
+      - '**.cxx'
+      - '**.c'
+      - '**.hpp'
+      - '**.hh'
+      - '**.hxx'
+      - '**.h'
+  workflow_dispatch:
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: .
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+        with:
+          submodules: 'true'
+          fetch-depth: 0
+
+      - name: Update SDK
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          git submodule update --init --recursive --remote
+
+      # - name: Get information from Version.h file (TODO)
+      #   working-directory: ${{env.GITHUB_WORKSPACE}}
+      #   id: ver
+      #   run: |
+      #     pwd
+
+      - name: Download Server
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        shell: bash
+        run: |
+          mkdir -p SDK/tools/Server
+          ServerLink=$(cat 'Scripts/LINK.txt')
+          curl -L -o SDK/tools/Server/server.zip "$ServerLink"
+          unzip SDK/tools/Server/server.zip -d SDK/tools/Server/ > /dev/null
+
+      - name: Build Library
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        shell: cmd
+        run: |
+          cd SDK\tools
+          LibraryBuilder.exe -o ..\lib Server
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Build
+        working-directory: ${{env.GITHUB_WORKSPACE}}
+        # Add additional options to the MSBuild command line here (like platform or verbosity level).
+        # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+        run: msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: LiteLoader.NET-actions-${{ github.run_number }}
+          path: ${{ github.workspace }}\x64\Release
