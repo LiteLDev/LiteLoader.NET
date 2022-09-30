@@ -37,7 +37,6 @@ jobs:
           git push origin ${{ github.event.inputs.tag }}
 
       - name: Update main SDK
-        if: startsWith(github.ref, 'refs/tags/')
         run: |
           git config submodule.LiteLoaderSDK.branch main
           git submodule update --init --recursive --remote
