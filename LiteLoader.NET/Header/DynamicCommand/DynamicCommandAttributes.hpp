@@ -1,5 +1,6 @@
 #pragma once
-#include "DynamicCommandHelper.hpp"
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Header/DynamicCommand/DynamicCommand.hpp>
 
 namespace LLNET::DynamicCommand {
 	using System::AttributeUsageAttribute;

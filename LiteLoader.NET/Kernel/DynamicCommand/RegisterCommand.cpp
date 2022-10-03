@@ -1,5 +1,9 @@
 #pragma once
-#include "ICommand.hpp"
+#include <LiteLoader.NET/Header/DynamicCommand/DynamicCommand.hpp>
+#include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandInstance.hpp>
+#include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandHelper.hpp>
+#include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandAttributes.hpp>
+#include <LiteLoader.NET/Header/DynamicCommand/ICommand.hpp>
 
 namespace LLNET::DynamicCommand {
 	using namespace LLNET::DynamicCommand::Internal;

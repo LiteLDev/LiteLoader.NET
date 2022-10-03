@@ -175,8 +175,9 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp" />
     <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
-    <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp" />
+    <ClInclude Include="Header\DynamicCommand\ParameterData.hpp" />
     <ClInclude Include="Header\Event.hpp" />
     <ClInclude Include="Header\Event\EventAttribute.hpp" />
     <ClInclude Include="Header\Event\EventManager.hpp" />
@@ -322,7 +323,12 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Kernel\Command\CommandPosition.cpp" />
     <ClCompile Include="Kernel\Command\CommandPropertyBag.cpp" />
     <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
-    <ClCompile Include="Kernel\DynamicCommand.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommand.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandHelper.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandInstance.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\ICommand.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\ParameterData.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\RegisterCommand.cpp" />
     <ClCompile Include="Kernel\Event\Event.cpp" />
     <ClCompile Include="Kernel\FormUI.cpp" />
     <ClCompile Include="Kernel\GlobalService.cpp" />

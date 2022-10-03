@@ -1,4 +1,5 @@
 #pragma once
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include "DynamicCommand.hpp"
 #include <EventAPI.h>
 
@@ -48,41 +49,17 @@ namespace LLNET::DynamicCommand::Internal {
 			typedef void (*pCallback)(::DynamicCommand const& cmd, ::CommandOrigin const& origin, ::CommandOutput& output, std::unordered_map<std::string, ::DynamicCommand::Result>& results);
 
 			void NativeCallback(::DynamicCommand const& cmd, ::CommandOrigin const& origin, ::CommandOutput& output, std::unordered_map<std::string, ::DynamicCommand::Result>& results);
-
-			~NativeDynamicCommandCallback() {
-				if (gch.IsAllocated)
-					gch.Free();
-				delete data;
-			}
-
+			~NativeDynamicCommandCallback();
 			System::Object^ _parseResult(::DynamicCommand::Result& result, ParamInfo% paramInfo);
 		};
 
 		static List<NativeDynamicCommandCallback^>^ callbackInstance = gcnew List<NativeDynamicCommandCallback^>;
-
-
-
 		static List<System::Type^>^ unregisteredCmdList = gcnew List<System::Type^>;
-
 		static bool isRegCmdEventRaised = false;
 
-		static bool OnRegCmdEvent(::Event::RegCmdEvent ev)
-		{
-			for each (auto var in unregisteredCmdList)
-			{
-				DynamicCommand::_registerCommandInternal(var);
-			}
+		static bool OnRegCmdEvent(::Event::RegCmdEvent ev);
 
-			auto temp = unregisteredCmdList;
-			unregisteredCmdList = nullptr;
-			delete temp;
-
-			isRegCmdEventRaised = true;
-
-			return true;
-		}
-
-		static CommandManager()
+		CommandManager::CommandManager()
 		{
 			::Event::RegCmdEvent::subscribe(OnRegCmdEvent);
 		}

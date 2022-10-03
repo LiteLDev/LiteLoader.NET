@@ -94,6 +94,9 @@
     <Filter Include="Main\Global">
       <UniqueIdentifier>{9b4e8eab-85bc-44b4-b255-fd698085de96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kernel\DynamicCommand">
+      <UniqueIdentifier>{729c6ed5-2be8-406a-8be7-9510e6059f0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -196,9 +199,6 @@
       <Filter>Kernel\MC</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\AllowListAPI.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Kernel\FormUI.cpp">
@@ -440,6 +440,24 @@
     </ClCompile>
     <ClCompile Include="Main\GlobalClass.cpp">
       <Filter>Main\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommand.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandHelper.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\ICommand.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\RegisterCommand.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\ParameterData.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandInstance.cpp">
+      <Filter>Kernel\DynamicCommand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -734,9 +752,6 @@
     <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp">
       <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\RegisterCommand.hpp">
-      <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\BoundingBox.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -916,6 +931,12 @@
     </ClInclude>
     <ClInclude Include="Header\Hook\IHookBase.hpp">
       <Filter>Header\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\DynamicCommand\ParameterData.hpp">
+      <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp">
+      <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

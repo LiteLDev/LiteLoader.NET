@@ -18,29 +18,29 @@
 #include <LiteLoader.NET/Header/Core/STLHelper/string.hpp>
 #include <mc/JsonHelpers.hpp>
 
-struct __ParameterData : public ::DynamicCommand::ParameterData
-{
-public:
-	using Base = ParameterData;
-	inline ::DynamicCommand::ParameterType GetType();
-	inline void SetType(::DynamicCommand::ParameterType t);
-	inline size_t GetOffset();
-	inline void SetOffest(size_t o);
-	inline std::string GetName();
-	inline void SetName(std::string& s);
-	inline std::string GetDescription();
-	inline void SetDescription(std::string& s);
-	inline std::string GetIdentifier();
-	inline void SetIdentifier(std::string& s);
-	//inline bool GetOptional();
-	inline void SetOptional(bool b);
-	inline CommandParameterOption GetOption();
-	inline void SetOption(CommandParameterOption o);
-	__ParameterData() = delete;
-	__ParameterData(__ParameterData const& p);
-	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, bool optional = false, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
-	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
-};
+//struct __ParameterData : public ::DynamicCommand::ParameterData
+//{
+//public:
+//	using Base = ParameterData;
+//	inline ::DynamicCommand::ParameterType GetType();
+//	inline void SetType(::DynamicCommand::ParameterType t);
+//	inline size_t GetOffset();
+//	inline void SetOffest(size_t o);
+//	inline std::string GetName();
+//	inline void SetName(std::string& s);
+//	inline std::string GetDescription();
+//	inline void SetDescription(std::string& s);
+//	inline std::string GetIdentifier();
+//	inline void SetIdentifier(std::string& s);
+//	//inline bool GetOptional();
+//	inline void SetOptional(bool b);
+//	inline CommandParameterOption GetOption();
+//	inline void SetOption(CommandParameterOption o);
+//	__ParameterData() = delete;
+//	__ParameterData(__ParameterData const& p);
+//	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, bool optional = false, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
+//	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
+//};
 
 namespace LLNET::DynamicCommand {
 	interface class ICommand;
@@ -53,8 +53,7 @@ namespace LLNET::DynamicCommand
 	using namespace LLNET::Core;
 
 	ref class DynamicCommandInstance;
-	public
-	ref class DynamicCommand : public MC::Command
+	public ref class DynamicCommand : public MC::Command
 	{
 	public:
 		//__ctor_base(DynamicCommand, ::DynamicCommand, MC::Command);
@@ -181,11 +180,11 @@ namespace LLNET::DynamicCommand
 			inline bool SetEnumOptions(String^ enumOptions);
 		};
 		/*virtual void execute(class CommandOrigin const& origin, class CommandOutput& output);*/
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle);
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2);
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1);
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission);
-		inline static DynamicCommandInstance^ CreateCommand(String^ name, String^ description);
+		static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle);
+		static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2);
+		static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1);
+		static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission);
+		static DynamicCommandInstance^ CreateCommand(String^ name, String^ description);
 
 		delegate void CallBackFn(DynamicCommand^ cmd, MC::CommandOrigin^ origin, MC::CommandOutput^ output, Dictionary<String^, Result^>^ results);
 
@@ -223,7 +222,7 @@ namespace LLNET::DynamicCommand
 			MC::CommandFlag^ flag2,
 			IntPtr handle);
 
-		inline static DynamicCommandInstance^ Setup(DynamicCommandInstance^ commandInstance);
+		static DynamicCommandInstance^ Setup(DynamicCommandInstance^ commandInstance);
 		inline static bool UnregisterCommand(String^ name);
 		inline static bool UpdateAvailableCommands();
 		inline DynamicCommandInstance^ GetInstance();
@@ -235,88 +234,5 @@ namespace LLNET::DynamicCommand
 		internal:
 			static bool _registerCommandInternal(System::Type^ cmdType);
 	};
-	public
-	ref class DynamicCommandInstance : ClassTemplate<DynamicCommandInstance, ::DynamicCommandInstance>
-	{
-	public:
-		__ctor(DynamicCommandInstance, ::DynamicCommandInstance);
 
-	public:
-		ref struct ParameterIndex : ClassTemplate<ParameterIndex, ::DynamicCommandInstance::ParameterIndex>
-		{
-		public:
-			__ctor_all(ParameterIndex, ::DynamicCommandInstance::ParameterIndex);
-
-			property DynamicCommandInstance^ Instance { DynamicCommandInstance^ get(); void set(DynamicCommandInstance^ val); };
-			property size_t Index { size_t get(); void set(size_t value); };
-			inline static ParameterIndex^ Create(DynamicCommandInstance^ instance, size_t index);
-			inline operator size_t();
-			inline DynamicCommand::ParameterData^ GetParameterData();
-			inline bool IsValid();
-		};
-
-	public:
-		property size_t CommandSize { size_t get(); void set(size_t val); };
-		property Dictionary<String^, DynamicCommand::ParameterPtr^>^ ParameterPtrs {Dictionary<String^, DynamicCommand::ParameterPtr^>^ get(); void set(Dictionary<String^, DynamicCommand::ParameterPtr^>^ val); };
-
-		/// <summary>
-		/// unique_ptr&lt;std::string&gt;
-		/// </summary>
-		property List<LLNET::Core::Std::string^>^ EnumNames { List<LLNET::Core::Std::string^>^ get(); /*void set(List<LLNET::Core::Std::string^>^ val);*/ };
-
-		//property List<String^>^ EnumValues {
-		//	List<String^>^ get();
-		//	void set(List<String^>^ val);
-		//};
-		//property Dictionary<String^, System::Tuple<size_t, size_t>^>^ EnumRanges {
-		//	Dictionary<String^, System::Tuple<size_t, size_t>^>^ get();
-		//	void set(Dictionary<String^, System::Tuple<size_t, size_t>^>^ val);
-		//};
-		//property List<DynamicCommand::ParameterData^>^ ParameterDatas {
-		//	List<DynamicCommand::ParameterData^>^ get();
-		//	void set(List<DynamicCommand::ParameterData^>^ val);
-		//};
-		DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle);
-		DynamicCommandInstance(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag);
-
-		inline static DynamicCommandInstance^ Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag, IntPtr handle);
-		inline static DynamicCommandInstance^ Create(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag);
-		inline String^ SetEnum(String^ description, List<String^>^ values);
-		inline String^ GetEnumValue(int index);
-		inline ParameterIndex^ NewParameter(DynamicCommand::ParameterData^ data);
-		inline ParameterIndex^ NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description, String^ identifier, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description, String^ identifier);
-		inline ParameterIndex^ NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional, String^ description);
-		inline ParameterIndex^ NewParameter(String^ name, DynamicCommand::ParameterType type, bool optional);
-		inline ParameterIndex^ NewParameter(String^ name, DynamicCommand::ParameterType type);
-		inline ParameterIndex^ FindParameterIndex(String^ param);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type, String^ description);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Mandatory(String^ name, DynamicCommand::ParameterType type);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type, String^ description, String^ identifier);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type, String^ description, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type, String^ description);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type, MC::CommandParameterOption parameterOption);
-		inline ParameterIndex^ Optional(String^ name, DynamicCommand::ParameterType type);
-
-		inline bool AddOverload(List<ParameterIndex^>^ params);
-		inline bool AddOverload(List<String^>^ params);
-		inline bool AddOverload(List<DynamicCommand::ParameterData^>^ params);
-		inline bool SetAlias(String^ alias);
-		// inline List<MC::CommandParameterData^>^ buildOverload(List<ParameterIndex^>^ overload);
-		inline void SetCallback(DynamicCommand::CallBackFn^ callback);
-		inline void RemoveCallback();
-		inline String^ SetSoftEnum(String^ name, List<String^>^ values);
-		inline bool AddSoftEnumValues(String^ name, List<String^>^ values);
-		inline bool RemoveSoftEnumValues(String^ name, List<String^>^ values);
-		inline static List<String^>^ GetSoftEnumValues(String^ name);
-		inline static List<String^>^ GetSoftEnumNames();
-
-		inline String^ GetCommandName();
-		inline bool HasRegistered();
-	};
 } // namespace LLNET::DynamicCommand
