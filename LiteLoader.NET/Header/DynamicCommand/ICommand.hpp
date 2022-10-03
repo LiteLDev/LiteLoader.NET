@@ -82,49 +82,6 @@ void LLNET::DynamicCommand::Internal::CommandManager::NativeDynamicCommandCallba
 		}
 	}
 
-	/*pin_ptr<ParamInfo> paramPtr = &data->Parameters[0];
-	auto length = data->Parameters->Count;
-
-	auto paramPtrs = new ParamInfo * [length] {nullptr};
-
-	for (int i = 0; i < length; i++)
-	{
-		paramPtrs[i] = &data->Parameters[i];
-	}
-
-	for (auto& [k, v] : results)
-	{
-		for (int i = 0; i < length; ++i)
-		{
-			if (paramPtrs[i] == nullptr)
-				continue;
-
-			auto& currentParamPtr = paramPtrs[i];
-
-			if (currentParamPtr->Name == marshalString(k))
-			{
-				auto result = _parseResult(v, *currentParamPtr);
-				if (!currentParamPtr->isKeyValuePair_with_bool)
-				{
-					if (!currentParamPtr->IsField)
-					{
-						currentParamPtr->PropertyInfo->SetValue(data->cmd, result);
-					}
-					else
-					{
-						currentParamPtr->Fieldinfo->SetValue(data->cmd, result);
-					}
-				}
-				else
-				{
-					currentParamPtr = nullptr;
-				}
-
-				break;
-			}
-		}
-	}*/
-
 	auto _origin = gcnew MC::CommandOrigin(const_cast<::CommandOrigin*>(&origin));
 	auto _output = gcnew MC::CommandOutput(&output);
 

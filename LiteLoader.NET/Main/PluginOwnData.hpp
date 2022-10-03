@@ -1,16 +1,30 @@
 #pragma once
 
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <LiteLoader.NET/Header/Hook/IHookBase.hpp>
+#include <LiteLoader.NET/Header/Event/IEvent.hpp>
+#include <LiteLoader.NET/Header/Event/EventListener.hpp>
+
 
 namespace LLNET
 {
-	private ref class PluginOwnData sealed
+	using LLNET::Hook::IHookBase;
+	using LLNET::Event::IEvent;
+	using LLNET::Event::INativeEventListener;
+	using LLNET::DynamicCommand::ICommand;
+
+	using __HMODULE = IntPtr;
+
+	ref class PluginOwnData __static
 	{
-		using __HMODULE = IntPtr;
 
 	public:
 
 		static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-		static Dictionary<Assembly^, __HMODULE>^ ManagedPluginHandle = gcnew Dictionary<Assembly^, IntPtr>;
+		static Dictionary<Assembly^, __HMODULE>^ ManagedPluginHandle = gcnew Dictionary<Assembly^, __HMODULE>;
+		static Dictionary<__HMODULE, List<IHookBase^>^>^ HookedFunction = gcnew Dictionary<__HMODULE, List<IHookBase^>^>;
+		static Dictionary<__HMODULE, List<IEvent^>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<IEvent^>^>;
+		static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;
+		//static Dictionary<__HMODULE, List<ICommand^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<ICommand^>^>;
 	};
 }

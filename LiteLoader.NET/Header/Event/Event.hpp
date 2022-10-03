@@ -6,12 +6,13 @@
 
 #define EventAPIs(EventName, Id)																							\
 public:                                                                                                                     \
-    ref class EventListener{                                                                                                \
+    ref class EventListener : INativeEventListener                                                                          \
+    {                                                                                                                       \
     internal:                                                                                                               \
         __EventListener<::Event::EventName>^ _listener;                                                                     \
         EventListener(__EventListener<::Event::EventName>^ listener):_listener(listener){}                                  \
     public:                                                                                                                 \
-		void Remove() { _listener->Remove(); }                                                                              \
+		virtual void Remove() { _listener->Remove(); }                                                                      \
     };                                                                                                                      \
     using EventTemplate = EventTemplate<EventName, ::Event::EventName>;                                                     \
                                                                                                                             \
@@ -40,7 +41,7 @@ internal:																													\
     static bool _nativeCallback(::Event::EventName& ev)																		\
     {																														\
 	    auto _ev = Translate(ev);																							\
-	    EventManager::_callNativeEvent(_ev, Id);																			\
+	    EventManager::_callNativeEvent(_ev, Id);																            \
 	    return !_ev->IsCancelled;																							\
     }																														\
     static void _init()																										\
