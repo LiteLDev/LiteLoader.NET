@@ -3,11 +3,12 @@
 #include <HookAPI.h>
 
 #include <LiteLoader.NET/Header/Hook/HookSymbolAttribute.hpp>
+#include "IHookBase.hpp"
 
 namespace LLNET::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
-		public ref class THookBase abstract
+		public ref class THookBase abstract :IHookBase
 	{
 	internal:
 		TDelegate _original;
@@ -31,7 +32,7 @@ namespace LLNET::Hook
 
 	using namespace System::Reflection;
 
-	public ref class Thook abstract
+	public ref class Thook __static
 	{
 	internal:
 		static List<System::Delegate^> HookedFunctions;

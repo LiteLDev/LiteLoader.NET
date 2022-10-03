@@ -189,6 +189,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\Hook\Ahook.hpp" />
     <ClInclude Include="Header\Hook\HookAPI.hpp" />
     <ClInclude Include="Header\Hook\HookSymbolAttribute.hpp" />
+    <ClInclude Include="Header\Hook\IHookBase.hpp" />
     <ClInclude Include="Header\Hook\Shook.hpp" />
     <ClInclude Include="Header\Hook\Thook.hpp" />
     <ClInclude Include="Header\Hook\THookRegister.hpp" />

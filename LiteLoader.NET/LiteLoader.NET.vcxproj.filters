@@ -914,6 +914,9 @@
     <ClInclude Include="Resource\Version.hpp">
       <Filter>Main\Config</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Hook\IHookBase.hpp">
+      <Filter>Header\Hook</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
