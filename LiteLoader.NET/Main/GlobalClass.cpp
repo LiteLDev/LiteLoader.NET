@@ -1,6 +1,7 @@
 #include "DotNETGlobal.hpp"
 
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
+#include "PluginOwnData.hpp"
 
 inline void GlobalClass::Init()
 {
@@ -42,7 +43,7 @@ SHARED_LIBRARY_NOT_FOUND_WARNING:
 inline HMODULE GlobalClass::GetCurrentModule(Assembly^ asm_)
 {
 	auto ret = IntPtr::Zero;
-	ManagedModuleHandler->TryGetValue(asm_, ret);
+	LLNET::PluginOwnData::ManagedPluginHandle->TryGetValue(asm_, ret);
 	if (ret != IntPtr::Zero)
 		return HMODULE((void*)ret);
 	else

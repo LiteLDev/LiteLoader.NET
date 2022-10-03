@@ -1,7 +1,9 @@
 #include "PluginManager.hpp"
 #include <LiteLoader.NET/Header/Core/Exceptions.hpp>
 #include <LiteLoader.NET/Extra/PluginManager.hpp>
+#include "PluginOwnData.hpp"
 #include <filesystem>
+
 namespace LLNET
 {
 	bool PluginManager::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ Asm)
@@ -32,7 +34,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
-			GlobalClass::ManagedModuleHandler->TryAdd(Asm, IntPtr(handle));
+			LLNET::PluginOwnData::ManagedPluginHandle->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;

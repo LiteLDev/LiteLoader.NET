@@ -6,7 +6,11 @@ namespace LLNET
 {
 	private ref class PluginOwnData sealed
 	{
+		using __HMODULE = IntPtr;
+
+	public:
+
 		static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-		static Dictionary<Assembly^, IntPtr>^ ManagedModuleHandler = gcnew Dictionary<Assembly^, IntPtr>;
+		static Dictionary<Assembly^, __HMODULE>^ ManagedPluginHandle = gcnew Dictionary<Assembly^, IntPtr>;
 	};
 }

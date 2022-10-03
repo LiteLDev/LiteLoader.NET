@@ -4,6 +4,7 @@
 #include "PluginManager.hpp"
 #include "IPluginInitializer.hpp"
 #include "FixCLRFatalError.hpp"
+#include "PluginOwnData.hpp"
 
 
 
@@ -94,7 +95,7 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	GlobalClass::ManagedModuleHandler->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+	LLNET::PluginOwnData::ManagedPluginHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
@@ -128,7 +129,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	}
 
 	List<String^>^ customPaths = nullptr;
-	if (GlobalClass::CustomLibPath->TryGetValue(args->RequestingAssembly, customPaths))
+	if (LLNET::PluginOwnData::CustomLibPath->TryGetValue(args->RequestingAssembly, customPaths))
 	{
 		for each (auto customPath in customPaths)
 		{
@@ -138,7 +139,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 				auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedPluginHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 
@@ -147,7 +148,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 			{
 				auto Asm = Assembly::LoadFrom(libPathWithPlugin);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				GlobalClass::ManagedModuleHandler->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedPluginHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 		}
@@ -197,7 +198,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
 
-			GlobalClass::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
+			LLNET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
 
 			auto succeed = LoadByDefaultEntry(logger, Asm);
 			if (!succeed)
