@@ -23,7 +23,8 @@
     if (ReferenceEquals(arg, nullptr))											\
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
-#define CLASS public ref class
+#define __ref_class public ref class
+#define __static abstract sealed
 
 using System::Console;
 using System::GC;
@@ -85,7 +86,7 @@ inline bool Is(U u)
 }
 
 template<typename T,typename U>
-inline bool As(U u)
+inline T As(U u)
 {
 	return safe_cast<T>(u);
 }
