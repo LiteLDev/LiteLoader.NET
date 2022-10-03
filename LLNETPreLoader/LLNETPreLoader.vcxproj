@@ -14,7 +14,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{B0D8F649-53E6-4512-A9D8-33C0E549FD65}</ProjectGuid>
-    <RootNamespace>LLPreLoader.NET</RootNamespace>
+    <RootNamespace>LLNETPreLoader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

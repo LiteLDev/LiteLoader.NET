@@ -5,7 +5,7 @@
 #include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 #include <LiteLoader.NET/Header/MC/AABB.hpp>
 
-enum BlockActorType;
+enum class BlockActorType;
 
 namespace MC
 {
@@ -27,7 +27,7 @@ inline bool BlockActor::SetNbt(CompoundTag ^ nbt)
 
 inline unsigned int BlockActor::getBlockEntityType(Block ^ block)
 {
-    return block->NativePtr->getBlockEntityType();
+    return (unsigned int)block->NativePtr->getBlockEntityType();
 }
 
 } // namespace MC

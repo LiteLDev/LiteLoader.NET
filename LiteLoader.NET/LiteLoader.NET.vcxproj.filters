@@ -85,6 +85,15 @@
     <Filter Include="Main\PluginSystem">
       <UniqueIdentifier>{aa4d23c2-b01c-403e-8250-8043fbd0a9c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Class">
+      <UniqueIdentifier>{e32a368c-78df-44d7-9ce8-6f175e7260c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Config">
+      <UniqueIdentifier>{50cd0e11-b635-40ae-9741-73bda1059e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Global">
+      <UniqueIdentifier>{9b4e8eab-85bc-44b4-b255-fd698085de96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -206,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="Kernel\Server.cpp">
       <Filter>Kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="Main\AssemblyInfo.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Main\dllmain.cpp">
       <Filter>Main</Filter>
@@ -384,9 +390,6 @@
     <ClCompile Include="Kernel\NativeAPI.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
-    <ClCompile Include="Main\GlobalClass.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\Logger\Logger.cpp">
       <Filter>Kernel\Logger</Filter>
     </ClCompile>
@@ -431,6 +434,12 @@
     </ClCompile>
     <ClCompile Include="Main\Plugininterface.cpp">
       <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\AssemblyInfo.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\GlobalClass.cpp">
+      <Filter>Main\Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,12 +569,6 @@
     <ClInclude Include="Header\Server.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Global.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\DotNETGlobal.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\ItemStackBase.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -662,9 +665,6 @@
     <ClInclude Include="Header\MC\StringTag.hpp">
       <Filter>Header\NBT</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Config.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Core\Exceptions.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
@@ -691,9 +691,6 @@
     </ClInclude>
     <ClInclude Include="Header\Impl\FormPacketHelper.hpp">
       <Filter>Header\Impl</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\ClassTemplate.hpp">
-      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Resource\resource.hpp">
       <Filter>Resource</Filter>
@@ -815,9 +812,6 @@
     <ClInclude Include="Header\MC\ColorFormat.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Version.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\Packet.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -833,26 +827,14 @@
     <ClInclude Include="Header\MC\SerializedSkin.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\Version.hpp">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Info.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Header\NativeAPI.hpp">
       <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\GlobalClass.hpp">
-      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\Logger\Logger.hpp">
       <Filter>Header\Logger</Filter>
     </ClInclude>
     <ClInclude Include="Header\Logger\LoggerManager.hpp">
       <Filter>Header\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\FixCLRFatalError.hpp">
-      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\SharedAttributes.hpp">
       <Filter>Header\MC</Filter>
@@ -904,6 +886,33 @@
     </ClInclude>
     <ClInclude Include="Main\PluginOwnData.hpp">
       <Filter>Main\PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\FixCLRFatalError.hpp">
+      <Filter>Extra</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Version.hpp">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\ClassTemplate.hpp">
+      <Filter>Main\Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Info.hpp">
+      <Filter>Main\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Config.hpp">
+      <Filter>Main\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\DotNETGlobal.hpp">
+      <Filter>Main\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\GlobalClass.hpp">
+      <Filter>Main\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Global.hpp">
+      <Filter>Main\Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Version.hpp">
+      <Filter>Main\Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

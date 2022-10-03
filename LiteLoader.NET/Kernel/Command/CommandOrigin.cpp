@@ -14,7 +14,7 @@
 #include <LiteLoader.NET/Header/Command/CommandArea.hpp>
 #include <LiteLoader.NET/Header/Command/Command.hpp>
 
-enum AbilitiesIndex;
+enum class AbilitiesIndex;
 enum class CommandOriginType : char;
 
 namespace MC
@@ -121,7 +121,7 @@ namespace MC
 
     unsigned char CommandOrigin::SourceSubId::get()
     {
-        return NativePtr->getSourceSubId();
+        return (unsigned char)NativePtr->getSourceSubId();
     }
 
     CommandOrigin^ CommandOrigin::OutputReceiver::get()

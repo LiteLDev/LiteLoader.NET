@@ -85,6 +85,7 @@ jobs:
           cp -f x64/Release/LLMoney.NET.dll output/RELEASE/lib/managed/LLMoney.NET.dll
           cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader/LiteLoader.NET.dll
           cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader/LiteLoader.NET.runtimeconfig.json
+          cp -f x64/Release/LLNETPreLoader.dll output/RELEASE/LiteLoader/LLNETPreLoader.dll
           mkdir output/PDB/
           cp -f x64/Release/*.pdb output/PDB/
           # mkdir output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/

@@ -1,6 +1,6 @@
 #include <LiteLoader.NET/Header/Command/CommandOutputMessage.hpp>
 
-enum CommandOutputMessageType;
+enum class CommandOutputMessageType;
 
 namespace MC
 {
