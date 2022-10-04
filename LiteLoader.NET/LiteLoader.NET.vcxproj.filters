@@ -474,6 +474,9 @@
     <ClCompile Include="Kernel\Event\EventManager.cpp">
       <Filter>Kernel\Event</Filter>
     </ClCompile>
+    <ClCompile Include="Main\PluginLoadContext.cpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -964,6 +967,9 @@
     </ClInclude>
     <ClInclude Include="Header\Event\OtherEvents.hpp">
       <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\PluginLoadContext.hpp">
+      <Filter>Main\PluginSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

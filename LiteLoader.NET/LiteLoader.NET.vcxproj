@@ -299,6 +299,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Main\GlobalClass.hpp" />
     <ClInclude Include="Main\Info.hpp" />
     <ClInclude Include="Main\IPluginInitializer.hpp" />
+    <ClInclude Include="Main\PluginLoadContext.hpp" />
     <ClInclude Include="Main\PluginManager.hpp" />
     <ClInclude Include="Main\PluginOwnData.hpp" />
     <ClInclude Include="Main\Version.hpp" />
@@ -434,6 +435,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\dllmain.cpp" />
     <ClCompile Include="Main\Plugininterface.cpp" />
     <ClCompile Include="Main\Loader.cpp" />
+    <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
   </ItemGroup>
   <ItemGroup>
