@@ -114,7 +114,7 @@ namespace LLNET::I18N
 		virtual I18nClassType GetI18nType() override;
 	};
 
-	static class Translation
+	public ref class Translation __static
 	{
 
 	};

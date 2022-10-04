@@ -459,6 +459,21 @@
     <ClCompile Include="Kernel\DynamicCommand\DynamicCommandInstance.cpp">
       <Filter>Kernel\DynamicCommand</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel\Event\PlayerEvents.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\BlockEvents.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\EntityEvents.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\OtherEvents.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\Event\EventManager.cpp">
+      <Filter>Kernel\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -806,9 +821,6 @@
     <ClInclude Include="Header\MC\Biome.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\Pair.hpp">
-      <Filter>Header\MC</Filter>
-    </ClInclude>
     <ClInclude Include="Header\I18n.hpp">
       <Filter>Header</Filter>
     </ClInclude>
@@ -937,6 +949,21 @@
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp">
       <Filter>Header\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Core\Pair.hpp">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\PlayerEvents.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\BlockEvents.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\EntityEvents.hpp">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Event\OtherEvents.hpp">
+      <Filter>Header\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

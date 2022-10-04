@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Header/LLAPI.hpp>
 namespace LLNET {
 	using namespace LLNET::LL;
-	private ref class PluginManager abstract
+	private ref class PluginManager __static
 	{
 	public:
 		static bool registerPlugin(System::String^ name, System::String^ introduction,
