@@ -95,15 +95,15 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	LLNET::PluginOwnData::ManagedPluginHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+	LLNET::PluginOwnData::ManagedDllHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
-Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) {
+Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyName)
+{
 	using System::IO::Path;
 	using System::IO::File;
 
-	AssemblyName assemblyName(args->Name);
 	if (assemblyName.Name == LLNET_INFO_LOADER_NAME)
 		return Assembly::GetExecutingAssembly();
 
@@ -129,7 +129,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 	}
 
 	List<String^>^ customPaths = nullptr;
-	if (LLNET::PluginOwnData::CustomLibPath->TryGetValue(args->RequestingAssembly, customPaths))
+	if (LLNET::PluginOwnData::CustomLibPath->TryGetValue(requestingAssembly, customPaths))
 	{
 		for each (auto customPath in customPaths)
 		{
@@ -139,7 +139,7 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 				auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedPluginHandle->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedDllHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 
@@ -148,13 +148,19 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 			{
 				auto Asm = Assembly::LoadFrom(libPathWithPlugin);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedPluginHandle->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedDllHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 		}
 	}
 
 	return nullptr;
+}
+
+
+Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) 
+{
+	return ResolveAssembly(args->RequestingAssembly, AssemblyName(args->Name));
 }
 
 

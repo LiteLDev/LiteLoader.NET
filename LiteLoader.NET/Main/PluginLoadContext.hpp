@@ -10,6 +10,7 @@ namespace LLNET
 	{
 	private:
 		AssemblyDependencyResolver^ resolver;
+		Assembly^ plugin;
 
 	public:
 		PluginLoadContext(String^ pluginPath);

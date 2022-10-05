@@ -1,19 +1,40 @@
 #include "PluginLoadContext.hpp"
 
+extern Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyName);
+
 namespace LLNET
 {
 	PluginLoadContext::PluginLoadContext(String^ pluginPath)
 	{
-		throw gcnew System::NotImplementedException;
+		resolver = gcnew AssemblyDependencyResolver(pluginPath);
+		plugin = LoadFromAssemblyPath(pluginPath);
 	}
 
 	Assembly^ PluginLoadContext::Load(AssemblyName^ assemblyName)
 	{
-		throw gcnew System::NotImplementedException;
+		return ResolveAssembly(plugin, *assemblyName);
 	}
 
 	IntPtr PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
 	{
-		throw gcnew System::NotImplementedException;
+		using System::IO::File;
+		using System::IO::Path;
+
+		auto libraryPath = resolver->ResolveUnmanagedDllToPath(unmanagedDllName);
+
+		if (libraryPath != nullptr)
+		{
+			return LoadUnmanagedDllFromPath(libraryPath);
+		}
+		else
+		{
+			auto path = Path::Combine(LITELOADER_LIBRARY_DIR, unmanagedDllName);
+			if (File::Exists(path))
+			{
+				return LoadUnmanagedDllFromPath(path);
+			}
+		}
+
+		return IntPtr::Zero;
 	}
 }
