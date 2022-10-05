@@ -175,7 +175,7 @@ inline void FixCLRFatalError(Logger& logger)
 			else
 			{
 				logger.info("Unable to find signature.");
-				logger.info("Please open an issue on LiteLoader.NET repo and upload your coreclr version({}) and dll file.", System::Environment::Version);
+				logger.info("Please open an issue on LiteLoader.NET repo and upload your coreclr version({}) and dll file.", marshalString(System::Environment::Version->ToString()));
 				logger.info("{}", marshalString(mod->FileVersionInfo->FileName));
 			}
 		}
