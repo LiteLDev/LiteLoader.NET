@@ -12,7 +12,21 @@ namespace LLNET
 
 	Assembly^ PluginLoadContext::Load(AssemblyName^ assemblyName)
 	{
-		return ResolveAssembly(plugin, *assemblyName);
+		Assembly^ ret = nullptr;
+
+		ret = ResolveAssembly(plugin, *assemblyName);
+
+		if (ret == nullptr)
+		{
+			auto path = resolver->ResolveAssemblyToPath(assemblyName);
+
+			if (path != nullptr)
+			{
+				ret = LoadFromAssemblyPath(path);
+			}
+		}
+
+		return ret;
 	}
 
 	IntPtr PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
