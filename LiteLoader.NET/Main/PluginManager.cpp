@@ -34,7 +34,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
-			LLNET::PluginOwnData::ManagedDllHandle->TryAdd(Asm, IntPtr(handle));
+			LLNET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;

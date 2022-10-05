@@ -27,7 +27,7 @@ namespace LLNET
 	public:
 
 		static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
-		static Dictionary<Assembly^, __HMODULE>^ ManagedDllHandle = gcnew Dictionary<Assembly^, __HMODULE>;
+		static Dictionary<Assembly^, __HMODULE>^ ManagedAssemblyHandle = gcnew Dictionary<Assembly^, __HMODULE>;
 		static Dictionary<__HMODULE, List<IHookBase^>^>^ HookedFunction = gcnew Dictionary<__HMODULE, List<IHookBase^>^>;
 		static Dictionary<__HMODULE, List<IEvent^>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<IEvent^>^>;
 		static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;

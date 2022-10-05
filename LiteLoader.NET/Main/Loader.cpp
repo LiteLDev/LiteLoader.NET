@@ -95,7 +95,7 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	LLNET::PluginOwnData::ManagedDllHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+	LLNET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
@@ -139,7 +139,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 
 				auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedDllHandle->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 
@@ -148,7 +148,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 			{
 				auto Asm = Assembly::LoadFrom(libPathWithPlugin);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedDllHandle->Add(Asm, IntPtr(handle));
+				LLNET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 		}

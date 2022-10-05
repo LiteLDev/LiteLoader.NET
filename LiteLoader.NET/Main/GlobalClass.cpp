@@ -43,7 +43,7 @@ SHARED_LIBRARY_NOT_FOUND_WARNING:
 inline HMODULE GlobalClass::GetCurrentModule(Assembly^ asm_)
 {
 	auto ret = IntPtr::Zero;
-	LLNET::PluginOwnData::ManagedDllHandle->TryGetValue(asm_, ret);
+	LLNET::PluginOwnData::ManagedAssemblyHandle->TryGetValue(asm_, ret);
 	if (ret != IntPtr::Zero)
 		return HMODULE((void*)ret);
 	else
