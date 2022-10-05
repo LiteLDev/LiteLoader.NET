@@ -78,67 +78,67 @@ static void* oldEEPolicy_LogFatalError = nullptr;
 #pragma unmanaged
 void LogInfoForFatalError(UINT exitCode, LPCWSTR pszMessage, LPCWSTR errorSource, LPCWSTR argExceptionString)
 {
-	//call old function to print info
+	// call old function to print info
 	((LogInfoForFatalErrorType)oldLogInfoForFatalError)(exitCode, pszMessage, errorSource, argExceptionString);
-	//unmanaged is necessary,otherwise it will cause stack overflow
+	// unmanaged is necessary,otherwise it will cause stack overflow
 	// do not use other functions outside of this function
 	if (oldEEPolicy_LogFatalError == nullptr)
 	{
-		std::cout << "[fixClrFatalError] CLR Fatal Error." << std::endl;
-		std::cout << "[fixClrFatalError] ExitCode : " << exitCode << std::endl;
+		std::cout << "[FixCLRFatalError] CLR Fatal Error." << std::endl;
+		std::cout << "[FixCLRFatalError] ExitCode : " << exitCode << std::endl;
 		if (pszMessage != nullptr) {
-			std::cout << "[fixClrFatalError] pszMessage : ";
+			std::cout << "[FixCLRFatalError] pszMessage : ";
 			wprintf_s(pszMessage);
 			std::cout << std::endl;
 		}
 		if (errorSource != nullptr)
 		{
-			std::cout << "[fixClrFatalError] errorSource : ";
+			std::cout << "[FixCLRFatalError] errorSource : ";
 			wprintf_s(errorSource);
 			std::cout << std::endl;
 		}
 		if (argExceptionString != nullptr) {
-			std::cout << "[fixClrFatalError] argExceptionString : ";
+			std::cout << "[FixCLRFatalError] argExceptionString : ";
 			wprintf_s(argExceptionString);
 			std::cout << std::endl;
 		}
 	}
-	//throw an exception which could be caught outside ,otherwise the program will be terminated by clr
+	// throw an exception which could be caught outside ,otherwise the program will be terminated by clr
 	throw;
 }
 #pragma unmanaged
 void EEPolicy_LogFatalError(UINT exitCode, UINT_PTR address, LPCWSTR pszMessage, PEXCEPTION_POINTERS pExceptionInfo, LPCWSTR errorSource, LPCWSTR argExceptionString)
 {
-	//unmanaged is necessary,otherwise it will cause stack overflow
+	// unmanaged is necessary,otherwise it will cause stack overflow
 	// do not use other functions outside of this function
-	//call original
-	std::cout << "[fixClrFatalError] CLR Fatal Error." << std::endl;
-	std::cout << "[fixClrFatalError] Address : " << address << std::endl;
-	std::cout << "[fixClrFatalError] ExitCode : " << exitCode << std::endl;
+	// call original
+	std::cout << "[FixCLRFatalError] CLR Fatal Error." << std::endl;
+	std::cout << "[FixCLRFatalError] Address : " << address << std::endl;
+	std::cout << "[FixCLRFatalError] ExitCode : " << exitCode << std::endl;
 	if (pszMessage != nullptr) {
-		std::cout << "[fixClrFatalError] pszMessage : ";
+		std::cout << "[FixCLRFatalError] pszMessage : ";
 		wprintf_s(pszMessage);
 		std::cout << std::endl;
 	}
 	if (errorSource != nullptr)
 	{
-		std::cout << "[fixClrFatalError] errorSource : ";
+		std::cout << "[FixCLRFatalError] errorSource : ";
 		wprintf_s(errorSource);
 		std::cout << std::endl;
 	}
 	if (argExceptionString != nullptr) {
-		std::cout << "[fixClrFatalError] argExceptionString : ";
+		std::cout << "[FixCLRFatalError] argExceptionString : ";
 		wprintf_s(argExceptionString);
 		std::cout << std::endl;
 	}
 	if (pExceptionInfo != nullptr) {
-		std::cout << "[fixClrFatalError] ExceptionAddress : " << pExceptionInfo->ExceptionRecord->ExceptionAddress << std::endl;
-		//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L426
-		std::cout << "[fixClrFatalError] ExceptionCode : " << ((pExceptionInfo && pExceptionInfo->ExceptionRecord) ? pExceptionInfo->ExceptionRecord->ExceptionCode : 0) << std::endl;
-		std::cout << "[fixClrFatalError] ExceptionFlags : " << pExceptionInfo->ExceptionRecord->ExceptionFlags << std::endl;
+		std::cout << "[FixCLRFatalError] ExceptionAddress : " << pExceptionInfo->ExceptionRecord->ExceptionAddress << std::endl;
+		// https://github.com/dotnet/runtime/blob/43c9f6bf1c1a4c6e118bbee68a8aa213a8ba644e/src/coreclr/vm/eepolicy.cpp#L426
+		std::cout << "[FixCLRFatalError] ExceptionCode : " << ((pExceptionInfo && pExceptionInfo->ExceptionRecord) ? pExceptionInfo->ExceptionRecord->ExceptionCode : 0) << std::endl;
+		std::cout << "[FixCLRFatalError] ExceptionFlags : " << pExceptionInfo->ExceptionRecord->ExceptionFlags << std::endl;
 		if (pExceptionInfo->ExceptionRecord->ExceptionInformation != nullptr)
 		{
-			std::cout << "[fixClrFatalError] ExceptionInformation : " << *(pExceptionInfo->ExceptionRecord->ExceptionInformation) << std::endl;
+			std::cout << "[FixCLRFatalError] ExceptionInformation : " << *(pExceptionInfo->ExceptionRecord->ExceptionInformation) << std::endl;
 		}
 	}
 	((EEPolicy_LogFatalErrorType)oldEEPolicy_LogFatalError)(exitCode, address, pszMessage, pExceptionInfo, errorSource, argExceptionString);
@@ -153,18 +153,18 @@ inline void FixCLRFatalError(Logger& logger)
 		{
 			void* baseAddress = mod->BaseAddress.ToPointer();
 			int size = mod->ModuleMemorySize;
-			//To update signature please use this : https://github.com/LazuliKao/CoreClrPatch/blob/main/build.fsx
+			// To update signature please use this : https://github.com/LazuliKao/CoreClrPatch/blob/main/build.fsx
 			
-			//?LogInfoForFatalError@@YAXIPEB_W00@Z
-			//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L324
+			// ?LogInfoForFatalError@@YAXIPEB_W00@Z
+			// https://github.com/dotnet/runtime/blob/43c9f6bf1c1a4c6e118bbee68a8aa213a8ba644e/src/coreclr/vm/eepolicy.cpp#L324
 			uintptr_t result = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
 				"48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 41 54 41 56 41 57 48 81 EC ? 00 00 00 4D 8B E1 4D 8B F0 48 8B DA 8B F9 44 8B 15 ? ? ? 00 65 48 8B 04 25 58 00 00 00 B9 30 01 00 00 4E 8B 3C D0 49 8B 34 0F 48 89 74 24 60 33 C0 F0 48 0F B1 35 ? ? ? 00 48 3B C6 75 11 48 8D 0D ? ? ? 00 E8 ? ? FE FF E9 ? 01 00 00 48 85 C0 74 ? ? ? ? ? ? ? ? ? ? ? ? ? FF ? ? ? ?");
 			if (result != 0)
 			{
 				HookFunction((void*)result, &oldLogInfoForFatalError, (void*)(LogInfoForFatalError));
-				logger.info("The fatal error of coreclr.dll has been redirected. {}", result);
-				//?LogFatalError@EEPolicy@@CAXI_KPEB_WPEAU_EXCEPTION_POINTERS@@11@Z
-				//https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L410
+				logger.info("The fatal error of CoreCLR has been redirected. {}", result);
+				// ?LogFatalError@EEPolicy@@CAXI_KPEB_WPEAU_EXCEPTION_POINTERS@@11@Z
+				// https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L410
 				uintptr_t eepolicylog = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
 					"40 53 56 57 41 ? 41 ? 41 57 48 81 EC D8 0C 00 00 48 8B 05 ? ? ? 00 48 33 C4 48 89 84 24 C8 0C 00 00 49 8B D9 48 89 9C 24 80 00 00 00 49 8B F0 4C 8B ? 44 8B E9 89 8C 24 90 00 00 00 48 89 9C 24 C0 00 00 00 4C 8B 84 24 30 0D 00 00 4C 8B ? 24 38 0D 00 00 4D 8B ? 48 8B D6 E8 ? 0A 00 00 33 FF 48 8B 05 ? ? ? 00 39 78 24 75 17 48 8B 0D ? ? ? 00 48 8B C1 48 C1 E8 08 84 C0 74");
 				if (eepolicylog != 0)
@@ -175,7 +175,7 @@ inline void FixCLRFatalError(Logger& logger)
 			else
 			{
 				logger.info("Unable to find signature.");
-				logger.info("Please open an issue on LLNet Repo and upload your coreclr.dll.");
+				logger.info("Please open an issue on LiteLoader.NET repo and upload your coreclr version({}) and dll file.", System::Environment::Version);
 				logger.info("{}", marshalString(mod->FileVersionInfo->FileName));
 			}
 		}
