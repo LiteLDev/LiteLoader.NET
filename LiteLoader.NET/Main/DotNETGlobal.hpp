@@ -32,6 +32,7 @@ using System::IntPtr;
 using System::String;
 using System::Object;
 using System::Exception;
+using System::Delegate;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 using System::Collections::Generic::KeyValuePair;
