@@ -291,7 +291,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\Schedule.hpp" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
     <ClInclude Include="Header\Server.hpp" />
-    <ClInclude Include="Kernel\Hook\HookHelper.cpp" />
     <ClInclude Include="Main\DotNETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.hpp" />
     <ClInclude Include="Main\Config.hpp" />
@@ -345,6 +344,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Kernel\GlobalService.cpp" />
     <ClCompile Include="Kernel\Hook\Ahook.cpp" />
     <ClCompile Include="Kernel\Hook\HookAPI.cpp" />
+    <ClCompile Include="Kernel\Hook\HookHelper.cpp" />
     <ClCompile Include="Kernel\Hook\HookSymbolAttribute.cpp" />
     <ClCompile Include="Kernel\Hook\Shook.cpp" />
     <ClCompile Include="Kernel\Hook\Thook.cpp" />
