@@ -33,7 +33,7 @@ namespace LLNET::Event
     generic <typename TListener> where TListener : IEventListener
         void EventManager::RegisterListener()
     {
-        RegisterListener<TListener>(IntPtr(GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())));
+        RegisterListener<TListener>(IntPtr(CALLING_MODULE));
     }
 
 

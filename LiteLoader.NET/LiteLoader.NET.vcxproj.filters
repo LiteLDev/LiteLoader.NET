@@ -944,7 +944,7 @@
     <ClInclude Include="Resource\Version.hpp">
       <Filter>Main\Config</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Hook\IHookBase.hpp">
+    <ClInclude Include="Header\Hook\HookHelper.hpp">
       <Filter>Header\Hook</Filter>
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\ParameterData.hpp">
@@ -970,6 +970,9 @@
     </ClInclude>
     <ClInclude Include="Main\PluginLoadContext.hpp">
       <Filter>Main\PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel\Hook\HookHelper.hpp">
+      <Filter>Kernel\Hook</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

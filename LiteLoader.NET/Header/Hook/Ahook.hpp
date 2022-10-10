@@ -2,13 +2,14 @@
 
 #include <HookAPI.h>
 
-#include <LiteLoader.NET/Header/Hook/HookSymbolAttribute.hpp>
-#include "IHookBase.hpp"
+#include "HookSymbolAttribute.hpp"
+#include "HookHelper.hpp"
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 namespace LLNET::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
-		public ref class AHookBase abstract : IHookBase
+		public ref class AHookBase abstract
 	{
 	internal:
 		TDelegate _original;
@@ -66,7 +67,7 @@ namespace LLNET::Hook
 		auto add = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Add;
 		auto instance = gcnew T();
 
-		instance->_original = HookFunction(add, instance->Hook);
+		instance->_original = HookHelper::_hookFunction(IntPtr(CALLING_MODULE), add, instance->Hook);
 	}
 
 
@@ -74,31 +75,12 @@ namespace LLNET::Hook
 	generic<typename TDelegate>
 	inline TDelegate Ahook::HookFunction(void* address, TDelegate newFunc)
 	{
-		NULL_ARG_CHEEK(newFunc);
-
-		if (address == nullptr)
-			throw gcnew System::ArgumentNullException("address", "Cannot be null");
-
-		GC::KeepAlive(newFunc);
-		GCHandle::Alloc(newFunc);
-
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
-
-		HookedFunctions.Add(newFunc);
-
-		void* pOriginal = nullptr;
-
-		::THookRegister(address, pHook, (void**)&pOriginal);
-
-		if (pOriginal == nullptr)
-			throw gcnew LLNET::Core::HookFailedException;
-
-		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), address, newFunc);
 	}
 
 	generic<typename TDelegate>
 	inline TDelegate Ahook::HookFunction(intptr_t address, TDelegate newFunc)
 	{
-		return HookFunction((void*)address, newFunc);
+		return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), (void*)address, newFunc);
 	}
 }

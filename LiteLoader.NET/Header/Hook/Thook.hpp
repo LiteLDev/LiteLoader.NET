@@ -3,12 +3,13 @@
 #include <HookAPI.h>
 
 #include <LiteLoader.NET/Header/Hook/HookSymbolAttribute.hpp>
-#include "IHookBase.hpp"
+#include "HookHelper.hpp"
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 namespace LLNET::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
-		public ref class THookBase abstract :IHookBase
+		public ref class THookBase abstract
 	{
 	internal:
 		TDelegate _original;
@@ -65,29 +66,12 @@ namespace LLNET::Hook
 
 		auto instance = gcnew T();
 
-		instance->_original = HookFunction(sym, instance->Hook);
+		instance->_original = HookHelper::_hookFunction(IntPtr(CALLING_MODULE), sym, instance->Hook);
 	}
 
 	generic<typename TDelegate>
 	inline TDelegate Thook::HookFunction(String^ symbol, TDelegate newFunc)
 	{
-		NULL_ARG_CHEEK(newFunc);
-		NULL_ARG_CHEEK(symbol);
-
-		GC::KeepAlive(newFunc);
-		GCHandle::Alloc(newFunc);
-
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
-
-		HookedFunctions.Add(newFunc);
-
-		void* pOriginal = nullptr;
-
-		::THookRegister(marshalString(symbol).c_str(), pHook, (void**)&pOriginal);
-
-		if (pOriginal == nullptr)
-			throw gcnew LLNET::Core::HookFailedException;
-
-		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), symbol, newFunc);
 	}
 }

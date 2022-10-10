@@ -25,6 +25,7 @@
 
 #define __ref_class public ref class
 #define __static abstract sealed
+#define CALLING_MODULE GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())
 
 using System::Console;
 using System::GC;

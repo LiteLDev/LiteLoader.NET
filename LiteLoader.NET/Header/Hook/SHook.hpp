@@ -3,12 +3,13 @@
 #include <HookAPI.h>
 
 #include <LiteLoader.NET/Header/Hook/HookSymbolAttribute.hpp>
-#include "IHookBase.hpp"
+#include "HookHelper.hpp"
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 namespace LLNET::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
-		public ref class SHookBase abstract : IHookBase
+		public ref class SHookBase abstract
 	{
 	internal:
 		TDelegate _original;
@@ -63,29 +64,12 @@ namespace LLNET::Hook
 		auto sig = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
 		auto instance = gcnew T();
 
-		instance->_original = HookFunction(sig, instance->Hook);
+		instance->_original = HookHelper::_hookFunction(IntPtr(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(sig).c_str()), instance->Hook);
 	}
 
 	generic<typename TDelegate>
 	inline TDelegate Shook::HookFunction(String^ signature, TDelegate newFunc)
 	{
-		NULL_ARG_CHEEK(newFunc);
-		NULL_ARG_CHEEK(signature);
-
-		GC::KeepAlive(newFunc);
-		GCHandle::Alloc(newFunc);
-
-		auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
-
-		HookedFunctions.Add(newFunc);
-
-		void* pOriginal = nullptr;
-
-		::THookRegister((void*)ll::hook::findSig(marshalString(signature).c_str()), pHook, (void**)&pOriginal);
-
-		if (pOriginal == nullptr)
-			throw gcnew LLNET::Core::HookFailedException;
-
-		return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+		return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(signature).c_str()), newFunc);
 	}
 }

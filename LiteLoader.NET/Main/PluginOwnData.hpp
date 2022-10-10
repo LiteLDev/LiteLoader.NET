@@ -1,7 +1,7 @@
 #pragma once
 
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
-#include <LiteLoader.NET/Header/Hook/IHookBase.hpp>
+#include <LiteLoader.NET/Header/Hook/HookHelper.hpp>
 #include <LiteLoader.NET/Header/Event/IEvent.hpp>
 #include <LiteLoader.NET/Header/Event/EventListener.hpp>
 //#include <LiteLoader.NET/Header/DynamicCommand/ICommand.hpp>
@@ -14,7 +14,6 @@ namespace LLNET::DynamicCommand
 
 namespace LLNET
 {
-	using LLNET::Hook::IHookBase;
 	using LLNET::Event::IEvent;
 	using LLNET::Event::INativeEventListener;
 	using LLNET::DynamicCommand::ICommand;
@@ -27,7 +26,7 @@ namespace LLNET
 	using __PHook = IntPtr;
 	using __POriginal = IntPtr;
 
-	ref class PluginOwnData __static
+	private ref class PluginOwnData __static
 	{
 
 	public:

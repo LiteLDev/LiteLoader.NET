@@ -1,6 +1,7 @@
 #pragma once
 //#include "DotNETGlobal.hpp"
 
+
 namespace LLNET::Logger
 {
 	ref class Logger;

@@ -68,7 +68,7 @@ namespace LLNET::DynamicCommand
 			marshalString(description),
 			::CommandPermissionLevel(permission),
 			::CommandFlag{ (::CommandFlagValue(flag->value)) },
-			GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())).release(),
+			CALLING_MODULE).release(),
 			true)
 	{
 	}
