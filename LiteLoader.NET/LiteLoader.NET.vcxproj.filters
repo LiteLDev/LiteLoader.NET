@@ -971,7 +971,7 @@
     <ClInclude Include="Main\PluginLoadContext.hpp">
       <Filter>Main\PluginSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Kernel\Hook\HookHelper.hpp">
+    <ClInclude Include="Kernel\Hook\HookHelper.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClInclude>
   </ItemGroup>
