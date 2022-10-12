@@ -34,7 +34,7 @@ namespace LLNET
 		static Dictionary<Assembly^, List<String^>^>^ CustomLibPath = gcnew Dictionary<Assembly^, List<String^>^>;
 		static Dictionary<Assembly^, __HMODULE>^ ManagedAssemblyHandle = gcnew Dictionary<Assembly^, __HMODULE>;
 		static Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>^ HookedFunction = gcnew Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>;
-		static Dictionary<__HMODULE, List<__EventId>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<__EventId>^>;
+		static Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>;
 		static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;
 		static Dictionary<__HMODULE, List<ICommand^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<ICommand^>^>;
 	};
