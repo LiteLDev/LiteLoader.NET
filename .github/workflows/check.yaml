@@ -32,10 +32,6 @@ jobs:
           submodules: 'true'
           fetch-depth: 0
 
-      - name: Update SDK
-        run: |
-          git submodule update --init --recursive --remote
-
       # - name: Get information from Version.h file (TODO)
       #   working-directory: ${{env.GITHUB_WORKSPACE}}
       #   id: ver
