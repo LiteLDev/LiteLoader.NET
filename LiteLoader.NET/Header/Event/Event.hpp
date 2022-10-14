@@ -6,25 +6,21 @@
 
 #define EventAPIs(EventName, Id)																							\
 public:                                                                                                                     \
-    ref class EventListener : INativeEventListener                                                                          \
+    ref class EventListener							                                                                        \
     {                                                                                                                       \
     internal:                                                                                                               \
         __EventListener<::Event::EventName>^ _listener;                                                                     \
         EventListener(__EventListener<::Event::EventName>^ listener):_listener(listener){}                                  \
     public:                                                                                                                 \
-		virtual void Remove() { _listener->Remove(); }                                                                      \
+		void Remove() { _listener->Remove(); }																				\
     };                                                                                                                      \
     using EventTemplate = EventTemplate<EventName, ::Event::EventName>;                                                     \
                                                                                                                             \
     static EventListener ^ Subscribe(EventHandler ^ callback) {                                                             \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                 \
-        auto pluginname = assembly->GetName()->FullName;                                                                    \
-        return gcnew EventListener(EventTemplate::subscribe(pluginname, callback));                                         \
+		return gcnew EventListener(EventTemplate::subscribe(Assembly::GetCallingAssembly(), callback));						\
     };                                                                                                                      \
     static EventListener ^ Subscribe_Ref(EventHandler ^ callback) {                                                         \
-        auto assembly = System::Reflection::Assembly::GetCallingAssembly();                                                 \
-        auto pluginname = assembly->GetName()->FullName;                                                                    \
-        return gcnew EventListener(EventTemplate::subscribe_ref(pluginname, callback));                                     \
+        return gcnew EventListener(EventTemplate::subscribe_ref(Assembly::GetCallingAssembly(), callback));                 \
     };                                                                                                                      \
     static void Unsubscribe(EventListener ^ listener)                                                                       \
     {                                                                                                                       \
@@ -102,6 +98,7 @@ private:
 #include <LiteLoader.NET/Header/Command/CommandParameterData.hpp>
 
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 #define Class __ref_class
 
@@ -110,7 +107,7 @@ namespace LLNET::Event
 	using namespace MC;
 
 	template <typename NATIVEEVENT>
-	public ref class __EventListener
+	public ref class __EventListener :INativeEventListener
 	{
 	private:
 		int listenerId;
@@ -122,7 +119,7 @@ namespace LLNET::Event
 		{
 		}
 
-		void Remove()
+		virtual void Remove()
 		{
 			if (!deleted)
 			{
@@ -271,18 +268,56 @@ namespace LLNET::Event
 		};
 
 	protected:
-		static __EventListener<NATIVEEVENT>^ subscribe(String^ pluginName, EventHandler^ callback)
+		static __EventListener<NATIVEEVENT>^ subscribe(Assembly^ plugin, EventHandler^ callback)
 		{
-			auto c = gcnew EventCallBack(pluginName, callback, false);
-			GC::KeepAlive(c);
-			return c->Listener;
+			auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, false);
+			GC::KeepAlive(callbackInstance);
+
+			auto module = (IntPtr)GET_MODULE(plugin);
+
+			using NativeEventList = List<INativeEventListener^>;
+
+			NativeEventList^ list = nullptr;
+
+			if (!PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
+			{
+				list = gcnew NativeEventList;
+				PluginOwnData::SubscribedNativeEvent->Add(module, list);
+			}
+			else
+			{
+				list = PluginOwnData::SubscribedNativeEvent[module];
+			}
+
+			list->Add(callbackInstance->Listener);
+
+			return callbackInstance->Listener;
 		};
 
-		static __EventListener<NATIVEEVENT>^ subscribe_ref(String^ pluginName, EventHandler^ callback)
+		static __EventListener<NATIVEEVENT>^ subscribe_ref(Assembly^ plugin, EventHandler^ callback)
 		{
-			auto c = gcnew EventCallBack(pluginName, callback, true);
-			GC::KeepAlive(c);
-			return c->Listener;
+			auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, true);
+			GC::KeepAlive(callbackInstance);
+
+			auto module = (IntPtr)GET_MODULE(plugin);
+
+			using NativeEventList = List<INativeEventListener^>;
+
+			NativeEventList^ list = nullptr;
+
+			if (!PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
+			{
+				list = gcnew NativeEventList;
+				PluginOwnData::SubscribedNativeEvent->Add(module, list);
+			}
+			else
+			{
+				list = PluginOwnData::SubscribedNativeEvent[module];
+			}
+
+			list->Add(callbackInstance->Listener);
+
+			return callbackInstance->Listener;
 		};
 
 		static void unsubscribe(__EventListener<NATIVEEVENT>^ listener)

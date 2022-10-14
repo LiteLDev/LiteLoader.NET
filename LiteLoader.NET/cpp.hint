@@ -57,4 +57,5 @@
 #define __ctor_all_base(RefClass, NativeClass, BaseClass) __ctor_base(RefClass, NativeClass, BaseClass); internal: __ctor_copy_base(RefClass, NativeClass, BaseClass); __ctor_move_base(RefClass, NativeClass, BaseClass); public:
 #define __ref_class public ref class
 #define __static abstract sealed
-#define CURRENT_MODULE GlobalClass::GetCurrentModule(Assembly::GetCallingAssembly())
+#define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
+#define CALLING_MODULE GET_MODULE(Assembly::GetCallingAssembly())

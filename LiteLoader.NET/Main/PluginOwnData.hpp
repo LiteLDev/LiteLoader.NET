@@ -9,6 +9,7 @@
 namespace LLNET::DynamicCommand
 {
 	interface class ICommand;
+	ref class DynamicCommandInstance;
 }
 
 
@@ -16,7 +17,7 @@ namespace LLNET
 {
 	using LLNET::Event::IEvent;
 	using LLNET::Event::INativeEventListener;
-	using LLNET::DynamicCommand::ICommand;
+	using LLNET::DynamicCommand::DynamicCommandInstance;
 
 	using __HMODULE = IntPtr;
 	using __EventId = size_t;
@@ -36,6 +37,6 @@ namespace LLNET
 		static Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>^ HookedFunction = gcnew Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>;
 		static Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>;
 		static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;
-		static Dictionary<__HMODULE, List<ICommand^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<ICommand^>^>;
+		static Dictionary<__HMODULE, List<DynamicCommandInstance^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<DynamicCommandInstance^>^>;
 	};
 }
