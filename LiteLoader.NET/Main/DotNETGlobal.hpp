@@ -23,8 +23,11 @@
     if (ReferenceEquals(arg, nullptr))											\
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
+#define VALUE_TUPLE System::ValueTuple
+
 #define __ref_class public ref class
 #define __static abstract sealed
+
 #define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
 #define CALLING_MODULE GET_MODULE(Assembly::GetCallingAssembly())
 

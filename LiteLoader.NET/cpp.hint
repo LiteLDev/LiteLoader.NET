@@ -55,6 +55,7 @@
 #define CallEventAPI_Imp(_event, __VA_ARGS__) void _event::CallEvent(__VA_ARGS__)
 #define NativeCallback(eventName) delegate bool _delNativeCallback(::Event::eventName&); static bool _nativeCallback(::Event::eventName& ev) { auto% _ev = *(eventName*)&ev; EventManager::CallNativeEventInternal(_ev, EventId); return !_ev.IsCancelled; } static eventName() { auto delfunc = gcnew _delNativeCallback(&_nativeCallback); GCHandle::Alloc(delfunc); ::Event::eventName::subscribe_ref( static_cast<bool(*)(::Event::eventName&)>( (void*)Marshal::GetFunctionPointerForDelegate(delfunc))); }
 #define __ctor_all_base(RefClass, NativeClass, BaseClass) __ctor_base(RefClass, NativeClass, BaseClass); internal: __ctor_copy_base(RefClass, NativeClass, BaseClass); __ctor_move_base(RefClass, NativeClass, BaseClass); public:
+#define VALUE_TUPLE System::ValueTuple
 #define __ref_class public ref class
 #define __static abstract sealed
 #define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
