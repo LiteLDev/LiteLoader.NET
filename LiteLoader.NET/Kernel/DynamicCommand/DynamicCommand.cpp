@@ -1,5 +1,6 @@
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommand.hpp>
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandInstance.hpp>
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 #include <memory>
 
 namespace LLNET::DynamicCommand
@@ -230,6 +231,24 @@ namespace LLNET::DynamicCommand
 	{
 		return ToDebugString();
 	}
+
+	void _addPluginOwnData(IntPtr handle, String^ name)
+	{
+		List<String^>^ commands = nullptr;
+
+		if (PluginOwnData::RegisteredCommand->ContainsKey(handle))
+		{
+			commands = PluginOwnData::RegisteredCommand[handle];
+		}
+		else
+		{
+			commands = gcnew List<String^>;
+			PluginOwnData::RegisteredCommand->Add(handle, commands);
+		}
+
+		commands->Add(name);
+	}
+
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
 	{
 
@@ -283,6 +302,8 @@ namespace LLNET::DynamicCommand
 			(HMODULE)(void*)handle)
 			.release(),
 			true);
+
+		_addPluginOwnData(handle, name);
 	}
 	inline DynamicCommandInstance^ DynamicCommand::Setup(DynamicCommandInstance^ commandInstance)
 	{
@@ -481,12 +502,20 @@ namespace LLNET::DynamicCommand
 
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
 	{
-		return gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handle).release(), true);
+		auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handle).release(), true);
+
+		_addPluginOwnData(handle, name);
+
+		return ret;
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2)
 	{
-		auto& a = ::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, CALLING_MODULE);
-		return gcnew DynamicCommandInstance(a.release(), true);
+		auto handle = CALLING_MODULE;
+		auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, handle).release(), true);
+
+		_addPluginOwnData(static_cast<IntPtr>(handle), name);
+
+		return ret;
 	}
 	inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1)
 	{

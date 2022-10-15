@@ -1,4 +1,5 @@
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandInstance.hpp>
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 namespace LLNET::DynamicCommand
 {

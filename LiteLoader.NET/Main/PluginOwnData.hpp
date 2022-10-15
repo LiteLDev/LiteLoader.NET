@@ -37,6 +37,6 @@ namespace LLNET
 		static Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>^ HookedFunction = gcnew Dictionary<__HMODULE, List<System::ValueTuple<__Hook, __Address, __PHook, __POriginal>>^>;
 		static Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>^ RegisteredEvent = gcnew Dictionary<__HMODULE, List<System::ValueTuple<System::Type^, __EventId>>^>;
 		static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;
-		static Dictionary<__HMODULE, List<DynamicCommandInstance^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<DynamicCommandInstance^>^>;
+		static Dictionary<__HMODULE, List<String^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<String^>^>;
 	};
 }
