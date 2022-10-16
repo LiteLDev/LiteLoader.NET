@@ -590,9 +590,6 @@
     <ClInclude Include="Header\AllowListAPI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Event.hpp">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Header\FormUI.hpp">
       <Filter>Header</Filter>
     </ClInclude>
@@ -975,6 +972,9 @@
       <Filter>Main\PluginSystem</Filter>
     </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\type_traits.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
