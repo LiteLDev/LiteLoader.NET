@@ -15,7 +15,7 @@ namespace LLNET::RemoteCall
 	/// <para>Mainly designed for scripting engines</para>
 	/// <para>Please call it in MC_SERVER thread or in ScheduleAPI</para>
 	/// </summary>
-	public ref class RemoteCallAPI abstract
+	public ref class RemoteCallAPI __static
 	{
 	public:
 		/// <summary>
@@ -444,12 +444,13 @@ namespace LLNET::RemoteCall
 		};
 
 	};
-	public ref class DynamicRemoteCallAPI abstract {
+	public ref class DynamicRemoteCallAPI __static
+	{
 	public:
 		/// <summary>
 		/// Will cause memory leak.　QAQ
 		/// </summary>
-		/// <returns></returns>
+		/// <returns></returns>,m 
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn) {

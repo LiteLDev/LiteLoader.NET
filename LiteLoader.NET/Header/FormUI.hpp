@@ -3,7 +3,7 @@
 #include "MC/ServerPlayer.hpp"
 #include "MC/Player.hpp"
 
-#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter_old.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 //#define DEBUG

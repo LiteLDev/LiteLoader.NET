@@ -710,7 +710,7 @@
     <ClInclude Include="Header\Core\SecondaryRankPtr.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\NativeCallbackConverter.hpp">
+    <ClInclude Include="Tools\NativeCallbackConverter_old.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\clix.hpp">
@@ -973,6 +973,9 @@
     </ClInclude>
     <ClInclude Include="Main\PluginLoadContext.hpp">
       <Filter>Main\PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\NativeCallbackConverter.hpp">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

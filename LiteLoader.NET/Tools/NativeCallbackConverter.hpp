@@ -1,104 +1,39 @@
-#include <Utils/Hash.h>
-#include <LiteLoader.NET/Main/Global.hpp>
-#pragma once
+#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
+#include <llapi/utils/Hash.h>
+#include <functional>
+#include "type_traits.hpp"
 
-constexpr size_t do_hash()
-{
-    return 0;
+namespace llnet::callback {
+	namespace detail {
+		template<typename _Td>
+		struct _Delegate_class {
+
+		};
+
+		template<typename _Tx>
+		struct _Get_delegate_impl {
+			static_assert(std::_Always_false<_Tx>);
+		};
+
+		template<typename _Ret, typename... _Types>
+		struct _Get_delegate_impl<_Ret(_Types...)> {
+			using result_type = _Ret;
+
+			template<size_t _Index> struct args {
+				using type = std::tuple_element<_Index, std::tuple<_Types...>>::type;
+			};
+
+			template<size_t _Index>using args_t = args<_Index>::type;
+		};
+	}
+
+	template<typename T1, typename T2>
+	struct function_marshaler {
+
+	};
+
+	//void Test()
+	//{
+	//	detail::_Get_delegate_impl<void(int, bool)>::args_t<0> a;
+	//}
 }
-
-using CHash = size_t;
-
-public
-interface class NativeCallbackHandler : System::IDisposable
-{
-};
-
-/**
- * .NET-Native回调转换工具
- *
- * class_name          : 类名   方便调用
- * callback_delegate   : .NET委托类型
- * ret                 : Native回调函数返回类型
- * ...                 : Native回调函数参数列表
- *
- * ====================API======================
- *
- * class_name::Create(dlegate^ callback) :返回包含Native函数指针与转换器实例的Pair
- * class_name:
- *    GCHandle gch:防止回收.NET回调委托的handle
- *    callback_delegate^ delfunc:.NET回调委托
- *
- * Ps:
- * 稳定性未知，且转换器实例的回收会导致.NET委托实例的释放与Native函数指针的失效
- * 等待稳定性测试.jpg
- */
-#define DelegateToNativeHelper(class_name, callback_delegate, ret, ...)                                                                             \
-                                                                                                                                                    \
-    template <CHash, CHash>                                                                                                                         \
-    ref class NativeCallbackTemplate;                                                                                                               \
-                                                                                                                                                    \
-    template <>                                                                                                                                     \
-    ref class NativeCallbackTemplate<do_hash(#class_name) ^ do_hash(#ret), do_hash(#callback_delegate) ^ do_hash(#__VA_ARGS__)>                     \
-        : public NativeCallbackHandler                                                                                                              \
-    {                                                                                                                                               \
-    public:                                                                                                                                         \
-        typedef ret (*pCallback)(__VA_ARGS__);                                                                                                      \
-        delegate ret delCallback(__VA_ARGS__);                                                                                                      \
-                                                                                                                                                    \
-    public:                                                                                                                                         \
-        GCHandle gch;                                                                                                                               \
-        callback_delegate ^ delfunc;                                                                                                                \
-                                                                                                                                                    \
-    public:                                                                                                                                         \
-        value class __Pair                                                                                                                          \
-        {                                                                                                                                           \
-        public:                                                                                                                                     \
-            pCallback pCallbackFn;                                                                                                                  \
-            NativeCallbackTemplate ^ converter;                                                                                                     \
-            __Pair(pCallback p, NativeCallbackTemplate ^ obj)                                                                                       \
-                : pCallbackFn(p)                                                                                                                    \
-                , converter(obj)                                                                                                                    \
-            {                                                                                                                                       \
-            }                                                                                                                                       \
-        };                                                                                                                                          \
-                                                                                                                                                    \
-    protected:                                                                                                                                      \
-        NativeCallbackTemplate()                                                                                                                    \
-            : delfunc(nullptr)                                                                                                                      \
-        {                                                                                                                                           \
-        }                                                                                                                                           \
-        NativeCallbackTemplate(callback_delegate ^ callback)                                                                                        \
-            : delfunc(callback)                                                                                                                     \
-        {                                                                                                                                           \
-        }                                                                                                                                           \
-        ~NativeCallbackTemplate()                                                                                                                   \
-        {                                                                                                                                           \
-            this->!NativeCallbackTemplate();                                                                                                        \
-            GC::SuppressFinalize(this);                                                                                                             \
-        }                                                                                                                                           \
-        !NativeCallbackTemplate()                                                                                                                   \
-        {                                                                                                                                           \
-            if (gch.IsAllocated)                                                                                                                    \
-                gch.Free();                                                                                                                         \
-        }                                                                                                                                           \
-                                                                                                                                                    \
-    private:                                                                                                                                        \
-        ret NATIVECALLBACK NativeCallbackFunc(__VA_ARGS__);                                                                                         \
-                                                                                                                                                    \
-    public:                                                                                                                                         \
-        static __Pair Create(callback_delegate ^ callback)                                                                                          \
-        {                                                                                                                                           \
-            auto instance = gcnew NativeCallbackTemplate(callback);                                                                                 \
-            delCallback ^ del = gcnew delCallback(instance, &NativeCallbackFunc);                                                                   \
-            instance->gch = GCHandle::Alloc(del);                                                                                                   \
-            auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
-            return __Pair(p, instance);                                                                                                             \
-        }                                                                                                                                           \
-    };                                                                                                                                              \
-                                                                                                                                                    \
-    ref class class_name : public NativeCallbackTemplate<do_hash(#class_name) ^ do_hash(#ret), do_hash(#callback_delegate) ^ do_hash(#__VA_ARGS__)> \
-    {                                                                                                                                               \
-    };                                                                                                                                              \
-                                                                                                                                                    \
-    ret NativeCallbackTemplate<do_hash(#class_name) ^ do_hash(#ret), do_hash(#callback_delegate) ^ do_hash(#__VA_ARGS__)>::NativeCallbackFunc(__VA_ARGS__)
