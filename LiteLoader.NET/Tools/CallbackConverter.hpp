@@ -134,7 +134,7 @@ double _source_func(String^ str) {
 
 double _cast_args(Object^ delfunc, std::string str) {
 	//    cast args and call delegate
-	static_cast<_Delegate^>(delfunc)(marshalString(str));
+	return static_cast<_Delegate^>(delfunc)(marshalString(str));
 }
 
 void Test()

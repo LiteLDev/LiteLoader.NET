@@ -18,6 +18,7 @@ namespace LLNET::RemoteCall
 	public ref class RemoteCallAPI __static
 	{
 	public:
+#pragma warning(disable:4693)
 		/// <summary>
 		/// Remote call function prototype.
 		/// </summary>

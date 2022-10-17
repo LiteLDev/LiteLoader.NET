@@ -306,7 +306,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Resource\Version.hpp" />
     <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
     <ClInclude Include="Tools\clix.hpp" />
-    <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
+    <ClInclude Include="Tools\CallbackConverter.hpp" />
     <ClInclude Include="Tools\NativeCallbackConverter_old.hpp" />
     <ClInclude Include="Tools\PropertryHelper.hpp" />
     <ClInclude Include="Tools\type_traits.hpp" />
