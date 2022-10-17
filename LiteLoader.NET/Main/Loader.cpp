@@ -6,6 +6,7 @@
 #include "FixCLRFatalError.hpp"
 #include "PluginOwnData.hpp"
 
+#include <LiteLoader.NET/Tools/CallbackConverter.hpp>
 
 
 #pragma managed
@@ -29,7 +30,6 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 //managed
 List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
-
 
 namespace LLNET {
 	public ref class __Entry
@@ -158,7 +158,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 }
 
 
-Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args) 
+Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ args)
 {
 	return ResolveAssembly(args->RequestingAssembly, AssemblyName(args->Name));
 }
