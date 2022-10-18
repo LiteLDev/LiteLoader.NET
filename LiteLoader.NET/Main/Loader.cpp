@@ -31,30 +31,6 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 //managed
 List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
 
-
-
-delegate double _Delegate(int);
-
-double _source_func(int a) {
-	//    source managed function
-	Console::WriteLine(a);
-	return 0;
-}
-
-double _cast_args(Object^ delfunc, int a) {
-	//    cast args and call delegate
-	return static_cast<_Delegate^>(delfunc)(a);
-}
-
-void Testfunc()
-{
-	auto del = gcnew _Delegate(&_source_func);
-
-	auto pair = llnet::callback::converter<double(int), _Delegate, double, int>::create<_cast_args>(del);
-
-	Console::WriteLine(pair.first(123));
-}
-
 namespace LLNET {
 	public ref class __Entry
 	{
@@ -64,8 +40,6 @@ namespace LLNET {
 		static void InitAndLoadPlugins(void* pLogger, void* std_vector_assemblies)
 		{
 			Init();
-
-			Testfunc();
 
 			reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
 

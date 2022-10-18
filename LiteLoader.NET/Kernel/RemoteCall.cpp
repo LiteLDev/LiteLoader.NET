@@ -37,7 +37,9 @@ namespace LLNET::RemoteCall
 	}
 
 	using _callback_converter = llnet::callback::converter<
-		::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>), RemoteCallAPI::CallbackFn, Valuetype^, List<Valuetype^>^>;
+		::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>), Valuetype ^ (List<Valuetype^>^), RemoteCallAPI::CallbackFn>;
+
+
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback)
 	{
@@ -69,12 +71,11 @@ namespace LLNET::RemoteCall
 		NULL_ARG_CHEEK(funcName);
 
 		auto& pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
-		//auto pair = _callback_converter::create<_invoke_native_func>(
-		//	pfunc.target<::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>)>());
+		auto pair = _callback_converter::create<_invoke_native_func>(
+			pfunc.target<::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>)>());
 
-		//GC::KeepAlive(pair.second);
-		//return pair.first;
-		return nullptr;
+		GC::KeepAlive(pair.second);
+		return pair.first;
 	}
 
 	bool RemoteCallAPI::HasFunc(String^ nameSpace, String^ funcName)

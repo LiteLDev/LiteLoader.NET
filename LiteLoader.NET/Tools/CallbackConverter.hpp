@@ -130,11 +130,11 @@ namespace llnet::callback {
 			}
 
 			virtual void Release() {
-				func = nullptr;
-				_invoke_func = nullptr;
 				if (gch.IsAllocated) {
 					gch.Free();
 				}
+				func = nullptr;
+				_invoke_func = nullptr;
 			}
 		};
 
@@ -209,7 +209,7 @@ namespace llnet::callback {
 			static_assert(is_delegate_v<_Dty>, "_TDelegate only accept delegate types.");
 		public:
 			using func_def = typename _Get_func_def<true, _Fty>::type;
-			using invoke_func_def = typename _Get_param_added_func_def<false, _Fty, Object^>::type;
+			using invoke_func_def = typename _Get_param_added_func_def<false, _Fty, void*>::type;
 
 			using _Native_pfunc_type = typename func_def::_Func_ptr;
 			using _Native_delegate_type = typename func_def::_Func_del;
@@ -231,36 +231,35 @@ namespace llnet::callback {
 				return _MyPair<_Dty^, _Native_func_caller>{_managed_invoke_delfunc, caller};
 			}
 		};
-
-		template<typename _Fty1, typename _Fty2, typename _TDelegate>
-		value struct converter {
-		private:
-			using _Managed_to_native = typename detail::_Managed_to_native_func_marshaler<_Fty1, _TDelegate>;
-			using _Native_to_managed = typename detail::_Native_to_managed_func_marshaler<_Fty2, _TDelegate>;
-
-			using _Native_pfunc_type = typename _Managed_to_native::_Native_pfunc_type;
-
-			using _Managed_func_caller = typename _Managed_to_native::_Managed_func_caller;
-			using _Native_func_caller = typename _Native_to_managed::_Native_func_caller;
-
-			using _Native_invoke_pfunc_type = typename _Managed_to_native::_Native_invoke_pfunc_type;
-			using _Managed_invoke_pfunc_type = typename _Native_to_managed::_Managed_invoke_pfunc_type;
-
-		public:
-
-			template<_Native_invoke_pfunc_type fptr>
-			static detail::_MyPair<_Native_pfunc_type, _Managed_func_caller> create(_TDelegate^ func) {
-				return _Managed_to_native::_create<fptr>(func);
-			}
-
-			template<_Managed_invoke_pfunc_type fptr>
-			static detail::_MyPair<_TDelegate^, _Native_func_caller> create(_Native_pfunc_type func) {
-				return _Native_to_managed::_create<fptr>(func);
-			}
-
-		};
-
 	}
+
+	template<typename _Fty1, typename _Fty2, typename _TDelegate>
+	value struct converter {
+	public:
+		using _Managed_to_native = typename detail::_Managed_to_native_func_marshaler<_Fty1, _TDelegate>;
+		using _Native_to_managed = typename detail::_Native_to_managed_func_marshaler<_Fty2, _TDelegate>;
+
+		using _Native_pfunc_type = typename _Managed_to_native::_Native_pfunc_type;
+
+		using _Managed_func_caller = typename _Managed_to_native::_Managed_func_caller;
+		using _Native_func_caller = typename _Native_to_managed::_Native_func_caller;
+
+		using _Native_invoke_pfunc_type = typename _Managed_to_native::_Native_invoke_pfunc_type;
+		using _Managed_invoke_pfunc_type = typename _Native_to_managed::_Managed_invoke_pfunc_type;
+
+		template<_Native_invoke_pfunc_type fptr>
+		static detail::_MyPair<_Native_pfunc_type, _Managed_func_caller> create(_TDelegate^ func) {
+			return _Managed_to_native::_create<fptr>(func);
+		}
+
+		template<_Managed_invoke_pfunc_type fptr>
+		static detail::_MyPair<_TDelegate^, _Native_func_caller> create(_Native_pfunc_type func) {
+			return _Native_to_managed::_create<fptr>(func);
+		}
+
+	};
+
+
 }
 
 
