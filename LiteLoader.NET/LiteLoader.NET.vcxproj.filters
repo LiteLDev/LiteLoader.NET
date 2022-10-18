@@ -480,6 +480,9 @@
     <ClCompile Include="Kernel\Hook\HookHelper.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\Test.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">

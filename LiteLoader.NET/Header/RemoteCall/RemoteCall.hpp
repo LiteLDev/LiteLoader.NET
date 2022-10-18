@@ -4,6 +4,9 @@
 #include "Internal/DynamicImportFunctionRegister.hpp"
 #include "ImportAs.hpp"
 #include "ExportAs.hpp"
+
+#include <LiteLoader.NET/Tools/CallbackConverter.hpp>
+
 namespace LLNET::RemoteCall
 {
 	using namespace LLNET::RemoteCall::Internal;
@@ -410,7 +413,7 @@ namespace LLNET::RemoteCall
 		}
 	public:
 		//防止gc回收
-		static Dictionary<uint64_t, NativeCallbackHandler^>^ CallbackData = gcnew Dictionary<uint64_t, NativeCallbackHandler^>;
+		static Dictionary<uint64_t, llnet::callback::detail::IFunctionCaller^>^ CallbackData = gcnew Dictionary<uint64_t, llnet::callback::detail::IFunctionCaller^>;
 
 	private:
 		ref class RemoteCallHelper

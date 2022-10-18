@@ -1,7 +1,8 @@
 #include <LiteLoader.NET/Header/RemoteCall/RemoteCall.hpp>
 namespace LLNET::RemoteCall
 {
-	DelegateToNativeHelper(ExportFuncCallback, RemoteCallAPI::CallbackFn, ::RemoteCall::ValueType, std::vector<::RemoteCall::ValueType> vec)
+
+	::RemoteCall::ValueType _invoke_managed_func(Object^ del, std::vector<::RemoteCall::ValueType> vec)
 	{
 		auto size = (int)vec.size();
 		auto arg = gcnew List<Valuetype^>(size);
@@ -11,16 +12,32 @@ namespace LLNET::RemoteCall
 		}
 		try
 		{
-			auto ret = delfunc(arg);
+			auto ret = static_cast<RemoteCallAPI::CallbackFn^>(del)(arg);
 			return *ret->NativePtr;
 		}
 		catch (System::Exception^ ex)
 		{
-			System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-			System::Console::WriteLine(ex->Message);
+			GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
+			GlobalClass::logger->error->WriteLine(ex->Message);
 			return ::RemoteCall::ValueType();
 		}
 	}
+
+	Valuetype^ _invoke_native_func(void* pfunc, List<Valuetype^>^ list)
+	{
+		auto count = (size_t)list->Count;
+		std::vector<::RemoteCall::ValueType> stdvector;
+		for (auto i = 0; i < count; ++i)
+		{
+			stdvector.emplace_back(*list[i]->NativePtr);
+		}
+		auto& ret = static_cast<::RemoteCall::ValueType(*)(std::vector<::RemoteCall::ValueType>)>(pfunc)(stdvector);
+
+		return gcnew Valuetype(ret);
+	}
+
+	using _callback_converter = llnet::callback::converter<
+		::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>), RemoteCallAPI::CallbackFn, Valuetype^, List<Valuetype^>^>;
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback)
 	{
@@ -28,9 +45,10 @@ namespace LLNET::RemoteCall
 		NULL_ARG_CHEEK(funcName);
 		NULL_ARG_CHEEK(callback);
 
-		auto pair = ExportFuncCallback::Create(callback);
-		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler^)pair.converter);
-		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, CALLING_MODULE);
+		auto pair = _callback_converter::create<_invoke_managed_func>(callback);
+
+		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), pair.second);
+		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, CALLING_MODULE);
 	}
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handle)
@@ -39,9 +57,10 @@ namespace LLNET::RemoteCall
 		NULL_ARG_CHEEK(funcName);
 		NULL_ARG_CHEEK(callback);
 
-		auto pair = ExportFuncCallback::Create(callback);
-		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), (NativeCallbackHandler^)pair.converter);
-		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.pCallbackFn, (HMODULE)(void*)handle);
+		auto pair = _callback_converter::create<_invoke_managed_func>(callback);
+
+		CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), pair.second);
+		return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, (HMODULE)(void*)handle);
 	}
 
 	RemoteCallAPI::CallbackFn^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
@@ -50,9 +69,12 @@ namespace LLNET::RemoteCall
 		NULL_ARG_CHEEK(funcName);
 
 		auto& pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
-		auto pair = RemoteCallHelper::Create(pfunc);
-		GC::KeepAlive(pair.Key);
-		return pair.Value;
+		//auto pair = _callback_converter::create<_invoke_native_func>(
+		//	pfunc.target<::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>)>());
+
+		//GC::KeepAlive(pair.second);
+		//return pair.first;
+		return nullptr;
 	}
 
 	bool RemoteCallAPI::HasFunc(String^ nameSpace, String^ funcName)
@@ -68,7 +90,7 @@ namespace LLNET::RemoteCall
 		{
 			auto p = CallbackData[hashval];
 			CallbackData->Remove(hashval);
-			delete p;
+			p->Release();
 		}
 		return ret;
 	}
@@ -90,7 +112,7 @@ namespace LLNET::RemoteCall
 			{
 				auto p = CallbackData[hashval];
 				CallbackData->Remove(hashval);
-				delete p;
+				p->Release();
 			}
 		}
 		return ::RemoteCall::removeFuncs(std::move(stdvector));
