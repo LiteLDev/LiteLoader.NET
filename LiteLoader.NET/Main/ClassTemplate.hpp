@@ -2,9 +2,10 @@
 
 #include "DotNETGlobal.hpp"
 #include <LiteLoader.NET/Tools/ClassTemplateHelper.hpp>
+#include <LiteLoader.NET/Header/Core/ICppClass.hpp>
 
 template <typename REFCLASS, typename NATIVECLASS>
-public ref class ClassTemplate abstract
+public ref class ClassTemplate abstract : LLNET::Core::ICppClass
 {
 protected:
 	bool ownsNativeInstance;
@@ -26,11 +27,11 @@ public:
 		}
 	}
 
-	property System::IntPtr Intptr
+	property IntPtr Intptr
 	{
-		System::IntPtr get()
+		virtual IntPtr get()
 		{
-			return System::IntPtr(nativePtr);
+			return IntPtr(nativePtr);
 		}
 	}
 
@@ -150,5 +151,9 @@ public:
 			delete nativePtr;
 		nativePtr = (NATIVECLASS*)p;
 		this->ownsNativeInstance = ownsNativeInstance;
+	}
+	virtual void _dtor(void* ptr)
+	{
+		reinterpret_cast<NATIVECLASS*>(ptr)->~NATIVECLASS();
 	}
 };

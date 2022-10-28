@@ -155,4 +155,24 @@ namespace LLNET::Core
 		{
 		}
 	};
+
+	public ref class InvalidValueException
+		:LiteLoaderDotNETException
+	{
+	public:
+		InvalidValueException(System::String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+	};
+	
+	public ref class InvalidTypeException
+		:LiteLoaderDotNETException
+	{
+	public:
+		InvalidTypeException(System::String^ message)
+			:LiteLoaderDotNETException(message)
+		{
+		}
+	};
 }

@@ -47,15 +47,13 @@ namespace LLNET::Core::Std
 			{
 				return a->NativePtr->operator<=(*b->NativePtr);
 			}
-			iterator^ operator++(int val)
+			static iterator^ operator++(iterator^ a)
 			{
-				NativePtr->operator++(val);
-				return this;
+				return gcnew iterator((*a->NativePtr)++);
 			}
-			iterator^ operator--(int val)
+			static iterator^ operator--(iterator^ a)
 			{
-				NativePtr->operator++(val);
-				return this;
+				return gcnew iterator((*a->NativePtr)--);
 			}
 			static bool operator==(iterator^ a, iterator^ b)
 			{

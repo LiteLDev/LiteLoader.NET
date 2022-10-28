@@ -86,15 +86,15 @@ inline uint64_t do_Hash(String^ str)
 }
 
 template<typename T, typename U>
-inline bool Is(U u)
+inline T As(U u)
 {
-	return dynamic_cast<T>(u) != nullptr;
+	return dynamic_cast<T>(u);
 }
 
 template<typename T, typename U>
-inline T As(U u)
+inline bool Is(U u)
 {
-	return safe_cast<T>(u);
+	return As<T>(u) != nullptr;
 }
 
 #include "GlobalClass.hpp"

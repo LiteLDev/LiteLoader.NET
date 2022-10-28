@@ -84,7 +84,12 @@ public:
         {                                                           \
             BaseClass::NativePtr = value;                           \
         }                                                           \
-    }
+    }                                                               \
+    virtual void _dtor(void* ptr) override                          \
+    {                                                               \
+        reinterpret_cast<NativeClass*>(ptr)->~RefClass();           \
+    }                                                               \
+    literal size_t NativeClassSize = sizeof(NativeClass);
 
 
 #define __ctor_copy_base(RefClass, NativeClass, BaseClass) \

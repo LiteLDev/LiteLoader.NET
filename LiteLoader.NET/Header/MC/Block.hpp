@@ -111,10 +111,10 @@ public:
         bool get();
     }
 
-    property bool HasRuntimeId
-    {
-        bool get();
-    }
+    //property bool HasRuntimeId
+    //{
+    //    bool get();
+    //}
 
     property bool IsAuxValueRelevantForPicking
     {

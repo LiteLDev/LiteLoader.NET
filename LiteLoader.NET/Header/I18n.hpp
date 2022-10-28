@@ -54,7 +54,7 @@ namespace LLNET::I18N
 		//virtual I18nBase^ Clone();
 
 	public:
-		static initonly String^ POD_KEY = "ll_plugin_i18n";
+		literal String^ POD_KEY = "ll_plugin_i18n";
 	};
 
 
@@ -92,7 +92,7 @@ namespace LLNET::I18N
 		::MultiFileI18N* _this = static_cast<::MultiFileI18N*>(nativePtr);
 
 	public:
-		__ctor_base(MultiFileI18N, ::SingleFileI18N, I18nBase);
+		__ctor_base(MultiFileI18N, ::MultiFileI18N, I18nBase);
 
 	public:
 		MultiFileI18N();
