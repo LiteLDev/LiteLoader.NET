@@ -844,7 +844,7 @@ bool MC::Actor::CanBeAffected(MC::MobEffectInstance^ _0)
 	if (ReferenceEquals(_0, nullptr))
 		throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
 	auto& __arg0 = *(class ::MobEffectInstance*)_0->NativePtr;
-	auto __ret = ((class ::Actor*)NativePtr)->canBeAffected(__arg0);
+	auto __ret = ((class ::Actor*)NativePtr)->canBeAffected(__arg0.getId());
 	return __ret;
 }
 
