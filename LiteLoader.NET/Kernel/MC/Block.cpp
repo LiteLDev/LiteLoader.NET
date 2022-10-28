@@ -306,11 +306,11 @@ bool MC::Block::HasComparatorSignal::get()
     return __ret;
 }
 
-bool MC::Block::HasRuntimeId::get()
-{
-    auto __ret = ((class ::Block*)NativePtr)->hasRuntimeId();
-    return __ret;
-}
+//bool MC::Block::HasRuntimeId::get()
+//{
+//    auto __ret = ((class ::Block*)NativePtr)->hasRuntimeId();
+//    return __ret;
+//}
 
 bool MC::Block::IsAuxValueRelevantForPicking::get()
 {
