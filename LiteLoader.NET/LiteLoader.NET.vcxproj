@@ -449,7 +449,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
-    <ClCompile Include="Tools\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
