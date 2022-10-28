@@ -102,9 +102,9 @@ jobs:
         id: rel
         shell: bash
         run: |
-            echo ::set-output name=tag::${GITHUB_REF#refs/tags/*}
-            mv LiteLoader.NET.zip LiteLoader.NET-${GITHUB_REF#refs/tags/*}.zip
-            mv PDB.zip PDB-${GITHUB_REF#refs/tags/*}.zip
+            echo ::set-output name=tag::${{github.event.inputs.tag}}
+            mv LiteLoader.NET.zip LiteLoader.NET-${{github.event.inputs.tag}}.zip
+            mv PDB.zip PDB-${{github.event.inputs.tag}}.zip
 
       - name: Create New Release
         uses: ncipollo/release-action@v1
