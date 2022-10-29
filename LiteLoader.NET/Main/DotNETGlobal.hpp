@@ -19,7 +19,7 @@
         GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");				\
     }
 
-#define NULL_ARG_CHEEK(arg)														\
+#define NULL_ARG_CHECK(arg)														\
     if (ReferenceEquals(arg, nullptr))											\
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 

@@ -43,9 +43,9 @@ namespace LLNET::RemoteCall
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback)
 	{
-		NULL_ARG_CHEEK(nameSpace);
-		NULL_ARG_CHEEK(funcName);
-		NULL_ARG_CHEEK(callback);
+		NULL_ARG_CHECK(nameSpace);
+		NULL_ARG_CHECK(funcName);
+		NULL_ARG_CHECK(callback);
 
 		auto pair = _callback_converter::create<_invoke_managed_func>(callback);
 
@@ -55,9 +55,9 @@ namespace LLNET::RemoteCall
 
 	bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handle)
 	{
-		NULL_ARG_CHEEK(nameSpace);
-		NULL_ARG_CHEEK(funcName);
-		NULL_ARG_CHEEK(callback);
+		NULL_ARG_CHECK(nameSpace);
+		NULL_ARG_CHECK(funcName);
+		NULL_ARG_CHECK(callback);
 
 		auto pair = _callback_converter::create<_invoke_managed_func>(callback);
 
@@ -67,8 +67,8 @@ namespace LLNET::RemoteCall
 
 	RemoteCallAPI::CallbackFn^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
 	{
-		NULL_ARG_CHEEK(nameSpace);
-		NULL_ARG_CHEEK(funcName);
+		NULL_ARG_CHECK(nameSpace);
+		NULL_ARG_CHECK(funcName);
 
 		auto& pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
 		auto pair = _callback_converter::create<_invoke_native_func>(
