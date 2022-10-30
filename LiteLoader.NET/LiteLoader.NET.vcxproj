@@ -96,7 +96,7 @@ LibraryBuilder.exe -o ..\lib\
 )
 
 :end
-			</Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>if exist "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\" (

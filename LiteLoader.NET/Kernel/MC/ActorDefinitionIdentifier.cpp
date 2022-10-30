@@ -4,58 +4,58 @@
 
 namespace MC
 {
-inline String^ ActorDefinitionIdentifier::NS::get()
+inline String^ ActorDefinitionIdentifier::Namespace::get()
 {
-    return marshalString(NativePtr->ns);
+    return marshalString(NativePtr->mNamespace);
 }
-inline void ActorDefinitionIdentifier::NS::set(String^ ns)
+inline void ActorDefinitionIdentifier::Namespace::set(String^ ns)
 {
-    NativePtr->ns = marshalString(ns);
+    NativePtr->mNamespace = marshalString(ns);
 }
 inline String^ ActorDefinitionIdentifier::Identifier::get()
 {
-    return marshalString(NativePtr->identifier);
+    return marshalString(NativePtr->mIdentifier);
 }
 inline void ActorDefinitionIdentifier::Identifier::set(String^ identifier)
 {
-    NativePtr->identifier = marshalString(identifier);
+    NativePtr->mIdentifier = marshalString(identifier);
 }
-inline String^ ActorDefinitionIdentifier::Event::get()
+inline String^ ActorDefinitionIdentifier::InitEvent::get()
 {
-    return marshalString(NativePtr->event);
+    return marshalString(NativePtr->mInitEvent);
 }
-inline void ActorDefinitionIdentifier::Event::set(String^ event)
+inline void ActorDefinitionIdentifier::InitEvent::set(String^ initEvent)
 {
-    NativePtr->event = marshalString(event);
+    NativePtr->mInitEvent = marshalString(initEvent);
 }
 inline String^ ActorDefinitionIdentifier::Fullname::get()
 {
-    return marshalString(NativePtr->fullname);
+    return marshalString(NativePtr->mFullName);
 }
 inline void ActorDefinitionIdentifier::Fullname::set(String^ fullname)
 {
-    NativePtr->fullname = marshalString(fullname);
+    NativePtr->mFullName = marshalString(fullname);
 }
-inline HashedString ^ ActorDefinitionIdentifier::CanonicalHash::get()
+inline HashedString ^ ActorDefinitionIdentifier::CanonicalName::get()
 {
-    return gcnew HashedString(NativePtr->canonicalHash);
+    return gcnew HashedString(NativePtr->mCanonicalName);
 }
-inline void ActorDefinitionIdentifier::CanonicalHash::set(HashedString ^ canonicalHash)
+inline void ActorDefinitionIdentifier::CanonicalName::set(HashedString ^ canonicalName)
 {
-    NativePtr->canonicalHash = canonicalHash;
+    NativePtr->mCanonicalName = canonicalName;
 }
 ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create()
 {
     return gcnew ActorDefinitionIdentifier(::ActorDefinitionIdentifier{});
 }
-ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash)
+ActorDefinitionIdentifier ^ ActorDefinitionIdentifier::Create(String^ ns, String^ identifier, String^ initEvent, String^ fullname, HashedString ^ canonicalName)
 {
     ::ActorDefinitionIdentifier adi{};
-    adi.ns = marshalString(ns);
-    adi.identifier = marshalString(identifier);
-    adi.event = marshalString(event);
-    adi.fullname = marshalString(fullname);
-    adi.canonicalHash = canonicalHash;
+    adi.mNamespace = marshalString(ns);
+    adi.mIdentifier = marshalString(identifier);
+    adi.mInitEvent = marshalString(initEvent);
+    adi.mFullName = marshalString(fullname);
+    adi.mCanonicalName = canonicalName;
     return gcnew ActorDefinitionIdentifier(std::move(adi));
 }
 } // namespace MC

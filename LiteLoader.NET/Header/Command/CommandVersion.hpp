@@ -21,26 +21,26 @@ ref class CommandVersion : ClassTemplate<CommandVersion, ::CommandVersion>
         }
     }
 
-    property int Min
+    property int From
     {
         int get()
         {
-            return NativePtr->Min;
+            return NativePtr->mFrom;
         }
         void set(int value)
         {
-            NativePtr->Min = value;
+            NativePtr->mFrom = value;
         }
     }
-    property int Max
+    property int To
     {
         int get()
         {
-            return NativePtr->Max;
+            return NativePtr->mTo;
         }
         void set(int value)
         {
-            NativePtr->Max = value;
+            NativePtr->mTo = value;
         }
     }
 };

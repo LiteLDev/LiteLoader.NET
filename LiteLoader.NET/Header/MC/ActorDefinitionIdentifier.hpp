@@ -18,11 +18,11 @@ public:
     static ActorDefinitionIdentifier ^ Create();
     static ActorDefinitionIdentifier ^ Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash);
 
-    property String^ NS {System::String^ get(); void set(System::String^ ns); };
+    property String^ Namespace {System::String^ get(); void set(System::String^ ns); };
     property String^ Identifier {System::String^ get(); void set(System::String^ identifier); };
-    property String^ Event {System::String^ get(); void set(System::String^ event); };
+    property String^ InitEvent {System::String^ get(); void set(System::String^ event); };
     property String^ Fullname {System::String^ get(); void set(System::String^ fullname); };
-    property HashedString ^ CanonicalHash {HashedString^ get(); void set(HashedString^ canonicalHash); };
+    property HashedString ^ CanonicalName {HashedString^ get(); void set(HashedString^ canonicalHash); };
 
 #ifdef INCLUDE_MCAPI
 
