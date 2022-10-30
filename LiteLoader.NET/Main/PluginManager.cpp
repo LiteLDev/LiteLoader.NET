@@ -1,6 +1,7 @@
 #include "PluginManager.hpp"
 #include <LiteLoader.NET/Header/Core/Exceptions.hpp>
 #include <LiteLoader.NET/Extra/PluginManager.hpp>
+#include <llapi/utils/StringHelper.h>
 #include "PluginOwnData.hpp"
 #include <filesystem>
 
@@ -25,7 +26,7 @@ namespace LLNET
 			handle = plugin->handle;
 		else
 		{
-			handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
+			handle = GetModuleHandle(str2wstr(marshalString(Asm->Location)).c_str());
 		}
 		if (handle == nullptr)
 			handle = MODULE;
