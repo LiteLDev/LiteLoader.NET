@@ -421,7 +421,7 @@ namespace LLNET::RemoteCall
 		private:
 			::RemoteCall::CallbackFn const* pFunc;
 			Valuetype^ Invoke(List<Valuetype^>^ list) {
-				NULL_ARG_CHEEK(list);
+				NULL_ARG_CHECK(list);
 
 				auto count = (size_t)list->Count;
 				std::vector<::RemoteCall::ValueType> stdvector;

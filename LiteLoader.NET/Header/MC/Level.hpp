@@ -104,7 +104,7 @@ public:
             };
             void set(IntPtr value)
             {
-                NULL_ARG_CHEEK(value);
+                NULL_ARG_CHECK(value);
                 NativePtr->myVTBL = (void*)value;
             };
         };
@@ -117,7 +117,7 @@ public:
             };
             void set(array<IntPtr> ^ value)
             {
-                NULL_ARG_CHEEK(value);
+                NULL_ARG_CHECK(value);
                 if (value->Length != 2)
                     throw gcnew System::Exception;
                 NativePtr->UUID[0] = (void*)value[0];

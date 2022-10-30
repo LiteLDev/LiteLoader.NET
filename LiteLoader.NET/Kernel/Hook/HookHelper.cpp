@@ -9,7 +9,7 @@ namespace LLNET::Hook
 	where TDelegate : Delegate
 	TDelegate HookHelper::_hookFunction(IntPtr hmodule, std::variant<void*, gcroot<String^>> addressOrSymbol, TDelegate newFunc)
 	{
-		NULL_ARG_CHEEK(newFunc);
+		NULL_ARG_CHECK(newFunc);
 
 		void* address = nullptr;
 		String^ symbol = nullptr;

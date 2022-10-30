@@ -86,9 +86,9 @@ namespace LLNET::RemoteCall {
 		generic<typename TDelegate>
 		where TDelegate : System::Delegate
 			static bool RegisterExportFunction(String^ nameSpace, String^ funcName, TDelegate func) {
-			NULL_ARG_CHEEK(nameSpace);
-			NULL_ARG_CHEEK(funcName);
-			NULL_ARG_CHEEK(func);
+			NULL_ARG_CHECK(nameSpace);
+			NULL_ARG_CHECK(funcName);
+			NULL_ARG_CHECK(func);
 
 			auto funcinfo = gcnew FunctionInfo;
 			auto method = func->Method;

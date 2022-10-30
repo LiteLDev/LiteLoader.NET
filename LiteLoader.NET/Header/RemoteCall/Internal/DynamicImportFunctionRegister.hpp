@@ -16,8 +16,8 @@ namespace LLNET::RemoteCall::Internal {
 		generic<typename TDelegate>
 		where TDelegate : System::Delegate
 		static TDelegate RegisterImportFunction(String^ nameSpace, String^ funcName) {
-			NULL_ARG_CHEEK(nameSpace);
-			NULL_ARG_CHEEK(funcName);
+			NULL_ARG_CHECK(nameSpace);
+			NULL_ARG_CHECK(funcName);
 			auto& _func = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
 			if (!_func)
 				throw gcnew LLNET::Core::RemoteCallImportFunctionException(String::Format("Fail to import!Function[{0}.{1}] has not been exported", nameSpace, funcName));
