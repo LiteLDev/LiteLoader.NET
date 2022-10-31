@@ -14,20 +14,6 @@ namespace LLNET
 
 namespace llnet::callback {
 
-	//template<typename _Tx>
-	//struct _Get_func_impl {
-
-	//};
-
-	//template<typename _Ret, typename... _Types>
-	//struct _Get_func_impl<_Ret(_Types...)> {
-	//	using result_type = _Ret;
-	//	template<size_t _Index> struct arg {
-	//		using type = std::tuple_element<_Index, std::tuple<_Types...>>::type;
-	//	};
-	//	template<size_t _Index>using arg_t = arg<_Index>::type;
-	//};
-
 	namespace detail {
 
 		constexpr bool _Managed = true;
@@ -186,7 +172,7 @@ namespace llnet::callback {
 			template<_Native_invoke_pfunc_type fptr>
 			inline static _MyPair<_Native_pfunc_type, _Managed_func_caller> _create(_Dty^ func) {
 				if constexpr (fptr == nullptr)
-					throw gcnew System::NullReferenceException("Template arg <fptr> can not be null");
+					throw gcnew System::NullReferenceException("Template arg <fptr> can not be null.");
 
 				_Managed_func_caller caller{};
 				caller.func = func;
