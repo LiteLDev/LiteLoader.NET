@@ -14,7 +14,7 @@
 #include <LiteLoader.NET/Header/Command/CommandArea.hpp>
 #include <LiteLoader.NET/Header/Command/Command.hpp>
 
-enum class AbilitiesIndex;
+enum class AbilitiesIndex : short;
 enum class CommandOriginType : char;
 
 namespace MC
