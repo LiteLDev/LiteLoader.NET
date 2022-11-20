@@ -12,7 +12,7 @@
     <ProjectGuid>{973D4628-4EFF-4982-83D8-9C8BAE60156D}</ProjectGuid>
     <RootNamespace>LLMoney.NET</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
