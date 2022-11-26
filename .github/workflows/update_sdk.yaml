@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Checkout the main branch
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
         with:
           ref: dev
 
