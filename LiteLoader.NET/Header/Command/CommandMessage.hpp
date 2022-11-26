@@ -1,4 +1,5 @@
 #pragma once
+#include <mc/CommandSelector.hpp>
 #include <mc/CommandMessage.hpp>
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
