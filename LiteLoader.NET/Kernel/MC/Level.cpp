@@ -202,10 +202,10 @@ inline BlockPalette ^ Level::GetBlockPalette()
 {
     return gcnew BlockPalette(&NativePtr->getBlockPalette());
 }
-inline Dimension ^ Level::GetDimension(AutomaticID<Dimension ^, int> ^ a0)
-{
-    return gcnew Dimension(NativePtr->getDimension((int)a0));
-}
+//inline Dimension ^ Level::GetDimension(AutomaticID<Dimension ^, int> ^ a0)
+//{
+//    return gcnew Dimension(NativePtr->getDimension((int)a0));
+//}
 inline Actor ^ Level::GetDamageSourceEntity(ActorDamageSource ^ ads)
 {
     return gcnew Actor(::Level::getDamageSourceEntity(ads));

@@ -228,7 +228,7 @@ namespace MC
             bool get();
         };
 
-        virtual void SetNull();
+        virtual void SetNull(String^ str);
 
         virtual ::System::String^ ToString() override;
 
@@ -248,7 +248,7 @@ namespace MC
 
         bool HasTag(unsigned long long _0);
 
-        bool IsOneOfInstances(::System::Collections::Generic::List<MC::HashedString^>^ _0, bool _1);
+        //bool IsOneOfInstances(::System::Collections::Generic::List<MC::HashedString^>^ _0, bool _1);
 
         bool IsStackable(MC::ItemStackBase^ _0);
 

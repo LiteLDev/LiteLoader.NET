@@ -207,10 +207,10 @@ namespace MC
 			void set(float);
 		}
 
-		property float YHeadRotO
-		{
-			float get();
-		}
+		//property float YHeadRotO
+		//{
+		//	float get();
+		//}
 
 		property bool IsWorldBuilder
 		{
@@ -459,10 +459,10 @@ namespace MC
 			MC::Vec3 get();
 		}
 
-		property MC::Vec3 RandomHeartPos
-		{
-			MC::Vec3 get();
-		}
+		//property MC::Vec3 RandomHeartPos
+		//{
+		//	MC::Vec3 get();
+		//}
 
 		property MC::Vec3 CalcCenterPos
 		{
@@ -1061,10 +1061,10 @@ namespace MC
 			bool get();
 		}
 
-		property bool IsSoulSpeedEnchantActive
-		{
-			bool get();
-		}
+		//property bool IsSoulSpeedEnchantActive
+		//{
+		//	bool get();
+		//}
 
 		property bool IsStackable
 		{
@@ -1251,7 +1251,7 @@ namespace MC
 
 		virtual MC::Vec3 GetPosExtrapolated(float _0);
 
-		virtual void SetRot(MC::Vec2% _0);
+		//virtual void SetRot(MC::Vec2% _0);
 
 		virtual void Move(MC::Vec3 _0);
 
@@ -1259,7 +1259,7 @@ namespace MC
 
 		virtual float GetInterpolatedWalkAnimSpeed(float _0);
 
-		virtual MC::Vec3 GetInterpolatedRidingOffset(float _0);
+		virtual MC::Vec3 GetInterpolatedRidingOffset(float _0,int _1);
 
 		virtual void UpdateEntityInside();
 
@@ -1579,13 +1579,13 @@ namespace MC
 
 		bool ShouldUpdateEffects();
 
-		void SpawnBalloonPopParticles();
+		//void SpawnBalloonPopParticles();
 
-		void SpawnDeathParticles();
+		//void SpawnDeathParticles();
 
-		void SpawnDustParticles(int _0);
+		//void SpawnDustParticles(int _0);
 
-		void SpawnTamingParticles(bool _0);
+		//void SpawnTamingParticles(bool _0);
 
 		void TeleportPassengersTo(MC::Vec3 _0, int _1, int _2);
 
@@ -1613,60 +1613,60 @@ namespace MC
 
 		MC::AttributeInstance^ GetAttribute(MC::Attribute^ attributeType);
 
-		static property float DEFAULT_AMBIENT_SOUND_INTERVAL
-		{
-			float get();
-		}
+		//static property float DEFAULT_AMBIENT_SOUND_INTERVAL
+		//{
+		//	float get();
+		//}
 
-		static property float DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE
-		{
-			float get();
-		}
+		//static property float DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE
+		//{
+		//	float get();
+		//}
 
-		static property float DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET
-		{
-			float get();
-		}
+		//static property float DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET
+		//{
+		//	float get();
+		//}
 
-		static property MC::Vec3 LAVA_AABB_SHRINK_AMOUNT
-		{
-			MC::Vec3 get();
-		}
+		//static property MC::Vec3 LAVA_AABB_SHRINK_AMOUNT
+		//{
+		//	MC::Vec3 get();
+		//}
 
-		static property float LAVA_FLOW_STRENGTH_MULTIPLIER
-		{
-			float get();
-		}
+		//static property float LAVA_FLOW_STRENGTH_MULTIPLIER
+		//{
+		//	float get();
+		//}
 
-		static property int MAX_BYTE_CHARGE_AMOUNT
-		{
-			int get();
-		}
+		//static property int MAX_BYTE_CHARGE_AMOUNT
+		//{
+		//	int get();
+		//}
 
-		static property int PLAYER_HURT_EXPERIENCE_TIME
-		{
-			int get();
-		}
+		//static property int PLAYER_HURT_EXPERIENCE_TIME
+		//{
+		//	int get();
+		//}
 
-		static property ::System::String^ RIDING_TAG
-		{
-			::System::String^ get();
-		}
+		//static property ::System::String^ RIDING_TAG
+		//{
+		//	::System::String^ get();
+		//}
 
-		static property int TOTAL_AIR_SUPPLY
-		{
-			int get();
-		}
+		//static property int TOTAL_AIR_SUPPLY
+		//{
+		//	int get();
+		//}
 
-		static property MC::Vec3 WATER_AABB_SHRINK_AMOUNT
-		{
-			MC::Vec3 get();
-		}
+		//static property MC::Vec3 WATER_AABB_SHRINK_AMOUNT
+		//{
+		//	MC::Vec3 get();
+		//}
 
-		static property float WATER_FLOW_STRENGTH_MULTIPLIER
-		{
-			float get();
-		}
+		//static property float WATER_FLOW_STRENGTH_MULTIPLIER
+		//{
+		//	float get();
+		//}
 
 #endif // INCLUDE_MCAPI
 	};

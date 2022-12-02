@@ -65,7 +65,7 @@ namespace MC
 			bool get();
 		}
 
-		virtual void SetNull() override;
+		virtual void SetNull(String^ str) override;
 
 		virtual ::String^ ToString() override;
 

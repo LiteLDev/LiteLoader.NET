@@ -211,10 +211,10 @@ public:
         bool get();
     }
 
-    property bool IsStandingSign
-    {
-        bool get();
-    }
+    //property bool IsStandingSign
+    //{
+    //    bool get();
+    //}
 
     property bool IsStemBlock
     {

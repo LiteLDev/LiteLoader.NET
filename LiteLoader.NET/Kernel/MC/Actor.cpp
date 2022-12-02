@@ -566,11 +566,11 @@ MC::Vec3 MC::Actor::GetPosExtrapolated(float _0)
 	return NativePtr->getPosExtrapolated(_0);
 }
 
-void MC::Actor::SetRot(MC::Vec2% _0)
-{
-	pin_ptr<Vec2> p = &_0;
-	((class ::Actor*)NativePtr)->setRot(*(::Vec2*)p);
-}
+//void MC::Actor::SetRot(MC::Vec2% _0)
+//{
+//	pin_ptr<Vec2> p = &_0;
+//	((class ::Actor*)NativePtr)->setRot(*(::Vec2*)p);
+//}
 
 void MC::Actor::Move(MC::Vec3 _0)
 {
@@ -587,9 +587,9 @@ float MC::Actor::GetInterpolatedWalkAnimSpeed(float _0)
 	return ((class ::Actor*)NativePtr)->getInterpolatedWalkAnimSpeed(_0);
 }
 
-MC::Vec3 MC::Actor::GetInterpolatedRidingOffset(float _0)
+MC::Vec3 MC::Actor::GetInterpolatedRidingOffset(float _0, int _1)
 {
-	return ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0);
+	return ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0, _1);
 }
 
 void MC::Actor::UpdateEntityInside()
@@ -1543,25 +1543,25 @@ bool MC::Actor::ShouldUpdateEffects()
 	return __ret;
 }
 
-void MC::Actor::SpawnBalloonPopParticles()
-{
-	((class ::Actor*)NativePtr)->spawnBalloonPopParticles();
-}
-
-void MC::Actor::SpawnDeathParticles()
-{
-	((class ::Actor*)NativePtr)->spawnDeathParticles();
-}
-
-void MC::Actor::SpawnDustParticles(int _0)
-{
-	((class ::Actor*)NativePtr)->spawnDustParticles(_0);
-}
-
-void MC::Actor::SpawnTamingParticles(bool _0)
-{
-	((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
-}
+//void MC::Actor::SpawnBalloonPopParticles()
+//{
+//	((class ::Actor*)NativePtr)->spawnBalloonPopParticles();
+//}
+//
+//void MC::Actor::SpawnDeathParticles()
+//{
+//	((class ::Actor*)NativePtr)->spawnDeathParticles();
+//}
+//
+//void MC::Actor::SpawnDustParticles(int _0)
+//{
+//	((class ::Actor*)NativePtr)->spawnDustParticles(_0);
+//}
+//
+//void MC::Actor::SpawnTamingParticles(bool _0)
+//{
+//	((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
+//}
 
 void MC::Actor::TeleportPassengersTo(MC::Vec3 _0, int _1, int _2)
 {
@@ -1638,7 +1638,7 @@ MC::Vec3 MC::Actor::GetViewVector(MC::Vec2 _0, MC::Vec2 _1, float _2)
 
 MC::AttributeInstance^ MC::Actor::GetAttribute(MC::Attribute^ attributeType)
 {
-    return gcnew AttributeInstance(NativePtr->getMutableAttribute(*attributeType->NativePtr));
+	return gcnew AttributeInstance(NativePtr->getMutableAttribute(*attributeType->NativePtr));
 }
 
 MC::Vec3 MC::Actor::FeetPosition::get()
@@ -1794,11 +1794,11 @@ void MC::Actor::YHeadRot::set(float _0)
 	((class ::Actor*)NativePtr)->setYHeadRot(_0);
 }
 
-float MC::Actor::YHeadRotO::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
-	return __ret;
-}
+//float MC::Actor::YHeadRotO::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
+//	return __ret;
+//}
 
 bool MC::Actor::IsWorldBuilder::get()
 {
@@ -2146,10 +2146,10 @@ MC::Vec3 MC::Actor::PosOld::get()
 	return ((class ::Actor*)NativePtr)->getPosOld();
 }
 
-MC::Vec3 MC::Actor::RandomHeartPos::get()
-{
-	return ((class ::Actor*)NativePtr)->_randomHeartPos();
-}
+//MC::Vec3 MC::Actor::RandomHeartPos::get()
+//{
+//	return ((class ::Actor*)NativePtr)->_randomHeartPos();
+//}
 
 MC::Vec3 MC::Actor::CalcCenterPos::get()
 {
@@ -3034,11 +3034,11 @@ bool MC::Actor::IsSheared::get()
 	return __ret;
 }
 
-bool MC::Actor::IsSoulSpeedEnchantActive::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
-	return __ret;
-}
+//bool MC::Actor::IsSoulSpeedEnchantActive::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
+//	return __ret;
+//}
 
 bool MC::Actor::IsStackable::get()
 {
@@ -3126,58 +3126,58 @@ MC::ActorUniqueID MC::Actor::LovePartnerId::get()
 	return ((class ::Actor*)NativePtr)->lovePartnerId();
 }
 
-float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
-{
-	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL;
-}
+//float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
+//{
+//	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL;
+//}
 
-float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE::get()
-{
-	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE;
-}
+//float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE::get()
+//{
+//	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE;
+//}
+//
+//float MC::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET::get()
+//{
+//	return ::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET;
+//}
 
-float MC::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET::get()
-{
-	return ::Actor::DEFAULT_MOVEMENT_SOUND_DISTANCE_OFFSET;
-}
+//MC::Vec3 MC::Actor::LAVA_AABB_SHRINK_AMOUNT::get()
+//{
+//	return ::Actor::LAVA_AABB_SHRINK_AMOUNT;
+//}
+//
+//float MC::Actor::LAVA_FLOW_STRENGTH_MULTIPLIER::get()
+//{
+//	return ::Actor::LAVA_FLOW_STRENGTH_MULTIPLIER;
+//}
+//
+//int MC::Actor::MAX_BYTE_CHARGE_AMOUNT::get()
+//{
+//	return ::Actor::MAX_BYTE_CHARGE_AMOUNT;
+//}
+//
+//int MC::Actor::PLAYER_HURT_EXPERIENCE_TIME::get()
+//{
+//	return ::Actor::PLAYER_HURT_EXPERIENCE_TIME;
+//}
 
-MC::Vec3 MC::Actor::LAVA_AABB_SHRINK_AMOUNT::get()
-{
-	return ::Actor::LAVA_AABB_SHRINK_AMOUNT;
-}
-
-float MC::Actor::LAVA_FLOW_STRENGTH_MULTIPLIER::get()
-{
-	return ::Actor::LAVA_FLOW_STRENGTH_MULTIPLIER;
-}
-
-int MC::Actor::MAX_BYTE_CHARGE_AMOUNT::get()
-{
-	return ::Actor::MAX_BYTE_CHARGE_AMOUNT;
-}
-
-int MC::Actor::PLAYER_HURT_EXPERIENCE_TIME::get()
-{
-	return ::Actor::PLAYER_HURT_EXPERIENCE_TIME;
-}
-
-::System::String^ MC::Actor::RIDING_TAG::get()
-{
-	return clix::marshalString<clix::E_UTF8>(::Actor::RIDING_TAG);
-}
-
-int MC::Actor::TOTAL_AIR_SUPPLY::get()
-{
-	return ::Actor::TOTAL_AIR_SUPPLY;
-}
-
-MC::Vec3 MC::Actor::WATER_AABB_SHRINK_AMOUNT::get()
-{
-	return ::Actor::WATER_AABB_SHRINK_AMOUNT;
-}
-
-float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
-{
-	return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
-}
+//::System::String^ MC::Actor::RIDING_TAG::get()
+//{
+//	return clix::marshalString<clix::E_UTF8>(::Actor::RIDING_TAG);
+//}
+//
+//int MC::Actor::TOTAL_AIR_SUPPLY::get()
+//{
+//	return ::Actor::TOTAL_AIR_SUPPLY;
+//}
+//
+//MC::Vec3 MC::Actor::WATER_AABB_SHRINK_AMOUNT::get()
+//{
+//	return ::Actor::WATER_AABB_SHRINK_AMOUNT;
+//}
+//
+//float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
+//{
+//	return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
+//}
 #endif // MANUAL_MAINTENANCE

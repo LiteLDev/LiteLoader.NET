@@ -114,10 +114,10 @@ namespace MC
 			void set(float);
 		}
 
-		property float YHeadRotO
-		{
-			float get();
-		}
+		//property float YHeadRotO
+		//{
+		//	float get();
+		//}
 
 		property bool IsWorldBuilder
 		{

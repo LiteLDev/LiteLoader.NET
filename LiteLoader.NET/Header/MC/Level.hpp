@@ -86,7 +86,7 @@ public:
     inline static BlockSource ^ GetBlockSource(int dimid);
     inline static BlockSource ^ GetBlockSource(Actor ^ actor);
     inline /*static*/ BlockPalette ^ GetBlockPalette();
-    inline /*static*/ Dimension ^ GetDimension(AutomaticID<Dimension ^, int> ^ a0);
+    //inline /*static*/ Dimension ^ GetDimension(AutomaticID<Dimension ^, int> ^ a0);
     inline static Actor ^ GetDamageSourceEntity(ActorDamageSource ^ ads);
     inline static void BroadcastText(String ^ text, TextType type);
     inline static void BroadcastTitle(String ^ text, TitleType Type, int FadeInDuration, int RemainDuration, int FadeOutDuration);
