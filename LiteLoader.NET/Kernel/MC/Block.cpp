@@ -412,11 +412,11 @@ bool MC::Block::IsStairBlock::get()
     return ((class ::Block*)NativePtr)->isStairBlock();
 }
 
-bool MC::Block::IsStandingSign::get()
+/*bool MC::Block::IsStandingSign::get()
 {
     auto __ret = ((class ::Block*)NativePtr)->isStandingSign();
     return __ret;
-}
+}*/
 
 bool MC::Block::IsStemBlock::get()
 {

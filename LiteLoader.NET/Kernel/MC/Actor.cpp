@@ -566,11 +566,11 @@ MC::Vec3 MC::Actor::GetPosExtrapolated(float _0)
 	return NativePtr->getPosExtrapolated(_0);
 }
 
-void MC::Actor::SetRot(MC::Vec2% _0)
+/*void MC::Actor::SetRot(MC::Vec2% _0)
 {
 	pin_ptr<Vec2> p = &_0;
 	((class ::Actor*)NativePtr)->setRot(*(::Vec2*)p);
-}
+}*/
 
 void MC::Actor::Move(MC::Vec3 _0)
 {
@@ -587,9 +587,9 @@ float MC::Actor::GetInterpolatedWalkAnimSpeed(float _0)
 	return ((class ::Actor*)NativePtr)->getInterpolatedWalkAnimSpeed(_0);
 }
 
-MC::Vec3 MC::Actor::GetInterpolatedRidingOffset(float _0)
+MC::Vec3 MC::Actor::GetInterpolatedRidingOffset(float _0, int _1)
 {
-	return ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0);
+	return ((class ::Actor*)NativePtr)->getInterpolatedRidingOffset(_0, _1);
 }
 
 void MC::Actor::UpdateEntityInside()
@@ -1543,7 +1543,7 @@ bool MC::Actor::ShouldUpdateEffects()
 	return __ret;
 }
 
-void MC::Actor::SpawnBalloonPopParticles()
+/*void MC::Actor::SpawnBalloonPopParticles()
 {
 	((class ::Actor*)NativePtr)->spawnBalloonPopParticles();
 }
@@ -1561,7 +1561,7 @@ void MC::Actor::SpawnDustParticles(int _0)
 void MC::Actor::SpawnTamingParticles(bool _0)
 {
 	((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
-}
+}*/
 
 void MC::Actor::TeleportPassengersTo(MC::Vec3 _0, int _1, int _2)
 {
@@ -1794,11 +1794,11 @@ void MC::Actor::YHeadRot::set(float _0)
 	((class ::Actor*)NativePtr)->setYHeadRot(_0);
 }
 
-float MC::Actor::YHeadRotO::get()
+/*float MC::Actor::YHeadRotO::get()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
 	return __ret;
-}
+}*/
 
 bool MC::Actor::IsWorldBuilder::get()
 {
@@ -2146,10 +2146,10 @@ MC::Vec3 MC::Actor::PosOld::get()
 	return ((class ::Actor*)NativePtr)->getPosOld();
 }
 
-MC::Vec3 MC::Actor::RandomHeartPos::get()
+/*MC::Vec3 MC::Actor::RandomHeartPos::get()
 {
 	return ((class ::Actor*)NativePtr)->_randomHeartPos();
-}
+}*/
 
 MC::Vec3 MC::Actor::CalcCenterPos::get()
 {
@@ -3034,11 +3034,11 @@ bool MC::Actor::IsSheared::get()
 	return __ret;
 }
 
-bool MC::Actor::IsSoulSpeedEnchantActive::get()
+/*bool MC::Actor::IsSoulSpeedEnchantActive::get()
 {
 	auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
 	return __ret;
-}
+}*/
 
 bool MC::Actor::IsStackable::get()
 {
@@ -3126,7 +3126,7 @@ MC::ActorUniqueID MC::Actor::LovePartnerId::get()
 	return ((class ::Actor*)NativePtr)->lovePartnerId();
 }
 
-float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
+/*float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
 {
 	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL;
 }
@@ -3179,5 +3179,5 @@ MC::Vec3 MC::Actor::WATER_AABB_SHRINK_AMOUNT::get()
 float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
 {
 	return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
-}
+}*/
 #endif // MANUAL_MAINTENANCE

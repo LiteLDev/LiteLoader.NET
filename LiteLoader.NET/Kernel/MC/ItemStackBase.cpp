@@ -21,9 +21,9 @@ short MC::ItemStackBase::Id::get()
 
 #include <LiteLoader.NET/Header/MC/HashedString.hpp>
 
-void MC::ItemStackBase::SetNull()
+void MC::ItemStackBase::SetNull(String^ _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setNull();
+    ((class ::ItemStackBase*)NativePtr)->setNull(std::optional<std::string>(marshalString(_0)));
 }
 
 ::String^ MC::ItemStackBase::ToString()
@@ -88,7 +88,7 @@ bool MC::ItemStackBase::HasTag(unsigned long long _0)
     return __ret;
 }
 
-bool MC::ItemStackBase::IsOneOfInstances(::System::Collections::Generic::List<MC::HashedString ^> ^ _0, bool _1)
+/*bool MC::ItemStackBase::IsOneOfInstances(::System::Collections::Generic::List<MC::HashedString^>^ _0, bool _1)
 {
     auto _tmp_0 = std::vector<::HashedString>();
     for each (MC::HashedString ^ _element in _0)
@@ -101,7 +101,7 @@ bool MC::ItemStackBase::IsOneOfInstances(::System::Collections::Generic::List<MC
     auto __arg0 = _tmp_0;
     auto __ret = ((class ::ItemStackBase*)NativePtr)->isOneOfInstances(__arg0, _1);
     return __ret;
-}
+}*/
 
 bool MC::ItemStackBase::IsStackable(MC::ItemStackBase ^ _0)
 {

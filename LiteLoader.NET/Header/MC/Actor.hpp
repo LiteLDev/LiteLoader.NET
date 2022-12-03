@@ -1259,7 +1259,7 @@ namespace MC
 
 		virtual float GetInterpolatedWalkAnimSpeed(float _0);
 
-		virtual MC::Vec3 GetInterpolatedRidingOffset(float _0);
+		virtual MC::Vec3 GetInterpolatedRidingOffset(float _0, int _1);
 
 		virtual void UpdateEntityInside();
 
