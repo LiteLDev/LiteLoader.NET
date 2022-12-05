@@ -786,11 +786,11 @@ void MC::Mob::YHeadRot::set(float _0)
 	((class ::Mob*)NativePtr)->setYHeadRot(_0);
 }
 
-//float MC::Mob::YHeadRotO::get()
-//{
-//	auto __ret = ((class ::Mob*)NativePtr)->getYHeadRotO();
-//	return __ret;
-//}
+/*float MC::Mob::YHeadRotO::get()
+{
+	auto __ret = ((class ::Mob*)NativePtr)->getYHeadRotO();
+	return __ret;
+}*/
 
 bool MC::Mob::IsWorldBuilder::get()
 {

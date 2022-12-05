@@ -84,9 +84,9 @@ namespace MC
 
 #ifdef MANUAL_MAINTENANCE
 
-void MC::ItemStack::SetNull(String^ str)
+void MC::ItemStack::SetNull(String^ _0)
 {
-	((class ::ItemStack*)NativePtr)->setNull(marshalString(str));
+	((class ::ItemStack*)NativePtr)->setNull(std::optional<std::string>(marshalString(_0)));
 }
 
 ::String^ MC::ItemStack::ToString()
