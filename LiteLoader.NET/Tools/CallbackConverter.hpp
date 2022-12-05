@@ -165,7 +165,7 @@ namespace llnet::callback {
 
 			using _Native_pfunc_type = typename func_def::_Func_ptr;
 			using _Native_delegate_type = typename func_def::_Func_del;
-			using _Native_invoke_pfunc_type = typename invoke_func_def::_Func_ptr;
+			using _Native_invoke_pfunc_type = typename invoke_func_def::_Func_ptr; 
 
 			using _Managed_func_caller = typename _Get_func_caller<true, _Dty, _Fty1>::type;
 
@@ -184,7 +184,12 @@ namespace llnet::callback {
 				auto _native_invoke_pfunc = static_cast<_Native_pfunc_type>(
 					(void*)Marshal::GetFunctionPointerForDelegate(_native_invoke_delfunc));
 
-				return _MyPair<_Native_pfunc_type, _Managed_func_caller>{_native_invoke_pfunc, caller};
+				_MyPair<_Native_pfunc_type, _Managed_func_caller> ret;
+
+				ret.first = _native_invoke_pfunc;
+				ret.second = caller;
+
+				return ret;
 			}
 		};
 
@@ -212,7 +217,12 @@ namespace llnet::callback {
 
 				auto _managed_invoke_delfunc = gcnew _Dty(caller, &_Native_func_caller::_invoke);
 
-				return _MyPair<_Dty^, _Native_func_caller>{_managed_invoke_delfunc, caller};
+				_MyPair<_Dty^, _Native_func_caller> ret;
+
+				ret.first = _managed_invoke_delfunc;
+				ret.second = caller;
+
+				return ret;
 			}
 		};
 	}

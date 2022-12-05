@@ -1543,30 +1543,30 @@ bool MC::Actor::ShouldUpdateEffects()
 	return __ret;
 }
 
-void MC::Actor::SpawnBalloonPopParticles()
-{
-	((class ::Actor*)NativePtr)->spawnBalloonPopParticles();
-}
-
-void MC::Actor::SpawnDeathParticles()
-{
-	((class ::Actor*)NativePtr)->spawnDeathParticles();
-}
-
-void MC::Actor::SpawnDustParticles(int _0)
-{
-	((class ::Actor*)NativePtr)->spawnDustParticles(_0);
-}
-
-void MC::Actor::SpawnTamingParticles(bool _0)
-{
-	((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
-}
-
-void MC::Actor::TeleportPassengersTo(MC::Vec3 _0, int _1, int _2)
-{
-	((class ::Actor*)NativePtr)->teleportPassengersTo(_0, _1, _2);
-}
+//void MC::Actor::SpawnBalloonPopParticles()
+//{
+//	((class ::Actor*)NativePtr)->spawnBalloonPopParticles();
+//}
+//
+//void MC::Actor::SpawnDeathParticles()
+//{
+//	((class ::Actor*)NativePtr)->spawnDeathParticles();
+//}
+//
+//void MC::Actor::SpawnDustParticles(int _0)
+//{
+//	((class ::Actor*)NativePtr)->spawnDustParticles(_0);
+//}
+//
+//void MC::Actor::SpawnTamingParticles(bool _0)
+//{
+//	((class ::Actor*)NativePtr)->spawnTamingParticles(_0);
+//}
+//
+//void MC::Actor::TeleportPassengersTo(MC::Vec3 _0, int _1, int _2)
+//{
+//	((class ::Actor*)NativePtr)->teleportPassengersTo(_0, _1, _2);
+//}
 
 //::System::Collections::Generic::List<MC::ItemDescriptor^>^ MC::Actor::TryGetEquippableSlotAllowedItems(int _0)
 //{
@@ -1794,11 +1794,11 @@ void MC::Actor::YHeadRot::set(float _0)
 	((class ::Actor*)NativePtr)->setYHeadRot(_0);
 }
 
-float MC::Actor::YHeadRotO::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
-	return __ret;
-}
+//float MC::Actor::YHeadRotO::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->getYHeadRotO();
+//	return __ret;
+//}
 
 bool MC::Actor::IsWorldBuilder::get()
 {
@@ -2146,10 +2146,10 @@ MC::Vec3 MC::Actor::PosOld::get()
 	return ((class ::Actor*)NativePtr)->getPosOld();
 }
 
-MC::Vec3 MC::Actor::RandomHeartPos::get()
-{
-	return ((class ::Actor*)NativePtr)->_randomHeartPos();
-}
+//MC::Vec3 MC::Actor::RandomHeartPos::get()
+//{
+//	return ((class ::Actor*)NativePtr)->_randomHeartPos();
+//}
 
 MC::Vec3 MC::Actor::CalcCenterPos::get()
 {
@@ -3034,11 +3034,11 @@ bool MC::Actor::IsSheared::get()
 	return __ret;
 }
 
-bool MC::Actor::IsSoulSpeedEnchantActive::get()
-{
-	auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
-	return __ret;
-}
+//bool MC::Actor::IsSoulSpeedEnchantActive::get()
+//{
+//	auto __ret = ((class ::Actor*)NativePtr)->isSoulSpeedEnchantActive();
+//	return __ret;
+//}
 
 bool MC::Actor::IsStackable::get()
 {
@@ -3126,10 +3126,10 @@ MC::ActorUniqueID MC::Actor::LovePartnerId::get()
 	return ((class ::Actor*)NativePtr)->lovePartnerId();
 }
 
-float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
-{
-	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL;
-}
+//float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
+//{
+//	return ::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL;
+//}
 
 //float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL_RANGE::get()
 //{
@@ -3161,8 +3161,8 @@ float MC::Actor::DEFAULT_AMBIENT_SOUND_INTERVAL::get()
 //	return ::Actor::PLAYER_HURT_EXPERIENCE_TIME;
 //}
 
-float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
-{
-	return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
-}
+//float MC::Actor::WATER_FLOW_STRENGTH_MULTIPLIER::get()
+//{
+//	return ::Actor::WATER_FLOW_STRENGTH_MULTIPLIER;
+//}
 #endif // MANUAL_MAINTENANCE
