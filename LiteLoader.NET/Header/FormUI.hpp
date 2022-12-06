@@ -420,14 +420,14 @@ namespace LLNET::Form
         interface class FormImpl
     {
         virtual bool SendTo(MC::Player^ player);
-        virtual bool SendTo(MC::Player^ player, CALLBACK_DELEGATE^ callback);
+        virtual bool SendTo(MC::Player^ player, CALLBACK_DELEGATE callback);
     };
 
     public
         delegate void SimpleFormCallback(MC::Player^, int);
 
     public
-        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl<SimpleFormCallback>
+        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl<SimpleFormCallback^>
     {
     public:
         property String^ Title;
@@ -454,7 +454,7 @@ namespace LLNET::Form
         delegate void ModalFormCallback(MC::Player^ player, bool isConfirm);
 
     public
-        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl<ModalFormCallback>
+        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl<ModalFormCallback^>
     {
     public:
         property String^ Title;
@@ -478,7 +478,7 @@ namespace LLNET::Form
         delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
 
     public
-        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl<CustomFormCallback>
+        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl<CustomFormCallback^>
     {
         using kvPair = Pair<String^, CustomFormElement^>;
         List<kvPair>^ elements = gcnew List<kvPair>;
