@@ -90,59 +90,59 @@ public:
 
     virtual MC::Tag::Type GetId();
 
-    virtual bool Equals(MC::Tag ^ _0) override;
+    virtual bool Equals(MC::Tag ^ tag) override;
 
     virtual unsigned long long hash();
 
-    void Append(MC::CompoundTag ^ _0);
+    void Append(MC::CompoundTag ^ tag);
 
     void Clear();
 
-    bool Contains(::String^ _0);
+    bool Contains(::String^ key);
 
-    bool Contains(::String^ _0, MC::Tag::Type _1);
+    bool Contains(::String^ key, MC::Tag::Type type);
 
-    void DeepCopy(MC::CompoundTag ^ _0);
+    void DeepCopy(MC::CompoundTag ^ tag);
 
-    MC::Tag ^ Get(::String^ _0);
+    MC::Tag ^ Get(::String^ key);
 
-    bool GetBoolean(::String^ _0);
+    bool GetBoolean(::String^ key);
 
-    unsigned char GetByte(::String^ _0);
+    unsigned char GetByte(::String^ key);
 
-    MC::CompoundTag ^ GetCompound(::String^ _0);
+    MC::CompoundTag ^ GetCompound(::String^ key);
 
-    float GetFloat(::String^ _0);
+    float GetFloat(::String^ key);
 
-    int GetInt(::String^ _0);
+    int GetInt(::String^ key);
 
-    long long GetInt64(::String^ _0);
+    long long GetInt64(::String^ key);
 
-    short GetShort(::String^ _0);
+    short GetShort(::String^ key);
 
-    ::String^ GetString(::String^ _0);
+    ::String^ GetString(::String^ key);
 
-    MC::Tag ^ Put(::String^ _0, MC::Tag ^ _1);
+    MC::Tag ^ Put(::String^ key, MC::Tag ^ value);
 
-    void PutBoolean(::String^ _0, bool _1);
+    void PutBoolean(::String^ key, bool value);
 
-    unsigned char PutByte(::String^ _0, unsigned char _1);
+    unsigned char PutByte(::String^ key, unsigned char value);
 
-    MC::CompoundTag ^ PutCompound(::String^ _0, MC::CompoundTag ^ _1);
+    MC::CompoundTag ^ PutCompound(::String^ key, MC::CompoundTag ^ value);
 
-    float PutFloat(::String^ _0, float _1);
+    float PutFloat(::String^ key, float value);
 
-    int PutInt(::String^ _0, int _1);
+    int PutInt(::String^ key, int value);
 
-    long long PutInt64(::String^ _0, long long _1);
+    long long PutInt64(::String^ key, long long value);
 
-    short PutShort(::String^ _0, short _1);
+    short PutShort(::String^ key, short value);
 
-    ::String^ PutString(::String^ _0, ::String^ _1);
+    ::String^ PutString(::String^ key, ::String^ value);
 
-    bool Remove(::String^ _0);
+    bool Remove(::String^ key);
 
-    void Rename(::String^ _0, ::String^ _1);
+    void Rename(::String^ keyName, ::String^ newKeyName);
 
 #endif // INCLUDE_MCAPI
 };

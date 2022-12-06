@@ -67,9 +67,19 @@ void MC::Container::Init()
 	NativePtr->init();
 }
 
-void MC::Container::RemoveItem(int _0, int _1)
+bool MC::Container::AddItem(MC::ItemStack^ item)
 {
-	NativePtr->removeItem(_0, _1);
+    return  NativePtr->addItem_s(item->NativePtr);
+}
+
+bool MC::Container::AddItemToFirstEmptySlot(ItemStack ^ item)
+{
+    return NativePtr->addItemToFirstEmptySlot_s(item->NativePtr);
+}
+
+bool MC::Container::RemoveItem(int slot, unsigned int number)
+{
+	return NativePtr->removeItem_s(slot, number);
 }
 
 void MC::Container::RemoveAllItems()
@@ -121,6 +131,37 @@ MC::ContainerType MC::Container::GetContainerTypeId(::System::String^ _0)
 ::System::String^ MC::Container::GetContainerTypeName(MC::ContainerType _0)
 {
 	return marshalString(::Container::getContainerTypeName((::ContainerType)_0));
+}
+
+System::Collections::IEnumerator^ MC::Container::GetEnumerator()
+{
+    return gcnew ContainerEnumerator(AllSlots);
+}
+
+bool MC::Container::ContainerEnumerator::MoveNext()
+{
+    const auto result = currentSlot < allSlots->Count;
+    if(result)
+    {
+        currentSlot++;
+    }
+    return result;
+}
+
+void MC::Container::ContainerEnumerator::Reset()
+{
+    currentSlot = -1;
+}
+
+Object^ MC::Container::ContainerEnumerator::Current::get()
+{
+    try {
+        return allSlots[currentSlot];
+    }
+    catch (System::IndexOutOfRangeException)
+    {
+        return nullptr;
+    }
 }
 
 String^ MC::Container::TypeName::get() 
@@ -189,4 +230,15 @@ void MC::Container::GameplayContainerType::set(MC::ContainerType containerType)
 {
 	NativePtr->setGameplayContainerType((::ContainerType)containerType);
 }
+
+MC::ItemStack^ MC::Container::default::get(int index)
+{
+    return GetSlot(index);
+}
+
+void MC::Container::default::set(int index, MC::ItemStack^ value)
+{
+    NativePtr->setItem(index, *(value->NativePtr));
+}
+
 #endif // INCLUDE_MCAPI

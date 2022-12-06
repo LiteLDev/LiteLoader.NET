@@ -91,7 +91,7 @@ namespace LLNET::Form
         return Append(gcnew Button(text));
     }
 
-    DelegateToNativeHelper(SimpleFormCallbackHelper, SimpleForm::SimpleFormCallback, void, ::Player* pl, int a0)
+    DelegateToNativeHelper(SimpleFormCallbackHelper, SimpleFormCallback, void, ::Player* pl, int a0)
     {
         auto player = gcnew MC::Player(pl);
         try
@@ -160,7 +160,7 @@ namespace LLNET::Form
         CancelButton = cancelButton;
     }
 
-    DelegateToNativeHelper(ModalFormCallbackHelper, ModalForm::ModalFormCallback, void, ::Player* pl, bool isConfirm)
+    DelegateToNativeHelper(ModalFormCallbackHelper, ModalFormCallback, void, ::Player* pl, bool isConfirm)
     {
         auto player = gcnew MC::Player(pl);
         try

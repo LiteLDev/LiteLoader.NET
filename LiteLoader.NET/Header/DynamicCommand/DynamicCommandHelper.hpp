@@ -59,9 +59,13 @@ namespace LLNET::DynamicCommand::Internal {
 
 		static bool OnRegCmdEvent(::Event::RegCmdEvent ev);
 
+
 		CommandManager::CommandManager()
 		{
 			::Event::RegCmdEvent::subscribe(OnRegCmdEvent);
 		}
+
+	private:
+		static CommandManager^ instance = gcnew CommandManager();
 	};
 }

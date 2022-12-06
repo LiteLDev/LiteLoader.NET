@@ -415,17 +415,21 @@ namespace LLNET::Form
 
     //////////////////////////////// Forms ////////////////////////////////
 
+    generic <typename CALLBACK_DELEGATE> where CALLBACK_DELEGATE : Delegate
     public
-        interface class FormImpl
+         interface class FormImpl
     {
+        virtual bool SendTo(MC::Player^ player);
+        virtual bool SendTo(MC::Player^ player, CALLBACK_DELEGATE^ callback);
     };
 
     public
-        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
-    {
-    public:
         delegate void SimpleFormCallback(MC::Player^, int);
 
+    public
+        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl<SimpleFormCallback>
+    {
+    public:
         property String^ Title;
         property String^ Content;
         property List<SimpleFormElement^>^ Elements;
@@ -439,20 +443,20 @@ namespace LLNET::Form
         inline SimpleForm^ AddButton(String^ text, String^ image);
         inline SimpleForm^ AddButton(String^ text);
         inline SimpleForm^ Append(Button^ element);
-        bool SendTo(MC::Player^ player, SimpleFormCallback^ callback);
-        bool SendTo(MC::Player^ player);
+        virtual bool SendTo(MC::Player^ player, SimpleFormCallback^ callback);
+        virtual bool SendTo(MC::Player^ player);
 
     private:
         List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
     };
 
-
     public
-        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl
-    {
-    public:
         delegate void ModalFormCallback(MC::Player^ player, bool isConfirm);
 
+    public
+        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl<ModalFormCallback>
+    {
+    public:
         property String^ Title;
         property String^ Content;
         property String^ ConfirmButton;
@@ -463,23 +467,23 @@ namespace LLNET::Form
         !ModalForm();
         ~ModalForm();
 
-        bool SendTo(MC::Player^ player, ModalFormCallback^ callback);
-        bool SendTo(MC::Player^ player);
+        virtual bool SendTo(MC::Player^ player, ModalFormCallback^ callback);
+        virtual bool SendTo(MC::Player^ player);
 
     private:
         List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
     };
 
+    public
+        delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
 
     public
-        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
+        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl<CustomFormCallback>
     {
         using kvPair = Pair<String^, CustomFormElement^>;
         List<kvPair>^ elements = gcnew List<kvPair>;
 
     public:
-        delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
-
         property String^ Title;
         property CustomFormCallback^ Callback;
 
@@ -502,8 +506,8 @@ namespace LLNET::Form
         ~CustomForm();
 
         inline CustomForm^ Append(CustomFormElement^ element);
-        bool SendTo(MC::Player^ player, CustomFormCallback^ callback);
-        inline bool SendTo(MC::Player^ player);
+        virtual bool SendTo(MC::Player^ player, CustomFormCallback^ callback);
+        virtual inline bool SendTo(MC::Player^ player);
         inline CustomFormElement^ GetElement(const String^ name);
         inline CustomFormElement^ GetElement(int index);
 

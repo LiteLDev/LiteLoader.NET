@@ -231,11 +231,11 @@ MC::Tag::Type MC::CompoundTag::GetId()
     return (MC::Tag::Type)__ret;
 }
 
-bool MC::CompoundTag::Equals(MC::Tag ^ _0)
+bool MC::CompoundTag::Equals(MC::Tag ^ tag)
 {
-    if (ReferenceEquals(_0, nullptr))
+    if (ReferenceEquals(tag, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Tag*)_0->NativePtr;
+    auto& __arg0 = *(class ::Tag*)tag->NativePtr;
     auto __ret = ((class ::CompoundTag*)NativePtr)->equals(__arg0);
     return __ret;
 }
@@ -246,11 +246,11 @@ unsigned long long MC::CompoundTag::hash()
     return __ret;
 }
 
-void MC::CompoundTag::Append(MC::CompoundTag ^ _0)
+void MC::CompoundTag::Append(MC::CompoundTag ^ tag)
 {
-    if (ReferenceEquals(_0, nullptr))
+    if (ReferenceEquals(tag, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    auto& __arg0 = *(class ::CompoundTag*)tag->NativePtr;
     ((class ::CompoundTag*)NativePtr)->append(__arg0);
 }
 
@@ -259,173 +259,173 @@ void MC::CompoundTag::Clear()
     ((class ::CompoundTag*)NativePtr)->clear();
 }
 
-bool MC::CompoundTag::Contains(::String^ _0)
+bool MC::CompoundTag::Contains(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->contains(__arg0);
     return __ret;
 }
 
-bool MC::CompoundTag::Contains(::String^ _0, MC::Tag::Type _1)
+bool MC::CompoundTag::Contains(::String^ key, MC::Tag::Type type)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto __arg1 = (enum ::Tag::Type)_1;
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto __arg1 = (enum ::Tag::Type)type;
     auto __ret = ((class ::CompoundTag*)NativePtr)->contains(__arg0, __arg1);
     return __ret;
 }
 
-void MC::CompoundTag::DeepCopy(MC::CompoundTag ^ _0)
+void MC::CompoundTag::DeepCopy(MC::CompoundTag ^ tag)
 {
-    if (ReferenceEquals(_0, nullptr))
+    if (ReferenceEquals(tag, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::CompoundTag*)_0->NativePtr;
+    auto& __arg0 = *(class ::CompoundTag*)tag->NativePtr;
     ((class ::CompoundTag*)NativePtr)->deepCopy(__arg0);
 }
 
-MC::Tag ^ MC::CompoundTag::Get(::String^ _0)
+MC::Tag ^ MC::CompoundTag::Get(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->get(__arg0);
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Tag((class ::Tag*)__ret);
 }
 
-bool MC::CompoundTag::GetBoolean(::String^ _0)
+bool MC::CompoundTag::GetBoolean(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getBoolean(__arg0);
     return __ret;
 }
 
-unsigned char MC::CompoundTag::GetByte(::String^ _0)
+unsigned char MC::CompoundTag::GetByte(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getByte(__arg0);
     return __ret;
 }
 
-MC::CompoundTag ^ MC::CompoundTag::GetCompound(::String^ _0)
+MC::CompoundTag ^ MC::CompoundTag::GetCompound(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getCompound(__arg0);
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::CompoundTag((class ::CompoundTag*)__ret);
 }
 
-float MC::CompoundTag::GetFloat(::String^ _0)
+float MC::CompoundTag::GetFloat(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getFloat(__arg0);
     return __ret;
 }
 
-int MC::CompoundTag::GetInt(::String^ _0)
+int MC::CompoundTag::GetInt(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getInt(__arg0);
     return __ret;
 }
 
-long long MC::CompoundTag::GetInt64(::String^ _0)
+long long MC::CompoundTag::GetInt64(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getInt64(__arg0);
     return __ret;
 }
 
-short MC::CompoundTag::GetShort(::String^ _0)
+short MC::CompoundTag::GetShort(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->getShort(__arg0);
     return __ret;
 }
 
-::String^ MC::CompoundTag::GetString(::String^ _0)
+::String^ MC::CompoundTag::GetString(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->getString(__arg0);
     return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-MC::Tag ^ MC::CompoundTag::Put(::String^ _0, MC::Tag ^ _1)
+MC::Tag ^ MC::CompoundTag::Put(::String^ key, MC::Tag ^ value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    if (ReferenceEquals(_1, nullptr))
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    if (ReferenceEquals(value, nullptr))
         throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::Tag*)_1->NativePtr;
+    auto& __arg1 = *(class ::Tag*)value->NativePtr;
     auto& __ret = ((class ::CompoundTag*)NativePtr)->put(__arg0, std::move(__arg1));
     return (MC::Tag ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Tag((class ::Tag*)&__ret));
 }
 
-void MC::CompoundTag::PutBoolean(::String^ _0, bool _1)
+void MC::CompoundTag::PutBoolean(::String^ key, bool value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    ((class ::CompoundTag*)NativePtr)->putBoolean(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    ((class ::CompoundTag*)NativePtr)->putBoolean(__arg0, value);
 }
 
-unsigned char MC::CompoundTag::PutByte(::String^ _0, unsigned char _1)
+unsigned char MC::CompoundTag::PutByte(::String^ key, unsigned char value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto& __ret = ((class ::CompoundTag*)NativePtr)->putByte(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto& __ret = ((class ::CompoundTag*)NativePtr)->putByte(__arg0, value);
     return (unsigned char)(__ret);
 }
 
-MC::CompoundTag ^ MC::CompoundTag::PutCompound(::String^ _0, MC::CompoundTag ^ _1)
+MC::CompoundTag ^ MC::CompoundTag::PutCompound(::String^ key, MC::CompoundTag ^ value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    if (ReferenceEquals(_1, nullptr))
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    if (ReferenceEquals(value, nullptr))
         throw gcnew ::System::ArgumentNullException("_1", "Cannot be null because it is passed by value.");
-    auto __ret = ((class ::CompoundTag*)NativePtr)->putCompound(__arg0, std::unique_ptr<::CompoundTag>((::CompoundTag*)_1->Release()));
+    auto __ret = ((class ::CompoundTag*)NativePtr)->putCompound(__arg0, std::unique_ptr<::CompoundTag>((::CompoundTag*)value->Release()));
     return __ret == nullptr ? nullptr : gcnew ::MC::CompoundTag(__ret);
 }
 
-float MC::CompoundTag::PutFloat(::String^ _0, float _1)
+float MC::CompoundTag::PutFloat(::String^ key, float value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto& __ret = ((class ::CompoundTag*)NativePtr)->putFloat(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto& __ret = ((class ::CompoundTag*)NativePtr)->putFloat(__arg0, value);
     return (float)(__ret);
 }
 
-int MC::CompoundTag::PutInt(::String^ _0, int _1)
+int MC::CompoundTag::PutInt(::String^ key, int value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt(__arg0, value);
     return (int)(__ret);
 }
 
-long long MC::CompoundTag::PutInt64(::String^ _0, long long _1)
+long long MC::CompoundTag::PutInt64(::String^ key, long long value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt64(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto& __ret = ((class ::CompoundTag*)NativePtr)->putInt64(__arg0, value);
     return (long long)(__ret);
 }
 
-short MC::CompoundTag::PutShort(::String^ _0, short _1)
+short MC::CompoundTag::PutShort(::String^ key, short value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto& __ret = ((class ::CompoundTag*)NativePtr)->putShort(__arg0, _1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto& __ret = ((class ::CompoundTag*)NativePtr)->putShort(__arg0, value);
     return (short)(__ret);
 }
 
-::String^ MC::CompoundTag::PutString(::String^ _0, ::String^ _1)
+::String^ MC::CompoundTag::PutString(::String^ key, ::String^ value)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
+    auto __arg1 = clix::marshalString<clix::E_UTF8>(value);
     auto& __ret = ((class ::CompoundTag*)NativePtr)->putString(__arg0, __arg1);
     return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-bool MC::CompoundTag::Remove(::String^ _0)
+bool MC::CompoundTag::Remove(::String^ key)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(key);
     auto __ret = ((class ::CompoundTag*)NativePtr)->remove(__arg0);
     return __ret;
 }
 
-void MC::CompoundTag::Rename(::String^ _0, ::String^ _1)
+void MC::CompoundTag::Rename(::String^ keyName, ::String^ newKeyName)
 {
-    auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    auto __arg1 = clix::marshalString<clix::E_UTF8>(_1);
+    auto __arg0 = clix::marshalString<clix::E_UTF8>(keyName);
+    auto __arg1 = clix::marshalString<clix::E_UTF8>(newKeyName);
     ((class ::CompoundTag*)NativePtr)->rename(__arg0, __arg1);
 }
 

@@ -11,7 +11,7 @@ namespace MC
 namespace MC
 {
 	public
-	ref class Container : ClassTemplate<Container, ::Container>
+	ref class Container : ClassTemplate<Container, ::Container>, System::Collections::IEnumerable
 	{
 	public:
 		__ctor(Container, ::Container);
@@ -79,9 +79,19 @@ namespace MC
             void set(MC::ContainerType);
         }
 
+	    property MC::ItemStack^ default[int]
+	    {
+	        MC::ItemStack^ get(int index);
+	        void set(int index, MC::ItemStack^ value);
+	    }
+
         virtual void Init();
 
-        virtual void RemoveItem(int _0, int _1);
+	    virtual bool AddItem(ItemStack^ item);
+
+	    virtual bool AddItemToFirstEmptySlot(ItemStack^ item);
+
+        virtual bool RemoveItem(int slot, unsigned int number);
 
         virtual void RemoveAllItems();
 
@@ -102,6 +112,24 @@ namespace MC
         static MC::ContainerType GetContainerTypeId(::System::String^ _0);
 
         static ::System::String^ GetContainerTypeName(MC::ContainerType _0);
+	    
+        virtual System::Collections::IEnumerator^ GetEnumerator();
+
+	protected:
+        ref class ContainerEnumerator : System::Collections::IEnumerator
+        {
+        private:
+            List<MC::ItemStack^>^ allSlots;
+            int currentSlot;
+        public:
+            ContainerEnumerator(List<MC::ItemStack^>^ slots)
+            {
+                allSlots = slots;
+            }
+            virtual bool MoveNext();
+            virtual void Reset();
+            property Object^ Current { virtual Object^ get(); }
+        };
 
 #endif // INCLUDE_MCAPI
 	};

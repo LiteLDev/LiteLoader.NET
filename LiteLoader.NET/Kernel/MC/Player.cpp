@@ -548,6 +548,12 @@ namespace MC
         return __ret;
     }
 
+    Container ^ Player::Inventory::get()
+    {
+        auto __ret = NativePtr->getInventory();
+        return gcnew Container(&__ret);
+    }
+
     bool Player::IsHostingPlayer::get()
     {
         return NativePtr->isHostingPlayer();

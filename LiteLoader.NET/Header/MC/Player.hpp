@@ -236,6 +236,11 @@ namespace MC
             int get();
         }
 
+        property Container^ Inventory
+        {
+            Container^ get();
+        }
+
         property bool IsHostingPlayer
         {
             bool get();
