@@ -417,7 +417,7 @@ namespace LLNET::Form
 
     generic <typename CALLBACK_DELEGATE> where CALLBACK_DELEGATE : Delegate
     public
-         interface class FormImpl
+        interface class FormImpl
     {
         virtual bool SendTo(MC::Player^ player);
         virtual bool SendTo(MC::Player^ player, CALLBACK_DELEGATE^ callback);
