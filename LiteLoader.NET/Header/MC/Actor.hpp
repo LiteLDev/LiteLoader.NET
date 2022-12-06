@@ -1587,7 +1587,7 @@ namespace MC
 
 		//void SpawnTamingParticles(bool _0);
 
-		void TeleportPassengersTo(MC::Vec3 _0, int _1, int _2);
+		//void TeleportPassengersTo(MC::Vec3 _0, int _1, int _2);
 
 		//::System::Collections::Generic::List<MC::ItemDescriptor^>^ TryGetEquippableSlotAllowedItems(int _0);
 
