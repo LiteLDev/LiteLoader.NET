@@ -36,11 +36,6 @@ jobs:
           git tag ${{ github.event.inputs.tag }}
           git push origin ${{ github.event.inputs.tag }}
 
-      - name: Update main SDK
-        run: |
-          git config submodule.LiteLoaderSDK.branch main
-          git submodule update --init --recursive --remote
-
       # - name: Get information from Version.h file (TODO)
       #   working-directory: ${{env.GITHUB_WORKSPACE}}
       #   id: ver
