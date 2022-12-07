@@ -158,7 +158,7 @@ inline void FixCLRFatalError(Logger& logger)
 			// ?LogInfoForFatalError@@YAXIPEB_W00@Z
 			// https://github.com/dotnet/runtime/blob/43c9f6bf1c1a4c6e118bbee68a8aa213a8ba644e/src/coreclr/vm/eepolicy.cpp#L324
 			uintptr_t result = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
-				"48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 41 54 41 56 41 57 48 81 EC ? 00 00 00 4D 8B E1 4D 8B F0 48 8B DA 8B F9 44 8B 15 ? ? ? 00 65 48 8B 04 25 58 00 00 00 B9 30 01 00 00 4E 8B 3C D0 49 8B 34 0F 48 89 74 24 60 33 C0 F0 48 0F B1 35 ? ? ? 00 48 3B C6 75 11 48 8D 0D ? ? ? 00 E8 ? ? FE FF E9 ? 01 00 00 48 85 C0 74 ? ? ? ? ? ? ? ? ? ? ? ? ? FF ? ? ? ?");
+				"48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 41 ? 41 56 41 57 48 81 EC ? 00 00 00 4D 8B ? ? 8B ? 48 8B DA 8B ? ? ?");
 			if (result != 0)
 			{
 				HookFunction((void*)result, &oldLogInfoForFatalError, (void*)(LogInfoForFatalError));
@@ -166,7 +166,7 @@ inline void FixCLRFatalError(Logger& logger)
 				// ?LogFatalError@EEPolicy@@CAXI_KPEB_WPEAU_EXCEPTION_POINTERS@@11@Z
 				// https://github.com/dotnet/runtime/blob/9d6396deb02161f5ee47af72ccac52c2e1bae458/src/coreclr/vm/eepolicy.cpp#L410
 				uintptr_t eepolicylog = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),
-					"40 53 56 57 41 ? 41 ? 41 57 48 81 EC D8 0C 00 00 48 8B 05 ? ? ? 00 48 33 C4 48 89 84 24 C8 0C 00 00 49 8B D9 48 89 9C 24 80 00 00 00 49 8B F0 4C 8B ? 44 8B E9 89 8C 24 90 00 00 00 48 89 9C 24 C0 00 00 00 4C 8B 84 24 30 0D 00 00 4C 8B ? 24 38 0D 00 00 4D 8B ? 48 8B D6 E8 ? 0A 00 00 33 FF 48 8B 05 ? ? ? 00 39 78 24 75 17 48 8B 0D ? ? ? 00 48 8B C1 48 C1 E8 08 84 C0 74");
+					"40 53 56 57 41 ? 41 ? 41 57 48 81 EC ? 0C 00 00 48 8B 05 ? ? ? 00 48 33 C4 48 89 84 24 ? 0C 00 00 49 8B D9 48 89 9C");
 				if (eepolicylog != 0)
 				{
 					HookFunction((void*)eepolicylog, &oldEEPolicy_LogFatalError, (void*)(EEPolicy_LogFatalError));
