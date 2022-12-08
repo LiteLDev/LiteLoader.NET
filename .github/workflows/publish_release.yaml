@@ -102,7 +102,7 @@ jobs:
             mv PDB.zip PDB-${{github.event.inputs.tag}}.zip
 
       - name: Create New Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.11.2
         env:
           GITHUB_REPOSITORY: ${{ env.GITHUB_ACTION_REPOSITORY }}
         with:
