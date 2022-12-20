@@ -743,14 +743,8 @@
     <ClInclude Include="Header\Core\STLHelper\string.hpp">
       <Filter>Header\Core\STLHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\STLHelper\optional.hpp">
-      <Filter>Header\Core\STLHelper</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\ClassTemplateHelper.hpp">
       <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Core\STLHelper\vector.hpp">
-      <Filter>Header\Core\STLHelper</Filter>
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp">
       <Filter>Header\DynamicCommand</Filter>
@@ -976,6 +970,9 @@
     </ClInclude>
     <ClInclude Include="Tools\type_traits.hpp">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Core\ICppClass.hpp">
+      <Filter>Header\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
