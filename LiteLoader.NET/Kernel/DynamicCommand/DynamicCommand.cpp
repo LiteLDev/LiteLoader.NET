@@ -82,27 +82,27 @@ namespace LLNET::DynamicCommand
 		}
 	}
 	inline bool DynamicCommand::Result::AsBool() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Bool)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Bool)
 			throw gcnew DynamicCommandInvalidCastException;
 		return NativePtr->getRaw<bool>();
 	}
 	inline int DynamicCommand::Result::AsInt() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Int)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Int)
 			throw gcnew DynamicCommandInvalidCastException;
 		return NativePtr->getRaw<int>();
 	}
 	inline float DynamicCommand::Result::AsFloat() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
 			throw gcnew DynamicCommandInvalidCastException;
 		return NativePtr->getRaw<float>();
 	}
 	inline String^ DynamicCommand::Result::AsString() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Float)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline List<MC::Actor^>^ DynamicCommand::Result::AsActorList() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Actor)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Actor)
 			throw gcnew DynamicCommandInvalidCastException;
 		auto arr = gcnew List<MC::Actor^>;
 		for (auto i : NativePtr->get<std::vector<::Actor*>>())
@@ -112,7 +112,7 @@ namespace LLNET::DynamicCommand
 		return arr;
 	}
 	inline List<MC::Player^>^ DynamicCommand::Result::AsPlayerList() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Player)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Player)
 			throw gcnew DynamicCommandInvalidCastException;
 		auto arr = gcnew List<MC::Player^>;
 		for (auto i : NativePtr->get<std::vector<::Player*>>())
@@ -122,62 +122,62 @@ namespace LLNET::DynamicCommand
 		return arr;
 	}
 	inline MC::BlockPos DynamicCommand::Result::AsBlockPos() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::BlockPos)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::BlockPos)
 			throw gcnew DynamicCommandInvalidCastException;
 		return MC::BlockPos(NativePtr->get<::BlockPos>());
 	}
 	inline MC::Vec3 DynamicCommand::Result::AsVec3() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Vec3)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Vec3)
 			throw gcnew DynamicCommandInvalidCastException;
 		return MC::Vec3(NativePtr->get<::Vec3>());
 	}
 	inline MC::CommandMessage^ DynamicCommand::Result::AsCommandMessage() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Message)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Message)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::CommandMessage(const_cast<::CommandMessage*>(&NativePtr->getRaw<::CommandMessage>()));
 	}
 	inline String^ DynamicCommand::Result::AsRawText() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::RawText)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::RawText)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline String^ DynamicCommand::Result::AsJsonValue() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::JsonValue)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::JsonValue)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline MC::CommandItem^ DynamicCommand::Result::AsCommandItem() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Item)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Item)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
 	}
 	inline MC::Block^ DynamicCommand::Result::AsBlock() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
 	}
 	inline MC::MobEffect^ DynamicCommand::Result::AsMobEffect() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Effect)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Effect)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::MobEffect(const_cast<::MobEffect*>(NativePtr->getRaw<::MobEffect const*>()));
 	}
 	inline String^ DynamicCommand::Result::AsEnum() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Enum)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline String^ DynamicCommand::Result::AsSoftEnum() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::SoftEnum)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::SoftEnum)
 			throw gcnew DynamicCommandInvalidCastException;
 		return marshalString(NativePtr->getRaw<std::string>());
 	}
 	inline MC::Command^ DynamicCommand::Result::AsCommand() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Command)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Command)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::Command((::__Command*)NativePtr->getRaw<std::unique_ptr<::Command>>().get(), true);
 	}
 	inline MC::ActorDefinitionIdentifier^ DynamicCommand::Result::AsActorType() {
-		if (NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::ActorType)
+		if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::ActorType)
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::ActorDefinitionIdentifier((ActorDefinitionIdentifier*)NativePtr->getRaw<ActorDefinitionIdentifier const*>());
 	}
