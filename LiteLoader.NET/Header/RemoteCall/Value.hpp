@@ -4,7 +4,7 @@
 #include "Interfaces.hpp"
 #include "ExtendType.hpp"
 #include "NumberType.hpp"
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	public
 	ref class Value : ClassTemplate<Value, ::RemoteCall::Value>, IValueType
 	{
@@ -360,82 +360,82 @@ namespace LLNET::RemoteCall {
 		static operator bool(Value^ v) {
 			bool ret;
 			if (!v->AsBool(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator String ^ (Value^ v) {
 
 			String^ ret;
 			if (!v->AsString(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator NumberType (Value^ v) {
 			NumberType ret;
 			if (!v->AsNumberType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Player ^ (Value^ v) {
 
 			MC::Player^ ret;
 			if (!v->AsPlayer(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Actor ^ (Value^ v) {
 			MC::Actor^ ret;
 			if (!v->AsActor(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::BlockActor ^ (Value^ v) {
 			MC::BlockActor^ ret;
 			if (!v->AsBlockActor(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator MC::Container ^ (Value^ v) {
 			MC::Container^ ret;
 			if (!v->AsContainer(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator WorldPosType ^ (Value^ v) {
 			WorldPosType^ ret;
 			if (!v->AsWorldPosType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator BlockPosType ^ (Value^ v) {
 			BlockPosType^ ret;
 			if (!v->AsBlockPosType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator ItemType ^ (Value^ v) {
 			ItemType^ ret;
 			if (!v->AsItemType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator BlockType ^ (Value^ v) {
 			BlockType^ ret;
 			if (!v->AsBlockType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 		static operator NbtType ^ (Value^ v) {
 			NbtType^ ret;
 			if (!v->AsNbtType(ret))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return ret;
 		}
 
 #define Value2SimpleType_Implicit(type)												\
 		static operator type(Value^ v) {											\
 			if(v->NativePtr->index() != (size_t)InstanceType::NumberType)			\
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;			\
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;			\
 			return std::get<::RemoteCall::NumberType>(*v->NativePtr).get<type>();	\
 		};
 

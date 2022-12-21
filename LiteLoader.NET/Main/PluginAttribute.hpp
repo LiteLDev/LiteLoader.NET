@@ -4,7 +4,7 @@ using System::Attribute;
 using System::AttributeUsageAttribute;
 using System::AttributeTargets;
 
-namespace LLNET::Core
+namespace LiteLoader::NET
 {
 	[AttributeUsage(AttributeTargets::Assembly)]
 	public ref class LLNETLibraryAttribute sealed
@@ -14,14 +14,14 @@ namespace LLNET::Core
 		property int Major;
 		property int Minor;
 		property int Revision;
-		property LLNET::LL::Version::StatusEnum Status;
+		property LiteLoader::Version::StatusEnum Status;
 		property String^ Desc;
 		LLNETLibraryAttribute()
 		{
 			Major = 0;
 			Minor = 0;
 			Revision = 0;
-			Status = LLNET::LL::Version::StatusEnum::Dev;
+			Status = LiteLoader::Version::StatusEnum::Dev;
 			Desc = "";
 		}
 	};
@@ -49,4 +49,4 @@ namespace LLNET::Core
 			Path = path; 
 		}
 	};
-} // namespace LLNET
+} // namespace LiteLoader::NET

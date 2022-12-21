@@ -5,7 +5,7 @@
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 
-namespace LLNET::Form
+namespace LiteLoader::Form
 {
     //////////////////////////////// Simple Form ////////////////////////////////
 
@@ -674,4 +674,4 @@ namespace LLNET::Form
             stepsliderSysList,
             arg.def);
     }
-} // namespace LLNET::Form
+} // namespace LiteLoader::Form

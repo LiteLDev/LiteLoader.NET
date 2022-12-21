@@ -3,7 +3,7 @@
 #include "DynamicCommand.hpp"
 #include <EventAPI.h>
 
-namespace LLNET::DynamicCommand::Internal {
+namespace LiteLoader::DynamicCommand::Internal {
 	public ref class CommandManager {
 	public:
 		value struct EnumInfo {

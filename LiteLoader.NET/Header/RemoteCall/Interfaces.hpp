@@ -1,5 +1,5 @@
 #pragma once
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	interface class IValue
 	{
 	};

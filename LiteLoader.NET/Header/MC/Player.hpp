@@ -79,7 +79,7 @@ namespace MC
         }
 
         /// <summary> 
-        /// <exception cref="LLNET::Core::MCException"></exception>
+        /// <exception cref="LiteLoader::NET::MCException"></exception>
         /// </summary>
         property int CurrentExperience
         {
@@ -88,7 +88,7 @@ namespace MC
         }
 
         /// <summary>
-        /// <exception cref="LLNET::Core::MCException"></exception>
+        /// <exception cref="LiteLoader::NET::MCException"></exception>
         /// </summary>
         property size_t TotalExperience
         {

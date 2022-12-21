@@ -1,20 +1,20 @@
 #include <LiteLoader.NET/Header/Schedule.hpp>
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
-namespace LLNET::Schedule
+namespace LiteLoader::Schedule
 {
 	void _addPluginOwnData(IntPtr handle, ScheduleTask^ task, GCHandle gch)
 	{
 		List<VALUE_TUPLE<ScheduleTask^, GCHandle>>^ schedules = nullptr;
 
-		if (PluginOwnData::RegisteredSchedule->ContainsKey(handle))
+		if (LiteLoader::NET::PluginOwnData::RegisteredSchedule->ContainsKey(handle))
 		{
-			schedules = PluginOwnData::RegisteredSchedule[handle];
+			schedules = LiteLoader::NET::PluginOwnData::RegisteredSchedule[handle];
 		}
 		else
 		{
 			schedules = gcnew List<VALUE_TUPLE<ScheduleTask^, GCHandle>>;
-			PluginOwnData::RegisteredSchedule->Add(handle, schedules);
+			LiteLoader::NET::PluginOwnData::RegisteredSchedule->Add(handle, schedules);
 		}
 
 		schedules->Add(VALUE_TUPLE<ScheduleTask^, GCHandle>{task, gch});
@@ -114,4 +114,4 @@ namespace LLNET::Schedule
 		return ret;
 	}
 
-} // namespace LLNET::Schedule
+} // namespace LiteLoader::Schedule

@@ -1,5 +1,5 @@
 #pragma once
-namespace LLNET::Core
+namespace LiteLoader::NET
 {
 	public ref class LiteLoaderDotNETException
 		: public System::Exception

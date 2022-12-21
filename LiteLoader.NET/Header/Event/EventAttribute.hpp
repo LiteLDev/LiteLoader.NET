@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
     using System::AttributeUsageAttribute;
     using System::AttributeTargets;

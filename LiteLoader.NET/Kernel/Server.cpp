@@ -1,5 +1,5 @@
 #include <LiteLoader.NET/Header/Server.hpp>
-namespace LLNET::LL
+namespace LiteLoader
 {
 inline String^ ServerAPI::GetBdsVersion()
 {
@@ -16,4 +16,4 @@ inline bool ServerAPI::SetServerMotd(String^ d)
     return ::ll::setServerMotd(marshalString(d));
 }
 
-} // namespace LLNET::LL
+} // namespace LiteLoader

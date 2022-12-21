@@ -1,5 +1,5 @@
 #pragma once
-namespace LLNET::Core
+namespace LiteLoader::NET
 {
 generic<typename TKey, typename TValue> 
 public value class Pair
@@ -18,4 +18,4 @@ public:
 private:
 };
 
-} // namespace LLNET::Core
+} // namespace LiteLoader::NET

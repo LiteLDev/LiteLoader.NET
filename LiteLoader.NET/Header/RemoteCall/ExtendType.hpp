@@ -2,7 +2,7 @@
 #include "include.hpp"
 #include "Interfaces.hpp"
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	public
 	ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>, IValue
 	{

@@ -7,9 +7,9 @@
 
 #define LLNET_INFO_LOADER_NAME "LiteLoader.NET"
 
-#define LLNET_INFO_LOADER_DESCRIPTION ".NET development platform for LiteLoaderBDS"
+#define LLNET_INFO_LOADER_DESCRIPTION "LiteLoaderBDS bindings for .NET"
 
-#define LLNET_INFO_AUTHOR "LiteLoader Developer"
+#define LLNET_INFO_AUTHOR "LiteLoaderBDS .NET Developers"
 
 #define LLNET_INFO_COPYRIGHT "Copyright (c) 2020-2022 LiteLoaderBDS Developers"
 

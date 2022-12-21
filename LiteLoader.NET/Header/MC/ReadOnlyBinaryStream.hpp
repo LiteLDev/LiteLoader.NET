@@ -7,7 +7,7 @@
 
 namespace MC
 {
-    using __string = LLNET::Core::Std::string;
+    using __string = LiteLoader::NET::Std::string;
 
     public enum class StreamReadResult
     {

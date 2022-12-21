@@ -7,7 +7,7 @@ using RefCount = size_t;
 
 
 
-namespace LLNET::Logger {
+namespace LiteLoader::Logger {
 	public ref class Logger {
 	public:
 		value class ENDLINE {};

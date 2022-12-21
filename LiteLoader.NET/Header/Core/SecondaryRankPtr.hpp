@@ -1,5 +1,5 @@
 #pragma once
-namespace LLNET::Core
+namespace LiteLoader::NET
 {
 public
 value class SecondaryRankPtr

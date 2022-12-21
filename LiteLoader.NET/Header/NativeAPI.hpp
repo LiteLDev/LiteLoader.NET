@@ -11,7 +11,7 @@ extern __declspec(noinline) EXCEPTION_CODE _try_catch(void(*pfunc)());
 #pragma managed
 
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 
 	public ref class NativeAPI abstract

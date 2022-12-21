@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <variant>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	private ref class HookHelper __static
 	{

@@ -1,5 +1,5 @@
 #include <LiteLoader.NET/Header/RemoteCall/RemoteCall.hpp>
-namespace LLNET::RemoteCall
+namespace LiteLoader::RemoteCall
 {
 	private ref class RemoteCallCallbackHelper __static
 	{
@@ -38,7 +38,7 @@ namespace LLNET::RemoteCall
 		}
 	};
 
-	using _callback_converter = llnet::callback::converter<
+	using _callback_converter = LiteLoader::NET::callback::converter<
 		::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>), Valuetype ^ (List<Valuetype^>^), RemoteCallAPI::CallbackFn>;
 
 
@@ -121,4 +121,4 @@ namespace LLNET::RemoteCall
 	}
 
 
-} // namespace LLNET::RemoteCall
+} // namespace LiteLoader::RemoteCall

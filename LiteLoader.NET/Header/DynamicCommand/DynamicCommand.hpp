@@ -42,15 +42,15 @@
 //	__ParameterData(std::string const& name, ::DynamicCommand::ParameterType type, std::string const& enumOptions = "", std::string const& identifier = "", CommandParameterOption parameterOption = (CommandParameterOption)0);
 //};
 
-namespace LLNET::DynamicCommand {
+namespace LiteLoader::DynamicCommand {
 	interface class ICommand;
 	interface class ICommandEvent;
 	interface class ICommandData;
 }
 
-namespace LLNET::DynamicCommand
+namespace LiteLoader::DynamicCommand
 {
-	using namespace LLNET::Core;
+	using namespace LiteLoader::NET;
 
 	ref class DynamicCommandInstance;
 	public ref class DynamicCommand : public MC::Command
@@ -235,4 +235,4 @@ namespace LLNET::DynamicCommand
 			static bool _registerCommandInternal(System::Type^ cmdType);
 	};
 
-} // namespace LLNET::DynamicCommand
+} // namespace LiteLoader::DynamicCommand

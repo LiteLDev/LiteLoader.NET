@@ -2,7 +2,7 @@
 #include <AllowListAPI.h>
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
-namespace LLNET::AllowList
+namespace LiteLoader::AllowList
 {
 	/// <summary> 
 	/// For managing AllowList
@@ -91,4 +91,4 @@ namespace LLNET::AllowList
 			_this->reload();
 		}
 	};
-} // namespace LLNET::AllowList
+} // namespace LiteLoader::AllowList

@@ -4,7 +4,7 @@
 #include <variant>
 #include "type_traits.hpp"
 
-namespace LLNET
+namespace LiteLoader::NET
 {
 	public interface class IFunctionCaller
 	{
@@ -12,7 +12,7 @@ namespace LLNET
 	};
 }
 
-namespace llnet::callback {
+namespace LiteLoader::NET::callback {
 
 	namespace detail {
 
@@ -21,7 +21,7 @@ namespace llnet::callback {
 
 
 
-		using IFunctionCaller = LLNET::IFunctionCaller;
+		using IFunctionCaller = LiteLoader::NET::IFunctionCaller;
 
 
 

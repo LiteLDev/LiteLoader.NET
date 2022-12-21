@@ -133,7 +133,7 @@ namespace MC
     inline void Player::CurrentExperience::set(int value)
     {
         if (NativePtr->setTotalExperience(value))
-            throw gcnew LLNET::Core::MCException("Failed to set current experience.");
+            throw gcnew LiteLoader::NET::MCException("Failed to set current experience.");
     }
 
     inline size_t Player::TotalExperience::get()
@@ -144,7 +144,7 @@ namespace MC
     inline void Player::TotalExperience::set(size_t value)
     {
         if (NativePtr->setTotalExperience(value))
-            throw gcnew LLNET::Core::MCException("Failed to set total experience.");
+            throw gcnew LiteLoader::NET::MCException("Failed to set total experience.");
     }
 
     inline bool Player::ReduceExperience(size_t exp) { return NativePtr->reduceExperience(exp); }

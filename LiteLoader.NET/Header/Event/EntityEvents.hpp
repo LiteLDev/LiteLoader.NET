@@ -1,7 +1,7 @@
 #pragma once
 #include "Event.hpp"
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
 
 	///////////////////////////// Entity Events /////////////////////////////

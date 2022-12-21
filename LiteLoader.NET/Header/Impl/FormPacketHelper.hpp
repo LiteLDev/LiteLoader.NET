@@ -8,7 +8,7 @@ namespace MC
 ref class Player;
 }
 
-namespace LLNET::Helper
+namespace LiteLoader::Helper
 {
 ref class FormPacketHelper abstract
 {

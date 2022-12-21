@@ -8,7 +8,7 @@ inline void GlobalClass::Init()
 	using namespace System::Text::RegularExpressions;
 	using namespace System::IO;
 
-	logger = gcnew LLNET::Logger::Logger(LLNET_INFO_LOADER_NAME);
+	logger = gcnew LiteLoader::Logger::Logger(LLNET_INFO_LOADER_NAME);
 
 	auto runtimeLibPathDir = DOTNET_RUNTIME_DIR + "/shared/Microsoft.NETCore.App";
 	if (!Directory::Exists(runtimeLibPathDir))
@@ -24,7 +24,7 @@ inline void GlobalClass::Init()
 
 		auto arr = var->Split(L'/');
 
-		if (arr->Length > 0 && arr[arr->Length - 1]->StartsWith("6.0."))
+		if (arr->Length > 0 && arr[arr->Length - 1]->StartsWith("7.0."))
 		{
 			if (File::Exists(Path::Combine(var, "coreclr.dll")))
 			{
@@ -43,7 +43,7 @@ SHARED_LIBRARY_NOT_FOUND_WARNING:
 inline HMODULE GlobalClass::GetCurrentModule(Assembly^ asm_)
 {
 	auto ret = IntPtr::Zero;
-	LLNET::PluginOwnData::ManagedAssemblyHandle->TryGetValue(asm_, ret);
+	LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryGetValue(asm_, ret);
 	if (ret != IntPtr::Zero)
 		return HMODULE((void*)ret);
 	else

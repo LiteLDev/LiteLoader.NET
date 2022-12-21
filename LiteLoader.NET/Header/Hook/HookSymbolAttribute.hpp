@@ -2,7 +2,7 @@
 
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	[System::AttributeUsageAttribute(System::AttributeTargets::Class)]
 	public ref class HookSymbolAttribute :public System::Attribute

@@ -5,7 +5,7 @@
 #include "PluginOwnData.hpp"
 #include <filesystem>
 
-namespace LLNET
+namespace LiteLoader::NET
 {
 	bool PluginManager::registerPlugin(System::String^ name, System::String^ introduction, Version^ version, Dictionary<System::String^, System::String^>^ others, Assembly^ Asm)
 	{
@@ -35,7 +35,7 @@ namespace LLNET
 		if (ret)
 		{
 			PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
-			LLNET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, IntPtr(handle));
+			LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, IntPtr(handle));
 		}
 
 		return ret;
@@ -74,7 +74,7 @@ namespace LLNET
 	Assembly^ PluginManager::getPluginAssembly(Plugin^ plugin)
 	{
 		if (!plugin->IsManagedPlugin())
-			throw gcnew Core::NativePluginException;
+			throw gcnew NativePluginException;
 		for each (auto % var in PluginManager::ManagedPluginData)
 		{
 			if (var.Value->Item1->Equals(plugin))
@@ -122,4 +122,4 @@ namespace LLNET
 		PluginManager::ManagedPluginData->Remove(name);
 		return ::ll::PluginManager::unRegisterPlugin(marshalString(name));
 	}
-} // namespace LLNET
+} // namespace LiteLoader::NET

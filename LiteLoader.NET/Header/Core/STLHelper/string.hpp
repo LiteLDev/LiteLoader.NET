@@ -3,7 +3,7 @@
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 #include <memory>
 
-namespace LLNET::Core::Std
+namespace LiteLoader::NET::Std
 {
 	using namespace clix;
 
@@ -212,4 +212,4 @@ namespace LLNET::Core::Std
 			return gcnew string(*a->NativePtr + *b->NativePtr);
 		}
 	};
-} // namespace LLNET::Core::Std
+} // namespace LiteLoader::NET::Std

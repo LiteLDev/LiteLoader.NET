@@ -1,5 +1,5 @@
 #include "DynamicExportFunctionRegister.hpp"
-namespace LLNET::RemoteCall::Internal {
+namespace LiteLoader::RemoteCall::Internal {
 	::RemoteCall::ValueType DynamicExportFunctionRegister::ExportedFunc::_Invoke(std::vector<::RemoteCall::ValueType> vec)
 	{
 		try

@@ -46,10 +46,10 @@ struct dynamicSymbolsMap_type
 
 namespace LLMoney
 {
-	using LLNET::Logger::Logger;
-	using namespace LLNET::Event;
+	using LiteLoader::Logger::Logger;
+	using namespace LiteLoader::Event;
 
-	public ref class LLMoneyException :LLNET::Core::LiteLoaderDotNETException
+	public ref class LLMoneyException :LiteLoader::NET::LiteLoaderDotNETException
 	{
 	public:
 		LLMoneyException(String^ message)
@@ -107,7 +107,7 @@ namespace LLMoney
 	public:
 		static EconomySystem()
 		{
-			auto llmoney = LLNET::LL::LLAPI::GetPlugin("LLMoney");
+			auto llmoney = LiteLoader::LLAPI::GetPlugin("LLMoney");
 			if (llmoney->Handler == IntPtr::Zero)
 			{
 				economicLogger->warn->WriteLine("LLMoney not found!");

@@ -7,9 +7,9 @@
 
 #include <LiteLoader.NET/Tools/CallbackConverter.hpp>
 
-namespace LLNET::RemoteCall
+namespace LiteLoader::RemoteCall
 {
-	using namespace LLNET::RemoteCall::Internal;
+	using namespace LiteLoader::RemoteCall::Internal;
 
 
 	/// <summary>
@@ -107,7 +107,7 @@ namespace LLNET::RemoteCall
 		/// <param name="funcName">－Export Function Name</param>
 		/// <param name="fn">－Export Function</param>
 		/// <returns>－Is The Export Successful</returns>
-		/// <exception cref="LLNET::Core::InvalidRemoteCallTypeException"></exception>
+		/// <exception cref="LiteLoader::NET::InvalidRemoteCallTypeException"></exception>
 		generic<typename TDelegate>
 		where TDelegate:System::Delegate
 			static bool ExportAs(String^ nameSpace, String^ funcName, TDelegate fn) {
@@ -413,7 +413,7 @@ namespace LLNET::RemoteCall
 		}
 	public:
 		//防止gc回收
-		static Dictionary<uint64_t, llnet::callback::detail::IFunctionCaller^>^ CallbackData = gcnew Dictionary<uint64_t, llnet::callback::detail::IFunctionCaller^>;
+		static Dictionary<uint64_t, LiteLoader::NET::callback::detail::IFunctionCaller^>^ CallbackData = gcnew Dictionary<uint64_t, LiteLoader::NET::callback::detail::IFunctionCaller^>;
 
 	private:
 		ref class RemoteCallHelper
@@ -471,4 +471,4 @@ namespace LLNET::RemoteCall
 			return DynamicImportFunctionRegister::RegisterImportFunction<TDelegate>(nameSpace, funcName);
 		}
 	};
-} // namespace LLNET::RemoteCall
+} // namespace LiteLoader::RemoteCall

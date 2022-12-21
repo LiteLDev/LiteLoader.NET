@@ -2,7 +2,7 @@
 #include "include.hpp"
 #include "Interfaces.hpp"
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	public
 	value class NumberType : IValue
 	{

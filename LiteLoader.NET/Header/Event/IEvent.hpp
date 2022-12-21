@@ -1,9 +1,8 @@
 #pragma once
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
-    using namespace Core;
 
     public interface class ICancellable
     {
@@ -27,7 +26,7 @@ namespace LLNET::Event
             void set(const bool value)
             {
                 if (dynamic_cast<ICancellable^>(this) == nullptr)
-                    throw gcnew CancelEventException;
+                    throw gcnew LiteLoader::NET::CancelEventException;
 
                 isCancelled = value;
             }

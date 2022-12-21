@@ -2,8 +2,8 @@
 #include "DynamicCommandAttributes.hpp"
 #include "DynamicCommandHelper.hpp"
 
-namespace LLNET::DynamicCommand {
-	using namespace LLNET::DynamicCommand::Internal;
+namespace LiteLoader::DynamicCommand {
+	using namespace LiteLoader::DynamicCommand::Internal;
 
 	/// <summary>
 	/// Inherited this interface to register a new command by DynamicCommand.RegisterCommand&lt;ICommand&gt;().

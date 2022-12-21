@@ -31,7 +31,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 //managed
 List<String^>^ ParsePluginLibraryPath(Assembly^ Asm);
 
-namespace LLNET {
+namespace LiteLoader::NET {
 	public ref class __Entry
 	{
 	public:
@@ -50,7 +50,7 @@ namespace LLNET {
 	};
 }
 
-void __entry(void* pLogger, void* std_vector_assemblies) { LLNET::__Entry::InitAndLoadPlugins(pLogger, std_vector_assemblies); }
+void __entry(void* pLogger, void* std_vector_assemblies) { LiteLoader::NET::__Entry::InitAndLoadPlugins(pLogger, std_vector_assemblies); }
 
 #pragma unmanaged
 #include "Global.hpp"
@@ -95,7 +95,7 @@ void Init()
 	InitEvents();
 	System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
 	auto LLNET_Asm = Assembly::GetExecutingAssembly();
-	LLNET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+	LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
@@ -129,7 +129,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 	}
 
 	List<String^>^ customPaths = nullptr;
-	if (LLNET::PluginOwnData::CustomLibPath->TryGetValue(requestingAssembly, customPaths))
+	if (LiteLoader::NET::PluginOwnData::CustomLibPath->TryGetValue(requestingAssembly, customPaths))
 	{
 		for each (auto customPath in customPaths)
 		{
@@ -139,7 +139,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 
 				auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
+				LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 
@@ -148,7 +148,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 			{
 				auto Asm = Assembly::LoadFrom(libPathWithPlugin);
 				auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-				LLNET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
+				LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
 				return Asm;
 			}
 		}
@@ -202,9 +202,9 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
 			auto Asm = Assembly::LoadFrom(path);
 
-			LLNET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LLNET::LL::Version(1, 0, 0), nullptr, Asm);
+			LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LiteLoader::Version(1, 0, 0), nullptr, Asm);
 
-			LLNET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
+			LiteLoader::NET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
 
 			auto succeed = LoadByDefaultEntry(logger, Asm);
 			if (!succeed)
@@ -278,7 +278,7 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 
 List<String^>^ ParsePluginLibraryPath(Assembly^ Asm)
 {
-	using LLNET::Core::LibPathAttribute;
+	using LiteLoader::NET::LibPathAttribute;
 
 	auto libAttrType = LibPathAttribute::typeid;
 	auto ret = gcnew List<String^>;
@@ -298,9 +298,9 @@ List<String^>^ ParsePluginLibraryPath(Assembly^ Asm)
 
 bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
 {
-	using IPluginInitializer = LLNET::Core::IPluginInitializer;
-	using PluginMainAttribute = LLNET::Core::PluginMainAttribute;
-	using LibPathAttribute = LLNET::Core::LibPathAttribute;
+	using IPluginInitializer = LiteLoader::NET::IPluginInitializer;
+	using PluginMainAttribute = LiteLoader::NET::PluginMainAttribute;
+	using LibPathAttribute = LiteLoader::NET::LibPathAttribute;
 
 	try
 	{
@@ -332,13 +332,13 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
 		{
 			initializer->OnInitialize();
 			String^ introduction = initializer->Introduction;
-			auto version = gcnew LLNET::LL::Version(
+			auto version = gcnew LiteLoader::Version(
 				initializer->Version->Major,
 				initializer->Version->Minor,
 				initializer->Version->Build
 			);
 			auto others = initializer->MetaData;
-			LLNET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
+			LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
 		}
 		return true;
 	}

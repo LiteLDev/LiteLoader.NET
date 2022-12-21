@@ -1,6 +1,6 @@
 #include <LiteLoader.NET/Header/Impl/FormPacketHelper.hpp>
 
-namespace LLNET::Helper
+namespace LiteLoader::Helper
 {
 unsigned int FormPacketHelper::NewFormId()
 {
@@ -92,4 +92,4 @@ void FormPacketHelper::HandleFormPacket(MC::Player ^ player, unsigned formId, St
 }
 
 
-} // namespace LLNET::Helper
+} // namespace LiteLoader::Helper

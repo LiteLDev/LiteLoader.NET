@@ -1,6 +1,6 @@
 #pragma once
 #include "ValueType.hpp"
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	using System::Reflection::MethodInfo;
 	ref class RemoteCallFunctionRegisterBase {
 	internal:
@@ -166,7 +166,7 @@ __METHOD_INFO(Native2##typeName,_##Native2##typeName)
 	};
 }
 
-inline Pair<bool, LLNET::RemoteCall::RemoteCallFunctionRegisterBase::ValidType> LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
+inline Pair<bool, LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::ValidType> LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
 {
 	using RTN = Pair<bool, ValidType>;
 
@@ -238,12 +238,12 @@ inline Pair<bool, LLNET::RemoteCall::RemoteCallFunctionRegisterBase::ValidType> 
 	return RTN(false, ValidType::Invalid);
 }
 
-inline LLNET::RemoteCall::RemoteCallFunctionRegisterBase::FunctionInfo::TypeInfo LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_generateTypeInfo(System::Type^ t)
+inline LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::FunctionInfo::TypeInfo LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_generateTypeInfo(System::Type^ t)
 {
 
 	auto type = _tryGetValidType(t);
 	if (!type.Key)
-		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 	auto ret = FunctionInfo::TypeInfo();
 	ret._type = t;
@@ -271,14 +271,14 @@ inline LLNET::RemoteCall::RemoteCallFunctionRegisterBase::FunctionInfo::TypeInfo
 	default:
 		break;
 	case ValidType::Invalid:
-		throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 	}
 
 	return ret;
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline std::vector<::RemoteCall::ValueType> LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_create_ArrayType()
+inline std::vector<::RemoteCall::ValueType> LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_create_ArrayType()
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -288,7 +288,7 @@ inline std::vector<::RemoteCall::ValueType> LLNET::RemoteCall::RemoteCallFunctio
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ArrayType(void* vec)
+inline void LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ArrayType(void* vec)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(vec).ToString());
@@ -298,7 +298,7 @@ inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ArrayType
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ValueType(void* valuetype)
+inline void LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ValueType(void* valuetype)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(valuetype).ToString());
@@ -308,7 +308,7 @@ inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_delete_ValueType
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_double2Native(double val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_double2Native(double val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -318,7 +318,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_float2Native(float val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_float2Native(float val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -328,7 +328,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_int64_t2Native(int64_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_int64_t2Native(int64_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -338,7 +338,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_int32_t2Native(int32_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_int32_t2Native(int32_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -356,7 +356,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_int16_t2Native(int16_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_int16_t2Native(int16_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -366,7 +366,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_int8_t2Native(int8_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_int8_t2Native(int8_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -376,7 +376,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_uint64_t2Native(uint64_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_uint64_t2Native(uint64_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -386,7 +386,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_uint32_t2Native(uint32_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_uint32_t2Native(uint32_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -396,7 +396,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_uint16_t2Native(uint16_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_uint16_t2Native(uint16_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -406,7 +406,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_uint8_t2Native(uint8_t val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_uint8_t2Native(uint8_t val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -416,7 +416,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_bool2Native(bool val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_bool2Native(bool val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -426,7 +426,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_string2Native(String^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_string2Native(String^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -436,7 +436,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_NumberType2Native(NumberType val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_NumberType2Native(NumberType val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -446,7 +446,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Player2Native(MC::Player^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Player2Native(MC::Player^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -456,7 +456,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Actor2Native(MC::Actor^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Actor2Native(MC::Actor^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -466,7 +466,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_BlockActor2Native(MC::BlockActor^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_BlockActor2Native(MC::BlockActor^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -476,7 +476,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Container2Native(MC::Container^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Container2Native(MC::Container^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -486,7 +486,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Vec32Native(MC::Vec3 val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Vec32Native(MC::Vec3 val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + val);
@@ -496,7 +496,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_BlockPos2Native(MC::BlockPos val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_BlockPos2Native(MC::BlockPos val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -506,7 +506,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_WorldPosType2Native(WorldPosType^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_WorldPosType2Native(WorldPosType^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -516,7 +516,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_BlockPosType2Native(BlockPosType^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_BlockPosType2Native(BlockPosType^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -526,7 +526,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_ItemType2Native(ItemType^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_ItemType2Native(ItemType^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -536,7 +536,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_BlockType2Native(BlockType^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_BlockType2Native(BlockType^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -546,7 +546,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_NbtType2Native(NbtType^ val)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_NbtType2Native(NbtType^ val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -556,7 +556,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_null2Native()
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_null2Native()
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__);
@@ -566,7 +566,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline double LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2double(void* val)
+inline double LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2double(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -576,7 +576,7 @@ inline double LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2double(
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline float LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2float(void* val)
+inline float LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2float(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -586,7 +586,7 @@ inline float LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2float(vo
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int64_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int64_t(void* val)
+inline int64_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int64_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -596,7 +596,7 @@ inline int64_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int64_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int32_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int32_t(void* val)
+inline int32_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int32_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -606,7 +606,7 @@ inline int32_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int32_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int16_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int16_t(void* val)
+inline int16_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int16_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -616,7 +616,7 @@ inline int16_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int16_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int8_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int8_t(void* val)
+inline int8_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int8_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -626,7 +626,7 @@ inline int8_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2int8_t(
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline uint64_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint64_t(void* val)
+inline uint64_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint64_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -636,7 +636,7 @@ inline uint64_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint6
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline uint32_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint32_t(void* val)
+inline uint32_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint32_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -646,7 +646,7 @@ inline uint32_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint3
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline uint16_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint16_t(void* val)
+inline uint16_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint16_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -656,7 +656,7 @@ inline uint16_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint1
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline uint8_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint8_t(void* val)
+inline uint8_t LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint8_t(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -666,7 +666,7 @@ inline uint8_t LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2uint8_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline bool LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2bool(void* val)
+inline bool LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2bool(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -676,7 +676,7 @@ inline bool LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2bool(void
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline String^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2string(void* val)
+inline String^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2string(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -686,7 +686,7 @@ inline String^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2string
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::NumberType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2NumberType(void* val)
+inline LiteLoader::RemoteCall::NumberType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2NumberType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -696,7 +696,7 @@ inline LLNET::RemoteCall::NumberType LLNET::RemoteCall::RemoteCallFunctionRegist
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::Player^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Player(void* val)
+inline MC::Player^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Player(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -706,7 +706,7 @@ inline MC::Player^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Pl
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::Actor^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Actor(void* val)
+inline MC::Actor^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Actor(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -716,7 +716,7 @@ inline MC::Actor^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Act
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::BlockActor^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockActor(void* val)
+inline MC::BlockActor^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockActor(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -726,7 +726,7 @@ inline MC::BlockActor^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Nativ
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::Container^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Container(void* val)
+inline MC::Container^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Container(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -736,7 +736,7 @@ inline MC::Container^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::Vec3 LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Vec3(void* val)
+inline MC::Vec3 LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Vec3(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -746,7 +746,7 @@ inline MC::Vec3 LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2Vec3(
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline MC::BlockPos LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockPos(void* val)
+inline MC::BlockPos LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockPos(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -756,7 +756,7 @@ inline MC::BlockPos LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2B
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::WorldPosType^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2WorldPosType(void* val)
+inline LiteLoader::RemoteCall::WorldPosType^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2WorldPosType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -766,7 +766,7 @@ inline LLNET::RemoteCall::WorldPosType^ LLNET::RemoteCall::RemoteCallFunctionReg
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::BlockPosType^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockPosType(void* val)
+inline LiteLoader::RemoteCall::BlockPosType^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockPosType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -776,7 +776,7 @@ inline LLNET::RemoteCall::BlockPosType^ LLNET::RemoteCall::RemoteCallFunctionReg
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::ItemType^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2ItemType(void* val)
+inline LiteLoader::RemoteCall::ItemType^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2ItemType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -786,7 +786,7 @@ inline LLNET::RemoteCall::ItemType^ LLNET::RemoteCall::RemoteCallFunctionRegiste
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::BlockType^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockType(void* val)
+inline LiteLoader::RemoteCall::BlockType^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2BlockType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -796,7 +796,7 @@ inline LLNET::RemoteCall::BlockType^ LLNET::RemoteCall::RemoteCallFunctionRegist
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline LLNET::RemoteCall::NbtType^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2NbtType(void* val)
+inline LiteLoader::RemoteCall::NbtType^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2NbtType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -806,7 +806,7 @@ inline LLNET::RemoteCall::NbtType^ LLNET::RemoteCall::RemoteCallFunctionRegister
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline System::Object^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Native2null(void* val)
+inline System::Object^ LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_Native2null(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -816,7 +816,7 @@ inline System::Object^ LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_Nativ
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_emplace_back(void* vec, void* val)
+inline void LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_emplace_back(void* vec, void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(vec).ToString() + intptr_t(val).ToString());
@@ -826,7 +826,7 @@ inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_emplace_back(voi
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_ArrayType2ValueType(void* arr)
+inline ::RemoteCall::ValueType LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_ArrayType2ValueType(void* arr)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(arr).ToString());
@@ -836,7 +836,7 @@ inline ::RemoteCall::ValueType LLNET::RemoteCall::RemoteCallFunctionRegisterBase
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pArrayType_form_ValueType(void* val)
+inline void* LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_get_pArrayType_form_ValueType(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -846,7 +846,7 @@ inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pArrayType_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_ValueArrayType_size(void* val)
+inline int LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_get_ValueArrayType_size(void* val)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -856,7 +856,7 @@ inline int LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_ValueArrayTyp
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_from_ValueArrayType_by_index(void* val, int index)
+inline void* LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_from_ValueArrayType_by_index(void* val, int index)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -865,7 +865,7 @@ inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_
 	return &(std::get<::RemoteCall::ValueType::ArrayType>(((::RemoteCall::ValueType*)val)->value)[index]);
 }
 
-inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_from_ArrayType_by_index(void* arr, int index) {
+inline void* LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_from_ArrayType_by_index(void* arr, int index) {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(arr).ToString());
 #endif // REMOTECALL_DEBUG
@@ -874,7 +874,7 @@ inline void* LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_pValueType_
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline int LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_ArrayType_size(void* arr)
+inline int LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_get_ArrayType_size(void* arr)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(arr).ToString());
@@ -884,7 +884,7 @@ inline int LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_get_ArrayType_siz
 }
 
 [MethodImpl(MethodImplOptions::AggressiveInlining)]
-inline void LLNET::RemoteCall::RemoteCallFunctionRegisterBase::_ValueType_move_to_ValueType(void* val1, void* val2)
+inline void LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_ValueType_move_to_ValueType(void* val1, void* val2)
 {
 #ifdef REMOTECALL_DEBUG
 	REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val1).ToString() + intptr_t(val2).ToString());

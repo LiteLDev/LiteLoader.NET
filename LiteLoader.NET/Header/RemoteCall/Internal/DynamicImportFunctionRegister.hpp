@@ -1,6 +1,6 @@
 #pragma once
 #include "DynamicRemoteCallFunctionRegisterBase.hpp"
-namespace LLNET::RemoteCall::Internal {
+namespace LiteLoader::RemoteCall::Internal {
 	public ref class DynamicImportFunctionRegister :DynamicRemoteCallFunctionRegisterBase
 	{
 	public:
@@ -20,7 +20,7 @@ namespace LLNET::RemoteCall::Internal {
 			NULL_ARG_CHECK(funcName);
 			auto& _func = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
 			if (!_func)
-				throw gcnew LLNET::Core::RemoteCallImportFunctionException(String::Format("Fail to import!Function[{0}.{1}] has not been exported", nameSpace, funcName));
+				throw gcnew LiteLoader::NET::RemoteCallImportFunctionException(String::Format("Fail to import!Function[{0}.{1}] has not been exported", nameSpace, funcName));
 
 			auto func = gcnew ImportedFunc;
 			func->nameSpace = nameSpace;

@@ -3,7 +3,7 @@
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 #include <memory>
 
-namespace LLNET::DynamicCommand
+namespace LiteLoader::DynamicCommand
 {
 	DynamicCommand^ DynamicCommand::Result::Command::get()
 	{
@@ -181,15 +181,15 @@ namespace LLNET::DynamicCommand
 			throw gcnew DynamicCommandInvalidCastException;
 		return gcnew MC::ActorDefinitionIdentifier((ActorDefinitionIdentifier*)NativePtr->getRaw<ActorDefinitionIdentifier const*>());
 	}
-	LLNET::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance)
+	LiteLoader::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin, DynamicCommandInstance^ instance)
 		:ClassTemplate(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr, instance->NativePtr))
 	{
 	}
-	LLNET::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin)
+	LiteLoader::DynamicCommand::DynamicCommand::Result::Result(ParameterPtr^ ptr, DynamicCommand^ command, MC::CommandOrigin^ origin)
 		:ClassTemplate(::DynamicCommand::Result(ptr->NativePtr, command->NativePtr, origin->NativePtr))
 	{
 	}
-	LLNET::DynamicCommand::DynamicCommand::Result::Result()
+	LiteLoader::DynamicCommand::DynamicCommand::Result::Result()
 		:ClassTemplate(::DynamicCommand::Result())
 	{
 	}
@@ -564,4 +564,4 @@ namespace LLNET::DynamicCommand
 		pNativeCallBackFn pFn = static_cast<pNativeCallBackFn>((void*)Marshal::GetFunctionPointerForDelegate(nativecallback));
 		return pFn;
 	}
-} // namespace LLNET::DynamicCommand
+} // namespace LiteLoader::DynamicCommand

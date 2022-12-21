@@ -1,7 +1,7 @@
 #pragma once
 #include <LiteLoader.NET/Header/RemoteCall/ValueType.hpp>
 
-namespace LLNET::RemoteCall::Internal
+namespace LiteLoader::RemoteCall::Internal
 {
 	public interface class IRemoteCallHelper {
 	public:
@@ -93,7 +93,7 @@ namespace LLNET::RemoteCall::Internal
 }
 
 #define _HelperMethod(name)\
-LLNET::RemoteCall::Internal::IRemoteCallHelper::typeid->GetMethod(#name)
+LiteLoader::RemoteCall::Internal::IRemoteCallHelper::typeid->GetMethod(#name)
 
 #define VOID_POINTER_TYPE void::typeid->MakePointerType()
 

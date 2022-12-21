@@ -1,5 +1,5 @@
 #pragma once
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
 	public enum class EventPriority : int
 	{
