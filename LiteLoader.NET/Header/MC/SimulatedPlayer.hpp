@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 #include <mc/SimulatedPlayer.hpp>
 #include "BlockPos.hpp"
 #include "ServerPlayer.hpp"
 
 namespace MC
 {
-	ref class Dimension;
+    ref class Dimension;
     ref class EntityContext;
 } // namespace MC
 
@@ -39,23 +39,23 @@ namespace MC
         //inline bool SimulateInteract(MC::BlockPos blockPos, ScriptModuleMinecraft::ScriptFacing facing);
         inline bool SimulateJump();
         inline void SimulateLocalMove(Vec3 target, float speed);
-	    inline void SimulateLookAt(Actor^ actor);
-	    inline void SimulateLookAt(MC::BlockPos blockPos);
-	    inline void SimulateLookAt(Vec3 target);
-	    inline void SimulateMoveToLocation(Vec3 target, float speed);
-	    inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToEntity(Actor^ actor, float speed);
-	    inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToLocation(Vec3 target, float speed);
-	    inline void SimulateNavigateToLocations(List<Vec3>^ locations, float speed);
-	    inline void SimulateSetBodyRotation(float _0);
-	    inline bool SimulateSetItem(ItemStack^ item, bool _0, int _1);
-	    inline void SimulateStopDestroyingBlock();
-	    inline void SimulateStopInteracting();
-	    inline void SimulateStopMoving();
-	    inline void SimulateStopUsingItem();
-	    inline bool SimulateUseItem(ItemStack^ item);
-	    inline bool SimulateUseItemInSlot(int slot);
-	    //inline bool SimulateUseItemInSlotOnBlock(int slot, MC::BlockPos blockPos, ScriptModuleMinecraft::ScriptFacing facing, Vec3 target);
-	    //inline bool SimulateUseItemOnBlock(ItemStack^ item, MC::BlockPos blockPos, ScriptModuleMinecraft::ScriptFacing facing, Vec3 target);
-	    inline void SimulateWorldMove(Vec3 target, float speed);
+        inline void SimulateLookAt(Actor^ actor);
+        inline void SimulateLookAt(MC::BlockPos blockPos);
+        inline void SimulateLookAt(Vec3 target);
+        inline void SimulateMoveToLocation(Vec3 target, float speed);
+        inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToEntity(Actor^ actor, float speed);
+        inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToLocation(Vec3 target, float speed);
+        inline void SimulateNavigateToLocations(List<Vec3>^ locations, float speed);
+        inline void SimulateSetBodyRotation(float _0);
+        inline bool SimulateSetItem(ItemStack^ item, bool _0, int _1);
+        inline void SimulateStopDestroyingBlock();
+        inline void SimulateStopInteracting();
+        inline void SimulateStopMoving();
+        inline void SimulateStopUsingItem();
+        inline bool SimulateUseItem(ItemStack^ item);
+        inline bool SimulateUseItemInSlot(int slot);
+        //inline bool SimulateUseItemInSlotOnBlock(int slot, MC::BlockPos blockPos, ScriptModuleMinecraft::ScriptFacing facing, Vec3 target);
+        //inline bool SimulateUseItemOnBlock(ItemStack^ item, MC::BlockPos blockPos, ScriptModuleMinecraft::ScriptFacing facing, Vec3 target);
+        inline void SimulateWorldMove(Vec3 target, float speed);
     };
 }

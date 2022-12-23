@@ -19,8 +19,8 @@
 
 //#define REMOTECALL_DEBUG
 
-#define REMOTECALL_DEBUG_INFO(info)							\
-auto _color = Console::ForegroundColor;						\
-Console::ForegroundColor = System::ConsoleColor::Yellow;	\
-Console::WriteLine(info);									\
+#define REMOTECALL_DEBUG_INFO(info)                            \
+auto _color = Console::ForegroundColor;                        \
+Console::ForegroundColor = System::ConsoleColor::Yellow;    \
+Console::WriteLine(info);                                    \
 Console::ForegroundColor = _color

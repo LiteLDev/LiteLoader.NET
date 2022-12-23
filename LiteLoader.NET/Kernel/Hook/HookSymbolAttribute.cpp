@@ -2,13 +2,13 @@
 
 namespace LiteLoader::Hook
 {
-	inline HookSymbolAttribute::HookSymbolAttribute(String^ sym)
-	{
-		Sym = sym;
-	}
+    inline HookSymbolAttribute::HookSymbolAttribute(String^ sym)
+    {
+        Sym = sym;
+    }
 
-	HookSymbolAttribute::HookSymbolAttribute(intptr_t add)
-	{
-		Add = (void*)add;
-	}
+    HookSymbolAttribute::HookSymbolAttribute(intptr_t add)
+    {
+        Add = (void*)add;
+    }
 }

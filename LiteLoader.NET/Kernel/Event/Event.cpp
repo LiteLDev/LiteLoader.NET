@@ -7,8 +7,8 @@ extern void InitOtherEvents();
 
 void InitEvents()
 {
-	InitPlayerEvents();
-	InitBlockEvents();
-	InitEntityEvents();
-	InitOtherEvents();
+    InitPlayerEvents();
+    InitBlockEvents();
+    InitEntityEvents();
+    InitOtherEvents();
 }

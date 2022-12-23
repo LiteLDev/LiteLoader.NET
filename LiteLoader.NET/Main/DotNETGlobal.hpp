@@ -8,19 +8,19 @@
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
-#define CATCH																								\
-    catch (System::Exception ^ ex)																			\
-    {																										\
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());	\
-        GlobalClass::logger->error->WriteLine(ex->ToString());												\
-    }																										\
-    catch (...)																								\
-    {																										\
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");				\
+#define CATCH                                                                                                \
+    catch (System::Exception ^ ex)                                                                            \
+    {                                                                                                        \
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());    \
+        GlobalClass::logger->error->WriteLine(ex->ToString());                                                \
+    }                                                                                                        \
+    catch (...)                                                                                                \
+    {                                                                                                        \
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");                \
     }
 
-#define NULL_ARG_CHECK(arg)														\
-    if (ReferenceEquals(arg, nullptr))											\
+#define NULL_ARG_CHECK(arg)                                                        \
+    if (ReferenceEquals(arg, nullptr))                                            \
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
 #define VALUE_TUPLE System::ValueTuple
@@ -60,41 +60,41 @@ using namespace clix;
 
 inline String^ marshalString(std::string const& str)
 {
-	return marshalString<clix::CLI_Encoding::E_UTF8>(str);
+    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
 };
 
 inline std::string marshalString(String^ str)
 {
-	return marshalString<clix::CLI_Encoding::E_UTF8>(str);
+    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
 }
 
 inline uint64_t do_Hash(String^ str)
 {
-	uint64_t rval = 0;
-	for (int i = 0; i < str->Length; ++i)
-	{
-		if (i & 1)
-		{
-			rval ^= (~((rval << 11) ^ str[i] ^ (rval >> 5)));
-		}
-		else
-		{
-			rval ^= (~((rval << 7) ^ str[i] ^ (rval >> 3)));
-		}
-	}
-	return rval;
+    uint64_t rval = 0;
+    for (int i = 0; i < str->Length; ++i)
+    {
+        if (i & 1)
+        {
+            rval ^= (~((rval << 11) ^ str[i] ^ (rval >> 5)));
+        }
+        else
+        {
+            rval ^= (~((rval << 7) ^ str[i] ^ (rval >> 3)));
+        }
+    }
+    return rval;
 }
 
 template<typename T, typename U>
 inline T As(U u)
 {
-	return dynamic_cast<T>(u);
+    return dynamic_cast<T>(u);
 }
 
 template<typename T, typename U>
 inline bool Is(U u)
 {
-	return As<T>(u) != nullptr;
+    return As<T>(u) != nullptr;
 }
 
 #include "GlobalClass.hpp"

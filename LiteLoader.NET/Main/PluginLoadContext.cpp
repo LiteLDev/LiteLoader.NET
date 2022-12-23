@@ -4,51 +4,51 @@ extern Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% ass
 
 namespace LiteLoader::NET
 {
-	PluginLoadContext::PluginLoadContext(String^ pluginPath)
-	{
-		resolver = gcnew AssemblyDependencyResolver(pluginPath);
-		plugin = LoadFromAssemblyPath(pluginPath);
-	}
+    PluginLoadContext::PluginLoadContext(String^ pluginPath)
+    {
+        resolver = gcnew AssemblyDependencyResolver(pluginPath);
+        plugin = LoadFromAssemblyPath(pluginPath);
+    }
 
-	Assembly^ PluginLoadContext::Load(AssemblyName^ assemblyName)
-	{
-		Assembly^ ret = nullptr;
+    Assembly^ PluginLoadContext::Load(AssemblyName^ assemblyName)
+    {
+        Assembly^ ret = nullptr;
 
-		ret = ResolveAssembly(plugin, *assemblyName);
+        ret = ResolveAssembly(plugin, *assemblyName);
 
-		if (ret == nullptr)
-		{
-			auto path = resolver->ResolveAssemblyToPath(assemblyName);
+        if (ret == nullptr)
+        {
+            auto path = resolver->ResolveAssemblyToPath(assemblyName);
 
-			if (path != nullptr)
-			{
-				ret = LoadFromAssemblyPath(path);
-			}
-		}
+            if (path != nullptr)
+            {
+                ret = LoadFromAssemblyPath(path);
+            }
+        }
 
-		return ret;
-	}
+        return ret;
+    }
 
-	IntPtr PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
-	{
-		using System::IO::File;
-		using System::IO::Path;
+    IntPtr PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
+    {
+        using System::IO::File;
+        using System::IO::Path;
 
-		auto libraryPath = resolver->ResolveUnmanagedDllToPath(unmanagedDllName);
+        auto libraryPath = resolver->ResolveUnmanagedDllToPath(unmanagedDllName);
 
-		if (libraryPath != nullptr)
-		{
-			return LoadUnmanagedDllFromPath(libraryPath);
-		}
-		else
-		{
-			auto path = Path::Combine(LITELOADER_LIBRARY_DIR, unmanagedDllName);
-			if (File::Exists(path))
-			{
-				return LoadUnmanagedDllFromPath(path);
-			}
-		}
+        if (libraryPath != nullptr)
+        {
+            return LoadUnmanagedDllFromPath(libraryPath);
+        }
+        else
+        {
+            auto path = Path::Combine(LITELOADER_LIBRARY_DIR, unmanagedDllName);
+            if (File::Exists(path))
+            {
+                return LoadUnmanagedDllFromPath(path);
+            }
+        }
 
-		return IntPtr::Zero;
-	}
+        return IntPtr::Zero;
+    }
 }

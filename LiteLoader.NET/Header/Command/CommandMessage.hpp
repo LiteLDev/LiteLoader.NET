@@ -4,21 +4,21 @@
 #include <LiteLoader.NET/Header/MC/Types.hpp>
 
 namespace MC {
-	ref class CommandOrigin;
+    ref class CommandOrigin;
 }
 
 namespace MC 
 {
-	public ref class CommandMessage
-		:ClassTemplate<CommandMessage, ::CommandMessage> 
-	{
-	public:
-		__ctor(CommandMessage, ::CommandMessage);
-	public:
-		CommandMessage();
+    public ref class CommandMessage
+        :ClassTemplate<CommandMessage, ::CommandMessage> 
+    {
+    public:
+        __ctor(CommandMessage, ::CommandMessage);
+    public:
+        CommandMessage();
 
-		CommandMessage^ Create();
+        CommandMessage^ Create();
 
-		String^ GetMessage(CommandOrigin^ origin);
-	};
+        String^ GetMessage(CommandOrigin^ origin);
+    };
 }

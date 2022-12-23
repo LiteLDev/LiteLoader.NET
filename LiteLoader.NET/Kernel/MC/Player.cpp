@@ -311,25 +311,25 @@ namespace MC
 
     ///// <param name="DataItem">:default = {} (using null to substitute it.)</param>
     // inline bool Player::sendAddItemEntityPacket(unsigned long long runtimeID, int itemID, int stackSize, short aux, Vec3 pos, List<csFakeDataItem^>^ DataItem) {
-    //	if (DataItem == nullptr) {
-    //		return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate());
-    //	}
-    //	auto len = DataItem->Count;
-    //	vector<FakeDataItem> stdvector = {};
-    //	for (int i = 0; i < len; i++)
-    //		stdvector.emplace_back(*DataItem[i]->Translate());
-    //	return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate(), stdvector);
+    //    if (DataItem == nullptr) {
+    //        return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate());
+    //    }
+    //    auto len = DataItem->Count;
+    //    vector<FakeDataItem> stdvector = {};
+    //    for (int i = 0; i < len; i++)
+    //        stdvector.emplace_back(*DataItem[i]->Translate());
+    //    return NativePtr->sendAddItemEntityPacket(runtimeID, itemID, stackSize, aux, *pos->Translate(), stdvector);
     // }
     ///// <param name="DataItem">:default = {} (using null to substitute it.)</param>
     // inline bool Player::sendAddEntityPacket(unsigned long long runtimeID, System::String^ entityType, Vec3 pos, Vec3 rotation, List<csFakeDataItem^>^ DataItem) {
-    //	if (DataItem == nullptr) {
-    //		return NativePtr->sendAddEntityPacket(runtimeID, marshalString(entityType), *pos->Translate(), *rotation->Translate());
-    //	}
-    //	auto len = DataItem->Count;
-    //	vector<FakeDataItem> stdvector = {};
-    //	for (int i = 0; i < len; i++)
-    //		stdvector.emplace_back(*DataItem[i]->Translate());
-    //	return NativePtr->sendAddEntityPacket(runtimeID, marshalString(entityType), *pos->Translate(), *rotation->Translate(), stdvector);
+    //    if (DataItem == nullptr) {
+    //        return NativePtr->sendAddEntityPacket(runtimeID, marshalString(entityType), *pos->Translate(), *rotation->Translate());
+    //    }
+    //    auto len = DataItem->Count;
+    //    vector<FakeDataItem> stdvector = {};
+    //    for (int i = 0; i < len; i++)
+    //        stdvector.emplace_back(*DataItem[i]->Translate());
+    //    return NativePtr->sendAddEntityPacket(runtimeID, marshalString(entityType), *pos->Translate(), *rotation->Translate(), stdvector);
     // }
 
     inline bool Player::SendTransferPacket(String^ address, short port)
@@ -773,8 +773,8 @@ namespace MC
 
     //bool MC::Player::IsBouncing::get()
     //{
-    //	auto __ret = NativePtr->isBouncing();
-    //	return __ret;
+    //    auto __ret = NativePtr->isBouncing();
+    //    return __ret;
     //}
 
     bool Player::IsForcedRespawn::get()
@@ -860,7 +860,7 @@ namespace MC
 
     //void MC::Player::UnkVfn40()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_40();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_40();
     //}
 
     void Player::TeleportTo(Vec3 _0, bool _1, int _2, int _3, bool _4)
@@ -875,18 +875,18 @@ namespace MC
 
     //void MC::Player::VehicleTick()
     //{
-    //	((class ::Player*)NativePtr)->vehicleTick();
+    //    ((class ::Player*)NativePtr)->vehicleTick();
     //}
 
     //float MC::Player::GetRidingHeight()
     //{
-    //	auto __ret = ((class ::Player*)NativePtr)->getRidingHeight();
-    //	return __ret;
+    //    auto __ret = ((class ::Player*)NativePtr)->getRidingHeight();
+    //    return __ret;
     //}
 
     //void MC::Player::UnkVfn61()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_61();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_61();
     //}
 
     String^ Player::GetFormattedNameTag()
@@ -897,7 +897,7 @@ namespace MC
 
     //void MC::Player::UnkVfn68()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_68();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_68();
     //}
 
     float Player::GetCameraOffset()
@@ -908,7 +908,7 @@ namespace MC
 
     //void MC::Player::UnkVfn82()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_82();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_82();
     //}
 
     /*bool Player::CanInteractWithOtherEntitiesInGame()
@@ -919,7 +919,7 @@ namespace MC
 
     //void MC::Player::UnkVfn88()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_88();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_88();
     //}
 
     void Player::PlayerTouch(Player^ _0)
@@ -938,7 +938,7 @@ namespace MC
 
     //void MC::Player::UnkVfn95()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_95();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_95();
     //}
 
     void Player::SetSleeping(bool _0)
@@ -948,7 +948,7 @@ namespace MC
 
     //void MC::Player::UnkVfn98()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_98();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_98();
     //}
 
     bool Player::isBlocking()
@@ -959,29 +959,29 @@ namespace MC
 
     //void MC::Player::UnkVfn105()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_105();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_105();
     //}
 
     //void MC::Player::UnkVfn107()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_107();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_107();
     //}
 
     //void MC::Player::UnkVfn108()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_108();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_108();
     //}
 
     //void MC::Player::UnkVfn109()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_109();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_109();
     //}
 
     //MC::Actor^ MC::Player::findAttackTarget()
     //{
-    //	auto __ret = ((class ::Player*)NativePtr)->findAttackTarget();
-    //	if (__ret == nullptr) return nullptr;
-    //	return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
+    //    auto __ret = ((class ::Player*)NativePtr)->findAttackTarget();
+    //    if (__ret == nullptr) return nullptr;
+    //    return (__ret == nullptr) ? nullptr : gcnew ::MC::Actor((class ::Actor*)__ret);
     //}
 
     bool Player::IsValidTarget(Actor^ _0)
@@ -1072,7 +1072,7 @@ namespace MC
 
     //void MC::Player::UnkVfn181()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_181();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_181();
     //}
 
     ActorUniqueID Player::GetControllingPlayer()
@@ -1102,7 +1102,7 @@ namespace MC
 
     //void MC::Player::UnkVfn195()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_195();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_195();
     //}
 
     void Player::SendMotionPacketIfNeeded()
@@ -1128,12 +1128,12 @@ namespace MC
 
     //void MC::Player::UnkVfn220()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_220();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_220();
     //}
 
     //void MC::Player::UnkVfn221()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_221();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_221();
     //}
 
     float Player::GetMapDecorationRotation()
@@ -1194,12 +1194,12 @@ namespace MC
 
     //void MC::Player::UnkVfn246()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_246();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_246();
     //}
 
     //void MC::Player::UnkVfn249()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_249();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_249();
     //}
 
     bool Player::ShouldDropDeathLoot()
@@ -1210,12 +1210,12 @@ namespace MC
 
     //void MC::Player::UnkVfn261()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_261();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_261();
     //}
 
     //void MC::Player::UnkVfn269()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_269();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_269();
     //}
 
     void Player::OnSizeUpdated()
@@ -1225,7 +1225,7 @@ namespace MC
 
     //void MC::Player::UnkVfn278()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_278();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_278();
     //}
 
     void Player::SpawnAnim()
@@ -1268,7 +1268,7 @@ namespace MC
 
     //void MC::Player::UnkVfn307()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_307();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_307();
     //}
 
     bool Player::IsAlliedTo(Mob^ _0)
@@ -1280,7 +1280,7 @@ namespace MC
 
     //void MC::Player::UnkVfn311()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_311();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_311();
     //}
 
     void Player::DropEquipmentOnDeath()
@@ -1322,7 +1322,7 @@ namespace MC
 
     //void MC::Player::UnkVfn345()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_345();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_345();
     //}
 
     void Player::JumpFromGround()
@@ -1347,7 +1347,7 @@ namespace MC
 
     //void MC::Player::UnkVfn359()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_359();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_359();
     //}
 
     void Player::DestroyRegion()
@@ -1385,7 +1385,7 @@ namespace MC
 
     //void MC::Player::UnkVfn369()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_369();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_369();
     //}
 
     void Player::MoveView()
@@ -1400,12 +1400,12 @@ namespace MC
 
     //void MC::Player::UnkVfn374()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_374();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_374();
     //}
 
     //void MC::Player::UnkVfn375()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_375();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_375();
     //}
 
     void Player::Respawn()
@@ -1415,12 +1415,12 @@ namespace MC
 
     //void MC::Player::UnkVfn377()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_377();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_377();
     //}
 
     //void MC::Player::UnkVfn378()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_378();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_378();
     //}
 
     bool Player::HasResource(int _0)
@@ -1446,12 +1446,12 @@ namespace MC
 
     //void MC::Player::UnkVfn384()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_384();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_384();
     //}
 
     //void MC::Player::UnkVfn385()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_385();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_385();
     //}
 
     void Player::OpenTrading(ActorUniqueID _0, bool _1)
@@ -1467,12 +1467,12 @@ namespace MC
 
     //void MC::Player::UnkVfn388()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_388();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_388();
     //}
 
     //void MC::Player::UnkVfn389()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_389();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_389();
     //}
 
     void Player::OpenInventory()
@@ -1482,12 +1482,12 @@ namespace MC
 
     //void MC::Player::UnkVfn391()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_391();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_391();
     //}
 
     //void MC::Player::UnkVfn392()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_392();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_392();
     //}
 
     void Player::DisplayWhisperMessage(String^ _0, String^ _1, String^ _2, String^ _3)
@@ -1512,17 +1512,17 @@ namespace MC
 
     //void MC::Player::UnkVfn401()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_401();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_401();
     //}
 
     //void MC::Player::UnkVfn402()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_402();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_402();
     //}
 
     //void MC::Player::UnkVfn406()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_406();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_406();
     //}
 
     void Player::RegisterTrackedBoss(ActorUniqueID _0)
@@ -1550,7 +1550,7 @@ namespace MC
 
     //void MC::Player::UnkVfn413()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_413();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_413();
     //}
 
     void Player::AddExperience(int _0)
@@ -1600,7 +1600,7 @@ namespace MC
 
     //void MC::Player::UnkVfn441()
     //{
-    //	((class ::Player*)NativePtr)->__unk_vfn_441();
+    //    ((class ::Player*)NativePtr)->__unk_vfn_441();
     //}
 
     void Player::OnMovePlayerPacketNormal(Vec3 _0, Vec2 _1, float _2)

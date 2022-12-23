@@ -4,27 +4,27 @@
 
 namespace MC
 {
-	ref class ItemStack;
-	value class Vec3;
+    ref class ItemStack;
+    value class Vec3;
 }
 
 namespace MC
 {
-	public
-	ref class Container : ClassTemplate<Container, ::Container>
-	{
-	public:
-		__ctor(Container, ::Container);
+    public
+    ref class Container : ClassTemplate<Container, ::Container>
+    {
+    public:
+        __ctor(Container, ::Container);
 
-		inline String^ GetTypeName();
-		inline bool AddItem_s(ItemStack^ item);
-		inline bool AddItemToFirstEmptySlot_s(ItemStack^ item);
-		inline bool RemoveItem_s(int slot, unsigned int number);
-		inline ItemStack^ GetSlot(int slot);
-		List<ItemStack^>^ GetAllSlots();
-		inline int GetSize();
-		inline bool HasContainer(Vec3 pos, int dim);
-		inline Container^ GetContainerAt(Vec3 pos, int dim);
+        inline String^ GetTypeName();
+        inline bool AddItem_s(ItemStack^ item);
+        inline bool AddItemToFirstEmptySlot_s(ItemStack^ item);
+        inline bool RemoveItem_s(int slot, unsigned int number);
+        inline ItemStack^ GetSlot(int slot);
+        List<ItemStack^>^ GetAllSlots();
+        inline int GetSize();
+        inline bool HasContainer(Vec3 pos, int dim);
+        inline Container^ GetContainerAt(Vec3 pos, int dim);
 
 #ifdef MANUAL_MAINTENANCE
 
@@ -104,5 +104,5 @@ namespace MC
         static ::System::String^ GetContainerTypeName(MC::ContainerType _0);
 
 #endif // INCLUDE_MCAPI
-	};
+    };
 } // namespace MC
