@@ -53,7 +53,7 @@ namespace LiteLoader::RemoteCall::Internal {
             TypeInfo returnType;
             array<TypeInfo>^ parameters;
         };
-        static Pair<bool, ValidType> _tryGetValidType(System::Type^ t);
+        static VALUE_TUPLE<bool, ValidType> _tryGetValidType(System::Type^ t);
         static FunctionInfo::TypeInfo _generateTypeInfo(System::Type^ t);
 
         static void IL_ManagedObjectToValueType(ILGenerator^ il, FunctionInfo::TypeInfo% info, Dictionary<int, LocalBuilder^>% locals);

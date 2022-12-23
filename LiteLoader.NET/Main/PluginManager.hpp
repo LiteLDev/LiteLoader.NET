@@ -20,5 +20,3 @@ namespace LiteLoader::NET {
         static Dictionary<String^, PluginTuple^>^ ManagedPluginData = gcnew Dictionary<String^, PluginTuple^>;
     };
 }
-
-

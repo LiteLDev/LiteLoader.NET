@@ -707,7 +707,7 @@
     <ClInclude Include="Header\Core\SecondaryRankPtr.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\NativeCallbackConverter_old.hpp">
+    <ClInclude Include="Tools\NativeCallbackConverter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\clix.hpp">
@@ -946,9 +946,6 @@
     </ClInclude>
     <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp">
       <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Core\Pair.hpp">
-      <Filter>Header\Core</Filter>
     </ClInclude>
     <ClInclude Include="Header\Event\PlayerEvents.hpp">
       <Filter>Header\Event</Filter>

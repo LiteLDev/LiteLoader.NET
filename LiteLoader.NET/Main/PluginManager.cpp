@@ -42,7 +42,7 @@ namespace LiteLoader::NET
     }
     Plugin^ PluginManager::getPlugin(System::IntPtr handle)
     {
-        auto pPlugin = ::ll::getPlugin((HMODULE)(void*)handle);
+        auto pPlugin = ::ll::getPlugin((HMODULE)handle.ToPointer());
         if (pPlugin == nullptr)
             return nullptr;
         return gcnew Plugin(pPlugin);

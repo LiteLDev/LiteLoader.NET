@@ -52,7 +52,7 @@ namespace LiteLoader::Schedule
     inline ScheduleTask^ ScheduleAPI::Delay(TaskDelegate^ task, unsigned long long tickDelay, System::IntPtr handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::delay(
-            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)(void*)handle));
+            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)handle.ToPointer()));
 
         _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
 
@@ -72,7 +72,7 @@ namespace LiteLoader::Schedule
     inline ScheduleTask^ ScheduleAPI::Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::repeat(
-            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)(void*)handle)); 
+            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)handle.ToPointer()));
 
         _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
 
@@ -92,7 +92,7 @@ namespace LiteLoader::Schedule
     inline ScheduleTask^ ScheduleAPI::DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::delayRepeat(
-            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)(void*)handle));
+            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)handle.ToPointer()));
 
         _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
 
@@ -107,7 +107,7 @@ namespace LiteLoader::Schedule
     inline ScheduleTask^ ScheduleAPI::NextTick(TaskDelegate^ task, System::IntPtr handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::nextTick(
-            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)(void*)handle));
+            static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)handle.ToPointer()));
 
         _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
 

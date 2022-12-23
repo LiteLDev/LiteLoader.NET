@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Extra/mutex.hpp>
 #include <RemoteCallAPI.h>
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
-#include <LiteLoader.NET/Tools/NativeCallbackConverter_old.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 #include <LiteLoader.NET/Header/MC/CompoundTag.hpp>

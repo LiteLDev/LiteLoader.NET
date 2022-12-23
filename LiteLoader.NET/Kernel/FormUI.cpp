@@ -48,9 +48,6 @@ namespace LiteLoader::Form
             delfunc(player);
         }
         CATCH
-        {
-            delete player;
-        }
     }
 
     Button::pButtonCallback Button::ToNativeCallback()
@@ -99,7 +96,6 @@ namespace LiteLoader::Form
             delfunc(player, a0);
         }
         CATCH
-        delete player;
     }
 
     bool SimpleForm::SendTo(MC::Player^ player, SimpleFormCallback^ callback)
@@ -168,7 +164,6 @@ namespace LiteLoader::Form
             delfunc(player, isConfirm);
         }
         CATCH
-        delete player;
     }
 
     bool ModalForm::SendTo(MC::Player^ player, ModalFormCallback^ callback)
@@ -238,7 +233,7 @@ namespace LiteLoader::Form
 
     inline bool CustomFormElement::GetBool()
     {
-        if (String::IsNullOrEmpty(Value) || Value == "0" || Value->ToLower() == "false")
+        if (String::IsNullOrWhiteSpace(Value) || Value == "0" || Value->ToUpperInvariant() == "FALSE")
             return false;
         return true;
     }
@@ -445,7 +440,7 @@ namespace LiteLoader::Form
         NativePtr = new ::Form::CustomForm(marshalString(Title));
         for each (auto var in elements)
         {
-            auto p = var.Value;
+            auto p = var.Item2;
             switch (p->ElementType)
             {
             case CustomFormElement::Type::Label:
@@ -529,9 +524,9 @@ namespace LiteLoader::Form
     {
         for each (auto% var in elements)
         {
-            if (var.Key == name)
+            if (var.Item1 == name)
             {
-                return var.Value;
+                return var.Item2;
             }
         }
         return nullptr;
@@ -539,7 +534,7 @@ namespace LiteLoader::Form
 
     inline CustomFormElement^ CustomForm::GetElement(int index)
     {
-        return elements->Count > index ? elements[index].Value : nullptr;
+        return elements->Count > index ? elements[index].Item2 : nullptr;
     }
 
 

@@ -65,7 +65,7 @@ namespace LiteLoader::RemoteCall {
 
             inline NATIVECALLBACK::RemoteCall::ValueType _nativeFunc(std::vector<::RemoteCall::ValueType> vec);
         public:
-            static Pair<ExportFunc^, delNative^> Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del);
+            static VALUE_TUPLE<ExportFunc^, delNative^> Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del);
 
             virtual String^ ToString() override
             {
@@ -73,7 +73,7 @@ namespace LiteLoader::RemoteCall {
             }
         };
 
-        static Pair<bool, ValidType> _tryGetValidType(System::Type^ t);
+        static VALUE_TUPLE<bool, ValidType> _tryGetValidType(System::Type^ t);
 
         static FunctionInfo::TypeInfo _generateTypeInfo(System::Type^ t);
 
@@ -100,8 +100,8 @@ namespace LiteLoader::RemoteCall {
             }
 
             auto exportfunc = ExportFunc::Create(nameSpace, funcName, funcinfo, func);
-            ExportFunctions->Add(exportfunc.Key);
-            auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(exportfunc.Value));
+            ExportFunctions->Add(exportfunc.Item1);
+            auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(exportfunc.Item2));
             return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, CALLING_MODULE);
 
             //debug
@@ -115,9 +115,9 @@ namespace LiteLoader::RemoteCall {
 #include <stdint.h>
 
 namespace LiteLoader::RemoteCall {
-    Pair<bool, ExportFunctionRegister::ValidType> ExportFunctionRegister::_tryGetValidType(System::Type^ t)
+    VALUE_TUPLE<bool, ExportFunctionRegister::ValidType> ExportFunctionRegister::_tryGetValidType(System::Type^ t)
     {
-        using RTN = Pair<bool, ValidType>;
+        using RTN = VALUE_TUPLE<bool, ValidType>;
 
         if (t == double::typeid)
             return RTN(true, ValidType::Double);
@@ -190,14 +190,14 @@ namespace LiteLoader::RemoteCall {
     {
 
         auto type = _tryGetValidType(t);
-        if (!type.Key)
+        if (!type.Item1)
             throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
         auto ret = FunctionInfo::TypeInfo();
         ret._type = t;
-        ret.type = type.Value;
+        ret.type = type.Item2;
 
-        switch (type.Value)
+        switch (type.Item2)
         {
         case LiteLoader::RemoteCall::ExportFunctionRegister::ValidType::List:
         {
@@ -489,11 +489,11 @@ namespace LiteLoader::RemoteCall {
         :nameSpace(nameSpace), funcName(funcName), info(info), func(del)
     {
     }
-    inline Pair<ExportFunctionRegister::ExportFunc^, ExportFunctionRegister::delNative^> ExportFunctionRegister::ExportFunc::Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del) {
+    inline VALUE_TUPLE<ExportFunctionRegister::ExportFunc^, ExportFunctionRegister::delNative^> ExportFunctionRegister::ExportFunc::Create(String^ nameSpace, String^ funcName, FunctionInfo^ info, System::Delegate^ del) {
         auto instance = gcnew ExportFunc(nameSpace, funcName, info, del);
         auto delnative = gcnew delNative(instance, &ExportFunc::_nativeFunc);
         instance->gch = GCHandle::Alloc(delnative);
-        return Pair<ExportFunc^, delNative^>(instance, delnative);
+        return VALUE_TUPLE<ExportFunc^, delNative^>(instance, delnative);
     }
     inline NATIVECALLBACK::RemoteCall::ValueType ExportFunctionRegister::ExportFunc::_nativeFunc(std::vector<::RemoteCall::ValueType> vec) {
         auto args = gcnew array<Object^>(info->parameters->Length);

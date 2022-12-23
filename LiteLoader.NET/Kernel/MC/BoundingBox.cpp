@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 #include <LiteLoader.NET/Header/MC/AABB.hpp>
 
-#include <LiteLoader.NET/Tools/NativeCallbackConverter_old.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
 
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
 

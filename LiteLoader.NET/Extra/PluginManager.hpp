@@ -34,4 +34,3 @@ public:
 
 LIAPI bool RegisterPlugin(HMODULE handle, std::string name, std::string introduction, LL::Version version,
     std::map<std::string, std::string> others);
-

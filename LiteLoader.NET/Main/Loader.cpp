@@ -257,7 +257,7 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 
     try
     {
-        reinterpret_cast<void(*)()>((void*)method->MethodHandle.GetFunctionPointer())();
+        reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
 
         return true;
     }

@@ -63,7 +63,7 @@ namespace LiteLoader::RemoteCall
         auto pair = _callback_converter::create<RemoteCallCallbackHelper::_invoke_managed_func>(callback);
 
         CallbackData->Add(do_Hash(nameSpace) ^ do_Hash(funcName), pair.second);
-        return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, (HMODULE)(void*)handle);
+        return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, (HMODULE)handle.ToPointer());
     }
 
     RemoteCallAPI::CallbackFn^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
@@ -102,14 +102,14 @@ namespace LiteLoader::RemoteCall
         return ::RemoteCall::removeNameSpace(marshalString(nameSpace));
     }
 
-    bool RemoteCallAPI::RemoveFuncs(List<Pair<String^, String^>>^ funcs)
+    bool RemoteCallAPI::RemoveFuncs(List<VALUE_TUPLE<String^, String^>>^ funcs)
     {
         auto count = (size_t)funcs->Count;
         std::vector<std::pair<std::string, std::string>> stdvector;
         for each (auto % item in funcs)
         {
-            stdvector.emplace_back(marshalString(item.Key), marshalString(item.Value));
-            auto hashval = do_Hash(item.Key) ^ do_Hash(item.Value);
+            stdvector.emplace_back(marshalString(item.Item1), marshalString(item.Item2));
+            auto hashval = do_Hash(item.Item1) ^ do_Hash(item.Item2);
             if (CallbackData->ContainsKey(hashval))
             {
                 auto p = CallbackData[hashval];

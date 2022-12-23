@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 #include "Global.hpp"
-#include <LiteLoader.NET/Header/Core/Pair.hpp>
 #include <LiteLoader.NET/Header/Core/Exceptions.hpp>
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
@@ -53,7 +52,6 @@ using System::Runtime::InteropServices::OutAttribute;
 using System::Runtime::InteropServices::InAttribute;
 using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
-using LiteLoader::NET::Pair;
 
 #include <LiteLoader.NET/Tools/clix.hpp>
 using namespace clix;

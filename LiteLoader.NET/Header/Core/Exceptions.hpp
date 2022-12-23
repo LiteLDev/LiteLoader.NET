@@ -2,15 +2,15 @@
 namespace LiteLoader::NET
 {
     public ref class LiteLoaderDotNETException
-        : public System::Exception
+        : public System::ApplicationException
     {
     public:
         LiteLoaderDotNETException()
-            : Exception()
+            : ApplicationException()
         {
         }
         LiteLoaderDotNETException(System::String^ message)
-            : Exception(message)
+            : ApplicationException(message)
         {
         }
     };

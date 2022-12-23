@@ -98,10 +98,10 @@ namespace MC
         return gcnew SerializedSkin(&NativePtr->getSkin());
     }
 
-    inline Pair<BlockPos, int> Player::RespawnPosition::get()
+    inline VALUE_TUPLE<BlockPos, int> Player::RespawnPosition::get()
     {
         auto& p = NativePtr->getRespawnPosition();
-        return Pair<MC::BlockPos, int>(
+        return VALUE_TUPLE<MC::BlockPos, int>(
             MC::BlockPos(p.first), p.second);
     }
 

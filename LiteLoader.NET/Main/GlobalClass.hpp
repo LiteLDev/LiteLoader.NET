@@ -16,4 +16,3 @@ internal:
     static GlobalClass() { Init(); }
     static HMODULE GetCurrentModule(Assembly^ asm_);
 };
-

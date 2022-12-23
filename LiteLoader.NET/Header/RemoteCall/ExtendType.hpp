@@ -115,10 +115,8 @@ namespace LiteLoader::RemoteCall {
             :ClassTemplate(::RemoteCall::WorldPosType(pos, dimId)) {}
         WorldPosType(MC::Vec3 pos)
             :ClassTemplate(::RemoteCall::WorldPosType(pos)) {}
-        //WorldPosType(KeyValuePair<MC::Vec3, int> pos)
-        //    :ClassTemplate(::RemoteCall::WorldPosType(pos.Key, pos.Value)) {}
-        WorldPosType(Pair<MC::Vec3, int> pos)
-            :ClassTemplate(::RemoteCall::WorldPosType(pos.Key, pos.Value)) {}
+        WorldPosType(VALUE_TUPLE<MC::Vec3, int> pos)
+            :ClassTemplate(::RemoteCall::WorldPosType(pos.Item1, pos.Item2)) {}
 
         property Vec3% Pos {
             Vec3% get() { return *(Vec3*)&NativePtr->pos; }
@@ -128,12 +126,12 @@ namespace LiteLoader::RemoteCall {
             MC::BlockPos get() { return MC::BlockPos(MC::Vec3(NativePtr->pos)); }
         }
 
-        property Pair<MC::Vec3, int> PosPair {
-            Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId); }
+        property VALUE_TUPLE<MC::Vec3, int> PosPair {
+            VALUE_TUPLE<MC::Vec3, int> get() { return VALUE_TUPLE<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId); }
         }
 
-        property Pair<MC::BlockPos, int> BlockPosPair {
-            Pair<MC::BlockPos, int> get() { return Pair<MC::BlockPos, int>(BlockPos, NativePtr->dimId); }
+        property VALUE_TUPLE<MC::BlockPos, int> BlockPosPair {
+            VALUE_TUPLE<MC::BlockPos, int> get() { return VALUE_TUPLE<MC::BlockPos, int>(BlockPos, NativePtr->dimId); }
         }
 
         property int DimId {
@@ -153,8 +151,8 @@ namespace LiteLoader::RemoteCall {
             :ClassTemplate(::RemoteCall::BlockPosType(pos)) {}
         BlockPosType(MC::BlockPos pos, int dimId)
             :ClassTemplate(::RemoteCall::BlockPosType(pos, dimId)) {}
-        BlockPosType(Pair<MC::BlockPos, int> pos)
-            :ClassTemplate(::RemoteCall::BlockPosType(pos.Key, pos.Value)) {}
+        BlockPosType(VALUE_TUPLE<MC::BlockPos, int> pos)
+            :ClassTemplate(::RemoteCall::BlockPosType(pos.Item1, pos.Item2)) {}
 
         property MC::BlockPos Pos {
             MC::BlockPos get() { return MC::BlockPos(NativePtr->pos); }
@@ -165,12 +163,12 @@ namespace LiteLoader::RemoteCall {
             MC::Vec3 get() { return NativePtr->pos.toVec3(); }
         }
 
-        property Pair<MC::Vec3, int> Vec3Pair {
-            Pair<MC::Vec3, int> get() { return Pair<MC::Vec3, int>(Vec3, NativePtr->dimId); }
+        property VALUE_TUPLE<MC::Vec3, int> Vec3Pair {
+            VALUE_TUPLE<MC::Vec3, int> get() { return VALUE_TUPLE<MC::Vec3, int>(Vec3, NativePtr->dimId); }
         }
 
-        property Pair<MC::BlockPos, int> BlockPosPair {
-            Pair<MC::BlockPos, int> get() { return Pair<MC::BlockPos, int>(MC::BlockPos(NativePtr->pos), NativePtr->dimId); }
+        property VALUE_TUPLE<MC::BlockPos, int> BlockPosPair {
+            VALUE_TUPLE<MC::BlockPos, int> get() { return VALUE_TUPLE<MC::BlockPos, int>(MC::BlockPos(NativePtr->pos), NativePtr->dimId); }
         }
 
         property int DimId {

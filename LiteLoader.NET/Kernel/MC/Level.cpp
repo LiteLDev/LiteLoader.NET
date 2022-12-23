@@ -226,10 +226,10 @@ inline bool Level::RuncmdAs(Player ^ pl, String^ cmd)
 {
     return ::Level::runcmdAs(pl->NativePtr, marshalString(cmd));
 }
-inline Pair<bool, String^> Level::RuncmdEx(String^ cmd)
+inline VALUE_TUPLE<bool, String^> Level::RuncmdEx(String^ cmd)
 {
     auto& kvpair = ::Level::runcmdEx(marshalString(cmd));
-    return Pair<bool, String^>(kvpair.first, marshalString(kvpair.second));
+    return VALUE_TUPLE<bool, String^>(kvpair.first, marshalString(kvpair.second));
 }
 inline bool Level::Runcmd(String^ cmd)
 {

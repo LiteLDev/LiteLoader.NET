@@ -185,7 +185,7 @@ public:
 
     // For compatibility
     inline static bool RuncmdAs(Player ^ pl, String ^ cmd);
-    inline static Pair<bool, String ^> RuncmdEx(String ^ cmd);
+    inline static VALUE_TUPLE<bool, String ^> RuncmdEx(String ^ cmd);
     inline static bool Runcmd(String ^ cmd);
 
 

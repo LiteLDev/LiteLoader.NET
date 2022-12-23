@@ -60,9 +60,9 @@ namespace MC
         {
             int get();
         }
-        property Pair<MC::BlockPos, int> RespawnPosition
+        property VALUE_TUPLE<MC::BlockPos, int> RespawnPosition
         {
-            Pair<MC::BlockPos, int> get();
+            VALUE_TUPLE<MC::BlockPos, int> get();
         };
         property float AvgPacketLoss
         {

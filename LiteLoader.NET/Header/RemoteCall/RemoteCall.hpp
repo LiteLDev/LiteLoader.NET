@@ -83,7 +83,7 @@ namespace LiteLoader::RemoteCall
         /// <returns></returns>
         static bool RemoveFunc(String^ nameSpace, String^ funcName);
         static bool RemoveNameSpace(String^ nameSpace);
-        static bool RemoveFuncs(List<Pair<String^, String^>>^ funcs);
+        static bool RemoveFuncs(List<VALUE_TUPLE<String^, String^>>^ funcs);
 
 
         /// <summary>
@@ -441,9 +441,9 @@ namespace LiteLoader::RemoteCall
             }
 
         public:
-            static Pair<RemoteCallHelper^, CallbackFn^> Create(::RemoteCall::CallbackFn const& p) {
+            static VALUE_TUPLE<RemoteCallHelper^, CallbackFn^> Create(::RemoteCall::CallbackFn const& p) {
                 auto instance = gcnew RemoteCallHelper(p);
-                return Pair< RemoteCallHelper^, CallbackFn^>(instance, gcnew CallbackFn(instance, &RemoteCallHelper::Invoke));
+                return VALUE_TUPLE< RemoteCallHelper^, CallbackFn^>(instance, gcnew CallbackFn(instance, &RemoteCallHelper::Invoke));
             }
         };
 

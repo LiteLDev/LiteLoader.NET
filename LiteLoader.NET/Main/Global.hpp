@@ -6,4 +6,3 @@
 __declspec(selectany) HMODULE MODULE = nullptr;
 
 #define NATIVECALLBACK
-

@@ -3,7 +3,7 @@
 #include "MC/ServerPlayer.hpp"
 #include "MC/Player.hpp"
 
-#include <LiteLoader.NET/Tools/NativeCallbackConverter_old.hpp>
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
 //#define DEBUG
@@ -474,7 +474,7 @@ namespace LiteLoader::Form
     public
         ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
     {
-        using kvPair = Pair<String^, CustomFormElement^>;
+        using kvPair = VALUE_TUPLE<String^, CustomFormElement^>;
         List<kvPair>^ elements = gcnew List<kvPair>;
 
     public:
