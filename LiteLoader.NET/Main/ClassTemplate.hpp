@@ -152,7 +152,7 @@ public:
 		nativePtr = (NATIVECLASS*)p;
 		this->ownsNativeInstance = ownsNativeInstance;
 	}
-	virtual void _dtor(void* ptr)
+	virtual void Destructor(void* ptr)
 	{
 		reinterpret_cast<NATIVECLASS*>(ptr)->~NATIVECLASS();
 	}

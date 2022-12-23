@@ -85,7 +85,7 @@ public:
             BaseClass::NativePtr = value;                           \
         }                                                           \
     }                                                               \
-    virtual void _dtor(void* ptr) override                          \
+    virtual void Destructor(void* ptr) override                     \
     {                                                               \
         reinterpret_cast<NativeClass*>(ptr)->~RefClass();           \
     }                                                               \

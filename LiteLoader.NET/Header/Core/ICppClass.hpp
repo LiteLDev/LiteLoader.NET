@@ -9,6 +9,6 @@ namespace LiteLoader::NET
 			virtual System::IntPtr get();
 		};
 
-		virtual void _dtor(void* ptr);
+		virtual void Destructor(void* ptr);
 	};
 }
