@@ -1,6 +1,6 @@
 #include "DynamicImportFunctionRegister.hpp"
 
-namespace LLNET::RemoteCall::Internal
+namespace LiteLoader::RemoteCall::Internal
 {
 	inline void* DynamicImportFunctionRegister::ImportedFunc::_Invoke(void* vec) {
 		try 

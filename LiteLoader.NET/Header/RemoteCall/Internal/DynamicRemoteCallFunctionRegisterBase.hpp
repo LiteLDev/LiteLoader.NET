@@ -5,7 +5,7 @@ using namespace System::Reflection::Emit;
 
 #define oc OpCodes
 
-namespace LLNET::RemoteCall::Internal {
+namespace LiteLoader::RemoteCall::Internal {
 	public ref class DynamicRemoteCallFunctionRegisterBase
 	{
 	public:

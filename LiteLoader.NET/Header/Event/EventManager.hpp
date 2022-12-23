@@ -20,7 +20,7 @@ constexpr int IS_REF_AND_IGNORECANCELLED = IS_REF | IS_IGNORECANCELLED;
 constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | IS_IGNORECANCELLED;
 
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
     public ref class EventManager abstract sealed
     {

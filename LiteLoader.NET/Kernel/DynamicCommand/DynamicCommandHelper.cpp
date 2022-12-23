@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Header/DynamicCommand/ICommand.hpp>
 #include <EventAPI.h>
 
-namespace LLNET::DynamicCommand::Internal
+namespace LiteLoader::DynamicCommand::Internal
 {
 	void CommandManager::NativeDynamicCommandCallback::NativeCallback(::DynamicCommand const& cmd, ::CommandOrigin const& origin, ::CommandOutput& output, std::unordered_map<std::string, ::DynamicCommand::Result>& results)
 	{

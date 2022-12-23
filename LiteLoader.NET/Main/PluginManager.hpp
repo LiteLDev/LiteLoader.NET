@@ -1,7 +1,7 @@
 #pragma once
 #include <LiteLoader.NET/Header/LLAPI.hpp>
-namespace LLNET {
-	using namespace LLNET::LL;
+namespace LiteLoader::NET {
+	using namespace LiteLoader;
 	private ref class PluginManager __static
 	{
 	public:

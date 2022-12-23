@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Header/Logger/LoggerManager.hpp>
 
 #pragma managed
-namespace LLNET::Logger {
+namespace LiteLoader::Logger {
 	using msclr::interop::marshal_as;
 
 	Logger::Logger(System::String^ title)

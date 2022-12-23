@@ -1,6 +1,6 @@
 #include <LiteLoader.NET/Header/I18n.hpp>
 
-namespace LLNET::I18N
+namespace LiteLoader::I18N
 {
 	I18nBase::_LangData^ I18nBase::LangData::get()
 	{

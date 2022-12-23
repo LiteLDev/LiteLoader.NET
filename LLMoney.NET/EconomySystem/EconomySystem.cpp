@@ -1,6 +1,6 @@
 #include "EconomySystem.hpp"
 
-using namespace LLNET::LL;
+using namespace LiteLoader;
 
 money_t LLMoney::EconomySystem::GetMoney(_xuid_t player)
 {

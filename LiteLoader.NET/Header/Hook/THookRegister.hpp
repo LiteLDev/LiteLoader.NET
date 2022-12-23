@@ -3,9 +3,9 @@
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <LiteLoader.NET/Header/Core/SecondaryRankPtr.hpp>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
-	using LLNET::Core::SecondaryRankPtr;
+	using LiteLoader::NET::SecondaryRankPtr;
 
 	public ref class THookRegister
 	{

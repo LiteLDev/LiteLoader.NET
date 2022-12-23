@@ -2,7 +2,7 @@
 #include "include.hpp"
 #include "Value.hpp"
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	public
 	ref class Valuetype : ClassTemplate<Valuetype, ::RemoteCall::ValueType>
 	{
@@ -211,21 +211,21 @@ namespace LLNET::RemoteCall {
 		static operator Dictionary<String^, Valuetype^> ^ (Valuetype^ v) {
 			ObjectType^ dic;
 			if (!v->AsObjectType(dic))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return dic->value;
 		}
 
 		static operator List<Valuetype^> ^ (Valuetype^ v) {
 			ArrayType^ arr;
 			if (!v->AsArrayType(arr))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return arr->value;
 		}
 
 		static operator Value ^ (Valuetype^ v) {
 			Value^ val;
 			if (!v->AsValue(val))
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			return val;
 		}
 
@@ -617,7 +617,7 @@ namespace LLNET::RemoteCall {
 			auto attrs
 				= (T::typeid)->GetCustomAttributes(RemoteCallValueTypeAttribute::typeid, false);
 			if (attrs->Length == 0)
-				throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+				throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			auto attr = static_cast<RemoteCallValueTypeAttribute^>(attrs[0]);
 			switch (attr->type)
 			{
@@ -625,7 +625,7 @@ namespace LLNET::RemoteCall {
 			case InstanceType::ArrayType:
 			{
 				if (NativePtr->value.index() != (size_t)InstanceType::ArrayType)
-					throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+					throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 				auto& vec = std::get<::RemoteCall::ValueType::ArrayType>(NativePtr->value);
 				auto ret = gcnew ArrayType(Parse(vec));
@@ -636,7 +636,7 @@ namespace LLNET::RemoteCall {
 			case InstanceType::ObjectType:
 			{
 				if (NativePtr->value.index() != (size_t)InstanceType::ObjectType)
-					throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+					throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 				auto& umap = std::get<::RemoteCall::ValueType::ObjectType>(NativePtr->value);
 				auto ret = gcnew ObjectType(Parse(umap));
@@ -647,7 +647,7 @@ namespace LLNET::RemoteCall {
 			case InstanceType::Value:
 			{
 				if (NativePtr->value.index() != (size_t)InstanceType::Value)
-					throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+					throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 				auto& val = std::get<::RemoteCall::Value>(NativePtr->value);
 				auto ret = gcnew Value(val);
@@ -656,7 +656,7 @@ namespace LLNET::RemoteCall {
 			break;
 
 			}
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 		}
 
 		bool AsArrayType([Out] ArrayType^% v) {

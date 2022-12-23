@@ -11,7 +11,7 @@
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 
-namespace LLNET::Form
+namespace LiteLoader::Form
 {
     ref class CustomForm;
 
@@ -533,4 +533,4 @@ namespace LLNET::Form
 
         List<NativeCallbackHandler^>^ handlers = gcnew List<NativeCallbackHandler^>;
     };
-} // namespace LLNET::Form
+} // namespace LiteLoader::Form

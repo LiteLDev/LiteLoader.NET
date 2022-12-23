@@ -6,7 +6,7 @@
 #include "HookHelper.hpp"
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	generic<typename TDelegate> where TDelegate : System::Delegate
 		public ref class SHookBase abstract

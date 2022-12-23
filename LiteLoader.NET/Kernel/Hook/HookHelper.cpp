@@ -3,7 +3,7 @@
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 #include <HookAPI.h>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	generic<typename TDelegate>
 	where TDelegate : Delegate
@@ -49,7 +49,7 @@ namespace LLNET::Hook
 		}
 
 		if (pOriginal == nullptr)
-			throw gcnew LLNET::Core::HookFailedException;
+			throw gcnew LiteLoader::NET::HookFailedException;
 
 
 
@@ -59,14 +59,14 @@ namespace LLNET::Hook
 
 		HookedFunctionDataType^ data = nullptr;
 
-		if (PluginOwnData::HookedFunction->ContainsKey(hmodule))
+		if (LiteLoader::NET::PluginOwnData::HookedFunction->ContainsKey(hmodule))
 		{
-			data = LLNET::PluginOwnData::HookedFunction[hmodule];
+			data = LiteLoader::NET::PluginOwnData::HookedFunction[hmodule];
 		}
 		else
 		{
 			data = gcnew HookedFunctionDataType;
-			PluginOwnData::HookedFunction->Add(hmodule, data);
+			LiteLoader::NET::PluginOwnData::HookedFunction->Add(hmodule, data);
 		}
 
 		data->Add(System::ValueTuple<Delegate^, IntPtr, IntPtr, IntPtr>{

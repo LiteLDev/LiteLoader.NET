@@ -5,13 +5,13 @@
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommand.hpp>
 #include <DynamicCommandAPI.h>
 
-namespace LLNET::DynamicCommand {
+namespace LiteLoader::DynamicCommand {
 	interface class ICommand;
 	interface class ICommandEvent;
 	interface class ICommandData;
 }
 
-namespace LLNET::DynamicCommand
+namespace LiteLoader::DynamicCommand
 {
 	public ref class DynamicCommandInstance : ClassTemplate<DynamicCommandInstance, ::DynamicCommandInstance>
 	{
@@ -39,7 +39,7 @@ namespace LLNET::DynamicCommand
 		/// <summary>
 		/// unique_ptr&lt;std::string&gt;
 		/// </summary>
-		property List<LLNET::Core::Std::string^>^ EnumNames { List<LLNET::Core::Std::string^>^ get(); /*void set(List<LLNET::Core::Std::string^>^ val);*/ };
+		property List<LiteLoader::NET::Std::string^>^ EnumNames { List<LiteLoader::NET::Std::string^>^ get(); /*void set(List<LiteLoader::NET::Std::string^>^ val);*/ };
 
 		//property List<String^>^ EnumValues {
 		//	List<String^>^ get();

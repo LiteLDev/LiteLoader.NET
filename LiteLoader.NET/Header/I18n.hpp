@@ -4,7 +4,7 @@
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 #include <LiteLoader.NET/Tools/PropertryHelper.hpp>
 
-namespace LLNET::I18N
+namespace LiteLoader::I18N
 {
 	public ref class I18nBase abstract : ClassTemplate<I18nBase, ::I18nBase>
 	{

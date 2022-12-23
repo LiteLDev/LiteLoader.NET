@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommand.hpp>
 
-namespace LLNET::DynamicCommand {
+namespace LiteLoader::DynamicCommand {
 	using System::AttributeUsageAttribute;
 	using System::AttributeTargets;
 	using System::Attribute;

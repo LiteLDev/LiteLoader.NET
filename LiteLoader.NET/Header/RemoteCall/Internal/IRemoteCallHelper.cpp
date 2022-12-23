@@ -13,7 +13,7 @@ using __BlockType = ::RemoteCall::BlockType;
 using __NbtType = ::RemoteCall::NbtType;
 
 
-namespace LLNET::RemoteCall::Internal
+namespace LiteLoader::RemoteCall::Internal
 {
 
 	__INLINE void* IRemoteCallHelper::_create_ValueType_by_double(double val) {

@@ -6,24 +6,24 @@
 #include <LiteLoader.NET/Header/Event/EventListener.hpp>
 //#include <LiteLoader.NET/Header/DynamicCommand/ICommand.hpp>
 
-namespace LLNET::DynamicCommand
+namespace LiteLoader::DynamicCommand
 {
 	interface class ICommand;
 	ref class DynamicCommandInstance;
 }
 
-namespace LLNET::Schedule
+namespace LiteLoader::Schedule
 {
 	ref class ScheduleTask;
 }
 
 
-namespace LLNET
+namespace LiteLoader::NET
 {
-	using LLNET::Event::IEvent;
-	using LLNET::Event::INativeEventListener;
-	using LLNET::DynamicCommand::DynamicCommandInstance;
-	using LLNET::Schedule::ScheduleTask;
+	using LiteLoader::Event::IEvent;
+	using LiteLoader::Event::INativeEventListener;
+	using LiteLoader::DynamicCommand::DynamicCommandInstance;
+	using LiteLoader::Schedule::ScheduleTask;
 
 	using __HMODULE = IntPtr;
 	using __EventId = size_t;

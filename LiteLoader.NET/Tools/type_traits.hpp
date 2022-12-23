@@ -1,7 +1,7 @@
 #pragma once
 #include <type_traits>
 
-namespace llnet
+namespace LiteLoader::NET
 {
 	template<class _Ty> struct remove_handle {
 		using type = _Ty;

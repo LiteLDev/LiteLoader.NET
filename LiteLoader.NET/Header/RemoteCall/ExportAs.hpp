@@ -1,7 +1,7 @@
 #pragma once
 #include "ValueType.hpp"
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 
 
 
@@ -114,7 +114,7 @@ namespace LLNET::RemoteCall {
 
 #include <stdint.h>
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	Pair<bool, ExportFunctionRegister::ValidType> ExportFunctionRegister::_tryGetValidType(System::Type^ t)
 	{
 		using RTN = Pair<bool, ValidType>;
@@ -191,7 +191,7 @@ namespace LLNET::RemoteCall {
 
 		auto type = _tryGetValidType(t);
 		if (!type.Key)
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 		auto ret = FunctionInfo::TypeInfo();
 		ret._type = t;
@@ -199,7 +199,7 @@ namespace LLNET::RemoteCall {
 
 		switch (type.Value)
 		{
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::List:
+		case LiteLoader::RemoteCall::ExportFunctionRegister::ValidType::List:
 		{
 			ret.genericArgs = gcnew array<FunctionInfo::TypeInfo>(1);
 
@@ -207,7 +207,7 @@ namespace LLNET::RemoteCall {
 		}
 		break;
 
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Dictionary:
+		case LiteLoader::RemoteCall::ExportFunctionRegister::ValidType::Dictionary:
 		{
 			ret.genericArgs = gcnew array<FunctionInfo::TypeInfo>(2);
 
@@ -218,8 +218,8 @@ namespace LLNET::RemoteCall {
 
 		default:
 			break;
-		case LLNET::RemoteCall::ExportFunctionRegister::ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+		case LiteLoader::RemoteCall::ExportFunctionRegister::ValidType::Invalid:
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 		}
 
 		return ret;
@@ -233,7 +233,7 @@ namespace LLNET::RemoteCall {
 		switch (info.type)
 		{
 		case ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 		case ValidType::Double:
 		{
 			return _NUMBERTYPE.get<double>();
@@ -361,7 +361,7 @@ namespace LLNET::RemoteCall {
 		switch (info.type)
 		{
 		case ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			break;
 		case ValidType::Double:
 			return ::RemoteCall::NumberType(static_cast<double>(val));

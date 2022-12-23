@@ -1,6 +1,6 @@
 using namespace System::Collections::Generic;
 
-namespace LLNET::Core
+namespace LiteLoader::NET
 {
 	public interface class IPluginInitializer
 	{

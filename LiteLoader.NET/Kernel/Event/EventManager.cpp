@@ -2,7 +2,7 @@
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
 	inline bool EventManager::_isNativeEventId(__EventId eventId)
 	{
@@ -27,14 +27,14 @@ namespace LLNET::Event
 
 		EventList^ events = nullptr;
 
-		if (!PluginOwnData::RegisteredEvent->ContainsKey(module))
+		if (!LiteLoader::NET::PluginOwnData::RegisteredEvent->ContainsKey(module))
 		{
 			events = gcnew EventList;
-			PluginOwnData::RegisteredEvent->Add(module, events);
+			LiteLoader::NET::PluginOwnData::RegisteredEvent->Add(module, events);
 		}
 		else
 		{
-			events = PluginOwnData::RegisteredEvent[module];
+			events = LiteLoader::NET::PluginOwnData::RegisteredEvent[module];
 		}
 
 		events->Add(System::ValueTuple<System::Type^, __EventId>(eventType, eventId));
@@ -84,7 +84,7 @@ namespace LLNET::Event
 				{
 					auto defaultCtor = listenerType->GetConstructor(System::Array::Empty<System::Type^>());
 					if (defaultCtor == nullptr)
-						throw gcnew RegisterEventListenerException(
+						throw gcnew LiteLoader::NET::RegisterEventListenerException(
 							"Handler must be static or it's class must have default constructor!  at Handler:<" +
 							listenerType->Name + "." + method->Name + ">");
 				}
@@ -109,7 +109,7 @@ namespace LLNET::Event
 			auto methodRetType = method->ReturnType;
 
 			if (methodRetType != void::typeid)
-				throw gcnew RegisterEventListenerException(
+				throw gcnew LiteLoader::NET::RegisterEventListenerException(
 					"Handler.ReturnType must be System.Void!  at Handler:<" + listenerType->Name + "." + method->Name +
 					">");
 
@@ -138,7 +138,7 @@ namespace LLNET::Event
 
 
 		PARAM_CHECK_STEP1_FAILED:
-			throw gcnew RegisterEventListenerException(
+			throw gcnew LiteLoader::NET::RegisterEventListenerException(
 				"Handler can only have one parameter which the type is based on IEvent!  at Handler:<" + listenerType->
 				Name + "." + method->Name + ">");
 

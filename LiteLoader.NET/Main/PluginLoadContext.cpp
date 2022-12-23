@@ -2,7 +2,7 @@
 
 extern Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyName);
 
-namespace LLNET
+namespace LiteLoader::NET
 {
 	PluginLoadContext::PluginLoadContext(String^ pluginPath)
 	{

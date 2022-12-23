@@ -4,7 +4,7 @@
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 #include <LiteLoader.NET/Tools/PropertryHelper.hpp>
 #include <LiteLoader.NET/Tools/clix.hpp>
-namespace LLNET::LL
+namespace LiteLoader
 {
 	using namespace clix;
 
@@ -149,4 +149,4 @@ namespace LLNET::LL
 		inline static bool HasPlugin(String^ name, bool includeNativePlugin);
 		inline static bool HasPlugin(String^ name);
 	};
-} // namespace LLNET::LL
+} // namespace LiteLoader

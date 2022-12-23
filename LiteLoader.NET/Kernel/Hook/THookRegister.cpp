@@ -1,7 +1,7 @@
 #pragma once
 #include <LiteLoader.NET/Header/Hook/THookRegister.hpp>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	inline THookRegister::THookRegister(System::IntPtr address, System::IntPtr hook, SecondaryRankPtr org)
 	{

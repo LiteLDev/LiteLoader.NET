@@ -1,7 +1,7 @@
 #pragma once
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
-namespace LLNET
+namespace LiteLoader::NET
 {
 	using System::Runtime::Loader::AssemblyLoadContext;
 	using System::Runtime::Loader::AssemblyDependencyResolver;

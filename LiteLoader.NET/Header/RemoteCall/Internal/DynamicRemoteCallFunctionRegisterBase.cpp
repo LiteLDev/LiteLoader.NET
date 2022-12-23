@@ -1,5 +1,5 @@
 #include "DynamicRemoteCallFunctionRegisterBase.hpp"
-namespace LLNET::RemoteCall::Internal {
+namespace LiteLoader::RemoteCall::Internal {
 	inline Pair<bool, DynamicRemoteCallFunctionRegisterBase::ValidType> DynamicRemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
 	{
 		using RTN = Pair<bool, ValidType>;
@@ -77,7 +77,7 @@ namespace LLNET::RemoteCall::Internal {
 
 		auto type = _tryGetValidType(t);
 		if (!type.Key)
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
 		auto ret = FunctionInfo::TypeInfo();
 		ret._type = t;
@@ -105,7 +105,7 @@ namespace LLNET::RemoteCall::Internal {
 		default:
 			break;
 		case ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 		}
 
 		return ret;
@@ -116,7 +116,7 @@ namespace LLNET::RemoteCall::Internal {
 		switch (info.type)
 		{
 		case ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			break;
 		case ValidType::Double:
 			il->EmitCall(OpCodes::Call, _HelperMethod(_create_ValueType_by_double), nullptr);
@@ -388,7 +388,7 @@ namespace LLNET::RemoteCall::Internal {
 		switch (info.type)
 		{
 		case ValidType::Invalid:
-			throw gcnew LLNET::Core::InvalidRemoteCallTypeException;
+			throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 			break;
 		case ValidType::Double:
 			il->EmitCall(OpCodes::Call, _HelperMethod(_get_double_from_ValueType), nullptr);

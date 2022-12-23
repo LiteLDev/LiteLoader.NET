@@ -2,7 +2,7 @@
 
 void InitOtherEvents()
 {
-    using namespace LLNET::Event;
+    using namespace LiteLoader::Event;
 #define REGISTER_NATIVE_EVENT(_event) EventManager::_registerNativeEvent<_event^>(_event::EventId)
 
     REGISTER_NATIVE_EVENT(PostInitEvent);

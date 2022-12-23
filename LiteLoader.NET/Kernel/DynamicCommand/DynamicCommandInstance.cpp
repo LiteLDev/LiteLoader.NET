@@ -1,7 +1,7 @@
 #include <LiteLoader.NET/Header/DynamicCommand/DynamicCommandInstance.hpp>
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
-namespace LLNET::DynamicCommand
+namespace LiteLoader::DynamicCommand
 {
 	DynamicCommandInstance^ DynamicCommandInstance::ParameterIndex::Instance::get() {
 		return gcnew DynamicCommandInstance(NativePtr->instance);
@@ -327,16 +327,16 @@ namespace LLNET::DynamicCommand
 		return (*NativePtr).hasRegistered();
 	}
 
-	List<LLNET::Core::Std::string^>^ DynamicCommandInstance::EnumNames::get() {
+	List<LiteLoader::NET::Std::string^>^ DynamicCommandInstance::EnumNames::get() {
 		auto& vec = NativePtr->enumNames;
-		auto ret = gcnew List<LLNET::Core::Std::string^>((int)vec.size());
+		auto ret = gcnew List<LiteLoader::NET::Std::string^>((int)vec.size());
 		for (auto& v : vec) {
-			ret->Add(gcnew LLNET::Core::Std::string(v.release(), true));
+			ret->Add(gcnew LiteLoader::NET::Std::string(v.release(), true));
 		}
 		return ret;
 	}
 
-	//void DynamicCommandInstance::EnumNames::set(List<LLNET::Core::Std::string^>^ value) {
+	//void DynamicCommandInstance::EnumNames::set(List<LiteLoader::NET::Std::string^>^ value) {
 	//	std::vector<std::unique_ptr<std::string>> vec;
 	//	for each (auto var in value)
 	//	{

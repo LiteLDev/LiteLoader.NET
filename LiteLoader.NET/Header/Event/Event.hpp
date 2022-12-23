@@ -102,7 +102,7 @@ private:
 
 #define Class __ref_class
 
-namespace LLNET::Event
+namespace LiteLoader::Event
 {
 	using namespace MC;
 
@@ -279,14 +279,14 @@ namespace LLNET::Event
 
 			NativeEventList^ list = nullptr;
 
-			if (!PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
+			if (!LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
 			{
 				list = gcnew NativeEventList;
-				PluginOwnData::SubscribedNativeEvent->Add(module, list);
+				LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->Add(module, list);
 			}
 			else
 			{
-				list = PluginOwnData::SubscribedNativeEvent[module];
+				list = LiteLoader::NET::PluginOwnData::SubscribedNativeEvent[module];
 			}
 
 			list->Add(callbackInstance->Listener);
@@ -305,14 +305,14 @@ namespace LLNET::Event
 
 			NativeEventList^ list = nullptr;
 
-			if (!PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
+			if (!LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
 			{
 				list = gcnew NativeEventList;
-				PluginOwnData::SubscribedNativeEvent->Add(module, list);
+				LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->Add(module, list);
 			}
 			else
 			{
-				list = PluginOwnData::SubscribedNativeEvent[module];
+				list = LiteLoader::NET::PluginOwnData::SubscribedNativeEvent[module];
 			}
 
 			list->Add(callbackInstance->Listener);
@@ -330,4 +330,4 @@ namespace LLNET::Event
 			return ::Event::EventManager<NATIVEEVENT>::hasListener();
 		}
 	};
-} // namespace LLNET::Event
+} // namespace LiteLoader::Event

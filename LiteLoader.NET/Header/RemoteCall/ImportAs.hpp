@@ -1,7 +1,7 @@
 #pragma once
 #include "ExportAs.hpp"
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 
 	public delegate void RemoteCallHandler_void_0();
 	generic<typename T0>
@@ -321,7 +321,7 @@ namespace LLNET::RemoteCall {
 	};
 }
 
-namespace LLNET::RemoteCall {
+namespace LiteLoader::RemoteCall {
 	ExportFunctionRegister::FunctionInfo^ ImportFunctionRegister::_tryPraseFunctionInfo(System::Type^ returnType, ...array<System::Type^>^ types)
 	{
 		if (returnType == nullptr)
@@ -335,11 +335,11 @@ namespace LLNET::RemoteCall {
 		}
 		return ret;
 	}
-	inline ::RemoteCall::ValueType LLNET::RemoteCall::ImportFunctionRegister::_parseParameter(FunctionInfo::TypeInfo const% info, Object^ val)
+	inline ::RemoteCall::ValueType LiteLoader::RemoteCall::ImportFunctionRegister::_parseParameter(FunctionInfo::TypeInfo const% info, Object^ val)
 	{
 		return std::move(ExportFunctionRegister::_parseReturnVal(info, val));
 	}
-	inline System::Object^ LLNET::RemoteCall::ImportFunctionRegister::_parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
+	inline System::Object^ LiteLoader::RemoteCall::ImportFunctionRegister::_parseReturnVal(FunctionInfo::TypeInfo const% info, ::RemoteCall::ValueType& val)
 	{
 		return ExportFunctionRegister::_parseParameter(info, val);
 	}

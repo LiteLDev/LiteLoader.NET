@@ -1,6 +1,6 @@
 #include <LiteLoader.NET/Header/Hook/HookSymbolAttribute.hpp>
 
-namespace LLNET::Hook
+namespace LiteLoader::Hook
 {
 	inline HookSymbolAttribute::HookSymbolAttribute(String^ sym)
 	{

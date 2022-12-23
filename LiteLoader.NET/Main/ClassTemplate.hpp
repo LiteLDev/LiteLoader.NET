@@ -5,7 +5,7 @@
 #include <LiteLoader.NET/Header/Core/ICppClass.hpp>
 
 template <typename REFCLASS, typename NATIVECLASS>
-public ref class ClassTemplate abstract : LLNET::Core::ICppClass
+public ref class ClassTemplate abstract : LiteLoader::NET::ICppClass
 {
 protected:
 	bool ownsNativeInstance;

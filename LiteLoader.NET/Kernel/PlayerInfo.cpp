@@ -1,6 +1,6 @@
 #include <LiteLoader.NET/Header/PlayerInfo.hpp>
 
-namespace LLNET::PlayerInfo {
+namespace LiteLoader::PlayerInfo {
     inline bool PlayerInfoAPI::Insert(System::String^ name, System::String^ xuid, System::String^ uuid)
     {
         return ::PlayerInfo::insert(marshalString(name), marshalString(xuid), marshalString(uuid));

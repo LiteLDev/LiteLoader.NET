@@ -8,7 +8,7 @@ namespace MC
 	ref class CommandRegistry;
 }
 
-namespace LLNET
+namespace LiteLoader::NET
 {
 	public ref class GlobalService sealed
 	{

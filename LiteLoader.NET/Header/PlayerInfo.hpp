@@ -1,7 +1,7 @@
 #pragma once
 #include <PlayerInfoAPI.h>
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
-namespace LLNET::PlayerInfo {
+namespace LiteLoader::PlayerInfo {
     public ref class PlayerInfoAPI abstract {
     public:
         inline static bool Insert(System::String^ name, System::String^ xuid, System::String^ uuid);

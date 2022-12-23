@@ -1,7 +1,7 @@
 #pragma once
 #include <ScheduleAPI.h>
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
-namespace LLNET::Schedule
+namespace LiteLoader::Schedule
 {
 	public ref class ScheduleTask
 	{
@@ -38,4 +38,4 @@ namespace LLNET::Schedule
 		inline static ScheduleTask^ NextTick(TaskDelegate^ task, System::IntPtr handle);
 	internal:
 	};
-} // namespace LLNET::Schedule
+} // namespace LiteLoader::Schedule
