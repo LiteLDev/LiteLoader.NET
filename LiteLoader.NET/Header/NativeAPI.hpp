@@ -34,5 +34,31 @@ namespace LiteLoader::Hook
                 return false;
             }
         }
+
+        static void* operator_new(size_t size)
+        {
+            try
+            {
+                return ::operator new(size);
+            }
+            catch (const std::bad_alloc& ex)
+            {
+                throw gcnew System::OutOfMemoryException;
+            }
+        }
+
+        static void operator_delete(void** ptr)
+        {
+            if (ptr == nullptr)
+                return;
+
+            ::operator delete(*ptr);
+            *ptr = nullptr;
+        }
+
+        static void operator_delete(void* p)
+        {
+            ::operator delete(p);
+        }
     };
 }
