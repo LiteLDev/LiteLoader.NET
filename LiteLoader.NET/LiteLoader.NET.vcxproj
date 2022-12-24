@@ -174,7 +174,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\Command\CommandPositionFloat.hpp" />
     <ClInclude Include="Header\Command\CommandPropertyBag.hpp" />
     <ClInclude Include="Header\Command\CommandRegistry.hpp" />
-    <ClInclude Include="Header\Command\CommandSelector.hpp" />
     <ClInclude Include="Header\Command\CommandVersion.hpp" />
     <ClInclude Include="Header\Core\Exceptions.hpp" />
     <ClInclude Include="Header\Core\ICppClass.hpp" />

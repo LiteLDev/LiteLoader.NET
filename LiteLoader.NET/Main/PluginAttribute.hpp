@@ -22,7 +22,7 @@ namespace LiteLoader::NET
             Minor = 0;
             Revision = 0;
             Status = LiteLoader::Version::StatusEnum::Dev;
-            Desc = "";
+            Desc = String::Empty;
         }
     };
 

@@ -22,7 +22,7 @@ namespace LiteLoader::Form
     }
 
     inline Button::Button(String^ text)
-        : Button(text, "", nullptr)
+        : Button(text, String::Empty, nullptr)
     {
     }
 
@@ -263,12 +263,12 @@ namespace LiteLoader::Form
     }
 
     inline Input::Input(String^ name, String^ title, String^ placeholder)
-        : Input(name, title, placeholder, "")
+        : Input(name, title, placeholder, String::Empty)
     {
     }
 
     inline Input::Input(String^ name, String^ title)
-        : Input(name, title, "", "")
+        : Input(name, title, String::Empty, String::Empty)
     {
     }
 

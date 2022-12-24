@@ -14,12 +14,7 @@ DelegateToNativeHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFormPac
     {
         delfunc(player, a1);
     }
-    catch (System::Exception ^ ex)
-    {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-        System::Console::WriteLine(ex->Message);
-    }
-    delete player;
+    CATCH
 }
 
 void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPacketCallbackHandler ^ callback)
@@ -37,12 +32,7 @@ DelegateToNativeHelper(ModalFormPacketCallback, FormPacketHelper::ModalFormPacke
     {
         delfunc(player, a1);
     }
-    catch (System::Exception ^ ex)
-    {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-        System::Console::WriteLine(ex->Message);
-    }
-    delete player;
+    CATCH
 }
 
 void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPacketCallbackHandler ^ callback)
@@ -60,12 +50,7 @@ DelegateToNativeHelper(CustomFormPacketCallback, FormPacketHelper::CustomFormPac
     {
         delfunc(player, marshalString(a1));
     }
-    catch (System::Exception ^ ex)
-    {
-        System::Console::WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-        System::Console::WriteLine(ex->Message);
-    }
-    delete player;
+    CATCH
 }
 
 void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPacketCallbackHandler ^ callback)
@@ -76,7 +61,7 @@ void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPa
     GC::KeepAlive(pair.converter);
 }
 
-void FormPacketHelper::SetSimpleFormBuilderData(unsigned formId, Form::SimpleForm ^ data)
+/*void FormPacketHelper::SetSimpleFormBuilderData(unsigned formId, Form::SimpleForm^ data)
 {
     throw gcnew System::NotImplementedException();
 }
@@ -89,7 +74,7 @@ void FormPacketHelper::SetCustomFormBuilderData(unsigned formId, Form::CustomFor
 void FormPacketHelper::HandleFormPacket(MC::Player ^ player, unsigned formId, String^ data)
 {
     throw gcnew System::NotImplementedException();
-}
+}*/
 
 
 } // namespace LiteLoader::Helper

@@ -46,7 +46,7 @@ internal:                                                                       
         GCHandle::Alloc(delfunc);                                                                                            \
         ::Event::EventManager<::Event::EventName>::addEventListenerRef(                                                        \
             LLNET_INFO_LOADER_NAME,                                                                                            \
-            static_cast<bool(*)(::Event::EventName&)>((void*)Marshal::GetFunctionPointerForDelegate(delfunc)));                \
+            static_cast<bool(*)(::Event::EventName&)>(Marshal::GetFunctionPointerForDelegate(delfunc).ToPointer()));                \
     }                                                                                                                        \
                                                                                                                             \
 private:                                                                                                                    \

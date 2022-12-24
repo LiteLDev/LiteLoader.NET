@@ -101,7 +101,7 @@ namespace LiteLoader::RemoteCall {
 
             auto exportfunc = ExportFunc::Create(nameSpace, funcName, funcinfo, func);
             ExportFunctions->Add(exportfunc.Item1);
-            auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(exportfunc.Item2));
+            auto pfunc = static_cast<pNative>(Marshal::GetFunctionPointerForDelegate(exportfunc.Item2).ToPointer());
             return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, CALLING_MODULE);
 
             //debug

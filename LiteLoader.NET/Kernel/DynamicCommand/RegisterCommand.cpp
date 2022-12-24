@@ -41,7 +41,7 @@ namespace LiteLoader::DynamicCommand {
             throw gcnew RegisterCommandException("Empty Command Name!");
 
         if (String::IsNullOrWhiteSpace(cmdAttr->Description))
-            cmdAttr->Description = "";
+            cmdAttr->Description = String::Empty;
 
 #pragma endregion
         auto cmdData = gcnew CommandManager::CommandData;
@@ -358,7 +358,7 @@ namespace LiteLoader::DynamicCommand {
             callback, &CommandManager::NativeDynamicCommandCallback::NativeCallback);
         callback->gch = GCHandle::Alloc(delcallback);
         auto pcallback = static_cast<CommandManager::NativeDynamicCommandCallback::pCallback>(
-            (void*)Marshal::GetFunctionPointerForDelegate(delcallback));
+            Marshal::GetFunctionPointerForDelegate(delcallback).ToPointer());
 
         instance->NativePtr->setCallback(pcallback);
 

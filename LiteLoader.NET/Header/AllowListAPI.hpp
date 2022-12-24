@@ -58,7 +58,7 @@ namespace LiteLoader::AllowList
         }
         bool Has(System::String^ name)
         {
-            return Has(name, "");
+            return Has(name, String::Empty);
         }
         bool Has(System::String^ name, System::String^ xuid)
         {
@@ -70,7 +70,7 @@ namespace LiteLoader::AllowList
             return _this->has(marshalString(name), marshalString(xuid), *p);
         }
         AllowListManager^ Add(System::String^ name) {
-            return Add(name, "");
+            return Add(name, String::Empty);
         };
         AllowListManager^ Add(System::String^ name, System::String^ xuid) {
             return Add(name, xuid, false);
@@ -80,7 +80,7 @@ namespace LiteLoader::AllowList
             return this;
         };
         AllowListManager^ Remove(System::String^ name) {
-            return Remove(name, "");
+            return Remove(name, String::Empty);
         };
         AllowListManager^ Remove(System::String^ name, System::String^ xuid) {
             _this->remove(marshalString(name), marshalString(xuid));

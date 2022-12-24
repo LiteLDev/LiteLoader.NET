@@ -63,7 +63,7 @@ namespace LiteLoader::RemoteCall::Internal
     __INLINE void* IRemoteCallHelper::_create_ValueType_by_string(String^ val) {
         if (val == nullptr)
         {
-            return new __ValueType(::RemoteCall::pack(std::string("")));
+            return new __ValueType(::RemoteCall::pack(std::string()));
         }
         return new __ValueType(::RemoteCall::pack(marshalString(val)));
     }

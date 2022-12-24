@@ -97,6 +97,12 @@
     <Filter Include="Kernel\DynamicCommand">
       <UniqueIdentifier>{729c6ed5-2be8-406a-8be7-9510e6059f0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kernel\RemoteCall">
+      <UniqueIdentifier>{b9d962c9-0d90-4092-b9fe-f2e753ff3b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel\RemoteCall\Internal">
+      <UniqueIdentifier>{0c1a306c-4bf0-493d-909a-fcd498028c99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -336,18 +342,6 @@
     <ClCompile Include="Kernel\MC\HitResult.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.cpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\MC\Biome.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
@@ -479,6 +473,18 @@
     </ClCompile>
     <ClCompile Include="Kernel\Hook\HookHelper.cpp">
       <Filter>Kernel\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp">
+      <Filter>Kernel\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp">
+      <Filter>Kernel\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.cpp">
+      <Filter>Kernel\RemoteCall\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp">
+      <Filter>Kernel\RemoteCall\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -648,9 +654,6 @@
       <Filter>Header\Command</Filter>
     </ClInclude>
     <ClInclude Include="Header\Command\CommandRegistry.hpp">
-      <Filter>Header\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Command\CommandSelector.hpp">
       <Filter>Header\Command</Filter>
     </ClInclude>
     <ClInclude Include="Header\Command\CommandVersion.hpp">

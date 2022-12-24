@@ -1,4 +1,4 @@
-/* 8/15/2022 - LazuliKao 
+/* 8/15/2022 - LazuliKao
 * it might not be the best solution but currently, I only have done this.
 *
 * without this fix, as long as any function called in managed code will lose
@@ -10,7 +10,7 @@
 * PublicSymbol    ?LogInfoForFatalError@@YAXIPEB_W00@Z
 * RelativeVirtualAddress  2480668
 * ```
-* (This method will be called by "coreclr" during a fatal error, after 
+* (This method will be called by "coreclr" during a fatal error, after
 *  which the program will be terminated)
 * By throwing a C++ exception directly in this method, you can catch
 * the exception outside, instead of terminating the program.
@@ -153,8 +153,8 @@ inline void FixCLRFatalError(Logger& logger)
         {
             void* baseAddress = mod->BaseAddress.ToPointer();
             int size = mod->ModuleMemorySize;
-            // To update signature please use this : https://github.com/LazuliKao/CoreClrPatch/blob/main/build.fsx
-            
+            // To update signature please use this : https://github.com/LiteLDev-NET/CoreClrPatch/blob/main/build.fsx
+
             // ?LogInfoForFatalError@@YAXIPEB_W00@Z
             // https://github.com/dotnet/runtime/blob/43c9f6bf1c1a4c6e118bbee68a8aa213a8ba644e/src/coreclr/vm/eepolicy.cpp#L324
             uintptr_t result = FindSignature((uintptr_t)baseAddress, ((uintptr_t)(baseAddress)+size),

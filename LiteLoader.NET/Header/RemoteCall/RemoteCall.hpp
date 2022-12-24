@@ -18,10 +18,9 @@ namespace LiteLoader::RemoteCall
     /// <para>Mainly designed for scripting engines</para>
     /// <para>Please call it in MC_SERVER thread or in ScheduleAPI</para>
     /// </summary>
-    public ref class RemoteCallAPI __static
+    public ref class RemoteCallAPI sealed
     {
     public:
-#pragma warning(disable:4693)
         /// <summary>
         /// Remote call function prototype.
         /// </summary>

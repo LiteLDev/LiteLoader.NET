@@ -92,7 +92,7 @@ interface class NativeCallbackHandler : System::IDisposable
             auto instance = gcnew NativeCallbackTemplate(callback);                                                                                 \
             delCallback ^ del = gcnew delCallback(instance, &NativeCallbackFunc);                                                                   \
             instance->gch = GCHandle::Alloc(del);                                                                                                   \
-            auto p = static_cast<pCallback>((void*)Marshal::GetFunctionPointerForDelegate(del));                                                    \
+            auto p = static_cast<pCallback>(Marshal::GetFunctionPointerForDelegate(del).ToPointer());                                                    \
             return __Pair(p, instance);                                                                                                             \
         }                                                                                                                                           \
     };                                                                                                                                              \

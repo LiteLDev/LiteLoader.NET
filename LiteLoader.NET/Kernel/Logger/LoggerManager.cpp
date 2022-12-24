@@ -3,7 +3,7 @@
 #include <LoggerAPI.h>
 
 #pragma unmanaged
-Logger LoggerManager::defaultLogger = Logger("");
+Logger LoggerManager::defaultLogger = Logger();
 #pragma unmanaged
 std::unordered_map<LoggerID, std::pair<RefCount, std::unique_ptr<::Logger>>> LoggerManager::LoggerData = {};
 #pragma unmanaged
@@ -244,7 +244,7 @@ std::string LoggerManager::GetTitle(LoggerID id)
         if (iter != LoggerData.end())
             plogger = iter->second.second.get();
         else
-            return std::string("");
+            return std::string();
     }
 
 jmp:

@@ -79,7 +79,7 @@ public:
         }
         void set(System::IntPtr p)
         {
-            NativePtr->desc = (char const*)(void*)p;
+            NativePtr->desc = (char const*)p.ToPointer();
         }
     }
     property int Unk56

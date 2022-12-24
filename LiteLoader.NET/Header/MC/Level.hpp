@@ -105,7 +105,7 @@ public:
             void set(IntPtr value)
             {
                 NULL_ARG_CHECK(value);
-                NativePtr->myVTBL = (void*)value;
+                NativePtr->myVTBL = value.ToPointer();
             };
         };
         property array<IntPtr> ^ UUID {
@@ -120,8 +120,8 @@ public:
                 NULL_ARG_CHECK(value);
                 if (value->Length != 2)
                     throw gcnew System::Exception;
-                NativePtr->UUID[0] = (void*)value[0];
-                NativePtr->UUID[1] = (void*)value[1];
+                NativePtr->UUID[0] = value[0].ToPointer();
+                NativePtr->UUID[1] = value[1].ToPointer();
             }
         };
         property IntPtr ServerLevel
@@ -132,7 +132,7 @@ public:
             };
             void set(IntPtr value)
             {
-                NativePtr->lvl = (::ServerLevel*)(void*)value;
+                NativePtr->lvl = (::ServerLevel*)value.ToPointer();
             };
         };
         property String ^ Name {
@@ -171,7 +171,7 @@ public:
         //            throw gcnew System::Exception;
         //        for (int i = 0; i < 26; i++)
         //        {
-        //            NativePtr->fake_vtbl[i] = (void*)value[i];
+        //            NativePtr->fake_vtbl[i] = value[i].ToPointer();
         //        }
         //    }
         //};

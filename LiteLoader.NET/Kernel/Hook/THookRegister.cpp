@@ -5,7 +5,7 @@ namespace LiteLoader::Hook
 {
     inline THookRegister::THookRegister(System::IntPtr address, System::IntPtr hook, SecondaryRankPtr org)
     {
-        ::THookRegister((void*)address, (void*)hook, (void**)org);
+        ::THookRegister(address.ToPointer(), hook.ToPointer(), (void**)org);
     }
 
     inline THookRegister::THookRegister(void* address, void* hook, void** org)
@@ -15,7 +15,7 @@ namespace LiteLoader::Hook
 
     inline THookRegister::THookRegister(System::String^ sym, System::IntPtr hook, SecondaryRankPtr org)
     {
-        ::THookRegister(marshalString(sym).c_str(), (void*)hook, (void**)org);
+        ::THookRegister(marshalString(sym).c_str(), hook.ToPointer(), (void**)org);
     }
 
     inline THookRegister::THookRegister(char const* sym, void* hook, void** org)

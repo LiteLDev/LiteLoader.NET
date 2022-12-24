@@ -85,7 +85,7 @@ namespace LiteLoader::I18N
 
     inline String^ I18nBase::Get(String^ key)
     {
-        return Get(key, "");
+        return Get(key, String::Empty);
     }
 
     inline String^ I18nBase::GetDefaultLocaleName()

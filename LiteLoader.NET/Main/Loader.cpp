@@ -202,7 +202,7 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
             auto Asm = Assembly::LoadFrom(path);
 
-            LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, "", gcnew LiteLoader::Version(1, 0, 0), nullptr, Asm);
+            LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, String::Empty, gcnew LiteLoader::Version(1, 0, 0), nullptr, Asm);
 
             LiteLoader::NET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
 
@@ -217,18 +217,14 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
                 ++count;
             }
         }
-        catch (System::BadImageFormatException^)
-        {
-            continue;
-        }
         catch (System::Reflection::TargetInvocationException^ ex)
         {
-            logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
+            logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", iter->filename().string(), marshalString(ex->InnerException->GetType()->ToString()));
             logger.error(marshalString(ex->InnerException->ToString()));
         }
         catch (System::Exception^ ex)
         {
-            logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
+            logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", iter->filename().string(), marshalString(ex->GetType()->ToString()));
             logger.error(marshalString(ex->ToString()));
         }
 
@@ -255,24 +251,9 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
     if (method->GetParameters()->Length > 0)
         return false;
 
-    try
-    {
-        reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
+    reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
 
-        return true;
-    }
-    catch (System::Reflection::TargetInvocationException^ ex)
-    {
-        logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
-        logger.error(marshalString(ex->InnerException->ToString()));
-        return false;
-    }
-    catch (System::Exception^ ex)
-    {
-        logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
-        logger.error(marshalString(ex->ToString()));
-        return false;
-    }
+    return true;
 }
 
 
@@ -302,56 +283,41 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
     using PluginMainAttribute = LiteLoader::NET::PluginMainAttribute;
     using LibPathAttribute = LiteLoader::NET::LibPathAttribute;
 
-    try
+    auto types = Asm->GetExportedTypes();
+    System::String^ pluginName = Asm->GetName()->Name;
+    IPluginInitializer^ initializer = nullptr;
+    for each (auto type in types)
     {
-        auto types = Asm->GetExportedTypes();
-        System::String^ pluginName = Asm->GetName()->Name;
-        IPluginInitializer^ initializer = nullptr;
-        for each (auto type in types)
+        if (type->Equals(IPluginInitializer::typeid))
+            continue;
+
+        auto pluginMainAttr = System::Attribute::GetCustomAttribute(type, PluginMainAttribute::typeid);
+        auto customLibPathAttribute = System::Attribute::GetCustomAttribute(type, LibPathAttribute::typeid);
+
+        if (pluginMainAttr != nullptr)
         {
-            if (type->Equals(IPluginInitializer::typeid))
-                continue;
-
-            auto pluginMainAttr = System::Attribute::GetCustomAttribute(type, PluginMainAttribute::typeid);
-            auto customLibPathAttribute = System::Attribute::GetCustomAttribute(type, LibPathAttribute::typeid);
-
-            if (pluginMainAttr != nullptr)
+            pluginName = static_cast<PluginMainAttribute^>(pluginMainAttr)->Name;
+            auto ctor = type->GetConstructor(System::Type::EmptyTypes);
+            if (ctor != nullptr)
             {
                 pluginName = static_cast<PluginMainAttribute^>(pluginMainAttr)->Name;
-                auto ctor = type->GetConstructor(System::Type::EmptyTypes);
-                if (ctor != nullptr)
-                {
-                    pluginName = static_cast<PluginMainAttribute^>(pluginMainAttr)->Name;
-                    initializer = static_cast<IPluginInitializer^>(ctor->Invoke(nullptr));
-                    break;
-                }
+                initializer = static_cast<IPluginInitializer^>(ctor->Invoke(nullptr));
+                break;
             }
         }
+    }
 
-        if (initializer != nullptr)
-        {
-            initializer->OnInitialize();
-            String^ introduction = initializer->Introduction;
-            auto version = gcnew LiteLoader::Version(
-                initializer->Version->Major,
-                initializer->Version->Minor,
-                initializer->Version->Build
-            );
-            auto others = initializer->MetaData;
-            LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
-        }
-        return true;
-    }
-    catch (System::Reflection::TargetInvocationException^ ex)
+    if (initializer != nullptr)
     {
-        logger.error("Uncaught {} Detected!", marshalString(ex->InnerException->GetType()->ToString()));
-        logger.error(marshalString(ex->InnerException->ToString()));
-        return false;
+        initializer->OnInitialize();
+        String^ introduction = initializer->Introduction;
+        auto version = gcnew LiteLoader::Version(
+            initializer->Version->Major,
+            initializer->Version->Minor,
+            initializer->Version->Build
+        );
+        auto others = initializer->MetaData;
+        LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
     }
-    catch (System::Exception^ ex)
-    {
-        logger.error("Uncaught {} Detected!", marshalString(ex->GetType()->ToString()));
-        logger.error(marshalString(ex->ToString()));
-        return false;
-    }
+    return true;
 }

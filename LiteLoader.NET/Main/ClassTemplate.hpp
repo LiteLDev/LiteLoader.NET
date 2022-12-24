@@ -73,13 +73,13 @@ public:
 public:
     ClassTemplate(System::IntPtr p)
         : ownsNativeInstance(false)
-        , nativePtr((NATIVECLASS*)(void*)p)
+        , nativePtr((NATIVECLASS*)p.ToPointer())
     {
     }
 
     ClassTemplate(System::IntPtr p, bool ownsNativeInstance)
         : ownsNativeInstance(ownsNativeInstance)
-        , nativePtr((NATIVECLASS*)(void*)p)
+        , nativePtr((NATIVECLASS*)p.ToPointer())
     {
     }
 

@@ -20,7 +20,7 @@ namespace LiteLoader::Hook
         static bool TryCatch(System::Action^ act, [Out] System::Exception^% exc)
         {
             exc = nullptr;
-            auto pfunc = reinterpret_cast<void(*)()>((void*)act->Method->MethodHandle.GetFunctionPointer());
+            auto pfunc = reinterpret_cast<void(*)()>(act->Method->MethodHandle.GetFunctionPointer().ToPointer());
 
             auto code = _try_catch(pfunc);
 

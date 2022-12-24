@@ -2,6 +2,7 @@
 #include <Impl/FormPacketHelper.h>
 #include <LiteLoader.NET/Header/FormUI.hpp>
 #include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 namespace MC
 {
@@ -25,10 +26,10 @@ public:
 
     static void SetCustomFormPacketCallback(unsigned formId, CustomFormPacketCallbackHandler ^ callback);
 
-    static void SetSimpleFormBuilderData(unsigned formId, Form::SimpleForm^ data);
+    //static void SetSimpleFormBuilderData(unsigned formId, Form::SimpleForm^ data);
 
-    static void SetCustomFormBuilderData(unsigned formId, Form::CustomForm^ data);
+    //static void SetCustomFormBuilderData(unsigned formId, Form::CustomForm^ data);
 
-    static void HandleFormPacket(MC::Player^ player, unsigned formId, System::String^ data);
+    //static void HandleFormPacket(MC::Player^ player, unsigned formId, System::String^ data);
 };
 }

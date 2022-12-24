@@ -48,7 +48,7 @@ namespace LiteLoader::RemoteCall {
             TypeInfo returnType;
             array<TypeInfo>^ parameters;
         };
-        static Pair<bool, ValidType> _tryGetValidType(System::Type^ t);
+        static VALUE_TUPLE<bool, ValidType> _tryGetValidType(System::Type^ t);
         static FunctionInfo::TypeInfo _generateTypeInfo(System::Type^ t);
 
     public:
@@ -166,9 +166,9 @@ __METHOD_INFO(Native2##typeName,_##Native2##typeName)
     };
 }
 
-inline Pair<bool, LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::ValidType> LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
+inline VALUE_TUPLE<bool, LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::ValidType> LiteLoader::RemoteCall::RemoteCallFunctionRegisterBase::_tryGetValidType(System::Type^ t)
 {
-    using RTN = Pair<bool, ValidType>;
+    using RTN = VALUE_TUPLE<bool, ValidType>;
 
     if (t == double::typeid)
         return RTN(true, ValidType::Double);

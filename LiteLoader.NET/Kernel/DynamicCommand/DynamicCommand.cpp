@@ -299,7 +299,7 @@ namespace LiteLoader::DynamicCommand
             ::CommandPermissionLevel(permission),
             flag1,
             flag2,
-            (HMODULE)(void*)handle)
+            (HMODULE)handle.ToPointer())
             .release(),
             true);
 
@@ -428,11 +428,11 @@ namespace LiteLoader::DynamicCommand
     }
     inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional, String^ enumOptions)
     {
-        return gcnew ParameterData(name, type, optional, enumOptions, "");
+        return gcnew ParameterData(name, type, optional, enumOptions, String::Empty);
     }
     inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, bool optional)
     {
-        return gcnew ParameterData(name, type, optional, "");
+        return gcnew ParameterData(name, type, optional, String::Empty);
     }
     inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type)
     {
@@ -448,7 +448,7 @@ namespace LiteLoader::DynamicCommand
     }
     inline DynamicCommand::ParameterData^ DynamicCommand::ParameterData::Create(String^ name, ParameterType type, String^ enumOptions)
     {
-        return gcnew ParameterData(name, type, enumOptions, "");
+        return gcnew ParameterData(name, type, enumOptions, String::Empty);
     }
     MC::CommandParameterData^ DynamicCommand::ParameterData::MakeParameterData()
     {
@@ -502,7 +502,7 @@ namespace LiteLoader::DynamicCommand
 
     inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
     {
-        auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)(void*)handle).release(), true);
+        auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)handle.ToPointer()).release(), true);
 
         _addPluginOwnData(handle, name);
 
@@ -561,7 +561,7 @@ namespace LiteLoader::DynamicCommand
         NativeCallBackFn^ nativecallback = gcnew NativeCallBackFn(manager, &DynamicCommand::CallBackFnManager::NativeCallbackFunc);
         gchList->Add(GCHandle::Alloc(nativecallback));
 
-        pNativeCallBackFn pFn = static_cast<pNativeCallBackFn>((void*)Marshal::GetFunctionPointerForDelegate(nativecallback));
+        pNativeCallBackFn pFn = static_cast<pNativeCallBackFn>(Marshal::GetFunctionPointerForDelegate(nativecallback).ToPointer());
         return pFn;
     }
 } // namespace LiteLoader::DynamicCommand

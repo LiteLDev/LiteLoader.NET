@@ -28,7 +28,7 @@ namespace LiteLoader::DynamicCommand {
         /// <summary>
         /// Command description.
         /// </summary>
-        String^ Description = "";
+        String^ Description = String::Empty;
 
         /// <summary>
         /// Command execution permission.
@@ -38,7 +38,7 @@ namespace LiteLoader::DynamicCommand {
         /// <summary>
         /// Command Alia.
         /// </summary>
-        String^ Alia = "";
+        String^ Alia = String::Empty;
 
         /// <summary>
         /// These command parameters will be reset after excuted by creating a new instance.
@@ -70,7 +70,7 @@ namespace LiteLoader::DynamicCommand {
         /// <summary>
         /// Command Alia.
         /// </summary>
-        String^ Alia = "";
+        String^ Alia = String::Empty;
     };
 
     [AttributeUsage(AttributeTargets::Enum)]
@@ -113,7 +113,7 @@ namespace LiteLoader::DynamicCommand {
         /// <summary>
         /// QAQ
         /// </summary>
-        String^ Identifier = "";
+        String^ Identifier = String::Empty;
 
         /// <summary>
         /// Command parameter option.

@@ -74,7 +74,7 @@ namespace LiteLoader::RemoteCall::Internal {
             func->dynamicMethod = (TEST^)method->CreateDelegate(TEST::typeid, func);
             auto delfunc = gcnew delNative(func, &ExportedFunc::_Invoke);
             func->gch = GCHandle::Alloc(delfunc);
-            auto pfunc = static_cast<pNative>((void*)Marshal::GetFunctionPointerForDelegate(delfunc));
+            auto pfunc = static_cast<pNative>(Marshal::GetFunctionPointerForDelegate(delfunc).ToPointer());
             return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pfunc, handle);
         }
     };

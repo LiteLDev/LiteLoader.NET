@@ -35,7 +35,7 @@ namespace LiteLoader::Hook
         GC::KeepAlive(newFunc);
         GCHandle::Alloc(newFunc);
 
-        auto pHook = (void*)Marshal::GetFunctionPointerForDelegate(newFunc);
+        auto pHook = Marshal::GetFunctionPointerForDelegate(newFunc).ToPointer();
 
         void* pOriginal = nullptr;
 

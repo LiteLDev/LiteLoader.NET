@@ -58,7 +58,7 @@ namespace LiteLoader::DynamicCommand
             marshalString(description),
             ::CommandPermissionLevel(permission),
             ::CommandFlag{ (::CommandFlagValue(flag->value)) },
-            (HMODULE)(void*)handle)
+            (HMODULE)handle.ToPointer())
             .release(),
             true)
     {

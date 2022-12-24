@@ -182,7 +182,7 @@ namespace LiteLoader::NET::callback {
                 caller.gch = GCHandle::Alloc(_native_invoke_delfunc);
 
                 auto _native_invoke_pfunc = static_cast<_Native_pfunc_type>(
-                    (void*)Marshal::GetFunctionPointerForDelegate(_native_invoke_delfunc));
+                    Marshal::GetFunctionPointerForDelegate(_native_invoke_delfunc).ToPointer());
 
                 _MyPair<_Native_pfunc_type, _Managed_func_caller> ret;
 
