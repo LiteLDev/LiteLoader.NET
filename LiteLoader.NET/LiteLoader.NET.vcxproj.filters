@@ -58,12 +58,6 @@
     <Filter Include="Header\DynamicCommand">
       <UniqueIdentifier>{48fc0746-f917-42c3-b3cd-0895f1347a4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\RemoteCall">
-      <UniqueIdentifier>{9f309bf3-820a-4354-9874-ea2ef5c7595d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header\RemoteCall\Internal">
-      <UniqueIdentifier>{48d20abb-293f-49b1-bb01-58d24378ede8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header\Event">
       <UniqueIdentifier>{1f247153-bd56-4e44-837f-388cd13c1e36}</UniqueIdentifier>
     </Filter>
@@ -97,11 +91,14 @@
     <Filter Include="Kernel\DynamicCommand">
       <UniqueIdentifier>{729c6ed5-2be8-406a-8be7-9510e6059f0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Kernel\RemoteCall">
-      <UniqueIdentifier>{b9d962c9-0d90-4092-b9fe-f2e753ff3b01}</UniqueIdentifier>
+    <Filter Include="Module">
+      <UniqueIdentifier>{0d50ec82-48b2-41c2-b52e-83f888c6cb27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Kernel\RemoteCall\Internal">
-      <UniqueIdentifier>{0c1a306c-4bf0-493d-909a-fcd498028c99}</UniqueIdentifier>
+    <Filter Include="Module\RemoteCall">
+      <UniqueIdentifier>{c9da5c29-0768-4c1f-be2a-fcbd65988835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\RemoteCall\Types">
+      <UniqueIdentifier>{42a75338-2518-4d23-b192-0a4967b69dd8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -309,9 +306,6 @@
     <ClCompile Include="Main\LiteLoaderDotNET.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel\RemoteCall.cpp">
-      <Filter>Kernel</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\MC\Actor.cpp">
       <Filter>Kernel\MC</Filter>
     </ClCompile>
@@ -474,17 +468,8 @@
     <ClCompile Include="Kernel\Hook\HookHelper.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp">
-      <Filter>Kernel\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp">
-      <Filter>Kernel\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.cpp">
-      <Filter>Kernel\RemoteCall\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp">
-      <Filter>Kernel\RemoteCall\Internal</Filter>
+    <ClCompile Include="Module\RemoteCall\Types\NbtType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -776,45 +761,6 @@
     <ClInclude Include="Header\MC\HitResult.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ExtendType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\include.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Interfaces.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\NumberType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Value.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ValueType.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.hpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\RemoteCall.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.hpp">
-      <Filter>Header\RemoteCall\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ExportAs.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\RemoteCall\ImportAs.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\Biome.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>
@@ -969,6 +915,24 @@
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Header\Core\ICppClass.hpp">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\ExtendType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\Value.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\ValueType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\NbtType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Core\INativeCastable.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
   </ItemGroup>

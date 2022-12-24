@@ -291,6 +291,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
     <ClInclude Include="Header\RemoteCall\RemoteCall.hpp" />
+    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\Value.hpp" />
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.hpp" />
@@ -308,6 +309,11 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Main\PluginManager.hpp" />
     <ClInclude Include="Main\PluginOwnData.hpp" />
     <ClInclude Include="Main\Version.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ExtendType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\NbtType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\Value.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ValueType.hpp" />
     <ClInclude Include="Resource\resource.hpp" />
     <ClInclude Include="Resource\Version.hpp" />
     <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
@@ -318,10 +324,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Tools\type_traits.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.cpp" />
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.cpp" />
-    <ClCompile Include="Header\RemoteCall\Internal\IRemoteCallHelper.cpp" />
-    <ClCompile Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.cpp" />
     <ClCompile Include="Kernel\AllowListAPI.cpp" />
     <ClCompile Include="Kernel\Command\Command.cpp" />
     <ClCompile Include="Kernel\Command\CommandArea.cpp" />
@@ -432,7 +434,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Kernel\NativeAPI.cpp" />
     <ClCompile Include="Kernel\NativeAPIHelper.cpp" />
     <ClCompile Include="Kernel\PlayerInfo.cpp" />
-    <ClCompile Include="Kernel\RemoteCall.cpp" />
     <ClCompile Include="Kernel\Schedule.cpp" />
     <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
     <ClCompile Include="Kernel\Server.cpp" />
@@ -445,6 +446,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\NbtType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
