@@ -815,9 +815,6 @@
     <ClInclude Include="Header\RemoteCall\ImportAs.hpp">
       <Filter>Header\RemoteCall</Filter>
     </ClInclude>
-    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp">
-      <Filter>Header\RemoteCall</Filter>
-    </ClInclude>
     <ClInclude Include="Header\MC\Biome.hpp">
       <Filter>Header\MC</Filter>
     </ClInclude>

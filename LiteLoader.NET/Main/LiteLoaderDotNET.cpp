@@ -4,8 +4,6 @@
 
 #include "Config.hpp"
 
-using namespace std;
-
 #pragma unmanaged
 extern void LoadMain();
 

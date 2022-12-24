@@ -291,7 +291,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
     <ClInclude Include="Header\RemoteCall\RemoteCall.hpp" />
-    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
     <ClInclude Include="Header\RemoteCall\Value.hpp" />
     <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.hpp" />
