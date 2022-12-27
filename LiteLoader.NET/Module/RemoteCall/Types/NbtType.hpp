@@ -1,9 +1,7 @@
 #pragma once
-//#include <LiteLoader.NET/Main/DotNETGlobal.hpp>
-#include <LiteLoader.NET/Header/Core/INativeCastable.hpp>
 #include <LiteLoader.NET/Main/ClassTemplate.hpp>
 
-using namespace LiteLoader::NET;
+#include <RemoteCallAPI.h>
 
 namespace RemoteCall
 {
@@ -17,8 +15,7 @@ namespace MC
 
 namespace LiteLoader::RemoteCall
 {
-    public
-    ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>/*, IValue*/
+    public ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>/*, IValue*/
     {
     internal:
         __ctor_copy(NbtType, ::RemoteCall::NbtType);

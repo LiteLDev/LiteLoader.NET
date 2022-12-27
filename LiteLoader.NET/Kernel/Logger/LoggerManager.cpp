@@ -111,7 +111,7 @@ void LoggerManager::DeleteLogger(LoggerID id)
 }
 
 #pragma unmanaged
-void LoggerManager::tryLock(LoggerID id)
+bool LoggerManager::tryLock(LoggerID id)
 {
     ::Logger* plogger = nullptr;
     if (!std::get<0>(OperatingLogger) && id == std::get<1>(OperatingLogger))
@@ -130,10 +130,10 @@ void LoggerManager::tryLock(LoggerID id)
 
 jmp:
 
-    plogger->tryLock();
+    return plogger->tryLock();
 }
 #pragma unmanaged
-void LoggerManager::lock(LoggerID id)
+bool LoggerManager::lock(LoggerID id)
 {
     ::Logger* plogger = nullptr;
     if (!std::get<0>(OperatingLogger) && id == std::get<1>(OperatingLogger))
@@ -152,10 +152,10 @@ void LoggerManager::lock(LoggerID id)
 
 jmp:
 
-    plogger->lock();
+    return plogger->lock();
 }
 #pragma unmanaged
-void LoggerManager::unlock(LoggerID id)
+bool LoggerManager::unlock(LoggerID id)
 {
     ::Logger* plogger = nullptr;
     if (!std::get<0>(OperatingLogger) && id == std::get<1>(OperatingLogger))
@@ -174,17 +174,17 @@ void LoggerManager::unlock(LoggerID id)
 
 jmp:
 
-    plogger->unlock();
+    return plogger->unlock();
 }
 #pragma unmanaged
-void LoggerManager::setDefaultFile(const std::string& logFile, bool appendMode)
+bool LoggerManager::setDefaultFile(const std::string& logFile, bool appendMode)
 {
-    ::Logger::setDefaultFile(logFile, appendMode);
+    return ::Logger::setDefaultFile(logFile, appendMode);
 }
 #pragma unmanaged
-void LoggerManager::setDefaultFile(std::nullptr_t a0)
+bool LoggerManager::setDefaultFile(std::nullptr_t a0)
 {
-    ::Logger::setDefaultFile(a0);
+    return ::Logger::setDefaultFile(a0);
 }
 #pragma unmanaged
 bool LoggerManager::setFile(LoggerID id, const std::string& logFile, bool appendMode)

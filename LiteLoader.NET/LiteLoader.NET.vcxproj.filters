@@ -100,6 +100,18 @@
     <Filter Include="Module\RemoteCall\Types">
       <UniqueIdentifier>{42a75338-2518-4d23-b192-0a4967b69dd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\RemoteCall\Interfaces">
+      <UniqueIdentifier>{5e4d0f8e-7660-48c4-8cb9-dcae2730a329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\RemoteCall\Attributes">
+      <UniqueIdentifier>{210169bb-6b86-4ed4-a2d4-f21f7fd6fabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\RemoteCall\Enums">
+      <UniqueIdentifier>{12db45ac-deb0-43a0-895e-1cae27dc52bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\RemoteCall\Helpers">
+      <UniqueIdentifier>{fb3813ce-a219-415a-bc9f-86d8103ee637}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -470,6 +482,51 @@
     </ClCompile>
     <ClCompile Include="Module\RemoteCall\Types\NbtType.cpp">
       <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\BlockPosType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\BlockType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\ItemType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\NumberType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\ObjectType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\Value.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\ValueType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\WorldPosType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Types\ArrayType.cpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\RemoteCall_basic_api.cpp">
+      <Filter>Module\RemoteCall</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ExportAs_impl.cpp">
+      <Filter>Module\RemoteCall</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeCastHelper.cpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeHelper.cpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -917,13 +974,7 @@
     <ClInclude Include="Header\Core\ICppClass.hpp">
       <Filter>Header\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Module\RemoteCall\Types\ExtendType.hpp">
-      <Filter>Module\RemoteCall\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp">
-      <Filter>Module\RemoteCall\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\RemoteCall\Types\Value.hpp">
       <Filter>Module\RemoteCall\Types</Filter>
     </ClInclude>
     <ClInclude Include="Module\RemoteCall\Types\ValueType.hpp">
@@ -932,8 +983,50 @@
     <ClInclude Include="Module\RemoteCall\Types\NbtType.hpp">
       <Filter>Module\RemoteCall\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\INativeCastable.hpp">
-      <Filter>Header\Core</Filter>
+    <ClInclude Include="Module\RemoteCall\Types\Value.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\BlockPosType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\BlockType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\ItemType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\ObjectType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\WorldPosType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Types\ArrayType.hpp">
+      <Filter>Module\RemoteCall\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Interfaces\IValueType.hpp">
+      <Filter>Module\RemoteCall\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Attributes\RemoteCallValueTypeAttribute.hpp">
+      <Filter>Module\RemoteCall\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Enums\InstanceType.hpp">
+      <Filter>Module\RemoteCall\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\RemoteCallAPI.hpp">
+      <Filter>Module\RemoteCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Helpers\EmitHelper.hpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Helpers\MemoryHelper.hpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeCastHelper.hpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeHelper.hpp">
+      <Filter>Module\RemoteCall\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

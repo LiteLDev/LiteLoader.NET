@@ -1,6 +1,7 @@
 #pragma once
-#include <mc/Vec2.hpp>
+#include <mc/vec2.hpp>
 #include "Types.hpp"
+
 namespace MC
 {
     [StructLayout(LayoutKind::Sequential, Size = sizeof(::Vec2))]

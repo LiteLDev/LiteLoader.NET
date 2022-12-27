@@ -33,11 +33,11 @@ public:
     static std::string GetTitle(LoggerID id);
 
 
-    static void tryLock(LoggerID id);
-    static void lock(LoggerID id);
-    static void unlock(LoggerID id);
-    static void setDefaultFile(const std::string& logFile, bool appendMode);
-    static void setDefaultFile(std::nullptr_t a0);
+    static bool tryLock(LoggerID id);
+    static bool lock(LoggerID id);
+    static bool unlock(LoggerID id);
+    static bool setDefaultFile(const std::string& logFile, bool appendMode);
+    static bool setDefaultFile(std::nullptr_t a0);
     //static void endl(OutputStream& o);
 
     static bool setFile(LoggerID id, const std::string& logFile, bool appendMode = true);

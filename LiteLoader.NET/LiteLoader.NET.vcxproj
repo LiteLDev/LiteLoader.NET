@@ -16,7 +16,7 @@
     <ProjectGuid>{abeb5558-c92f-473e-8bdf-90f58bd3811c}</ProjectGuid>
     <RootNamespace>LiteLoader.NET</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -280,20 +280,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\MC\WitherBoss.hpp" />
     <ClInclude Include="Header\NativeAPI.hpp" />
     <ClInclude Include="Header\PlayerInfo.hpp" />
-    <ClInclude Include="Header\RemoteCall\ExportAs.hpp" />
-    <ClInclude Include="Header\RemoteCall\ExtendType.hpp" />
-    <ClInclude Include="Header\RemoteCall\ImportAs.hpp" />
-    <ClInclude Include="Header\RemoteCall\include.hpp" />
-    <ClInclude Include="Header\RemoteCall\Interfaces.hpp" />
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicExportFunctionRegister.hpp" />
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicImportFunctionRegister.hpp" />
-    <ClInclude Include="Header\RemoteCall\Internal\IRemoteCallHelper.hpp" />
-    <ClInclude Include="Header\RemoteCall\Internal\DynamicRemoteCallFunctionRegisterBase.hpp" />
-    <ClInclude Include="Header\RemoteCall\NumberType.hpp" />
-    <ClInclude Include="Header\RemoteCall\RemoteCall.hpp" />
-    <ClInclude Include="Header\RemoteCall\RemoteCallFunctionRegisterBase.hpp" />
-    <ClInclude Include="Header\RemoteCall\Value.hpp" />
-    <ClInclude Include="Header\RemoteCall\ValueType.hpp" />
     <ClInclude Include="Header\Schedule.hpp" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
     <ClInclude Include="Header\Server.hpp" />
@@ -309,11 +295,24 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Main\PluginManager.hpp" />
     <ClInclude Include="Main\PluginOwnData.hpp" />
     <ClInclude Include="Main\Version.hpp" />
-    <ClInclude Include="Module\RemoteCall\Types\ExtendType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Attributes\RemoteCallValueTypeAttribute.hpp" />
+    <ClInclude Include="Module\RemoteCall\Enums\InstanceType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\EmitHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\MemoryHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeCastHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Interfaces\IValueType.hpp" />
+    <ClInclude Include="Module\RemoteCall\RemoteCallAPI.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ArrayType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\BlockPosType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\BlockType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ItemType.hpp" />
     <ClInclude Include="Module\RemoteCall\Types\NbtType.hpp" />
     <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ObjectType.hpp" />
     <ClInclude Include="Module\RemoteCall\Types\Value.hpp" />
     <ClInclude Include="Module\RemoteCall\Types\ValueType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\WorldPosType.hpp" />
     <ClInclude Include="Resource\resource.hpp" />
     <ClInclude Include="Resource\Version.hpp" />
     <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
@@ -446,7 +445,22 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeCastHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_basic_api.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ExportAs_impl.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ArrayType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\BlockPosType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\BlockType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ItemType.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\NbtType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\NumberType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ObjectType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\Value.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ValueType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\WorldPosType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -38,11 +38,13 @@ namespace LiteLoader::Logger {
     {
         LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshalString<CLI_Encoding::E_UTF16>(string));
     }
+
     void Logger::OutputStream::WriteLine(System::String^ format, ...array<System::Object^>^ args)
     {
         auto str = System::String::Format(format, (array<System::Object^>^)args);
         LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(str));
     }
+
     void Logger::OutputStream::WriteLine(System::Object^ obj) {
         LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(obj->ToString()));
     }
@@ -52,71 +54,85 @@ namespace LiteLoader::Logger {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Byte val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::SByte val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Char val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Int16 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::UInt16 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Int32 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::UInt32 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Int64 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::UInt64 val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Single val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Double val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::String^ val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Object^ val)
     {
         os->buffer->Add(val);
         return os;
     }
+
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, ENDLINE endl)
     {
         auto len = os->buffer->Count;

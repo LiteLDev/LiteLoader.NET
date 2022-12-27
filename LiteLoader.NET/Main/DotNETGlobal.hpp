@@ -23,9 +23,14 @@
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
 #define VALUE_TUPLE System::ValueTuple
+#define KEY_VALUE_PAIR System::Collections::Generic::KeyValuePair
+#define PAIR KEY_VALUE_PAIR
 
 #define __ref_class public ref class
 #define __static abstract sealed
+
+#define typeof(type) type::typeid
+#define object Object^
 
 #define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
 #define CALLING_MODULE GET_MODULE(Assembly::GetCallingAssembly())
@@ -39,7 +44,6 @@ using System::Exception;
 using System::Delegate;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
-using System::Collections::Generic::KeyValuePair;
 using System::Collections::Generic::Queue;
 using System::Reflection::Assembly;
 using System::Reflection::AssemblyName;
@@ -52,6 +56,15 @@ using System::Runtime::InteropServices::OutAttribute;
 using System::Runtime::InteropServices::InAttribute;
 using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
+
+using System::Collections::Generic::IEnumerator;
+using System::Collections::Generic::IAsyncEnumerator;
+using System::Collections::Generic::IEnumerable;
+using System::Collections::Generic::IAsyncEnumerable;
+using IEnumerableNonGgeneric = System::Collections::IEnumerable;
+using IEnumeratorNonGgeneric = System::Collections::IEnumerator;
+
+using SystemType = System::Type;
 
 #include <LiteLoader.NET/Tools/clix.hpp>
 using namespace clix;
@@ -93,6 +106,21 @@ template<typename T, typename U>
 inline bool Is(U u)
 {
     return As<T>(u) != nullptr;
+}
+
+#include <LiteLoader.NET/Tools/type_traits.hpp>
+
+template<typename T, typename... Args>
+inline array<T>^ PackArray(Args&&... args)
+{
+    using namespace LiteLoader::NET;
+
+    static_assert(std::is_base_of_v<Object, remove_handle_t<T>>, "");
+
+    else if constexpr (sizeof...(args) == 0)
+        return System::Array::Empty<T>();
+    else
+        return gcnew array<T>(sizeof...(args) { args };
 }
 
 #include "GlobalClass.hpp"
