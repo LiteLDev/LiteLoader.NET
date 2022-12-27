@@ -120,7 +120,7 @@ inline array<T>^ PackArray(Args&&... args)
     else if constexpr (sizeof...(args) == 0)
         return System::Array::Empty<T>();
     else
-        return gcnew array<T>(sizeof...(args) { args };
+        return gcnew array<T>(sizeof...(args)) { args... };
 }
 
 #include "GlobalClass.hpp"
