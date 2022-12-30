@@ -273,6 +273,8 @@ namespace LiteLoader::RemoteCall
         Value2SimpleType_Implicit(unsigned short);
         Value2SimpleType_Implicit(unsigned char);
 
+#undef Value2SimpleType_Implicit
+
     public:
         virtual String^ ToString() override;
     };

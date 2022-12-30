@@ -8,18 +8,18 @@
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 
 #define CATCH                                                                                                \
-    catch (System::Exception ^ ex)                                                                            \
+    catch (System::Exception ^ ex)                                                                           \
     {                                                                                                        \
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());    \
-        GlobalClass::logger->error->WriteLine(ex->ToString());                                                \
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());   \
+        GlobalClass::logger->error->WriteLine(ex->ToString());                                               \
     }                                                                                                        \
-    catch (...)                                                                                                \
+    catch (...)                                                                                              \
     {                                                                                                        \
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");                \
+        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");                 \
     }
 
 #define NULL_ARG_CHECK(arg)                                                        \
-    if (ReferenceEquals(arg, nullptr))                                            \
+    if (ReferenceEquals(arg, nullptr))                                             \
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
 #define VALUE_TUPLE System::ValueTuple
@@ -42,6 +42,8 @@ using System::String;
 using System::Object;
 using System::Exception;
 using System::Delegate;
+using System::Span;
+using System::ReadOnlySpan;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 using System::Collections::Generic::Queue;

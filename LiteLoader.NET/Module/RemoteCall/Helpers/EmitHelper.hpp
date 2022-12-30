@@ -54,6 +54,7 @@ namespace LiteLoader::RemoteCall::Helper
             int DefineLabel();
 
             void IL_CastArrayTypeToList(TypeHelper::FunctionInfo::TypeInfo% info);
+            void IL_CastObjectTypeToDictionary(TypeHelper::FunctionInfo::TypeInfo% info);
             void IL_CastNativeTypes(TypeHelper::FunctionInfo::TypeInfo% info);
 
             bool BuildExport();

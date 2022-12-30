@@ -20,7 +20,7 @@ namespace LiteLoader::RemoteCall::Helper
 #define __NUMBERTYPE std::get<::RemoteCall::NumberType>(__VALUE)
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline double TypeCastHelper::_Native2double(void* val)
+    inline double TypeCastHelper::Native2double(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -30,7 +30,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline float TypeCastHelper::_Native2float(void* val)
+    inline float TypeCastHelper::Native2float(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -40,7 +40,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline int64_t TypeCastHelper::_Native2int64_t(void* val)
+    inline int64_t TypeCastHelper::Native2int64_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -50,7 +50,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline int32_t TypeCastHelper::_Native2int32_t(void* val)
+    inline int32_t TypeCastHelper::Native2int32_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -60,7 +60,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline int16_t TypeCastHelper::_Native2int16_t(void* val)
+    inline int16_t TypeCastHelper::Native2int16_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -70,7 +70,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline int8_t TypeCastHelper::_Native2int8_t(void* val)
+    inline int8_t TypeCastHelper::Native2int8_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -80,7 +80,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline uint64_t TypeCastHelper::_Native2uint64_t(void* val)
+    inline uint64_t TypeCastHelper::Native2uint64_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -90,7 +90,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline uint32_t TypeCastHelper::_Native2uint32_t(void* val)
+    inline uint32_t TypeCastHelper::Native2uint32_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -100,7 +100,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline uint16_t TypeCastHelper::_Native2uint16_t(void* val)
+    inline uint16_t TypeCastHelper::Native2uint16_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -110,7 +110,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline uint8_t TypeCastHelper::_Native2uint8_t(void* val)
+    inline uint8_t TypeCastHelper::Native2uint8_t(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -120,7 +120,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline bool TypeCastHelper::_Native2bool(void* val)
+    inline bool TypeCastHelper::Native2bool(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -130,7 +130,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline String^ TypeCastHelper::_Native2string(void* val)
+    inline String^ TypeCastHelper::Native2string(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -140,7 +140,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::NumberType TypeCastHelper::_Native2NumberType(void* val)
+    inline LiteLoader::RemoteCall::NumberType TypeCastHelper::Native2NumberType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -150,7 +150,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::Player^ TypeCastHelper::_Native2Player(void* val)
+    inline MC::Player^ TypeCastHelper::Native2Player(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -160,7 +160,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::Actor^ TypeCastHelper::_Native2Actor(void* val)
+    inline MC::Actor^ TypeCastHelper::Native2Actor(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -170,7 +170,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::BlockActor^ TypeCastHelper::_Native2BlockActor(void* val)
+    inline MC::BlockActor^ TypeCastHelper::Native2BlockActor(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -180,7 +180,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::Container^ TypeCastHelper::_Native2Container(void* val)
+    inline MC::Container^ TypeCastHelper::Native2Container(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -190,7 +190,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::Vec3 TypeCastHelper::_Native2Vec3(void* val)
+    inline MC::Vec3 TypeCastHelper::Native2Vec3(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -200,7 +200,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline MC::BlockPos TypeCastHelper::_Native2BlockPos(void* val)
+    inline MC::BlockPos TypeCastHelper::Native2BlockPos(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -210,7 +210,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::WorldPosType^ TypeCastHelper::_Native2WorldPosType(void* val)
+    inline LiteLoader::RemoteCall::WorldPosType^ TypeCastHelper::Native2WorldPosType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -220,7 +220,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::BlockPosType^ TypeCastHelper::_Native2BlockPosType(void* val)
+    inline LiteLoader::RemoteCall::BlockPosType^ TypeCastHelper::Native2BlockPosType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -230,7 +230,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::ItemType^ TypeCastHelper::_Native2ItemType(void* val)
+    inline LiteLoader::RemoteCall::ItemType^ TypeCastHelper::Native2ItemType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -240,7 +240,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::BlockType^ TypeCastHelper::_Native2BlockType(void* val)
+    inline LiteLoader::RemoteCall::BlockType^ TypeCastHelper::Native2BlockType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -250,7 +250,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
-    inline LiteLoader::RemoteCall::NbtType^ TypeCastHelper::_Native2NbtType(void* val)
+    inline LiteLoader::RemoteCall::NbtType^ TypeCastHelper::Native2NbtType(void* val)
     {
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
@@ -378,6 +378,18 @@ namespace LiteLoader::RemoteCall::Helper
     {
         object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
         return &*pIter;
+    }
+
+    String^ TypeCastHelper::ObjectTypeWeakRef::iterator::GetKey()
+    {
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        return marshalString((**pIter).first);
+    }
+
+    void* TypeCastHelper::ObjectTypeWeakRef::iterator::GetValue()
+    {
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        return &(**pIter).second;
     }
 
     inline IntPtr TypeCastHelper::ObjectTypeWeakRef::iterator::Current::get()

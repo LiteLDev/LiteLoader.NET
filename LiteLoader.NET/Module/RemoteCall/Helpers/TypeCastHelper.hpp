@@ -98,6 +98,9 @@ namespace LiteLoader::RemoteCall::Helper
                 {
                     virtual Object^ get() = IEnumeratorNonGgeneric::Current::get;
                 };
+
+                String^ GetKey();
+                void* GetValue();
             };
 
             void* ptr;
@@ -116,30 +119,30 @@ namespace LiteLoader::RemoteCall::Helper
             iterator GetIterator();
         };
 
-        static double _Native2double(void* val);
-        static float _Native2float(void* val);
-        static int64_t _Native2int64_t(void* val);
-        static int32_t _Native2int32_t(void* val);
-        static int16_t _Native2int16_t(void* val);
-        static int8_t _Native2int8_t(void* val);
-        static uint64_t _Native2uint64_t(void* val);
-        static uint32_t _Native2uint32_t(void* val);
-        static uint16_t _Native2uint16_t(void* val);
-        static uint8_t _Native2uint8_t(void* val);
-        static bool _Native2bool(void* val);
-        static String^ _Native2string(void* val);
-        static NumberType _Native2NumberType(void* val);
-        static MC::Player^ _Native2Player(void* val);
-        static MC::Actor^ _Native2Actor(void* val);
-        static MC::BlockActor^ _Native2BlockActor(void* val);
-        static MC::Container^ _Native2Container(void* val);
-        static MC::Vec3 _Native2Vec3(void* val);
-        static MC::BlockPos _Native2BlockPos(void* val);
-        static WorldPosType^ _Native2WorldPosType(void* val);
-        static BlockPosType^ _Native2BlockPosType(void* val);
-        static ItemType^ _Native2ItemType(void* val);
-        static BlockType^ _Native2BlockType(void* val);
-        static NbtType^ _Native2NbtType(void* val);
+        static double Native2double(void* val);
+        static float Native2float(void* val);
+        static int64_t Native2int64_t(void* val);
+        static int32_t Native2int32_t(void* val);
+        static int16_t Native2int16_t(void* val);
+        static int8_t Native2int8_t(void* val);
+        static uint64_t Native2uint64_t(void* val);
+        static uint32_t Native2uint32_t(void* val);
+        static uint16_t Native2uint16_t(void* val);
+        static uint8_t Native2uint8_t(void* val);
+        static bool Native2bool(void* val);
+        static String^ Native2string(void* val);
+        static NumberType Native2NumberType(void* val);
+        static MC::Player^ Native2Player(void* val);
+        static MC::Actor^ Native2Actor(void* val);
+        static MC::BlockActor^ Native2BlockActor(void* val);
+        static MC::Container^ Native2Container(void* val);
+        static MC::Vec3 Native2Vec3(void* val);
+        static MC::BlockPos Native2BlockPos(void* val);
+        static WorldPosType^ Native2WorldPosType(void* val);
+        static BlockPosType^ Native2BlockPosType(void* val);
+        static ItemType^ Native2ItemType(void* val);
+        static BlockType^ Native2BlockType(void* val);
+        static NbtType^ Native2NbtType(void* val);
 
 
     };

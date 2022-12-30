@@ -2,7 +2,7 @@
 
 namespace LiteLoader::RemoteCall
 {
-	enum class InstanceType : size_t
+	public enum class InstanceType : size_t
 	{
 		Value = 0,
 		ArrayType = 1,
