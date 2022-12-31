@@ -153,109 +153,274 @@ namespace LiteLoader::RemoteCall::Helper
         new (valueTypeInstancePtr)value_type(*v->NativePtr);
     }
 
-    TypeCastHelper::ArrayTypeWeakRef MemoryHelper::Allocator::SetValueAsArrayType(size_t size)
+    TypeCastHelper::ArrayTypeWeakRef MemoryHelper::Allocator::SetValueAsArrayType()
     {
-        
+        new (valueTypeInstancePtr)value_type(array_type());
     }
-    TypeCastHelper::ObjectTypeWeakRef MemoryHelper::Allocator::SetValueAsObjectType(size_t size)
+    TypeCastHelper::ObjectTypeWeakRef MemoryHelper::Allocator::SetValueAsObjectType()
     {
+        new (valueTypeInstancePtr)value_type(object_type());
+    }
 
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(nullptr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, bool v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, String^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(marshalString(v)));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::Player^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::Actor^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::BlockActor^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::Container^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::Vec3 v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v))));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, MC::BlockPos v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v))));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, ItemType^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, BlockType^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, NbtType^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, WorldPosType^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, BlockPosType^ v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v->NativePtr));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, double v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, float v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, __int64 v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, int v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, short v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, char v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, unsigned __int64 v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, unsigned int v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, unsigned short v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, unsigned char v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(v));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, TypeCastHelper::ArrayTypeWeakRef% v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(std::move(*reinterpret_cast<array_type*>(v.ptr))));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, TypeCastHelper::ObjectTypeWeakRef% v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(std::move(*reinterpret_cast<object_type*>(v.ptr))));
     }
 
-    void MemoryHelper::Allocator::SetValue(void* pValueType)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(nullptr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(nullptr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, bool v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, bool v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, String^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, String^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(marshalString(v));
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(marshalString(v))));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::Player^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::Player^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::Actor^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::Actor^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::BlockActor^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::BlockActor^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::Container^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::Container^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::Vec3 v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::Vec3 v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v)));
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v)))));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, MC::BlockPos v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, MC::BlockPos v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v)));
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(world_pos_type(*reinterpret_cast<::Vec3*>(&v)))));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, ItemType^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, ItemType^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, BlockType^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, BlockType^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, NbtType^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, NbtType^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, WorldPosType^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, WorldPosType^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, BlockPosType^ v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, BlockPosType^ v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v->NativePtr);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v->NativePtr)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, double v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, double v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, float v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, float v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, __int64 v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, __int64 v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, int v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, int v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, short v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, short v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, char v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, char v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, unsigned __int64 v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, unsigned __int64 v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, unsigned int v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, unsigned int v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, unsigned short v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, unsigned short v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
     }
-    void MemoryHelper::Allocator::SetValue(void* pValueType, unsigned char v)
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, unsigned char v)
     {
-        *reinterpret_cast<value_type*>(pValueType) = value_type(v);
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(v)));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, TypeCastHelper::ArrayTypeWeakRef% v)
+    {
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(std::move(*reinterpret_cast<array_type*>(v.ptr)))));
+    }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, TypeCastHelper::ObjectTypeWeakRef% v)
+    {
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(std::move(*reinterpret_cast<object_type*>(v.ptr)))));
     }
 }

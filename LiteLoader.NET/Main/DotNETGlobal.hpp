@@ -113,7 +113,7 @@ inline bool Is(U u)
 #include <LiteLoader.NET/Tools/type_traits.hpp>
 
 template<typename T, typename... Args>
-inline array<T>^ PackArray(Args&&... args)
+inline array<T>^ PackArray(Args... args)
 {
     using namespace LiteLoader::NET;
 

@@ -4,6 +4,7 @@
 
 #include "TypeHelper.hpp"
 #include "TypeCastHelper.hpp"
+#include "MemoryHelper.hpp"
 
 namespace LiteLoader::RemoteCall::Helper
 {
@@ -46,6 +47,7 @@ namespace LiteLoader::RemoteCall::Helper
             BuliderType buliderType;
             DynamicMethod^ method;
             ILGenerator^ il;
+            List<LocalBuilder^>^ localAllocatorInstances;
 
             generic<typename TDelegate> where TDelegate: Delegate
                 ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type);
@@ -56,6 +58,12 @@ namespace LiteLoader::RemoteCall::Helper
             void IL_CastArrayTypeToList(TypeHelper::FunctionInfo::TypeInfo% info);
             void IL_CastObjectTypeToDictionary(TypeHelper::FunctionInfo::TypeInfo% info);
             void IL_CastNativeTypes(TypeHelper::FunctionInfo::TypeInfo% info);
+
+            void IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info);
+            void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info);
+            void IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
+            void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
+            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info);
 
             bool BuildExport();
             bool BuildImport();

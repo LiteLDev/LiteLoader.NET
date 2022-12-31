@@ -61,18 +61,10 @@
 #define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
 #define CALLING_MODULE GET_MODULE(Assembly::GetCallingAssembly())
 #define PAIR
-#define TYPECASTHELPER_METHOD_INFO(funcname) ::LiteLoader::RemoteCall::Helper::TypeCastHelper::typeid->GetMethod(#funcname)// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define TYPECASTHELPER_METHOD_INFO(funcname) ::LiteLoader::RemoteCall::Helper::TypeCastHelper::typeid->GetMethod(#funcname)
 #define TYPECASTHELPER_METHOD_INFO
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
 #define typeof(type)
 #define CTOR(type, argTypes) type->GetConstructor(argTypes)
-// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
-// 如函数和宏的名称。
-// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
 #define TYPECASTHELPER_METHOD_INFO
 #define VOID_PTR_TYPE void::typeid->MakePointerType()
 #define METHOD(type, name) type->GetMethod(name)
