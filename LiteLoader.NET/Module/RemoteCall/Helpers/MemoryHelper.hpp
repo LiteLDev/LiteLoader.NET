@@ -14,8 +14,6 @@ namespace LiteLoader::RemoteCall::Helper
 
     using System::Runtime::InteropServices::SafeHandle;
     using System::Security::SuppressUnmanagedCodeSecurityAttribute;
-    generic<typename T>
-    using Nullable = System::Nullable<T>;
 
     public ref class MemoryHelper
     {
@@ -23,7 +21,7 @@ namespace LiteLoader::RemoteCall::Helper
         ref class RemoreCallHandle : SafeHandle
         {
         public:
-            Nullable<InstanceType> instanceType;
+            System::Nullable<InstanceType> instanceType;
 
             RemoreCallHandle(void* ptr, bool ownsNativeInstance, InstanceType type);
             RemoreCallHandle();
@@ -69,8 +67,8 @@ namespace LiteLoader::RemoteCall::Helper
             void SetValue(TypeCastHelper::ObjectTypeWeakRef% v);
             void SetValueByMove(TypeCastHelper::ArrayTypeWeakRef% v);
             void SetValueByMove(TypeCastHelper::ObjectTypeWeakRef% v);
-            TypeCastHelper::ArrayTypeWeakRef SetValueAsArrayType();
-            TypeCastHelper::ObjectTypeWeakRef SetValueAsObjectType();
+            void SetValueAsArrayType();
+            void SetValueAsObjectType();
         };
 
         static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef);

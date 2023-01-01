@@ -5,7 +5,7 @@
 namespace MC
 {
 public
-ref class SharedAttributes abstract sealed
+ref class SharedAttributes __static
 {
 public:
     static initonly Attribute^ Absorption = gcnew Attribute(const_cast<::Attribute*>(&::SharedAttributes::ABSORPTION));

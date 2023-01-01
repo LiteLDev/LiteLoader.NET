@@ -114,7 +114,7 @@ namespace LiteLoader
     };
 
     public
-    ref class LLAPI abstract
+    ref class LLAPI __static
     {
     public:
         static String^ GetLoaderVersionString();

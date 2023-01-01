@@ -70,7 +70,7 @@ namespace LiteLoader::RemoteCall::Helper
                 IntPtr get(size_t index);
             }
 
-            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() new sealed = IEnumerableNonGgeneric::GetEnumerator;
+            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;
             virtual IEnumerator<IntPtr>^ GetEnumerator();
             iterator GetIterator();
         };

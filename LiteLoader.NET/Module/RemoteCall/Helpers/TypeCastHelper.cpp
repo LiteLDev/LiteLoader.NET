@@ -266,7 +266,8 @@ namespace LiteLoader::RemoteCall::Helper
 
     inline bool TypeCastHelper::ArrayTypeWeakRef::iterator::MoveNext()
     {
-        array_type_native_iterator* pIter = reinterpret_cast<array_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        array_type_native_iterator* pIter = reinterpret_cast<array_type_native_iterator*>(pinpIter);
         auto pNative = reinterpret_cast<array_type*>(instance);
 
         if (isIterSet)
@@ -293,7 +294,8 @@ namespace LiteLoader::RemoteCall::Helper
     
     inline void* TypeCastHelper::ArrayTypeWeakRef::iterator::GetCurrentPtr()
     {
-        array_type_native_iterator* pIter = reinterpret_cast<array_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        array_type_native_iterator* pIter = reinterpret_cast<array_type_native_iterator*>(pinpIter);
         return &*pIter;
     }
 
@@ -349,7 +351,8 @@ namespace LiteLoader::RemoteCall::Helper
 
     inline bool TypeCastHelper::ObjectTypeWeakRef::iterator::MoveNext()
     {
-        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pinpIter);
         auto pNative = reinterpret_cast<object_type*>(instance);
 
         if (isIterSet)
@@ -376,19 +379,22 @@ namespace LiteLoader::RemoteCall::Helper
     
     inline void* TypeCastHelper::ObjectTypeWeakRef::iterator::GetCurrentPtr()
     {
-        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pinpIter);
         return &*pIter;
     }
 
     String^ TypeCastHelper::ObjectTypeWeakRef::iterator::GetKey()
     {
-        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pinpIter);
         return marshalString((**pIter).first);
     }
 
     void* TypeCastHelper::ObjectTypeWeakRef::iterator::GetValue()
     {
-        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pin_ptr<__iterator>(&iter));
+        pin_ptr<__iterator> pinpIter = &iter;
+        object_type_native_iterator* pIter = reinterpret_cast<object_type_native_iterator*>(pinpIter);
         return &(**pIter).second;
     }
 

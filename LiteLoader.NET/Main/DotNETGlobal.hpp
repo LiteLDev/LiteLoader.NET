@@ -30,7 +30,6 @@
 #define __static abstract sealed
 
 #define typeof(type) type::typeid
-#define object Object^
 
 #define GET_MODULE(asm) GlobalClass::GetCurrentModule(asm)
 #define CALLING_MODULE GET_MODULE(Assembly::GetCallingAssembly())
@@ -42,8 +41,6 @@ using System::String;
 using System::Object;
 using System::Exception;
 using System::Delegate;
-using System::Span;
-using System::ReadOnlySpan;
 using System::Collections::Generic::Dictionary;
 using System::Collections::Generic::List;
 using System::Collections::Generic::Queue;
@@ -119,10 +116,10 @@ inline array<T>^ PackArray(Args... args)
 
     static_assert(std::is_base_of_v<Object, remove_handle_t<T>>, "");
 
-    else if constexpr (sizeof...(args) == 0)
+    if constexpr (sizeof...(args) == 0)
         return System::Array::Empty<T>();
     else
-        return gcnew array<T>(sizeof...(args)) { args... };
+        return new array<T>(sizeof...(args)) { args... };
 }
 
 #include "GlobalClass.hpp"

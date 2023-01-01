@@ -5,7 +5,7 @@
 namespace MC
 {
 public
-ref class ColorFormat abstract sealed
+ref class ColorFormat __static
 {
 public:
     static initonly String^ Aqua = marshalString(::ColorFormat::AQUA);

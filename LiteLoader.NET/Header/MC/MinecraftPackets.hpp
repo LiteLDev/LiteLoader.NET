@@ -27,7 +27,7 @@ internal:
 
 namespace MC
 {
-    public ref class MinecraftPackets abstract sealed
+    public ref class MinecraftPackets __static
     {
     public:
         static Packet^ CreatePacket(MinecraftPacketId packetId);

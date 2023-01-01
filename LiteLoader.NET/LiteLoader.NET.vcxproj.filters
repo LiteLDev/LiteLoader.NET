@@ -935,9 +935,6 @@
     <ClInclude Include="Main\GlobalClass.hpp">
       <Filter>Main\Global</Filter>
     </ClInclude>
-    <ClInclude Include="Main\Global.hpp">
-      <Filter>Main\Class</Filter>
-    </ClInclude>
     <ClInclude Include="Resource\Version.hpp">
       <Filter>Main\Config</Filter>
     </ClInclude>
@@ -1027,6 +1024,9 @@
     </ClInclude>
     <ClInclude Include="Module\RemoteCall\Helpers\TypeHelper.hpp">
       <Filter>Module\RemoteCall\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Global.hpp">
+      <Filter>Main\Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ constexpr int IS_INSTANCE_AND_REF_AND_IGNORECANCELLED = IS_INSTANCE | IS_REF | I
 
 namespace LiteLoader::Event
 {
-    public ref class EventManager abstract sealed
+    public ref class EventManager __static
     {
     internal:
         using __IgnoreCancelled = bool;

@@ -6,7 +6,7 @@
 namespace LiteLoader::Hook {
     using LiteLoader::NET::SecondaryRankPtr;
 
-    public ref class HookAPI abstract
+    public ref class HookAPI __static
     {
     public:
         inline static int HookFunction(void* oldfunc, void** poutold, void* newfunc);

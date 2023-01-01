@@ -4,7 +4,7 @@
 namespace LiteLoader
 {
 public
-ref class ServerAPI abstract
+ref class ServerAPI __static
 {
 public:
     inline static String^ GetBdsVersion();

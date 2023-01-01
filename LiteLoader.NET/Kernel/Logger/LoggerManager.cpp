@@ -125,7 +125,7 @@ bool LoggerManager::tryLock(LoggerID id)
         if (iter != LoggerData.end())
             plogger = iter->second.second.get();
         else
-            return;
+            return false;
     }
 
 jmp:
@@ -147,7 +147,7 @@ bool LoggerManager::lock(LoggerID id)
         if (iter != LoggerData.end())
             plogger = iter->second.second.get();
         else
-            return;
+            return false;
     }
 
 jmp:
@@ -169,7 +169,7 @@ bool LoggerManager::unlock(LoggerID id)
         if (iter != LoggerData.end())
             plogger = iter->second.second.get();
         else
-            return;
+            return false;
     }
 
 jmp:

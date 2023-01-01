@@ -14,7 +14,7 @@ extern __declspec(noinline) EXCEPTION_CODE _try_catch(void(*pfunc)());
 namespace LiteLoader::Hook
 {
 
-    public ref class NativeAPI abstract
+    public ref class NativeAPI __static
     {
     public:
         static bool TryCatch(System::Action^ act, [Out] System::Exception^% exc)

@@ -20,14 +20,14 @@ namespace LiteLoader::RemoteCall::Helper
 
     }
 
-    generic<typename TDelegate> where TDelegate: Delegate
+    // generic<typename TDelegate> where TDelegate: Delegate
         EmitHelper::ILCodeBulider::ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type)
     {
         funcInfo = info;
         buliderType = type;
         localVars = gcnew Dictionary<int, LocalBuilder^>;
         labels = gcnew Dictionary<int, Label>;
-        exportedManagedFuncDelegateType = typeof(TDelegate);
+        // exportedManagedFuncDelegateType = typeof(TDelegate);
         localAllocatorInstances = gcnew List<LocalBuilder^>;
 
         switch (type)

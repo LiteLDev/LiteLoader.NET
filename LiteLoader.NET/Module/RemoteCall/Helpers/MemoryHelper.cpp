@@ -24,7 +24,7 @@ namespace LiteLoader::RemoteCall::Helper
     inline bool MemoryHelper::RemoreCallHandle::ReleaseHandle()
     {
         if (!instanceType.HasValue)
-            return true;
+            return false;
 
         switch (static_cast<InstanceType>(instanceType))
         {
@@ -32,19 +32,19 @@ namespace LiteLoader::RemoteCall::Helper
         {
             delete reinterpret_cast<::RemoteCall::Value*>(handle.ToPointer());
         }
-        break;
+        return true;
         case InstanceType::ArrayType:
         {
             delete reinterpret_cast<::RemoteCall::ValueType::ArrayType*> (handle.ToPointer());
         }
-        break;
+        return true;
         case InstanceType::ObjectType:
         {
             delete reinterpret_cast<::RemoteCall::ValueType::ObjectType*>(handle.ToPointer());
         }
-        break;
+        return true;
         default:
-            break;
+            return false;
         }
     }
     void MemoryHelper::Allocator::Alloc()
@@ -173,11 +173,11 @@ namespace LiteLoader::RemoteCall::Helper
         new (valueTypeInstancePtr)value_type(std::move(*reinterpret_cast<array_type*>(v.ptr)));
     }
 
-    TypeCastHelper::ArrayTypeWeakRef MemoryHelper::Allocator::SetValueAsArrayType()
+    void MemoryHelper::Allocator::SetValueAsArrayType()
     {
         new (valueTypeInstancePtr)value_type(array_type());
     }
-    TypeCastHelper::ObjectTypeWeakRef MemoryHelper::Allocator::SetValueAsObjectType()
+    void MemoryHelper::Allocator::SetValueAsObjectType()
     {
         new (valueTypeInstancePtr)value_type(object_type());
     }

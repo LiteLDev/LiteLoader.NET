@@ -25,7 +25,7 @@ namespace LiteLoader::RemoteCall::Helper
 
     using IFuncCaller = LiteLoader::NET::IFunctionCaller;
 
-    public ref class EmitHelper __static
+    public ref class EmitHelper sealed
     {
     public:
 
@@ -49,7 +49,7 @@ namespace LiteLoader::RemoteCall::Helper
             ILGenerator^ il;
             List<LocalBuilder^>^ localAllocatorInstances;
 
-            generic<typename TDelegate> where TDelegate: Delegate
+            // generic<typename TDelegate> where TDelegate: Delegate
                 ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type);
             bool Build();
             int DeclareLocal(SystemType^ type);
