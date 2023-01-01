@@ -104,6 +104,16 @@ namespace LiteLoader::RemoteCall::Helper
         il->Emit(oc::Ldarg_0);
         il->Emit(oc::Ldfld, FIELD(typeof(EmitHelper::ExportedFuncInstance), "exportedManagedFunc"));
         il->EmitCall(oc::Call, METHOD(exportedManagedFuncDelegateType, "Invoke"), nullptr);
+
+        IL_CastManagedTypes(funcInfo.returnType);
+
+        for each (auto allocator in localAllocatorInstances)
+        {
+            il->Emit(oc::Ldloca_S, allocator);
+            il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Free"), nullptr);
+        }
+
+        il->Emit(oc::Ret);
     }
 
     bool EmitHelper::ILCodeBulider::BuildImport()
@@ -290,7 +300,7 @@ namespace LiteLoader::RemoteCall::Helper
         //while(enumator.MoveNext())
         il->MarkLabel(labels[loop__foreach_array_start]);
         il->Emit(oc::Ldloca_S, localVars[local__list_enumator]);
-        il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef::iterator), "MoveNext"), nullptr);
+        il->EmitCall(oc::Call, METHOD(type__enumator, "MoveNext"), nullptr);
         il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
         //{
         il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
@@ -299,11 +309,18 @@ namespace LiteLoader::RemoteCall::Helper
 
         switch (info.genericArgs[0].type)
         {
+        case ValidType::Void:
         case ValidType::Invalid:
             throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
         case ValidType::List:
         {
             IL_CastListToArrayType(info.genericArgs[0], true);
+            auto local__temp_arrayTypeRef_ref = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType());
+            il->Emit(oc::Stloc_S, localVars[local__temp_arrayTypeRef_ref]);
+
+            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
+            il->Emit(oc::Ldloc_S, localVars[local__temp_arrayTypeRef_ref]);
+
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
@@ -315,22 +332,36 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         case ValidType::Dictionary:
         {
-            IL_CastDictionaryToObjectType(info.genericArgs[0], true);
+            IL_CastDictionaryToObjectType(info.genericArgs[1], true);
+
+            auto local__temp_objectTypeRef_ref = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType());
+            il->Emit(oc::Stloc_S, localVars[local__temp_objectTypeRef_ref]);
+
+            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
+            il->Emit(oc::Ldloc_S, localVars[local__temp_objectTypeRef_ref]);
+
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
                     PackArray<SystemType^>(
                         typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType(),
-                        typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType())),
+                        typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType())),
                 nullptr);
         }
         break;
         default:
         {
+            auto local__temp_var = DeclareLocal(info.genericArgs[0]._type);
+            il->Emit(oc::Stloc_S, localVars[local__temp_var]);
+
+            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
+            il->Emit(oc::Ldloc_S, localVars[local__temp_var]);
+
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
-                    PackArray<SystemType^>(typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType(),
+                    PackArray<SystemType^>(
+                        typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType(),
                         info.genericArgs[0]._type)),
                 nullptr);
         }
@@ -348,10 +379,208 @@ namespace LiteLoader::RemoteCall::Helper
     }
     void EmitHelper::ILCodeBulider::IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled)
     {
-        throw gcnew System::NotImplementedException();
+        using ValidType = TypeHelper::ValidType;
+
+        auto method__getEnumator = METHOD(info._type, "GetEnumator");
+        auto type__enumator = method__getEnumator->ReturnType;
+        auto method__get_Current = METHOD(type__enumator, "get_Current");
+        auto type__pair = method__get_Current->ReturnType;
+
+        auto local__dictionary = DeclareLocal(info._type);
+        auto local__allocator = DeclareLocal(typeof(MemoryHelper::Allocator));
+        auto local__objectTypeRef = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef));
+        auto local__dictionary_enumator = DeclareLocal(type__enumator);
+        auto local__pair = DeclareLocal(type__pair);
+
+        localAllocatorInstances->Add(localVars[local__allocator]);
+
+
+        il->Emit(oc::Stloc_S, localVars[local__dictionary]);
+        //init allocator
+        il->Emit(oc::Newobj, CTOR(typeof(MemoryHelper::Allocator), PackArray<SystemType^>()));
+        il->Emit(oc::Stloc_S, localVars[local__allocator]);
+        //alloc memory
+        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Alloc"), nullptr);
+        //construct internal value_type obj as array_type
+        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "SetValueAsObjectType"), nullptr);
+        il->Emit(oc::Stloc_S, localVars[local__objectTypeRef]);
+        //init enumator
+        il->Emit(oc::Ldloc_S, localVars[local__dictionary]);
+        il->EmitCall(oc::Call, method__getEnumator, nullptr);
+        il->Emit(oc::Stloc_S, localVars[local__dictionary_enumator]);
+
+        //loop(while)
+        auto loop__foreach_array_start = DefineLabel();
+        auto loop__foreach_array_end = DefineLabel();
+        //while(enumator.MoveNext())
+        il->MarkLabel(labels[loop__foreach_array_start]);
+        il->Emit(oc::Ldloca_S, localVars[local__dictionary_enumator]);
+        il->EmitCall(oc::Call, METHOD(type__enumator, "MoveNext"), nullptr);
+        il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
+        //{
+        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+        il->Emit(oc::Ldloca_S, localVars[local__dictionary_enumator]);
+        il->EmitCall(oc::Call, method__get_Current, nullptr);
+        il->Emit(oc::Stloc_S, localVars[local__pair]);
+
+        switch (info.genericArgs[0].type)
+        {
+        case ValidType::Void:
+        case ValidType::Invalid:
+            throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
+        case ValidType::List:
+        {
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
+            IL_CastListToArrayType(info.genericArgs[0], true);
+            auto local__temp_arrayTypeRef = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef));
+            il->Emit(oc::Stloc_S, localVars[local__temp_arrayTypeRef]);
+
+            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
+            il->Emit(oc::Ldloc_S, localVars[local__temp_arrayTypeRef]);
+
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(typeof(MemoryHelper), "ObjectType_EmplaceBack",
+                    PackArray<SystemType^>(
+                        typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType(),
+                        typeof(String),
+                        typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType())),
+                nullptr);
+        }
+        break;
+        case ValidType::Dictionary:
+        {
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
+            IL_CastDictionaryToObjectType(info.genericArgs[1], true);
+            auto local__temp_ObjectTypeRef = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef));
+            il->Emit(oc::Stloc_S, localVars[local__temp_ObjectTypeRef]);
+
+            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
+            il->Emit(oc::Ldloc_S, localVars[local__temp_ObjectTypeRef]);
+
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(typeof(MemoryHelper), "ObjectType_EmplaceBack",
+                    PackArray<SystemType^>(
+                        typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType(),
+                        typeof(String),
+                        typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType())),
+                nullptr);
+        }
+        break;
+        default:
+        {
+            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
+            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
+
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(typeof(MemoryHelper), "ObjectType_EmplaceBack",
+                    PackArray<SystemType^>(
+                        typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType(),
+                        typeof(String),
+                        info.genericArgs[0]._type)),
+                nullptr);
+        }
+        break;
+        }
+        //}
+        il->Emit(oc::Br_S, labels[loop__foreach_array_start]);
+        il->MarkLabel(labels[loop__foreach_array_end]);
+        //loop end
+
+        if (isSelfCalled)
+            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+        else
+            il->Emit(oc::Ldloca_S, localVars[local__allocator]);
     }
     void EmitHelper::ILCodeBulider::IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info)
     {
-        throw gcnew System::NotImplementedException();
+        using ValidType = TypeHelper::ValidType;
+
+        auto ret__allocator = DeclareLocal(typeof(MemoryHelper::Allocator));
+        auto local__var = DeclareLocal(info._type);
+
+        il->Emit(oc::Stloc_S, localVars[local__var]);
+
+        //init allocator
+        il->Emit(oc::Newobj, CTOR(typeof(MemoryHelper::Allocator), PackArray<SystemType^>()));
+        il->Emit(oc::Stloc_S, localVars[ret__allocator]);
+        //alloc memory
+        il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Alloc"), nullptr);
+
+        switch (info.type)
+        {
+        case ValidType::Invalid:
+            throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
+        case ValidType::List:
+        {
+            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            IL_CastListToArrayType(info, true);
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(
+                    typeof(MemoryHelper::Allocator),
+                    "SetValueByMove",
+                    PackArray<SystemType^>(typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType())),
+                nullptr);
+        }
+        break;
+        case ValidType::Dictionary:
+        {
+            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            IL_CastDictionaryToObjectType(info, true);
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(
+                    typeof(MemoryHelper::Allocator),
+                    "SetValueByMove",
+                    PackArray<SystemType^>(typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType())),
+                nullptr);
+        }
+        break;
+        case ValidType::Void:
+        {
+            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(
+                    typeof(MemoryHelper::Allocator),
+                    "SetValue",
+                    PackArray<SystemType^>()),
+                nullptr);
+        }
+        break;
+        default:
+        {
+            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            il->EmitCall(
+                oc::Call,
+                METHOD_WITH_ARGS(
+                    typeof(MemoryHelper::Allocator),
+                    "SetValue",
+                    PackArray<SystemType^>(info._type)),
+                nullptr);
+        }
+        break;
+        }
+
+        il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "GetPtr"), nullptr);
     }
 }

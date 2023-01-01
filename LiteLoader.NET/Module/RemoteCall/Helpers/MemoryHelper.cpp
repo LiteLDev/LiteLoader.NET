@@ -56,6 +56,10 @@ namespace LiteLoader::RemoteCall::Helper
         reinterpret_cast<value_type*>(valueTypeInstancePtr)->~ValueType();
         delete[] valueTypeInstancePtr;
     }
+    void* MemoryHelper::Allocator::GetPtr()
+    {
+        return valueTypeInstancePtr;
+    }
     void MemoryHelper::Allocator::SetValue()
     {
         new (valueTypeInstancePtr)value_type(nullptr);
@@ -151,6 +155,22 @@ namespace LiteLoader::RemoteCall::Helper
     void MemoryHelper::Allocator::SetValue(BlockPosType^ v)
     {
         new (valueTypeInstancePtr)value_type(*v->NativePtr);
+    }
+    void MemoryHelper::Allocator::SetValue(TypeCastHelper::ArrayTypeWeakRef% v)
+    {
+        new (valueTypeInstancePtr)value_type(*reinterpret_cast<array_type*>(v.ptr));
+    }
+    void MemoryHelper::Allocator::SetValue(TypeCastHelper::ObjectTypeWeakRef% v)
+    {
+        new (valueTypeInstancePtr)value_type(*reinterpret_cast<array_type*>(v.ptr));
+    }
+    void MemoryHelper::Allocator::SetValueByMove(TypeCastHelper::ArrayTypeWeakRef% v)
+    {
+        new (valueTypeInstancePtr)value_type(std::move(*reinterpret_cast<array_type*>(v.ptr)));
+    }
+    void MemoryHelper::Allocator::SetValueByMove(TypeCastHelper::ObjectTypeWeakRef% v)
+    {
+        new (valueTypeInstancePtr)value_type(std::move(*reinterpret_cast<array_type*>(v.ptr)));
     }
 
     TypeCastHelper::ArrayTypeWeakRef MemoryHelper::Allocator::SetValueAsArrayType()

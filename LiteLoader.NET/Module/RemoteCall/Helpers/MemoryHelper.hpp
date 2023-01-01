@@ -39,6 +39,7 @@ namespace LiteLoader::RemoteCall::Helper
 
             void Alloc();
             void Free();
+            void* GetPtr();
 
             void SetValue();
             void SetValue(bool v);
@@ -64,6 +65,10 @@ namespace LiteLoader::RemoteCall::Helper
             void SetValue(unsigned int v);
             void SetValue(unsigned short v);
             void SetValue(unsigned char v);
+            void SetValue(TypeCastHelper::ArrayTypeWeakRef% v);
+            void SetValue(TypeCastHelper::ObjectTypeWeakRef% v);
+            void SetValueByMove(TypeCastHelper::ArrayTypeWeakRef% v);
+            void SetValueByMove(TypeCastHelper::ObjectTypeWeakRef% v);
             TypeCastHelper::ArrayTypeWeakRef SetValueAsArrayType();
             TypeCastHelper::ObjectTypeWeakRef SetValueAsObjectType();
         };
