@@ -1,4 +1,7 @@
+#include <LiteLoader.NET/Extra/mutex.hpp>
 #include "EmitHelper.hpp"
+
+#include <LiteLoader.NET/Header/Logger/Logger.hpp>
 
 namespace LiteLoader::RemoteCall::Helper
 {
@@ -8,39 +11,46 @@ namespace LiteLoader::RemoteCall::Helper
 #define METHOD_WITH_ARGS(type,name,args) type->GetMethod(name,args)
 #define FIELD(type,name) type->GetField(name)
 
-    generic<typename TDelegate> where TDelegate : Delegate
-        void EmitHelper::CreateExportNativeFuncPtr(String^ nameSpace, String^ funcName, TDelegate func)
+    value_type ExportedFuncInstance::_invoke_managed_func(Object^ del, array_type args)
     {
+        MemoryHelper::Allocator _ret;
+        try
+        {
+            _ret = intertopManagedFuncDelegate(&args);
+        }
+        catch (Exception^ ex)
+        {
+            GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
+            GlobalClass::logger->error->WriteLine(ex->Message);
+            return value_type();
+        }
 
-        auto dynamicMethod = gcnew DynamicMethod(
-            nameSpace + L'.' + funcName,
-            VOID_PTR_TYPE,
-            gcnew array<SystemType^>{ VOID_PTR_TYPE });
-
-
+        value_type ret = std::move(*reinterpret_cast<value_type*>(_ret.GetPtr()));
+        _ret.Free();
+        return ret;
     }
 
-    // generic<typename TDelegate> where TDelegate: Delegate
-        EmitHelper::ILCodeBulider::ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type)
+    EmitHelper::ILCodeBulider::ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type, SystemType^ delegateType)
     {
         funcInfo = info;
         buliderType = type;
         localVars = gcnew Dictionary<int, LocalBuilder^>;
         labels = gcnew Dictionary<int, Label>;
-        // exportedManagedFuncDelegateType = typeof(TDelegate);
+        exportedManagedFuncDelegateType = delegateType;
         localAllocatorInstances = gcnew List<LocalBuilder^>;
+
+        method = gcnew DynamicMethod(
+            nameSpace + L'.' + funcName,
+            typeof(MemoryHelper::Allocator),
+            PackArray<SystemType^>(typeof(ExportedFuncInstance), VOID_PTR_TYPE));
 
         switch (type)
         {
         case BuliderType::Export:
-            method = gcnew DynamicMethod(
-                nameSpace + L'.' + funcName,
-                VOID_PTR_TYPE,
-                PackArray<SystemType^>(typeof(EmitHelper::ExportedFuncInstance), VOID_PTR_TYPE));
+            
             break;
         case BuliderType::Import:
             throw gcnew System::NotImplementedException;
-            break;
         default:
             break;
         }
@@ -48,18 +58,51 @@ namespace LiteLoader::RemoteCall::Helper
         il = method->GetILGenerator();
     }
 
-    bool EmitHelper::ILCodeBulider::Build()
+    bool EmitHelper::ILCodeBulider::Build(Delegate^ func, [Out] Object^% instance)
     {
+        instance = nullptr;
+
         switch (buliderType)
         {
         case BuliderType::Export:
-            BuildExport();
-            break;
+        {
+            if (!BuildExportDynamicMethod())
+                return false;
+
+            auto funcInstance = gcnew ExportedFuncInstance();
+            auto del = method->CreateDelegate(typeof(ConverterCallback), funcInstance);
+
+            funcInstance->intertopManagedFunc = method;
+            funcInstance->intertopManagedFuncDelegate = As<ConverterCallback^>(del);
+            funcInstance->exportedManagedFunc = func;
+
+            funcInstance->converterHelperFunc = gcnew ExportedFuncInstance::_InvokeManagedFuncDelegate(
+                funcInstance, &ExportedFuncInstance::_invoke_managed_func);
+
+            auto fptr = static_cast<void*>(
+                Marshal::GetFunctionPointerForDelegate(funcInstance->converterHelperFunc));
+
+            auto pair = converter::create(
+                funcInstance->intertopManagedFuncDelegate,
+                static_cast<value_type(*)(Object^, array_type)>(fptr));
+
+            funcInstance->exportedNativeFunc = pair.first;
+            funcInstance->funcHandle = pair.second;
+
+            instance = funcInstance;
+
+            return true;
+        }
+        break;
         case BuliderType::Import:
-            BuildImport();
-            break;
+        {
+            throw gcnew System::NotImplementedException;
+        }
+        break;
         default:
-            break;
+        {
+            return false;
+        }
         }
     }
 
@@ -77,7 +120,7 @@ namespace LiteLoader::RemoteCall::Helper
         return ret;
     }
 
-    bool EmitHelper::ILCodeBulider::BuildExport()
+    bool EmitHelper::ILCodeBulider::BuildExportDynamicMethod()
     {
         for each (auto % typeInfo in funcInfo.parameters)
             DeclareLocal(typeInfo._type);
@@ -102,10 +145,10 @@ namespace LiteLoader::RemoteCall::Helper
 
         //load this
         il->Emit(oc::Ldarg_0);
-        il->Emit(oc::Ldfld, FIELD(typeof(EmitHelper::ExportedFuncInstance), "exportedManagedFunc"));
+        il->Emit(oc::Ldfld, FIELD(typeof(ExportedFuncInstance), "exportedManagedFunc"));
         il->EmitCall(oc::Call, METHOD(exportedManagedFuncDelegateType, "Invoke"), nullptr);
 
-        IL_CastManagedTypes(funcInfo.returnType);
+        IL_CastManagedTypes(funcInfo.returnType, true);
 
         for each (auto allocator in localAllocatorInstances)
         {
@@ -114,11 +157,13 @@ namespace LiteLoader::RemoteCall::Helper
         }
 
         il->Emit(oc::Ret);
+
+        return true;
     }
 
-    bool EmitHelper::ILCodeBulider::BuildImport()
+    bool EmitHelper::ILCodeBulider::BuildImportDynamicMethod()
     {
-
+        throw gcnew System::NotImplementedException;
     }
 
     void EmitHelper::ILCodeBulider::IL_CastArrayTypeToList(TypeHelper::FunctionInfo::TypeInfo% info)
@@ -254,14 +299,17 @@ namespace LiteLoader::RemoteCall::Helper
         case ValidType::Void:         il->Emit(oc::Pop);
         }
     }
+
     void EmitHelper::ILCodeBulider::IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info)
     {
         IL_CastListToArrayType(info, false);
     }
+
     void EmitHelper::ILCodeBulider::IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info)
     {
         IL_CastDictionaryToObjectType(info, false);
     }
+
     void EmitHelper::ILCodeBulider::IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled)
     {
         using ValidType = TypeHelper::ValidType;
@@ -377,6 +425,7 @@ namespace LiteLoader::RemoteCall::Helper
         else
             il->Emit(oc::Ldloca_S, localVars[local__allocator]);
     }
+
     void EmitHelper::ILCodeBulider::IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled)
     {
         using ValidType = TypeHelper::ValidType;
@@ -505,7 +554,8 @@ namespace LiteLoader::RemoteCall::Helper
         else
             il->Emit(oc::Ldloca_S, localVars[local__allocator]);
     }
-    void EmitHelper::ILCodeBulider::IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info)
+
+    void EmitHelper::ILCodeBulider::IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info, bool isRet)
     {
         using ValidType = TypeHelper::ValidType;
 
@@ -580,7 +630,6 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         }
 
-        il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
-        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "GetPtr"), nullptr);
+        il->Emit(isRet ? oc::Ldloc_S : oc::Ldloca_S, localVars[ret__allocator]);
     }
 }

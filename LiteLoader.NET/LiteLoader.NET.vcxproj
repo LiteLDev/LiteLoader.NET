@@ -118,7 +118,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -445,12 +445,14 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\Loader.cpp" />
     <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
+    <ClCompile Include="Main\PluginOwnData.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\TypeCastHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\TypeHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\RemoteCall_basic_api.cpp" />
     <ClCompile Include="Module\RemoteCall\RemoteCall_ExportAs_impl.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\ArrayType.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\BlockPosType.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\BlockType.cpp" />

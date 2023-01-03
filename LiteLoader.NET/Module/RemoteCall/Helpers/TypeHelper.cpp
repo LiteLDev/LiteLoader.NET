@@ -1,3 +1,5 @@
+#include <LiteLoader.NET/Extra/mutex.hpp>
+
 #include "TypeHelper.hpp"
 
 #include <stdint.h>

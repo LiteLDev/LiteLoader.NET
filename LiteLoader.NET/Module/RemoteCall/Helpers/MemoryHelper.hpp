@@ -67,8 +67,8 @@ namespace LiteLoader::RemoteCall::Helper
             void SetValue(TypeCastHelper::ObjectTypeWeakRef% v);
             void SetValueByMove(TypeCastHelper::ArrayTypeWeakRef% v);
             void SetValueByMove(TypeCastHelper::ObjectTypeWeakRef% v);
-            void SetValueAsArrayType();
-            void SetValueAsObjectType();
+            TypeCastHelper::ArrayTypeWeakRef SetValueAsArrayType();
+            TypeCastHelper::ObjectTypeWeakRef SetValueAsObjectType();
         };
 
         static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef);

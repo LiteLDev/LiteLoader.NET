@@ -109,17 +109,14 @@ inline bool Is(U u)
 
 #include <LiteLoader.NET/Tools/type_traits.hpp>
 
-template<typename T, typename... Args>
-inline array<T>^ PackArray(Args... args)
+template<typename T>
+inline cli::array<T>^ PackArray(...cli::array<T>^ args)
 {
     using namespace LiteLoader::NET;
 
     static_assert(std::is_base_of_v<Object, remove_handle_t<T>>, "");
 
-    if constexpr (sizeof...(args) == 0)
-        return System::Array::Empty<T>();
-    else
-        return new array<T>(sizeof...(args)) { args... };
+    return args;
 }
 
 #include "GlobalClass.hpp"

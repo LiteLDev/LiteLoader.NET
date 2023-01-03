@@ -1,3 +1,5 @@
+#include <LiteLoader.NET/Extra/mutex.hpp>
+
 #include "TypeCastHelper.hpp"
 
 #include <LiteLoader.NET/Module/RemoteCall/Types/NumberType.hpp>

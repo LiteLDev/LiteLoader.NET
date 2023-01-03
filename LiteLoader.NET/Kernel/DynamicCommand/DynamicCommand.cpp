@@ -232,23 +232,6 @@ namespace LiteLoader::DynamicCommand
         return ToDebugString();
     }
 
-    void _addPluginOwnData(IntPtr handle, String^ name)
-    {
-        List<String^>^ commands = nullptr;
-
-        if (PluginOwnData::RegisteredCommand->ContainsKey(handle))
-        {
-            commands = PluginOwnData::RegisteredCommand[handle];
-        }
-        else
-        {
-            commands = gcnew List<String^>;
-            PluginOwnData::RegisteredCommand->Add(handle, commands);
-        }
-
-        commands->Add(name);
-    }
-
     inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
     {
 
@@ -303,7 +286,7 @@ namespace LiteLoader::DynamicCommand
             .release(),
             true);
 
-        _addPluginOwnData(handle, name);
+        PluginOwnData::AddRegisteredCommand(handle, name);
     }
     inline DynamicCommandInstance^ DynamicCommand::Setup(DynamicCommandInstance^ commandInstance)
     {
@@ -504,7 +487,7 @@ namespace LiteLoader::DynamicCommand
     {
         auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)handle.ToPointer()).release(), true);
 
-        _addPluginOwnData(handle, name);
+        PluginOwnData::AddRegisteredCommand(handle, name);
 
         return ret;
     }
@@ -513,7 +496,7 @@ namespace LiteLoader::DynamicCommand
         auto handle = CALLING_MODULE;
         auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, handle).release(), true);
 
-        _addPluginOwnData(static_cast<IntPtr>(handle), name);
+        PluginOwnData::AddRegisteredCommand(static_cast<IntPtr>(handle), name);
 
         return ret;
     }

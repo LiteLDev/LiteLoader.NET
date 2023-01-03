@@ -62,7 +62,7 @@ namespace LiteLoader::RemoteCall
         /// <returns></returns>
         static bool RemoveFunc(String^ nameSpace, String^ funcName);
         static bool RemoveNameSpace(String^ nameSpace);
-        static bool RemoveFuncs(List<PAIR<String^, String^>>^ funcs);
+        static bool RemoveFuncs(List<VALUE_TUPLE<String^, String^>>^ funcs);
         /// <summary>
         /// Import a function as a function porotype.
         /// </summary>

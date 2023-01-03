@@ -23,21 +23,7 @@ namespace LiteLoader::Event
 
         auto module = (IntPtr)GlobalClass::GetCurrentModule(eventType->Assembly);
 
-        using EventList = List<System::ValueTuple<System::Type^, __EventId>>;
-
-        EventList^ events = nullptr;
-
-        if (!LiteLoader::NET::PluginOwnData::RegisteredEvent->ContainsKey(module))
-        {
-            events = gcnew EventList;
-            LiteLoader::NET::PluginOwnData::RegisteredEvent->Add(module, events);
-        }
-        else
-        {
-            events = LiteLoader::NET::PluginOwnData::RegisteredEvent[module];
-        }
-
-        events->Add(System::ValueTuple<System::Type^, __EventId>(eventType, eventId));
+        LiteLoader::NET::PluginOwnData::AddRegisteredEvent(module, eventType, eventId);
     }
 
 

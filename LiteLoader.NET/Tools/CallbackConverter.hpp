@@ -165,13 +165,34 @@ namespace LiteLoader::NET::callback {
 
             using _Native_pfunc_type = typename func_def::_Func_ptr;
             using _Native_delegate_type = typename func_def::_Func_del;
-            using _Native_invoke_pfunc_type = typename invoke_func_def::_Func_ptr; 
+            using _Native_invoke_pfunc_type = typename invoke_func_def::_Func_ptr;
 
             using _Managed_func_caller = typename _Get_func_caller<true, _Dty, _Fty1>::type;
 
             template<_Native_invoke_pfunc_type fptr>
             inline static _MyPair<_Native_pfunc_type, _Managed_func_caller> _create(_Dty^ func) {
                 if constexpr (fptr == nullptr)
+                    throw gcnew System::NullReferenceException("Template arg <fptr> can not be null.");
+
+                _Managed_func_caller caller{};
+                caller.func = func;
+                caller._invoke_func = fptr;
+
+                auto _native_invoke_delfunc = gcnew _Native_delegate_type(caller, &_Managed_func_caller::_invoke);
+                caller.gch = GCHandle::Alloc(_native_invoke_delfunc);
+
+                auto _native_invoke_pfunc = static_cast<_Native_pfunc_type>(
+                    Marshal::GetFunctionPointerForDelegate(_native_invoke_delfunc).ToPointer());
+
+                _MyPair<_Native_pfunc_type, _Managed_func_caller> ret;
+
+                ret.first = _native_invoke_pfunc;
+                ret.second = caller;
+
+                return ret;
+            }
+            inline static _MyPair<_Native_pfunc_type, _Managed_func_caller> _create(_Dty^ func, _Native_invoke_pfunc_type fptr) {
+                if (fptr == nullptr)
                     throw gcnew System::NullReferenceException("Template arg <fptr> can not be null.");
 
                 _Managed_func_caller caller{};
@@ -224,6 +245,24 @@ namespace LiteLoader::NET::callback {
 
                 return ret;
             }
+
+            static _MyPair<_Dty^, _Native_func_caller> _create(_Native_pfunc_type func, _Managed_invoke_pfunc_type fptr) {
+                if (fptr == nullptr)
+                    throw gcnew System::NullReferenceException("Template arg <fptr> can not be null");
+
+                _Native_func_caller caller{};
+                caller.func = func;
+                caller._invoke_func = fptr;
+
+                auto _managed_invoke_delfunc = gcnew _Dty(caller, &_Native_func_caller::_invoke);
+
+                _MyPair<_Dty^, _Native_func_caller> ret;
+
+                ret.first = _managed_invoke_delfunc;
+                ret.second = caller;
+
+                return ret;
+            }
         };
     }
 
@@ -249,6 +288,14 @@ namespace LiteLoader::NET::callback {
         template<_Managed_invoke_pfunc_type fptr>
         static detail::_MyPair<_TDelegate^, _Native_func_caller> create(_Native_pfunc_type func) {
             return _Native_to_managed::_create<fptr>(func);
+        }
+
+        static detail::_MyPair<_Native_pfunc_type, _Managed_func_caller> create(_TDelegate^ func, _Native_invoke_pfunc_type fptr) {
+            return _Managed_to_native::_create(func, fptr);
+        }
+
+        static detail::_MyPair<_TDelegate^, _Native_func_caller> create(_Native_pfunc_type func, _Managed_invoke_pfunc_type fptr) {
+            return _Native_to_managed::_create(func, fptr);
         }
 
     };

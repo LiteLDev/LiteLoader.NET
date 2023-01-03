@@ -1,3 +1,4 @@
+#include <LiteLoader.NET/Extra/mutex.hpp>
 #include "MemoryHelper.hpp"
 
 namespace LiteLoader::RemoteCall::Helper
@@ -10,6 +11,7 @@ namespace LiteLoader::RemoteCall::Helper
     using item_type = ::RemoteCall::ItemType;
     using block_type = ::RemoteCall::BlockType;
     using nbt_type = ::RemoteCall::NbtType;
+    using value = ::RemoteCall::Value;
 
     MemoryHelper::RemoreCallHandle::RemoreCallHandle(void* ptr, bool ownsNativeInstance, InstanceType type)
         :SafeHandle(IntPtr(ptr), ownsNativeInstance), instanceType(type)
@@ -158,11 +160,13 @@ namespace LiteLoader::RemoteCall::Helper
     }
     void MemoryHelper::Allocator::SetValue(TypeCastHelper::ArrayTypeWeakRef% v)
     {
-        new (valueTypeInstancePtr)value_type(*reinterpret_cast<array_type*>(v.ptr));
+        new (valueTypeInstancePtr)value_type();
+        reinterpret_cast<value_type*>(valueTypeInstancePtr)->value = *reinterpret_cast<array_type*>(v.ptr);
     }
     void MemoryHelper::Allocator::SetValue(TypeCastHelper::ObjectTypeWeakRef% v)
     {
-        new (valueTypeInstancePtr)value_type(*reinterpret_cast<array_type*>(v.ptr));
+        new (valueTypeInstancePtr)value_type();
+        reinterpret_cast<value_type*>(valueTypeInstancePtr)->value = *reinterpret_cast<object_type*>(v.ptr);
     }
     void MemoryHelper::Allocator::SetValueByMove(TypeCastHelper::ArrayTypeWeakRef% v)
     {
@@ -170,16 +174,22 @@ namespace LiteLoader::RemoteCall::Helper
     }
     void MemoryHelper::Allocator::SetValueByMove(TypeCastHelper::ObjectTypeWeakRef% v)
     {
-        new (valueTypeInstancePtr)value_type(std::move(*reinterpret_cast<array_type*>(v.ptr)));
+        new (valueTypeInstancePtr)value_type(std::move(*reinterpret_cast<object_type*>(v.ptr)));
     }
 
-    void MemoryHelper::Allocator::SetValueAsArrayType()
+    TypeCastHelper::ArrayTypeWeakRef MemoryHelper::Allocator::SetValueAsArrayType()
     {
         new (valueTypeInstancePtr)value_type(array_type());
+        return TypeCastHelper::ArrayTypeWeakRef(
+            &std::get<array_type>(reinterpret_cast<value_type*>(valueTypeInstancePtr)->value)
+        );
     }
-    void MemoryHelper::Allocator::SetValueAsObjectType()
+    TypeCastHelper::ObjectTypeWeakRef MemoryHelper::Allocator::SetValueAsObjectType()
     {
         new (valueTypeInstancePtr)value_type(object_type());
+        return TypeCastHelper::ObjectTypeWeakRef(
+            &std::get<object_type>(reinterpret_cast<value_type*>(valueTypeInstancePtr)->value)
+        );
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]

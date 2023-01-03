@@ -3,23 +3,6 @@
 
 namespace LiteLoader::Schedule
 {
-    void _addPluginOwnData(IntPtr handle, ScheduleTask^ task, GCHandle gch)
-    {
-        List<VALUE_TUPLE<ScheduleTask^, GCHandle>>^ schedules = nullptr;
-
-        if (LiteLoader::NET::PluginOwnData::RegisteredSchedule->ContainsKey(handle))
-        {
-            schedules = LiteLoader::NET::PluginOwnData::RegisteredSchedule[handle];
-        }
-        else
-        {
-            schedules = gcnew List<VALUE_TUPLE<ScheduleTask^, GCHandle>>;
-            LiteLoader::NET::PluginOwnData::RegisteredSchedule->Add(handle, schedules);
-        }
-
-        schedules->Add(VALUE_TUPLE<ScheduleTask^, GCHandle>{task, gch});
-    }
-
     ScheduleTask::ScheduleTask(::ScheduleTask& s)
     {
         _this = new ::ScheduleTask(s);
@@ -54,7 +37,7 @@ namespace LiteLoader::Schedule
         auto ret = gcnew ScheduleTask(::Schedule::delay(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)handle.ToPointer()));
 
-        _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
+        LiteLoader::NET::PluginOwnData::AddRegisteredSchedule(handle, ret, GCHandle::Alloc(task));
 
         return ret;
     }
@@ -74,7 +57,7 @@ namespace LiteLoader::Schedule
         auto ret = gcnew ScheduleTask(::Schedule::repeat(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)handle.ToPointer()));
 
-        _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
+        LiteLoader::NET::PluginOwnData::AddRegisteredSchedule(handle, ret, GCHandle::Alloc(task));
 
         return ret;
     }
@@ -94,7 +77,7 @@ namespace LiteLoader::Schedule
         auto ret = gcnew ScheduleTask(::Schedule::delayRepeat(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)handle.ToPointer()));
 
-        _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
+        LiteLoader::NET::PluginOwnData::AddRegisteredSchedule(handle, ret, GCHandle::Alloc(task));
 
         return ret;
     }
@@ -109,7 +92,7 @@ namespace LiteLoader::Schedule
         auto ret = gcnew ScheduleTask(::Schedule::nextTick(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)handle.ToPointer()));
 
-        _addPluginOwnData(handle, ret, GCHandle::Alloc(task));
+        LiteLoader::NET::PluginOwnData::AddRegisteredSchedule(handle, ret, GCHandle::Alloc(task));
 
         return ret;
     }

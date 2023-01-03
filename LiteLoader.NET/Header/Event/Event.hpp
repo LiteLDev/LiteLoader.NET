@@ -275,21 +275,7 @@ namespace LiteLoader::Event
 
             auto module = (IntPtr)GET_MODULE(plugin);
 
-            using NativeEventList = List<INativeEventListener^>;
-
-            NativeEventList^ list = nullptr;
-
-            if (!LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
-            {
-                list = gcnew NativeEventList;
-                LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->Add(module, list);
-            }
-            else
-            {
-                list = LiteLoader::NET::PluginOwnData::SubscribedNativeEvent[module];
-            }
-
-            list->Add(callbackInstance->Listener);
+            LiteLoader::NET::PluginOwnData::AddSubscribedNativeEvent(module, callbackInstance->Listener);
 
             return callbackInstance->Listener;
         };
@@ -301,21 +287,7 @@ namespace LiteLoader::Event
 
             auto module = (IntPtr)GET_MODULE(plugin);
 
-            using NativeEventList = List<INativeEventListener^>;
-
-            NativeEventList^ list = nullptr;
-
-            if (!LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->ContainsKey(module))
-            {
-                list = gcnew NativeEventList;
-                LiteLoader::NET::PluginOwnData::SubscribedNativeEvent->Add(module, list);
-            }
-            else
-            {
-                list = LiteLoader::NET::PluginOwnData::SubscribedNativeEvent[module];
-            }
-
-            list->Add(callbackInstance->Listener);
+            LiteLoader::NET::PluginOwnData::AddSubscribedNativeEvent(module, callbackInstance->Listener);
 
             return callbackInstance->Listener;
         };

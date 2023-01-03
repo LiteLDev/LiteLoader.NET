@@ -12,11 +12,12 @@ namespace LiteLoader::RemoteCall::Helper
     using array_type_native_iterator = ::RemoteCall::ValueType::ArrayType::iterator;
     using value_type = ::RemoteCall::ValueType;
 
-    delegate void* ConverterCallback(void*);
+    public delegate value_type NativeCallback(array_type);
+    public delegate MemoryHelper::Allocator ConverterCallback(void*);
 
     using oc = System::Reflection::Emit::OpCodes;
     using converter = LiteLoader::NET::callback::converter<
-        value_type(array_type), void* (void*), ConverterCallback>;
+        value_type(array_type), MemoryHelper::Allocator(void*), ConverterCallback>;
 
     using System::Reflection::Emit::DynamicMethod;
     using System::Reflection::Emit::LocalBuilder;
@@ -25,17 +26,25 @@ namespace LiteLoader::RemoteCall::Helper
 
     using IFuncCaller = LiteLoader::NET::IFunctionCaller;
 
-    public ref class EmitHelper sealed
+    public ref struct ExportedFuncInstance
+    {
+        delegate value_type _InvokeManagedFuncDelegate(Object^, array_type);
+        value_type _invoke_managed_func(Object^ del, array_type args);
+
+        DynamicMethod^ intertopManagedFunc;
+        ConverterCallback^ intertopManagedFuncDelegate;
+
+        Delegate^ exportedManagedFunc;
+
+        _InvokeManagedFuncDelegate^ converterHelperFunc;
+
+        void* exportedNativeFunc;
+        IFuncCaller^ funcHandle;
+    };
+
+    public ref class EmitHelper __static
     {
     public:
-
-        ref struct ExportedFuncInstance
-        {
-            DynamicMethod^ intertopManagedFunc;
-            void* exportedNativeFunc;
-            IFuncCaller^ funcHandle;
-            Object^ exportedManagedFunc;
-        };
 
         ref struct ILCodeBulider
         {
@@ -49,9 +58,8 @@ namespace LiteLoader::RemoteCall::Helper
             ILGenerator^ il;
             List<LocalBuilder^>^ localAllocatorInstances;
 
-            // generic<typename TDelegate> where TDelegate: Delegate
-                ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type);
-            bool Build();
+            ILCodeBulider(String^ nameSpace, String^ funcName, TypeHelper::FunctionInfo% info, BuliderType type, SystemType^ delegateType);
+            bool Build(Delegate^ func, [Out] Object^% instance);
             int DeclareLocal(SystemType^ type);
             int DefineLabel();
 
@@ -63,15 +71,11 @@ namespace LiteLoader::RemoteCall::Helper
             void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info);
             void IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
             void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
-            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info);
+            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info, bool isRet);
 
-            bool BuildExport();
-            bool BuildImport();
+            bool BuildExportDynamicMethod();
+            bool BuildImportDynamicMethod();
         };
-
-        /// <exception cref="LiteLoader::NET::InvalidRemoteCallTypeException"></exception>
-        generic<typename TDelegate> where TDelegate : Delegate
-            void CreateExportNativeFuncPtr(String^ nameSpace, String^ funcName, TDelegate func);
     };
 }
 

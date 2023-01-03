@@ -52,28 +52,7 @@ namespace LiteLoader::Hook
             throw gcnew LiteLoader::NET::HookFailedException;
 
 
-
-
-
-        using HookedFunctionDataType = List<System::ValueTuple<Delegate^, IntPtr, IntPtr, IntPtr>>;
-
-        HookedFunctionDataType^ data = nullptr;
-
-        if (LiteLoader::NET::PluginOwnData::HookedFunction->ContainsKey(hmodule))
-        {
-            data = LiteLoader::NET::PluginOwnData::HookedFunction[hmodule];
-        }
-        else
-        {
-            data = gcnew HookedFunctionDataType;
-            LiteLoader::NET::PluginOwnData::HookedFunction->Add(hmodule, data);
-        }
-
-        data->Add(System::ValueTuple<Delegate^, IntPtr, IntPtr, IntPtr>{
-            newFunc,
-                IntPtr(address),
-                IntPtr(pHook),
-                IntPtr(pOriginal)});
+        LiteLoader::NET::PluginOwnData::AddHookedFunction(hmodule, newFunc, IntPtr(address), IntPtr(pHook), IntPtr(pOriginal));
 
         return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
     }

@@ -528,6 +528,12 @@
     <ClCompile Include="Module\RemoteCall\Helpers\TypeHelper.cpp">
       <Filter>Module\RemoteCall\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Main\PluginOwnData.cpp">
+      <Filter>Main\PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp">
+      <Filter>Module\RemoteCall</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
