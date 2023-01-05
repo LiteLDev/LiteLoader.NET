@@ -33,7 +33,7 @@ namespace LiteLoader::RemoteCall::Helper
         value class Allocator
         {
         public:
-            byte* valueTypeInstancePtr;
+            void* valueTypeInstancePtr;
 
             void Alloc();
             void Free();

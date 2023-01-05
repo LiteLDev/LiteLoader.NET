@@ -16,10 +16,21 @@
 #include <LiteLoader.NET/Header/MC/Vec3.hpp>
 #include <LiteLoader.NET/Header/MC/BlockPos.hpp>
 
+//#define REMOTECALL_DEBUG
+//#define REMOTECALL_DEBUG_INFO Console::WriteLine
+
 namespace LiteLoader::RemoteCall::Helper
 {
-#define __VALUE std::get<::RemoteCall::Value>(((::RemoteCall::ValueType*)val)->value)
-#define __NUMBERTYPE std::get<::RemoteCall::NumberType>(__VALUE)
+    using number_type = ::RemoteCall::NumberType;
+    using array_type = ::RemoteCall::ValueType::ArrayType;
+    using object_type = ::RemoteCall::ValueType::ObjectType;
+    using value_type = ::RemoteCall::ValueType;
+    using world_pos_type = ::RemoteCall::WorldPosType;
+    using block_pos_type = ::RemoteCall::BlockPosType;
+    using item_type = ::RemoteCall::ItemType;
+    using block_type = ::RemoteCall::BlockType;
+    using nbt_type = ::RemoteCall::NbtType;
+    using value = ::RemoteCall::Value;
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
     inline double TypeCastHelper::Native2double(void* val)
@@ -28,7 +39,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<double>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<double>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -38,7 +49,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<float>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<float>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -48,7 +59,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<int64_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<int64_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -58,7 +69,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<int32_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<int32_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -68,8 +79,8 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<int16_t>();
-    }
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<int16_t>();
+}
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
     inline int8_t TypeCastHelper::Native2int8_t(void* val)
@@ -78,7 +89,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<int8_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<int8_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -88,7 +99,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<uint64_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<uint64_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -98,7 +109,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<uint32_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<uint32_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -108,7 +119,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<uint16_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<uint16_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -118,7 +129,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return __NUMBERTYPE.get<uint8_t>();
+        return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<uint8_t>();
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -128,7 +139,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return std::get<bool>(__VALUE);
+        return std::get<bool>(std::get<value>(reinterpret_cast<value_type*>(val)->value));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -138,7 +149,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return marshalString(std::get<std::string>(__VALUE));
+        return marshalString(std::get<std::string>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -148,7 +159,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return NumberType(__NUMBERTYPE);
+        return NumberType(std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -158,7 +169,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew MC::Player(std::get<::Player*>(__VALUE));
+        return gcnew MC::Player(std::get<::Player*>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -168,7 +179,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew MC::Actor(std::get<::Actor*>(__VALUE));
+        return gcnew MC::Actor(std::get<::Actor*>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -178,7 +189,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew MC::BlockActor(std::get<::BlockActor*>(__VALUE));
+        return gcnew MC::BlockActor(std::get<::BlockActor*>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -188,7 +199,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew MC::Container(std::get<::Container*>(__VALUE));
+        return gcnew MC::Container(std::get<::Container*>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -198,7 +209,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return MC::Vec3(std::get<::RemoteCall::WorldPosType>(__VALUE).pos);
+        return MC::Vec3(std::get<world_pos_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).pos);
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -208,7 +219,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return MC::BlockPos(std::get<::RemoteCall::BlockPosType>(__VALUE).pos);
+        return MC::BlockPos(std::get<block_pos_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).pos);
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -218,7 +229,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew WorldPosType(std::get<::RemoteCall::WorldPosType>(__VALUE));
+        return gcnew WorldPosType(std::get<world_pos_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -228,7 +239,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew BlockPosType(std::get<::RemoteCall::BlockPosType>(__VALUE));
+        return gcnew BlockPosType(std::get<block_pos_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -238,7 +249,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew ItemType(std::get<::RemoteCall::ItemType>(__VALUE));
+        return gcnew ItemType(std::get<item_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -248,7 +259,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew BlockType(std::get<::RemoteCall::BlockType>(__VALUE));
+        return gcnew BlockType(std::get<block_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
@@ -258,7 +269,7 @@ namespace LiteLoader::RemoteCall::Helper
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
 
-        return gcnew NbtType(std::get<::RemoteCall::NbtType>(__VALUE));
+        return gcnew NbtType(std::get<nbt_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
     inline TypeCastHelper::ArrayTypeWeakRef::iterator::iterator(void* instance)
@@ -293,7 +304,7 @@ namespace LiteLoader::RemoteCall::Helper
     {
         isIterSet = false;
     }
-    
+
     inline void* TypeCastHelper::ArrayTypeWeakRef::iterator::GetCurrentPtr()
     {
         pin_ptr<__iterator> pinpIter = &iter;
@@ -326,9 +337,14 @@ namespace LiteLoader::RemoteCall::Helper
         this->ptr = ptr;
     }
 
-    inline IntPtr TypeCastHelper::ArrayTypeWeakRef::default::get(size_t index)
+    void* TypeCastHelper::ArrayTypeWeakRef::GetArrayTypePtrByIndex(int index)
     {
-        return static_cast<IntPtr>(&(reinterpret_cast<array_type*>(ptr)->operator[](index)));
+        return &(*reinterpret_cast<array_type*>(ptr))[index];
+    }
+
+    inline IntPtr TypeCastHelper::ArrayTypeWeakRef::default::get(int index)
+    {
+        return IntPtr(GetArrayTypePtrByIndex(index));
     }
 
     inline TypeCastHelper::ArrayTypeWeakRef::iterator TypeCastHelper::ArrayTypeWeakRef::GetIterator()
@@ -378,7 +394,7 @@ namespace LiteLoader::RemoteCall::Helper
     {
         isIterSet = false;
     }
-    
+
     inline void* TypeCastHelper::ObjectTypeWeakRef::iterator::GetCurrentPtr()
     {
         pin_ptr<__iterator> pinpIter = &iter;
@@ -419,7 +435,7 @@ namespace LiteLoader::RemoteCall::Helper
     {
         return reinterpret_cast<object_type*>(ptr)->size();
     }
-    
+
     inline void TypeCastHelper::ObjectTypeWeakRef::Reset(void* ptr)
     {
         this->ptr = ptr;
@@ -434,7 +450,7 @@ namespace LiteLoader::RemoteCall::Helper
     {
         return iterator(ptr);
     }
-    
+
     inline IEnumerator<IntPtr>^ TypeCastHelper::ObjectTypeWeakRef::GetEnumerator()
     {
         return GetIterator();

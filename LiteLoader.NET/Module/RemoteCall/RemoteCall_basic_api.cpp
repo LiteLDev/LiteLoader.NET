@@ -4,11 +4,14 @@
 #include <LiteLoader.NET/Header/Logger/Logger.hpp>
 #include <LiteLoader.NET/Main/PluginOwnData.hpp>
 
+#include <LiteLoader.NET/Tools/NativeCallbackConverter.hpp>
+
 namespace LiteLoader::RemoteCall
 {
     using namespace LiteLoader::RemoteCall::Helper;
+    using call_back_func = ::RemoteCall::CallbackFn;
 
-    value_type _invoke_managed_func(Object^ del, array_type vec)
+    value_type _invoke_managed_func(RemoteCallAPI::CallbackFn^ del, array_type vec)
     {
         auto size = (int)vec.size();
         auto arg = gcnew List<Valuetype^>(size);
@@ -18,7 +21,7 @@ namespace LiteLoader::RemoteCall
         }
         try
         {
-            auto ret = static_cast<RemoteCallAPI::CallbackFn^>(del)(arg);
+            auto ret = del(arg);
             return *ret->NativePtr;
         }
         catch (System::Exception^ ex)
@@ -37,6 +40,19 @@ namespace LiteLoader::RemoteCall
             stdvector.emplace_back(*list[i]->NativePtr);
         }
         auto& ret = static_cast<value_type(*)(array_type)>(pfunc)(stdvector);
+
+        return gcnew Valuetype(ret);
+    }
+
+    Valuetype^ _invoke_native_func_by_std_function(call_back_func* pstdfunc, List<Valuetype^>^ list)
+    {
+        auto count = (size_t)list->Count;
+        array_type stdvector;
+        for (auto i = 0; i < count; ++i)
+        {
+            stdvector.emplace_back(*list[i]->NativePtr);
+        }
+        auto& ret = (*pstdfunc)(stdvector);
 
         return gcnew Valuetype(ret);
     }
@@ -68,18 +84,18 @@ namespace LiteLoader::RemoteCall
         auto pair = basic_api_converter::create<_invoke_managed_func>(callback);
 
         LiteLoader::NET::PluginOwnData::AddRemoteCallData(do_Hash(nameSpace) ^ do_Hash(funcName), IntPtr(handle), pair.second);
-
         return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, (HMODULE)handle.ToPointer());
     }
 
     RemoteCallAPI::CallbackFn^ RemoteCallAPI::ImportFunc(String^ nameSpace, String^ funcName)
     {
+
         NULL_ARG_CHECK(nameSpace);
         NULL_ARG_CHECK(funcName);
 
-        auto& pfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
-        auto pair = basic_api_converter::create<_invoke_native_func>(
-            pfunc.target<::RemoteCall::ValueType(std::vector<::RemoteCall::ValueType>)>());
+
+        auto& stdfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
+        auto pair = basic_api_converter::create<_invoke_native_func_by_std_function>(stdfunc);
 
         GC::KeepAlive(pair.second);
         return pair.first;

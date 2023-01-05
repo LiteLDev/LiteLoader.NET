@@ -11,21 +11,31 @@ namespace LiteLoader::RemoteCall::Helper
 #define METHOD_WITH_ARGS(type,name,args) type->GetMethod(name,args)
 #define FIELD(type,name) type->GetField(name)
 
-    value_type ExportedFuncInstance::_invoke_managed_func(Object^ del, array_type args)
+    //#define QAQ(message) il->EmitWriteLine(#message);
+
+    //#ifdef REMOTECALL_DEBUG
+    //#define INFO(message) il->EmitWriteLine("line:"+__LINE__+L','+#message)
+    //#else
+    //#define INFO(message)
+    //#endif // REMOTECALL_DEBUG
+
+
+
+    value_type _invoke_managed_func(ConverterCallback^ del, array_type args)
     {
         MemoryHelper::Allocator _ret;
         try
         {
-            _ret = intertopManagedFuncDelegate(&args);
+            _ret = del(&args);
         }
         catch (Exception^ ex)
         {
             GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
             GlobalClass::logger->error->WriteLine(ex->Message);
-            return value_type();
+            return value_type(nullptr);
         }
 
-        value_type ret = std::move(*reinterpret_cast<value_type*>(_ret.GetPtr()));
+        value_type ret = *reinterpret_cast<value_type*>(_ret.valueTypeInstancePtr);
         _ret.Free();
         return ret;
     }
@@ -47,7 +57,7 @@ namespace LiteLoader::RemoteCall::Helper
         switch (type)
         {
         case BuliderType::Export:
-            
+
             break;
         case BuliderType::Import:
             throw gcnew System::NotImplementedException;
@@ -76,15 +86,7 @@ namespace LiteLoader::RemoteCall::Helper
             funcInstance->intertopManagedFuncDelegate = As<ConverterCallback^>(del);
             funcInstance->exportedManagedFunc = func;
 
-            funcInstance->converterHelperFunc = gcnew ExportedFuncInstance::_InvokeManagedFuncDelegate(
-                funcInstance, &ExportedFuncInstance::_invoke_managed_func);
-
-            auto fptr = static_cast<void*>(
-                Marshal::GetFunctionPointerForDelegate(funcInstance->converterHelperFunc));
-
-            auto pair = converter::create(
-                funcInstance->intertopManagedFuncDelegate,
-                static_cast<value_type(*)(Object^, array_type)>(fptr));
+            auto pair = converter::create<_invoke_managed_func>(funcInstance->intertopManagedFuncDelegate);
 
             funcInstance->exportedNativeFunc = pair.first;
             funcInstance->funcHandle = pair.second;
@@ -115,7 +117,7 @@ namespace LiteLoader::RemoteCall::Helper
 
     int EmitHelper::ILCodeBulider::DefineLabel()
     {
-        auto ret = localVars->Count;
+        auto ret = labels->Count;
         labels->Add(ret, il->DefineLabel());
         return ret;
     }
@@ -130,13 +132,13 @@ namespace LiteLoader::RemoteCall::Helper
             auto local__arrayTypeRef = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef));
 
             //init ArrayTypeWeakRef
+            il->Emit(oc::Ldloca_S, local__arrayTypeRef);
             il->Emit(oc::Ldarg_1);
-            il->Emit(oc::Newobj, CTOR(typeof(TypeCastHelper::ArrayTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
-            il->Emit(oc::Stloc_S, localVars[local__arrayTypeRef]);
-
-            il->Emit(oc::Ldc_I8, i);
-            il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef), "get_default"), nullptr);
-            il->EmitCall(oc::Call, METHOD(typeof(IntPtr), "ToPointer"), nullptr);
+            il->Emit(oc::Call, CTOR(typeof(TypeCastHelper::ArrayTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
+            //get array_type pointer
+            il->Emit(oc::Ldloca_S, local__arrayTypeRef);
+            il->Emit(oc::Ldc_I4, i);
+            il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef), "GetArrayTypePtrByIndex"), nullptr);
 
             IL_CastNativeTypes(funcInfo.parameters[i]);
 
@@ -146,9 +148,13 @@ namespace LiteLoader::RemoteCall::Helper
         //load this
         il->Emit(oc::Ldarg_0);
         il->Emit(oc::Ldfld, FIELD(typeof(ExportedFuncInstance), "exportedManagedFunc"));
+        for (int i = 0; i < funcInfo.parameters->Length; ++i)
+        {
+            il->Emit(oc::Ldloc_S, i);
+        }
         il->EmitCall(oc::Call, METHOD(exportedManagedFuncDelegateType, "Invoke"), nullptr);
 
-        IL_CastManagedTypes(funcInfo.returnType, true);
+        IL_CastManagedTypes(funcInfo.returnType);
 
         for each (auto allocator in localAllocatorInstances)
         {
@@ -169,48 +175,62 @@ namespace LiteLoader::RemoteCall::Helper
     void EmitHelper::ILCodeBulider::IL_CastArrayTypeToList(TypeHelper::FunctionInfo::TypeInfo% info)
     {
         auto local__arrayTypeRef = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef));
-        auto local__arrayTypeRef_iterator = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef::iterator));
         auto local__list = DeclareLocal(info._type);
+        auto local__ptr = DeclareLocal(VOID_PTR_TYPE);
+        auto local__loop_size = DeclareLocal(typeof(int));
+        auto local__loop_i = DeclareLocal(typeof(int));
+
+        il->Emit(oc::Stloc_S, local__ptr);
 
         //init ArrayTypeWeakRef
-        il->Emit(oc::Newobj, CTOR(typeof(TypeCastHelper::ArrayTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
-        il->Emit(oc::Stloc_S, localVars[local__arrayTypeRef]);
+        il->Emit(oc::Ldloca_S, local__arrayTypeRef);
+        il->Emit(oc::Ldloc_S, local__ptr);
+        il->Emit(oc::Call, CTOR(typeof(TypeCastHelper::ArrayTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
         //init list<>
-        il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
+        il->Emit(oc::Ldloca_S, local__arrayTypeRef);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef), "Size"), nullptr);
         il->Emit(oc::Conv_I4);
+        il->Emit(oc::Stloc_S, local__loop_size);
+        il->Emit(oc::Ldloc_S, local__loop_size);
         il->Emit(oc::Newobj, CTOR(info._type, PackArray<SystemType^>(typeof(int))));
-        il->Emit(oc::Stloc_S, localVars[local__list]);
-        //init ArrayTypeWeakRef.iterator
-        il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
-        il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef), "GetIterator"), nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__arrayTypeRef_iterator]);
+        il->Emit(oc::Stloc_S, local__list);
 
-        //loop(while)
-        auto loop__foreach_array_start = DefineLabel();
-        auto loop__foreach_array_end = DefineLabel();
-        //while(arrayTypeRef.MoveNext())
-        il->MarkLabel(labels[loop__foreach_array_start]);
-        il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef_iterator]);
-        il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef::iterator), "MoveNext"), nullptr);
-        il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
+        //loop(for)
+        //(int i = 0)
+        il->Emit(oc::Ldc_I4_0);
+        il->Emit(oc::Stloc_S, local__loop_i);
+
+        auto loop_start_label = DefineLabel();
+        auto loop_body_label = DefineLabel();
+        il->Emit(oc::Br_S, loop_start_label);
+        il->MarkLabel(labels[loop_body_label]);
         //{
         //load list<> obj
-        il->Emit(oc::Ldloc_S, localVars[local__list]);
+        il->Emit(oc::Ldloc_S, local__list);
         //get value_type pointer
-        il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef_iterator]);
-        il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef::iterator), "GetCurrentPtr"), nullptr);
+        il->Emit(oc::Ldloca_S, local__arrayTypeRef);
+        il->Emit(oc::Ldloc, local__loop_i);
+        il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ArrayTypeWeakRef), "GetArrayTypePtrByIndex"), nullptr);
         //cast type
         IL_CastNativeTypes(info.genericArgs[0]);
-        //add obj to list<>
+        ////add obj to list<>
         il->EmitCall(oc::Call, METHOD(info._type, "Add"), nullptr);
         //}
-        il->Emit(oc::Br_S, labels[loop__foreach_array_start]);
-        il->MarkLabel(labels[loop__foreach_array_end]);
+        //	(i++)
+        il->Emit(oc::Ldloc_S, local__loop_i);
+        il->Emit(oc::Ldc_I4_1);
+        il->Emit(oc::Add);
+        il->Emit(oc::Stloc_S, local__loop_i);
+        //	(i < size)
+        il->MarkLabel(labels[loop_start_label]);
+        il->Emit(oc::Ldloc_S, local__loop_i);
+        il->Emit(oc::Ldloc_S, local__loop_size);
+        il->Emit(oc::Clt);
+        il->Emit(oc::Brtrue_S, loop_body_label);
         //loop end
 
         //load list<> obj
-        il->Emit(oc::Ldloc_S, localVars[local__list]);
+        il->Emit(oc::Ldloc_S, local__list);
     }
 
     void EmitHelper::ILCodeBulider::IL_CastObjectTypeToDictionary(TypeHelper::FunctionInfo::TypeInfo% info)
@@ -218,41 +238,43 @@ namespace LiteLoader::RemoteCall::Helper
         auto local__objectTypeRef = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef));
         auto local__objectTypeRef_iterator = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef::iterator));
         auto local__dictionary = DeclareLocal(info._type);
+        auto local__ptr = DeclareLocal(VOID_PTR_TYPE);
 
+        il->Emit(oc::Stloc_S, local__ptr);
         //init ObjectTypeWeakRef
-        il->Emit(oc::Newobj, CTOR(typeof(TypeCastHelper::ObjectTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
-        il->Emit(oc::Stloc_S, localVars[local__objectTypeRef]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef);
+        il->Emit(oc::Ldloc_S, local__ptr);
+        il->Emit(oc::Call, CTOR(typeof(TypeCastHelper::ObjectTypeWeakRef), PackArray<SystemType^>(VOID_PTR_TYPE)));
         //init Dictionary<>
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef), "Size"), nullptr);
         il->Emit(oc::Conv_I4);
         il->Emit(oc::Newobj, CTOR(info._type, PackArray<SystemType^>(typeof(int))));
-        il->Emit(oc::Stloc_S, localVars[local__dictionary]);
+        il->Emit(oc::Stloc_S, local__dictionary);
         //init ObjectTypeWeakRef.iterator
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef), "GetIterator"), nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__objectTypeRef_iterator]);
-
+        il->Emit(oc::Stloc_S, local__objectTypeRef_iterator);
         //loop(while)
         auto loop__foreach_array_start = DefineLabel();
         auto loop__foreach_array_end = DefineLabel();
         //while(arrayTypeRef.MoveNext())
         il->MarkLabel(labels[loop__foreach_array_start]);
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef_iterator]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef_iterator);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef::iterator), "MoveNext"), nullptr);
         il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
         //{
         //load dictionary<> obj
-        il->Emit(oc::Ldloc_S, localVars[local__dictionary]);
+        il->Emit(oc::Ldloc_S, local__dictionary);
         //get key
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef_iterator]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef_iterator);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef::iterator), "GetKey"), nullptr);
         //get value (value_type pointer)
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef_iterator]);
+        il->Emit(oc::Ldloca_S, local__objectTypeRef_iterator);
         il->EmitCall(oc::Call, METHOD(typeof(TypeCastHelper::ObjectTypeWeakRef::iterator), "GetValue"), nullptr);
-        //cast type
-        IL_CastNativeTypes(info.genericArgs[0]);
-        //add key&value to dictionary<>
+        ////cast type
+        IL_CastNativeTypes(info.genericArgs[1]);
+        ////add key&value to dictionary<>
         il->EmitCall(oc::Call, METHOD(info._type, "Add"), nullptr);
         //}
         il->Emit(oc::Br_S, labels[loop__foreach_array_start]);
@@ -260,7 +282,7 @@ namespace LiteLoader::RemoteCall::Helper
         //loop end
 
         //load dictionary<> obj
-        il->Emit(oc::Ldloc_S, localVars[local__dictionary]);
+        il->Emit(oc::Ldloc_S, local__dictionary);
     }
 
     void EmitHelper::ILCodeBulider::IL_CastNativeTypes(TypeHelper::FunctionInfo::TypeInfo% info)
@@ -294,8 +316,8 @@ namespace LiteLoader::RemoteCall::Helper
         case ValidType::ItemType:     il->EmitCall(oc::Call, TYPECASTHELPER_METHOD_INFO(Native2ItemType), nullptr);     break;
         case ValidType::BlockType:    il->EmitCall(oc::Call, TYPECASTHELPER_METHOD_INFO(Native2BlockType), nullptr);    break;
         case ValidType::NbtType:      il->EmitCall(oc::Call, TYPECASTHELPER_METHOD_INFO(Native2NbtType), nullptr);      break;
-        case ValidType::List:         IL_CastArrayTypeToList(info.genericArgs[0]);                                      break;
-        case ValidType::Dictionary:   IL_CastObjectTypeToDictionary(info.genericArgs[1]);                               break;
+        case ValidType::List:         IL_CastArrayTypeToList(info);                                                     break;
+        case ValidType::Dictionary:   IL_CastObjectTypeToDictionary(info);                                              break;
         case ValidType::Void:         il->Emit(oc::Pop);
         }
     }
@@ -314,46 +336,46 @@ namespace LiteLoader::RemoteCall::Helper
     {
         using ValidType = TypeHelper::ValidType;
 
-        auto method__getEnumator = METHOD(info._type, "GetEnumator");
+        auto method__getEnumerator = METHOD(info._type, "GetEnumerator");
 
-        auto type__enumator = method__getEnumator->ReturnType;
+        auto type__enumerator = method__getEnumerator->ReturnType;
 
         auto local__list = DeclareLocal(info._type);
         auto local__allocator = DeclareLocal(typeof(MemoryHelper::Allocator));
         auto local__arrayTypeRef = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef));
-        auto local__list_enumator = DeclareLocal(type__enumator);
+        auto local__list_enumerator = DeclareLocal(type__enumerator);
 
         localAllocatorInstances->Add(localVars[local__allocator]);
 
 
-        il->Emit(oc::Stloc_S, localVars[local__list]);
+        il->Emit(oc::Stloc_S, local__list);
         //init allocator
-        il->Emit(oc::Newobj, CTOR(typeof(MemoryHelper::Allocator), PackArray<SystemType^>()));
-        il->Emit(oc::Stloc_S, localVars[local__allocator]);
+        il->Emit(oc::Ldloca_S, local__allocator);
+        il->Emit(oc::Initobj, typeof(MemoryHelper::Allocator));
         //alloc memory
-        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        il->Emit(oc::Ldloca_S, local__allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Alloc"), nullptr);
         //construct internal value_type obj as array_type
-        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        il->Emit(oc::Ldloca_S, local__allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "SetValueAsArrayType"), nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__arrayTypeRef]);
-        //init enumator
-        il->Emit(oc::Ldloc_S, localVars[local__list]);
-        il->EmitCall(oc::Call, method__getEnumator, nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__list_enumator]);
+        il->Emit(oc::Stloc_S, local__arrayTypeRef);
+        //init enumerator
+        il->Emit(oc::Ldloc_S, local__list);
+        il->EmitCall(oc::Call, method__getEnumerator, nullptr);
+        il->Emit(oc::Stloc_S, local__list_enumerator);
 
         //loop(while)
         auto loop__foreach_array_start = DefineLabel();
         auto loop__foreach_array_end = DefineLabel();
-        //while(enumator.MoveNext())
+        //while(enumerator.MoveNext())
         il->MarkLabel(labels[loop__foreach_array_start]);
-        il->Emit(oc::Ldloca_S, localVars[local__list_enumator]);
-        il->EmitCall(oc::Call, METHOD(type__enumator, "MoveNext"), nullptr);
+        il->Emit(oc::Ldloca_S, local__list_enumerator);
+        il->EmitCall(oc::Call, METHOD(type__enumerator, "MoveNext"), nullptr);
         il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
         //{
-        il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
-        il->Emit(oc::Ldloca_S, localVars[local__list_enumator]);
-        il->EmitCall(oc::Call, METHOD(type__enumator, "get_Current"), nullptr);
+        il->Emit(oc::Ldloca_S, local__arrayTypeRef);
+        il->Emit(oc::Ldloca_S, local__list_enumerator);
+        il->EmitCall(oc::Call, METHOD(type__enumerator, "get_Current"), nullptr);
 
         switch (info.genericArgs[0].type)
         {
@@ -363,12 +385,6 @@ namespace LiteLoader::RemoteCall::Helper
         case ValidType::List:
         {
             IL_CastListToArrayType(info.genericArgs[0], true);
-            auto local__temp_arrayTypeRef_ref = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef)->MakeByRefType());
-            il->Emit(oc::Stloc_S, localVars[local__temp_arrayTypeRef_ref]);
-
-            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
-            il->Emit(oc::Ldloc_S, localVars[local__temp_arrayTypeRef_ref]);
-
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
@@ -381,13 +397,6 @@ namespace LiteLoader::RemoteCall::Helper
         case ValidType::Dictionary:
         {
             IL_CastDictionaryToObjectType(info.genericArgs[1], true);
-
-            auto local__temp_objectTypeRef_ref = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType());
-            il->Emit(oc::Stloc_S, localVars[local__temp_objectTypeRef_ref]);
-
-            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
-            il->Emit(oc::Ldloc_S, localVars[local__temp_objectTypeRef_ref]);
-
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
@@ -399,12 +408,6 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         default:
         {
-            auto local__temp_var = DeclareLocal(info.genericArgs[0]._type);
-            il->Emit(oc::Stloc_S, localVars[local__temp_var]);
-
-            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
-            il->Emit(oc::Ldloc_S, localVars[local__temp_var]);
-
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(typeof(MemoryHelper), "ArrayType_EmplaceBack",
@@ -415,82 +418,80 @@ namespace LiteLoader::RemoteCall::Helper
         }
         break;
         }
-        //}
         il->Emit(oc::Br_S, labels[loop__foreach_array_start]);
         il->MarkLabel(labels[loop__foreach_array_end]);
         //loop end
 
         if (isSelfCalled)
-            il->Emit(oc::Ldloca_S, localVars[local__arrayTypeRef]);
+            il->Emit(oc::Ldloca_S, local__arrayTypeRef);
         else
-            il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+            il->Emit(oc::Ldloca_S, local__allocator);
     }
 
     void EmitHelper::ILCodeBulider::IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled)
     {
         using ValidType = TypeHelper::ValidType;
 
-        auto method__getEnumator = METHOD(info._type, "GetEnumator");
-        auto type__enumator = method__getEnumator->ReturnType;
-        auto method__get_Current = METHOD(type__enumator, "get_Current");
+        auto method__getEnumerator = METHOD(info._type, "GetEnumerator");
+        auto type__enumerator = method__getEnumerator->ReturnType;
+        auto method__get_Current = METHOD(type__enumerator, "get_Current");
         auto type__pair = method__get_Current->ReturnType;
 
         auto local__dictionary = DeclareLocal(info._type);
         auto local__allocator = DeclareLocal(typeof(MemoryHelper::Allocator));
         auto local__objectTypeRef = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef));
-        auto local__dictionary_enumator = DeclareLocal(type__enumator);
+        auto local__dictionary_enumerator = DeclareLocal(type__enumerator);
         auto local__pair = DeclareLocal(type__pair);
 
         localAllocatorInstances->Add(localVars[local__allocator]);
 
 
-        il->Emit(oc::Stloc_S, localVars[local__dictionary]);
+        il->Emit(oc::Stloc_S, local__dictionary);
         //init allocator
-        il->Emit(oc::Newobj, CTOR(typeof(MemoryHelper::Allocator), PackArray<SystemType^>()));
-        il->Emit(oc::Stloc_S, localVars[local__allocator]);
+        il->Emit(oc::Ldloca_S, local__allocator);
+        il->Emit(oc::Initobj, typeof(MemoryHelper::Allocator));
         //alloc memory
-        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        il->Emit(oc::Ldloca_S, local__allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Alloc"), nullptr);
-        //construct internal value_type obj as array_type
-        il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+        //construct internal value_type obj as object_type
+        il->Emit(oc::Ldloca_S, local__allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "SetValueAsObjectType"), nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__objectTypeRef]);
-        //init enumator
-        il->Emit(oc::Ldloc_S, localVars[local__dictionary]);
-        il->EmitCall(oc::Call, method__getEnumator, nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__dictionary_enumator]);
+        il->Emit(oc::Stloc_S, local__objectTypeRef);
+        //init enumerator
+        il->Emit(oc::Ldloc_S, local__dictionary);
+        il->EmitCall(oc::Call, method__getEnumerator, nullptr);
+        il->Emit(oc::Stloc_S, local__dictionary_enumerator);
 
         //loop(while)
         auto loop__foreach_array_start = DefineLabel();
         auto loop__foreach_array_end = DefineLabel();
-        //while(enumator.MoveNext())
+        //while(enumerator.MoveNext())
         il->MarkLabel(labels[loop__foreach_array_start]);
-        il->Emit(oc::Ldloca_S, localVars[local__dictionary_enumator]);
-        il->EmitCall(oc::Call, METHOD(type__enumator, "MoveNext"), nullptr);
+        il->Emit(oc::Ldloca_S, local__dictionary_enumerator);
+        il->EmitCall(oc::Call, METHOD(type__enumerator, "MoveNext"), nullptr);
         il->Emit(oc::Brfalse_S, labels[loop__foreach_array_end]);
-        //{
-        il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
-        il->Emit(oc::Ldloca_S, localVars[local__dictionary_enumator]);
+        ////{
+        il->Emit(oc::Ldloca_S, local__dictionary_enumerator);
         il->EmitCall(oc::Call, method__get_Current, nullptr);
-        il->Emit(oc::Stloc_S, localVars[local__pair]);
+        il->Emit(oc::Stloc_S, local__pair);
 
-        switch (info.genericArgs[0].type)
+        switch (info.genericArgs[1].type)
         {
         case ValidType::Void:
         case ValidType::Invalid:
             throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
         case ValidType::List:
         {
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
-            IL_CastListToArrayType(info.genericArgs[0], true);
+            IL_CastListToArrayType(info.genericArgs[1], true);
             auto local__temp_arrayTypeRef = DeclareLocal(typeof(TypeCastHelper::ArrayTypeWeakRef));
-            il->Emit(oc::Stloc_S, localVars[local__temp_arrayTypeRef]);
+            il->Emit(oc::Stloc_S, local__temp_arrayTypeRef);
 
-            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__objectTypeRef);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
-            il->Emit(oc::Ldloc_S, localVars[local__temp_arrayTypeRef]);
+            il->Emit(oc::Ldloc_S, local__temp_arrayTypeRef);
 
             il->EmitCall(
                 oc::Call,
@@ -504,16 +505,17 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         case ValidType::Dictionary:
         {
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
             IL_CastDictionaryToObjectType(info.genericArgs[1], true);
+            il->Emit(oc::Pop);
             auto local__temp_ObjectTypeRef = DeclareLocal(typeof(TypeCastHelper::ObjectTypeWeakRef));
-            il->Emit(oc::Stloc_S, localVars[local__temp_ObjectTypeRef]);
+            il->Emit(oc::Stloc_S, local__temp_ObjectTypeRef);
 
-            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__objectTypeRef);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
-            il->Emit(oc::Ldloc_S, localVars[local__temp_ObjectTypeRef]);
+            il->Emit(oc::Ldloc_S, local__temp_ObjectTypeRef);
 
             il->EmitCall(
                 oc::Call,
@@ -527,10 +529,10 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         default:
         {
-            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__objectTypeRef);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Key"), nullptr);
-            il->Emit(oc::Ldloca_S, localVars[local__pair]);
+            il->Emit(oc::Ldloca_S, local__pair);
             il->EmitCall(oc::Call, METHOD(type__pair, "get_Value"), nullptr);
 
             il->EmitCall(
@@ -539,7 +541,7 @@ namespace LiteLoader::RemoteCall::Helper
                     PackArray<SystemType^>(
                         typeof(TypeCastHelper::ObjectTypeWeakRef)->MakeByRefType(),
                         typeof(String),
-                        info.genericArgs[0]._type)),
+                        info.genericArgs[1]._type)),
                 nullptr);
         }
         break;
@@ -550,9 +552,14 @@ namespace LiteLoader::RemoteCall::Helper
         //loop end
 
         if (isSelfCalled)
-            il->Emit(oc::Ldloca_S, localVars[local__objectTypeRef]);
+            il->Emit(oc::Ldloca_S, local__objectTypeRef);
         else
-            il->Emit(oc::Ldloca_S, localVars[local__allocator]);
+            il->Emit(oc::Ldloca_S, local__allocator);
+    }
+
+    void EmitHelper::ILCodeBulider::IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info)
+    {
+        IL_CastManagedTypes(info, true);
     }
 
     void EmitHelper::ILCodeBulider::IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info, bool isRet)
@@ -562,13 +569,13 @@ namespace LiteLoader::RemoteCall::Helper
         auto ret__allocator = DeclareLocal(typeof(MemoryHelper::Allocator));
         auto local__var = DeclareLocal(info._type);
 
-        il->Emit(oc::Stloc_S, localVars[local__var]);
+        il->Emit(oc::Stloc_S, local__var);
 
         //init allocator
-        il->Emit(oc::Newobj, CTOR(typeof(MemoryHelper::Allocator), PackArray<SystemType^>()));
-        il->Emit(oc::Stloc_S, localVars[ret__allocator]);
+        il->Emit(oc::Ldloca_S, ret__allocator);
+        il->Emit(oc::Initobj, typeof(MemoryHelper::Allocator));
         //alloc memory
-        il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+        il->Emit(oc::Ldloca_S, ret__allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Alloc"), nullptr);
 
         switch (info.type)
@@ -577,8 +584,8 @@ namespace LiteLoader::RemoteCall::Helper
             throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
         case ValidType::List:
         {
-            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
-            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            il->Emit(oc::Ldloca_S, ret__allocator);
+            il->Emit(oc::Ldloc_S, local__var);
             IL_CastListToArrayType(info, true);
             il->EmitCall(
                 oc::Call,
@@ -591,8 +598,8 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         case ValidType::Dictionary:
         {
-            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
-            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            il->Emit(oc::Ldloca_S, ret__allocator);
+            il->Emit(oc::Ldloc_S, local__var);
             IL_CastDictionaryToObjectType(info, true);
             il->EmitCall(
                 oc::Call,
@@ -605,7 +612,7 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         case ValidType::Void:
         {
-            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
+            il->Emit(oc::Ldloca_S, ret__allocator);
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(
@@ -617,8 +624,8 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         default:
         {
-            il->Emit(oc::Ldloca_S, localVars[ret__allocator]);
-            il->Emit(oc::Ldloc_S, localVars[local__var]);
+            il->Emit(oc::Ldloca_S, ret__allocator);
+            il->Emit(oc::Ldloc_S, local__var);
             il->EmitCall(
                 oc::Call,
                 METHOD_WITH_ARGS(
@@ -630,6 +637,6 @@ namespace LiteLoader::RemoteCall::Helper
         break;
         }
 
-        il->Emit(isRet ? oc::Ldloc_S : oc::Ldloca_S, localVars[ret__allocator]);
+        il->Emit(isRet ? oc::Ldloc_S : oc::Ldloca_S, ret__allocator);
     }
 }

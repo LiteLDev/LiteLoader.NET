@@ -3,6 +3,8 @@
 
 #include <LiteLoader.NET/Main/DotNETGlobal.hpp>
 
+//#define REMOTECALL_DEBUG
+
 namespace MC
 {
     ref class Player;
@@ -64,10 +66,11 @@ namespace LiteLoader::RemoteCall::Helper
             ArrayTypeWeakRef(void* ptr);
             size_t Size();
             void Reset(void* ptr);
+            void* GetArrayTypePtrByIndex(int index);
 
-            property IntPtr default[size_t]
+            property IntPtr default[int]
             {
-                IntPtr get(size_t index);
+                IntPtr get(int index);
             }
 
             virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;

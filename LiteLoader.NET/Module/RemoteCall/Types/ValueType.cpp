@@ -12,6 +12,17 @@
 
 namespace LiteLoader::RemoteCall
 {
+    using number_type = ::RemoteCall::NumberType;
+    using array_type = ::RemoteCall::ValueType::ArrayType;
+    using object_type = ::RemoteCall::ValueType::ObjectType;
+    using value_type = ::RemoteCall::ValueType;
+    using world_pos_type = ::RemoteCall::WorldPosType;
+    using block_pos_type = ::RemoteCall::BlockPosType;
+    using item_type = ::RemoteCall::ItemType;
+    using block_type = ::RemoteCall::BlockType;
+    using nbt_type = ::RemoteCall::NbtType;
+    using value = ::RemoteCall::Value;
+
     inline Valuetype::Valuetype()
         : ClassTemplate(new _T(), true)
     {
@@ -90,63 +101,63 @@ namespace LiteLoader::RemoteCall
     }
 
     inline Valuetype::Valuetype(bool v)
-        :ClassTemplate(new _T(v), true)
+        :ClassTemplate(new _T(::RemoteCall::pack(v)), true)
     {
     }
 
     inline Valuetype::Valuetype(String^ v)
-        : ClassTemplate(new _T(marshalString(v)), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(marshalString(v))), true)
     {
     }
 
     inline Valuetype::Valuetype(NumberType v)
-        : ClassTemplate(new _T(v._toNative()), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(v._toNative())), true)
 
     {
     }
 
     inline Valuetype::Valuetype(MC::Player^ v)
-        : ClassTemplate(new _T(v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(MC::Actor^ v)
-        : ClassTemplate(new _T(v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(MC::BlockActor^ v)
-        : ClassTemplate(new _T(v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(MC::Container^ v)
-        : ClassTemplate(new _T(v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(WorldPosType^ v)
-        : ClassTemplate(new _T(::RemoteCall::WorldPosType(v)), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(world_pos_type(v))), true)
     {
     }
 
     inline Valuetype::Valuetype(BlockPosType^ v)
-        : ClassTemplate(new _T(*v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(*v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(ItemType^ v)
-        : ClassTemplate(new _T(*v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(*v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(BlockType^ v)
-        : ClassTemplate(new _T(*v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(*v->NativePtr)), true)
     {
     }
 
     inline Valuetype::Valuetype(NbtType^ v)
-        : ClassTemplate(new _T(*v->NativePtr), true)
+        : ClassTemplate(new _T(::RemoteCall::pack(*v->NativePtr)), true)
     {
     }
 

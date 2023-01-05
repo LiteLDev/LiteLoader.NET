@@ -8,6 +8,8 @@
 #include <LiteLoader.NET\Header\MC\BlockPos.hpp>
 
 #include <LiteLoader.NET/Module/RemoteCall/Interfaces/IValueType.hpp>
+#include <LiteLoader.NET/Module/RemoteCall/Enums/InstanceType.hpp>
+#include <LiteLoader.NET/Module/RemoteCall/Attributes/RemoteCallValueTypeAttribute.hpp>
 
 namespace MC
 {
@@ -28,6 +30,7 @@ namespace LiteLoader::RemoteCall
 
 namespace LiteLoader::RemoteCall
 {
+    [RemoteCallValueType(InstanceType::Value)]
     public ref class Value :ClassTemplate<Value, ::RemoteCall::Value>, IValueType
     {
         //ctor

@@ -146,17 +146,17 @@ namespace LiteLoader::RemoteCall
             return val;
         }
 
-#define ctor_List_NumberType(type)				\
-		Valuetype(List<type>^ v)				\
-		{										\
-			auto len = v->Count;				\
-			std::vector<_T> vec;				\
-			for (int i = 0; i < len; i++)		\
-			{									\
-				vec.emplace_back(v[i]);			\
-			}									\
-			NativePtr = new _T(std::move(vec));	\
-			OwnsNativeInstance = true;			\
+#define ctor_List_NumberType(type)				            \
+		Valuetype(List<type>^ v)				            \
+		{										            \
+			auto len = v->Count;				            \
+			std::vector<_T> vec;				            \
+			for (int i = 0; i < len; i++)		            \
+			{									            \
+				vec.emplace_back(::RemoteCall::pack(v[i])); \
+			}									            \
+			NativePtr = new _T(std::move(vec));	            \
+			OwnsNativeInstance = true;			            \
 		};
 
         ctor_List_NumberType(bool);
@@ -172,29 +172,29 @@ namespace LiteLoader::RemoteCall
         ctor_List_NumberType(unsigned char);
 
 
-#define ctor_List_RefType_Ptr(type)					\
-		Valuetype(List<type>^ v)					\
-		{											\
-			auto len = v->Count;					\
-			std::vector<_T> vec;					\
-			for (int i = 0; i < len; i++)			\
-			{										\
-				vec.emplace_back(v[i]->NativePtr);	\
-			}										\
-			NativePtr = new _T(std::move(vec));		\
-			OwnsNativeInstance = true;				\
+#define ctor_List_RefType_Ptr(type)					                    \
+		Valuetype(List<type>^ v)				                    	\
+		{											                    \
+			auto len = v->Count;					                    \
+			std::vector<_T> vec;				                    	\
+			for (int i = 0; i < len; i++)			                    \
+			{										                    \
+				vec.emplace_back(::RemoteCall::pack(v[i]->NativePtr));	\
+			}										                    \
+			NativePtr = new _T(std::move(vec));		                    \
+			OwnsNativeInstance = true;				                    \
 		};
-#define ctor_List_RefType_Instance(type)			\
-		Valuetype(List<type>^ v)					\
-		{											\
-			auto len = v->Count;					\
-			std::vector<_T> vec;					\
-			for (int i = 0; i < len; i++)			\
-			{										\
-				vec.emplace_back(*v[i]->NativePtr);	\
-			}										\
-			NativePtr = new _T(std::move(vec));		\
-			OwnsNativeInstance = true;				\
+#define ctor_List_RefType_Instance(type)			                    \
+		Valuetype(List<type>^ v)					                    \
+		{											                    \
+			auto len = v->Count;					                    \
+			std::vector<_T> vec;					                    \
+			for (int i = 0; i < len; i++)			                    \
+			{										                    \
+				vec.emplace_back(::RemoteCall::pack(*v[i]->NativePtr));	\
+			}										                    \
+			NativePtr = new _T(std::move(vec));		                    \
+			OwnsNativeInstance = true;				                    \
 		};
 
 
@@ -349,17 +349,17 @@ namespace LiteLoader::RemoteCall
         Valuetype(Dictionary<String^, String^>^ v);;
         Valuetype(Dictionary<String^, NumberType>^ v);;
 
-#define ctor_Dictionary_NumberType(type)							\
-		Valuetype(Dictionary<String^, type>^ v)						\
-		{															\
-			auto len = v->Count;									\
-			::RemoteCall::ValueType::ObjectType umap;				\
-			for each (auto var in v)								\
-			{														\
-				umap.emplace(marshalString(var.Key), var.Value);	\
-			}														\
-			NativePtr = new _T(std::move(umap));					\
-			OwnsNativeInstance = true;								\
+#define ctor_Dictionary_NumberType(type)							                    \
+		Valuetype(Dictionary<String^, type>^ v)						                    \
+		{															                    \
+			auto len = v->Count;									                    \
+			::RemoteCall::ValueType::ObjectType umap;				                    \
+			for each (auto var in v)								                    \
+			{														                    \
+				umap.emplace(marshalString(var.Key), ::RemoteCall::pack(var.Value));	\
+			}														                    \
+			NativePtr = new _T(std::move(umap));					                    \
+			OwnsNativeInstance = true;								                    \
 		};
 
         ctor_Dictionary_NumberType(bool);
@@ -375,30 +375,30 @@ namespace LiteLoader::RemoteCall
         ctor_Dictionary_NumberType(unsigned char);
 
 
-#define ctor_Dictionary_RefType_Ptr(type)												\
-		Valuetype(Dictionary<String^, type>^ v)											\
-		{																				\
-			auto len = v->Count;														\
-			::RemoteCall::ValueType::ObjectType umap;									\
-			for each (auto var in v)													\
-			{																			\
-				umap.emplace(marshalString(var.Key), var.Value->NativePtr);				\
-			}																			\
-			NativePtr = new _T(std::move(umap));										\
-			OwnsNativeInstance = true;													\
+#define ctor_Dictionary_RefType_Ptr(type)												        \
+		Valuetype(Dictionary<String^, type>^ v)											        \
+		{																				        \
+			auto len = v->Count;														        \
+			::RemoteCall::ValueType::ObjectType umap;									        \
+			for each (auto var in v)													        \
+			{																			        \
+				umap.emplace(marshalString(var.Key), ::RemoteCall::pack(var.Value->NativePtr));	\
+			}																			        \
+			NativePtr = new _T(std::move(umap));										        \
+			OwnsNativeInstance = true;													        \
 		};
 
-#define ctor_Dictionary_RefType_Instance(type)											\
-		Valuetype(Dictionary<String^, type>^ v)											\
-		{																				\
-			auto len = v->Count;														\
-			::RemoteCall::ValueType::ObjectType umap;									\
-			for each (auto var in v)													\
-			{																			\
-				umap.emplace(marshalString(var.Key), *(var.Value->NativePtr));			\
-			}																			\
-			NativePtr = new _T(std::move(umap));										\
-			OwnsNativeInstance = true;													\
+#define ctor_Dictionary_RefType_Instance(type)											            \
+		Valuetype(Dictionary<String^, type>^ v)											            \
+		{																				            \
+			auto len = v->Count;														            \
+			::RemoteCall::ValueType::ObjectType umap;									            \
+			for each (auto var in v)													            \
+			{																			            \
+				umap.emplace(marshalString(var.Key), ::RemoteCall::pack(*(var.Value->NativePtr)));	\
+			}																			            \
+			NativePtr = new _T(std::move(umap));										            \
+			OwnsNativeInstance = true;													            \
 		};
 
         ctor_Dictionary_RefType_Ptr(MC::Player^);

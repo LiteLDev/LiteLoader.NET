@@ -28,15 +28,10 @@ namespace LiteLoader::RemoteCall::Helper
 
     public ref struct ExportedFuncInstance
     {
-        delegate value_type _InvokeManagedFuncDelegate(Object^, array_type);
-        value_type _invoke_managed_func(Object^ del, array_type args);
-
         DynamicMethod^ intertopManagedFunc;
         ConverterCallback^ intertopManagedFuncDelegate;
 
         Delegate^ exportedManagedFunc;
-
-        _InvokeManagedFuncDelegate^ converterHelperFunc;
 
         void* exportedNativeFunc;
         IFuncCaller^ funcHandle;
@@ -71,7 +66,8 @@ namespace LiteLoader::RemoteCall::Helper
             void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info);
             void IL_CastListToArrayType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
             void IL_CastDictionaryToObjectType(TypeHelper::FunctionInfo::TypeInfo% info, bool isSelfCalled);
-            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info, bool isRet);
+            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info);
+            void IL_CastManagedTypes(TypeHelper::FunctionInfo::TypeInfo% info,bool isRet);
 
             bool BuildExportDynamicMethod();
             bool BuildImportDynamicMethod();
