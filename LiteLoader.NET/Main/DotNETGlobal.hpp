@@ -28,6 +28,7 @@
 
 #define __ref_class public ref class
 #define __static abstract sealed
+#define __default_param(obj) [DefaultParameterValue(obj)]
 
 #define typeof(type) type::typeid
 
@@ -53,6 +54,7 @@ using System::Runtime::InteropServices::Marshal;
 using System::Runtime::InteropServices::StructLayoutAttribute;
 using System::Runtime::InteropServices::OutAttribute;
 using System::Runtime::InteropServices::InAttribute;
+using System::Runtime::InteropServices::DefaultParameterValueAttribute;
 using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
 
@@ -116,7 +118,7 @@ inline cli::array<T>^ PackArray(...cli::array<T>^ args)
 
     static_assert(std::is_base_of_v<Object, remove_handle_t<T>>, "");
 
-    return args;
+    return args->Length > 0 ? args : System::Array::Empty<T>();
 }
 
 #include "GlobalClass.hpp"

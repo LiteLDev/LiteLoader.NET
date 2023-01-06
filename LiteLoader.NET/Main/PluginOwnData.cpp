@@ -118,4 +118,21 @@ namespace LiteLoader::NET
 
         instances->Add(instance);
     }
+    
+    void PluginOwnData::AddImportedRemoteCallFunctions(IntPtr handle, ImportedFuncInstance^ instance)
+    {
+        List<ImportedFuncInstance^>^ instances = nullptr;
+
+        if (LiteLoader::NET::PluginOwnData::ImportedRemoteCallFunctions->ContainsKey(handle))
+        {
+            instances = LiteLoader::NET::PluginOwnData::ImportedRemoteCallFunctions[handle];
+        }
+        else
+        {
+            instances = gcnew List<ImportedFuncInstance^>;
+            LiteLoader::NET::PluginOwnData::ImportedRemoteCallFunctions->Add(handle, instances);
+        }
+
+        instances->Add(instance);
+    }
 }

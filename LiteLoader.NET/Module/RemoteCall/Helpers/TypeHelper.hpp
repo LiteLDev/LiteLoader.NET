@@ -62,7 +62,7 @@ namespace LiteLoader::RemoteCall::Helper
         static FunctionInfo::TypeInfo GenerateTypeInfo(System::Type^ t);
 
         /// <exception cref="LiteLoader::NET::InvalidRemoteCallTypeException"></exception>
-        static FunctionInfo GenerateFunctionInfo(Delegate^ func);
+        static FunctionInfo GenerateFunctionInfo(System::Reflection::MethodInfo^ info);
     };
 }
 

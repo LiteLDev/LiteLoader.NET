@@ -10,7 +10,7 @@ namespace LiteLoader::RemoteCall
     generic<typename TDelegate> where TDelegate: Delegate
         bool RemoteCallAPI::ExportAs(String^ nameSpace, String^ funcName, TDelegate func)
     {
-        auto funcInfo = TypeHelper::GenerateFunctionInfo(func);
+        auto funcInfo = TypeHelper::GenerateFunctionInfo(func->Method);
 
         auto ilBulider = gcnew EmitHelper::ILCodeBulider(
             nameSpace, funcName, funcInfo, EmitHelper::ILCodeBulider::BuliderType::Export, typeof(TDelegate));

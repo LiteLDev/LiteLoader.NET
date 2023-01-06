@@ -116,14 +116,13 @@ namespace LiteLoader::RemoteCall::Helper
         return ret;
     }
 
-    TypeHelper::FunctionInfo TypeHelper::GenerateFunctionInfo(Delegate^ func)
+    TypeHelper::FunctionInfo TypeHelper::GenerateFunctionInfo(System::Reflection::MethodInfo^ info)
     {
-        auto methodInfo = func->Method;
-        auto params = methodInfo->GetParameters();
+        auto params = info->GetParameters();
 
         auto funcInfo = FunctionInfo();
 
-        funcInfo.returnType = GenerateTypeInfo(methodInfo->ReturnType);
+        funcInfo.returnType = GenerateTypeInfo(info->ReturnType);
         funcInfo.parameters = gcnew array<FunctionInfo::TypeInfo>(params->Length);
 
         for (int i = 0; i < params->Length; ++i)

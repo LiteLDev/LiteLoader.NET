@@ -23,6 +23,7 @@ namespace LiteLoader::NET
 namespace LiteLoader::RemoteCall::Helper
 {
     ref struct ExportedFuncInstance;
+    ref struct ImportedFuncInstance;
 }
 
 
@@ -33,6 +34,7 @@ namespace LiteLoader::NET
     using LiteLoader::DynamicCommand::DynamicCommandInstance;
     using LiteLoader::Schedule::ScheduleTask;
     using LiteLoader::RemoteCall::Helper::ExportedFuncInstance;
+    using LiteLoader::RemoteCall::Helper::ImportedFuncInstance;
 
     using __HMODULE = IntPtr;
     using __EventId = size_t;
@@ -55,7 +57,9 @@ namespace LiteLoader::NET
         static Dictionary<__HMODULE, List<INativeEventListener^>^>^ SubscribedNativeEvent = gcnew Dictionary<__HMODULE, List<INativeEventListener^>^>;
         static Dictionary<__HMODULE, List<String^>^>^ RegisteredCommand = gcnew Dictionary<__HMODULE, List<String^>^>;
         static Dictionary<__HMODULE, List<VALUE_TUPLE<ScheduleTask^, GCHandle>>^>^ RegisteredSchedule = gcnew Dictionary<__HMODULE, List<VALUE_TUPLE<ScheduleTask^, GCHandle>>^>;
+
         static Dictionary<__HMODULE, List<ExportedFuncInstance^>^>^ ExportedRemoteCallFunctions = gcnew Dictionary<__HMODULE, List<ExportedFuncInstance^>^>;
+        static Dictionary<__HMODULE, List<ImportedFuncInstance^>^>^ ImportedRemoteCallFunctions = gcnew Dictionary<__HMODULE, List<ImportedFuncInstance^>^>;
 
         static Dictionary<uint64_t, VALUE_TUPLE<__HMODULE, IFunctionCaller^>>^ RemoteCallData = gcnew Dictionary<uint64_t, VALUE_TUPLE<__HMODULE, IFunctionCaller^>>;
 
@@ -67,5 +71,6 @@ namespace LiteLoader::NET
         static void AddRegisteredSchedule(IntPtr handle, ScheduleTask^ task, GCHandle gch);
         static void AddRemoteCallData(uint64_t hashVal, IntPtr handle, IFunctionCaller^ funcHandle);
         static void AddExportedRemoteCallFunctions(IntPtr handle, ExportedFuncInstance^ instance);
+        static void AddImportedRemoteCallFunctions(IntPtr handle, ImportedFuncInstance^ instance);
     };
 }

@@ -147,7 +147,8 @@ namespace LiteLoader::RemoteCall::Helper
         static BlockType^ Native2BlockType(void* val);
         static NbtType^ Native2NbtType(void* val);
 
-
+        static void* Native2ArrayTypePtr(void* val);
+        static void* Native2ObjectTypePtr(void* val);
     };
 }
 

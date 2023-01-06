@@ -319,6 +319,11 @@ namespace LiteLoader::RemoteCall::Helper
     {
         reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(value_type(std::move(*reinterpret_cast<object_type*>(v.ptr))));
     }
+    [MethodImpl(MethodImplOptions::AggressiveInlining)]
+    void MemoryHelper::ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, Allocator% v)
+    {
+        reinterpret_cast<array_type*>(typeRef.ptr)->emplace_back(std::move(*reinterpret_cast<value_type*>(v.valueTypeInstancePtr)));
+    }
 
     [MethodImpl(MethodImplOptions::AggressiveInlining)]
     void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key)
@@ -449,5 +454,9 @@ namespace LiteLoader::RemoteCall::Helper
     void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, TypeCastHelper::ObjectTypeWeakRef% v)
     {
         reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), value_type(std::move(*reinterpret_cast<object_type*>(v.ptr)))));
+    }
+    void MemoryHelper::ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, Allocator% v)
+    {
+        reinterpret_cast<object_type*>(typeRef.ptr)->emplace(std::make_pair(marshalString(key), std::move(*reinterpret_cast<value_type*>(v.valueTypeInstancePtr))));
     }
 }

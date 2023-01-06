@@ -9,7 +9,6 @@
 namespace LiteLoader::RemoteCall
 {
     using namespace LiteLoader::RemoteCall::Helper;
-    using call_back_func = ::RemoteCall::CallbackFn;
 
     value_type _invoke_managed_func(RemoteCallAPI::CallbackFn^ del, array_type vec)
     {

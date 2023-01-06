@@ -97,6 +97,7 @@ namespace LiteLoader::RemoteCall::Helper
         static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, unsigned char v);
         static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, TypeCastHelper::ArrayTypeWeakRef% v);
         static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, TypeCastHelper::ObjectTypeWeakRef% v);
+        static void ArrayType_EmplaceBack(TypeCastHelper::ArrayTypeWeakRef% typeRef, Allocator% v);
 
         static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key);
         static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, bool v);
@@ -124,6 +125,7 @@ namespace LiteLoader::RemoteCall::Helper
         static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, unsigned char v);
         static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, TypeCastHelper::ArrayTypeWeakRef% v);
         static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, TypeCastHelper::ObjectTypeWeakRef% v);
+        static void ObjectType_EmplaceBack(TypeCastHelper::ObjectTypeWeakRef% typeRef, String^ key, Allocator% v);
     };
 }
 

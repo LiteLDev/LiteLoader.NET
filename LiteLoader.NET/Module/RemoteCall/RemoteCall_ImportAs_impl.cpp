@@ -1,14 +1,32 @@
 #include "RemoteCallAPI.hpp"
 
-//#include <LiteLoader.NET/Main/PluginOwnData.hpp>
-//#include "Helpers/EmitHelper.hpp"
+#include <LiteLoader.NET/Main/PluginOwnData.hpp>
+#include "Helpers/EmitHelper.hpp"
 
 namespace LiteLoader::RemoteCall
 {
+    using namespace LiteLoader::RemoteCall::Helper;
 
     generic<typename TDelegate> where TDelegate: Delegate
         TDelegate RemoteCallAPI::ImportAs(String^ nameSpace, String^ funcName)
     {
-        throw gcnew System::NotImplementedException;
+        auto funcInfo = TypeHelper::GenerateFunctionInfo(typeof(TDelegate)->GetMethod("Invoke"));
+
+        auto ilBulider = gcnew EmitHelper::ILCodeBulider(
+            nameSpace, funcName, funcInfo, EmitHelper::ILCodeBulider::BuliderType::Import, typeof(TDelegate));
+
+        Object^ temp = nullptr;
+
+        if (ilBulider->Build(nullptr, temp))
+        {
+            auto funcInstance = As<ImportedFuncInstance^>(temp);
+            auto module = CALLING_MODULE;
+
+            LiteLoader::NET::PluginOwnData::AddImportedRemoteCallFunctions(IntPtr(module), funcInstance);
+
+            return (TDelegate)(funcInstance->intertopManagedFuncDelegate);
+        }
+
+        return TDelegate();
     }
 }

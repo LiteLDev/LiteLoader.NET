@@ -272,6 +272,16 @@ namespace LiteLoader::RemoteCall::Helper
         return gcnew NbtType(std::get<nbt_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)));
     }
 
+    void* TypeCastHelper::Native2ArrayTypePtr(void* val)
+    {
+        return &std::get<array_type>(reinterpret_cast<value_type*>(val)->value);
+    }
+
+    void* TypeCastHelper::Native2ObjectTypePtr(void* val)
+    {
+        return &std::get<object_type>(reinterpret_cast<value_type*>(val)->value);
+    }
+
     inline TypeCastHelper::ArrayTypeWeakRef::iterator::iterator(void* instance)
         :instance(instance)
     {
