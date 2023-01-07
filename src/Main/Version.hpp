@@ -28,7 +28,7 @@
 
 // The version of your plugin. If you do not know how to set it, please refer
 // to https://semver.org/ .
-#define PLUGIN_VERSION_MAJOR LLNET_VERSION_MAGOR
+#define PLUGIN_VERSION_MAJOR LLNET_VERSION_MAJOR
 #define PLUGIN_VERSION_MINOR LLNET_VERSION_MINOR
 #define PLUGIN_VERSION_REVISION LLNET_VERSION_REVISION
 #define PLUGIN_VERSION_BUILD LLNET_VERSION_BUILD
