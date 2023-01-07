@@ -279,6 +279,9 @@ namespace LiteLoader::RemoteCall::Helper
 
         il->Emit(oc::Ldloca_S, local__args_allocator);
         il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Free"), nullptr);
+        
+        il->Emit(oc::Ldloca_S, local__ret_allocator);
+        il->EmitCall(oc::Call, METHOD(typeof(MemoryHelper::Allocator), "Free"), nullptr);
 
         il->Emit(oc::Ldloc_S, local__ret);
         il->Emit(oc::Ret);
