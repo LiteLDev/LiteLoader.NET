@@ -1,0 +1,1 @@
+#include <src/Header/Command/CommandArea.hpp>

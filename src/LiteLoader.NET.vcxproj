@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{abeb5558-c92f-473e-8bdf-90f58bd3811c}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>NetCore</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir);$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>NDEBUG;LITELOADER_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 /bigobj</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <DelayLoadDLLs>bedrock_server.dll</DelayLoadDLLs>
+      <AdditionalOptions>/IGNORE:4199 %(AdditionalOptions)</AdditionalOptions>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+    <PreBuildEvent>
+      <Command>if not exist "$(SolutionDir)SDK\lib\bedrock_server_api.lib" goto process
+if not exist "$(SolutionDir)SDK\lib\bedrock_server_var.lib" goto process
+goto end
+
+:process
+cd /d "$(SolutionDir)\SDK\tools\"
+if exist "$(LocalDebuggerWorkingDirectory)\bedrock_server.pdb" (
+LibraryBuilder.exe -o ..\lib\ "$(LocalDebuggerWorkingDirectory)"
+) else (
+LibraryBuilder.exe -o ..\lib\
+)
+
+:end
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if exist "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\" (
+copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
+)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Extra\mutex.hpp" />
+    <ClInclude Include="Extra\PluginManager.hpp" />
+    <ClInclude Include="Header\AllowListAPI.hpp" />
+    <ClInclude Include="Header\Command\Command.hpp" />
+    <ClInclude Include="Header\Command\CommandArea.hpp" />
+    <ClInclude Include="Header\Command\CommandFlag.hpp" />
+    <ClInclude Include="Header\Command\CommandItem.hpp" />
+    <ClInclude Include="Header\Command\CommandMessage.hpp" />
+    <ClInclude Include="Header\Command\CommandOrigin.hpp" />
+    <ClInclude Include="Header\Command\CommandOriginData.hpp" />
+    <ClInclude Include="Header\Command\CommandOriginIdentity.hpp" />
+    <ClInclude Include="Header\Command\CommandOutput.hpp" />
+    <ClInclude Include="Header\Command\CommandOutputMessage.hpp" />
+    <ClInclude Include="Header\Command\CommandOutputParameter.hpp" />
+    <ClInclude Include="Header\Command\CommandParameterData.hpp" />
+    <ClInclude Include="Header\Command\CommandPosition.hpp" />
+    <ClInclude Include="Header\Command\CommandPositionFloat.hpp" />
+    <ClInclude Include="Header\Command\CommandPropertyBag.hpp" />
+    <ClInclude Include="Header\Command\CommandRegistry.hpp" />
+    <ClInclude Include="Header\Command\CommandVersion.hpp" />
+    <ClInclude Include="Header\Core\Exceptions.hpp" />
+    <ClInclude Include="Header\Core\ICppClass.hpp" />
+    <ClInclude Include="Header\Core\SecondaryRankPtr.hpp" />
+    <ClInclude Include="Header\Core\STLHelper\string.hpp" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp" />
+    <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp" />
+    <ClInclude Include="Header\DynamicCommand\ICommand.hpp" />
+    <ClInclude Include="Header\DynamicCommand\ParameterData.hpp" />
+    <ClInclude Include="Header\Event\BlockEvents.hpp" />
+    <ClInclude Include="Header\Event\EntityEvents.hpp" />
+    <ClInclude Include="Header\Event\EventAttribute.hpp" />
+    <ClInclude Include="Header\Event\EventManager.hpp" />
+    <ClInclude Include="Header\Event\EventListener.hpp" />
+    <ClInclude Include="Header\Event\IEvent.hpp" />
+    <ClInclude Include="Header\Event\include.hpp" />
+    <ClInclude Include="Header\Event\Event.hpp" />
+    <ClInclude Include="Header\Event\OtherEvents.hpp" />
+    <ClInclude Include="Header\Event\PlayerEvents.hpp" />
+    <ClInclude Include="Header\FormUI.hpp" />
+    <ClInclude Include="Header\GlobalSurvice.hpp" />
+    <ClInclude Include="Header\Hook\Ahook.hpp" />
+    <ClInclude Include="Header\Hook\HookAPI.hpp" />
+    <ClInclude Include="Header\Hook\HookSymbolAttribute.hpp" />
+    <ClInclude Include="Header\Hook\HookHelper.hpp" />
+    <ClInclude Include="Header\Hook\Shook.hpp" />
+    <ClInclude Include="Header\Hook\Thook.hpp" />
+    <ClInclude Include="Header\Hook\THookRegister.hpp" />
+    <ClInclude Include="Header\I18n.hpp" />
+    <ClInclude Include="Header\Impl\FormPacketHelper.hpp" />
+    <ClInclude Include="Header\IsManagedAssemblyAPI.hpp" />
+    <ClInclude Include="Header\LLAPI.hpp" />
+    <ClInclude Include="Header\Logger\Logger.hpp" />
+    <ClInclude Include="Header\Logger\LoggerManager.hpp" />
+    <ClInclude Include="Header\MC\AABB.hpp" />
+    <ClInclude Include="Header\MC\Actor.hpp" />
+    <ClInclude Include="Header\MC\ActorDamageSource.hpp" />
+    <ClInclude Include="Header\MC\ActorDefinitionIdentifier.hpp" />
+    <ClInclude Include="Header\MC\ArmorStand.hpp" />
+    <ClInclude Include="Header\MC\Attribute.hpp" />
+    <ClInclude Include="Header\MC\AttributeInstance.hpp" />
+    <ClInclude Include="Header\MC\AttributeModifier.hpp" />
+    <ClInclude Include="Header\MC\BinaryStream.hpp" />
+    <ClInclude Include="Header\MC\Biome.hpp" />
+    <ClInclude Include="Header\MC\Block.hpp" />
+    <ClInclude Include="Header\MC\BlockActor.hpp" />
+    <ClInclude Include="Header\MC\BlockInstance.hpp" />
+    <ClInclude Include="Header\MC\BlockPalette.hpp" />
+    <ClInclude Include="Header\MC\BlockPos.hpp" />
+    <ClInclude Include="Header\MC\BlockSource.hpp" />
+    <ClInclude Include="Header\MC\BoundingBox.hpp" />
+    <ClInclude Include="Header\MC\ByteArrayTag.hpp" />
+    <ClInclude Include="Header\MC\ByteTag.hpp" />
+    <ClInclude Include="Header\MC\Certificate.hpp" />
+    <ClInclude Include="Header\MC\ChunkBlockPos.hpp" />
+    <ClInclude Include="Header\MC\ColorFormat.hpp" />
+    <ClInclude Include="Header\MC\CompoundTag.hpp" />
+    <ClInclude Include="Header\MC\CompoundTagVariant.hpp" />
+    <ClInclude Include="Header\MC\Container.hpp" />
+    <ClInclude Include="Header\MC\Dimension.hpp" />
+    <ClInclude Include="Header\MC\DoubleTag.hpp" />
+    <ClInclude Include="Header\MC\EndTag.hpp" />
+    <ClInclude Include="Header\MC\FloatTag.hpp" />
+    <ClInclude Include="Header\MC\HashedString.hpp" />
+    <ClInclude Include="Header\MC\HitResult.hpp" />
+    <ClInclude Include="Header\MC\IdentityDefinition.hpp" />
+    <ClInclude Include="Header\MC\Int64Tag.hpp" />
+    <ClInclude Include="Header\MC\IntArrayTag.hpp" />
+    <ClInclude Include="Header\MC\IntTag.hpp" />
+    <ClInclude Include="Header\MC\ItemInstance.hpp" />
+    <ClInclude Include="Header\MC\ItemStack.hpp" />
+    <ClInclude Include="Header\MC\ItemStackBase.hpp" />
+    <ClInclude Include="Header\MC\Level.hpp" />
+    <ClInclude Include="Header\MC\ListTag.hpp" />
+    <ClInclude Include="Header\MC\MapItemSavedData.hpp" />
+    <ClInclude Include="Header\MC\MCRESULT.hpp" />
+    <ClInclude Include="Header\MC\MinecraftPackets.hpp" />
+    <ClInclude Include="Header\MC\Mob.hpp" />
+    <ClInclude Include="Header\MC\MobEffect.hpp" />
+    <ClInclude Include="Header\MC\MobEffectInstance.hpp" />
+    <ClInclude Include="Header\MC\Monster.hpp" />
+    <ClInclude Include="Header\MC\NetworkIdentifier.hpp" />
+    <ClInclude Include="Header\MC\Objective.hpp" />
+    <ClInclude Include="Header\MC\Packet.hpp" />
+    <ClInclude Include="Header\MC\Player.hpp" />
+    <ClInclude Include="Header\MC\ReadOnlyBinaryStream.hpp" />
+    <ClInclude Include="Header\MC\ScoreboardId.hpp" />
+    <ClInclude Include="Header\MC\ScorePacketInfo.hpp" />
+    <ClInclude Include="Header\MC\SerializedSkin.hpp" />
+    <ClInclude Include="Header\MC\ServerPlayer.hpp" />
+    <ClInclude Include="Header\MC\SharedAttributes.hpp" />
+    <ClInclude Include="Header\MC\ShortTag.hpp" />
+    <ClInclude Include="Header\MC\SimulatedPlayer.hpp" />
+    <ClInclude Include="Header\MC\StringTag.hpp" />
+    <ClInclude Include="Header\MC\Tag.hpp" />
+    <ClInclude Include="Header\MC\TagMemoryChunk.hpp" />
+    <ClInclude Include="Header\MC\Tick.hpp" />
+    <ClInclude Include="Header\MC\Types.hpp" />
+    <ClInclude Include="Header\MC\UserEntityIdentifierComponent.hpp" />
+    <ClInclude Include="Header\MC\Vec2.hpp" />
+    <ClInclude Include="Header\MC\Vec3.hpp" />
+    <ClInclude Include="Header\MC\WitherBoss.hpp" />
+    <ClInclude Include="Header\NativeAPI.hpp" />
+    <ClInclude Include="Header\PlayerInfo.hpp" />
+    <ClInclude Include="Header\Schedule.hpp" />
+    <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
+    <ClInclude Include="Header\Server.hpp" />
+    <ClInclude Include="Main\DotNETGlobal.hpp" />
+    <ClInclude Include="Main\ClassTemplate.hpp" />
+    <ClInclude Include="Main\Config.hpp" />
+    <ClInclude Include="Main\FixCLRFatalError.hpp" />
+    <ClInclude Include="Main\Global.hpp" />
+    <ClInclude Include="Main\GlobalClass.hpp" />
+    <ClInclude Include="Main\Info.hpp" />
+    <ClInclude Include="Main\IPluginInitializer.hpp" />
+    <ClInclude Include="Main\PluginLoadContext.hpp" />
+    <ClInclude Include="Main\PluginManager.hpp" />
+    <ClInclude Include="Main\PluginOwnData.hpp" />
+    <ClInclude Include="Main\Version.hpp" />
+    <ClInclude Include="Module\RemoteCall\Attributes\RemoteCallValueTypeAttribute.hpp" />
+    <ClInclude Include="Module\RemoteCall\Enums\InstanceType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\EmitHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\MemoryHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeCastHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Helpers\TypeHelper.hpp" />
+    <ClInclude Include="Module\RemoteCall\Interfaces\IValueType.hpp" />
+    <ClInclude Include="Module\RemoteCall\RemoteCallAPI.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ArrayType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\BlockPosType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\BlockType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ItemType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\NbtType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ObjectType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\Value.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\ValueType.hpp" />
+    <ClInclude Include="Module\RemoteCall\Types\WorldPosType.hpp" />
+    <ClInclude Include="Tools\ClassTemplateHelper.hpp" />
+    <ClInclude Include="Tools\clix.hpp" />
+    <ClInclude Include="Tools\CallbackConverter.hpp" />
+    <ClInclude Include="Tools\NativeCallbackConverter.hpp" />
+    <ClInclude Include="Tools\PropertryHelper.hpp" />
+    <ClInclude Include="Tools\type_traits.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Kernel\AllowListAPI.cpp" />
+    <ClCompile Include="Kernel\Command\Command.cpp" />
+    <ClCompile Include="Kernel\Command\CommandArea.cpp" />
+    <ClCompile Include="Kernel\Command\CommandItem.cpp" />
+    <ClCompile Include="Kernel\Command\CommandMessage.cpp" />
+    <ClCompile Include="Kernel\Command\CommandOrigin.cpp" />
+    <ClCompile Include="Kernel\Command\CommandOriginData.cpp" />
+    <ClCompile Include="Kernel\Command\CommandOutput.cpp" />
+    <ClCompile Include="Kernel\Command\CommandOutputMessage.cpp" />
+    <ClCompile Include="Kernel\Command\CommandOutputParameter.cpp" />
+    <ClCompile Include="Kernel\Command\CommandPosition.cpp" />
+    <ClCompile Include="Kernel\Command\CommandPropertyBag.cpp" />
+    <ClCompile Include="Kernel\Command\CommandVersion.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommand.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandHelper.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandInstance.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\ICommand.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\ParameterData.cpp" />
+    <ClCompile Include="Kernel\DynamicCommand\RegisterCommand.cpp" />
+    <ClCompile Include="Kernel\Event\BlockEvents.cpp" />
+    <ClCompile Include="Kernel\Event\EntityEvents.cpp" />
+    <ClCompile Include="Kernel\Event\Event.cpp" />
+    <ClCompile Include="Kernel\Event\EventManager.cpp" />
+    <ClCompile Include="Kernel\Event\OtherEvents.cpp" />
+    <ClCompile Include="Kernel\Event\PlayerEvents.cpp" />
+    <ClCompile Include="Kernel\FormUI.cpp" />
+    <ClCompile Include="Kernel\GlobalService.cpp" />
+    <ClCompile Include="Kernel\Hook\Ahook.cpp" />
+    <ClCompile Include="Kernel\Hook\HookAPI.cpp" />
+    <ClCompile Include="Kernel\Hook\HookHelper.cpp" />
+    <ClCompile Include="Kernel\Hook\HookSymbolAttribute.cpp" />
+    <ClCompile Include="Kernel\Hook\Shook.cpp" />
+    <ClCompile Include="Kernel\Hook\Thook.cpp" />
+    <ClCompile Include="Kernel\Hook\THookRegister.cpp" />
+    <ClCompile Include="Kernel\I18n.cpp" />
+    <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
+    <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
+    <ClCompile Include="Kernel\LLAPI.cpp" />
+    <ClCompile Include="Kernel\Logger\Logger.cpp" />
+    <ClCompile Include="Kernel\Logger\LoggerManager.cpp" />
+    <ClCompile Include="Kernel\MC\AABB.cpp" />
+    <ClCompile Include="Kernel\MC\Actor.cpp" />
+    <ClCompile Include="Kernel\MC\ActorDamageSource.cpp" />
+    <ClCompile Include="Kernel\MC\ActorDefinitionIdentifier.cpp" />
+    <ClCompile Include="Kernel\MC\ArmorStand.cpp" />
+    <ClCompile Include="Kernel\MC\Attribute.cpp" />
+    <ClCompile Include="Kernel\MC\AttributeInstance.cpp" />
+    <ClCompile Include="Kernel\MC\AttributeModifier.cpp" />
+    <ClCompile Include="Kernel\MC\BinaryStream.cpp" />
+    <ClCompile Include="Kernel\MC\Biome.cpp" />
+    <ClCompile Include="Kernel\MC\Block.cpp" />
+    <ClCompile Include="Kernel\MC\BlockActor.cpp" />
+    <ClCompile Include="Kernel\MC\BlockInstance.cpp" />
+    <ClCompile Include="Kernel\MC\BlockPalette.cpp" />
+    <ClCompile Include="Kernel\MC\BlockPos.cpp" />
+    <ClCompile Include="Kernel\MC\BlockSource.cpp" />
+    <ClCompile Include="Kernel\MC\BoundingBox.cpp" />
+    <ClCompile Include="Kernel\MC\ByteArrayTag.cpp" />
+    <ClCompile Include="Kernel\MC\ByteTag.cpp" />
+    <ClCompile Include="Kernel\MC\Certificate.cpp" />
+    <ClCompile Include="Kernel\MC\ChunkBlockPos.cpp" />
+    <ClCompile Include="Kernel\MC\ColorFormat.cpp" />
+    <ClCompile Include="Kernel\MC\CompoundTag.cpp" />
+    <ClCompile Include="Kernel\MC\CompoundTagVariant.cpp" />
+    <ClCompile Include="Kernel\MC\Container.cpp" />
+    <ClCompile Include="Kernel\MC\Dimension.cpp" />
+    <ClCompile Include="Kernel\MC\DoubleTag.cpp" />
+    <ClCompile Include="Kernel\MC\EndTag.cpp" />
+    <ClCompile Include="Kernel\MC\FloatTag.cpp" />
+    <ClCompile Include="Kernel\MC\HashedString.cpp" />
+    <ClCompile Include="Kernel\MC\HitResult.cpp" />
+    <ClCompile Include="Kernel\MC\IdentityDefinition.cpp" />
+    <ClCompile Include="Kernel\MC\Int64Tag.cpp" />
+    <ClCompile Include="Kernel\MC\IntArrayTag.cpp" />
+    <ClCompile Include="Kernel\MC\IntTag.cpp" />
+    <ClCompile Include="Kernel\MC\ItemInstance.cpp" />
+    <ClCompile Include="Kernel\MC\ItemStack.cpp" />
+    <ClCompile Include="Kernel\MC\ItemStackBase.cpp" />
+    <ClCompile Include="Kernel\MC\Level.cpp" />
+    <ClCompile Include="Kernel\MC\ListTag.cpp" />
+    <ClCompile Include="Kernel\MC\MapItemSavedData.cpp" />
+    <ClCompile Include="Kernel\MC\MCRESULT.cpp" />
+    <ClCompile Include="Kernel\MC\MinecraftPackets.cpp" />
+    <ClCompile Include="Kernel\MC\Mob.cpp" />
+    <ClCompile Include="Kernel\MC\MobEffect.cpp" />
+    <ClCompile Include="Kernel\MC\MobEffectInstance.cpp" />
+    <ClCompile Include="Kernel\MC\Monster.cpp" />
+    <ClCompile Include="Kernel\MC\NetworkIdentifier.cpp" />
+    <ClCompile Include="Kernel\MC\Objective.cpp" />
+    <ClCompile Include="Kernel\MC\Packet.cpp" />
+    <ClCompile Include="Kernel\MC\Player.cpp" />
+    <ClCompile Include="Kernel\MC\ReadOnlyBinaryStream.cpp" />
+    <ClCompile Include="Kernel\MC\ScoreboardId.cpp" />
+    <ClCompile Include="Kernel\MC\ScorePacketInfo.cpp" />
+    <ClCompile Include="Kernel\MC\SerializedSkin.cpp" />
+    <ClCompile Include="Kernel\MC\ServerPlayer.cpp" />
+    <ClCompile Include="Kernel\MC\SharedAttributes.cpp" />
+    <ClCompile Include="Kernel\MC\ShortTag.cpp" />
+    <ClCompile Include="Kernel\MC\SimulatedPlayer.cpp" />
+    <ClCompile Include="Kernel\MC\StringTag.cpp" />
+    <ClCompile Include="Kernel\MC\Tag.cpp" />
+    <ClCompile Include="Kernel\MC\TagMemoryChunk.cpp" />
+    <ClCompile Include="Kernel\MC\Types.cpp" />
+    <ClCompile Include="Kernel\MC\UserEntityIdentifierComponent.cpp" />
+    <ClCompile Include="Kernel\MC\Vec2.cpp" />
+    <ClCompile Include="Kernel\MC\Vec3.cpp" />
+    <ClCompile Include="Kernel\MC\WitherBoss.cpp" />
+    <ClCompile Include="Kernel\NativeAPI.cpp" />
+    <ClCompile Include="Kernel\NativeAPIHelper.cpp" />
+    <ClCompile Include="Kernel\PlayerInfo.cpp" />
+    <ClCompile Include="Kernel\Schedule.cpp" />
+    <ClCompile Include="Kernel\Scoreboard\Scoreboard.cpp" />
+    <ClCompile Include="Kernel\Server.cpp" />
+    <ClCompile Include="Main\AssemblyInfo.cpp" />
+    <ClCompile Include="Main\GlobalClass.cpp" />
+    <ClCompile Include="Main\LiteLoaderDotNET.cpp" />
+    <ClCompile Include="Main\PluginAttribute.hpp" />
+    <ClCompile Include="Main\dllmain.cpp" />
+    <ClCompile Include="Main\Plugininterface.cpp" />
+    <ClCompile Include="Main\Loader.cpp" />
+    <ClCompile Include="Main\PluginLoadContext.cpp" />
+    <ClCompile Include="Main\PluginManager.cpp" />
+    <ClCompile Include="Main\PluginOwnData.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeCastHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\Helpers\TypeHelper.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_basic_api.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ExportAs_impl.cpp" />
+    <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ArrayType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\BlockPosType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\BlockType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ItemType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\NbtType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\NumberType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ObjectType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\Value.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\ValueType.cpp" />
+    <ClCompile Include="Module\RemoteCall\Types\WorldPosType.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

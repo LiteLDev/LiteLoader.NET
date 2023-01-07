@@ -6,8 +6,7 @@
 
 LiteLoaderSDK不受此许可证约束, LiteLoaderSDK使用MIT许可证开源。
 
-注: LiteLoaderSDK指本仓库的LiteLoader/Header目录下的文件
-    许可证详见https://github.com/LiteLDev/LiteLoaderSDK/tree/main/LICENSE
+注: 许可证详见https://github.com/LiteLDev/SDK-dotnet/blob/main/license
 
 #### ENGLISH VERSION
 
@@ -17,8 +16,7 @@ This project is under the GNU Lesser General Public License version 3, with exce
 
 LiteLoaderSDK is not under the terms of this license, and is open source under the MIT license.
 
-Note: LiteLoaderSDK refers to the repository's LiteLoader/Header directory.
-      See https://github.com/LiteLDev/LiteLoaderSDK/tree/main/LICENSE for the license.
+Note: See https://github.com/LiteLDev/SDK-dotnet/blob/main/license for the license.
 
 ========================================================================
 

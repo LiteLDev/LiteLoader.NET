@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p SDK/tools/Server
-          ServerLink=$(cat 'Scripts/LINK.txt')
+          ServerLink=$(cat 'scripts/LINK.txt')
           curl -L -o SDK/tools/Server/server.zip "$ServerLink"
           unzip SDK/tools/Server/server.zip -d SDK/tools/Server/ > /dev/null
 

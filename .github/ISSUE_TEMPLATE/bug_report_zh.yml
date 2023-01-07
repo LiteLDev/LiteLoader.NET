@@ -11,33 +11,15 @@ body:
         > 2. 请勿在这里反馈具有严重影响的游戏漏洞，相关问题请在聊天软件内私聊项目开发者并向及时向Mojang反馈
 
   - type: dropdown
-    id: module
-    attributes:
-      label: 异常模块
-      description: 出现问题的模块
-      options:
-        - LiteLoader.NET
-        - LLPreLoader.NET
-        - LLMoney.NET
-    validations:
-      required: true
-  - type: dropdown
     id: os
     attributes:
       label: 操作系统
       multiple: false
       options:
-        - Windows Server 2022
-        - Windows Server 2019
-        - Windows Server 2016
-        - Windows Server 2012
-        - 其他版本的Windows Server
-        - Windows 11
-        - Windows 10
-        - 其他版本的Windows
-        - GNU/Linux with docker
-        - GNU/Linux with wine
-        - 未知/其他操作系统
+        - Windows
+        - Docker
+        - Wine
+        - 其他/未知操作系统
     validations:
       required: true
   - type: input

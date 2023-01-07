@@ -2,26 +2,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteLoader.NET", "LiteLoader.NET\LiteLoader.NET.vcxproj", "{ABEB5558-C92F-473E-8BDF-90F58BD3811C}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LLMoney.NET", "LLMoney.NET\LLMoney.NET.vcxproj", "{973D4628-4EFF-4982-83D8-9C8BAE60156D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{ABEB5558-C92F-473E-8BDF-90F58BD3811C} = {ABEB5558-C92F-473E-8BDF-90F58BD3811C}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteLoader.NET", "src\LiteLoader.NET.vcxproj", "{ABEB5558-C92F-473E-8BDF-90F58BD3811C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ABEB5558-C92F-473E-8BDF-90F58BD3811C}.Debug|x64.ActiveCfg = Debug|x64
-		{ABEB5558-C92F-473E-8BDF-90F58BD3811C}.Debug|x64.Build.0 = Debug|x64
 		{ABEB5558-C92F-473E-8BDF-90F58BD3811C}.Release|x64.ActiveCfg = Release|x64
 		{ABEB5558-C92F-473E-8BDF-90F58BD3811C}.Release|x64.Build.0 = Release|x64
-		{973D4628-4EFF-4982-83D8-9C8BAE60156D}.Debug|x64.ActiveCfg = Release|x64
-		{973D4628-4EFF-4982-83D8-9C8BAE60156D}.Release|x64.ActiveCfg = Release|x64
-		{973D4628-4EFF-4982-83D8-9C8BAE60156D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,32 +11,14 @@ body:
         > 2. Please do not report destructive Minecraft Bugs, please send a private message to the project developer in IM, and give feedback to Mojang in time.
 
   - type: dropdown
-    id: module
-    attributes:
-      label: Exceptions module
-      description: The module with problems
-      options:
-        - LiteLoader.NET
-        - LLPreLoader.NET
-        - LLMoney.NET
-    validations:
-      required: true
-  - type: dropdown
     id: os
     attributes:
       label: Operating System
       multiple: false
       options:
-        - Windows Server 2022
-        - Windows Server 2019
-        - Windows Server 2016
-        - Windows Server 2012
-        - Other Windows Server
-        - Windows 11
-        - Windows 10
-        - Other Windows
-        - GNU/Linux with docker
-        - GNU/Linux with wine
+        - Windows
+        - Docker
+        - Wine
         - Other/Unknown
     validations:
       required: true
