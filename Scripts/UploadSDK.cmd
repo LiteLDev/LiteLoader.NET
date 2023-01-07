@@ -53,8 +53,6 @@ rd /s /q SDK-dotnet\refs
 @REM copy all SDK to SDK-dotnet
 xcopy /e /y /i /q x64\Release\LiteLoader.NET.dll SDK-dotnet\refs\LiteLoader\
 xcopy /e /y /i /q x64\Release\LiteLoader.NET.xml SDK-dotnet\refs\LiteLoader\
-xcopy /e /y /i /q x64\Release\LLMoney.NET.dll SDK-dotnet\refs\LLMoney\
-xcopy /e /y /i /q x64\Release\LLMoney.NET.xml SDK-dotnet\refs\LLMoney\
 
 cd SDK-dotnet
 for /f "delims=" %%i in ('git status . -s') do set LLNET_SDK_NOW_STATUS=%%i
