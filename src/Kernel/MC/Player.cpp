@@ -685,6 +685,12 @@ namespace MC
         return __ret;
     }
 
+    void Player::PlayerLevel::set(int _0)
+    {
+        auto __ret = _0 - NativePtr->getPlayerLevel();
+        NativePtr->addLevels(__ret);
+    }
+
     String^ Player::PlayerSessionId::get()
     {
         auto& __ret = NativePtr->getPlayerSessionId();

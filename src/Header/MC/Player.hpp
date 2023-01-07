@@ -343,6 +343,7 @@ namespace MC
         property int PlayerLevel
         {
             int get();
+            void set(int);
         }
 
         property String^ PlayerSessionId
