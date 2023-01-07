@@ -8,7 +8,6 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <EnableManagedPackageReferenceSupport>true</EnableManagedPackageReferenceSupport>
     <ProjectGuid>{abeb5558-c92f-473e-8bdf-90f58bd3811c}</ProjectGuid>
     <Keyword>NetCoreCProj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
