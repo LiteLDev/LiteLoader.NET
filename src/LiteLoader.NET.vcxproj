@@ -7,9 +7,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
-    <Keyword>Win32Proj</Keyword>
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <EnableManagedPackageReferenceSupport>true</EnableManagedPackageReferenceSupport>
     <ProjectGuid>{abeb5558-c92f-473e-8bdf-90f58bd3811c}</ProjectGuid>
+    <Keyword>NetCoreCProj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
@@ -18,9 +19,9 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>NetCore</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -41,13 +42,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;LITELOADER_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_AMD64_;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <ConformanceMode>false</ConformanceMode>
       <AdditionalOptions>/utf-8 /bigobj</AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DiagnosticsFormat>Column</DiagnosticsFormat>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -78,11 +80,6 @@ LibraryBuilder.exe -o ..\lib\
 :end
       </Command>
     </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>if exist "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\" (
-copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
-)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Extra\mutex.hpp" />

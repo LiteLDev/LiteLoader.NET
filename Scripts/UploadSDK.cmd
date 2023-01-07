@@ -47,8 +47,8 @@ echo [INFO] Fetching SDK-dotnet to GitHub finished
 echo.
 
 @REM remove refs directory in SDK-dotnet
-echo [INFO] Removing SDK-dotnet\refs
-rd /s /q SDK-dotnet\refs
+echo [INFO] Removing SDK-dotnet\refs\LiteLoader
+rd /s /q SDK-dotnet\refs\LiteLoader
 
 @REM copy all SDK to SDK-dotnet
 xcopy /e /y /i /q x64\Release\LiteLoader.NET.dll SDK-dotnet\refs\LiteLoader\
