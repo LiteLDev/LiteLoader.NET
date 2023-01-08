@@ -15,8 +15,8 @@ namespace LiteLoader::RemoteCall
     {
     }
 
-    inline WorldPosType::WorldPosType(PAIR<MC::Vec3, int> pos)
-        : ClassTemplate(new ::RemoteCall::WorldPosType(pos.Key, pos.Value), true)
+    inline WorldPosType::WorldPosType(VALUE_TUPLE<MC::Vec3, int> pos)
+        : ClassTemplate(new ::RemoteCall::WorldPosType(pos.Item1, pos.Item2), true)
     {
     }
 
@@ -40,14 +40,14 @@ namespace LiteLoader::RemoteCall
         return MC::BlockPos(MC::Vec3(NativePtr->pos));
     }
 
-    PAIR<MC::Vec3, int> WorldPosType::PosPair::get()
+    VALUE_TUPLE<MC::Vec3, int> WorldPosType::PosPair::get()
     {
-        return PAIR<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId);
+        return VALUE_TUPLE<MC::Vec3, int>(*(MC::Vec3*)&NativePtr->pos, NativePtr->dimId);
     }
 
-    PAIR<MC::BlockPos, int> WorldPosType::BlockPosPair::get()
+    VALUE_TUPLE<MC::BlockPos, int> WorldPosType::BlockPosPair::get()
     {
-        return PAIR<MC::BlockPos, int>(BlockPos, NativePtr->dimId);
+        return VALUE_TUPLE<MC::BlockPos, int>(BlockPos, NativePtr->dimId);
     }
 
     int WorldPosType::DimId::get()

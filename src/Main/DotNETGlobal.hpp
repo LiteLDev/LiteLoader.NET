@@ -23,8 +23,6 @@
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");
 
 #define VALUE_TUPLE System::ValueTuple
-#define KEY_VALUE_PAIR System::Collections::Generic::KeyValuePair
-#define PAIR KEY_VALUE_PAIR
 
 #define __ref_class public ref class
 #define __static abstract sealed
