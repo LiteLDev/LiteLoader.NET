@@ -113,16 +113,16 @@ public:
 public:
 
 
-#define __ClassTemplateAPIs(RefClass, NativeClass)            \
-    NativeClass* Release()                                    \
-    {                                                         \
-        return ClassTemplate::Release();                      \
-    }                                                         \
-    void Reset(NATIVECLASS const* p)()                        \
-    {                                                         \
-        ClassTemplate::Reset(p);                              \
-    }                                                         \
-    void Reset(NATIVECLASS const* p, bool ownsNativeInstance) \
-    {                                                         \
-        ClassTemplate::Reset(p, ownsNativeInstance);          \
+#define __ClassTemplateAPIs(RefClass, NativeClass)                      \
+    NativeClass* ReleasePointer()                                       \
+    {                                                                   \
+        return ClassTemplate::Release();                                \
+    }                                                                   \
+    void ResetPointer(NATIVECLASS const* p)()                           \
+    {                                                                   \
+        ClassTemplate::ResetPointer(p);                                 \
+    }                                                                   \
+    void ResetPointer(NATIVECLASS const* p, bool ownsNativeInstance)    \
+    {                                                                   \
+        ClassTemplate::ResetPointer(p, ownsNativeInstance);             \
     }

@@ -23,6 +23,11 @@ namespace LiteLoader::RemoteCall::Helper
         public:
             System::Nullable<InstanceType> instanceType;
 
+            property bool IsInvalid
+            {
+                virtual bool get() override;
+            }
+
             RemoreCallHandle(void* ptr, bool ownsNativeInstance, InstanceType type);
             RemoreCallHandle();
 

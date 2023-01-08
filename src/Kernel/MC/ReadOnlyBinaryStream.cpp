@@ -13,13 +13,13 @@ namespace MC
 
     inline ReadOnlyBinaryStream::ReadOnlyBinaryStream(String^ str)
     {
-        nativePtr = new ::ReadOnlyBinaryStream(marshalString(str));
+        NativePtr = new ::ReadOnlyBinaryStream(marshalString(str));
         ownsNativeInstance = true;
     }
 
     inline ReadOnlyBinaryStream::ReadOnlyBinaryStream(String^ str, bool b)
     {
-        nativePtr = new ::ReadOnlyBinaryStream(marshalString(str), b);
+        NativePtr = new ::ReadOnlyBinaryStream(marshalString(str), b);
         ownsNativeInstance = true;
     }
 

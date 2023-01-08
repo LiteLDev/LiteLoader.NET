@@ -291,7 +291,7 @@ namespace LiteLoader::DynamicCommand
     inline DynamicCommandInstance^ DynamicCommand::Setup(DynamicCommandInstance^ commandInstance)
     {
         return gcnew DynamicCommandInstance(
-            (::DynamicCommandInstance*)::DynamicCommand::setup(std::unique_ptr<::DynamicCommandInstance>(commandInstance->Release())));
+            (::DynamicCommandInstance*)::DynamicCommand::setup(std::unique_ptr<::DynamicCommandInstance>(commandInstance->ReleasePointer())));
     }
     inline bool DynamicCommand::UnregisterCommand(String^ name)
     {

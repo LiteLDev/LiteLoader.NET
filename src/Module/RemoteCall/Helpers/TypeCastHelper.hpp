@@ -33,7 +33,7 @@ namespace LiteLoader::RemoteCall::Helper
     using object_type_native_iterator = ::RemoteCall::ValueType::ObjectType::iterator;
 
     public ref class TypeCastHelper __static
-    { 
+    {
     public:
 
         value struct ArrayTypeWeakRef :IEnumerable<IntPtr>
@@ -55,9 +55,11 @@ namespace LiteLoader::RemoteCall::Helper
                 {
                     virtual IntPtr get();
                 }
+
+            private:
                 property Object^ CurrentNonGgeneric
                 {
-                    virtual Object^ get() = IEnumeratorNonGgeneric::Current::get;
+                    virtual Object^ get() sealed = IEnumeratorNonGgeneric::Current::get;
                 };
             };
 
@@ -72,10 +74,11 @@ namespace LiteLoader::RemoteCall::Helper
             {
                 IntPtr get(int index);
             }
-
-            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;
             virtual IEnumerator<IntPtr>^ GetEnumerator();
             iterator GetIterator();
+
+        private:
+            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;
         };
 
         value struct ObjectTypeWeakRef :IEnumerable<IntPtr>
@@ -97,13 +100,14 @@ namespace LiteLoader::RemoteCall::Helper
                 {
                     virtual IntPtr get();
                 }
-                property Object^ CurrentNonGgeneric
-                {
-                    virtual Object^ get() = IEnumeratorNonGgeneric::Current::get;
-                };
-
                 String^ GetKey();
                 void* GetValue();
+
+            private:
+                property Object^ CurrentNonGgeneric
+                {
+                    virtual Object^ get() sealed = IEnumeratorNonGgeneric::Current::get;
+                };
             };
 
             void* ptr;
@@ -114,12 +118,14 @@ namespace LiteLoader::RemoteCall::Helper
 
             property IntPtr default[String^]
             {
-                IntPtr get(String^ key);
+                IntPtr get(String ^ key);
             }
 
-            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() = IEnumerableNonGgeneric::GetEnumerator;
             virtual IEnumerator<IntPtr>^ GetEnumerator();
             iterator GetIterator();
+
+        private:
+            virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;
         };
 
         static double Native2double(void* val);

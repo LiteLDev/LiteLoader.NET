@@ -73,14 +73,14 @@ using namespace clix;
 inline String^ marshalString(std::string const& str)
 {
     return marshalString<clix::CLI_Encoding::E_UTF8>(str);
-};
+}
 
-inline std::string marshalString(String^ str)
+inline std::string marshalString(String ^ str)
 {
     return marshalString<clix::CLI_Encoding::E_UTF8>(str);
 }
 
-inline uint64_t do_Hash(String^ str)
+inline uint64_t do_Hash(String ^ str)
 {
     uint64_t rval = 0;
     for (int i = 0; i < str->Length; ++i)
@@ -122,7 +122,7 @@ inline cli::array<T>^ PackArray(...cli::array<T>^ args)
 {
     using namespace LiteLoader::NET;
 
-    static_assert(std::is_base_of_v<Object, remove_handle_t<T>>, "");
+    static_assert(is_ref_class_v<remove_handle_t<T>>, "");
 
     return args;
 }

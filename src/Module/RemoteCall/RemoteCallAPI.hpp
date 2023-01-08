@@ -90,7 +90,7 @@ namespace LiteLoader::RemoteCall
         /// <typeparam name="TDelegate">－Function Porotype</typeparam>
         /// <param name="nameSpace">－Export Function NameSpace</param>
         /// <param name="funcName">－Export Function Name</param>
-        /// <param name="fn">－Export Function</param>
+        /// <param name="func">－Export Function</param>
         /// <returns>－Is The Export Successful</returns>
         /// <exception cref="LiteLoader::NET::InvalidRemoteCallTypeException"></exception>
         generic<typename TDelegate> where TDelegate:Delegate

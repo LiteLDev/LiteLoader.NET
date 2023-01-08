@@ -16,17 +16,17 @@ namespace MC
 
     inline ItemStack^ ItemStack::Create(CompoundTag^ tag)
     {
-        return gcnew ItemStack(::ItemStack::create(std::unique_ptr<::CompoundTag>((::CompoundTag*)tag->Release())), true);
+        return gcnew ItemStack(::ItemStack::create(std::unique_ptr<::CompoundTag>((::CompoundTag*)tag->ReleasePointer())), true);
     }
 
     inline ItemStack^ ItemStack::Create(short itemId, int aux)
     {
-        return gcnew ItemStack(::ItemStack::create(itemId, aux));
+        return gcnew ItemStack(::ItemStack::create(itemId, aux), true);
     }
 
     inline ItemStack^ ItemStack::Create(short itemId, int aux, int count)
     {
-        return gcnew ItemStack(::ItemStack::create(itemId, aux, count));
+        return gcnew ItemStack(::ItemStack::create(itemId, aux, count), true);
     }
 
     inline ItemStack^ ItemStack::FromItemInstance(ItemInstance^ ins)

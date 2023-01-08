@@ -14,7 +14,7 @@ namespace LiteLoader::RemoteCall
     using _Value = ::RemoteCall::Value;
 
     Value::Value(Value% val)
-        :ClassTemplate(new _Value(*val.nativePtr), val.ownsNativeInstance)
+        :ClassTemplate(new _Value(*val.NativePtr), val.ownsNativeInstance)
     {
     }
 

@@ -9,7 +9,7 @@ namespace LiteLoader::I18N
     public ref class I18nBase abstract : ClassTemplate<I18nBase, ::I18nBase>
     {
     internal:
-        ::I18nBase* _this = nativePtr;
+        ::I18nBase* _this = NativePtr;
 
     public:
         __ctor(I18nBase, ::I18nBase);
@@ -62,7 +62,7 @@ namespace LiteLoader::I18N
     public ref class SingleFileI18N : I18nBase
     {
     internal:
-        ::SingleFileI18N* _this = static_cast<::SingleFileI18N*>(nativePtr);
+        ::SingleFileI18N* _this = static_cast<::SingleFileI18N*>(NativePtr);
 
     public:
         __ctor_base(SingleFileI18N, ::SingleFileI18N, I18nBase);
@@ -89,7 +89,7 @@ namespace LiteLoader::I18N
     public ref class MultiFileI18N : I18nBase
     {
     internal:
-        ::MultiFileI18N* _this = static_cast<::MultiFileI18N*>(nativePtr);
+        ::MultiFileI18N* _this = static_cast<::MultiFileI18N*>(NativePtr);
 
     public:
         __ctor_base(MultiFileI18N, ::MultiFileI18N, I18nBase);

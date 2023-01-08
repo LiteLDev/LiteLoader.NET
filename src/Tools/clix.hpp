@@ -109,7 +109,7 @@ namespace clix {
                 }
 
                 // Copy the C++ string contents into a managed array of bytes
-                array<unsigned char>^ bytes = gcnew array<unsigned char>(byteCount);
+                array<unsigned char>^ bytes = gcnew array<unsigned char>(static_cast<int>(byteCount));
                 { pin_ptr<unsigned char> pinnedBytes = &bytes[0];
                 memcpy(pinnedBytes, cxxString.c_str(), byteCount);
                 }

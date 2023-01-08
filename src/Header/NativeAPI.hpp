@@ -43,7 +43,7 @@ namespace LiteLoader::Hook
             }
             catch (const std::bad_alloc& ex)
             {
-                throw gcnew System::OutOfMemoryException;
+                throw gcnew System::OutOfMemoryException("std::bad_alloc::what():" + marshalString(ex.what()));
             }
         }
 

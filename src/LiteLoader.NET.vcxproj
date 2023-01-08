@@ -53,6 +53,7 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <DisableSpecificWarnings>4635;4793</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -79,6 +80,11 @@ LibraryBuilder.exe -o ..\lib\
 :end
       </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>if exist "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\" (
+copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
+)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Extra\mutex.hpp" />
@@ -209,6 +215,9 @@ LibraryBuilder.exe -o ..\lib\
     <ClInclude Include="Header\Schedule.hpp" />
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp" />
     <ClInclude Include="Header\Server.hpp" />
+    <ClInclude Include="Main\ClassTemplateDecl.hpp" />
+    <ClInclude Include="Main\ClassTemplate_CriticalHandle.hpp" />
+    <ClInclude Include="Main\ClassTemplate_SafeHandle.hpp" />
     <ClInclude Include="Main\DotNETGlobal.hpp" />
     <ClInclude Include="Main\ClassTemplate.hpp" />
     <ClInclude Include="Main\Config.hpp" />

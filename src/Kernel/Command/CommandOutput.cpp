@@ -90,7 +90,7 @@ inline void CommandOutput::Load(int _EnumCommandOutputType, int a0, List<Command
     std::vector<::CommandOutputMessage> stdvector;
     for (int i = 0; i < len; i++)
         stdvector.emplace_back((::CommandOutputMessage&)comlist[i]);
-    NativePtr->load(::CommandOutputType(_EnumCommandOutputType), a0, std::move(stdvector), std::unique_ptr<::CommandPropertyBag>(cpb->Release()));
+    NativePtr->load(::CommandOutputType(_EnumCommandOutputType), a0, std::move(stdvector), std::unique_ptr<::CommandPropertyBag>(cpb->ReleasePointer()));
 }
 
 inline void CommandOutput::SetHasPlayerText()

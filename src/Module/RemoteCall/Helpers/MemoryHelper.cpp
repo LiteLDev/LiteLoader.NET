@@ -18,6 +18,11 @@ namespace LiteLoader::RemoteCall::Helper
     {
     }
 
+    bool MemoryHelper::RemoreCallHandle::IsInvalid::get()
+    {
+        return false;
+    }
+
     MemoryHelper::RemoreCallHandle::RemoreCallHandle()
         :SafeHandle(IntPtr::Zero, false)
     {

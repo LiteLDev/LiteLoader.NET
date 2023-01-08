@@ -1028,5 +1028,14 @@
     <ClInclude Include="Main\Global.hpp">
       <Filter>Main\Global</Filter>
     </ClInclude>
+    <ClInclude Include="Main\ClassTemplate_SafeHandle.hpp">
+      <Filter>Main\Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\ClassTemplate_CriticalHandle.hpp">
+      <Filter>Main\Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\ClassTemplateDecl.hpp">
+      <Filter>Main\Class</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
