@@ -39,13 +39,17 @@ namespace LiteLoader::NET {
 
         static void InitAndLoadPlugins(void* pLogger, void* std_vector_assemblies)
         {
+            auto& logger = *reinterpret_cast<::Logger*>(pLogger);
+
+            FixCLRFatalError(logger);
+
             Init();
 
             reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
 
             LoadPlugins(
                 *reinterpret_cast<std::vector<std::filesystem::path>*>(std_vector_assemblies),
-                *reinterpret_cast<::Logger*>(pLogger));
+                logger);
         }
     };
 }
@@ -166,8 +170,6 @@ Assembly^ OnAssemblyResolve(System::Object^ sender, System::ResolveEventArgs^ ar
 
 void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger& logger)
 {
-    FixCLRFatalError(logger);
-
     using System::Reflection::PortableExecutable::PEReader;
     using System::IO::File;
     using System::IO::FileStream;
