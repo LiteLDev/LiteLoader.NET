@@ -103,12 +103,12 @@ namespace LiteLoader::DynamicCommand {
         {
             auto fieldType = field->FieldType;
 
-            auto isKVPair = false;
+            auto isVTuple = false;
 
             System::Type^ __fieldType = nullptr;
-            if (fieldType->IsGenericType && fieldType->Namespace == "System.Collections.Generic" && fieldType->Name->Contains("KeyValuePair"))
+            if (fieldType->IsGenericType && fieldType->Namespace == "System" && fieldType->Name->Contains("ValueTuple"))
             {
-                isKVPair = true;
+                isVTuple = true;
                 __fieldType = fieldType;
             }
 
@@ -121,7 +121,7 @@ namespace LiteLoader::DynamicCommand {
 
             if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
             {
-                if (isKVPair)
+                if (isVTuple)
                 {
                     paramEnumName = fieldType->GenericTypeArguments[1]->Name;
                 }
@@ -146,7 +146,7 @@ namespace LiteLoader::DynamicCommand {
                 field,
                 nullptr,
                 true,
-                isKVPair,
+                isVTuple,
                 __fieldType
                 });
 
@@ -180,12 +180,12 @@ namespace LiteLoader::DynamicCommand {
 
             auto propertyType = Property->PropertyType;
 
-            auto isKVPair = false;
+            auto isVTuple = false;
 
             System::Type^ __propertyType = nullptr;
-            if (propertyType->IsGenericType && propertyType->Namespace == "System.Collections.Generic" && propertyType->Name->Contains("KeyValuePair"))
+            if (propertyType->IsGenericType && propertyType->Namespace == "System" && propertyType->Name->Contains("ValueTuple"))
             {
-                isKVPair = true;
+                isVTuple = true;
                 __propertyType = propertyType;
             }
 
@@ -194,7 +194,7 @@ namespace LiteLoader::DynamicCommand {
             String^ paramEnumName = nullptr;
             if (paramAttr->Type == DynamicCommand::ParameterType::Enum)
             {
-                if (isKVPair)
+                if (isVTuple)
                 {
                     paramEnumName = propertyType->GenericTypeArguments[1]->Name;
                 }
@@ -219,7 +219,7 @@ namespace LiteLoader::DynamicCommand {
                 nullptr,
                 Property,
                 false ,
-                isKVPair,
+                isVTuple,
                 __propertyType
                 });
 
