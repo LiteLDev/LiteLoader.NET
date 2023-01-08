@@ -16,15 +16,13 @@ namespace MC
     public:
         __ctor(Container, ::Container);
 
-        inline String^ GetTypeName();
         inline bool AddItem_s(ItemStack^ item);
         inline bool AddItemToFirstEmptySlot_s(ItemStack^ item);
         inline bool RemoveItem_s(int slot, unsigned int number);
         inline ItemStack^ GetSlot(int slot);
-        List<ItemStack^>^ GetAllSlots();
-        inline int GetSize();
         inline bool HasContainer(Vec3 pos, int dim);
         inline Container^ GetContainerAt(Vec3 pos, int dim);
+        inline int FindFirstSlotForItem(ItemStack^ item);
 
 #ifdef MANUAL_MAINTENANCE
 

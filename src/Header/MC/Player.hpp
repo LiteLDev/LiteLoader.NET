@@ -462,6 +462,11 @@ namespace MC
             bool get();
         }
 
+        property Container^ Inventory
+        {
+            Container^ get();
+        }
+
         void ServerInitItemStackIds() override;
 
         void ResetUserPos(bool _0) override;

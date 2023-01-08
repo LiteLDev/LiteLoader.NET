@@ -837,6 +837,10 @@ namespace MC
         return __ret;
     }
 
+    Container^ Player::Inventory::get()
+    {
+        return gcnew Container(&NativePtr->getInventory());
+    }
 
     void Player::ServerInitItemStackIds()
     {

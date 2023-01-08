@@ -6,11 +6,6 @@
 namespace MC
 {
 
-    inline String^ Container::GetTypeName()
-    {
-        return marshalString(NativePtr->getTypeName());
-    }
-
     inline bool Container::AddItem_s(ItemStack^ item)
     {
         return NativePtr->addItem_s(item->NativePtr);
@@ -31,23 +26,6 @@ namespace MC
         return gcnew ItemStack(NativePtr->getSlot(slot));
     }
 
-    List<ItemStack^>^ Container::GetAllSlots()
-    {
-        std::vector<const ::ItemStack*>& vector = NativePtr->getAllSlots();
-        int len = int(vector.size());
-        List<ItemStack^>^ list = gcnew List<ItemStack^>(len);
-        for (int i = 0; i < len; ++i)
-        {
-            list[i] = gcnew ItemStack((::ItemStack*)vector[i]);
-        }
-        return list;
-    }
-
-    inline int Container::GetSize()
-    {
-        return NativePtr->getSize();
-    }
-
     inline bool Container::HasContainer(Vec3 pos, int dim)
     {
         return NativePtr->hasContainer(::Vec3(pos), dim);
@@ -56,6 +34,11 @@ namespace MC
     inline Container^ Container::GetContainerAt(Vec3 pos, int dim)
     {
         return gcnew Container(NativePtr->getContainerAt(::Vec3(pos), dim));
+    }
+
+    inline int Container::FindFirstSlotForItem(ItemStack^ item)
+    {
+        return NativePtr->findFirstSlotForItem(*item->NativePtr);
     }
 } // namespace MC
 
@@ -125,7 +108,7 @@ MC::ContainerType MC::Container::GetContainerTypeId(::System::String^ _0)
 
 String^ MC::Container::TypeName::get() 
 {
-    return GetTypeName();
+    return marshalString(NativePtr->getTypeName());
 }
 
 List<MC::ItemStack^>^ MC::Container::AllSlots::get()
