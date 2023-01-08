@@ -147,7 +147,7 @@ namespace MC
     public:
         AutomaticID();
         AutomaticID(T x);
-        inline operator T();
+        inline static operator T(AutomaticID);
     };
 
     public ref class ActorRuntimeID : ClassTemplate<ActorRuntimeID, ::ActorRuntimeID>

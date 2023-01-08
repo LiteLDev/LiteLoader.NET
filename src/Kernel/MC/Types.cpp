@@ -358,8 +358,8 @@ namespace MC
         id = x;
     }
     generic<typename A, typename T>
-    inline AutomaticID<A, T>::operator T()
+    static inline AutomaticID<A, T>::operator T(AutomaticID _this)
     {
-        return id;
+        return _this.id;
     }
 } // namespace MC
