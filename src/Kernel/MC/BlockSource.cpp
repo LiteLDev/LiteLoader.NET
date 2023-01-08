@@ -13,7 +13,7 @@ BlockInstance ^ BlockSource::GetBlockInstance(BlockPos pos)
 {
     return gcnew BlockInstance(NativePtr->getBlockInstance(pos));
 }
-AutomaticID<Dimension ^, int> ^ BlockSource::GetDimensionId()
+AutomaticID<Dimension ^, int> ^ BlockSource::DimensionId::get()
 {
     return gcnew AutomaticID<Dimension ^, int>(NativePtr->getDimensionId());
 }

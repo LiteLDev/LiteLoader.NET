@@ -20,7 +20,9 @@ public:
     __ctor(BlockSource, ::BlockSource);
 
     BlockInstance ^ GetBlockInstance(BlockPos pos);
-    AutomaticID<Dimension ^, int> ^ GetDimensionId();
+    property AutomaticID<Dimension^, int>^ DimensionId {
+        AutomaticID<Dimension^, int>^ get();
+    };
 
 #ifdef INCLUDE_MCAPI
 
