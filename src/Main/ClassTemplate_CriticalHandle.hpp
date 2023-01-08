@@ -4,7 +4,7 @@
 #include <src/Tools/ClassTemplateHelper.hpp>
 #include <src/Header/Core/ICppClass.hpp>
 
-namespace LiteLoader::NET
+namespace LiteLoader::NET::Internal
 {
     using System::Runtime::InteropServices::CriticalHandle;
 
