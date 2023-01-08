@@ -57,7 +57,7 @@ namespace LiteLoader::RemoteCall::Helper
             array<TypeInfo>^ parameters;
         };
 
-        static PAIR<bool, ValidType> TryGetValidType(System::Type^ t);
+        static VALUE_TUPLE<bool, ValidType> TryGetValidType(System::Type^ t);
 
         static FunctionInfo::TypeInfo GenerateTypeInfo(System::Type^ t);
 

@@ -21,7 +21,7 @@ namespace LiteLoader::RemoteCall
     public:
         WorldPosType(MC::Vec3 pos, int dimId);
         WorldPosType(MC::Vec3 pos);
-        WorldPosType(PAIR<MC::Vec3, int> pos);
+        WorldPosType(VALUE_TUPLE<MC::Vec3, int> pos);
 
         MC::Vec3 Get();
 
@@ -35,14 +35,14 @@ namespace LiteLoader::RemoteCall
             MC::BlockPos get();
         }
 
-        property PAIR<MC::Vec3, int> PosPair 
+        property VALUE_TUPLE<MC::Vec3, int> PosPair
         {
-            PAIR<MC::Vec3, int> get();
+            VALUE_TUPLE<MC::Vec3, int> get();
         }
 
-        property PAIR<MC::BlockPos, int> BlockPosPair 
+        property VALUE_TUPLE<MC::BlockPos, int> BlockPosPair
         {
-            PAIR<MC::BlockPos, int> get();
+            VALUE_TUPLE<MC::BlockPos, int> get();
         }
 
         property int DimId 

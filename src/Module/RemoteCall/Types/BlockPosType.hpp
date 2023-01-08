@@ -21,7 +21,7 @@ namespace LiteLoader::RemoteCall
     public:
         BlockPosType(MC::BlockPos pos, int dimId);
         BlockPosType(MC::BlockPos pos);
-        BlockPosType(PAIR<MC::BlockPos, int> pos);
+        BlockPosType(VALUE_TUPLE<MC::BlockPos, int> pos);
 
         MC::BlockPos Get();
 
@@ -35,14 +35,14 @@ namespace LiteLoader::RemoteCall
             MC::Vec3 get();
         }
 
-        property PAIR<MC::Vec3, int> Vec3Pair
+        property VALUE_TUPLE<MC::Vec3, int> Vec3Pair
         {
-            PAIR<MC::Vec3, int> get();
+            VALUE_TUPLE<MC::Vec3, int> get();
         }
 
-        property PAIR<MC::BlockPos, int> BlockPosPair
+        property VALUE_TUPLE<MC::BlockPos, int> BlockPosPair
         {
-            PAIR<MC::BlockPos, int> get();
+            VALUE_TUPLE<MC::BlockPos, int> get();
         }
 
         property int DimId

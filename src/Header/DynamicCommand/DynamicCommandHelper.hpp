@@ -24,7 +24,7 @@ namespace LiteLoader::DynamicCommand::Internal {
             System::Reflection::PropertyInfo^ PropertyInfo;
             bool IsField;
 
-            bool isKeyValuePair_with_bool;
+            bool isVTuple_with_bool;
             System::Type^ KVPairType;
         };
 

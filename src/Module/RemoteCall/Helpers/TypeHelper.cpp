@@ -6,9 +6,9 @@
 
 namespace LiteLoader::RemoteCall::Helper
 {
-    PAIR<bool, TypeHelper::ValidType> TypeHelper::TryGetValidType(System::Type^ t)
+    VALUE_TUPLE<bool, TypeHelper::ValidType> TypeHelper::TryGetValidType(System::Type^ t)
     {
-        using RTN = PAIR<bool, ValidType>;
+        using RTN = VALUE_TUPLE<bool, ValidType>;
 
         if (t == double::typeid)
             return RTN(true, ValidType::Double);
@@ -81,14 +81,14 @@ namespace LiteLoader::RemoteCall::Helper
     {
 
         auto type = TryGetValidType(t);
-        if (!type.Key)
+        if (!type.Item1)
             throw gcnew LiteLoader::NET::InvalidRemoteCallTypeException;
 
         auto ret = FunctionInfo::TypeInfo();
         ret._type = t;
-        ret.type = type.Value;
+        ret.type = type.Item2;
 
-        switch (type.Value)
+        switch (type.Item2)
         {
         case TypeHelper::ValidType::List:
         {

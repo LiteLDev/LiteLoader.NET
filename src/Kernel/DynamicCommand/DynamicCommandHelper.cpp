@@ -21,7 +21,7 @@ namespace LiteLoader::DynamicCommand::Internal
                 {
                     auto result = _parseResult(v, currentParam);
 
-                    if (!currentParam.isKeyValuePair_with_bool)
+                    if (!currentParam.isVTuple_with_bool)
                     {
                         if (currentParam.IsField)
                         {
