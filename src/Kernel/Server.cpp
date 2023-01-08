@@ -1,12 +1,12 @@
 #include <src/Header/Server.hpp>
 namespace LiteLoader
 {
-inline String^ ServerAPI::GetBdsVersion()
+inline String^ ServerAPI::BdsVersion::get()
 {
     return marshalString(::ll::getBdsVersion());
 }
 
-inline int ServerAPI::GetServerProtocolVersion()
+inline int ServerAPI::ServerProtocolVersion::get()
 {
     return ::ll::getServerProtocolVersion();
 }

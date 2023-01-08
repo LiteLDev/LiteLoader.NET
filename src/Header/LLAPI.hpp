@@ -117,9 +117,18 @@ namespace LiteLoader
     ref class LLAPI __static
     {
     public:
-        static String^ GetLoaderVersionString();
-        static Version^ GetLoaderVersion();
-        static bool IsDebugMode();
+        property static String^ LoaderVersionString
+        {
+            String^ get();
+        }
+        property static Version^ LoaderVersion
+        {
+            Version^ get();
+        }
+        property static bool IsDebugMode
+        {
+            bool get();
+        }
 
         static String^ GetDataPath(String^ pluginName);
 

@@ -91,17 +91,17 @@ LiteLoader::Version^ LiteLoader::Version::Parse(System::String^ str)
     return gcnew Version(::ll::Version::parse(marshalString(str)));
 }
 
-System::String^ LiteLoader::LLAPI::GetLoaderVersionString()
+System::String^ LiteLoader::LLAPI::LoaderVersionString::get()
 {
     return marshalString(::ll::getLoaderVersionString());
 }
 
-LiteLoader::Version^ LiteLoader::LLAPI::GetLoaderVersion()
+LiteLoader::Version^ LiteLoader::LLAPI::LoaderVersion::get()
 {
     return gcnew Version(::ll::getLoaderVersion());
 }
 
-bool LiteLoader::LLAPI::IsDebugMode()
+bool LiteLoader::LLAPI::IsDebugMode::get()
 {
     return ::ll::isDebugMode();
 }

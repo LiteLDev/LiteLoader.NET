@@ -7,8 +7,14 @@ public
 ref class ServerAPI __static
 {
 public:
-    inline static String^ GetBdsVersion();
-    inline static int GetServerProtocolVersion();
+    property static String^ BdsVersion
+    {
+        String^ get();
+    }
+    property static int ServerProtocolVersion
+    {
+        int get();
+    }
     inline static bool SetServerMotd(String^ d);
 };
 } // namespace LiteLoader
