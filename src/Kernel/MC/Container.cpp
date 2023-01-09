@@ -21,9 +21,9 @@ namespace MC
         return NativePtr->removeItem_s(slot, number);
     }
 
-    inline ItemStack^ Container::GetSlot(int slot)
+    inline ItemStack^ Container::GetItem(int slot)
     {
-        return gcnew ItemStack(NativePtr->getSlot(slot));
+        return gcnew ItemStack((::ItemStack*)&NativePtr->getItem(slot));
     }
 
     inline bool Container::HasContainer(Vec3 pos, int dim)
