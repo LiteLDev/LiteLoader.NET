@@ -86,7 +86,7 @@ namespace MC
 
 void MC::ItemStack::SetNull(String^ _0)
 {
-    ((class ::ItemStack*)NativePtr)->setNull(std::optional<std::string>(marshalString(_0)));
+    NativePtr->setNull(std::optional<std::string>(marshalString(_0)));
 }
 
 ::String^ MC::ItemStack::ToString()
@@ -101,7 +101,7 @@ void MC::ItemStack::SetNull(String^ _0)
 
 // void MC::ItemStack::Autoclassinit2(unsigned long long _0)
 //{
-//     ((class ::ItemStack*)NativePtr)->__autoclassinit2(_0);
+//     NativePtr->__autoclassinit2(_0);
 // }
 
 void MC::ItemStack::AssignNetIdVariant(MC::ItemStack^ _0)
@@ -121,8 +121,8 @@ bool MC::ItemStack::MatchesAndNetIdVariantMatches(MC::ItemStack^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::ItemStack*)_0->NativePtr;
-    auto __ret = ((class ::ItemStack*)NativePtr)->matchesAndNetIdVariantMatches(__arg0);
+    auto __arg0 = _0->NativePtr;
+    auto __ret = NativePtr->matchesAndNetIdVariantMatches(*__arg0);
     return __ret;
 }
 
@@ -130,8 +130,8 @@ bool MC::ItemStack::MatchesNetIdVariant(MC::ItemStack^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::ItemStack*)_0->NativePtr;
-    auto __ret = ((class ::ItemStack*)NativePtr)->matchesNetIdVariant(__arg0);
+    auto __arg0 = _0->NativePtr;
+    auto __ret = NativePtr->matchesNetIdVariant(*__arg0);
     return __ret;
 }
 
@@ -139,36 +139,36 @@ bool MC::ItemStack::SameItemAndAuxAndBlockData(MC::ItemStack^ _0)
 {
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::ItemStack*)_0->NativePtr;
-    auto __ret = ((class ::ItemStack*)NativePtr)->sameItemAndAuxAndBlockData(__arg0);
+    auto __arg0 = _0->NativePtr;
+    auto __ret = NativePtr->sameItemAndAuxAndBlockData(*__arg0);
     return __ret;
 }
 
 void MC::ItemStack::ServerInitNetId()
 {
-    ((class ::ItemStack*)NativePtr)->serverInitNetId();
+    NativePtr->serverInitNetId();
 }
 
 void MC::ItemStack::UseAsFuel()
 {
-    ((class ::ItemStack*)NativePtr)->useAsFuel();
+    NativePtr->useAsFuel();
 }
 
 // MC::ItemStackNetIdVariant ^ MC::ItemStack::ItemStackNetIdVariant::get()
 //{
-//     auto& __ret = ((class ::ItemStack*)NativePtr)->getItemStackNetIdVariant();
+//     auto& __ret = NativePtr->getItemStackNetIdVariant();
 //     return (MC::ItemStackNetIdVariant ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::ItemStackNetIdVariant((struct ::ItemStackNetIdVariant*)&__ret));
 // }
 
 int MC::ItemStack::MaxUseDuration::get()
 {
-    auto __ret = ((class ::ItemStack*)NativePtr)->getMaxUseDuration();
+    auto __ret = NativePtr->getMaxUseDuration();
     return __ret;
 }
 
 MC::ItemStack^ MC::ItemStack::StrippedNetworkItem::get()
 {
-    auto __ret = ((class ::ItemStack*)NativePtr)->getStrippedNetworkItem();
+    auto __ret = NativePtr->getStrippedNetworkItem();
     auto ____ret = new class ::ItemStack(__ret);
     return (____ret == nullptr) ? nullptr : gcnew ::MC::ItemStack((class ::ItemStack*)____ret, true);
 }
@@ -180,7 +180,7 @@ bool MC::ItemStack::HasItemStackNetId::get()
 
 MC::ItemStack^ MC::ItemStack::EMPTY_ITEM::get()
 {
-    return (&::ItemStack::EMPTY_ITEM == nullptr) ? nullptr : gcnew ::MC::ItemStack((class ::ItemStack*) & ::ItemStack::EMPTY_ITEM);
+    return gcnew ::MC::ItemStack(ItemStack::EMPTY_ITEM);
 }
 
 #endif // INCLUDE_MCAPI

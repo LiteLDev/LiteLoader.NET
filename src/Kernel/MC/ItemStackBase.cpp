@@ -8,7 +8,7 @@ int ItemStackBase::Count::get()
 #ifndef INCLUDE_MCAPI
 short MC::ItemStackBase::Id::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getId();
+    auto __ret = NativePtr->getId();
     return __ret;
 }
 #endif // INCLUDE_MCAPI
@@ -23,35 +23,35 @@ short MC::ItemStackBase::Id::get()
 
 void MC::ItemStackBase::SetNull(String^ _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setNull(std::optional<std::string>(marshalString(_0)));
+    NativePtr->setNull(std::optional<std::string>(marshalString(_0)));
 }
 
 ::String^ MC::ItemStackBase::ToString()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->toString();
+    auto __ret = NativePtr->toString();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 ::String^ MC::ItemStackBase::ToDebugString()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->toDebugString();
+    auto __ret = NativePtr->toDebugString();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 void MC::ItemStackBase::Add(int _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->add(_0);
+    NativePtr->add(_0);
 }
 
 bool MC::ItemStackBase::CanBeCharged()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->canBeCharged();
+    auto __ret = NativePtr->canBeCharged();
     return __ret;
 }
 
 void MC::ItemStackBase::ClearChargedItem()
 {
-    ((class ::ItemStackBase*)NativePtr)->clearChargedItem();
+    NativePtr->clearChargedItem();
 }
 
 bool MC::ItemStackBase::ComponentsMatch(MC::ItemStackBase ^ _0)
@@ -59,7 +59,7 @@ bool MC::ItemStackBase::ComponentsMatch(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->componentsMatch(__arg0);
+    auto __ret = NativePtr->componentsMatch(__arg0);
     return __ret;
 }
 
@@ -68,7 +68,7 @@ bool MC::ItemStackBase::HasSameAuxValue(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasSameAuxValue(__arg0);
+    auto __ret = NativePtr->hasSameAuxValue(__arg0);
     return __ret;
 }
 
@@ -77,14 +77,14 @@ bool MC::ItemStackBase::HasSameUserData(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasSameUserData(__arg0);
+    auto __ret = NativePtr->hasSameUserData(__arg0);
     return __ret;
 }
 
 bool MC::ItemStackBase::HasTag(unsigned long long _0)
 {
     auto __arg0 = (const unsigned long long&)_0;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasTag(__arg0);
+    auto __ret = NativePtr->hasTag(__arg0);
     return __ret;
 }
 
@@ -99,7 +99,7 @@ bool MC::ItemStackBase::HasTag(unsigned long long _0)
         _tmp_0.push_back(_marshalElement);
     }
     auto __arg0 = _tmp_0;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isOneOfInstances(__arg0, _1);
+    auto __ret = NativePtr->isOneOfInstances(__arg0, _1);
     return __ret;
 }*/
 
@@ -108,13 +108,13 @@ bool MC::ItemStackBase::IsStackable(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isStackable(__arg0);
+    auto __ret = NativePtr->isStackable(__arg0);
     return __ret;
 }
 
 bool MC::ItemStackBase::IsValidAuxValue(int _0)
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isValidAuxValue(_0);
+    auto __ret = NativePtr->isValidAuxValue(_0);
     return __ret;
 }
 
@@ -123,7 +123,7 @@ bool MC::ItemStackBase::Matches(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->matches(__arg0);
+    auto __ret = NativePtr->matches(__arg0);
     return __ret;
 }
 
@@ -132,7 +132,7 @@ bool MC::ItemStackBase::MatchesItem(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->matchesItem(__arg0);
+    auto __ret = NativePtr->matchesItem(__arg0);
     return __ret;
 }
 
@@ -176,17 +176,17 @@ bool MC::ItemStackBase::Equals(::System::Object ^ obj)
 
 void MC::ItemStackBase::Remove(int _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->remove(_0);
+    NativePtr->remove(_0);
 }
 
 void MC::ItemStackBase::ResetHoverName()
 {
-    ((class ::ItemStackBase*)NativePtr)->resetHoverName();
+    NativePtr->resetHoverName();
 }
 
 bool MC::ItemStackBase::SameItem(int _0, int _1)
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->sameItem(_0, _1);
+    auto __ret = NativePtr->sameItem(_0, _1);
     return __ret;
 }
 
@@ -195,7 +195,7 @@ bool MC::ItemStackBase::SameItem(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->sameItem(__arg0);
+    auto __ret = NativePtr->sameItem(__arg0);
     return __ret;
 }
 
@@ -204,13 +204,13 @@ bool MC::ItemStackBase::SameItemAndAux(MC::ItemStackBase ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->sameItemAndAux(__arg0);
+    auto __ret = NativePtr->sameItemAndAux(__arg0);
     return __ret;
 }
 
 void MC::ItemStackBase::Set(int _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->set(_0);
+    NativePtr->set(_0);
 }
 
 void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::List<::String^> ^ _0)
@@ -222,27 +222,27 @@ void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::List<::Str
         _tmp_0.push_back(_marshalElement);
     }
     auto __arg0 = _tmp_0;
-    ((class ::ItemStackBase*)NativePtr)->setCustomLore(__arg0);
+    NativePtr->setCustomLore(__arg0);
 }
 
 void MC::ItemStackBase::SetJustBrewed(bool _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setJustBrewed(_0);
+    NativePtr->setJustBrewed(_0);
 }
 
 void MC::ItemStackBase::SetPickupTime()
 {
-    ((class ::ItemStackBase*)NativePtr)->setPickupTime();
+    NativePtr->setPickupTime();
 }
 
 void MC::ItemStackBase::SetRepairCost(int _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setRepairCost(_0);
+    NativePtr->setRepairCost(_0);
 }
 
 bool MC::ItemStackBase::ShouldVanish()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->shouldVanish();
+    auto __ret = NativePtr->shouldVanish();
     return __ret;
 }
 
@@ -255,261 +255,261 @@ bool MC::ItemStackBase::ShouldVanish()
 
 int MC::ItemStackBase::AttackDamage::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getAttackDamage();
+    auto __ret = NativePtr->getAttackDamage();
     return __ret;
 }
 
 short MC::ItemStackBase::AuxValue::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getAuxValue();
+    auto __ret = NativePtr->getAuxValue();
     return __ret;
 }
 
 void MC::ItemStackBase::AuxValue::set(short _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setAuxValue(_0);
+    NativePtr->setAuxValue(_0);
 }
 
 int MC::ItemStackBase::BaseRepairCost::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getBaseRepairCost();
+    auto __ret = NativePtr->getBaseRepairCost();
     return __ret;
 }
 
 ::String^ MC::ItemStackBase::CategoryName::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getCategoryName();
+    auto __ret = NativePtr->getCategoryName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 MC::Mce::Color MC::ItemStackBase::Color::get()
 {
-    return ((class ::ItemStackBase*)NativePtr)->getColor();
+    return NativePtr->getColor();
 }
 
 ::String^ MC::ItemStackBase::CustomName::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getCustomName();
+    auto __ret = NativePtr->getCustomName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 void MC::ItemStackBase::CustomName::set(::String^ _0)
 {
     auto __arg0 = clix::marshalString<clix::E_UTF8>(_0);
-    ((class ::ItemStackBase*)NativePtr)->setCustomName(__arg0);
+    NativePtr->setCustomName(__arg0);
 }
 
 short MC::ItemStackBase::DamageValue::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getDamageValue();
+    auto __ret = NativePtr->getDamageValue();
     return __ret;
 }
 
 void MC::ItemStackBase::DamageValue::set(short _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setDamageValue(_0);
+    NativePtr->setDamageValue(_0);
 }
 
 ::String^ MC::ItemStackBase::DescriptionId::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getDescriptionId();
+    auto __ret = NativePtr->getDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 ::String^ MC::ItemStackBase::EffectName::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getEffectName();
+    auto __ret = NativePtr->getEffectName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 int MC::ItemStackBase::EnchantValue::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getEnchantValue();
+    auto __ret = NativePtr->getEnchantValue();
     return __ret;
 }
 
 ::String^ MC::ItemStackBase::HoverName::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getHoverName();
+    auto __ret = NativePtr->getHoverName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 int MC::ItemStackBase::IdAux::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getIdAux();
+    auto __ret = NativePtr->getIdAux();
     return __ret;
 }
 
 short MC::ItemStackBase::MaxDamage::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getMaxDamage();
+    auto __ret = NativePtr->getMaxDamage();
     return __ret;
 }
 
 unsigned char MC::ItemStackBase::MaxStackSize::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getMaxStackSize();
+    auto __ret = NativePtr->getMaxStackSize();
     return __ret;
 }
 
 ::String^ MC::ItemStackBase::Name::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getName();
+    auto __ret = NativePtr->getName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 ::String^ MC::ItemStackBase::RawNameId::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getRawNameId();
+    auto __ret = NativePtr->getRawNameId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 bool MC::ItemStackBase::WasPickedUp::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->getWasPickedUp();
+    auto __ret = NativePtr->getWasPickedUp();
     return __ret;
 }
 
 void MC::ItemStackBase::WasPickedUp::set(bool _0)
 {
-    ((class ::ItemStackBase*)NativePtr)->setWasPickedUp(_0);
+    NativePtr->setWasPickedUp(_0);
 }
 
 bool MC::ItemStackBase::HasChargedItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasChargedItem();
+    auto __ret = NativePtr->hasChargedItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::HasCompoundTextUserData::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasCompoundTextUserData();
+    auto __ret = NativePtr->hasCompoundTextUserData();
     return __ret;
 }
 
 bool MC::ItemStackBase::HasCustomHoverName::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasCustomHoverName();
+    auto __ret = NativePtr->hasCustomHoverName();
     return __ret;
 }
 
 bool MC::ItemStackBase::HasUserData::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->hasUserData();
+    auto __ret = NativePtr->hasUserData();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsArmorItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isArmorItem();
+    auto __ret = NativePtr->isArmorItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsBlock::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isBlock();
+    auto __ret = NativePtr->isBlock();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsDamageableItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isDamageableItem();
+    auto __ret = NativePtr->isDamageableItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsDamaged::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isDamaged();
+    auto __ret = NativePtr->isDamaged();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsEnchanted::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isEnchanted();
+    auto __ret = NativePtr->isEnchanted();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsEnchantingBook::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isEnchantingBook();
+    auto __ret = NativePtr->isEnchantingBook();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsExplodable::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isExplodable();
+    auto __ret = NativePtr->isExplodable();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsFireResistant::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isFireResistant();
+    auto __ret = NativePtr->isFireResistant();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsFullStack::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isFullStack();
+    auto __ret = NativePtr->isFullStack();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsGlint::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isGlint();
+    auto __ret = NativePtr->isGlint();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsHorseArmorItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isHorseArmorItem();
+    auto __ret = NativePtr->isHorseArmorItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsLiquidClipItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isLiquidClipItem();
+    auto __ret = NativePtr->isLiquidClipItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsMusicDiscItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isMusicDiscItem();
+    auto __ret = NativePtr->isMusicDiscItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsNull::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isNull();
+    auto __ret = NativePtr->isNull();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsOffhandItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isOffhandItem();
+    auto __ret = NativePtr->isOffhandItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsPattern::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isPattern();
+    auto __ret = NativePtr->isPattern();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsPotionItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isPotionItem();
+    auto __ret = NativePtr->isPotionItem();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsStackedByData::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isStackedByData();
+    auto __ret = NativePtr->isStackedByData();
     return __ret;
 }
 
 bool MC::ItemStackBase::IsWearableItem::get()
 {
-    auto __ret = ((class ::ItemStackBase*)NativePtr)->isWearableItem();
+    auto __ret = NativePtr->isWearableItem();
     return __ret;
 }
 
