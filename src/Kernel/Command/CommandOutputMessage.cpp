@@ -28,7 +28,7 @@ inline List<String^> ^ CommandOutputMessage::GetParams()
     auto len = (int)stdvector.size();
     auto ret = gcnew List<String^>(len);
     for (int i = 0; i < len; ++i)
-        ret[i] = marshalString(stdvector[i]);
+        ret->Add(marshalString(stdvector[i]));
     return ret;
 }
 inline int CommandOutputMessage::GetType()

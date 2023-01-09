@@ -59,11 +59,11 @@ namespace MC
         return gcnew MC::Level(&NativePtr->getLevel());
     }
 
-    inline List<String^>^ Actor::GetAllTags()
+    inline array<String^>^ Actor::GetAllTags()
     {
         std::vector<std::string>& stdTags = NativePtr->getAllTags();
         auto len = stdTags.size();
-        auto Tags = gcnew List<String^>(int(len));
+        auto Tags = gcnew array<String^>(int(len));
         for (auto i = 0; i < len; i++)
         {
             Tags[i] = marshalString(stdTags[i]);
@@ -184,6 +184,11 @@ namespace MC
     inline ItemStack^ Actor::HandSlot::get()
     {
         return gcnew ItemStack(NativePtr->getHandSlot());
+    }
+    inline void Actor::HandSlot::set(ItemStack^ item)
+    {
+        if (!NativePtr->getHandSlot()->setItem(item->NativePtr))
+            throw gcnew LiteLoader::NET::MCException("Failed to set item");
     }
     inline bool Actor::Rename(String^ name)
     {
@@ -895,7 +900,7 @@ void MC::Actor::OpenContainerComponent(MC::Player^ _0)
     NativePtr->openContainerComponent(__arg0);
 }
 
-void MC::Actor::GetDebugText(::System::Collections::Generic::List<::System::String^>^ _0)
+void MC::Actor::GetDebugText(::System::Collections::Generic::IList<::System::String^>^ _0)
 {
     auto _tmp_0 = std::vector<::std::string>();
     for each (::System::String ^ _element in _0)
@@ -1646,15 +1651,15 @@ MC::Vec3 MC::Actor::FeetPosition::get()
     return NativePtr->getFeetPosition();
 }
 
-::System::Collections::Generic::List<::System::String^>^ MC::Actor::AllTags::get()
+array<::System::String^>^ MC::Actor::AllTags::get()
 {
     auto __ret = NativePtr->getAllTags();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<::System::String^>();
+    auto _tmp__ret = gcnew array<::System::String^>(__ret.size());
     auto& __list0 = __ret;
-    for (auto& _element : __list0)
+    for (int i = 0; i < __list0.size(); ++i)
     {
-        auto _marshalElement = clix::marshalString<clix::E_UTF8>(_element);
-        _tmp__ret->Add(_marshalElement);
+        auto _marshalElement = clix::marshalString<clix::E_UTF8>(__list0[i]);
+        _tmp__ret[i] = _marshalElement;
     }
     return _tmp__ret;
 }
@@ -2193,18 +2198,18 @@ int MC::Actor::ActiveEffectCount::get()
     return __ret;
 }
 
-::System::Collections::Generic::List<MC::MobEffectInstance^>^ MC::Actor::AllEffects::get()
+array<MC::MobEffectInstance^>^ MC::Actor::AllEffects::get()
 {
     auto& __ret = NativePtr->getAllEffects();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<MC::MobEffectInstance^>();
+    auto _tmp__ret = gcnew array<MC::MobEffectInstance^>(__ret.size());
     auto& __list0 = __ret;
-    for (auto& _element : __list0)
+    for (int i = 0; i < __list0.size(); ++i)
     {
-        auto ___element = new class ::MobEffectInstance(_element);
+        auto ___element = new class ::MobEffectInstance(__list0[i]);
         auto _marshalElement = (___element == nullptr) ? nullptr : gcnew ::MC::MobEffectInstance((class ::MobEffectInstance*)___element, true);
-        _tmp__ret->Add(_marshalElement);
+        _tmp__ret[i] = _marshalElement;
     }
-    return (::System::Collections::Generic::List<MC::MobEffectInstance^>^)(_tmp__ret);
+    return _tmp__ret;
 }
 
 MC::BlockPos MC::Actor::BlockTarget::get()

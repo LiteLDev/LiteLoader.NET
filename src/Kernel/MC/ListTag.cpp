@@ -6,11 +6,11 @@ inline ListTag ^ ListTag::Create()
     return gcnew ListTag(::ListTag::create().release(), true);
 }
 
-List<Tag ^> ^ ListTag::Value()
+array<Tag ^> ^ ListTag::Value()
 {
     std::vector<::Tag*>& stdvector = NativePtr->value();
     auto len = int(stdvector.size());
-    auto list = gcnew List<Tag ^>(len);
+    auto list = gcnew array<Tag ^>(len);
     for (int i = 0; i < len; i++)
         list[i] = gcnew Tag(stdvector[i]);
     return list;
@@ -31,11 +31,11 @@ inline size_t ListTag::getSize()
     return NativePtr->getSize();
 }
 
-List<Tag ^> ^ ListTag::Get()
+array<Tag ^> ^ ListTag::Get()
 {
     std::vector<::Tag*>& stdvector = NativePtr->get();
     auto len = int(stdvector.size());
-    auto list = gcnew List<Tag ^>(len);
+    auto list = gcnew array<Tag ^>(len);
     for (int i = 0; i < len; i++)
         list[i] = gcnew Tag(stdvector[i]);
     return list;

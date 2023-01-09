@@ -933,15 +933,15 @@ int MC::Mob::ClearEquipment::get()
     return __ret;
 }
 
-::System::Collections::Generic::List<int>^ MC::Mob::AllArmorID::get()
+array<int>^ MC::Mob::AllArmorID::get()
 {
     auto __ret = NativePtr->getAllArmorID();
-    auto _tmp__ret = gcnew ::System::Collections::Generic::List<int>();
+    auto _tmp__ret = gcnew array<int>(__ret.size());
     auto __list0 = __ret;
-    for (auto _element : __list0)
+    for (int i = 0; i < __list0.size(); ++i)
     {
-        auto _marshalElement = _element;
-        _tmp__ret->Add(_marshalElement);
+        auto _marshalElement = __list0[i];
+        _tmp__ret[i] = _marshalElement;
     }
     return _tmp__ret;
 }

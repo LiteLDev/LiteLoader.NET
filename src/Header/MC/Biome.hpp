@@ -18,6 +18,6 @@ namespace MC
 
         static Biome^ FromId(int id);;
         static Biome^ FromName(String^ name);;
-        static List<Biome^>^ GetBiomesByType(VanillaBiomeTypes type);
+        static array<Biome^>^ GetBiomesByType(VanillaBiomeTypes type);
     };
 }

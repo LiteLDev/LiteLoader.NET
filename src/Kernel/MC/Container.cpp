@@ -111,10 +111,10 @@ String^ MC::Container::TypeName::get()
     return marshalString(NativePtr->getTypeName());
 }
 
-List<MC::ItemStack^>^ MC::Container::AllSlots::get()
+array<MC::ItemStack^>^ MC::Container::AllSlots::get()
 {
     auto& vec = NativePtr->getAllSlots();
-    auto ret = gcnew List<MC::ItemStack^>();
+    auto ret = gcnew array<MC::ItemStack^>(vec.size());
 
     for (auto i = 0; i < vec.size(); ++i) {
         ret[i] = gcnew MC::ItemStack((::ItemStack*)vec[i]);
@@ -137,10 +137,10 @@ int MC::Container::MaxStackSize::get()
     return NativePtr->getMaxStackSize();
 }
 
-List<MC::ItemStack^>^ MC::Container::SlotCopies::get()
+array<MC::ItemStack^>^ MC::Container::SlotCopies::get()
 {
     auto& vec = NativePtr->getSlotCopies();
-    auto ret = gcnew List<MC::ItemStack^>();
+    auto ret = gcnew array<MC::ItemStack^>(vec.size());
 
     for (auto i = 0; i < vec.size(); ++i) {
         ret[i] = gcnew MC::ItemStack(new ::ItemStack(vec[i]), true);

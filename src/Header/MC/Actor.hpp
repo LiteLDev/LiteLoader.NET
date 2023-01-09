@@ -33,7 +33,7 @@ namespace MC
     public:
         __ctor(Actor, ::Actor);
 
-        inline List<String^>^ GetAllTags();
+        inline array<String^>^ GetAllTags();
         inline BlockInstance^ GetBlockFromViewVector();
         inline BlockInstance^ GetBlockFromViewVector(bool includeLiquid);
         inline BlockInstance^ GetBlockFromViewVector(bool includeLiquid, bool solidOnly);
@@ -71,7 +71,7 @@ namespace MC
         property ActorUniqueID ActorUniqueId { ActorUniqueID get(); };
         property Vec3 CameraPos { Vec3 get(); };
         property Tick^ LastTick { Tick^ get(); };
-        property ItemStack^ HandSlot { ItemStack^ get(); };
+        property ItemStack^ HandSlot { ItemStack^ get(); void set(ItemStack^); };
         property MC::Level^ Level { MC::Level^ get(); };
 
         property bool IsSimulatedPlayer
@@ -103,9 +103,9 @@ namespace MC
             MC::Vec3 get();
         }
 
-        property ::System::Collections::Generic::List<::System::String^>^ AllTags
+        property array<::System::String^>^ AllTags
         {
-            ::System::Collections::Generic::List<::System::String^>^ get();
+            array<::System::String^>^ get();
         }
 
         property bool IsRuntimePredictedMovementEnabled
@@ -492,9 +492,9 @@ namespace MC
             int get();
         }
 
-        property ::System::Collections::Generic::List<MC::MobEffectInstance^>^ AllEffects
+        property array<MC::MobEffectInstance^>^ AllEffects
         {
-            ::System::Collections::Generic::List<MC::MobEffectInstance^>^ get();
+            array<MC::MobEffectInstance^>^ get();
         }
 
         property MC::BlockPos BlockTarget
@@ -1361,7 +1361,7 @@ namespace MC
 
         virtual void OpenContainerComponent(MC::Player^ _0);
 
-        virtual void GetDebugText(::System::Collections::Generic::List<::System::String^>^ _0);
+        virtual void GetDebugText(::System::Collections::Generic::IList<::System::String^>^ _0);
 
         virtual float GetPassengerYRotation(MC::Actor^ _0);
 

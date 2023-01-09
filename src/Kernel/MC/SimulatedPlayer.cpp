@@ -125,7 +125,7 @@ namespace MC
         return NativePtr->simulateNavigateToLocation(target, speed);
     }
 
-    inline void SimulatedPlayer::SimulateNavigateToLocations(List<Vec3>^ locations, float speed)
+    inline void SimulatedPlayer::SimulateNavigateToLocations(System::Collections::Generic::IList<Vec3>^ locations, float speed)
     {
         auto count = locations->Count;
         std::vector<::Vec3> stdvector(count);

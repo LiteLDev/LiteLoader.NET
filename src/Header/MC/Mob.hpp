@@ -231,9 +231,9 @@ namespace MC
             int get();
         }
 
-        property ::System::Collections::Generic::List<int>^ AllArmorID
+        property array<int>^ AllArmorID
         {
-            ::System::Collections::Generic::List<int>^ get();
+            array<int>^ get();
         }
 
         property int ArmorTypeHash

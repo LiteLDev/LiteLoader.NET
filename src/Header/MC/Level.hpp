@@ -42,7 +42,7 @@ private:
 
 public:
     inline /*static*/ void ForEachPlayer(Callback ^ callback);
-    inline static List<Player ^> ^ GetAllPlayers();
+    inline static array<Player ^> ^ GetAllPlayers();
     /// name or xuid
     inline /*static*/ Player ^ GetPlayer(String ^ info);
     /// UniqueID
@@ -50,8 +50,8 @@ public:
     inline static Actor ^ GetEntity(ActorUniqueID ^ id);
     inline Actor^ GetRuntimeEntity(ActorRuntimeID^ id, bool _);
     inline Player^ GetRuntimePlayer(ActorRuntimeID^ id);
-    inline static List<Actor ^> ^ GetAllEntities(int dimId);
-    inline static List<Actor ^> ^ GetAllEntities();
+    inline static array<Actor ^> ^ GetAllEntities(int dimId);
+    inline static array<Actor ^> ^ GetAllEntities();
     inline static Actor ^ SpawnMob(Vec3 pos, int dimId, String ^ typeName);
     inline static Actor ^ SpawnItem(Vec3 pos, int dimId, ItemStack ^ item);
     inline static bool CreateExplosion(Vec3 pos, int dimId, Actor ^ source, float radius, bool createFire, bool canBreak, float maxResistance);

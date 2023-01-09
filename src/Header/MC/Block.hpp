@@ -274,7 +274,7 @@ public:
 
     bool CanInstatick();
 
-    void GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1);
+    void GetDebugText(::System::Collections::Generic::IList<::String^> ^ _0, MC::BlockPos _1);
 
     MC::AABB GetVisualShape(MC::AABB _0, bool _1);
 

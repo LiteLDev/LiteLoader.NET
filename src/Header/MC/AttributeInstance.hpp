@@ -37,7 +37,7 @@ namespace MC
         //AttributeInstanceHandle^ GetHandle();
         //List<AttributeInstanceHandle>^ GetListeners();
         AttributeModifier^ GetModifier(Mce::UUID id);
-        List<AttributeModifier^>^ GetModifiers();
+        array<AttributeModifier^>^ GetModifiers();
         bool HasModifier(AttributeModifier^ modifier);
         bool HasModifier(Mce::UUID id);
         //void InheritFrom(AttributeInstance^, BaseAttributeMap^);

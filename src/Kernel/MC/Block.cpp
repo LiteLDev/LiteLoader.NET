@@ -48,30 +48,30 @@ inline void Block::Nbt::set(CompoundTag ^ nbt)
 
 ::String^ MC::Block::BuildDescriptionId()
 {
-    auto __ret = ((class ::Block*)NativePtr)->buildDescriptionId();
+    auto __ret = NativePtr->buildDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 ::String^ MC::Block::BuildDescriptionName()
 {
-    auto __ret = ((class ::Block*)NativePtr)->buildDescriptionName();
+    auto __ret = NativePtr->buildDescriptionName();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 void MC::Block::CacheComponentData()
 {
-    ((class ::Block*)NativePtr)->cacheComponentData();
+    NativePtr->cacheComponentData();
 }
 
 bool MC::Block::CanBeBrokenFromFalling()
 {
-    auto __ret = ((class ::Block*)NativePtr)->canBeBrokenFromFalling();
+    auto __ret = NativePtr->canBeBrokenFromFalling();
     return __ret;
 }
 
 bool MC::Block::CanBeOriginalSurface()
 {
-    auto __ret = ((class ::Block*)NativePtr)->canBeOriginalSurface();
+    auto __ret = NativePtr->canBeOriginalSurface();
     return __ret;
 }
 
@@ -83,29 +83,29 @@ bool MC::Block::CanConnect(MC::Block ^ _0, unsigned char _1, MC::Block ^ _2)
     if (ReferenceEquals(_2, nullptr))
         throw gcnew ::System::ArgumentNullException("_2", "Cannot be null because it is a C++ reference (&).");
     auto& __arg2 = *(class ::Block*)_2->NativePtr;
-    auto __ret = ((class ::Block*)NativePtr)->canConnect(__arg0, _1, __arg2);
+    auto __ret = NativePtr->canConnect(__arg0, _1, __arg2);
     return __ret;
 }
 
 bool MC::Block::CanHaveExtraData()
 {
-    auto __ret = ((class ::Block*)NativePtr)->canHaveExtraData();
+    auto __ret = NativePtr->canHaveExtraData();
     return __ret;
 }
 
 bool MC::Block::CanHurtAndBreakItem()
 {
-    auto __ret = ((class ::Block*)NativePtr)->canHurtAndBreakItem();
+    auto __ret = NativePtr->canHurtAndBreakItem();
     return __ret;
 }
 
 bool MC::Block::CanInstatick()
 {
-    auto __ret = ((class ::Block*)NativePtr)->canInstatick();
+    auto __ret = NativePtr->canInstatick();
     return __ret;
 }
 
-void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _0, MC::BlockPos _1)
+void MC::Block::GetDebugText(::System::Collections::Generic::IList<::String^> ^ _0, MC::BlockPos _1)
 {
     auto _tmp_0 = std::vector<::std::string>();
     for each (::String^ _element in _0)
@@ -114,24 +114,24 @@ void MC::Block::GetDebugText(::System::Collections::Generic::List<::String^> ^ _
         _tmp_0.push_back(_marshalElement);
     }
     auto __arg0 = _tmp_0;
-    ((class ::Block*)NativePtr)->getDebugText(__arg0, _1);
+    NativePtr->getDebugText(__arg0, _1);
 }
 
 MC::AABB MC::Block::GetVisualShape(MC::AABB _0, bool _1)
 {
-    return ((class ::Block*)NativePtr)->getVisualShape((::AABB)_0, _1);
+    return NativePtr->getVisualShape((::AABB)_0, _1);
 }
 
 bool MC::Block::HasTag(unsigned long long _0)
 {
     auto __arg0 = (const unsigned long long&)_0;
-    auto __ret = ((class ::Block*)NativePtr)->hasTag(__arg0);
+    auto __ret = NativePtr->hasTag(__arg0);
     return __ret;
 }
 
 bool MC::Block::IgnoreEntitiesOnPistonMove()
 {
-    auto __ret = ((class ::Block*)NativePtr)->ignoreEntitiesOnPistonMove();
+    auto __ret = NativePtr->ignoreEntitiesOnPistonMove();
     return __ret;
 }
 
@@ -140,7 +140,7 @@ bool MC::Block::IsPreservingMediumWhenPlaced(MC::Block ^ _0)
     if (ReferenceEquals(_0, nullptr))
         throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
     auto& __arg0 = *(class ::Block*)_0->NativePtr;
-    auto __ret = ((class ::Block*)NativePtr)->isPreservingMediumWhenPlaced(__arg0);
+    auto __ret = NativePtr->isPreservingMediumWhenPlaced(__arg0);
     return __ret;
 }
 
@@ -175,291 +175,291 @@ bool MC::Block::Equals(::System::Object ^ obj)
 
 MC::Vec3 MC::Block::RandomlyModifyPosition(MC::BlockPos _0)
 {
-    return ((class ::Block*)NativePtr)->randomlyModifyPosition(_0);
+    return NativePtr->randomlyModifyPosition(_0);
 }
 
 bool MC::Block::ShouldRandomTick()
 {
-    auto __ret = ((class ::Block*)NativePtr)->shouldRandomTick();
+    auto __ret = NativePtr->shouldRandomTick();
     return __ret;
 }
 
 bool MC::Block::ShouldRandomTickExtraLayer()
 {
-    auto __ret = ((class ::Block*)NativePtr)->shouldRandomTickExtraLayer();
+    auto __ret = NativePtr->shouldRandomTickExtraLayer();
     return __ret;
 }
 
 ::String^ MC::Block::ToDebugString()
 {
-    auto __ret = ((class ::Block*)NativePtr)->toDebugString();
+    auto __ret = NativePtr->toDebugString();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 MC::Block ^ MC::Block::TryGetInfested()
 {
-    auto __ret = ((class ::Block*)NativePtr)->tryGetInfested();
+    auto __ret = NativePtr->tryGetInfested();
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Block((class ::Block*)__ret);
 }
 
 MC::Block ^ MC::Block::TryGetUninfested()
 {
-    auto __ret = ((class ::Block*)NativePtr)->tryGetUninfested();
+    auto __ret = NativePtr->tryGetUninfested();
     if (__ret == nullptr) return nullptr;
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Block((class ::Block*)__ret);
 }
 
 bool MC::Block::CausesFreezeEffect::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->causesFreezeEffect();
+    auto __ret = NativePtr->causesFreezeEffect();
     return __ret;
 }
 
 bool MC::Block::AllowsRunes::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getAllowsRunes();
+    auto __ret = NativePtr->getAllowsRunes();
     return __ret;
 }
 
 int MC::Block::BurnOdds::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getBurnOdds();
+    auto __ret = NativePtr->getBurnOdds();
     return __ret;
 }
 
 int MC::Block::Color::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getColor();
+    auto __ret = NativePtr->getColor();
     return __ret;
 }
 
 /*MC::Block ^ MC::Block::DefaultState::get()
 {
-    auto& __ret = ((class ::Block*)NativePtr)->getDefaultState();
+    auto& __ret = NativePtr->getDefaultState();
     return (MC::Block ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::Block((class ::Block*)&__ret));
 }*/
 
 ::String^ MC::Block::DescriptionId::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getDescriptionId();
+    auto __ret = NativePtr->getDescriptionId();
     return clix::marshalString<clix::E_UTF8>(__ret);
 }
 
 float MC::Block::DestroySpeed::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getDestroySpeed();
+    auto __ret = NativePtr->getDestroySpeed();
     return __ret;
 }
 
 int MC::Block::FlameOdds::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getFlameOdds();
+    auto __ret = NativePtr->getFlameOdds();
     return __ret;
 }
 
 float MC::Block::Friction::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getFriction();
+    auto __ret = NativePtr->getFriction();
     return __ret;
 }
 
 unsigned int MC::Block::RuntimeId::get()
 {
-    auto& __ret = ((class ::Block*)NativePtr)->getRuntimeId();
+    auto& __ret = NativePtr->getRuntimeId();
     return (unsigned int)(const_cast<unsigned int&>(__ret));
 }
 
 MC::CompoundTag ^ MC::Block::SerializationId::get()
 {
-    auto& __ret = ((class ::Block*)NativePtr)->getSerializationId();
+    auto& __ret = NativePtr->getSerializationId();
     return (MC::CompoundTag ^)((&__ret == nullptr) ? nullptr : gcnew ::MC::CompoundTag((class ::CompoundTag*)&__ret));
 }
 
 float MC::Block::Thickness::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getThickness();
+    auto __ret = NativePtr->getThickness();
     return __ret;
 }
 
 float MC::Block::Translucency::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getTranslucency();
+    auto __ret = NativePtr->getTranslucency();
     return __ret;
 }
 
 int MC::Block::Variant::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->getVariant();
+    auto __ret = NativePtr->getVariant();
     return __ret;
 }
 
 bool MC::Block::HasBlockEntity::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->hasBlockEntity();
+    auto __ret = NativePtr->hasBlockEntity();
     return __ret;
 }
 
 bool MC::Block::HasComparatorSignal::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->hasComparatorSignal();
+    auto __ret = NativePtr->hasComparatorSignal();
     return __ret;
 }
 
 //bool MC::Block::HasRuntimeId::get()
 //{
-//    auto __ret = ((class ::Block*)NativePtr)->hasRuntimeId();
+//    auto __ret = NativePtr->hasRuntimeId();
 //    return __ret;
 //}
 
 bool MC::Block::IsAuxValueRelevantForPicking::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isAuxValueRelevantForPicking();
+    auto __ret = NativePtr->isAuxValueRelevantForPicking();
     return __ret;
 }
 
 bool MC::Block::IsBounceBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isBounceBlock();
+    return NativePtr->isBounceBlock();
 }
 
 bool MC::Block::IsButtonBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isButtonBlock();
+    return NativePtr->isButtonBlock();
 }
 
 bool MC::Block::IsContainerBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isContainerBlock();
+    return NativePtr->isContainerBlock();
 }
 
 bool MC::Block::IsCropBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isCropBlock();
+    return NativePtr->isCropBlock();
 }
 
 bool MC::Block::IsDoorBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isDoorBlock();
+    return NativePtr->isDoorBlock();
 }
 
 bool MC::Block::IsFenceBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isFenceBlock();
+    return NativePtr->isFenceBlock();
 }
 
 bool MC::Block::IsFenceGateBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isFenceGateBlock();
+    return NativePtr->isFenceGateBlock();
 }
 
 bool MC::Block::IsHeavy::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isHeavy();
+    auto __ret = NativePtr->isHeavy();
     return __ret;
 }
 
 bool MC::Block::IsInteractiveBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isInteractiveBlock();
+    return NativePtr->isInteractiveBlock();
 }
 
 bool MC::Block::IsLeverBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isLeverBlock();
+    return NativePtr->isLeverBlock();
 }
 
 bool MC::Block::IsMotionBlockingBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isMotionBlockingBlock();
+    return NativePtr->isMotionBlockingBlock();
 }
 
 bool MC::Block::IsRailBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isRailBlock();
+    return NativePtr->isRailBlock();
 }
 
 bool MC::Block::IsSignalSource::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isSignalSource();
+    auto __ret = NativePtr->isSignalSource();
     return __ret;
 }
 
 bool MC::Block::IsSlabBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isSlabBlock();
+    return NativePtr->isSlabBlock();
 }
 
 bool MC::Block::IsSolid::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isSolid();
+    auto __ret = NativePtr->isSolid();
     return __ret;
 }
 
 bool MC::Block::IsSolidBlockingBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isSolidBlockingBlock();
+    return NativePtr->isSolidBlockingBlock();
 }
 
 bool MC::Block::IsSolidBlockingBlockAndNotSignalSource::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isSolidBlockingBlockAndNotSignalSource();
+    auto __ret = NativePtr->isSolidBlockingBlockAndNotSignalSource();
     return __ret;
 }
 
 bool MC::Block::IsStairBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isStairBlock();
+    return NativePtr->isStairBlock();
 }
 
 /*bool MC::Block::IsStandingSign::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isStandingSign();
+    auto __ret = NativePtr->isStandingSign();
     return __ret;
 }*/
 
 bool MC::Block::IsStemBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isStemBlock();
+    return NativePtr->isStemBlock();
 }
 
 bool MC::Block::IsThinFenceBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isThinFenceBlock();
+    return NativePtr->isThinFenceBlock();
 }
 
 bool MC::Block::IsUnbreakable::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isUnbreakable();
+    auto __ret = NativePtr->isUnbreakable();
     return __ret;
 }
 
 bool MC::Block::IsWallBlock::get()
 {
-    return ((class ::Block*)NativePtr)->isWallBlock();
+    return NativePtr->isWallBlock();
 }
 
 bool MC::Block::IsWaterBlocking::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->isWaterBlocking();
+    auto __ret = NativePtr->isWaterBlocking();
     return __ret;
 }
 
 bool MC::Block::MayPick::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->mayPick();
+    auto __ret = NativePtr->mayPick();
     return __ret;
 }
 
 bool MC::Block::PushesOutItems::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->pushesOutItems();
+    auto __ret = NativePtr->pushesOutItems();
     return __ret;
 }
 
 bool MC::Block::PushesUpFallingBlocks::get()
 {
-    auto __ret = ((class ::Block*)NativePtr)->pushesUpFallingBlocks();
+    auto __ret = NativePtr->pushesUpFallingBlocks();
     return __ret;
 }
 

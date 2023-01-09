@@ -213,7 +213,7 @@ void MC::ItemStackBase::Set(int _0)
     NativePtr->set(_0);
 }
 
-void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::List<::String^> ^ _0)
+void MC::ItemStackBase::SetCustomLore(::System::Collections::Generic::IList<::String^> ^ _0)
 {
     auto _tmp_0 = std::vector<::std::string>();
     for each (::String^ _element in _0)

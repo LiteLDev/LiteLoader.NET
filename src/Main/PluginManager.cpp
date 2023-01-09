@@ -34,7 +34,7 @@ namespace LiteLoader::NET
         auto ret = ::RegisterPlugin(handle, _name, marshalString(introduction), (::ll::Version)version, stdmap);
         if (ret)
         {
-            PluginManager::ManagedPluginData->TryAdd(name, gcnew PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
+            PluginManager::ManagedPluginData->TryAdd(name, PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
             LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, IntPtr(handle));
         }
 
@@ -52,8 +52,7 @@ namespace LiteLoader::NET
         if (ManagedPluginData->ContainsKey(name))
         {
             auto ret = ManagedPluginData[name];
-            if (ret != nullptr)
-                return ret->Item1;
+            return ret.Item1;
         }
 
         auto pPlugin = ::ll::getPlugin(marshalString(name));
@@ -68,7 +67,7 @@ namespace LiteLoader::NET
     Assembly^ PluginManager::getPluginAssembly(System::String^ name)
     {
         if (PluginManager::ManagedPluginData->ContainsKey(name))
-            return PluginManager::ManagedPluginData[name]->Item2;
+            return PluginManager::ManagedPluginData[name].Item2;
         return nullptr;
     }
     Assembly^ PluginManager::getPluginAssembly(Plugin^ plugin)
@@ -77,8 +76,8 @@ namespace LiteLoader::NET
             throw gcnew NativePluginException;
         for each (auto % var in PluginManager::ManagedPluginData)
         {
-            if (var.Value->Item1->Equals(plugin))
-                return var.Value->Item2;
+            if (var.Value.Item1->Equals(plugin))
+                return var.Value.Item2;
         }
         return nullptr;
     }

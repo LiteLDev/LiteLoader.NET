@@ -39,12 +39,12 @@ inline void Level::ForEachPlayer(Callback ^ callback)
 
     NativePtr->forEachPlayer(pFn);
 }
-inline List<Player ^> ^ Level::GetAllPlayers()
+inline array<Player ^> ^ Level::GetAllPlayers()
 {
     auto& stdvector = ::Level::getAllPlayers();
-    auto ret = gcnew List<Player ^>(int(stdvector.size()));
-    for each (auto var in stdvector)
-        ret->Add(gcnew Player(var));
+    auto ret = gcnew array<Player ^>(int(stdvector.size()));
+    for (int i = 0; i < stdvector.size(); i++)
+        ret[i] = gcnew Player(stdvector[i]);
     return ret;
 }
 inline Player ^ Level::GetPlayer(String^ info)
@@ -71,20 +71,20 @@ inline Player^ Level::GetRuntimePlayer(ActorRuntimeID^ id)
     const auto player = NativePtr->getRuntimePlayer(*id);
     return player != nullptr ? gcnew Player(player) : nullptr;
 }
-inline List<Actor ^> ^ Level::GetAllEntities(int dimId)
+inline array<Actor ^> ^ Level::GetAllEntities(int dimId)
 {
     auto& stdvector = ::Level::getAllEntities(dimId);
-    auto ret = gcnew List<Actor ^>(int(stdvector.size()));
-    for each (auto& var in stdvector)
-        ret->Add(gcnew Actor(var));
+    auto ret = gcnew array<Actor ^>(int(stdvector.size()));
+    for (int i = 0; i < stdvector.size(); i++)
+        ret[i] = gcnew Actor(stdvector[i]);
     return ret;
 }
-inline List<Actor ^> ^ Level::GetAllEntities()
+inline array<Actor ^> ^ Level::GetAllEntities()
 {
     auto& stdvector = ::Level::getAllEntities();
-    auto ret = gcnew List<Actor ^>(int(stdvector.size()));
-    for each (auto& var in stdvector)
-        ret->Add(gcnew Actor(var));
+    auto ret = gcnew array<Actor ^>(int(stdvector.size()));
+    for (int i = 0; i < stdvector.size(); i++)
+        ret[i] = gcnew Actor(stdvector[i]);
     return ret;
 }
 inline Actor ^ Level::SpawnMob(Vec3 pos, int dimId, String^ typeName)

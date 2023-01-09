@@ -74,14 +74,14 @@ namespace MC
         return gcnew AttributeModifier(&NativePtr->getModifier(id));
     }
 
-    List<AttributeModifier^>^ AttributeInstance::GetModifiers()
+    array<AttributeModifier^>^ AttributeInstance::GetModifiers()
     {
         auto modifiers = NativePtr->getModifiers();
-        auto result = gcnew List<AttributeModifier^>();
+        auto result = gcnew array<AttributeModifier^>(modifiers.size());
 
-        for (auto& modifier : modifiers)
+        for (int i = 0; i < modifiers.size(); ++i)
         {
-            result->Add(gcnew AttributeModifier(&modifier));
+            result[i] = gcnew AttributeModifier(&modifiers[i]);
         }
 
         return result;

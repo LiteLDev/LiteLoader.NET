@@ -119,12 +119,12 @@ namespace MC
         inline int ClearItem(String^ typeName);
         inline bool Runcmd(String^ cmd);
         inline bool TransferServer(String^ address, unsigned short port);
-        inline bool SetSidebar(String^ title, List<System::Tuple<String^, int>^>^ data, ObjectiveSortOrder sortOrder);
+        inline bool SetSidebar(String^ title, System::Collections::Generic::IList<VALUE_TUPLE<String^, int>>^ data, ObjectiveSortOrder sortOrder);
         inline bool RemoveSidebar();
         inline CompoundTag^ GetNbt();
         inline bool SetNbt(CompoundTag^ nbt);
         inline bool RefreshAttribute(Attribute^ attribute);
-        inline bool RefreshAttributes(List<Attribute^>^ attributes);
+        inline bool RefreshAttributes(System::Collections::Generic::IList<Attribute^>^ attributes);
 
         inline int GetScore(String^ key);
         inline bool SetScore(String^ key, int value);
@@ -147,7 +147,7 @@ namespace MC
 
         inline bool SendTransferPacket(String^ address, short port);
         inline bool SendSetDisplayObjectivePacket(String^ title, String^ name, char sortOrder);
-        inline bool SendSetScorePacket(char type, List<ScorePacketInfo^>^ data);
+        inline bool SendSetScorePacket(char type, System::Collections::Generic::IList<ScorePacketInfo^>^ data);
         /// <param name="overlay">:default = 0</param>
         inline bool SendBossEventPacket(BossEvent type, String^ name, float percent, BossEventColour colour,
                                         int overlay);
@@ -157,7 +157,7 @@ namespace MC
         inline bool SendRawFormPacket(unsigned formId, String^ data);
         inline bool SendToastPacket(String^ title, String^ msg);
         delegate void callBackFunc_int(int);
-        inline bool SendSimpleFormPacket(String^ title, String^ content, List<String^>^ buttons, List<String^>^ images,
+        inline bool SendSimpleFormPacket(String^ title, String^ content, System::Collections::Generic::IList<String^>^ buttons, System::Collections::Generic::IList<String^>^ images,
                                          callBackFunc_int^ callback);
         delegate void callBackFunc_bool(bool);
         inline bool SendModalFormPacket(String^ title, String^ content, String^ button1, String^ button2,
@@ -183,8 +183,8 @@ namespace MC
 
         bool SendSimpleForm(String^ title,
                             String^ content,
-                            List<String^>^ buttons,
-                            List<String^>^ images,
+                            System::Collections::Generic::IList<String^>^ buttons,
+                            System::Collections::Generic::IList<String^>^ images,
                             SimpleForm_callback^ callback);
 
     private:
@@ -371,9 +371,9 @@ namespace MC
             MC::BlockPos get();
         }
 
-        property List<ActorUniqueID>^ TrackedBosses
+        property array<ActorUniqueID>^ TrackedBosses
         {
-            List<ActorUniqueID>^ get();
+            array<ActorUniqueID>^ get();
         }
 
         property bool UsedPotion

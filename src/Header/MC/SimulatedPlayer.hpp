@@ -45,7 +45,7 @@ namespace MC
         inline void SimulateMoveToLocation(Vec3 target, float speed);
         inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToEntity(Actor^ actor, float speed);
         inline ScriptModuleMinecraft::ScriptNavigationResult SimulateNavigateToLocation(Vec3 target, float speed);
-        inline void SimulateNavigateToLocations(List<Vec3>^ locations, float speed);
+        inline void SimulateNavigateToLocations(System::Collections::Generic::IList<Vec3>^ locations, float speed);
         inline void SimulateSetBodyRotation(float _0);
         inline bool SimulateSetItem(ItemStack^ item, bool _0, int _1);
         inline void SimulateStopDestroyingBlock();

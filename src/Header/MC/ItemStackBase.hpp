@@ -278,7 +278,7 @@ namespace MC
 
         void Set(int _0);
 
-        void SetCustomLore(::System::Collections::Generic::List<::System::String^>^ _0);
+        void SetCustomLore(::System::Collections::Generic::IList<::System::String^>^ _0);
 
         void SetJustBrewed(bool _0);
 

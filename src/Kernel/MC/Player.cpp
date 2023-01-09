@@ -205,14 +205,14 @@ namespace MC
     }
 
     inline bool Player::SetSidebar(String^ title,
-                                   List<System::Tuple<String^, int>^>^ data,
+                                   System::Collections::Generic::IList<VALUE_TUPLE<String^, int>>^ data,
                                    ObjectiveSortOrder sortOrder)
     {
         auto len = data->Count;
         std::vector<std::pair<std::string, int>> stdvector(len);
         for (int i = 0; i < len; ++i)
             stdvector.emplace_back(std::move(std::pair<std::string, int>(
-                marshalString(data[i]->Item1), data[i]->Item2)));
+                marshalString(data[i].Item1), data[i].Item2)));
         return NativePtr->setSidebar(
             marshalString(title), stdvector, static_cast<::ObjectiveSortOrder>(sortOrder));
     }
@@ -237,7 +237,7 @@ namespace MC
         return NativePtr->refreshAttribute(attribute);
     }
 
-    inline bool Player::RefreshAttributes(List<Attribute^>^ attributes)
+    inline bool Player::RefreshAttributes(System::Collections::Generic::IList<Attribute^>^ attributes)
     {
         auto len = attributes->Count;
         std::vector<const ::Attribute*> stdvector(len);
@@ -342,7 +342,7 @@ namespace MC
         return NativePtr->sendSetDisplayObjectivePacket(marshalString(title), marshalString(name), sortOrder);
     }
 
-    inline bool Player::SendSetScorePacket(char type, List<ScorePacketInfo^>^ data)
+    inline bool Player::SendSetScorePacket(char type, System::Collections::Generic::IList<ScorePacketInfo^>^ data)
     {
         auto len = data->Count;
         vector<::ScorePacketInfo> stdvector = {};
@@ -382,8 +382,8 @@ namespace MC
     inline bool Player::SendSimpleFormPacket(
         String^ title,
         String^ content,
-        List<String^>^ buttons,
-        List<String^>^ images,
+        System::Collections::Generic::IList<String^>^ buttons,
+        System::Collections::Generic::IList<String^>^ images,
         callBackFunc_int^ callback)
     {
         auto len1 = buttons->Count;
@@ -463,8 +463,8 @@ namespace MC
 
     bool Player::SendSimpleForm(String^ title,
                                 String^ content,
-                                List<String^>^ buttons,
-                                List<String^>^ images,
+                                System::Collections::Generic::IList<String^>^ buttons,
+                                System::Collections::Generic::IList<String^>^ images,
                                 SimpleForm_callback^ callback)
     {
         GCHandle gch = GCHandle::Alloc(callback);
@@ -719,13 +719,13 @@ namespace MC
         return NativePtr->getSpawnPosition();
     }
 
-    List<ActorUniqueID>^ Player::TrackedBosses::get()
+    array<ActorUniqueID>^ Player::TrackedBosses::get()
     {
         auto& vec = NativePtr->getTrackedBosses();
-        auto ret = gcnew List<ActorUniqueID>(static_cast<int>(vec.size()));
-        for (auto& item : vec)
+        auto ret = gcnew array<ActorUniqueID>(static_cast<int>(vec.size()));
+        for (int i = 0; i < vec.size(); ++i)
         {
-            ret->Add(item);
+            ret[i] = vec[i];
         }
         return ret;
     }

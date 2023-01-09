@@ -4,8 +4,6 @@
 
 #include <mc/ListTag.hpp>
 
-using System::Collections::Generic::List;
-
 namespace MC
 {
 ref class Tag;
@@ -22,11 +20,11 @@ public:
     __ctor_base(ListTag, ::ListTag, Tag);
 
     inline static ListTag ^ Create();
-    List<Tag ^> ^ Value();
+    array<Tag ^> ^ Value();
     inline Tag const ^ operator[](int index);
     inline Tag::Type const GetElementType();
     inline size_t getSize();
-    List<Tag ^> ^ Get();
+    array<Tag ^> ^ Get();
     inline unsigned char GetByte(int i);
     inline short GetShort(int i);
     inline int64_t GetInt64(int i);
