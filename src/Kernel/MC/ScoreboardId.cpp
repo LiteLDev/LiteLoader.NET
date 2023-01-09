@@ -81,12 +81,12 @@ MC::ScoreboardId::operator MC::ScoreboardId ^(long long _0) {
 
 unsigned long long MC::ScoreboardId::Hash::get()
 {
-    auto __ret = ((struct ::ScoreboardId*)NativePtr)->getHash();
+    auto __ret = NativePtr->getHash();
     return __ret;
 }
 
 bool MC::ScoreboardId::IsValid::get()
 {
-    auto __ret = ((struct ::ScoreboardId*)NativePtr)->isValid();
+    auto __ret = NativePtr->isValid();
     return __ret;
 }

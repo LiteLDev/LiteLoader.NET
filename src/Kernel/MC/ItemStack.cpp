@@ -180,7 +180,7 @@ bool MC::ItemStack::HasItemStackNetId::get()
 
 MC::ItemStack^ MC::ItemStack::EMPTY_ITEM::get()
 {
-    return gcnew ::MC::ItemStack(ItemStack::EMPTY_ITEM);
+    return gcnew ::MC::ItemStack((::ItemStack*)&::ItemStack::EMPTY_ITEM);
 }
 
 #endif // INCLUDE_MCAPI

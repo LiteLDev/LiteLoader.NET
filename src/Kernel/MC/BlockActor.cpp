@@ -25,9 +25,9 @@ inline bool BlockActor::SetNbt(CompoundTag ^ nbt)
     return NativePtr->setNbt(nbt->NativePtr);
 }
 
-inline unsigned int BlockActor::getBlockEntityType(Block ^ block)
+inline int BlockActor::getBlockEntityType(Block ^ block)
 {
-    return (unsigned int)block->NativePtr->getBlockEntityType();
+    return (int)block->NativePtr->getBlockEntityType();
 }
 
 } // namespace MC

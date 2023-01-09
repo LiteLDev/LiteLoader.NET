@@ -16,7 +16,7 @@ ref class BlockActor : ClassTemplate<BlockActor, ::BlockActor>
 public:
     __ctor(BlockActor, ::BlockActor);
 
-    inline static unsigned int getBlockEntityType(Block ^ block);
+    inline static int getBlockEntityType(Block ^ block);
 
     inline bool RefreshData();
     inline CompoundTag ^ GetNbt();

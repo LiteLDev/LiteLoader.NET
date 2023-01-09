@@ -79,7 +79,7 @@ namespace MC
         auto modifiers = NativePtr->getModifiers();
         auto result = gcnew List<AttributeModifier^>();
 
-        for (auto modifier : modifiers)
+        for (auto& modifier : modifiers)
         {
             result->Add(gcnew AttributeModifier(&modifier));
         }
@@ -89,7 +89,7 @@ namespace MC
 
     bool AttributeInstance::HasModifier(AttributeModifier^ modifier)
     {
-        for (auto temp :NativePtr->getModifiers())
+        for (auto& temp : NativePtr->getModifiers())
         {
             if (temp == *modifier->NativePtr)
                 return true;
