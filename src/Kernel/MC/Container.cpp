@@ -26,6 +26,11 @@ namespace MC
         return gcnew ItemStack((::ItemStack*)&NativePtr->getItem(slot));
     }
 
+    inline void Container::SetItem(int slot, ItemStack^ item)
+    {
+        NativePtr->setItem(slot, *item->NativePtr);
+    }
+
     inline bool Container::HasContainer(Vec3 pos, int dim)
     {
         return NativePtr->hasContainer(::Vec3(pos), dim);

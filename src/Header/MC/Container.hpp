@@ -20,6 +20,7 @@ namespace MC
         inline bool AddItemToFirstEmptySlot_s(ItemStack^ item);
         inline bool RemoveItem_s(int slot, unsigned int number);
         inline ItemStack^ GetItem(int slot);
+        inline void SetItem(int, ItemStack^);
         inline bool HasContainer(Vec3 pos, int dim);
         inline Container^ GetContainerAt(Vec3 pos, int dim);
         inline int FindFirstSlotForItem(ItemStack^ item);
