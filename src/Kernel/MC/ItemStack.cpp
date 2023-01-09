@@ -31,7 +31,7 @@ namespace MC
 
     inline ItemStack^ ItemStack::FromItemInstance(ItemInstance^ ins)
     {
-        return gcnew ItemStack(new ::ItemStack(::ItemStack::fromItemInstance(ins)), true);
+        return gcnew ItemStack(&::ItemStack::fromItemInstance(ins), true);
     }
 
     inline ItemStack^ ItemStack::Clone_s()
@@ -84,9 +84,9 @@ namespace MC
 
 #ifdef MANUAL_MAINTENANCE
 
-void MC::ItemStack::SetNull(String^ _0)
+void MC::ItemStack::SetNull()
 {
-    NativePtr->setNull(std::optional<std::string>(marshalString(_0)));
+    NativePtr->setNull({});
 }
 
 ::String^ MC::ItemStack::ToString()
@@ -180,7 +180,7 @@ bool MC::ItemStack::HasItemStackNetId::get()
 
 MC::ItemStack^ MC::ItemStack::EMPTY_ITEM::get()
 {
-    return gcnew ::MC::ItemStack((::ItemStack*)&::ItemStack::EMPTY_ITEM);
+    return gcnew ::MC::ItemStack(new ::ItemStack(::ItemStack::EMPTY_ITEM));
 }
 
 #endif // INCLUDE_MCAPI

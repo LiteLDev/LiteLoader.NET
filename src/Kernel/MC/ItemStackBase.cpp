@@ -21,9 +21,9 @@ short MC::ItemStackBase::Id::get()
 
 #include <src/Header/MC/HashedString.hpp>
 
-void MC::ItemStackBase::SetNull(String^ _0)
+void MC::ItemStackBase::SetNull()
 {
-    NativePtr->setNull(std::optional<std::string>(marshalString(_0)));
+    NativePtr->setNull({});
 }
 
 ::String^ MC::ItemStackBase::ToString()

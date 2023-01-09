@@ -228,7 +228,7 @@ namespace MC
             bool get();
         };
 
-        virtual void SetNull(String^);
+        virtual void SetNull();
 
         virtual ::System::String^ ToString() override;
 
