@@ -88,7 +88,7 @@ namespace LiteLoader::Event
         EventAPIs(HopperSearchItemEvent, 43);
 
     public:
-        Property(int, isMinecart, isMinecart);
+        Property(bool, isMinecart, isMinecart);
         Property_Instance(MC, BlockInstance, mHopperBlock, HopperBlock);
         Property_ValueType(MC, Vec3, mMinecartPos, MinecartPos);
         Property(int, mDimensionId, DimensionId);
