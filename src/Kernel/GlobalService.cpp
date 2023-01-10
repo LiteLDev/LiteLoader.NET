@@ -19,7 +19,7 @@
 #include <mc/LevelStorage.hpp>
 #include <GlobalServiceAPI.h>
 
-namespace LiteLoader::NET
+namespace LiteLoader
 {
     MC::Level^ GlobalService::Level::get()
     {
