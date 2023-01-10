@@ -201,6 +201,21 @@ public:
         bool get();
     }
 
+    property int ActivePlayerCount
+    {
+        int get();
+    }
+
+    property int ActiveUsersCount
+    {
+        int get();
+    }
+
+    property int UserCount
+    {
+        int get();
+    }
+
     static unsigned int CreateRandomSeed();
 
     //static property float AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK

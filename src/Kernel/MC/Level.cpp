@@ -255,6 +255,21 @@ bool MC::Level::Use3DBiomeMaps::get()
     return NativePtr->use3DBiomeMaps();
 }
 
+int MC::Level::ActivePlayerCount::get()
+{
+    return NativePtr->getActivePlayerCount();
+}
+
+int MC::Level::ActiveUsersCount::get()
+{
+    return NativePtr->getActiveUsersCount();
+}
+
+int MC::Level::UserCount::get()
+{
+    return NativePtr->getUserCount();
+}
+
 //float MC::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK::get()
 //{
 //    return ::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK;
