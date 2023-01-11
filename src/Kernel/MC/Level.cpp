@@ -270,6 +270,16 @@ int MC::Level::UserCount::get()
     return NativePtr->getUserCount();
 }
 
+int MC::Level::Time::get()
+{
+    return NativePtr->getTime();
+}
+
+void MC::Level::Time::set(int time)
+{
+    return NativePtr->setTime(time);
+}
+
 //float MC::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK::get()
 //{
 //    return ::Level::AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK;

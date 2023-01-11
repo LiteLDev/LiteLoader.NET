@@ -120,7 +120,7 @@ inline cli::array<T>^ PackArray(...cli::array<T>^ args)
 {
     using namespace LiteLoader::NET;
 
-    static_assert(is_ref_class_v<remove_handle_t<T>>, "");
+    static_assert(is_ref_class_v<remove_handle_t<T>>);
 
     return args;
 }
