@@ -1,4 +1,6 @@
 #pragma once
+//#define private public
+//#define protected public
 #include <src/Main/DotNETGlobal.hpp>
 #include <Windows.h>
 
@@ -59,6 +61,35 @@ namespace LiteLoader::Hook
         static void operator_delete(void* p)
         {
             ::operator delete(p);
+        }
+
+        static void* TestVector(...array<int>^ ints)
+        {
+            auto ret = new std::vector<int>;
+            /*auto iter = ret->begin();
+
+            constexpr auto size = sizeof(std::vector<int>);
+            constexpr auto size = sizeof(ret->_Mypair);
+            constexpr auto size = sizeof(ret->_Mypair._Myval2);
+            constexpr auto size = sizeof(ret->_Mypair._Myval2._Myend);
+            constexpr auto size = sizeof(ret->_Mypair._Myval2._Myfirst);
+            constexpr auto size = sizeof(ret->_Mypair._Myval2._Mylast);
+
+            constexpr auto size = sizeof(iter._Ptr);
+
+            constexpr auto offset = offsetof(std::vector<int>, _Mypair);
+            constexpr auto offset = offsetof(decltype(ret->_Mypair), _Myval2);
+            constexpr auto offset = offsetof(decltype(ret->_Mypair._Myval2), _Myfirst);
+            constexpr auto offset = offsetof(decltype(ret->_Mypair._Myval2), _Mylast);
+            constexpr auto offset = offsetof(decltype(ret->_Mypair._Myval2), _Myend);
+
+            constexpr auto offset = offsetof(decltype(iter), _Ptr);*/
+
+            for each (auto var in ints)
+            {
+                ret->emplace_back(var);
+            }
+            return ret;
         }
     };
 }

@@ -204,51 +204,43 @@ namespace LiteLoader::Event
                     switch (callingmode)
                     {
                     case IS_NORMAL:
-
-                        static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
-                        break;
-
-                    case IS_INSTANCE:
-
-                        static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
-                            System::Activator::CreateInstance(func.Item5), ev);
-                        break;
-
-                    case IS_REF:
-
-                        static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
-                        break;
-
-                    case IS_IGNORECANCELLED:
-
                         if (!ev->IsCancelled)
                             static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
                         break;
 
-                    case IS_INSTANCE_AND_REF:
-
-                        static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
-                            System::Activator::CreateInstance(func.Item5), ev);
-                        break;
-
-                    case IS_INSTANCE_AND_IGNORECANCELLED:
-
+                    case IS_INSTANCE:
                         if (!ev->IsCancelled)
                             static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
                                 System::Activator::CreateInstance(func.Item5), ev);
                         break;
 
-                    case IS_REF_AND_IGNORECANCELLED:
-
+                    case IS_REF:
                         if (!ev->IsCancelled)
                             static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
                         break;
 
-                    case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+                    case IS_IGNORECANCELLED:
+                        static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
+                        break;
 
+                    case IS_INSTANCE_AND_REF:
                         if (!ev->IsCancelled)
                             static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
                                 System::Activator::CreateInstance(func.Item5), ev);
+                        break;
+
+                    case IS_INSTANCE_AND_IGNORECANCELLED:
+                        static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
+                            System::Activator::CreateInstance(func.Item5), ev);
+                        break;
+
+                    case IS_REF_AND_IGNORECANCELLED:
+                        static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
+                        break;
+
+                    case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+                        static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
+                            System::Activator::CreateInstance(func.Item5), ev);
                         break;
                     }
                 }

@@ -296,7 +296,7 @@ namespace LiteLoader::RemoteCall::Helper
         if (isIterSet)
         {
             ++(*pIter);
-            return *pIter != pNative->end() ? true : false;
+            return *pIter != pNative->end();
         }
         else
         {
