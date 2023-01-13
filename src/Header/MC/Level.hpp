@@ -216,6 +216,12 @@ public:
         int get();
     }
 
+    property int Time
+    {
+        int get();
+        void set(int);
+    }
+
     static unsigned int CreateRandomSeed();
 
     //static property float AVERAGE_GAME_TICKS_PER_RANDOM_TICK_PER_BLOCK
