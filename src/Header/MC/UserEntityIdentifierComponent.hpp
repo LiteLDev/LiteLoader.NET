@@ -12,6 +12,7 @@ namespace MC
     {
     public:
         __ctor(UserEntityIdentifierComponent, ::UserEntityIdentifierComponent);
+        __ctor_default(UserEntityIdentifierComponent, ::UserEntityIdentifierComponent);
 
         property NetworkIdentifier^ NetworkId { NetworkIdentifier^ get(); }
         property System::Byte ClientSubId { System::Byte get(); }

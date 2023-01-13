@@ -8,6 +8,7 @@ ref struct CommandOriginData : ClassTemplate<CommandOriginData, ::CommandOriginD
 {
 public:
     __ctor_all(CommandOriginData, ::CommandOriginData);
+    __ctor_default(CommandOriginData, ::CommandOriginData);
 
     static CommandOriginData ^ Create(CommandOriginData ^ val);
     static CommandOriginData ^ Create();

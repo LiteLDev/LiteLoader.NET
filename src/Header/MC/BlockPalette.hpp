@@ -8,5 +8,6 @@ ref class BlockPalette : ClassTemplate<BlockPalette, ::BlockPalette>
 {
 public:
     __ctor(BlockPalette, ::BlockPalette);
+    __ctor_default(BlockPalette, ::BlockPalette);
 };
 } // namespace MC

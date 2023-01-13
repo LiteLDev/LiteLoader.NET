@@ -8,6 +8,7 @@ ref class StringTag : public Tag
 {
 public:
     __ctor_base(StringTag, ::StringTag, Tag);
+    __ctor_default_base(StringTag, ::StringTag, Tag);
 
     inline String^ Value();
     inline StringTag ^ operator=(std::string val);

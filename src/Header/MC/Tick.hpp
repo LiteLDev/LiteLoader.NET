@@ -10,6 +10,7 @@ ref struct Tick : ClassTemplate<Tick, ::Tick>
 {
 
     __ctor(Tick, ::Tick);
+    __ctor_default(Tick, ::Tick);
 
     property unsigned long long T
     {

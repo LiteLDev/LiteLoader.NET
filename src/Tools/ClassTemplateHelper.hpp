@@ -25,6 +25,12 @@
     {                                                   \
     }
 
+#define __ctor_default(RefClass, NativeClass)   \
+    RefClass()                                  \
+    : ClassTemplate((void*)nullptr, false)      \
+    {                                           \
+    }
+
 #define __ctor_copy(RefClass, NativeClass) \
     RefClass(NativeClass& r)               \
         : ClassTemplate(r)                 \
@@ -46,51 +52,57 @@
 public:
 
 
-#define __ctor_base(RefClass, NativeClass, BaseClass)               \
-    RefClass(System::IntPtr p)                                      \
-        : BaseClass(p)                                              \
-    {                                                               \
-    }                                                               \
-    RefClass(System::IntPtr p, bool ownsNativeInstance)             \
-        : BaseClass(p, ownsNativeInstance)                          \
-    {                                                               \
-    }                                                               \
-    RefClass(NativeClass* p)                                        \
-        : BaseClass(p)                                              \
-    {                                                               \
-    }                                                               \
-    RefClass(NativeClass* p, bool ownsNativeInstance)               \
-        : BaseClass(p, ownsNativeInstance)                          \
-    {                                                               \
-    }                                                               \
-    RefClass(void* p)                                               \
-        : BaseClass(p)                                              \
-    {                                                               \
-    }                                                               \
-    RefClass(void* p, bool ownsNativeInstance)                      \
-        : BaseClass(p, ownsNativeInstance)                          \
-    {                                                               \
-    }                                                               \
-    property NativeClass* NativePtr                                 \
-    {                                                               \
-    public:                                                         \
-        NativeClass* get()                                          \
-        {                                                           \
-            return static_cast<NativeClass*>(BaseClass::NativePtr); \
-        }                                                           \
-                                                                    \
-    protected:                                                      \
-        void set(NativeClass* value)                                \
-        {                                                           \
-            BaseClass::NativePtr = value;                           \
-        }                                                           \
-    }                                                               \
-    virtual void Destructor(void* ptr) override                     \
-    {                                                               \
-        reinterpret_cast<NativeClass*>(ptr)->~RefClass();           \
-    }                                                               \
+#define __ctor_base(RefClass, NativeClass, BaseClass)                   \
+    RefClass(System::IntPtr p)                                          \
+        : BaseClass(p)                                                  \
+    {                                                                   \
+    }                                                                   \
+    RefClass(System::IntPtr p, bool ownsNativeInstance)                 \
+        : BaseClass(p, ownsNativeInstance)                              \
+    {                                                                   \
+    }                                                                   \
+    RefClass(NativeClass* p)                                            \
+        : BaseClass(p)                                                  \
+    {                                                                   \
+    }                                                                   \
+    RefClass(NativeClass* p, bool ownsNativeInstance)                   \
+        : BaseClass(p, ownsNativeInstance)                              \
+    {                                                                   \
+    }                                                                   \
+    RefClass(void* p)                                                   \
+        : BaseClass(p)                                                  \
+    {                                                                   \
+    }                                                                   \
+    RefClass(void* p, bool ownsNativeInstance)                          \
+        : BaseClass(p, ownsNativeInstance)                              \
+    {                                                                   \
+    }                                                                   \
+    property NativeClass* NativePtr                                     \
+    {                                                                   \
+    public:                                                             \
+        NativeClass* get()                                              \
+        {                                                               \
+            return static_cast<NativeClass*>(BaseClass::NativePtr);     \
+        }                                                               \
+                                                                        \
+    protected:                                                          \
+        void set(NativeClass* value)                                    \
+        {                                                               \
+            BaseClass::NativePtr = value;                               \
+        }                                                               \
+    }                                                                   \
+    virtual void Destruct() override                                    \
+    {                                                                   \
+        reinterpret_cast<NativeClass*>(handle.ToPointer())->~RefClass();\
+    }                                                                   \
     literal size_t NativeClassSize = sizeof(NativeClass);
 
+
+#define __ctor_default_base(RefClass, NativeClass, BaseClass)   \
+    RefClass()                                                  \
+        : BaseClass()                                           \
+    {                                                           \
+    }
 
 #define __ctor_copy_base(RefClass, NativeClass, BaseClass) \
     RefClass(NativeClass& r)                               \

@@ -23,6 +23,7 @@ ref class CompoundTagVariant : ClassTemplate<CompoundTagVariant, ::CompoundTagVa
 {
 public:
     __ctor(CompoundTagVariant, ::CompoundTagVariant);
+    __ctor_default(CompoundTagVariant, ::CompoundTagVariant);
     
     inline Tag ^ AsTag();
     inline ByteTag ^ AsByteTag();

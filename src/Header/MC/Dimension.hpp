@@ -14,6 +14,7 @@ ref class Dimension : ClassTemplate<Dimension, ::Dimension>
 {
 public:
     __ctor(Dimension, ::Dimension);
+    __ctor_default(Dimension, ::Dimension);
 
 #ifdef INCLUDE_MCAPI
 

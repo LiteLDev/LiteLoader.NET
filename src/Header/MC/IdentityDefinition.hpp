@@ -9,6 +9,7 @@ namespace MC
     {
     public:
         __ctor(IdentityDefinition, ::IdentityDefinition);
+        __ctor_default(IdentityDefinition, ::IdentityDefinition);
         enum class Type : char
         {
             Invalid = 0,

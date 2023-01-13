@@ -9,6 +9,7 @@ ref class ShortTag : public Tag
 {
 public:
     __ctor_base(ShortTag, ::ShortTag, Tag);
+    __ctor_default_base(ShortTag, ::ShortTag, Tag);
     inline short ^ Value();
     inline ShortTag ^ operator=(short val);
     inline static ShortTag ^ Create(short val);

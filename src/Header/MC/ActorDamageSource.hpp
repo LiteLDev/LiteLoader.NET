@@ -14,6 +14,7 @@ namespace MC
     {
     public:
         __ctor(ActorDamageSource, ::ActorDamageSource);
+        __ctor_default(ActorDamageSource, ::ActorDamageSource);
 
         property Actor^ Entity { Actor^ get(); };
 

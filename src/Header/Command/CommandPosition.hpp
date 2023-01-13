@@ -17,6 +17,7 @@ ref class CommandPosition : ClassTemplate<CommandPosition, ::CommandPosition>
 {
 public:
     __ctor_all(CommandPosition, ::CommandPosition);
+    __ctor_default(CommandPosition, ::CommandPosition);
 
     static CommandPosition ^ Create(Vec3 vec);
     static CommandPosition ^ Create();

@@ -19,6 +19,7 @@ ref class ScoreInfo : ClassTemplate<ScoreInfo, ::ScoreInfo>
 {
 public:
     __ctor_all(ScoreInfo, ::ScoreInfo);
+    __ctor_default(ScoreInfo, ::ScoreInfo);
 
 public:
     property MC::Objective ^ Objective {
@@ -35,6 +36,7 @@ ref class Scoreboard : ClassTemplate<Scoreboard, ::Scoreboard>
 {
 public:
     __ctor(Scoreboard, ::Scoreboard);
+    __ctor_default(Scoreboard, ::Scoreboard);
 
 public:
     ScoreboardId ^ CreateScoreboardId(String ^ a0);

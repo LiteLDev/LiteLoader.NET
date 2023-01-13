@@ -15,6 +15,7 @@ ref class Block : ClassTemplate<Block, ::Block>
 {
 public:
     __ctor(Block, ::Block);
+    __ctor_default(Block, ::Block);
 
     inline static Block ^ Create(const String ^ str, unsigned short tileData);
     inline static Block ^ Create(CompoundTag ^ nbt);

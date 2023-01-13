@@ -9,6 +9,7 @@ ref class ItemInstance : ClassTemplate<ItemInstance, ::ItemInstance>
 {
 public:
     __ctor_all(ItemInstance, ::ItemInstance);
+    __ctor_default(ItemInstance, ::ItemInstance);
 
 #ifdef INCLUDE_MCAPI
 

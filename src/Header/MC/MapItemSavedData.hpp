@@ -8,5 +8,6 @@ ref class MapItemSavedData : ClassTemplate<MapItemSavedData, ::MapItemSavedData>
 {
 public:
     __ctor(MapItemSavedData, ::MapItemSavedData);
+    __ctor_default(MapItemSavedData, ::MapItemSavedData);
 };
 } // namespace MC

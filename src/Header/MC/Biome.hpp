@@ -11,6 +11,7 @@ namespace MC
     {
     public:
         __ctor(Biome, ::Biome);
+        __ctor_default(Biome, ::Biome);
     public:
         enum class BiomeTempCategory {};
         property int Id {int get() { return NativePtr->getId(); }};

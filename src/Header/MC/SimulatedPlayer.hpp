@@ -16,6 +16,7 @@ namespace MC
     {
     public:
         __ctor_base(SimulatedPlayer, ::SimulatedPlayer, ServerPlayer);
+        __ctor_default_base(SimulatedPlayer, ::SimulatedPlayer, ServerPlayer);
         
         //property gametest::BaseGameTestHelper^ GameTestHelper;
 

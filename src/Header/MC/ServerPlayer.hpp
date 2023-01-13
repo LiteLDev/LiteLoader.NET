@@ -8,5 +8,6 @@ namespace MC
     {
     public:
         __ctor_base(ServerPlayer, ::ServerPlayer, Player);
+        __ctor_default_base(ServerPlayer, ::ServerPlayer, Player);
     };
 } // namespace MC

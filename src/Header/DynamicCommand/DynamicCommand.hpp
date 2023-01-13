@@ -141,6 +141,7 @@ namespace LiteLoader::DynamicCommand
         {
         public:
             __ctor_all(ParameterPtr, ::DynamicCommand::ParameterPtr);
+            __ctor_default(ParameterPtr, ::DynamicCommand::ParameterPtr);
 
             ParameterPtr(ParameterType type, size_t offset);
 
@@ -155,6 +156,7 @@ namespace LiteLoader::DynamicCommand
         {
         public:
             __ctor_all(ParameterData, ::DynamicCommand::ParameterData);
+            __ctor_default(ParameterData, ::DynamicCommand::ParameterData);
 
             inline ParameterData(ParameterData^ data);
             inline ParameterData(String^ name, ParameterType type, bool optional, String^ enumOptions, String^ identifier, MC::CommandParameterOption parameterOption);

@@ -14,6 +14,7 @@ ref class Objective : ClassTemplate<Objective, ::Objective>
 {
 public:
     __ctor(Objective, ::Objective);
+    __ctor_default(Objective, ::Objective);
     inline bool SetDisplay(String^ slotName, ObjectiveSortOrder sort);
 
 #ifdef INCLUDE_MCAPI

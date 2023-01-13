@@ -424,6 +424,8 @@ namespace LiteLoader::Form
         ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
     {
     public:
+        __ctor_default(SimpleForm, ::Form::SimpleForm);
+
         delegate void SimpleFormCallback(MC::Player^, int);
 
         property String^ Title;
@@ -451,6 +453,8 @@ namespace LiteLoader::Form
         ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl
     {
     public:
+        __ctor_default(ModalForm, ::Form::ModalForm);
+
         delegate void ModalFormCallback(MC::Player^ player, bool isConfirm);
 
         property String^ Title;
@@ -478,6 +482,8 @@ namespace LiteLoader::Form
         List<kvPair>^ elements = gcnew List<kvPair>;
 
     public:
+        __ctor_default(CustomForm, ::Form::CustomForm);
+
         delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);
 
         property String^ Title;

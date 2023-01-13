@@ -131,6 +131,7 @@ ref class Command : ClassTemplate<Command, ::__Command>
 {
 public:
     __ctor(Command, __Command);
+    __ctor_default(Command, __Command);
 
 protected:
     property int Version

@@ -77,7 +77,7 @@ namespace MC
     array<AttributeModifier^>^ AttributeInstance::GetModifiers()
     {
         auto modifiers = NativePtr->getModifiers();
-        auto result = gcnew array<AttributeModifier^>(modifiers.size());
+        auto result = gcnew array<AttributeModifier^>(static_cast<int>(modifiers.size()));
 
         for (int i = 0; i < modifiers.size(); ++i)
         {

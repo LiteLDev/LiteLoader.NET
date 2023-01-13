@@ -14,6 +14,7 @@ ref class CommandPropertyBag : ClassTemplate<CommandPropertyBag, ::CommandProper
 {
 public:
     __ctor(CommandPropertyBag, ::CommandPropertyBag);
+    __ctor_default(CommandPropertyBag, ::CommandPropertyBag);
 
     inline void AddToResultList(String^ str0, String^ str1);
     inline void Set(String^ str, BlockPos bp);

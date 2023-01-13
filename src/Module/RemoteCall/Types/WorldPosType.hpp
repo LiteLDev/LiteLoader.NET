@@ -19,6 +19,8 @@ namespace LiteLoader::RemoteCall
         __ctor_copy(WorldPosType, ::RemoteCall::WorldPosType);
         __ctor_move(WorldPosType, ::RemoteCall::WorldPosType);
     public:
+        __ctor_default(WorldPosType, ::RemoteCall::WorldPosType);
+    public:
         WorldPosType(MC::Vec3 pos, int dimId);
         WorldPosType(MC::Vec3 pos);
         WorldPosType(VALUE_TUPLE<MC::Vec3, int> pos);

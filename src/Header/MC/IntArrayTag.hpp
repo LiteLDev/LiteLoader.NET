@@ -10,6 +10,7 @@ ref class IntArrayTag : public Tag
 {
 public:
     __ctor_base(IntArrayTag, ::IntArrayTag, Tag);
+    __ctor_default_base(IntArrayTag, ::IntArrayTag, Tag);
 
     inline TagMemoryChunk ^ Value();
     inline IntArrayTag ^ operator=(TagMemoryChunk ^ val);

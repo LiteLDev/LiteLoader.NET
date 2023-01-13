@@ -15,6 +15,7 @@ namespace MC
     {
     public:
         __ctor(Packet, ::Packet);
+        __ctor_default(Packet, ::Packet);
 
 #ifdef MANUAL_MAINTENANCE
 

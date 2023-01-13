@@ -9,6 +9,7 @@ ref class Int64Tag : public Tag
 {
 public:
     __ctor_base(Int64Tag, ::Int64Tag, Tag);
+    __ctor_default_base(Int64Tag, ::Int64Tag, Tag);
 
     inline int64_t ^ Value();
     inline Int64Tag ^ operator=(int64_t val);

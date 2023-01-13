@@ -8,6 +8,7 @@ ref class Attribute : ClassTemplate<Attribute, ::Attribute>
 {
 public:
     __ctor(Attribute, ::Attribute);
+    __ctor_default(Attribute, ::Attribute);
 
 #ifdef INCLUDE_MCAPI
     property unsigned int IDValue

@@ -32,6 +32,7 @@ namespace MC
     {
     public:
         __ctor(Actor, ::Actor);
+        __ctor_default(Actor, ::Actor);
 
         inline array<String^>^ GetAllTags();
         inline BlockInstance^ GetBlockFromViewVector();

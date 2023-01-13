@@ -17,6 +17,7 @@ namespace LiteLoader::NET::Std
         {
         public:
             __ctor_all(iterator, std::string::iterator);
+            __ctor_default(iterator, std::string::iterator);
 
         public:
             char% Dereference()

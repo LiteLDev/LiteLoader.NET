@@ -9,6 +9,7 @@ ref class NetworkIdentifier : ClassTemplate<NetworkIdentifier, ::NetworkIdentifi
 {
 public:
     __ctor(NetworkIdentifier, ::NetworkIdentifier);
+    __ctor_default(NetworkIdentifier, ::NetworkIdentifier);
     property String^ IP { String ^ get(); }
 
 #ifdef INCLUDE_MCAPI

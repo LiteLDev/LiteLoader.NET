@@ -11,6 +11,7 @@ namespace MC
     {
     public:
         __ctor_base(Mob, ::Mob, Actor);
+        __ctor_default_base(Mob, ::Mob, Actor);
 
         inline bool RefreshInventory();
 
@@ -18,6 +19,7 @@ namespace MC
         {
         public:
             __ctor(JumpPreventionResult, ::Mob::JumpPreventionResult);
+            __ctor_default(JumpPreventionResult, ::Mob::JumpPreventionResult);
         };
 
 #ifdef MANUAL_MAINTENANCE

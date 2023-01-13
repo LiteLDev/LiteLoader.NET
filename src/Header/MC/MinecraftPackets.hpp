@@ -7,15 +7,13 @@ ref class __Packet :MC::Packet
 internal:
     std::shared_ptr<::Packet>* s_ptr;
 
-    !__Packet()
+public:
+    virtual bool ReleaseHandle() override
     {
         delete s_ptr;
-        delete static_cast<MC::Packet^>(this);
-    }
+        MC::Packet::ReleaseHandle();
 
-    virtual ~__Packet()
-    {
-        this->!__Packet();
+        return true;
     }
 
     __Packet(std::shared_ptr<::Packet> sharedPtr)

@@ -28,6 +28,7 @@ ref class Level : ClassTemplate<Level, ::Level>
 {
 public:
     __ctor(Level, ::Level);
+    __ctor_default(Level, ::Level);
 
 public:
     delegate bool Callback(Player ^);
@@ -43,6 +44,7 @@ private:
 public:
     inline /*static*/ void ForEachPlayer(Callback ^ callback);
     inline static array<Player ^> ^ GetAllPlayers();
+    //inline static void* __GetAllPlayers();
     /// name or xuid
     inline /*static*/ Player ^ GetPlayer(String ^ info);
     /// UniqueID

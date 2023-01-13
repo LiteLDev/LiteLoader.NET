@@ -14,6 +14,7 @@ ref class IntTag : public Tag
 {
 public:
     __ctor_base(IntTag, ::IntTag, Tag);
+    __ctor_default_base(IntTag, ::IntTag, Tag);
 
     inline int ^ Value();
     inline IntTag ^ operator=(int val);

@@ -14,6 +14,7 @@ ref class ByteArrayTag : public Tag
 {
 public:
     __ctor_base(ByteArrayTag, ::ByteArrayTag, Tag);
+    __ctor_default_base(ByteArrayTag, ::ByteArrayTag, Tag);
 
     inline static ByteArrayTag ^ Create();
     inline static ByteArrayTag ^ Create(TagMemoryChunk ^ val);

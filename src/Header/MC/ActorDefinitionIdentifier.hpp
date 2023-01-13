@@ -14,6 +14,7 @@ ref struct ActorDefinitionIdentifier : ClassTemplate<ActorDefinitionIdentifier, 
 {
 public:
     __ctor_all(ActorDefinitionIdentifier, ::ActorDefinitionIdentifier);
+    __ctor_default(ActorDefinitionIdentifier, ::ActorDefinitionIdentifier);
 
     static ActorDefinitionIdentifier ^ Create();
     static ActorDefinitionIdentifier ^ Create(String^ ns, String^ identifier, String^ event, String^ fullname, HashedString ^ canonicalHash);

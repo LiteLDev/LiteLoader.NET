@@ -15,6 +15,7 @@ ref struct ScorePacketInfo : ClassTemplate<ScorePacketInfo, ::ScorePacketInfo>
 {
 public:
     __ctor_all(ScorePacketInfo, ::ScorePacketInfo);
+    __ctor_default(ScorePacketInfo, ::ScorePacketInfo);
 
 #ifdef INCLUDE_MCAPI
 

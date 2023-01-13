@@ -10,6 +10,7 @@ ref class WitherBoss : public Monster
 {
 public:
     __ctor_base(WitherBoss, ::WitherBoss, Monster);
+    __ctor_default_base(WitherBoss, ::WitherBoss, Monster);
 
 #ifdef INCLUDE_MCAPI
     property int InvulnerableTicks

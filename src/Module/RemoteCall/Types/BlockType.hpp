@@ -21,6 +21,8 @@ namespace LiteLoader::RemoteCall
         __ctor_copy(BlockType, ::RemoteCall::BlockType);
         __ctor_move(BlockType, ::RemoteCall::BlockType);
     public:
+        __ctor_default(BlockType, ::RemoteCall::BlockType);
+    public:
         BlockType(MC::BlockInstance^ item);
 
         MC::BlockInstance^ Get();

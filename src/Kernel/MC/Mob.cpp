@@ -936,7 +936,7 @@ int MC::Mob::ClearEquipment::get()
 array<int>^ MC::Mob::AllArmorID::get()
 {
     auto __ret = NativePtr->getAllArmorID();
-    auto _tmp__ret = gcnew array<int>(__ret.size());
+    auto _tmp__ret = gcnew array<int>(static_cast<int>(__ret.size()));
     auto __list0 = __ret;
     for (int i = 0; i < __list0.size(); ++i)
     {

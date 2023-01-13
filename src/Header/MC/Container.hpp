@@ -15,6 +15,7 @@ namespace MC
     {
     public:
         __ctor(Container, ::Container);
+        __ctor_default(Container, ::Container);
 
         inline bool AddItem_s(ItemStack^ item);
         inline bool AddItemToFirstEmptySlot_s(ItemStack^ item);

@@ -8,6 +8,7 @@ ref class HashedString : ClassTemplate<HashedString, ::HashedString>
 {
 public:
     __ctor_all(HashedString, ::HashedString);
+    __ctor_default(HashedString, ::HashedString);
 
 #ifdef INCLUDE_MCAPI
 

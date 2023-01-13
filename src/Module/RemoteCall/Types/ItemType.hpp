@@ -21,6 +21,8 @@ namespace LiteLoader::RemoteCall
         __ctor_copy(ItemType, ::RemoteCall::ItemType);
         __ctor_move(ItemType, ::RemoteCall::ItemType);
     public:
+        __ctor_default(ItemType, ::RemoteCall::ItemType);
+    public:
         ItemType(MC::ItemStack^ item);
 
         MC::ItemStack^ Get();

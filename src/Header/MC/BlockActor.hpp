@@ -15,6 +15,7 @@ ref class BlockActor : ClassTemplate<BlockActor, ::BlockActor>
 {
 public:
     __ctor(BlockActor, ::BlockActor);
+    __ctor_default(BlockActor, ::BlockActor);
 
     inline static int getBlockEntityType(Block ^ block);
 

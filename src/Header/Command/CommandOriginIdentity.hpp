@@ -8,5 +8,6 @@ ref struct CommandOriginIdentity : ClassTemplate<CommandOriginIdentity, ::Comman
 {
 public:
     __ctor(CommandOriginIdentity, ::CommandOriginIdentity);
+    __ctor_default(CommandOriginIdentity, ::CommandOriginIdentity);
 };
 } // namespace MC

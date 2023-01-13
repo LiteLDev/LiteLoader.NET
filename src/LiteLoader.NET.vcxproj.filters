@@ -112,6 +112,12 @@
     <Filter Include="Module\RemoteCall\Helpers">
       <UniqueIdentifier>{fb3813ce-a219-415a-bc9f-86d8103ee637}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Core">
+      <UniqueIdentifier>{a2dfff02-030a-4387-9f83-77670157bd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Core\Std">
+      <UniqueIdentifier>{b3713bd0-c142-4834-ae30-852531f108ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -533,6 +539,9 @@
     </ClCompile>
     <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp">
       <Filter>Module\RemoteCall</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\vector.cpp">
+      <Filter>Module\Core\Std</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1036,6 +1045,9 @@
     </ClInclude>
     <ClInclude Include="Main\ClassTemplateDecl.hpp">
       <Filter>Main\Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\vector.hpp">
+      <Filter>Module\Core\Std</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

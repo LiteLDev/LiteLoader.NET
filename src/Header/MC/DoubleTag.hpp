@@ -9,6 +9,7 @@ ref class DoubleTag : public Tag
 {
 public:
     __ctor_base(DoubleTag, ::DoubleTag, Tag);
+    __ctor_default_base(DoubleTag, ::DoubleTag, Tag);
 
     inline double ^ Value();
     inline DoubleTag ^ operator=(double val);

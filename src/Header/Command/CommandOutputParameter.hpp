@@ -18,6 +18,7 @@ ref class CommandOutputParameter : ClassTemplate<CommandOutputParameter, ::Comma
 {
 public:
     __ctor_all(CommandOutputParameter, ::CommandOutputParameter);
+    __ctor_default(CommandOutputParameter, ::CommandOutputParameter);
 
     // enum class NoCountType {};
 

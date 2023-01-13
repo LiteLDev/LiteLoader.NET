@@ -8,6 +8,7 @@ ref class Certificate : ClassTemplate<Certificate, ::Certificate>
 {
 public:
     __ctor(Certificate, ::Certificate);
+    __ctor_default(Certificate, ::Certificate);
 
 #ifdef INCLUDE_MCAPI
 

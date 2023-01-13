@@ -9,6 +9,7 @@ ref class FloatTag : public Tag
 {
 public:
     __ctor_base(FloatTag, ::FloatTag, Tag);
+    __ctor_default_base(FloatTag, ::FloatTag, Tag);
 
     inline float ^ Value();
     inline FloatTag ^ operator=(float val);

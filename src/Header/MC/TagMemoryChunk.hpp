@@ -9,6 +9,7 @@ ref struct TagMemoryChunk : ClassTemplate<TagMemoryChunk, ::TagMemoryChunk>
 {
 public:
     __ctor_all(TagMemoryChunk, ::TagMemoryChunk);
+    __ctor_default(TagMemoryChunk, ::TagMemoryChunk);
 
     property size_t Capacity
     {

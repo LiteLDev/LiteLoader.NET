@@ -24,6 +24,7 @@ ref class CommandRegistry : ClassTemplate<CommandRegistry, ::CommandRegistry>
 {
 public:
     __ctor(CommandRegistry, ::CommandRegistry);
+    __ctor_default(CommandRegistry, ::CommandRegistry);
 
     enum class CommandPermissionLevel : char
     {

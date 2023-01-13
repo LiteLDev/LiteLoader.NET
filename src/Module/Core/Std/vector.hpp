@@ -7,6 +7,7 @@
 namespace LiteLoader::NET::Std
 {
     using LiteLoader::NET::ICppClass;
+    using LiteLoader::NET::IPointerConstructable;
     using System::Runtime::CompilerServices::Unsafe;
     using System::Collections::Generic::IList;
 
@@ -202,14 +203,14 @@ namespace LiteLoader::NET::Std
             static size_t _Get_element_type_size();
         };*/
     }
-    generic<typename T>
-    public ref class vector sealed :IList<T>
+    generic<typename T> where T:
+    gcnew()
+        public ref class vector sealed :IList<T>
     {
     private:
         static size_t elementTypeSize;
         static bool isValueType;
 
-        static void(__clrcall* ctor)(T%, IntPtr);
         static IntPtr(__clrcall* get_intptr)(T);
 
         static vector()
@@ -222,14 +223,8 @@ namespace LiteLoader::NET::Std
                 return;
             }
 
-            if (!type->IsAssignableTo(typeof(ICppClass)))
+            if (!type->IsAssignableTo(typeof(IConstructableCppClass)))
                 throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName);
-
-            auto ctor = type->GetConstructor(PackArray<SystemType^>(typeof(IntPtr)));
-            if (ctor == nullptr)
-                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing .ctor(nint)");
-            else
-                vector::ctor = reinterpret_cast<void(__clrcall*)(T%, IntPtr)>(ctor->MethodHandle.GetFunctionPointer().ToPointer());
 
             auto get_intptr = type->GetMethod("get_Intptr");
             if (get_intptr == nullptr)
@@ -241,9 +236,10 @@ namespace LiteLoader::NET::Std
             auto field = type->GetField(
                 "NativeClassSize", BindingFlags::Public | BindingFlags::Static | BindingFlags::FlattenHierarchy);
 
-            if (field == nullptr || !field->IsLiteral || !field->IsInitOnly)
+            if (field != nullptr && field->IsLiteral)
+                elementTypeSize = static_cast<size_t>(field->GetValue(nullptr));
+            else
                 throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing const(literal) field 'NativeClassSize'");
-            elementTypeSize = static_cast<size_t>(field->GetValue(nullptr));
         }
 
         literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
@@ -298,8 +294,8 @@ namespace LiteLoader::NET::Std
                     }
                     else
                     {
-                        T ret;
-                        ctor(ret, IntPtr(_this.get()));
+                        auto ret = gcnew T();
+                        ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<IntPtr>(_this.get()), false);
                         return ret;
                     }
                 }
@@ -339,7 +335,7 @@ namespace LiteLoader::NET::Std
         {
             virtual int get()
             {
-                return static_cast<int>(_this.size());;
+                return static_cast<int>(_this.size());
             }
         }
 
@@ -353,8 +349,8 @@ namespace LiteLoader::NET::Std
                 }
                 else
                 {
-                    T ret;
-                    ctor(ret, IntPtr(_this.at(index).get()));
+                    auto ret = gcnew T();
+                    ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<IntPtr>(_this.at(index).get()), false);
                     return ret;
                 }
             }

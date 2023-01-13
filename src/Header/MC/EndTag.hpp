@@ -9,6 +9,7 @@ ref class EndTag : public Tag
 {
 public:
     __ctor_base(EndTag, ::EndTag, Tag);
+    __ctor_default_base(EndTag, ::EndTag, Tag);
 
     inline const nullptr_t Value();
     inline static EndTag ^ Create();

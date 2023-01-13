@@ -1654,7 +1654,7 @@ MC::Vec3 MC::Actor::FeetPosition::get()
 array<::System::String^>^ MC::Actor::AllTags::get()
 {
     auto __ret = NativePtr->getAllTags();
-    auto _tmp__ret = gcnew array<::System::String^>(__ret.size());
+    auto _tmp__ret = gcnew array<::System::String^>(static_cast<int>(__ret.size()));
     auto& __list0 = __ret;
     for (int i = 0; i < __list0.size(); ++i)
     {
@@ -2201,7 +2201,7 @@ int MC::Actor::ActiveEffectCount::get()
 array<MC::MobEffectInstance^>^ MC::Actor::AllEffects::get()
 {
     auto& __ret = NativePtr->getAllEffects();
-    auto _tmp__ret = gcnew array<MC::MobEffectInstance^>(__ret.size());
+    auto _tmp__ret = gcnew array<MC::MobEffectInstance^>(static_cast<int>(__ret.size()));
     auto& __list0 = __ret;
     for (int i = 0; i < __list0.size(); ++i)
     {

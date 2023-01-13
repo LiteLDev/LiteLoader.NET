@@ -15,6 +15,7 @@ namespace MC
     {
     public:
         __ctor(ItemStackBase, ::ItemStackBase);
+        __ctor_default(ItemStackBase, ::ItemStackBase);
 
         property int Count
         {

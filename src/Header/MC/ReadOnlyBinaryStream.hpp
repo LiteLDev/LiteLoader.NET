@@ -18,6 +18,7 @@ namespace MC
     {
     public:
         __ctor(ReadOnlyBinaryStream, ::ReadOnlyBinaryStream);
+        __ctor_default(ReadOnlyBinaryStream, ::ReadOnlyBinaryStream);
 
         property unsigned __int64 ReadPointer
         {

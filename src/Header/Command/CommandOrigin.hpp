@@ -26,6 +26,7 @@ namespace MC
     {
     public:
         __ctor(CommandOrigin, ::CommandOrigin);
+        __ctor_default(CommandOrigin, ::CommandOrigin);
 
         inline CommandOrigin^ Clone();
         inline CommandOriginData^ ToCommandOriginData();

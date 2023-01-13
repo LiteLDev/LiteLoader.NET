@@ -6,6 +6,7 @@ public
 ref class ChunkBlockPos : ClassTemplate<ChunkBlockPos, ::ChunkBlockPos>
 {
     __ctor_all(ChunkBlockPos, ::ChunkBlockPos);
+    __ctor_default(ChunkBlockPos, ::ChunkBlockPos);
 
     static ChunkBlockPos ^ Create();
     static ChunkBlockPos ^ Create(char x, short y, char z);

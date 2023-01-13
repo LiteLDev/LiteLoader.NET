@@ -8,6 +8,7 @@ ref class CommandOutputMessage : ClassTemplate<CommandOutputMessage, ::CommandOu
 {
 public:
     __ctor_all(CommandOutputMessage, ::CommandOutputMessage);
+    __ctor_default(CommandOutputMessage, ::CommandOutputMessage);
 
     inline static CommandOutputMessage ^ Create(CommandOutputMessage ^ cm);
     inline static CommandOutputMessage ^ Create(int _EnumCommandOutputMessageType, String^ a0, List<String^> ^ a1);

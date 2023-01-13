@@ -6,13 +6,14 @@
 
 namespace LiteLoader::I18N
 {
-    public ref class I18nBase abstract : ClassTemplate<I18nBase, ::I18nBase>
+    public ref class I18nBase abstract : ClassTemplate<I18nBase, ::I18nBase, true>
     {
     internal:
         ::I18nBase* _this = NativePtr;
 
     public:
         __ctor(I18nBase, ::I18nBase);
+        __ctor_default(I18nBase, ::I18nBase);
 
         using _SubLangData = Dictionary<String^, String^>;
         using _LangData = Dictionary<String^, _SubLangData^>;

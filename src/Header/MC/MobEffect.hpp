@@ -12,6 +12,7 @@ namespace MC
     {
     public:
         __ctor(MobEffect, ::MobEffect);
+        __ctor_default(MobEffect, ::MobEffect);
         enum class EffectType : short
         {
             Empty = 0,
@@ -50,6 +51,7 @@ namespace MC
         {
         public:
             __ctor(FactorCalculationData, ::MobEffect::FactorCalculationData);
+            __ctor_default(FactorCalculationData, ::MobEffect::FactorCalculationData);
         };
     };
 } // namespace MC

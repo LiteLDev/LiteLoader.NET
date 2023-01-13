@@ -20,6 +20,7 @@ namespace MC
     {
     public:
         __ctor_base(ItemStack, ::ItemStack, ItemStackBase);
+        __ctor_default_base(ItemStack, ::ItemStack, ItemStackBase);
 
         inline static ItemStack^ Create();
         inline static ItemStack^ Create(String^ type, int count);

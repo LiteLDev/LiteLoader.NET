@@ -25,6 +25,7 @@ public ref class Tag : ClassTemplate<Tag, ::Tag>
 {
 public:
     __ctor(Tag, ::Tag);
+    __ctor_default(Tag, ::Tag);
 
 public:
     enum class Type : uint8_t

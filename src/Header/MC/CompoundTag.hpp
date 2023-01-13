@@ -33,6 +33,7 @@ ref class CompoundTag : public Tag
 {
 public:
     __ctor_base(CompoundTag, ::CompoundTag, Tag);
+    __ctor_default_base(CompoundTag, ::CompoundTag, Tag);
 
     inline static CompoundTag ^ Create();
     inline Dictionary<String^, CompoundTagVariant ^> ^ Value();

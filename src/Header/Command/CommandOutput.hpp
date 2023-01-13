@@ -19,6 +19,7 @@ ref class CommandOutput : ClassTemplate<CommandOutput, ::CommandOutput>
 {
 public:
     __ctor(CommandOutput, ::CommandOutput);
+    __ctor_default(CommandOutput, ::CommandOutput);
     __ctor_move(CommandOutput, ::CommandOutput);
 
     inline static CommandOutput ^ Create(CommandOutput ^ co);

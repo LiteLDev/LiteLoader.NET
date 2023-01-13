@@ -9,6 +9,7 @@ ref class ByteTag : public Tag
 {
 public:
     __ctor_base(ByteTag, ::ByteTag, Tag);
+    __ctor_default_base(ByteTag, ::ByteTag, Tag);
 
     inline unsigned char Value();
     inline ByteTag ^ operator=(unsigned char val);

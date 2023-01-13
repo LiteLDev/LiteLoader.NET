@@ -27,6 +27,7 @@
 #define __ref_class public ref class
 #define __static abstract sealed
 #define __default_param(obj) [DefaultParameterValue(obj)]
+#define __as dynamic_cast
 
 #define typeof(type) type::typeid
 
@@ -99,7 +100,7 @@ inline uint64_t do_Hash(String ^ str)
 template<typename T, typename U>
 inline T As(U u)
 {
-    return dynamic_cast<T>(u);
+    return __as<T>(u);
 }
 
 template<typename T, typename U>

@@ -9,6 +9,7 @@ ref class Monster : public Mob
 {
 public:
     __ctor_base(Monster, ::Monster, Mob);
+    __ctor_default_base(Monster, ::Monster, Mob);
 
 #ifdef INCLUDE_MCAPI
     property bool IsDarkEnoughToSpawn

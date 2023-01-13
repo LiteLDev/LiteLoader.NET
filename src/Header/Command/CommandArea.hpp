@@ -8,5 +8,6 @@ ref class CommandArea : ClassTemplate<CommandArea, ::CommandArea>
 {
 public:
     __ctor(CommandArea, ::CommandArea);
+    __ctor_default(CommandArea, ::CommandArea);
 };
 } // namespace MC

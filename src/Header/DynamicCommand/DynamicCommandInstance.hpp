@@ -17,12 +17,14 @@ namespace LiteLoader::DynamicCommand
     {
     public:
         __ctor(DynamicCommandInstance, ::DynamicCommandInstance);
+        __ctor_default(DynamicCommandInstance, ::DynamicCommandInstance);
 
     public:
         ref struct ParameterIndex : ClassTemplate<ParameterIndex, ::DynamicCommandInstance::ParameterIndex>
         {
         public:
             __ctor_all(ParameterIndex, ::DynamicCommandInstance::ParameterIndex);
+            __ctor_default(ParameterIndex, ::DynamicCommandInstance::ParameterIndex);
 
             property DynamicCommandInstance^ Instance { DynamicCommandInstance^ get(); void set(DynamicCommandInstance^ val); };
             property size_t Index { size_t get(); void set(size_t value); };

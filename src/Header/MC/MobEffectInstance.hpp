@@ -9,6 +9,7 @@ ref class MobEffectInstance : ClassTemplate<MobEffectInstance, ::MobEffectInstan
 {
 public:
     __ctor(MobEffectInstance, ::MobEffectInstance);
+    __ctor_default(MobEffectInstance, ::MobEffectInstance);
 
     property array<char> ^ Filler {
         array<char> ^ get();

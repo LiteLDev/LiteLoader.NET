@@ -8,6 +8,7 @@ public
 ref class CommandVersion : ClassTemplate<CommandVersion, ::CommandVersion>
 {
     __ctor_all(CommandVersion, ::CommandVersion);
+    __ctor_default(CommandVersion, ::CommandVersion);
 
     inline static CommandVersion ^ Create();
     inline bool IsCompatible(int a0);

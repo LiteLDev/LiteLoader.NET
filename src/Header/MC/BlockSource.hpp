@@ -18,6 +18,7 @@ ref class BlockSource : ClassTemplate<BlockSource, ::BlockSource>
 {
 public:
     __ctor(BlockSource, ::BlockSource);
+    __ctor_default(BlockSource, ::BlockSource);
 
     BlockInstance ^ GetBlockInstance(BlockPos pos);
     property AutomaticID<Dimension^, int>^ DimensionId

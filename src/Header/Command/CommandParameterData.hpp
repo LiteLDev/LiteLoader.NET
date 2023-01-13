@@ -36,6 +36,7 @@ ref class CommandParameterData : ClassTemplate<CommandParameterData, ::CommandPa
 {
 public:
     __ctor_all(CommandParameterData, ::CommandParameterData);
+    __ctor_default(CommandParameterData, ::CommandParameterData);
 
     value struct ParseFn
     {

@@ -26,6 +26,7 @@ namespace MC
     {
     public:
         __ctor_base(Player, ::Player, Mob);
+        __ctor_default_base(Player, ::Player, Mob);
 
         enum class PositionMode : char
         {

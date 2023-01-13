@@ -19,6 +19,8 @@ namespace LiteLoader::RemoteCall
         __ctor_copy(BlockPosType, ::RemoteCall::BlockPosType);
         __ctor_move(BlockPosType, ::RemoteCall::BlockPosType);
     public:
+        __ctor_default(BlockPosType, ::RemoteCall::BlockPosType);
+    public:
         BlockPosType(MC::BlockPos pos, int dimId);
         BlockPosType(MC::BlockPos pos);
         BlockPosType(VALUE_TUPLE<MC::BlockPos, int> pos);

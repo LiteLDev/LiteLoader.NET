@@ -23,6 +23,7 @@ namespace MC
     {
     public:
         __ctor_all(BlockInstance, ::BlockInstance);
+        __ctor_default(BlockInstance, ::BlockInstance);
 
         inline static BlockInstance^ CreateBlockinstance(Block^ block, BlockPos pos, int dimId);
 

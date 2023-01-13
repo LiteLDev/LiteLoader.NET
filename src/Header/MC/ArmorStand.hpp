@@ -10,11 +10,13 @@ ref class ArmorStand : public Mob
 {
 public:
     __ctor_base(ArmorStand, ::ArmorStand, Mob);
+    __ctor_default_base(ArmorStand, ::ArmorStand, Mob);
 
     ref class Pose : ClassTemplate<Pose, ::ArmorStand::Pose>
     {
     public:
         __ctor(Pose, ::ArmorStand::Pose);
+        __ctor_default(Pose, ::ArmorStand::Pose);
     };
 
 #ifdef INCLUDE_MCAPI

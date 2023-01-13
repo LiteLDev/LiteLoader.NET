@@ -18,6 +18,7 @@ ref class ListTag : public Tag
 {
 public:
     __ctor_base(ListTag, ::ListTag, Tag);
+    __ctor_default_base(ListTag, ::ListTag, Tag);
 
     inline static ListTag ^ Create();
     array<Tag ^> ^ Value();
