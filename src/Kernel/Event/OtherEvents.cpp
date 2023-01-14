@@ -13,6 +13,7 @@ void InitOtherEvents()
     REGISTER_NATIVE_EVENT(ConsoleOutputEvent);
     REGISTER_NATIVE_EVENT(PlayerBedEnterEvent);
     REGISTER_NATIVE_EVENT(ScriptPluginManagerEvent);
-    REGISTER_NATIVE_EVENT(MobSpawnEvent);
+    REGISTER_NATIVE_EVENT(MobTrySpawnEvent);
     REGISTER_NATIVE_EVENT(FormResponsePacketEvent);
+    REGISTER_NATIVE_EVENT(MobSpawnedEvent);
 }
