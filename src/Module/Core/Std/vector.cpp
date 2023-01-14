@@ -7,7 +7,7 @@ namespace LiteLoader::NET::Std::Internal
     {
         _Iter = *reinterpret_cast<_Vector_iterator_data*>(stdVectorIteratorPtr);
     }
-    inline vector::iterator::iterator(IntPtr stdVectorIteratorPtr, size_t elementTypeSize)
+    inline vector::iterator::iterator(nint_t stdVectorIteratorPtr, size_t elementTypeSize)
         : _Element_type_size(elementTypeSize)
     {
         _Iter = *reinterpret_cast<_Vector_iterator_data*>((void*)stdVectorIteratorPtr);
@@ -22,7 +22,7 @@ namespace LiteLoader::NET::Std::Internal
     {
         _Data = *reinterpret_cast<_Vector_data*>(stdVectorPtr);
     }
-    inline vector::vector(IntPtr stdVectorPtr, size_t elementTypeSize)
+    inline vector::vector(nint_t stdVectorPtr, size_t elementTypeSize)
         : _Element_type_size(elementTypeSize)
     {
         _Data = *reinterpret_cast<_Vector_data*>((void*)stdVectorPtr);

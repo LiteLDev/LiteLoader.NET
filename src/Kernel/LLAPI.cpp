@@ -76,9 +76,9 @@ LiteLoader::Version::operator::ll::Version ()
     return _this;
 }
 
-System::IntPtr LiteLoader::Version::ToIntPtr()
+nint_t LiteLoader::Version::ToIntPtr()
 {
-    return System::IntPtr((void*)_this);
+    return nint_t((void*)_this);
 }
 
 System::String^ LiteLoader::Version::ToString()
@@ -165,7 +165,7 @@ inline LiteLoader::Plugin^ LiteLoader::LLAPI::GetPlugin(System::String^ name, bo
     return LiteLoader::NET::PluginManager::getPlugin(name, includeNativePlugin, includeScriptPlugin);
 }
 
-inline LiteLoader::Plugin^ LiteLoader::LLAPI::GetPlugin(System::IntPtr% handle)
+inline LiteLoader::Plugin^ LiteLoader::LLAPI::GetPlugin(nint_t% handle)
 {
     return LiteLoader::NET::PluginManager::getPlugin(handle);
 }

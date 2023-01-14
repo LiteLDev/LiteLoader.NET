@@ -9,6 +9,6 @@ namespace LiteLoader::Hook
     internal:
         generic<typename TDelegate>
         where TDelegate : Delegate
-        static TDelegate _hookFunction(IntPtr hmodule, std::variant<void*, gcroot<String^>> addressOrSymbol, TDelegate newFunc);
+        static TDelegate _hookFunction(nint_t hmodule, std::variant<void*, gcroot<String^>> addressOrSymbol, TDelegate newFunc);
     };
 }

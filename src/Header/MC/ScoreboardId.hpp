@@ -22,10 +22,10 @@ public:
         __int64 get();
         void set(__int64 id);
     }
-    property System::IntPtr Null
+    property nint_t Null
     {
-        inline System::IntPtr get();
-        inline void set(System::IntPtr p);
+        inline nint_t get();
+        inline void set(nint_t p);
     }
 
     int GetHashCode() override;

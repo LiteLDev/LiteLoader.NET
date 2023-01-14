@@ -35,12 +35,12 @@ namespace LiteLoader::NET
         if (ret)
         {
             PluginManager::ManagedPluginData->TryAdd(name, PluginTuple(gcnew Plugin(::ll::getPlugin(_name)), Asm));
-            LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, IntPtr(handle));
+            LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(Asm, nint_t(handle));
         }
 
         return ret;
     }
-    Plugin^ PluginManager::getPlugin(System::IntPtr handle)
+    Plugin^ PluginManager::getPlugin(nint_t handle)
     {
         auto pPlugin = ::ll::getPlugin((HMODULE)handle.ToPointer());
         if (pPlugin == nullptr)

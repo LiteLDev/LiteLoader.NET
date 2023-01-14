@@ -3,15 +3,15 @@ namespace LiteLoader::NET
 {
     public interface class IPointerConstructable
     {
-        virtual void SetNativePointer(IntPtr ptr, bool ownsInstance);
+        virtual void SetNativePointer(nint_t ptr, bool ownsInstance);
     };
 
     public interface class ICppClass
     {
-        property System::IntPtr Intptr
+        property nint_t Intptr
         {
         public:
-            virtual System::IntPtr get();
+            virtual nint_t get();
         };
 
         virtual void Destruct();

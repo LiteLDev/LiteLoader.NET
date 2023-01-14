@@ -3,11 +3,13 @@
 #include <src/Main/ClassTemplate.hpp>
 #include <memory>
 
+#include "move.hpp"
+
 namespace LiteLoader::NET::Std
 {
     using namespace clix;
 
-    public ref class string : ClassTemplate<string, std::string>
+    public ref class string : ClassTemplate<string, std::string>, IMoveable
     {
     public:
         __ctor_all(string, std::string);
@@ -74,8 +76,16 @@ namespace LiteLoader::NET::Std
             :ClassTemplate(std::string())
         {
         }
+        string(string^ str)
+            :ClassTemplate(*str->NativePtr)
+        {
+        }
+        string(move<string^> str)
+            :ClassTemplate(std::move(*static_cast<string^>(str)->NativePtr))
+        {
+        }
         string(String^ str)
-            :ClassTemplate(marshalString(str))
+            : ClassTemplate(marshalString(str))
         {
         }
         iterator^ begin() {
@@ -173,30 +183,28 @@ namespace LiteLoader::NET::Std
         void pop_back() {
             NativePtr->pop_back();
         }
-        IntPtr c_str_intptr() {
-            return IntPtr((void*)NativePtr->c_str());
+        nint_t c_str_intptr() {
+            return nint_t((void*)NativePtr->c_str());
         }
         char const* c_str() {
             return NativePtr->c_str();
         }
-        IntPtr data_intptr() {
-            return IntPtr((void*)NativePtr->data());
+        nint_t data_intptr() {
+            return nint_t((void*)NativePtr->data());
         }
         char const* data() {
             return NativePtr->data();
         }
-        //IntPtr get_allocator_intptr() {
-        //        return IntPtr((void*)NativePtr->get_allocator());
+        //nint_t get_allocator_intptr() {
+        //        return nint_t((void*)NativePtr->get_allocator());
         //}
-        //IntPtr get_allocator() {
+        //nint_t get_allocator() {
         //        return NativePtr->get_allocator();
         //}
         //size_t copy() {
         //}
 
         //find_first_of
-
-        //开摆
 
         String^ ToString() override
         {

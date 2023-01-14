@@ -14,7 +14,7 @@ namespace LiteLoader::RemoteCall::Helper
     using value = ::RemoteCall::Value;
 
     MemoryHelper::RemoreCallHandle::RemoreCallHandle(void* ptr, bool ownsNativeInstance, InstanceType type)
-        :SafeHandle(IntPtr(ptr), ownsNativeInstance), instanceType(type)
+        :SafeHandle(nint_t(ptr), ownsNativeInstance), instanceType(type)
     {
     }
 
@@ -24,7 +24,7 @@ namespace LiteLoader::RemoteCall::Helper
     }
 
     MemoryHelper::RemoreCallHandle::RemoreCallHandle()
-        :SafeHandle(IntPtr::Zero, false)
+        :SafeHandle(nint_t::Zero, false)
     {
     }
 

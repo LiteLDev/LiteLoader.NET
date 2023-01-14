@@ -27,15 +27,15 @@ namespace LiteLoader::Schedule
     {
     public:
         inline static ScheduleTask^ Delay(TaskDelegate^ task, unsigned long long tickDelay);
-        inline static ScheduleTask^ Delay(TaskDelegate^ task, unsigned long long tickDelay, System::IntPtr handle);
+        inline static ScheduleTask^ Delay(TaskDelegate^ task, unsigned long long tickDelay, nint_t handle);
         inline static ScheduleTask^ Repeat(TaskDelegate^ task, unsigned long long tickInterval);
         inline static ScheduleTask^ Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount);
-        inline static ScheduleTask^ Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handle);
+        inline static ScheduleTask^ Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount, nint_t handle);
         inline static ScheduleTask^ DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval);
         inline static ScheduleTask^ DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount);
-        inline static ScheduleTask^ DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handle);
+        inline static ScheduleTask^ DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, nint_t handle);
         inline static ScheduleTask^ NextTick(TaskDelegate^ task);
-        inline static ScheduleTask^ NextTick(TaskDelegate^ task, System::IntPtr handle);
+        inline static ScheduleTask^ NextTick(TaskDelegate^ task, nint_t handle);
     internal:
     };
 } // namespace LiteLoader::Schedule

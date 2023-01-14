@@ -36,9 +36,9 @@ namespace LiteLoader::RemoteCall::Helper
     {
     public:
 
-        value struct ArrayTypeWeakRef :IEnumerable<IntPtr>
+        value struct ArrayTypeWeakRef :IEnumerable<nint_t>
         {
-            value struct iterator :IEnumerator<IntPtr>
+            value struct iterator :IEnumerator<nint_t>
             {
                 [StructLayout(LayoutKind::Sequential, Size = sizeof(array_type_native_iterator))]
                 value struct __iterator {};
@@ -51,9 +51,9 @@ namespace LiteLoader::RemoteCall::Helper
                 virtual bool MoveNext();
                 virtual void Reset();
                 void* GetCurrentPtr();
-                property IntPtr Current
+                property nint_t Current
                 {
-                    virtual IntPtr get();
+                    virtual nint_t get();
                 }
 
             private:
@@ -70,20 +70,20 @@ namespace LiteLoader::RemoteCall::Helper
             void Reset(void* ptr);
             void* GetArrayTypePtrByIndex(int index);
 
-            property IntPtr default[int]
+            property nint_t default[int]
             {
-                IntPtr get(int index);
+                nint_t get(int index);
             }
-            virtual IEnumerator<IntPtr>^ GetEnumerator();
+            virtual IEnumerator<nint_t>^ GetEnumerator();
             iterator GetIterator();
 
         private:
             virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;
         };
 
-        value struct ObjectTypeWeakRef :IEnumerable<IntPtr>
+        value struct ObjectTypeWeakRef :IEnumerable<nint_t>
         {
-            value struct iterator :IEnumerator<IntPtr>
+            value struct iterator :IEnumerator<nint_t>
             {
                 [StructLayout(LayoutKind::Sequential, Size = sizeof(object_type_native_iterator))]
                 value struct __iterator {};
@@ -96,9 +96,9 @@ namespace LiteLoader::RemoteCall::Helper
                 virtual bool MoveNext();
                 virtual void Reset();
                 void* GetCurrentPtr();
-                property IntPtr Current
+                property nint_t Current
                 {
-                    virtual IntPtr get();
+                    virtual nint_t get();
                 }
                 String^ GetKey();
                 void* GetValue();
@@ -116,12 +116,12 @@ namespace LiteLoader::RemoteCall::Helper
             size_t Size();
             void Reset(void* ptr);
 
-            property IntPtr default[String^]
+            property nint_t default[String^]
             {
-                IntPtr get(String ^ key);
+                nint_t get(String ^ key);
             }
 
-            virtual IEnumerator<IntPtr>^ GetEnumerator();
+            virtual IEnumerator<nint_t>^ GetEnumerator();
             iterator GetIterator();
 
         private:

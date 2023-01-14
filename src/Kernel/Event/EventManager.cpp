@@ -21,7 +21,7 @@ namespace LiteLoader::Event
         eventIds.TryAdd(eventType, eventId);
         eventManagerData.TryAdd(eventIds[eventType], gcnew __PermissionWithCallbackFunctions(6) { nullptr });
 
-        auto module = (IntPtr)GlobalClass::GetCurrentModule(eventType->Assembly);
+        auto module = (nint_t)GlobalClass::GetCurrentModule(eventType->Assembly);
 
         LiteLoader::NET::PluginOwnData::AddRegisteredEvent(module, eventType, eventId);
     }
@@ -38,7 +38,7 @@ namespace LiteLoader::Event
     generic <typename TListener> where TListener : IEventListener
         void EventManager::RegisterListener()
     {
-        RegisterListener<TListener>(IntPtr(CALLING_MODULE));
+        RegisterListener<TListener>(nint_t(CALLING_MODULE));
     }
 
 

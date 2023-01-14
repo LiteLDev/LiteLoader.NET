@@ -66,18 +66,28 @@ using IEnumeratorNonGgeneric = System::Collections::IEnumerator;
 
 using SystemType = System::Type;
 using byte_t = unsigned char;
+using nint_t = IntPtr;
 
 #include <src/Tools/clix.hpp>
-using namespace clix;
 
 inline String^ marshalString(std::string const& str)
 {
-    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
+    return clix::marshalString<clix::Encoding::E_UTF8>(str);
 }
 
 inline std::string marshalString(String ^ str)
 {
-    return marshalString<clix::CLI_Encoding::E_UTF8>(str);
+    return clix::marshalString<clix::Encoding::E_UTF8>(str);
+}
+
+inline String^ marshalWstring(std::wstring const& str)
+{
+    return clix::marshalString<clix::Encoding::E_UTF16>(str);
+}
+
+inline std::wstring marshalWstring(String ^ str)
+{
+    return clix::marshalString<clix::Encoding::E_UTF16>(str);
 }
 
 inline uint64_t do_Hash(String ^ str)

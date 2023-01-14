@@ -66,12 +66,12 @@ namespace LiteLoader::Hook
 
         auto instance = gcnew T();
 
-        instance->_original = HookHelper::_hookFunction(IntPtr(CALLING_MODULE), sym, instance->Hook);
+        instance->_original = HookHelper::_hookFunction(nint_t(CALLING_MODULE), sym, instance->Hook);
     }
 
     generic<typename TDelegate>
     inline TDelegate Thook::HookFunction(String^ symbol, TDelegate newFunc)
     {
-        return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), symbol, newFunc);
+        return HookHelper::_hookFunction(nint_t(CALLING_MODULE), symbol, newFunc);
     }
 }

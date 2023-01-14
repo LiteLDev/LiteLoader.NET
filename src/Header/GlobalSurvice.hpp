@@ -1,6 +1,6 @@
 #pragma once
 
-using System::IntPtr;
+#include <src/Main/DotNETGlobal.hpp>
 
 namespace MC
 {
@@ -25,53 +25,53 @@ namespace LiteLoader
 
         ////////////////Ptr////////////////
 
-        static property IntPtr Level_Native
+        static property nint_t Level_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr CommandRegistry_Native
+        static property nint_t CommandRegistry_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr Minecraft_Native
+        static property nint_t Minecraft_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr MinecraftCommands_Native
+        static property nint_t MinecraftCommands_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr RakNetServerLocator_Native
+        static property nint_t RakNetServerLocator_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr ServerLevel_Native
+        static property nint_t ServerLevel_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr ServerNetworkHandler_Native
+        static property nint_t ServerNetworkHandler_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr DBStorage_Native
+        static property nint_t DBStorage_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr Scoreboard_Native
+        static property nint_t Scoreboard_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr AllowListFile_Native
+        static property nint_t AllowListFile_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr PropertiesSettings_Native
+        static property nint_t PropertiesSettings_Native
         {
-            IntPtr get();
+            nint_t get();
         }
-        static property IntPtr LevelStorage_Native
+        static property nint_t LevelStorage_Native
         {
-            IntPtr get();
+            nint_t get();
         }
 
     };

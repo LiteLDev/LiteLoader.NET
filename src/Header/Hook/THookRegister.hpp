@@ -9,11 +9,11 @@ namespace LiteLoader::Hook
 
     public ref class THookRegister
     {
-        THookRegister(System::IntPtr address, System::IntPtr hook, SecondaryRankPtr org);
+        THookRegister(nint_t address, nint_t hook, SecondaryRankPtr org);
 
         THookRegister(void* address, void* hook, void** org);
 
-        THookRegister(System::String^ sym, System::IntPtr hook, SecondaryRankPtr org);
+        THookRegister(System::String^ sym, nint_t hook, SecondaryRankPtr org);
 
         THookRegister(char const* sym, void* hook, void** org);
     };

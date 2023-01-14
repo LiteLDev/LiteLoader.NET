@@ -228,7 +228,7 @@ namespace LiteLoader::Event
                 {
                     DelegateCallbackFunc_ref^ ftr = gcnew DelegateCallbackFunc_ref(this, &EventCallBack::call_ref);
                     gch = GCHandle::Alloc(ftr);
-                    IntPtr^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
+                    nint_t^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
                     auto pfunc = static_cast<NativeCallbackFunc_ref>(_ptr->ToPointer());
                     Listener = gcnew __EventListener<NATIVEEVENT>(
                         ::Event::EventManager<NATIVEEVENT>::addEventListenerRef(
@@ -240,7 +240,7 @@ namespace LiteLoader::Event
                 {
                     DelegateCallbackFunc^ ftr = gcnew DelegateCallbackFunc(this, &EventCallBack::call);
                     gch = GCHandle::Alloc(ftr);
-                    IntPtr^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
+                    nint_t^ _ptr = Marshal::GetFunctionPointerForDelegate(ftr);
                     auto pfunc = static_cast<NativeCallbackFunc>(_ptr->ToPointer());
                     Listener = gcnew __EventListener<NATIVEEVENT>(
                         ::Event::EventManager<NATIVEEVENT>::addEventListener(
@@ -273,7 +273,7 @@ namespace LiteLoader::Event
             auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, false);
             GC::KeepAlive(callbackInstance);
 
-            auto module = (IntPtr)GET_MODULE(plugin);
+            auto module = (nint_t)GET_MODULE(plugin);
 
             LiteLoader::NET::PluginOwnData::AddSubscribedNativeEvent(module, callbackInstance->Listener);
 
@@ -285,7 +285,7 @@ namespace LiteLoader::Event
             auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, true);
             GC::KeepAlive(callbackInstance);
 
-            auto module = (IntPtr)GET_MODULE(plugin);
+            auto module = (nint_t)GET_MODULE(plugin);
 
             LiteLoader::NET::PluginOwnData::AddSubscribedNativeEvent(module, callbackInstance->Listener);
 

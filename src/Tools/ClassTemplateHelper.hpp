@@ -1,10 +1,10 @@
 #pragma once
 #define __ctor(RefClass, NativeClass)                   \
-    RefClass(System::IntPtr p)                          \
+    RefClass(nint_t p)                                  \
         : ClassTemplate(p)                              \
     {                                                   \
     }                                                   \
-    RefClass(System::IntPtr p, bool ownsNativeInstance) \
+    RefClass(nint_t p, bool ownsNativeInstance)         \
         : ClassTemplate(p, ownsNativeInstance)          \
     {                                                   \
     }                                                   \
@@ -53,11 +53,11 @@ public:
 
 
 #define __ctor_base(RefClass, NativeClass, BaseClass)                   \
-    RefClass(System::IntPtr p)                                          \
+    RefClass(nint_t p)                                                  \
         : BaseClass(p)                                                  \
     {                                                                   \
     }                                                                   \
-    RefClass(System::IntPtr p, bool ownsNativeInstance)                 \
+    RefClass(nint_t p, bool ownsNativeInstance)                         \
         : BaseClass(p, ownsNativeInstance)                              \
     {                                                                   \
     }                                                                   \

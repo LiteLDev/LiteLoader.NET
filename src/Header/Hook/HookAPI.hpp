@@ -10,9 +10,9 @@ namespace LiteLoader::Hook {
     {
     public:
         inline static int HookFunction(void* oldfunc, void** poutold, void* newfunc);
-        inline static int HookFunction(System::IntPtr oldfunc, SecondaryRankPtr poutold, System::IntPtr newfunc);
+        inline static int HookFunction(nint_t oldfunc, SecondaryRankPtr poutold, nint_t newfunc);
         inline static void* dlsym_real(char const* name);
-        inline static System::IntPtr dlsym_real(System::String^ name);
+        inline static nint_t dlsym_real(System::String^ name);
         inline static uintptr_t findSig(String^ szSignature);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         generic<typename RTN>
@@ -174,21 +174,21 @@ namespace LiteLoader::Hook {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         generic<typename RTN>
         where RTN : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off) {
             return (*(RTN(**)(void const*))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer());
         }
 
         generic<typename RTN, typename T0>
         where RTN : System::ValueType
         where T0 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0) {
             return (*(RTN(**)(void const*, T0))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0);
         }
         generic<typename RTN, typename T0, typename T1>
         where RTN : System::ValueType
         where T0 : System::ValueType
         where T1 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1) {
             return (*(RTN(**)(void const*, T0, T1))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1);
         }
         generic<typename RTN, typename T0, typename T1, typename T2>
@@ -196,7 +196,7 @@ namespace LiteLoader::Hook {
         where T0 : System::ValueType
         where T1 : System::ValueType
         where T2 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
             return (*(RTN(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2);
         }
         generic<typename RTN, typename T0, typename T1, typename T2, typename T3>
@@ -205,7 +205,7 @@ namespace LiteLoader::Hook {
         where T1 : System::ValueType
         where T2 : System::ValueType
         where T3 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
             return (*(RTN(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3);
         }
         generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4>
@@ -215,7 +215,7 @@ namespace LiteLoader::Hook {
         where T2 : System::ValueType
         where T3 : System::ValueType
         where T4 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
             return (*(RTN(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4);
         }
         generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -226,7 +226,7 @@ namespace LiteLoader::Hook {
         where T3 : System::ValueType
         where T4 : System::ValueType
         where T5 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
             return (*(RTN(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5);
         }
         generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
@@ -238,7 +238,7 @@ namespace LiteLoader::Hook {
         where T4 : System::ValueType
         where T5 : System::ValueType
         where T6 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
             return (*(RTN(**)(void const*, T0, T1, T2, T3, T4, T5, T6))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5, a6);
         }
         generic<typename RTN, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
@@ -251,30 +251,30 @@ namespace LiteLoader::Hook {
         where T5 : System::ValueType
         where T6 : System::ValueType
         where T7 : System::ValueType
-            inline static RTN VirtualCall(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
+            inline static RTN VirtualCall(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
             return (*(RTN(**)(void const*, T0, T1, T2, T3, T4, T5, T6, T7))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5, a6, a7);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        inline static void Virtual_Call(System::IntPtr _this, uintptr_t off) {
+        inline static void Virtual_Call(nint_t _this, uintptr_t off) {
             return (*(void(**)(void const*))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer());
         }
 
         generic< typename T0>
         where T0 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0) {
             return (*(void(**)(void const*, T0))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0);
         }
         generic< typename T0, typename T1>
         where T0 : System::ValueType
         where T1 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1) {
             return (*(void(**)(void const*, T0, T1))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1);
         }
         generic< typename T0, typename T1, typename T2>
         where T0 : System::ValueType
         where T1 : System::ValueType
         where T2 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2) {
             return (*(void(**)(void const*, T0, T1, T2))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2);
         }
         generic< typename T0, typename T1, typename T2, typename T3>
@@ -282,7 +282,7 @@ namespace LiteLoader::Hook {
         where T1 : System::ValueType
         where T2 : System::ValueType
         where T3 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3) {
             return (*(void(**)(void const*, T0, T1, T2, T3))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3);
         }
         generic< typename T0, typename T1, typename T2, typename T3, typename T4>
@@ -291,7 +291,7 @@ namespace LiteLoader::Hook {
         where T2 : System::ValueType
         where T3 : System::ValueType
         where T4 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4) {
             return (*(void(**)(void const*, T0, T1, T2, T3, T4))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4);
         }
         generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -301,7 +301,7 @@ namespace LiteLoader::Hook {
         where T3 : System::ValueType
         where T4 : System::ValueType
         where T5 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) {
             return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5);
         }
         generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
@@ -312,7 +312,7 @@ namespace LiteLoader::Hook {
         where T4 : System::ValueType
         where T5 : System::ValueType
         where T6 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) {
             return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5, a6);
         }
         generic< typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
@@ -324,12 +324,12 @@ namespace LiteLoader::Hook {
         where T5 : System::ValueType
         where T6 : System::ValueType
         where T7 : System::ValueType
-            inline static void Virtual_Call(System::IntPtr _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
+            inline static void Virtual_Call(nint_t _this, uintptr_t off, T0 a0, T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) {
             return (*(void(**)(void const*, T0, T1, T2, T3, T4, T5, T6, T7))(*(uintptr_t*)_this.ToPointer() + off))(_this.ToPointer(), a0, a1, a2, a3, a4, a5, a6, a7);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        inline static System::IntPtr const dAccess(System::IntPtr ptr, uintptr_t off) {
-            return System::IntPtr((void*)(((uintptr_t)ptr.ToPointer()) + off));
+        inline static nint_t const dAccess(nint_t ptr, uintptr_t off) {
+            return nint_t((void*)(((uintptr_t)ptr.ToPointer()) + off));
         }
 
         inline static void const* dAccess(void const* ptr, uintptr_t off) {
@@ -341,8 +341,8 @@ namespace LiteLoader::Hook {
                     /// </summary>
         generic<typename VirtualProtorype>
         where VirtualProtorype : System::Delegate
-            inline static VirtualProtorype VirtualFuction(System::IntPtr _this, uintptr_t off) {
-            return VirtualProtorype(Marshal::GetDelegateForFunctionPointer(System::IntPtr((void*)(((*(uintptr_t*)_this.ToPointer()) + off))), VirtualProtorype::typeid));
+            inline static VirtualProtorype VirtualFuction(nint_t _this, uintptr_t off) {
+            return VirtualProtorype(Marshal::GetDelegateForFunctionPointer(nint_t((void*)(((*(uintptr_t*)_this.ToPointer()) + off))), VirtualProtorype::typeid));
         }
 
 
@@ -354,11 +354,11 @@ namespace LiteLoader::Hook {
         generic<typename FunctionProtorype>
         where FunctionProtorype : System::Delegate
             inline static FunctionProtorype SYM(System::String^ sym) {
-            return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(System::IntPtr(::dlsym_real(marshalString(sym).c_str()))));
+            return FunctionProtorype(Marshal::GetDelegateForFunctionPointer<FunctionProtorype>(nint_t(::dlsym_real(marshalString(sym).c_str()))));
         }
 
-        inline static System::IntPtr SYM(System::String^ sym) {
-            return System::IntPtr(::dlsym_real(marshalString(sym).c_str()));
+        inline static nint_t SYM(System::String^ sym) {
+            return nint_t(::dlsym_real(marshalString(sym).c_str()));
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef SymCall

@@ -322,9 +322,9 @@ namespace LiteLoader::RemoteCall::Helper
         return &*pIter;
     }
 
-    inline IntPtr TypeCastHelper::ArrayTypeWeakRef::iterator::Current::get()
+    inline nint_t TypeCastHelper::ArrayTypeWeakRef::iterator::Current::get()
     {
-        return IntPtr(GetCurrentPtr());
+        return nint_t(GetCurrentPtr());
     }
 
     inline Object^ TypeCastHelper::ArrayTypeWeakRef::iterator::CurrentNonGgeneric::get()
@@ -352,9 +352,9 @@ namespace LiteLoader::RemoteCall::Helper
         return &(*reinterpret_cast<array_type*>(ptr))[index];
     }
 
-    inline IntPtr TypeCastHelper::ArrayTypeWeakRef::default::get(int index)
+    inline nint_t TypeCastHelper::ArrayTypeWeakRef::default::get(int index)
     {
-        return IntPtr(GetArrayTypePtrByIndex(index));
+        return nint_t(GetArrayTypePtrByIndex(index));
     }
 
     inline TypeCastHelper::ArrayTypeWeakRef::iterator TypeCastHelper::ArrayTypeWeakRef::GetIterator()
@@ -362,7 +362,7 @@ namespace LiteLoader::RemoteCall::Helper
         return iterator(ptr);
     }
 
-    inline IEnumerator<IntPtr>^ TypeCastHelper::ArrayTypeWeakRef::GetEnumerator()
+    inline IEnumerator<nint_t>^ TypeCastHelper::ArrayTypeWeakRef::GetEnumerator()
     {
         return GetIterator();
     }
@@ -426,9 +426,9 @@ namespace LiteLoader::RemoteCall::Helper
         return &(**pIter).second;
     }
 
-    inline IntPtr TypeCastHelper::ObjectTypeWeakRef::iterator::Current::get()
+    inline nint_t TypeCastHelper::ObjectTypeWeakRef::iterator::Current::get()
     {
-        return IntPtr(GetCurrentPtr());
+        return nint_t(GetCurrentPtr());
     }
 
     inline Object^ TypeCastHelper::ObjectTypeWeakRef::iterator::CurrentNonGgeneric::get()
@@ -451,9 +451,9 @@ namespace LiteLoader::RemoteCall::Helper
         this->ptr = ptr;
     }
 
-    inline IntPtr TypeCastHelper::ObjectTypeWeakRef::default::get(String^ key)
+    inline nint_t TypeCastHelper::ObjectTypeWeakRef::default::get(String^ key)
     {
-        return static_cast<IntPtr>(&(reinterpret_cast<object_type*>(ptr)->operator[](marshalString(key))));
+        return static_cast<nint_t>(&(reinterpret_cast<object_type*>(ptr)->operator[](marshalString(key))));
     }
 
     inline TypeCastHelper::ObjectTypeWeakRef::iterator TypeCastHelper::ObjectTypeWeakRef::GetIterator()
@@ -461,7 +461,7 @@ namespace LiteLoader::RemoteCall::Helper
         return iterator(ptr);
     }
 
-    inline IEnumerator<IntPtr>^ TypeCastHelper::ObjectTypeWeakRef::GetEnumerator()
+    inline IEnumerator<nint_t>^ TypeCastHelper::ObjectTypeWeakRef::GetEnumerator()
     {
         return GetIterator();
     }

@@ -12,8 +12,8 @@ public:
         : ptr(p2)
     {
     }
-    /// <param name="p2">:Secondary Rank Pointer IntPtr </param>
-    SecondaryRankPtr(System::IntPtr p2)
+    /// <param name="p2">:Secondary Rank Pointer nint_t </param>
+    SecondaryRankPtr(nint_t p2)
         : ptr((void**)p2.ToPointer())
     {
     }
@@ -25,15 +25,15 @@ public:
     {
         return *ptr;
     }
-    /// <returns>IntPtr(ptr)   type:void**</returns>
-    inline System::IntPtr ToSecIntPtr()
+    /// <returns>nint_t(ptr)   type:void**</returns>
+    inline nint_t ToSecIntPtr()
     {
-        return System::IntPtr(ptr);
+        return nint_t(ptr);
     }
-    /// <returns>IntPtr(*ptr)   type:void*</returns>
-    inline System::IntPtr ToIntPtr()
+    /// <returns>nint_t(*ptr)   type:void*</returns>
+    inline nint_t ToIntPtr()
     {
-        return System::IntPtr(*ptr);
+        return nint_t(*ptr);
     }
     inline operator void**()
     {

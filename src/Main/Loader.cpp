@@ -99,7 +99,7 @@ void Init()
     InitEvents();
     System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
     auto LLNET_Asm = Assembly::GetExecutingAssembly();
-    LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, IntPtr(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+    LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, nint_t(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
 }
 
 
@@ -143,7 +143,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
 
                 auto Asm = System::Reflection::Assembly::LoadFrom(libPath);
                 auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-                LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
+                LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, nint_t(handle));
                 return Asm;
             }
 
@@ -152,7 +152,7 @@ Assembly^ ResolveAssembly(Assembly^ requestingAssembly, AssemblyName% assemblyNa
             {
                 auto Asm = Assembly::LoadFrom(libPathWithPlugin);
                 auto handle = GetModuleHandle(std::filesystem::path(marshalString(Asm->Location)).wstring().c_str());
-                LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, IntPtr(handle));
+                LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->Add(Asm, nint_t(handle));
                 return Asm;
             }
         }

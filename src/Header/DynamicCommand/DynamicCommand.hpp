@@ -15,7 +15,7 @@
 #include <src/Header/MC/Block.hpp>
 #include <mc/Command.hpp>
 #include <src/Header/MC/ActorDefinitionIdentifier.hpp>
-#include <src/Header/Core/STLHelper/string.hpp>
+#include <src/Module/Core/Std/string.hpp>
 #include <mc/JsonHelpers.hpp>
 
 //struct __ParameterData : public ::DynamicCommand::ParameterData
@@ -57,8 +57,8 @@ namespace LiteLoader::DynamicCommand
     {
     public:
         //__ctor_base(DynamicCommand, ::DynamicCommand, MC::Command);
-        DynamicCommand(System::IntPtr p);
-        DynamicCommand(System::IntPtr p, bool ownsNativeInstance);
+        DynamicCommand(nint_t p);
+        DynamicCommand(nint_t p, bool ownsNativeInstance);
         DynamicCommand(::DynamicCommand* p);
         DynamicCommand(::DynamicCommand* p, bool ownsNativeInstance);
     property ::DynamicCommand* NativePtr { public: ::DynamicCommand* get(); protected: void set(::DynamicCommand* value); };
@@ -182,7 +182,7 @@ namespace LiteLoader::DynamicCommand
             inline bool SetEnumOptions(String^ enumOptions);
         };
         /*virtual void execute(class CommandOrigin const& origin, class CommandOutput& output);*/
-        static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle);
+        static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, nint_t handle);
         static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2);
         static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1);
         static DynamicCommandInstance^ CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission);
@@ -222,7 +222,7 @@ namespace LiteLoader::DynamicCommand
             MC::CommandPermissionLevel permission,
             MC::CommandFlag^ flag1,
             MC::CommandFlag^ flag2,
-            IntPtr handle);
+            nint_t handle);
 
         static DynamicCommandInstance^ Setup(DynamicCommandInstance^ commandInstance);
         inline static bool UnregisterCommand(String^ name);

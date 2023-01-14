@@ -36,17 +36,17 @@ namespace LiteLoader::Logger {
 
     void Logger::OutputStream::WriteLine(System::String^ string)
     {
-        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshalString<CLI_Encoding::E_UTF16>(string));
+        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(int(type)), marshalWstring(string));
     }
 
     void Logger::OutputStream::WriteLine(System::String^ format, ...array<System::Object^>^ args)
     {
         auto str = System::String::Format(format, (array<System::Object^>^)args);
-        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(str));
+        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalWstring(str));
     }
 
     void Logger::OutputStream::WriteLine(System::Object^ obj) {
-        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalString<CLI_Encoding::E_UTF16>(obj->ToString()));
+        LoggerManager::WriteLine(this->loggerid, LoggerManager::OutputStreamType(type), marshalWstring(obj->ToString()));
     }
 
     inline Logger::OutputStream^ Logger::OutputStream::operator<<(OutputStream^ os, System::Boolean val)

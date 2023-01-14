@@ -98,26 +98,26 @@ public:
     ref class ServerCommandOrigin : ClassTemplate<ServerCommandOrigin, ::Level::ServerCommandOrigin>
     {
     public:
-        property IntPtr MyVTBL
+        property nint_t MyVTBL
         {
-            IntPtr get()
+            nint_t get()
             {
-                return IntPtr(NativePtr->myVTBL);
+                return nint_t(NativePtr->myVTBL);
             };
-            void set(IntPtr value)
+            void set(nint_t value)
             {
                 NULL_ARG_CHECK(value);
                 NativePtr->myVTBL = value.ToPointer();
             };
         };
-        property array<IntPtr> ^ UUID {
-            array<IntPtr> ^ get() {
-                auto ret = gcnew array<IntPtr>(2);
-                ret[0] = IntPtr(NativePtr->UUID[0]);
-                ret[1] = IntPtr(NativePtr->UUID[1]);
+        property array<nint_t> ^ UUID {
+            array<nint_t> ^ get() {
+                auto ret = gcnew array<nint_t>(2);
+                ret[0] = nint_t(NativePtr->UUID[0]);
+                ret[1] = nint_t(NativePtr->UUID[1]);
                 return ret;
             };
-            void set(array<IntPtr> ^ value)
+            void set(array<nint_t> ^ value)
             {
                 NULL_ARG_CHECK(value);
                 if (value->Length != 2)
@@ -126,13 +126,13 @@ public:
                 NativePtr->UUID[1] = value[1].ToPointer();
             }
         };
-        property IntPtr ServerLevel
+        property nint_t ServerLevel
         {
-            IntPtr get()
+            nint_t get()
             {
-                return IntPtr(NativePtr->lvl);
+                return nint_t(NativePtr->lvl);
             };
-            void set(IntPtr value)
+            void set(nint_t value)
             {
                 NativePtr->lvl = (::ServerLevel*)value.ToPointer();
             };
@@ -157,16 +157,16 @@ public:
                 NativePtr->Perm = value;
             }
         }
-        //property array<IntPtr> ^ Fake_vtbl {
-        //    array<IntPtr> ^ get() {
-        //        auto ret = gcnew array<IntPtr>(26);
+        //property array<nint_t> ^ Fake_vtbl {
+        //    array<nint_t> ^ get() {
+        //        auto ret = gcnew array<nint_t>(26);
         //        for (int i = 0; i < 26; i++)
         //        {
-        //            ret[i] = IntPtr(NativePtr->fake_vtbl[i]);
+        //            ret[i] = nint_t(NativePtr->fake_vtbl[i]);
         //        }
         //        return ret;
         //    };
-        //    void set(array<IntPtr> ^ value)
+        //    void set(array<nint_t> ^ value)
         //    {
         //        NULL_ARG_CHEEK(value);
         //        if (value->Length != 26)

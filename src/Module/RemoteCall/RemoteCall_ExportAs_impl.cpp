@@ -27,7 +27,7 @@ namespace LiteLoader::RemoteCall
 
             if (succeed)
             {
-                LiteLoader::NET::PluginOwnData::AddExportedRemoteCallFunctions(IntPtr(module), funcInstance);
+                LiteLoader::NET::PluginOwnData::AddExportedRemoteCallFunctions(nint_t(module), funcInstance);
                 return true;
             }
         }

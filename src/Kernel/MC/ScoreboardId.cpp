@@ -14,11 +14,11 @@ inline void ScoreboardId::Id::set(__int64 id)
 {
     NativePtr->id = id;
 }
-inline System::IntPtr ScoreboardId::Null::get()
+inline nint_t ScoreboardId::Null::get()
 {
-    return System::IntPtr(NativePtr->null);
+    return nint_t(NativePtr->null);
 }
-inline void ScoreboardId::Null::set(System::IntPtr p)
+inline void ScoreboardId::Null::set(nint_t p)
 {
     NativePtr->null = p.ToPointer();
 }

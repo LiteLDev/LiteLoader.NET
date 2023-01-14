@@ -64,12 +64,12 @@ namespace LiteLoader::Hook
         auto sig = static_cast<HookSymbolAttribute^>(hookAttributes[0])->Sym;
         auto instance = gcnew T();
 
-        instance->_original = HookHelper::_hookFunction(IntPtr(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(sig).c_str()), instance->Hook);
+        instance->_original = HookHelper::_hookFunction(nint_t(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(sig).c_str()), instance->Hook);
     }
 
     generic<typename TDelegate>
     inline TDelegate Shook::HookFunction(String^ signature, TDelegate newFunc)
     {
-        return HookHelper::_hookFunction(IntPtr(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(signature).c_str()), newFunc);
+        return HookHelper::_hookFunction(nint_t(CALLING_MODULE), (void*)ll::hook::findSig(marshalString(signature).c_str()), newFunc);
     }
 }

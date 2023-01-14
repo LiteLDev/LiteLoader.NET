@@ -36,13 +36,13 @@ namespace LiteLoader::NET
     using LiteLoader::RemoteCall::Helper::ExportedFuncInstance;
     using LiteLoader::RemoteCall::Helper::ImportedFuncInstance;
 
-    using __HMODULE = IntPtr;
+    using __HMODULE = nint_t;
     using __EventId = size_t;
 
     using __Hook = Delegate^;
-    using __Address = IntPtr;
-    using __PHook = IntPtr;
-    using __POriginal = IntPtr;
+    using __Address = nint_t;
+    using __PHook = nint_t;
+    using __POriginal = nint_t;
 
     private ref class PluginOwnData __static
     {
@@ -64,13 +64,13 @@ namespace LiteLoader::NET
         static Dictionary<uint64_t, VALUE_TUPLE<__HMODULE, IFunctionCaller^>>^ RemoteCallData = gcnew Dictionary<uint64_t, VALUE_TUPLE<__HMODULE, IFunctionCaller^>>;
 
 
-        static void AddHookedFunction(IntPtr handle, __Hook hook, __Address address, __PHook pHook, __POriginal pOriginal);
-        static void AddRegisteredEvent(IntPtr handle, SystemType^ type, __EventId id);
-        static void AddSubscribedNativeEvent(IntPtr handle, INativeEventListener^ listener);
-        static void AddRegisteredCommand(IntPtr handle, String^ name);
-        static void AddRegisteredSchedule(IntPtr handle, ScheduleTask^ task, GCHandle gch);
-        static void AddRemoteCallData(uint64_t hashVal, IntPtr handle, IFunctionCaller^ funcHandle);
-        static void AddExportedRemoteCallFunctions(IntPtr handle, ExportedFuncInstance^ instance);
-        static void AddImportedRemoteCallFunctions(IntPtr handle, ImportedFuncInstance^ instance);
+        static void AddHookedFunction(nint_t handle, __Hook hook, __Address address, __PHook pHook, __POriginal pOriginal);
+        static void AddRegisteredEvent(nint_t handle, SystemType^ type, __EventId id);
+        static void AddSubscribedNativeEvent(nint_t handle, INativeEventListener^ listener);
+        static void AddRegisteredCommand(nint_t handle, String^ name);
+        static void AddRegisteredSchedule(nint_t handle, ScheduleTask^ task, GCHandle gch);
+        static void AddRemoteCallData(uint64_t hashVal, nint_t handle, IFunctionCaller^ funcHandle);
+        static void AddExportedRemoteCallFunctions(nint_t handle, ExportedFuncInstance^ instance);
+        static void AddImportedRemoteCallFunctions(nint_t handle, ImportedFuncInstance^ instance);
     };
 }

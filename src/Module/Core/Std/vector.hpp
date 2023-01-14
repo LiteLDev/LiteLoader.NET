@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "move.hpp"
+
 namespace LiteLoader::NET::Std
 {
     using LiteLoader::NET::ICppClass;
@@ -50,7 +52,7 @@ namespace LiteLoader::NET::Std
             {
             public:
                 iterator(void* stdVectorIteratorPtr, size_t elementTypeSize);
-                iterator(IntPtr stdVectorIteratorPtr, size_t elementTypeSize);
+                iterator(nint_t stdVectorIteratorPtr, size_t elementTypeSize);
                 iterator(_Vector_iterator_data data, size_t elementTypeSize);
             public:
                 property _Vector_iterator_data% InternalData
@@ -129,7 +131,7 @@ namespace LiteLoader::NET::Std
 
         public:
             vector(void* stdVectorPtr, size_t elementTypeSize);
-            vector(IntPtr stdVectorPtr, size_t elementTypeSize);
+            vector(nint_t stdVectorPtr, size_t elementTypeSize);
         public:
             size_t size();
             iterator begin();
@@ -203,15 +205,16 @@ namespace LiteLoader::NET::Std
             static size_t _Get_element_type_size();
         };*/
     }
+
     generic<typename T> where T:
     gcnew()
-        public ref class vector sealed :IList<T>
+        public ref class vector sealed :IList<T>, IConstructableCppClass, IMoveable
     {
     private:
         static size_t elementTypeSize;
         static bool isValueType;
 
-        static IntPtr(__clrcall* get_intptr)(T);
+        static nint_t(__clrcall* get_intptr)(T);
 
         static vector()
         {
@@ -230,7 +233,7 @@ namespace LiteLoader::NET::Std
             if (get_intptr == nullptr)
                 throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing property 'Intptr'");
             else
-                vector::get_intptr = reinterpret_cast<IntPtr(__clrcall*)(T)>(get_intptr->MethodHandle.GetFunctionPointer().ToPointer());
+                vector::get_intptr = reinterpret_cast<nint_t(__clrcall*)(T)>(get_intptr->MethodHandle.GetFunctionPointer().ToPointer());
 
             using System::Reflection::BindingFlags;
             auto field = type->GetField(
@@ -295,7 +298,7 @@ namespace LiteLoader::NET::Std
                     else
                     {
                         auto ret = gcnew T();
-                        ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<IntPtr>(_this.get()), false);
+                        ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<nint_t>(_this.get()), false);
                         return ret;
                     }
                 }
@@ -307,10 +310,60 @@ namespace LiteLoader::NET::Std
     private:
         _value_vector _this;
 
+        bool ownsNativeInstance;
+
     public:
-        vector(IntPtr ptr)
+        vector(nint_t ptr)
             :_this(ptr, elementTypeSize)
         {
+        }
+
+        vector(move<vector^> vec)
+        {
+            throw gcnew System::NotSupportedException(NotSupportedMessage);
+        }
+
+        //cpp api
+    public:
+        size_t size()
+        {
+            return _this.size();
+        }
+        iterator begin()
+        {
+            iterator ret;
+            ret._this = _this.begin();
+            ret.instance = this;
+            ret.isIterSet = true;
+            return ret;
+        }
+        iterator end()
+        {
+            iterator ret;
+            ret._this = _this.end();
+            ret.instance = this;
+            ret.isIterSet = true;
+            return ret;
+        }
+        iterator at(size_t pos)
+        {
+            iterator ret;
+            ret._this = _this.at(pos);
+            ret.instance = this;
+            ret.isIterSet = true;
+            return ret;
+        }
+        bool empty()
+        {
+            return _this.empty();
+        }
+        size_t capacity()
+        {
+            return _this.capacity();
+        }
+        void* data()
+        {
+            return _this.data();
         }
 
     private:
@@ -350,7 +403,7 @@ namespace LiteLoader::NET::Std
                 else
                 {
                     auto ret = gcnew T();
-                    ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<IntPtr>(_this.at(index).get()), false);
+                    ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<nint_t>(_this.at(index).get()), false);
                     return ret;
                 }
             }
@@ -406,6 +459,29 @@ namespace LiteLoader::NET::Std
         virtual void RemoveAt(int index)
         {
             throw gcnew System::NotSupportedException(NotSupportedMessage);
+        }
+
+
+        // Í¨¹ý IConstructableCppClass ¼Ì³Ð
+        property nint_t Intptr
+        {
+            virtual nint_t get()
+            {
+                //???
+                pin_ptr<decltype(_this)> ptr = &_this;
+                return nint_t(ptr);
+            }
+        }
+
+        virtual void Destruct()
+        {
+            throw gcnew System::NotSupportedException(NotSupportedMessage);
+        }
+
+        virtual void SetNativePointer(nint_t ptr, bool ownsInstance)
+        {
+            _this = *reinterpret_cast<decltype(_this)*>(ptr.ToPointer());
+            this->ownsNativeInstance = ownsInstance;
         }
 
     };

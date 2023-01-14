@@ -39,7 +39,7 @@ namespace LiteLoader::RemoteCall
         /// <param name="fn">－Export Function</param>
         /// <param name="handle">－Plugin Handler</param>
         /// <returns>－Is The Export Successful</returns>
-        static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, IntPtr handle);
+        static bool ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ fn, nint_t handle);
         /// <summary>
         /// Import a function with NameSpace, function name.
         /// </summary>

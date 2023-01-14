@@ -45,7 +45,7 @@ namespace LiteLoader
         operator ::ll::Version();
     public:
         ::ll::Version* ToPointer();
-        System::IntPtr ToIntPtr();
+        nint_t ToIntPtr();
 
         String^ ToString() override;
         static Version^ Parse(String^ str);
@@ -75,11 +75,11 @@ namespace LiteLoader
         Property_String(name, Name);
         Property_String(desc, Desc);
         Property_String(filePath, FilePath);
-        property System::IntPtr Handler
+        property nint_t Handler
         {
-            System::IntPtr get()
+            nint_t get()
             {
-                return System::IntPtr(_this->handle);
+                return nint_t(_this->handle);
             }
         }
         property Version^ version {
@@ -105,7 +105,7 @@ namespace LiteLoader
             void* address = GetProcAddress(_this->handle, marshalString(functionName).c_str());
             if (!address)
                 return TDelegate();
-            return Marshal::GetDelegateForFunctionPointer<TDelegate>(System::IntPtr(address));
+            return Marshal::GetDelegateForFunctionPointer<TDelegate>(nint_t(address));
         }
 
     private:
@@ -146,7 +146,7 @@ namespace LiteLoader
         inline static Plugin^ GetPlugin(String^ name);
         inline static Plugin^ GetPlugin(String^ name, bool includeNativePlugin);
         inline static Plugin^ GetPlugin(String^ name, bool includeNativePlugin, bool includeScriptPlugin);
-        inline static Plugin^ GetPlugin(System::IntPtr% handle);
+        inline static Plugin^ GetPlugin(nint_t% handle);
         inline static Assembly^ GetPluginAssembly(String^ name);
         inline static Assembly^ GetPluginAssembly(Plugin^ plugin);
 

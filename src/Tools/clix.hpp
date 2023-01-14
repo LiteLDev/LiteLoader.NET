@@ -19,7 +19,7 @@
 namespace clix {
 
     /// <summary>CLI_Encoding types for strings</summary>
-    enum CLI_Encoding {
+    enum Encoding {
 
         /// <summary>ANSI encoding</summary>
         /// <remarks>
@@ -57,7 +57,7 @@ namespace clix {
     namespace detail {
 
         // Get C++ string type for specified encoding
-        template<CLI_Encoding encoding> struct StringTypeSelector;
+        template<Encoding encoding> struct StringTypeSelector;
         template<> struct StringTypeSelector<E_ANSI> { typedef std::string Type; };
         template<> struct StringTypeSelector<E_UTF8> { typedef std::string Type; };
         template<> struct StringTypeSelector<E_UTF16> { typedef std::wstring Type; };
@@ -90,13 +90,13 @@ namespace clix {
         // Marshals to .NET from C++ strings
         template<> struct StringMarshaler<NetFromCxx> {
 
-            template<CLI_Encoding encoding, typename SourceType>
+            template<Encoding encoding, typename SourceType>
             static String^ marshal(const SourceType& string) {
                 // Constructs a std::[w]string in case someone gave us a char * to choke on
                 return marshalCxxString<encoding, SourceType>(string);
             }
 
-            template<CLI_Encoding encoding, typename SourceType>
+            template<Encoding encoding, typename SourceType>
             static String^ marshalCxxString(
                 const typename StringTypeSelector<encoding>::Type& cxxString
             ) {
@@ -120,7 +120,7 @@ namespace clix {
 
         private:
             // Converts a byte array based on the selected encoding
-            template<CLI_Encoding encoding> static String^ decode(array<unsigned char>^ bytes);
+            template<Encoding encoding> static String^ decode(array<unsigned char>^ bytes);
             template<> static String^ decode<E_ANSI>(array<unsigned char>^ bytes) {
                 return System::Text::Encoding::Default->GetString(bytes);
             }
@@ -135,7 +135,7 @@ namespace clix {
         // Marshals to C++ strings from .NET
         template<> struct StringMarshaler<CxxFromNet> {
 
-            template<CLI_Encoding encoding, typename SourceType>
+            template<Encoding encoding, typename SourceType>
             static typename detail::StringTypeSelector<encoding>::Type marshal(
                 String^ string
             ) {
@@ -167,7 +167,7 @@ namespace clix {
 
         private:
             // Converts a string based on the selected encoding
-            template<CLI_Encoding encoding> static array<unsigned char>^ encode(String^ string);
+            template<Encoding encoding> static array<unsigned char>^ encode(String^ string);
             template<> static array<unsigned char>^ encode<E_ANSI>(String^ string) {
                 return System::Text::Encoding::Default->GetBytes(string);
             }
@@ -193,7 +193,7 @@ namespace clix {
     /// </remarks>
     /// <param name="string">String to be marshalled to the other side</param>
     /// <returns>The marshaled representation of the string</returns>
-    template<CLI_Encoding encoding, typename SourceType>
+    template<Encoding encoding, typename SourceType>
     typename detail::IfManaged<SourceType>::Select::Either<
         typename detail::StringTypeSelector<encoding>::Type,
         String^

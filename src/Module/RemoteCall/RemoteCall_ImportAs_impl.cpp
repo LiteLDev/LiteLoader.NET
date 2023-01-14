@@ -22,7 +22,7 @@ namespace LiteLoader::RemoteCall
             auto funcInstance = As<ImportedFuncInstance^>(temp);
             auto module = CALLING_MODULE;
 
-            LiteLoader::NET::PluginOwnData::AddImportedRemoteCallFunctions(IntPtr(module), funcInstance);
+            LiteLoader::NET::PluginOwnData::AddImportedRemoteCallFunctions(nint_t(module), funcInstance);
 
             return (TDelegate)(funcInstance->intertopManagedFuncDelegate);
         }

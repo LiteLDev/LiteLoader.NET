@@ -49,9 +49,6 @@
     <Filter Include="Header\Scoreboard">
       <UniqueIdentifier>{94d8324f-e456-458a-a527-7017b6101bd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\Core\STLHelper">
-      <UniqueIdentifier>{c70e38df-fb90-4464-a5ab-e356cc7c827f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Kernel\Scoreboard">
       <UniqueIdentifier>{9e803160-8fc8-4610-b8c5-0c124b593efa}</UniqueIdentifier>
     </Filter>
@@ -117,6 +114,9 @@
     </Filter>
     <Filter Include="Module\Core\Std">
       <UniqueIdentifier>{b3713bd0-c142-4834-ae30-852531f108ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Core\Std\InternalImpl">
+      <UniqueIdentifier>{ee67e76f-ee5f-4c4f-945d-33f2d9356d82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -797,9 +797,6 @@
     <ClInclude Include="Header\Scoreboard\Scoreboard.hpp">
       <Filter>Header\Scoreboard</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\STLHelper\string.hpp">
-      <Filter>Header\Core\STLHelper</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\ClassTemplateHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -1047,6 +1044,18 @@
       <Filter>Main\Class</Filter>
     </ClInclude>
     <ClInclude Include="Module\Core\Std\vector.hpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\string.hpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\IMoveable.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\move.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\wstring.hpp">
       <Filter>Module\Core\Std</Filter>
     </ClInclude>
   </ItemGroup>

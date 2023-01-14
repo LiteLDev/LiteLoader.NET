@@ -524,7 +524,7 @@ namespace MC
     String^ Player::DeviceName::get()
     {
         auto __ret = NativePtr->getDeviceName();
-        return clix::marshalString<E_UTF8>(__ret);
+        return marshalString(__ret);
     }
 
     bool Player::Sleeping::get()
@@ -631,7 +631,7 @@ namespace MC
     String^ Player::InteractText::get()
     {
         auto __ret = NativePtr->getInteractText();
-        return clix::marshalString<E_UTF8>(__ret);
+        return marshalString(__ret);
     }
 
     float Player::Luck::get()
@@ -659,12 +659,12 @@ namespace MC
     String^ Player::PlatformOnlineId::get()
     {
         auto& __ret = NativePtr->getPlatformOnlineId();
-        return clix::marshalString<E_UTF8>(__ret);
+        return marshalString(__ret);
     }
 
     void Player::PlatformOnlineId::set(String^ _0)
     {
-        auto __arg0 = clix::marshalString<E_UTF8>(_0);
+        auto __arg0 = marshalString(_0);
         NativePtr->setPlatformOnlineId(__arg0);
     }
 
@@ -694,7 +694,7 @@ namespace MC
     String^ Player::PlayerSessionId::get()
     {
         auto& __ret = NativePtr->getPlayerSessionId();
-        return clix::marshalString<E_UTF8>(__ret);
+        return marshalString(__ret);
     }
 
     BlockPos Player::RespawnAnchorPosition::get()
@@ -902,7 +902,7 @@ namespace MC
     String^ Player::GetFormattedNameTag()
     {
         auto __ret = NativePtr->getFormattedNameTag();
-        return clix::marshalString<E_UTF8>(__ret);
+        return marshalString(__ret);
     }
 
     //void MC::Player::UnkVfn68()
@@ -1502,10 +1502,10 @@ namespace MC
 
     void Player::DisplayWhisperMessage(String^ _0, String^ _1, String^ _2, String^ _3)
     {
-        auto __arg0 = clix::marshalString<E_UTF8>(_0);
-        auto __arg1 = clix::marshalString<E_UTF8>(_1);
-        auto __arg2 = clix::marshalString<E_UTF8>(_2);
-        auto __arg3 = clix::marshalString<E_UTF8>(_3);
+        auto __arg0 = marshalString(_0);
+        auto __arg1 = marshalString(_1);
+        auto __arg2 = marshalString(_2);
+        auto __arg3 = marshalString(_3);
         NativePtr->displayWhisperMessage(__arg0, __arg1, __arg2, __arg3);
     }
 

@@ -2,9 +2,9 @@
 
 namespace LiteLoader::NET
 {
-    inline void PluginOwnData::AddHookedFunction(IntPtr handle, __Hook hook, __Address address, __PHook pHook, __POriginal pOriginal)
+    inline void PluginOwnData::AddHookedFunction(nint_t handle, __Hook hook, __Address address, __PHook pHook, __POriginal pOriginal)
     {
-        using HookedFunctionDataType = List<System::ValueTuple<Delegate^, IntPtr, IntPtr, IntPtr>>;
+        using HookedFunctionDataType = List<System::ValueTuple<Delegate^, nint_t, nint_t, nint_t>>;
 
         HookedFunctionDataType^ data = nullptr;
 
@@ -18,14 +18,14 @@ namespace LiteLoader::NET
             LiteLoader::NET::PluginOwnData::HookedFunction->Add(handle, data);
         }
 
-        data->Add(System::ValueTuple<Delegate^, IntPtr, IntPtr, IntPtr>{
+        data->Add(System::ValueTuple<Delegate^, nint_t, nint_t, nint_t>{
             hook,
-                IntPtr(address),
-                IntPtr(pHook),
-                IntPtr(pOriginal)});
+                nint_t(address),
+                nint_t(pHook),
+                nint_t(pOriginal)});
     }
 
-    void PluginOwnData::AddRegisteredEvent(IntPtr handle, SystemType^ type, __EventId id)
+    void PluginOwnData::AddRegisteredEvent(nint_t handle, SystemType^ type, __EventId id)
     {
         using EventList = List<System::ValueTuple<System::Type^, __EventId>>;
 
@@ -44,7 +44,7 @@ namespace LiteLoader::NET
         events->Add(System::ValueTuple<System::Type^, __EventId>(type, id));
     }
 
-    void PluginOwnData::AddSubscribedNativeEvent(IntPtr handle, INativeEventListener^ listener)
+    void PluginOwnData::AddSubscribedNativeEvent(nint_t handle, INativeEventListener^ listener)
     {
         using NativeEventList = List<INativeEventListener^>;
 
@@ -63,7 +63,7 @@ namespace LiteLoader::NET
         list->Add(listener);
     }
 
-    inline void PluginOwnData::AddRegisteredCommand(IntPtr handle, String^ name)
+    inline void PluginOwnData::AddRegisteredCommand(nint_t handle, String^ name)
     {
         List<String^>^ commands = nullptr;
 
@@ -80,7 +80,7 @@ namespace LiteLoader::NET
         commands->Add(name);
     }
 
-    void PluginOwnData::AddRegisteredSchedule(IntPtr handle, ScheduleTask^ task, GCHandle gch)
+    void PluginOwnData::AddRegisteredSchedule(nint_t handle, ScheduleTask^ task, GCHandle gch)
     {
         List<VALUE_TUPLE<ScheduleTask^, GCHandle>>^ schedules = nullptr;
 
@@ -97,12 +97,12 @@ namespace LiteLoader::NET
         schedules->Add(VALUE_TUPLE<ScheduleTask^, GCHandle>{task, gch});
     }
 
-    void PluginOwnData::AddRemoteCallData(uint64_t hashVal, IntPtr handle, IFunctionCaller^ funcHandle)
+    void PluginOwnData::AddRemoteCallData(uint64_t hashVal, nint_t handle, IFunctionCaller^ funcHandle)
     {
-        LiteLoader::NET::PluginOwnData::RemoteCallData->TryAdd(hashVal, VALUE_TUPLE<IntPtr, IFunctionCaller^>(handle, funcHandle));
+        LiteLoader::NET::PluginOwnData::RemoteCallData->TryAdd(hashVal, VALUE_TUPLE<nint_t, IFunctionCaller^>(handle, funcHandle));
     }
 
-    void PluginOwnData::AddExportedRemoteCallFunctions(IntPtr handle, ExportedFuncInstance^ instance)
+    void PluginOwnData::AddExportedRemoteCallFunctions(nint_t handle, ExportedFuncInstance^ instance)
     {
         List<ExportedFuncInstance^>^ instances = nullptr;
 
@@ -119,7 +119,7 @@ namespace LiteLoader::NET
         instances->Add(instance);
     }
     
-    void PluginOwnData::AddImportedRemoteCallFunctions(IntPtr handle, ImportedFuncInstance^ instance)
+    void PluginOwnData::AddImportedRemoteCallFunctions(nint_t handle, ImportedFuncInstance^ instance)
     {
         List<ImportedFuncInstance^>^ instances = nullptr;
 

@@ -29,10 +29,10 @@ namespace LiteLoader::Schedule
     }
     inline ScheduleTask^ ScheduleAPI::Delay(TaskDelegate^ task, unsigned long long tickDelay)
     {
-        return Delay(task, tickDelay, System::IntPtr(CALLING_MODULE));
+        return Delay(task, tickDelay, nint_t(CALLING_MODULE));
     }
 
-    inline ScheduleTask^ ScheduleAPI::Delay(TaskDelegate^ task, unsigned long long tickDelay, System::IntPtr handle)
+    inline ScheduleTask^ ScheduleAPI::Delay(TaskDelegate^ task, unsigned long long tickDelay, nint_t handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::delay(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, (HMODULE)handle.ToPointer()));
@@ -49,10 +49,10 @@ namespace LiteLoader::Schedule
 
     inline ScheduleTask^ ScheduleAPI::Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount)
     {
-        return Repeat(task, tickInterval, maxCount, System::IntPtr(CALLING_MODULE));
+        return Repeat(task, tickInterval, maxCount, nint_t(CALLING_MODULE));
     }
 
-    inline ScheduleTask^ ScheduleAPI::Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
+    inline ScheduleTask^ ScheduleAPI::Repeat(TaskDelegate^ task, unsigned long long tickInterval, int maxCount, nint_t handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::repeat(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickInterval, maxCount, (HMODULE)handle.ToPointer()));
@@ -69,10 +69,10 @@ namespace LiteLoader::Schedule
 
     inline ScheduleTask^ ScheduleAPI::DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount)
     {
-        return DelayRepeat(task, tickDelay, tickInterval, maxCount, System::IntPtr(CALLING_MODULE));
+        return DelayRepeat(task, tickDelay, tickInterval, maxCount, nint_t(CALLING_MODULE));
     }
 
-    inline ScheduleTask^ ScheduleAPI::DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, System::IntPtr handle)
+    inline ScheduleTask^ ScheduleAPI::DelayRepeat(TaskDelegate^ task, unsigned long long tickDelay, unsigned long long tickInterval, int maxCount, nint_t handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::delayRepeat(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), tickDelay, tickInterval, maxCount, (HMODULE)handle.ToPointer()));
@@ -84,10 +84,10 @@ namespace LiteLoader::Schedule
 
     inline ScheduleTask^ ScheduleAPI::NextTick(TaskDelegate^ task)
     {
-        return NextTick(task, System::IntPtr(CALLING_MODULE));
+        return NextTick(task, nint_t(CALLING_MODULE));
     }
 
-    inline ScheduleTask^ ScheduleAPI::NextTick(TaskDelegate^ task, System::IntPtr handle)
+    inline ScheduleTask^ ScheduleAPI::NextTick(TaskDelegate^ task, nint_t handle)
     {
         auto ret = gcnew ScheduleTask(::Schedule::nextTick(
             static_cast<void (*)(void)>(Marshal::GetFunctionPointerForDelegate(task).ToPointer()), (HMODULE)handle.ToPointer()));

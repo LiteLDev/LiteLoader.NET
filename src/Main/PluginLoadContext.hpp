@@ -17,6 +17,6 @@ namespace LiteLoader::NET
 
     protected:
         virtual Assembly^ Load(AssemblyName^ assemblyName) override;
-        virtual IntPtr LoadUnmanagedDll(String^ unmanagedDllName) override;
+        virtual nint_t LoadUnmanagedDll(String^ unmanagedDllName) override;
     };
 }

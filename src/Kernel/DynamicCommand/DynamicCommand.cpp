@@ -232,11 +232,11 @@ namespace LiteLoader::DynamicCommand
         return ToDebugString();
     }
 
-    inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
+    inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, Dictionary<String^, List<String^>^>^ enums, List<ParameterData^>^ params, List<List<String^>^>^ overloads, CallBackFn^ callback, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, nint_t handle)
     {
 
-        if (handle == IntPtr::Zero)
-            handle = IntPtr(CALLING_MODULE);
+        if (handle == nint_t::Zero)
+            handle = nint_t(CALLING_MODULE);
 
 
         std::unordered_map<std::string, std::vector<std::string>> enumsMap;
@@ -448,11 +448,11 @@ namespace LiteLoader::DynamicCommand
 
     //__ctor_base(DynamicCommand, ::DynamicCommand, MC::Command);
 
-    inline DynamicCommand::DynamicCommand(System::IntPtr p)
+    inline DynamicCommand::DynamicCommand(nint_t p)
         : MC::Command(p)
     {
     }
-    inline DynamicCommand::DynamicCommand(System::IntPtr p, bool ownsNativeInstance)
+    inline DynamicCommand::DynamicCommand(nint_t p, bool ownsNativeInstance)
         : MC::Command(p, ownsNativeInstance)
     {
     }
@@ -483,7 +483,7 @@ namespace LiteLoader::DynamicCommand
         return NativePtr->isSet;
     }
 
-    inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, IntPtr handle)
+    inline DynamicCommandInstance^ DynamicCommand::CreateCommand(String^ name, String^ description, MC::CommandPermissionLevel permission, MC::CommandFlag^ flag1, MC::CommandFlag^ flag2, nint_t handle)
     {
         auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), flag1, flag2, (HMODULE)handle.ToPointer()).release(), true);
 
@@ -496,7 +496,7 @@ namespace LiteLoader::DynamicCommand
         auto handle = CALLING_MODULE;
         auto ret = gcnew DynamicCommandInstance(::DynamicCommand::createCommand(marshalString(name), marshalString(description), ::CommandPermissionLevel(permission), (::CommandFlag)flag1, (::CommandFlag)flag2, handle).release(), true);
 
-        PluginOwnData::AddRegisteredCommand(static_cast<IntPtr>(handle), name);
+        PluginOwnData::AddRegisteredCommand(static_cast<nint_t>(handle), name);
 
         return ret;
     }

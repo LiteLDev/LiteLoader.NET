@@ -1,7 +1,7 @@
 #pragma once
 #include <src/Main/DotNETGlobal.hpp>
 #include <src/Main/ClassTemplate.hpp>
-#include <src/Header/Core/STLHelper/string.hpp>
+#include <src/Module/Core/Std/string.hpp>
 #include <src/Header/DynamicCommand/DynamicCommand.hpp>
 #include <DynamicCommandAPI.h>
 

@@ -7,7 +7,7 @@ namespace LiteLoader::Hook
 {
     generic<typename TDelegate>
     where TDelegate : Delegate
-    TDelegate HookHelper::_hookFunction(IntPtr hmodule, std::variant<void*, gcroot<String^>> addressOrSymbol, TDelegate newFunc)
+    TDelegate HookHelper::_hookFunction(nint_t hmodule, std::variant<void*, gcroot<String^>> addressOrSymbol, TDelegate newFunc)
     {
         NULL_ARG_CHECK(newFunc);
 
@@ -52,8 +52,8 @@ namespace LiteLoader::Hook
             throw gcnew LiteLoader::NET::HookFailedException;
 
 
-        LiteLoader::NET::PluginOwnData::AddHookedFunction(hmodule, newFunc, IntPtr(address), IntPtr(pHook), IntPtr(pOriginal));
+        LiteLoader::NET::PluginOwnData::AddHookedFunction(hmodule, newFunc, nint_t(address), nint_t(pHook), nint_t(pOriginal));
 
-        return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(IntPtr(pOriginal));
+        return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(nint_t(pOriginal));
     }
 }

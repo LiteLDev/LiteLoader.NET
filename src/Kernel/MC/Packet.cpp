@@ -71,7 +71,7 @@ MC::MinecraftPacketId MC::Packet::Id::get()
 
 String^ MC::Packet::Name::get()
 {
-    return marshalString<E_UTF8>(NativePtr->getName());
+    return marshalString(NativePtr->getName());
 }
 
 bool MC::Packet::DisallowBatching()

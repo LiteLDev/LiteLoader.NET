@@ -29,7 +29,7 @@ namespace LiteLoader::NET
         return ret;
     }
 
-    IntPtr PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
+    nint_t PluginLoadContext::LoadUnmanagedDll(String^ unmanagedDllName)
     {
         using System::IO::File;
         using System::IO::Path;
@@ -49,6 +49,6 @@ namespace LiteLoader::NET
             }
         }
 
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
 }

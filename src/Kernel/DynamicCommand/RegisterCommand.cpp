@@ -241,7 +241,7 @@ namespace LiteLoader::DynamicCommand {
             cmdAttr->Permission,
             gcnew MC::CommandFlag(cmdAttr->Flag1),
             gcnew MC::CommandFlag(cmdAttr->Flag2),
-            IntPtr(CALLING_MODULE));
+            nint_t(CALLING_MODULE));
 
         for each (auto alia in cmdData->Alias)
         {

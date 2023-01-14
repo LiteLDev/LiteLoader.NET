@@ -42,8 +42,8 @@ SHARED_LIBRARY_NOT_FOUND_WARNING:
 
 inline HMODULE GlobalClass::GetCurrentModule(Assembly^ asm_)
 {
-    auto ret = IntPtr::Zero;
-    if (LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryGetValue(asm_, ret) && ret != IntPtr::Zero)
+    auto ret = nint_t::Zero;
+    if (LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryGetValue(asm_, ret) && ret != nint_t::Zero)
         return HMODULE(ret.ToPointer());
     else
         return MODULE;

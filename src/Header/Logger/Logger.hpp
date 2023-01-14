@@ -67,7 +67,7 @@ namespace LiteLoader::Logger {
         property OutputStream^ Fatal {OutputStream^ get() { return fatal; }};
 
         property String^ Title {inline String^ get(); inline void set(String^ _title); }
-        //property IntPtr std_ofstream {inline IntPtr get(); inline void set(IntPtr pofs); }
+        //property nint_t std_ofstream {inline nint_t get(); inline void set(nint_t pofs); }
         //property MC::Player^ player {inline MC::Player^ get(); inline void set(MC::Player^ _player); }
         //property int consoleLevel {inline int get(); inline void set(int cleLevel); }
         //property int fileLevel {inline int get(); inline void set(int fLevel); }

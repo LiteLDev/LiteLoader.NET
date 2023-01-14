@@ -40,100 +40,100 @@ namespace LiteLoader
     }
 
 
-    IntPtr GlobalService::Level_Native::get()
+    nint_t GlobalService::Level_Native::get()
     {
         if (Global<::Level> != nullptr)
         {
-            return IntPtr(Global<::Level>);
+            return nint_t(Global<::Level>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::CommandRegistry_Native::get()
+    nint_t GlobalService::CommandRegistry_Native::get()
     {
         if (Global<::CommandRegistry> != nullptr)
         {
-            return IntPtr(Global<::CommandRegistry>);
+            return nint_t(Global<::CommandRegistry>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::Minecraft_Native::get()
+    nint_t GlobalService::Minecraft_Native::get()
     {
         if (Global<::Minecraft> != nullptr)
         {
-            return IntPtr(Global<::Minecraft>);
+            return nint_t(Global<::Minecraft>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::MinecraftCommands_Native::get()
+    nint_t GlobalService::MinecraftCommands_Native::get()
     {
         if (Global<::MinecraftCommands> != nullptr)
         {
-            return IntPtr(Global<::MinecraftCommands>);
+            return nint_t(Global<::MinecraftCommands>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::RakNetServerLocator_Native::get()
+    nint_t GlobalService::RakNetServerLocator_Native::get()
     {
         if (Global<::RakNetServerLocator> != nullptr)
         {
-            return IntPtr(Global<::RakNetServerLocator>);
+            return nint_t(Global<::RakNetServerLocator>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::ServerLevel_Native::get()
+    nint_t GlobalService::ServerLevel_Native::get()
     {
         if (Global<::ServerLevel> != nullptr)
         {
-            return IntPtr(Global<::ServerLevel>);
+            return nint_t(Global<::ServerLevel>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::ServerNetworkHandler_Native::get()
+    nint_t GlobalService::ServerNetworkHandler_Native::get()
     {
         if (Global<::ServerNetworkHandler> != nullptr)
         {
-            return IntPtr(Global<::ServerNetworkHandler>);
+            return nint_t(Global<::ServerNetworkHandler>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::DBStorage_Native::get()
+    nint_t GlobalService::DBStorage_Native::get()
     {
         if (Global<::DBStorage> != nullptr)
         {
-            return IntPtr(Global<::DBStorage>);
+            return nint_t(Global<::DBStorage>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::Scoreboard_Native::get()
+    nint_t GlobalService::Scoreboard_Native::get()
     {
         if (Global<::Scoreboard> != nullptr)
         {
-            return IntPtr(Global<::Scoreboard>);
+            return nint_t(Global<::Scoreboard>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::AllowListFile_Native::get()
+    nint_t GlobalService::AllowListFile_Native::get()
     {
         if (Global<::AllowListFile> != nullptr)
         {
-            return IntPtr(Global<::AllowListFile>);
+            return nint_t(Global<::AllowListFile>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::PropertiesSettings_Native::get()
+    nint_t GlobalService::PropertiesSettings_Native::get()
     {
         if (Global<::PropertiesSettings> != nullptr)
         {
-            return IntPtr(Global<::PropertiesSettings>);
+            return nint_t(Global<::PropertiesSettings>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
-    IntPtr GlobalService::LevelStorage_Native::get()
+    nint_t GlobalService::LevelStorage_Native::get()
     {
         if (Global<::LevelStorage> != nullptr)
         {
-            return IntPtr(Global<::LevelStorage>);
+            return nint_t(Global<::LevelStorage>);
         }
-        return IntPtr::Zero;
+        return nint_t::Zero;
     }
 }

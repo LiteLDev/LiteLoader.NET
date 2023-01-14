@@ -69,12 +69,12 @@ namespace LiteLoader::RemoteCall
 
         auto handle = CALLING_MODULE;
 
-        LiteLoader::NET::PluginOwnData::AddRemoteCallData(do_Hash(nameSpace) ^ do_Hash(funcName), IntPtr(handle), pair.second);
+        LiteLoader::NET::PluginOwnData::AddRemoteCallData(do_Hash(nameSpace) ^ do_Hash(funcName), nint_t(handle), pair.second);
 
         return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, handle);
     }
 
-    bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, System::IntPtr handle)
+    bool RemoteCallAPI::ExportFunc(String^ nameSpace, String^ funcName, CallbackFn^ callback, nint_t handle)
     {
         NULL_ARG_CHECK(nameSpace);
         NULL_ARG_CHECK(funcName);
@@ -82,7 +82,7 @@ namespace LiteLoader::RemoteCall
 
         auto pair = basic_api_converter::create<_invoke_managed_func>(callback);
 
-        LiteLoader::NET::PluginOwnData::AddRemoteCallData(do_Hash(nameSpace) ^ do_Hash(funcName), IntPtr(handle), pair.second);
+        LiteLoader::NET::PluginOwnData::AddRemoteCallData(do_Hash(nameSpace) ^ do_Hash(funcName), nint_t(handle), pair.second);
         return ::RemoteCall::exportFunc(marshalString(nameSpace), marshalString(funcName), pair.first, (HMODULE)handle.ToPointer());
     }
 

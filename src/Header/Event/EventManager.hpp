@@ -28,9 +28,9 @@ namespace LiteLoader::Event
         using __IgnoreCancelled = bool;
         using __IsRef = bool;
         using __IsInstance = bool;
-        using __CallBackFunctionPointer = IntPtr;
+        using __CallBackFunctionPointer = nint_t;
         using __ListenerType = System::Type;
-        using __HMODULE = IntPtr;
+        using __HMODULE = nint_t;
         using __CallbackFunctionInfo = System::ValueTuple<
             __CallBackFunctionPointer, __IgnoreCancelled, __IsRef, __IsInstance, __ListenerType^, __HMODULE>;
         using __PermissionWithCallbackFunctions = array<List<__CallbackFunctionInfo>^>;
