@@ -80,10 +80,10 @@ namespace LiteLoader::Event
         Property(bool, success, Success);
     };
 
-    Class MobSpawnEvent
-        : public EventTemplate<MobSpawnEvent, ::Event::MobSpawnEvent>
+    Class MobTrySpawnEvent
+        : public EventTemplate<MobTrySpawnEvent, ::Event::MobTrySpawnEvent>
     {
-        EventAPIs(MobSpawnEvent, 71);
+        EventAPIs(MobTrySpawnEvent, 71);
 
     public:
         Property_String(mTypeName, TypeName);
@@ -100,5 +100,16 @@ namespace LiteLoader::Event
         Property_Ptr(MC, ServerPlayer, mServerPlayer, Player);
         Property(unsigned, mFormId, FormId);
         Property_String(mJsonData, JsonData);
+    };
+
+    Class MobSpawnedEvent
+        : public EventTemplate<MobSpawnedEvent, ::Event::MobSpawnedEvent>
+    {
+        EventAPIs(MobSpawnedEvent, 73);
+
+    public:
+        Property_Ptr(MC, Mob, mMob, Mob);
+        Property_ValueType(MC, Vec3, mPos, Pos);
+        Property(int, mDimensionId, DimensionId);
     };
 }
