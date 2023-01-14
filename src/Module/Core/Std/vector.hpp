@@ -5,12 +5,12 @@
 #include <vector>
 
 #include "move.hpp"
+#include "pointer.hpp"
 
 namespace LiteLoader::NET::Std
 {
     using LiteLoader::NET::ICppClass;
     using LiteLoader::NET::IPointerConstructable;
-    using System::Runtime::CompilerServices::Unsafe;
     using System::Collections::Generic::IList;
 
     namespace Internal
@@ -213,12 +213,34 @@ namespace LiteLoader::NET::Std
     private:
         static size_t elementTypeSize;
         static bool isValueType;
+        static bool isPointer;
 
         static nint_t(__clrcall* get_intptr)(T);
+        static void(__clrcall* set_native_pointer)(Object^, nint_t, bool);
+        static void(__clrcall* set_native_pointer__pointer)(void*, nint_t, bool);
 
         static vector()
         {
             auto type = typeof(T);
+            if (type->Name == "pointer`1" && type->Namespace == "LiteLoader.NET")
+            {
+                isValueType = true;
+                isPointer = true;
+                elementTypeSize = Unsafe::SizeOf<T>();
+
+                get_intptr = reinterpret_cast<decltype(get_intptr)>(
+                    type->GetMethod("get_Intptr")
+                    ->MethodHandle
+                    .GetFunctionPointer()
+                    .ToPointer());
+
+                set_native_pointer__pointer = reinterpret_cast<decltype(set_native_pointer__pointer)>(
+                    type->GetMethod("SetNativePointer")
+                    ->MethodHandle
+                    .GetFunctionPointer()
+                    .ToPointer());
+            }
+
             if (type->IsValueType)
             {
                 elementTypeSize = Unsafe::SizeOf<T>();
@@ -234,6 +256,12 @@ namespace LiteLoader::NET::Std
                 throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing property 'Intptr'");
             else
                 vector::get_intptr = reinterpret_cast<nint_t(__clrcall*)(T)>(get_intptr->MethodHandle.GetFunctionPointer().ToPointer());
+
+            auto set_native_pointer = type->GetMethod("SetNativePointer", PackArray(typeof(nint_t), typeof(bool)));
+            if (get_intptr == nullptr)
+                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing Method 'SetNativePointer'");
+            else
+                vector::set_native_pointer = reinterpret_cast<void(__clrcall*)(Object^, nint_t, bool)>(set_native_pointer->MethodHandle.GetFunctionPointer().ToPointer());
 
             using System::Reflection::BindingFlags;
             auto field = type->GetField(
@@ -293,12 +321,18 @@ namespace LiteLoader::NET::Std
                 {
                     if (isValueType)
                     {
+                        if (isPointer)
+                        {
+                            T ret;
+                            set_native_pointer__pointer(&ret, static_cast<nint_t>(_this.get()), false);
+                            return ret;
+                        }
                         return Unsafe::Read<T>(_this.get());
                     }
                     else
                     {
                         auto ret = gcnew T();
-                        ((IConstructableCppClass^)(ret))->SetNativePointer(Unsafe::Read<nint_t>(_this.get()), false);
+                        set_native_pointer(ret, static_cast<nint_t>(_this.get()), false);
                         return ret;
                     }
                 }
@@ -356,6 +390,8 @@ namespace LiteLoader::NET::Std
         bool empty()
         {
             return _this.empty();
+            std::string str;
+            new std::string(std::move(str));
         }
         size_t capacity()
         {

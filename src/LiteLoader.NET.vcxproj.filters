@@ -118,6 +118,9 @@
     <Filter Include="Module\Core\Std\InternalImpl">
       <UniqueIdentifier>{ee67e76f-ee5f-4c4f-945d-33f2d9356d82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Core\Interface">
+      <UniqueIdentifier>{b3c44076-3c00-4362-bd2e-25d12f4eda0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -542,6 +545,9 @@
     </ClCompile>
     <ClCompile Include="Module\Core\Std\vector.cpp">
       <Filter>Module\Core\Std</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\pointer.cpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1057,6 +1063,9 @@
     </ClInclude>
     <ClInclude Include="Module\Core\Std\wstring.hpp">
       <Filter>Module\Core\Std</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\pointer.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
