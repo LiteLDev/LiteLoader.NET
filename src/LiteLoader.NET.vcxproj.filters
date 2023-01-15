@@ -549,6 +549,12 @@
     <ClCompile Include="Module\Core\Std\pointer.cpp">
       <Filter>Module\Core\Std\InternalImpl</Filter>
     </ClCompile>
+    <ClCompile Include="Module\Core\Std\reference.cpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\allocator.cpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -1066,6 +1072,12 @@
     </ClInclude>
     <ClInclude Include="Module\Core\Std\pointer.hpp">
       <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\reference.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\allocator.hpp">
+      <Filter>Module\Core\Std</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

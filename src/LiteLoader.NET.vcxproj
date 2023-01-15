@@ -229,9 +229,11 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Main\PluginManager.hpp" />
     <ClInclude Include="Main\PluginOwnData.hpp" />
     <ClInclude Include="Main\Version.hpp" />
+    <ClInclude Include="Module\Core\Std\allocator.hpp" />
     <ClInclude Include="Module\Core\Std\IMoveable.hpp" />
     <ClInclude Include="Module\Core\Std\move.hpp" />
     <ClInclude Include="Module\Core\Std\pointer.hpp" />
+    <ClInclude Include="Module\Core\Std\reference.hpp" />
     <ClInclude Include="Module\Core\Std\string.hpp" />
     <ClInclude Include="Module\Core\Std\vector.hpp" />
     <ClInclude Include="Module\Core\Std\wstring.hpp" />
@@ -384,7 +386,9 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\PluginLoadContext.cpp" />
     <ClCompile Include="Main\PluginManager.cpp" />
     <ClCompile Include="Main\PluginOwnData.cpp" />
+    <ClCompile Include="Module\Core\Std\allocator.cpp" />
     <ClCompile Include="Module\Core\Std\pointer.cpp" />
+    <ClCompile Include="Module\Core\Std\reference.cpp" />
     <ClCompile Include="Module\Core\Std\vector.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp" />

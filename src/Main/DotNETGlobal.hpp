@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #include "Global.hpp"
-#include <src/Header/Core/Exceptions.hpp>
+#include <src/Module/Core/Exceptions.hpp>
 
 #define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
 

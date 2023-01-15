@@ -1,6 +1,6 @@
 #pragma once
 #include <src/Main/DotNETGlobal.hpp>
-#include <src/Header/Core/ICppClass.hpp>
+#include <src/Module/Core/ICppClass.hpp>
 
 namespace LiteLoader::NET
 {
@@ -9,13 +9,29 @@ namespace LiteLoader::NET
         public value class pointer : IConstructableCppClass
     {
     private:
+        static void(__clrcall* set_native_pointer)(Object^, nint_t, bool);
+
+        static pointer()
+        {
+            set_native_pointer = reinterpret_cast<void(__clrcall*)(Object^, nint_t, bool)>(
+                typeof(T)
+                ->GetMethod("SetNativePointer", PackArray(typeof(nint_t), typeof(bool)))
+                ->MethodHandle
+                .GetFunctionPointer()
+                .ToPointer());
+
+            if (set_native_pointer == nullptr)
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + L',' + "missing Method 'SetNativePointer'");
+        }
+
+    private:
         nint_t pInstance;
 
     public:
         T Deference()
         {
             auto ret = gcnew T;
-            ret->SetNativePointer(Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
+            set_native_pointer(ret, Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
             return ret;
         }
 
@@ -34,6 +50,11 @@ namespace LiteLoader::NET
         virtual void SetNativePointer(nint_t ptr, bool ownsInstance)
         {
             pInstance = ptr;
+        }
+
+        virtual size_t GetClassSize()
+        {
+            return sizeof(intptr_t);
         }
     };
 }

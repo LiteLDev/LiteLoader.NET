@@ -1,0 +1,9 @@
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define typeof(type)
+#define __ctor_all(RefClass, NativeClass) __ctor(RefClass, NativeClass); internal: __ctor_copy(RefClass, NativeClass); __ctor_move(RefClass, NativeClass); public:
+#define __ctor_default(RefClass, NativeClass) RefClass() : ClassTemplate((void*)nullptr, false) { }
+#define __ctor(RefClass, NativeClass) RefClass(nint_t p) : ClassTemplate(p) { } RefClass(nint_t p, bool ownsNativeInstance) : ClassTemplate(p, ownsNativeInstance) { } RefClass(NativeClass* p) : ClassTemplate(p) { } RefClass(NativeClass* p, bool ownsNativeInstance) : ClassTemplate(p, ownsNativeInstance) { } RefClass(void* p) : ClassTemplate(p) { } RefClass(void* p, bool ownsNativeInstance) : ClassTemplate(p, ownsNativeInstance) { }
+#define __ctor_copy(RefClass, NativeClass) RefClass(NativeClass& r) : ClassTemplate(r) { }
+#define __ctor_move(RefClass, NativeClass) RefClass(NativeClass&& m) : ClassTemplate(m) { }

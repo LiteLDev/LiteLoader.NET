@@ -172,5 +172,9 @@ namespace LiteLoader::NET::Internal
         {
             ResetPointer(reinterpret_cast<NATIVECLASS*>(ptr.ToPointer()), ownsInstance);
         }
+        virtual size_t GetClassSize()
+        {
+            return NativeClassSize;
+        }
     };
 }

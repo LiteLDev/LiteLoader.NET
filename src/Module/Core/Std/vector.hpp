@@ -1,16 +1,18 @@
 #pragma once
 #include <src/Main/DotNETGlobal.hpp>
-#include <src/Header/Core/ICppClass.hpp>
+#include <src/Module/Core/ICppClass.hpp>
 
 #include <vector>
 
 #include "move.hpp"
 #include "pointer.hpp"
+#include "ICppStdClass.hpp"
 
 namespace LiteLoader::NET::Std
 {
     using LiteLoader::NET::ICppClass;
     using LiteLoader::NET::IPointerConstructable;
+    using LiteLoader::NET::Std::Internal::ICppStdClass;
     using System::Collections::Generic::IList;
 
     namespace Internal
@@ -208,69 +210,21 @@ namespace LiteLoader::NET::Std
 
     generic<typename T> where T:
     gcnew()
-        public ref class vector sealed :IList<T>, IConstructableCppClass, IMoveable
+        public ref class vector sealed :IList<T>, ICppStdClass<T>, IConstructableCppClass, IMoveable
     {
     private:
         static size_t elementTypeSize;
         static bool isValueType;
         static bool isPointer;
 
-        static nint_t(__clrcall* get_intptr)(T);
-        static void(__clrcall* set_native_pointer)(Object^, nint_t, bool);
-        static void(__clrcall* set_native_pointer__pointer)(void*, nint_t, bool);
+        static ICppStdClass::_Get_intptr_fptr get_intptr;
+        static ICppStdClass::_Set_native_pointer_fptr set_native_pointer;
+        static ICppStdClass::_Set_native_pointer__pointer_fptr set_native_pointer__pointer;
 
         static vector()
         {
-            auto type = typeof(T);
-            if (type->Name == "pointer`1" && type->Namespace == "LiteLoader.NET")
-            {
-                isValueType = true;
-                isPointer = true;
-                elementTypeSize = Unsafe::SizeOf<T>();
-
-                get_intptr = reinterpret_cast<decltype(get_intptr)>(
-                    type->GetMethod("get_Intptr")
-                    ->MethodHandle
-                    .GetFunctionPointer()
-                    .ToPointer());
-
-                set_native_pointer__pointer = reinterpret_cast<decltype(set_native_pointer__pointer)>(
-                    type->GetMethod("SetNativePointer")
-                    ->MethodHandle
-                    .GetFunctionPointer()
-                    .ToPointer());
-            }
-
-            if (type->IsValueType)
-            {
-                elementTypeSize = Unsafe::SizeOf<T>();
-                isValueType = true;
-                return;
-            }
-
-            if (!type->IsAssignableTo(typeof(IConstructableCppClass)))
-                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName);
-
-            auto get_intptr = type->GetMethod("get_Intptr");
-            if (get_intptr == nullptr)
-                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing property 'Intptr'");
-            else
-                vector::get_intptr = reinterpret_cast<nint_t(__clrcall*)(T)>(get_intptr->MethodHandle.GetFunctionPointer().ToPointer());
-
-            auto set_native_pointer = type->GetMethod("SetNativePointer", PackArray(typeof(nint_t), typeof(bool)));
-            if (get_intptr == nullptr)
-                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing Method 'SetNativePointer'");
-            else
-                vector::set_native_pointer = reinterpret_cast<void(__clrcall*)(Object^, nint_t, bool)>(set_native_pointer->MethodHandle.GetFunctionPointer().ToPointer());
-
-            using System::Reflection::BindingFlags;
-            auto field = type->GetField(
-                "NativeClassSize", BindingFlags::Public | BindingFlags::Static | BindingFlags::FlattenHierarchy);
-
-            if (field != nullptr && field->IsLiteral)
-                elementTypeSize = static_cast<size_t>(field->GetValue(nullptr));
-            else
-                throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing const(literal) field 'NativeClassSize'");
+            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer,
+                get_intptr, set_native_pointer, set_native_pointer__pointer);
         }
 
         literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
@@ -520,5 +474,10 @@ namespace LiteLoader::NET::Std
             this->ownsNativeInstance = ownsInstance;
         }
 
-    };
+        virtual size_t GetClassSize()
+        {
+            return 24;
+        }
+
+};
 } // namespace LiteLoader::NET::Std
