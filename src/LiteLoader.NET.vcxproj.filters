@@ -121,6 +121,9 @@
     <Filter Include="Module\Core\Std\Exceptions">
       <UniqueIdentifier>{61bc4b9c-cb89-479c-ad05-6f67db63939c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Core\Std\vector">
+      <UniqueIdentifier>{91dced5e-e75c-41d9-bc38-3808a61fcb57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kernel\MC\ActorDamageSource.cpp">
@@ -543,9 +546,6 @@
     <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp">
       <Filter>Module\RemoteCall</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Core\Std\vector.cpp">
-      <Filter>Module\Core\Std</Filter>
-    </ClCompile>
     <ClCompile Include="Module\Core\Std\pointer.cpp">
       <Filter>Module\Core\Std\InternalImpl</Filter>
     </ClCompile>
@@ -554,6 +554,18 @@
     </ClCompile>
     <ClCompile Include="Module\Core\Std\allocator.cpp">
       <Filter>Module\Core\Std</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\vector\vector`1.cpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\vector\internal.cpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\vector\_Vector_base.cpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\vector\vector`2.cpp">
+      <Filter>Module\Core\Std\vector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1046,9 +1058,6 @@
     <ClInclude Include="Main\ClassTemplateDecl.hpp">
       <Filter>Main\Class</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Core\Std\vector.hpp">
-      <Filter>Module\Core\Std</Filter>
-    </ClInclude>
     <ClInclude Include="Module\Core\Std\string.hpp">
       <Filter>Module\Core\Std</Filter>
     </ClInclude>
@@ -1087,6 +1096,18 @@
     </ClInclude>
     <ClInclude Include="Module\Core\Std\Exceptions\bad_alloc.hpp">
       <Filter>Module\Core\Std\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\vector\vector`1.hpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\vector\internal.hpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\vector\_Vector_base.hpp">
+      <Filter>Module\Core\Std\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\vector\vector`2.hpp">
+      <Filter>Module\Core\Std\vector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

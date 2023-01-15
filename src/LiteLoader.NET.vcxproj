@@ -238,7 +238,10 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Module\Core\Std\pointer.hpp" />
     <ClInclude Include="Module\Core\Std\reference.hpp" />
     <ClInclude Include="Module\Core\Std\string.hpp" />
-    <ClInclude Include="Module\Core\Std\vector.hpp" />
+    <ClInclude Include="Module\Core\Std\vector\internal.hpp" />
+    <ClInclude Include="Module\Core\Std\vector\vector`2.hpp" />
+    <ClInclude Include="Module\Core\Std\vector\vector`1.hpp" />
+    <ClInclude Include="Module\Core\Std\vector\_Vector_base.hpp" />
     <ClInclude Include="Module\Core\Std\wstring.hpp" />
     <ClInclude Include="Module\RemoteCall\Attributes\RemoteCallValueTypeAttribute.hpp" />
     <ClInclude Include="Module\RemoteCall\Enums\InstanceType.hpp" />
@@ -392,7 +395,10 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Module\Core\Std\allocator.cpp" />
     <ClCompile Include="Module\Core\Std\pointer.cpp" />
     <ClCompile Include="Module\Core\Std\reference.cpp" />
-    <ClCompile Include="Module\Core\Std\vector.cpp" />
+    <ClCompile Include="Module\Core\Std\vector\internal.cpp" />
+    <ClCompile Include="Module\Core\Std\vector\vector`2.cpp" />
+    <ClCompile Include="Module\Core\Std\vector\vector`1.cpp" />
+    <ClCompile Include="Module\Core\Std\vector\_Vector_base.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\EmitHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\MemoryHelper.cpp" />
     <ClCompile Include="Module\RemoteCall\Helpers\TypeCastHelper.cpp" />

@@ -67,6 +67,7 @@ using IEnumeratorNonGgeneric = System::Collections::IEnumerator;
 
 using SystemType = System::Type;
 using byte_t = unsigned char;
+
 using nint_t = IntPtr;
 
 #include <src/Tools/clix.hpp>

@@ -35,7 +35,7 @@ namespace LiteLoader::NET
             return ret;
         }
 
-        // Í¨¹ý IConstructableCppClass ¼Ì³Ð
+        //IConstructableCppClass
         property nint_t Intptr
         {
             virtual nint_t get()

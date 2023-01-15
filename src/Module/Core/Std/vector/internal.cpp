@@ -1,5 +1,4 @@
-#include "vector.hpp"
-
+#include "internal.hpp"
 namespace LiteLoader::NET::Std::Internal
 {
     inline vector::iterator::iterator(void* stdVectorIteratorPtr, size_t elementTypeSize)
@@ -69,63 +68,4 @@ namespace LiteLoader::NET::Std::Internal
     {
         return _Data._Mypair._Myval2._Myfirst;
     }
-    /*generic<typename T>
-    inline _Vector_base<T>::_Vector_base()
-        :_Initialized_by_managed(true)
-    {
-        if (T::typeid->IsValueType)
-        {
-            _Element_type_size = sizeof(T);
-            _Is_class = false;
-        }
-        else
-        {
-            _Element_type_size = _Get_element_type_size();
-            _Is_class = true;
-        }
-
-        if (_Element_type_size == 0)
-            throw gcnew LiteLoader::NET::InvalidValueException("Field '_element_type_size' equals zero.");
-    }
-    generic<typename T>
-    inline _Vector_base<T>::_Vector_base(void* vector)
-        :_Initialized_by_managed(false)
-    {
-        if (T::typeid->IsValueType)
-        {
-            _Element_type_size = sizeof(T);
-            _Is_class = false;
-        }
-        else
-        {
-            _Element_type_size = _Get_element_type_size();
-            _Is_class = true;
-        }
-
-        if (_Element_type_size == 0)
-            throw gcnew LiteLoader::NET::InvalidValueException("Field '_element_type_size' equals zero.");
-
-        _Vector = _value_vector(vector, _Element_type_size);
-    }
-    generic<typename T>
-    inline size_t _Vector_base<T>::_Get_element_type_size()
-    {
-        if (!typeof(T)->IsAssignableTo(typeof(ICppClass)))
-            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName);
-
-        using System::Reflection::BindingFlags;
-        auto field = typeof(T)->GetField(
-            "NativeClassSize",
-            BindingFlags::Public |
-            BindingFlags::Static |
-            BindingFlags::FlattenHierarchy);
-
-        if (field == nullptr)
-            return 0;
-
-        if ((!field->IsLiteral) || !(field->IsInitOnly))
-            return 0;
-
-        return static_cast<size_t>(field->GetValue(nullptr));
-    }*/
 }

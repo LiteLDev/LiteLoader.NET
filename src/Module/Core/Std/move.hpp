@@ -10,12 +10,12 @@ namespace LiteLoader::NET::Std
     private:
         T instance;
 
+    public:
         move(T instance)
             :instance(instance)
         {
         }
 
-    public:
         static operator T(move v)
         {
             return v.instance;

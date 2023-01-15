@@ -1,7 +1,4 @@
 #pragma once
-
-//#define private public
-//#define protected public
 #include <memory>
 #include "pointer.hpp"
 #include "move.hpp"
@@ -10,6 +7,17 @@
 namespace LiteLoader::NET::Std
 {
     using LiteLoader::NET::Std::Internal::ICppStdClass;
+
+    namespace Internal
+    {
+        public interface class ICppStdAllocator
+        {
+            void* allocate(size_t count);
+            void deallocate(void* ptr, size_t count);
+        };
+    }
+
+    using LiteLoader::NET::Std::Internal::ICppStdAllocator;
 
     namespace Internal
     {
@@ -27,10 +35,7 @@ namespace LiteLoader::NET::Std
         public:
             property _Allocator_data% internal_data
             {
-                _Allocator_data% get()
-                {
-                    return _Data;
-                }
+                _Allocator_data% get();
             }
         internal:
             static void* std_Allocate_manually_vector_aligned_struct_std__Default_allocate_traits_(uint64_t _Bytes);
@@ -41,8 +46,8 @@ namespace LiteLoader::NET::Std
     }
 
     generic<typename T> where T:
-    IConstructableCppClass
-        public ref class allocator :ICppStdClass<T>, IConstructableCppClass, IMoveable
+    gcnew()
+        public ref class allocator :ICppStdClass<T>, ICppStdAllocator, IConstructableCppClass, IMoveable
     {
     private:
         static size_t elementTypeSize;
@@ -62,30 +67,25 @@ namespace LiteLoader::NET::Std
         using _value_allocator = LiteLoader::NET::Std::Internal::allocator;
     private:
         _value_allocator _this;
-
     public:
-
-        // Í¨¹ý IConstructableCppClass ¼Ì³Ð
+        allocator();
+        allocator(nint_t ptr);
+        allocator(move<allocator<T>^> al);
+    public:
+        //ICppStdAllocator
+        virtual void* allocate(size_t count);
+        virtual void deallocate(void* ptr, size_t count);
+    public:
+        //IConstructableCppClass
         property nint_t Intptr
         {
-            virtual nint_t get()
-            {
-                pin_ptr<decltype(_this)> ptr = &_this;
-                return nint_t(ptr);
-            }
+            virtual nint_t get();
         }
-        virtual void Destruct()
-        {
-        }
-        virtual void SetNativePointer(nint_t ptr, bool ownsInstance)
-        {
-            _this = *reinterpret_cast<decltype(_this)*>(ptr.ToPointer());
-        }
+        virtual void Destruct();
+        virtual void SetNativePointer(nint_t ptr, bool ownsInstance);
 
-        virtual size_t GetClassSize()
-        {
-            return 1;
-        }
+        literal size_t NativeClassSize = 1;
+        virtual size_t GetClassSize();
     };
 }
 

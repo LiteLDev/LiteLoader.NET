@@ -5,19 +5,19 @@ namespace LiteLoader::NET::Std
 {
     namespace Internal
     {
-        allocator::allocator(void* stdAllocatorPtr, size_t elementTypeSize)
+        inline allocator::allocator(void* stdAllocatorPtr, size_t elementTypeSize)
             : _Element_type_size(elementTypeSize)
         {
             _Data = *reinterpret_cast<_Allocator_data*>(stdAllocatorPtr);
         }
 
-        allocator::allocator(nint_t stdAllocatorPtr, size_t elementTypeSize)
+        inline allocator::allocator(nint_t stdAllocatorPtr, size_t elementTypeSize)
             : _Element_type_size(elementTypeSize)
         {
             _Data = *reinterpret_cast<_Allocator_data*>((void*)stdAllocatorPtr);
         }
 
-        void* allocator::allocate(size_t count)
+        inline void* allocator::allocate(size_t count)
         {
             if (count > 4611686018427387903L)
             {
@@ -36,7 +36,7 @@ namespace LiteLoader::NET::Std
             return nullptr;
         }
 
-        void allocator::deallocate(void* ptr, size_t count)
+        inline void allocator::deallocate(void* ptr, size_t count)
         {
             if (ptr != nullptr || count == 0)
                 throw gcnew System::ArgumentException("null pointer cannot point to a block of non-zero size");
@@ -44,7 +44,12 @@ namespace LiteLoader::NET::Std
             ::operator delete(ptr, count * _Element_type_size);
         }
 
-        void* allocator::std_Allocate_manually_vector_aligned_struct_std__Default_allocate_traits_(uint64_t _Bytes)
+        inline _Allocator_data% allocator::internal_data::get()
+        {
+            return _Data;
+        }
+
+        inline void* allocator::std_Allocate_manually_vector_aligned_struct_std__Default_allocate_traits_(uint64_t _Bytes)
         {
             uint64_t num = _Bytes + 39;
             if (num <= _Bytes)
@@ -62,5 +67,52 @@ namespace LiteLoader::NET::Std
             _invalid_parameter_noinfo_noreturn();
             return (void*)0uL;
         }
+    }
+
+#define GENERIC_HEADER generic<typename T> where T: gcnew()
+
+    GENERIC_HEADER inline allocator<T>::allocator()
+    {
+    }
+    
+    GENERIC_HEADER inline allocator<T>::allocator(nint_t ptr)
+        :_this(ptr, elementTypeSize)
+    {
+    }
+    
+    GENERIC_HEADER inline allocator<T>::allocator(move<allocator<T>^> al)
+        : _this(static_cast<allocator<T>^>(al)->_this)
+    {
+        static_cast<allocator<T>^>(al)->_this = _value_allocator();
+    }
+    
+    GENERIC_HEADER inline void* allocator<T>::allocate(size_t count)
+    {
+        return _this.allocate(count);
+    }
+    
+    GENERIC_HEADER inline void allocator<T>::deallocate(void* ptr, size_t count)
+    {
+        _this.deallocate(ptr, count);
+    }
+    
+    GENERIC_HEADER inline nint_t allocator<T>::Intptr::get()
+    {
+        pin_ptr<decltype(_this)> ptr = &_this;
+        return nint_t(ptr);
+    }
+    
+    GENERIC_HEADER inline void allocator<T>::Destruct()
+    {
+    }
+    
+    GENERIC_HEADER inline void allocator<T>::SetNativePointer(nint_t ptr, bool ownsInstance)
+    {
+        _this = *reinterpret_cast<decltype(_this)*>(ptr.ToPointer());
+    }
+    
+    GENERIC_HEADER inline size_t allocator<T>::GetClassSize()
+    {
+        return NativeClassSize;
     }
 }
