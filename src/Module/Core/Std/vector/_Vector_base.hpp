@@ -12,15 +12,20 @@ namespace LiteLoader::NET::Std::Internal
         static size_t elementTypeSize;
         static bool isValueType;
         static bool isPointer;
+        static bool isCopyable;
+        static bool isMoveable;
 
         static ICppStdClass::_Get_intptr_fptr get_intptr;
         static ICppStdClass::_Set_native_pointer_fptr set_native_pointer;
         static ICppStdClass::_Set_native_pointer__pointer_fptr set_native_pointer__pointer;
+        static ICppStdClass::_Ctor_copy_fptr ctor_copy;
+        static ICppStdClass::_Ctor_move_fptr ctor_move;
+        static ICppStdClass::_Dtor_fptr dtor;
 
         static _Vector_base()
         {
-            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer,
-                get_intptr, set_native_pointer, set_native_pointer__pointer);
+            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer, isCopyable, isMoveable,
+                get_intptr, set_native_pointer, set_native_pointer__pointer, ctor_copy, ctor_move, dtor);
         }
 
         literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
@@ -54,6 +59,9 @@ namespace LiteLoader::NET::Std::Internal
         _value_vector _this;
         bool ownsNativeInstance;
         TAlloc allocator = gcnew TAlloc;
+    private:
+        T _Emplace_reallocate(T% val);
+        T _Emplace(T% val);
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);

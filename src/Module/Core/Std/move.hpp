@@ -3,9 +3,10 @@
 
 namespace LiteLoader::NET::Std
 {
-    generic<typename T> where T:
-    IMoveable
-        public value struct move
+    using LiteLoader::NET::Std::Internal::IMoveable;
+
+    generic<typename T>
+    public value struct move
     {
     private:
         T instance;

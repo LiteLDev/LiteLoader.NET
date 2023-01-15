@@ -53,15 +53,20 @@ namespace LiteLoader::NET::Std
         static size_t elementTypeSize;
         static bool isValueType;
         static bool isPointer;
+        static bool isCopyable;
+        static bool isMoveable;
 
         static ICppStdClass::_Get_intptr_fptr get_intptr;
         static ICppStdClass::_Set_native_pointer_fptr set_native_pointer;
         static ICppStdClass::_Set_native_pointer__pointer_fptr set_native_pointer__pointer;
+        static ICppStdClass::_Ctor_copy_fptr ctor_copy;
+        static ICppStdClass::_Ctor_move_fptr ctor_move;
+        static ICppStdClass::_Dtor_fptr dtor;
 
         static allocator()
         {
-            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer,
-                get_intptr, set_native_pointer, set_native_pointer__pointer);
+            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer, isCopyable, isMoveable,
+                get_intptr, set_native_pointer, set_native_pointer__pointer, ctor_copy, ctor_move, dtor);
         }
     private:
         using _value_allocator = LiteLoader::NET::Std::Internal::allocator;

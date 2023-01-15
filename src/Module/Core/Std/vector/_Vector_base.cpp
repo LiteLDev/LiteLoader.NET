@@ -55,6 +55,39 @@ namespace LiteLoader::NET::Std::Internal
         }
     }
 
+    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Emplace_reallocate(T% val)
+    {
+        throw gcnew System::NotImplementedException;
+    }
+
+    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Emplace(T% val)
+    {
+        auto temp_ptr = _this._Data._Mypair._Myval2._Mylast;
+
+        auto dval = uintptr_t(_this._Data._Mypair._Myval2._Myend) - uintptr_t(_this._Data._Mypair._Myval2._Mylast);
+
+        if (dval <= 0 && dval % elementTypeSize != 0)
+            throw gcnew LiteLoader::NET::MemoryCorruptedException(
+                String::Format("Error internal vector data has been detected. _Myend:{0},_Mylast:{1}.",
+                    uintptr_t(_this._Data._Mypair._Myval2._Myend),
+                    uintptr_t(_this._Data._Mypair._Myval2._Mylast)));
+
+        _this._Data._Mypair._Myval2._Mylast += elementTypeSize;
+
+        if (isValueType)
+        {
+            Unsafe::Write(temp_ptr, val);
+            return val;
+        }
+        else
+        {
+            auto pInstance = get_intptr(val);
+            memcpy(temp_ptr, pInstance.ToPointer(), elementTypeSize);
+            set_native_pointer(val, pInstance, false);
+            return val;
+        }
+    }
+
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base() {}
 
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(nint_t ptr)
@@ -115,18 +148,47 @@ namespace LiteLoader::NET::Std::Internal
     {
         return _this.data();
     }
-    
+
     GENERIC_HEADER inline TAlloc _Vector_base<T, TAlloc>::get_allocator()
     {
         return allocator;
         std::vector<int> a;
         a.emplace_back(1);
     }
-    
+
     GENERIC_HEADER inline T _Vector_base<T, TAlloc>::emplace_back(T val)
     {
-        std::vector<int> a;
-        a.emplace_back(1);
+        if (!isCopyable)
+            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not copyable.");
+
+        auto _size = size();
+        auto _capacity = size();
+
+        T temp;
+        if (isValueType)
+            temp = val;
+        else
+        {
+            temp = gcnew T();
+            ctor_copy(temp, val);
+        }
+
+        T ret;
+        if (_size < _capacity)
+            ret = _Emplace(temp);
+        else
+        {
+            if (_size > _capacity)
+            {
+                throw gcnew LiteLoader::NET::MemoryCorruptedException(
+                    String::Format("Error internal vector data has been detected. size:{0},capacity:{1}.",
+                        _size, _capacity));
+            }
+
+            ret = _Emplace_reallocate(temp);
+        }
+
+        return ret;
     }
 
     GENERIC_HEADER inline IEnumeratorNonGgeneric^ _Vector_base<T, TAlloc>::GetEnumeratorNonGgeneric()
@@ -215,18 +277,18 @@ namespace LiteLoader::NET::Std::Internal
         pin_ptr<decltype(_this)> ptr = &_this;
         return nint_t(ptr);
     }
-    
+
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::Destruct()
     {
         throw gcnew System::NotSupportedException(NotSupportedMessage);
     }
-    
+
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::SetNativePointer(nint_t ptr, bool ownsInstance)
     {
         _this = *reinterpret_cast<decltype(_this)*>(ptr.ToPointer());
         this->ownsNativeInstance = ownsInstance;
     }
-    
+
     GENERIC_HEADER inline size_t _Vector_base<T, TAlloc>::GetClassSize()
     {
         return NativeClassSize;

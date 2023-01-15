@@ -1109,6 +1109,9 @@
     <ClInclude Include="Module\Core\Std\vector\vector`2.hpp">
       <Filter>Module\Core\Std\vector</Filter>
     </ClInclude>
+    <ClInclude Include="Module\Core\Std\ICopyable.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

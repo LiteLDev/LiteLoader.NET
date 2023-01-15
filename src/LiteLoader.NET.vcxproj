@@ -232,6 +232,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Module\Core\Std\allocator.hpp" />
     <ClInclude Include="Module\Core\Std\Exceptions\bad_alloc.hpp" />
     <ClInclude Include="Module\Core\Std\Exceptions\exception.hpp" />
+    <ClInclude Include="Module\Core\Std\ICopyable.hpp" />
     <ClInclude Include="Module\Core\Std\ICppStdClass.hpp" />
     <ClInclude Include="Module\Core\Std\IMoveable.hpp" />
     <ClInclude Include="Module\Core\Std\move.hpp" />

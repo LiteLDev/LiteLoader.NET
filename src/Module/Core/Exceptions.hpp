@@ -175,4 +175,14 @@ namespace LiteLoader::NET
         {
         }
     };
+    
+    public ref class MemoryCorruptedException
+        :LiteLoaderDotNETException
+    {
+    public:
+        MemoryCorruptedException(System::String^ message)
+            :LiteLoaderDotNETException(message)
+        {
+        }
+    };
 }

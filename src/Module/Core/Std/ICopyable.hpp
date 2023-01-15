@@ -1,7 +1,7 @@
 #pragma once
 namespace LiteLoader::NET::Std::Internal
 {
-    public interface class IMoveable
+    public interface class ICopyable
     {
     };
 }
