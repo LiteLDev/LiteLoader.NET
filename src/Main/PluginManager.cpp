@@ -1,5 +1,5 @@
 #include "PluginManager.hpp"
-#include <src/Header/Core/Exceptions.hpp>
+#include <src/Module/Core/Exceptions.hpp>
 #include <src/Extra/PluginManager.hpp>
 #include <llapi/utils/StringHelper.h>
 #include "PluginOwnData.hpp"

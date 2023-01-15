@@ -5,18 +5,23 @@
 
 namespace LiteLoader::NET::Std
 {
-    private ref class __Exception :ClassTemplate<__Exception, std::exception>
+    namespace Internal
     {
-    public:
-        __ctor_all(__Exception, std::exception);
-    public:
-        __ctor_default(__Exception, std::exception);
-
-        virtual string^ what()
+        public ref class __Exception :ClassTemplate<__Exception, std::exception>
         {
-            return gcnew string(std::string(NativePtr->what()));
-        }
-    };
+        public:
+            __ctor_all(__Exception, std::exception);
+        public:
+            __ctor_default(__Exception, std::exception);
+
+            virtual string^ what()
+            {
+                return gcnew string(std::string(NativePtr->what()));
+            }
+        };
+    }
+    
+    using LiteLoader::NET::Std::Internal::__Exception;
 
     public ref class exception : LiteLoaderDotNETException
     {

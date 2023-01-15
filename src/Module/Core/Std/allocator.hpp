@@ -14,7 +14,7 @@ namespace LiteLoader::NET::Std
     namespace Internal
     {
         [StructLayout(LayoutKind::Explicit, Size = 1)]
-        value struct _Allocator_data {};
+        public value struct _Allocator_data {};
 
         public value class allocator
         {

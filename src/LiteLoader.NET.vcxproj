@@ -107,9 +107,6 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\Command\CommandPropertyBag.hpp" />
     <ClInclude Include="Header\Command\CommandRegistry.hpp" />
     <ClInclude Include="Header\Command\CommandVersion.hpp" />
-    <ClInclude Include="Header\Core\Exceptions.hpp" />
-    <ClInclude Include="Header\Core\ICppClass.hpp" />
-    <ClInclude Include="Header\Core\SecondaryRankPtr.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp" />
     <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp" />
@@ -229,7 +226,13 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Main\PluginManager.hpp" />
     <ClInclude Include="Main\PluginOwnData.hpp" />
     <ClInclude Include="Main\Version.hpp" />
+    <ClInclude Include="Module\Core\Exceptions.hpp" />
+    <ClInclude Include="Module\Core\ICppClass.hpp" />
+    <ClInclude Include="Module\Core\SecondaryRankPtr.hpp" />
     <ClInclude Include="Module\Core\Std\allocator.hpp" />
+    <ClInclude Include="Module\Core\Std\Exceptions\bad_alloc.hpp" />
+    <ClInclude Include="Module\Core\Std\Exceptions\exception.hpp" />
+    <ClInclude Include="Module\Core\Std\ICppStdClass.hpp" />
     <ClInclude Include="Module\Core\Std\IMoveable.hpp" />
     <ClInclude Include="Module\Core\Std\move.hpp" />
     <ClInclude Include="Module\Core\Std\pointer.hpp" />
@@ -407,6 +410,9 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Module\RemoteCall\Types\Value.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\ValueType.cpp" />
     <ClCompile Include="Module\RemoteCall\Types\WorldPosType.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

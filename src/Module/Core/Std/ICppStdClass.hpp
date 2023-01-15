@@ -1,6 +1,6 @@
 #pragma once
 #include <src/Main/DotNETGlobal.hpp>
-#include <src/Header/Core/ICppClass.hpp>
+#include <src/Module/Core/ICppClass.hpp>
 
 namespace LiteLoader::NET::Std::Internal
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <HookAPI.h>
 #include <src/Main/DotNETGlobal.hpp>
-#include <src/Header/Core/SecondaryRankPtr.hpp>
+#include <src/Module/Core/SecondaryRankPtr.hpp>
 
 namespace LiteLoader::Hook
 {

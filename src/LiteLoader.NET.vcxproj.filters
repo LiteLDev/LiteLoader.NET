@@ -34,9 +34,6 @@
     <Filter Include="Kernel\NBT">
       <UniqueIdentifier>{1fb09e7f-3ac6-49f0-a8dd-65258485b971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\Core">
-      <UniqueIdentifier>{3f7180f3-624f-41a0-bade-651876f560de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header\Impl">
       <UniqueIdentifier>{402e3f38-4fbc-4822-b3bd-530cf7dd5493}</UniqueIdentifier>
     </Filter>
@@ -120,6 +117,9 @@
     </Filter>
     <Filter Include="Module\Core\Interface">
       <UniqueIdentifier>{b3c44076-3c00-4362-bd2e-25d12f4eda0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Core\Std\Exceptions">
+      <UniqueIdentifier>{61bc4b9c-cb89-479c-ad05-6f67db63939c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -773,12 +773,6 @@
     <ClInclude Include="Header\MC\StringTag.hpp">
       <Filter>Header\NBT</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\Exceptions.hpp">
-      <Filter>Header\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Core\SecondaryRankPtr.hpp">
-      <Filter>Header\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Tools\NativeCallbackConverter.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -986,9 +980,6 @@
     <ClInclude Include="Tools\type_traits.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Core\ICppClass.hpp">
-      <Filter>Header\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Module\RemoteCall\Types\NumberType.hpp">
       <Filter>Module\RemoteCall\Types</Filter>
     </ClInclude>
@@ -1079,5 +1070,28 @@
     <ClInclude Include="Module\Core\Std\allocator.hpp">
       <Filter>Module\Core\Std</Filter>
     </ClInclude>
+    <ClInclude Include="Module\Core\Std\ICppStdClass.hpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\Exceptions\exception.hpp">
+      <Filter>Module\Core\Std\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Exceptions.hpp">
+      <Filter>Module\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\ICppClass.hpp">
+      <Filter>Module\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\SecondaryRankPtr.hpp">
+      <Filter>Module\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\Exceptions\bad_alloc.hpp">
+      <Filter>Module\Core\Std\Exceptions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint">
+      <Filter>Resource</Filter>
+    </None>
   </ItemGroup>
 </Project>

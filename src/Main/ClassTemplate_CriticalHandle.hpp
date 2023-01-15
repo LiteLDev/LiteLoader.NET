@@ -2,7 +2,7 @@
 #include "DotNETGlobal.hpp"
 #include "ClassTemplateDecl.hpp"
 #include <src/Tools/ClassTemplateHelper.hpp>
-#include <src/Header/Core/ICppClass.hpp>
+#include <src/Module/Core/ICppClass.hpp>
 
 namespace LiteLoader::NET::Internal
 {
