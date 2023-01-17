@@ -62,7 +62,7 @@ namespace LiteLoader::NET::Std::Internal
     }
     inline size_t vector::capacity()
     {
-        return (_Data._Mypair._Myval2._Myfirst - _Data._Mypair._Myval2._Myend) / _Element_type_size;
+        return (_Data._Mypair._Myval2._Myend - _Data._Mypair._Myval2._Myfirst) / _Element_type_size;
     }
     inline void* vector::data()
     {

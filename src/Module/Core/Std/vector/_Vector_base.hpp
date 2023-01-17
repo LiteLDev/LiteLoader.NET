@@ -9,24 +9,8 @@ namespace LiteLoader::NET::Std::Internal
     public ref class _Vector_base :IList<T>, ICppStdClass<T>, IConstructableCppClass, IMoveable
     {
     private:
-        static size_t elementTypeSize;
-        static bool isValueType;
-        static bool isPointer;
-        static bool isCopyable;
-        static bool isMoveable;
-
-        static ICppStdClass::_Get_intptr_fptr get_intptr;
-        static ICppStdClass::_Set_native_pointer_fptr set_native_pointer;
-        static ICppStdClass::_Set_native_pointer__pointer_fptr set_native_pointer__pointer;
-        static ICppStdClass::_Ctor_copy_fptr ctor_copy;
-        static ICppStdClass::_Ctor_move_fptr ctor_move;
-        static ICppStdClass::_Dtor_fptr dtor;
-
-        static _Vector_base()
-        {
-            ICppStdClass::GetElementTypeInfo(elementTypeSize, isValueType, isPointer, isCopyable, isMoveable,
-                get_intptr, set_native_pointer, set_native_pointer__pointer, ctor_copy, ctor_move, dtor);
-        }
+        static size_t type_size = ICppStdClass::elementTypeSize;
+        static bool isValueType = ICppStdClass::isValueType;
 
         literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
 
@@ -58,10 +42,13 @@ namespace LiteLoader::NET::Std::Internal
     private:
         _value_vector _this;
         bool ownsNativeInstance;
-        TAlloc allocator = gcnew TAlloc;
+        TAlloc _al = gcnew TAlloc;
     private:
-        T _Emplace_reallocate(T% val);
-        T _Emplace(T% val);
+        TAlloc _Getal();
+        void _Change_array(byte_t* _Newvec, size_t _Newsize, size_t _Newcapacity);
+        size_t _Calculate_growth(const size_t _Newsize);
+        byte_t* _Emplace_reallocate(byte_t* _Whereptr, bool byMove, T% val);
+        T% _Emplace_back_with_unused_capacity(bool byMove, T% val);
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);
@@ -77,6 +64,7 @@ namespace LiteLoader::NET::Std::Internal
         void* data();
         TAlloc get_allocator();
         T emplace_back(T val);
+        size_t max_size();
     private:
         //IEnumerable
         virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;

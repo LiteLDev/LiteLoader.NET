@@ -28,12 +28,6 @@ namespace LiteLoader::NET
         nint_t pInstance;
 
     public:
-        T Deference()
-        {
-            auto ret = gcnew T;
-            set_native_pointer(ret, Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
-            return ret;
-        }
 
         //IConstructableCppClass
         property nint_t Intptr
@@ -55,6 +49,39 @@ namespace LiteLoader::NET
         virtual size_t GetClassSize()
         {
             return sizeof(intptr_t);
+        }
+
+    public:
+        //C++ operator delete
+        void Delete()
+        {
+            auto ret = gcnew T;
+            set_native_pointer(ret, Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
+            ret->Destruct();
+        }
+
+        //C++ operator delete[]
+        void DeleteArray()
+        {
+            auto _Ret = gcnew T;
+            auto _Ptr = static_cast<byte_t*>(pInstance.ToPointer());
+            uint32_t _Length = *reinterpret_cast<uint32_t*>(_Ptr - sizeof(int32_t));
+
+            if (_Length + 39 <= _Length)
+                throw gcnew LiteLoader::NET::MemoryCorruptedException(String::Format("address:{0}.", (intptr_t)_Ptr));
+
+            for (auto i = 0; i < _Length; ++i)
+            {
+
+            }
+        }
+
+        //C++ operator*()
+        T Dereference()
+        {
+            auto ret = gcnew T;
+            set_native_pointer(ret, Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
+            return ret;
         }
     };
 }

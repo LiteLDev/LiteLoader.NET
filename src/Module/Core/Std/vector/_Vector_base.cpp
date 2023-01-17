@@ -28,6 +28,8 @@ namespace LiteLoader::NET::Std::Internal
             isIterSet = true;
             return true;
         }
+        std::vector<int> a;
+        a.resize(1);
     }
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::iterator::Reset()
@@ -39,10 +41,10 @@ namespace LiteLoader::NET::Std::Internal
     {
         if (isValueType)
         {
-            if (isPointer)
+            if (ICppStdClass::isPointer)
             {
                 T ret;
-                set_native_pointer__pointer(&ret, static_cast<nint_t>(_this.get()), false);
+                ICppStdClass::set_native_pointer__pointer(&ret, static_cast<nint_t>(_this.get()), false);
                 return ret;
             }
             return Unsafe::Read<T>(_this.get());
@@ -50,29 +52,145 @@ namespace LiteLoader::NET::Std::Internal
         else
         {
             auto ret = gcnew T();
-            set_native_pointer(ret, static_cast<nint_t>(_this.get()), false);
+            ICppStdClass::set_native_pointer(ret, static_cast<nint_t>(_this.get()), false);
             return ret;
         }
     }
 
-    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Emplace_reallocate(T% val)
+    GENERIC_HEADER inline TAlloc _Vector_base<T, TAlloc>::_Getal()
     {
-        throw gcnew System::NotImplementedException;
+        return _al;
     }
 
-    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Emplace(T% val)
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::_Change_array(byte_t* _Newvec, size_t _Newsize, size_t _Newcapacity)
+    {
+        auto _Al = _Getal();
+        auto% _My_data = _this._Data._Mypair._Myval2;
+        byte_t*% _Myfirst = _My_data._Myfirst;
+        byte_t*% _Mylast = _My_data._Mylast;
+        byte_t*% _Myend = _My_data._Myend;
+
+        if (_Myfirst)
+        {
+            if (!isValueType)
+            {
+                auto _Temp = gcnew T();
+                for (auto* ptr = _Myfirst; ptr != _Mylast; ptr += type_size)
+                {
+                    ICppStdClass::set_native_pointer(_Temp, nint_t(ptr), false);
+                    ICppStdClass::dtor(_Temp);
+                }
+            }
+            _Al->deallocate(_Myfirst, static_cast<size_t>(_Myend - _Myfirst) / type_size);
+        }
+
+        _Myfirst = _Newvec;
+        _Mylast = _Newvec + _Newsize * type_size;
+        _Myend = _Newvec + _Newcapacity * type_size;
+    }
+
+    GENERIC_HEADER inline size_t _Vector_base<T, TAlloc>::_Calculate_growth(const size_t _Newsize)
+    {
+        const size_t _Oldcapacity = capacity();
+        const auto _Max = max_size();
+
+        if (_Oldcapacity > _Max - _Oldcapacity / 2) {
+            return _Max;
+        }
+
+        const size_t _Geometric = _Oldcapacity + _Oldcapacity / 2;
+
+        if (_Geometric < _Newsize) {
+            return _Newsize;
+        }
+
+        return _Geometric;
+    }
+
+    GENERIC_HEADER inline byte_t* _Vector_base<T, TAlloc>::_Emplace_reallocate(byte_t* _Whereptr, bool byMove, T% val)
+    {
+        auto% _Myfirst = _this._Data._Mypair._Myval2._Myfirst;
+        auto% _Mylast = _this._Data._Mypair._Myval2._Mylast;
+
+        const auto _Whereoff = static_cast<size_t>((_Whereptr - _Myfirst) / type_size);
+        const auto _Oldsize = static_cast<size_t>((_Mylast - _Myfirst) / type_size);
+
+        if (_Oldsize == max_size())
+            throw gcnew System::OutOfMemoryException("vector too long.");
+
+        const size_t _Newsize = _Oldsize + 1;
+        const size_t _Newcapacity = _Calculate_growth(_Newsize);
+
+        byte_t* _Newvec = static_cast<byte_t*>(_al->allocate(_Newcapacity));
+        byte_t* _Constructed_last = _Newvec + (_Whereoff + 1) * type_size;
+        byte_t* _Constructed_first = _Constructed_last;
+
+        try
+        {
+            if (isValueType)
+            {
+                Unsafe::Write(_Newvec + (_Whereoff) *type_size, val);
+            }
+            else
+            {
+                auto _Temp = gcnew T();
+                if (byMove)
+                    ICppStdClass::ctor_move(_Temp, move<T>(val));
+                else
+                    ICppStdClass::ctor_copy(_Temp, val);
+
+                auto _Ptr = ICppStdClass::get_intptr(_Temp);
+                Unsafe::CopyBlock(_Newvec + (_Whereoff)*type_size, _Ptr.ToPointer(), type_size);
+                ICppStdClass::set_native_pointer(_Temp, nint_t::Zero, false);
+            }
+            _Constructed_first = _Newvec + _Whereoff * type_size;
+
+            Unsafe::CopyBlock(_Newvec, _Myfirst, intptr_t(_Whereptr) - intptr_t(_Myfirst));
+            _Constructed_first = _Newvec;
+            Unsafe::CopyBlock(_Newvec + (_Whereoff + 1) * type_size, _Whereptr, intptr_t(_Mylast) - intptr_t(_Whereptr));
+        }
+        catch (Exception^)
+        {
+            auto _Temp = gcnew T();
+            for (auto* ptr = _Constructed_first; ptr != _Constructed_last; ptr += type_size)
+            {
+                ICppStdClass::set_native_pointer(_Temp, nint_t(ptr), false);
+                ICppStdClass::dtor(_Temp);
+            }
+
+            _al->deallocate(_Newvec, _Newcapacity);
+            throw;
+        }
+        catch (...)
+        {
+            auto _Temp = gcnew T();
+            for (auto* ptr = _Constructed_first; ptr != _Constructed_last; ptr += type_size)
+            {
+                ICppStdClass::set_native_pointer(_Temp, nint_t(ptr), false);
+                ICppStdClass::dtor(_Temp);
+            }
+
+            _al->deallocate(_Newvec, _Newcapacity);
+            throw;
+        }
+
+        _Change_array(_Newvec, _Newsize, _Newcapacity);
+        return _Newvec + _Whereoff * type_size;
+    }
+
+    GENERIC_HEADER inline T% _Vector_base<T, TAlloc>::_Emplace_back_with_unused_capacity(bool byMove, T% val)
     {
         auto temp_ptr = _this._Data._Mypair._Myval2._Mylast;
 
         auto dval = uintptr_t(_this._Data._Mypair._Myval2._Myend) - uintptr_t(_this._Data._Mypair._Myval2._Mylast);
 
-        if (dval <= 0 && dval % elementTypeSize != 0)
+        if (dval <= 0 && dval % type_size != 0)
             throw gcnew LiteLoader::NET::MemoryCorruptedException(
                 String::Format("Error internal vector data has been detected. _Myend:{0},_Mylast:{1}.",
                     uintptr_t(_this._Data._Mypair._Myval2._Myend),
                     uintptr_t(_this._Data._Mypair._Myval2._Mylast)));
 
-        _this._Data._Mypair._Myval2._Mylast += elementTypeSize;
+        _this._Data._Mypair._Myval2._Mylast += type_size;
 
         if (isValueType)
         {
@@ -81,17 +199,27 @@ namespace LiteLoader::NET::Std::Internal
         }
         else
         {
-            auto pInstance = get_intptr(val);
-            memcpy(temp_ptr, pInstance.ToPointer(), elementTypeSize);
-            set_native_pointer(val, pInstance, false);
+            auto _Temp = gcnew T();
+            if (byMove)
+                ICppStdClass::ctor_move(_Temp, move<T>(val));
+            else
+                ICppStdClass::ctor_copy(_Temp, val);
+
+            auto pInstance = ICppStdClass::get_intptr(_Temp);
+            memcpy(temp_ptr, pInstance.ToPointer(), type_size);
+            ICppStdClass::set_native_pointer(val, pInstance, false);
             return val;
         }
     }
 
-    GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base() {}
+    GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base()
+    {
+        _this = _value_vector();
+        _this._Element_type_size = type_size;
+    }
 
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(nint_t ptr)
-        :_this(ptr, elementTypeSize)
+        :_this(ptr, type_size)
     {
     }
 
@@ -151,44 +279,46 @@ namespace LiteLoader::NET::Std::Internal
 
     GENERIC_HEADER inline TAlloc _Vector_base<T, TAlloc>::get_allocator()
     {
-        return allocator;
-        std::vector<int> a;
-        a.emplace_back(1);
+        return _al;
     }
 
     GENERIC_HEADER inline T _Vector_base<T, TAlloc>::emplace_back(T val)
     {
-        if (!isCopyable)
-            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not copyable.");
+        if (!isValueType && !ICppStdClass::isCopyable)
+            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not copyable.");
 
-        auto _size = size();
-        auto _capacity = size();
+        auto% _My_data = _this._Data._Mypair._Myval2;
+        auto% _Mylast = _My_data._Mylast;
 
-        T temp;
-        if (isValueType)
-            temp = val;
-        else
+        if (_Mylast != _My_data._Myend)
         {
-            temp = gcnew T();
-            ctor_copy(temp, val);
+            return _Emplace_back_with_unused_capacity(false, val);
         }
-
-        T ret;
-        if (_size < _capacity)
-            ret = _Emplace(temp);
         else
         {
-            if (_size > _capacity)
+            if (_Mylast > _My_data._Myend)
             {
                 throw gcnew LiteLoader::NET::MemoryCorruptedException(
                     String::Format("Error internal vector data has been detected. size:{0},capacity:{1}.",
-                        _size, _capacity));
+                        size(), capacity()));
             }
 
-            ret = _Emplace_reallocate(temp);
-        }
+            auto _ptr = _Emplace_reallocate(_this._Data._Mypair._Myval2._Mylast, false, val);
 
-        return ret;
+            if (isValueType)
+                return Unsafe::AsRef<T>(_ptr);
+            else
+            {
+                auto _temp = gcnew T();
+                ICppStdClass::set_native_pointer(_temp, nint_t(_ptr), false);
+                return _temp;
+            }
+        }
+    }
+
+    GENERIC_HEADER inline size_t _Vector_base<T, TAlloc>::max_size()
+    {
+        return std::min(std::numeric_limits<size_t>::max(), _al->max_size());
     }
 
     GENERIC_HEADER inline IEnumeratorNonGgeneric^ _Vector_base<T, TAlloc>::GetEnumeratorNonGgeneric()
@@ -217,7 +347,7 @@ namespace LiteLoader::NET::Std::Internal
         else
         {
             auto ret = gcnew T();
-            set_native_pointer(ret, Unsafe::Read<nint_t>(_this.at(index).get()), false);
+            ICppStdClass::set_native_pointer(ret, Unsafe::Read<nint_t>(_this.at(index).get()), false);
             return ret;
         }
     }
@@ -244,7 +374,7 @@ namespace LiteLoader::NET::Std::Internal
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::Add(T item)
     {
-        throw gcnew System::NotSupportedException(NotSupportedMessage);
+        emplace_back(item);
     }
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::Clear()

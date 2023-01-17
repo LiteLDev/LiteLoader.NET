@@ -48,14 +48,14 @@ inline array<Player ^> ^ Level::GetAllPlayers()
     return ret;
 }
 
-//inline void* Level::__GetAllPlayers()
-//{
-//     auto ret = new std::vector<::Player*>(std::move(::Level::getAllPlayers()));
-//     Console::WriteLine((uintptr_t)static_cast<void*>((*ret)[0]));
-//     
-//     Console::WriteLine(marshalString(((*ret)[0])->getRealName()));
-//     return ret;
-//}
+inline void* Level::__GetAllPlayers()
+{
+     auto ret = new std::vector<::Player*>(std::move(::Level::getAllPlayers()));
+     Console::WriteLine((uintptr_t)static_cast<void*>((*ret)[0]));
+     
+     Console::WriteLine(marshalString(((*ret)[0])->getRealName()));
+     return ret;
+}
 inline Player ^ Level::GetPlayer(String^ info)
 {
     return gcnew Player(NativePtr->getPlayer(marshalString(info)));

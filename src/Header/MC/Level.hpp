@@ -44,7 +44,7 @@ private:
 public:
     inline /*static*/ void ForEachPlayer(Callback ^ callback);
     inline static array<Player ^> ^ GetAllPlayers();
-    //inline static void* __GetAllPlayers();
+    inline static void* __GetAllPlayers();
     /// name or xuid
     inline /*static*/ Player ^ GetPlayer(String ^ info);
     /// UniqueID
