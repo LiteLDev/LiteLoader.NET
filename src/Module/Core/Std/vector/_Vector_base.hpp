@@ -6,7 +6,7 @@ namespace LiteLoader::NET::Std::Internal
     generic<typename T, typename TAlloc>
     where T : gcnew()
     where TAlloc : gcnew(), ICppStdAllocator
-    public ref class _Vector_base :IList<T>, ICppStdClass<T>, IConstructableCppClass, IMoveable
+    public ref class _Vector_base :IList<T>, ICppStdClass<T>, IConstructableCppClass, ICopyable, IMoveable
     {
     private:
         static size_t type_size = ICppStdClass::elementTypeSize;
@@ -52,6 +52,7 @@ namespace LiteLoader::NET::Std::Internal
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);
+        _Vector_base(_Vector_base^ vec);
         _Vector_base(move<_Vector_base^> vec);
         //cpp api
     public:

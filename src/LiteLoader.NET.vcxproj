@@ -394,6 +394,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\PluginManager.cpp" />
     <ClCompile Include="Main\PluginOwnData.cpp" />
     <ClCompile Include="Module\Core\Std\allocator.cpp" />
+    <ClCompile Include="Module\Core\Std\ICppStdClass.cpp" />
     <ClCompile Include="Module\Core\Std\pointer.cpp" />
     <ClCompile Include="Module\Core\Std\reference.cpp" />
     <ClCompile Include="Module\Core\Std\vector\internal.cpp" />

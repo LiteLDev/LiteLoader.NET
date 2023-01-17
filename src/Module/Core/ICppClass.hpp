@@ -16,6 +16,7 @@ namespace LiteLoader::NET
 
         void Destruct();
 
+        //must contains literal field 'NativeClassSize'
         size_t GetClassSize();
     };
 

@@ -223,6 +223,11 @@ namespace LiteLoader::NET::Std::Internal
     {
     }
 
+    GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(_Vector_base^ vec)
+    {
+        throw gcnew System::NotSupportedException(NotSupportedMessage);
+    }
+    
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(move<_Vector_base^> vec)
     {
         throw gcnew System::NotSupportedException(NotSupportedMessage);

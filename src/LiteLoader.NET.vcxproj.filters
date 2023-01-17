@@ -567,6 +567,9 @@
     <ClCompile Include="Module\Core\Std\vector\vector`2.cpp">
       <Filter>Module\Core\Std\vector</Filter>
     </ClCompile>
+    <ClCompile Include="Module\Core\Std\ICppStdClass.cpp">
+      <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
