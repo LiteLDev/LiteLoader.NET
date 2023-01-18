@@ -220,5 +220,10 @@ namespace LiteLoader::NET::Std
         static wstring^ operator+(wstring^ a, wstring^ b) {
             return gcnew wstring(*a->NativePtr + *b->NativePtr);
         }
+
+        virtual wstring^ ConstructInstanceByMove(move<wstring^> _Right)
+        {
+            return gcnew wstring(_Right);
+        }
     };
 } // namespace LiteLoader::NET::Std

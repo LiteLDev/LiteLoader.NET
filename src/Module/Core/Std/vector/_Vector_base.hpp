@@ -16,6 +16,7 @@ namespace LiteLoader::NET::Std::Internal
 
     private:
         using _value_vector = LiteLoader::NET::Std::Internal::vector;
+        using pointer_t = ICppStdClass::pointer_t;
     public:
         value class iterator sealed : IEnumerator<T>
         {
@@ -43,12 +44,15 @@ namespace LiteLoader::NET::Std::Internal
         _value_vector _this;
         bool ownsNativeInstance;
         TAlloc _al = gcnew TAlloc;
-    private:
+    internal:
         TAlloc _Getal();
         void _Change_array(byte_t* _Newvec, size_t _Newsize, size_t _Newcapacity);
         size_t _Calculate_growth(const size_t _Newsize);
         byte_t* _Emplace_reallocate(byte_t* _Whereptr, bool byMove, T% val);
         T% _Emplace_back_with_unused_capacity(bool byMove, T% val);
+        void _Destroy_range(pointer_t _First, pointer_t _Last);
+        void _Uninitialized_move(pointer_t _First, pointer_t _Last, pointer_t _Dest);
+        void _Uninitialized_copy(pointer_t _First, pointer_t _Last, pointer_t _Dest);
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);
@@ -65,6 +69,7 @@ namespace LiteLoader::NET::Std::Internal
         void* data();
         TAlloc get_allocator();
         T emplace_back(T val);
+        void resize(size_t newSize);
         size_t max_size();
     private:
         //IEnumerable
@@ -105,5 +110,17 @@ namespace LiteLoader::NET::Std::Internal
 
         literal size_t NativeClassSize = 24L;
         virtual size_t GetClassSize();
-    };
+
+        //ICopyable
+        virtual _Vector_base<T, TAlloc>^ ConstructInstanceByCopy(_Vector_base<T, TAlloc>^ _Right)
+        {
+            return gcnew _Vector_base(_Right);
+        }
+
+        //IMoveable
+        virtual _Vector_base<T, TAlloc>^ ConstructInstanceByMove(_Vector_base<T, TAlloc>^ _Right)
+        {
+            return gcnew _Vector_base(_Right);
+        }
+};
 }

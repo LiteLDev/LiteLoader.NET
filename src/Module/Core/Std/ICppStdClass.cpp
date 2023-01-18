@@ -31,6 +31,7 @@ namespace LiteLoader::NET::Std::Internal
         {
             elementTypeSize = Unsafe::SizeOf<T>();
             isValueType = true;
+            isCopyable = true;
             return;
         }
 
@@ -52,7 +53,7 @@ namespace LiteLoader::NET::Std::Internal
             set_native_pointer = reinterpret_cast<_Set_native_pointer_fptr>(method_set_native_pointer->MethodHandle.GetFunctionPointer().ToPointer()); }
 
 
-        {auto method_dtor = type->GetMethod("Destruct", PackArray(typeof(nint_t), typeof(bool)));
+        {auto method_dtor = type->GetMethod("Destruct", PackArray<SystemType^>());
         if (method_dtor == nullptr)
             throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing Method 'Destruct'.");
         else
@@ -70,7 +71,7 @@ namespace LiteLoader::NET::Std::Internal
             throw gcnew LiteLoader::NET::InvalidTypeException(type->FullName + L',' + "missing const(literal) field 'NativeClassSize'."); }
 
 
-        if (type->IsAssignableTo(typeof(ICopyable)))
+        if (type->IsAssignableTo(_ICopyable_type->MakeGenericType(type)))
         {
             auto ctor = type->GetConstructor(PackArray(type));
             if (ctor == nullptr)
@@ -81,7 +82,7 @@ namespace LiteLoader::NET::Std::Internal
         }
 
 
-        if (type->IsAssignableTo(typeof(IMoveable)))
+        if (type->IsAssignableTo(_IMoveable_type->MakeGenericType(type)))
         {
             auto ctor = type->GetConstructor(PackArray(typeof(move<T>)));
             if (ctor == nullptr)

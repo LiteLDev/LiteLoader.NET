@@ -90,7 +90,7 @@ namespace LiteLoader::NET::Std
     {
         static_cast<allocator<T>^>(al)->_this = _value_allocator();
     }
-
+    
     GENERIC_HEADER inline void* allocator<T>::allocate(size_t count)
     {
         return _this.allocate(count);

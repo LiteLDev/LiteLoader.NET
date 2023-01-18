@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "move.hpp"
+#include "IMoveable.hpp"
 
 namespace LiteLoader::NET::Std
 {
@@ -219,6 +220,12 @@ namespace LiteLoader::NET::Std
         }
         static string^ operator+(string^ a, string^ b) {
             return gcnew string(*a->NativePtr + *b->NativePtr);
+        }
+
+        //IMoveable
+        virtual Object^ ConstructInstanceByMove(move<Object^> _Right)
+        {
+            return gcnew string(static_cast<string^>(static_cast<Object^>(_Right)));
         }
     };
 } // namespace LiteLoader::NET::Std

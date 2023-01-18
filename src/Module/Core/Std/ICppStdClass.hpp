@@ -16,7 +16,11 @@ namespace LiteLoader::NET::Std::Internal
         typedef void(__clrcall* _Ctor_move_fptr)(T, move<T>);
         typedef void(__clrcall* _Dtor_fptr)(T);
 
+        using pointer_t = byte_t*;
+
         static SystemType^ _Pointer_type = SystemType::GetType("LiteLoader.NET.pointer`1");
+        static SystemType^ _ICopyable_type = SystemType::GetType("LiteLoader.NET.Std.Internal.ICopyable`1");
+        static SystemType^ _IMoveable_type = SystemType::GetType("LiteLoader.NET.Std.Internal.IMoveable`1");
 
         static size_t elementTypeSize;
         static bool isValueType;

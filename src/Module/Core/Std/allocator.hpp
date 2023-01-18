@@ -48,10 +48,11 @@ namespace LiteLoader::NET::Std
 
     generic<typename T> where T:
     gcnew()
-        public ref class allocator :ICppStdClass<T>, ICppStdAllocator, IConstructableCppClass, IMoveable
+        public ref class allocator :ICppStdClass<T>, ICppStdAllocator, IConstructableCppClass
     {
     private:
         static size_t type_size = ICppStdClass::elementTypeSize;
+        static size_t isValueType = ICppStdClass::isValueType;
 
     private:
         using _value_allocator = LiteLoader::NET::Std::Internal::allocator;
