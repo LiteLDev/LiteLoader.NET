@@ -113,7 +113,7 @@ namespace LiteLoader::DynamicCommand
             String^ AsRawText();
             String^ AsJsonValue();
             MC::CommandItem^ AsCommandItem();
-            MC::Block^ AsBlock();
+            //MC::Block^ AsBlock();
             MC::MobEffect^ AsMobEffect();
             String^ AsEnum();
             String^ AsSoftEnum();
