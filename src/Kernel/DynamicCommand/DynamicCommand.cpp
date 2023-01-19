@@ -64,8 +64,9 @@ namespace LiteLoader::DynamicCommand
             return marshalString(JsonHelpers::serialize(NativePtr->getRaw<Json::Value>()));
         case ::DynamicCommand::ParameterType::Item:
             return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
-        case ::DynamicCommand::ParameterType::Block:
-            return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
+		//case ::DynamicCommand::ParameterType::Block:
+		//	return marshalString(NativePtr->getRaw<std::string>());
+			//return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
         case ::DynamicCommand::ParameterType::Effect:
             return gcnew MC::MobEffect((MobEffect*)NativePtr->getRaw<MobEffect const*>());
         case ::DynamicCommand::ParameterType::Enum:
@@ -151,11 +152,11 @@ namespace LiteLoader::DynamicCommand
             throw gcnew DynamicCommandInvalidCastException;
         return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
     }
-    inline MC::Block^ DynamicCommand::Result::AsBlock() {
-        if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)
-            throw gcnew DynamicCommandInvalidCastException;
-        return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
-    }
+	/*  inline MC::Block^ DynamicCommand::Result::AsBlock() {
+		  if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)
+			  throw gcnew DynamicCommandInvalidCastException;
+		  return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
+	  }*/
     inline MC::MobEffect^ DynamicCommand::Result::AsMobEffect() {
         if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Effect)
             throw gcnew DynamicCommandInvalidCastException;

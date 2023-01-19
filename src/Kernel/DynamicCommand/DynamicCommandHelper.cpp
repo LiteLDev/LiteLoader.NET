@@ -135,8 +135,8 @@ namespace LiteLoader::DynamicCommand::Internal
             return marshalString(JsonHelpers::serialize(result.getRaw<Json::Value>()));
         case ::DynamicCommand::ParameterType::Item:
             return gcnew MC::CommandItem(const_cast<::CommandItem*>(&result.getRaw<::CommandItem>()));
-        case ::DynamicCommand::ParameterType::Block:
-            return gcnew MC::Block(const_cast<Block*>(result.getRaw<Block const*>()));
+        //case ::DynamicCommand::ParameterType::Block:
+        //    return gcnew MC::Block(const_cast<Block*>(result.getRaw<Block const*>()));
         case ::DynamicCommand::ParameterType::Effect:
             return gcnew MC::MobEffect((MobEffect*)result.getRaw<MobEffect const*>());
         case ::DynamicCommand::ParameterType::Enum:
