@@ -51,7 +51,7 @@ namespace LiteLoader::NET::Std
         public ref class allocator :ICppStdClass<T>, ICppStdAllocator, IConstructableCppClass
     {
     private:
-        static size_t type_size = ICppStdClass::elementTypeSize;
+        static size_t type_size = ICppStdClass::type_size;
         static size_t isValueType = ICppStdClass::isValueType;
 
     private:
@@ -72,6 +72,13 @@ namespace LiteLoader::NET::Std
         property nint_t Intptr
         {
             virtual nint_t get();
+            virtual void set(nint_t value);
+        }
+        property bool OwnsNativeInstance
+        {
+        public:
+            virtual bool get();
+            virtual void set(bool value);
         }
         virtual void Destruct();
         virtual void SetNativePointer(nint_t ptr, bool ownsInstance);

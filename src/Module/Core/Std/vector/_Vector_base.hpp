@@ -6,10 +6,15 @@ namespace LiteLoader::NET::Std::Internal
     generic<typename T, typename TAlloc>
     where T : gcnew()
     where TAlloc : gcnew(), ICppStdAllocator
-    public ref class _Vector_base :IList<T>, ICppStdClass<T>, IConstructableCppClass, ICopyable, IMoveable
+    public ref class _Vector_base :
+        IList<T>,
+        ICppStdClass<T>,
+        IConstructableCppClass,
+        ICopyable<_Vector_base<T, TAlloc>^>,
+        IMoveable<_Vector_base<T, TAlloc>^>
     {
     private:
-        static size_t type_size = ICppStdClass::elementTypeSize;
+        static size_t type_size = ICppStdClass::type_size;
         static bool isValueType = ICppStdClass::isValueType;
 
         literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
@@ -45,6 +50,11 @@ namespace LiteLoader::NET::Std::Internal
         bool ownsNativeInstance;
         TAlloc _al = gcnew TAlloc;
     internal:
+        static T _Copy_Instance(T% val);
+        static T _Move_Instance(T% val);
+        static void _Destruct_Instance(T% val);
+        static void _Construct(pointer_t _Dest, T% val,bool byMove);
+    internal:
         TAlloc _Getal();
         void _Change_array(byte_t* _Newvec, size_t _Newsize, size_t _Newcapacity);
         size_t _Calculate_growth(const size_t _Newsize);
@@ -58,6 +68,8 @@ namespace LiteLoader::NET::Std::Internal
         _Vector_base(nint_t ptr);
         _Vector_base(_Vector_base^ vec);
         _Vector_base(move<_Vector_base^> vec);
+        !_Vector_base();
+        virtual ~_Vector_base();
         //cpp api
     public:
         size_t size();
@@ -104,6 +116,13 @@ namespace LiteLoader::NET::Std::Internal
         property nint_t Intptr
         {
             virtual nint_t get();
+            virtual void set(nint_t value);
+        }
+        property bool OwnsNativeInstance
+        {
+        public:
+            virtual bool get();
+            virtual void set(bool value);
         }
         virtual void Destruct();
         virtual void SetNativePointer(nint_t ptr, bool ownsInstance);
@@ -111,16 +130,7 @@ namespace LiteLoader::NET::Std::Internal
         literal size_t NativeClassSize = 24L;
         virtual size_t GetClassSize();
 
-        //ICopyable
-        virtual _Vector_base<T, TAlloc>^ ConstructInstanceByCopy(_Vector_base<T, TAlloc>^ _Right)
-        {
-            return gcnew _Vector_base(_Right);
-        }
-
-        //IMoveable
-        virtual _Vector_base<T, TAlloc>^ ConstructInstanceByMove(_Vector_base<T, TAlloc>^ _Right)
-        {
-            return gcnew _Vector_base(_Right);
-        }
-};
+        virtual _Vector_base^ ConstructInstanceByCopy(_Vector_base^ _Right);
+        virtual _Vector_base^ ConstructInstanceByMove(move<_Vector_base^> _Right);
+    };
 }

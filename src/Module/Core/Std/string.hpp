@@ -1,16 +1,17 @@
 #pragma once
 #include <src/Tools/clix.hpp>
 #include <src/Main/ClassTemplate.hpp>
-#include <memory>
 
 #include "move.hpp"
-#include "IMoveable.hpp"
+#include "ICopyable.hpp"
 
 namespace LiteLoader::NET::Std
 {
     using namespace clix;
 
-    public ref class string : ClassTemplate<string, std::string>, IMoveable
+    public ref class string : ClassTemplate<string, std::string>,
+        IMoveable<string^>,
+        ICopyable<string^>
     {
     public:
         __ctor_all(string, std::string);
@@ -73,129 +74,41 @@ namespace LiteLoader::NET::Std
         };
 
     public:
-        string()
-            :ClassTemplate(std::string())
+        string();
+        string(string^ str);
+        string(move<string^> str);
+        string(String^ str);
+        iterator^ begin();
+        iterator^ end();
+        property char default[int]
         {
-        }
-        string(string^ str)
-            :ClassTemplate(*str->NativePtr)
-        {
-        }
-        string(move<string^> str)
-            :ClassTemplate(std::move(*static_cast<string^>(str)->NativePtr))
-        {
-        }
-        string(String^ str)
-            : ClassTemplate(marshalString(str))
-        {
-        }
-        iterator^ begin() {
-            return gcnew iterator(NativePtr->begin());
+            char get(int index);
+            void set(int index, char value);
         };
-        iterator^ end() {
-            return gcnew iterator(NativePtr->end());
-        };
-        property char% default[int]
-        {
-            char% get(int index) {
-                return NativePtr->operator[](index);
-            }
-        };
-        size_t size()
-        {
-            return NativePtr->size();
-        }
-        size_t length()
-        {
-            return NativePtr->length();
-        }
-        size_t max_size()
-        {
-            return NativePtr->max_size();
-        }
-        void resize(size_t size)
-        {
-            NativePtr->resize(size);
-        }
-        size_t capacity()
-        {
-            return NativePtr->capacity();
-        }
-        void reserve(size_t size)
-        {
-            NativePtr->reserve(size);
-        }
-        void clear()
-        {
-            NativePtr->clear();
-        }
-        bool empty()
-        {
-            return NativePtr->empty();
-        }
-        void shrink_to_fit()
-        {
-            NativePtr->shrink_to_fit();
-        }
-        char% at(size_t size)
-        {
-            return NativePtr->at(size);
-        }
-        char% back()
-        {
-            return NativePtr->back();
-        }
-        char% front()
-        {
-            return NativePtr->front();
-        }
-        string^ operator+=(string^ str)
-        {
-            *NativePtr += *str->NativePtr;
-            return this;
-        }
-        string^ append(string^ str) {
-            NativePtr->append(*str->NativePtr);
-            return this;
-        };
-        string^ push_back(char c) {
-            NativePtr->push_back(c);
-            return this;
-        };
-        string^ assign(string^ str) {
-            NativePtr->assign(*str->NativePtr);
-            return this;
-        };
-        string^ insert(size_t pos, string^ str) {
-            NativePtr->insert(pos, *str->NativePtr);
-            return this;
-        }
-        string^ erase(size_t pos, size_t len) {
-            NativePtr->erase(pos, len);
-            return this;
-        }
-        string^ replace(size_t pos, size_t len, string^ str) {
-            NativePtr->replace(pos, len, *str->NativePtr);
-            return this;
-        }
-        void swap(string^ str) {
-            NativePtr->swap(*str->NativePtr);
-        }
-        void pop_back() {
-            NativePtr->pop_back();
-        }
-        nint_t c_str_intptr() {
-            return nint_t((void*)NativePtr->c_str());
-        }
-        char const* c_str() {
-            return NativePtr->c_str();
-        }
-        nint_t data_intptr() {
-            return nint_t((void*)NativePtr->data());
-        }
-        char const* data() {
-            return NativePtr->data();
-        }
+        size_t size();
+        size_t length();
+        size_t max_size();
+        void resize(size_t size);
+        size_t capacity();
+        void reserve(size_t size);
+        void clear();
+        bool empty();
+        void shrink_to_fit();
+        char% at(size_t size);
+        char% back();
+        char% front();
+        string^ append(string^ str);
+        string^ push_back(char c);
+        string^ assign(string^ str);
+        string^ insert(size_t pos, string^ str);
+        string^ erase(size_t pos, size_t len);
+        string^ replace(size_t pos, size_t len, string^ str);
+        void swap(string^ str);
+        void pop_back();
+        nint_t c_str_intptr();
+        char const* c_str();
+        nint_t data_intptr();
+        char const* data();
         //nint_t get_allocator_intptr() {
         //        return nint_t((void*)NativePtr->get_allocator());
         //}
@@ -207,25 +120,32 @@ namespace LiteLoader::NET::Std
 
         //find_first_of
 
-        String^ ToString() override
+        property nint_t Intptr
         {
-            return marshalString(*NativePtr);
+            virtual nint_t get() override
+            {
+                return nint_t(this->NativePtr);
+            }
+
         }
 
-        static bool operator==(string^ a, string^ b) {
+        String^ ToString() override;
+
+        static bool operator==(string^ a, string^ b)
+        {
             return *a->NativePtr == *b->NativePtr;
         }
-        static bool operator!=(string^ a, string^ b) {
+        static bool operator!=(string^ a, string^ b)
+        {
             return *a->NativePtr != *b->NativePtr;
         }
-        static string^ operator+(string^ a, string^ b) {
+        static string^ operator+(string^ a, string^ b)
+        {
             return gcnew string(*a->NativePtr + *b->NativePtr);
         }
 
         //IMoveable
-        virtual Object^ ConstructInstanceByMove(move<Object^> _Right)
-        {
-            return gcnew string(static_cast<string^>(static_cast<Object^>(_Right)));
-        }
+        virtual string^ ConstructInstanceByMove(move<string^> _Right);
+        virtual string^ ConstructInstanceByCopy(string^ _Right);
     };
 } // namespace LiteLoader::NET::Std

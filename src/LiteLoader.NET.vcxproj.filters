@@ -570,6 +570,12 @@
     <ClCompile Include="Module\Core\Std\ICppStdClass.cpp">
       <Filter>Module\Core\Std\InternalImpl</Filter>
     </ClCompile>
+    <ClCompile Include="Module\Core\Std\string.cpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Core\Std\wstring.cpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">

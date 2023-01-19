@@ -70,7 +70,7 @@ namespace clix {
             };
             enum { Result = false };
         };
-        template<> struct IfManaged<String^> {
+        template<> struct IfManaged<System::String^> {
             struct Select {
                 template<typename TrueType, typename FalseType>
                 struct Either { typedef TrueType Type; };
@@ -91,13 +91,13 @@ namespace clix {
         template<> struct StringMarshaler<NetFromCxx> {
 
             template<Encoding encoding, typename SourceType>
-            static String^ marshal(const SourceType& string) {
+            static System::String^ marshal(const SourceType& string) {
                 // Constructs a std::[w]string in case someone gave us a char * to choke on
                 return marshalCxxString<encoding, SourceType>(string);
             }
 
             template<Encoding encoding, typename SourceType>
-            static String^ marshalCxxString(
+            static System::String^ marshalCxxString(
                 const typename StringTypeSelector<encoding>::Type& cxxString
             ) {
                 typedef typename StringTypeSelector<encoding>::Type SourceStringType;
@@ -105,7 +105,7 @@ namespace clix {
 
                 // Empty strings would cause trouble accessing the array below
                 if (byteCount == 0) {
-                    return String::Empty;
+                    return System::String::Empty;
                 }
 
                 // Copy the C++ string contents into a managed array of bytes
@@ -120,14 +120,14 @@ namespace clix {
 
         private:
             // Converts a byte array based on the selected encoding
-            template<Encoding encoding> static String^ decode(array<unsigned char>^ bytes);
-            template<> static String^ decode<E_ANSI>(array<unsigned char>^ bytes) {
+            template<Encoding encoding> static System::String^ decode(array<unsigned char>^ bytes);
+            template<> static System::String^ decode<E_ANSI>(array<unsigned char>^ bytes) {
                 return System::Text::Encoding::Default->GetString(bytes);
             }
-            template<> static String^ decode<E_UTF8>(array<unsigned char>^ bytes) {
+            template<> static System::String^ decode<E_UTF8>(array<unsigned char>^ bytes) {
                 return System::Text::Encoding::UTF8->GetString(bytes);
             }
-            template<> static String^ decode<E_UTF16>(array<unsigned char>^ bytes) {
+            template<> static System::String^ decode<E_UTF16>(array<unsigned char>^ bytes) {
                 return System::Text::Encoding::Unicode->GetString(bytes);
             }
         };
@@ -137,7 +137,7 @@ namespace clix {
 
             template<Encoding encoding, typename SourceType>
             static typename detail::StringTypeSelector<encoding>::Type marshal(
-                String^ string
+                System::String^ string
             ) {
                 typedef typename StringTypeSelector<encoding>::Type StringType;
 
@@ -157,8 +157,8 @@ namespace clix {
                 );
             }
 
-            template<> static std::wstring marshal<E_UTF16, String^>(
-                String^ string
+            template<> static std::wstring marshal<E_UTF16, System::String^>(
+                System::String^ string
                 ) {
                 // We can directly accesss the characters in the managed string
                 pin_ptr<const wchar_t> pinnedChars(::PtrToStringChars(string));
@@ -167,14 +167,14 @@ namespace clix {
 
         private:
             // Converts a string based on the selected encoding
-            template<Encoding encoding> static array<unsigned char>^ encode(String^ string);
-            template<> static array<unsigned char>^ encode<E_ANSI>(String^ string) {
+            template<Encoding encoding> static array<unsigned char>^ encode(System::String^ string);
+            template<> static array<unsigned char>^ encode<E_ANSI>(System::String^ string) {
                 return System::Text::Encoding::Default->GetBytes(string);
             }
-            template<> static array<unsigned char>^ encode<E_UTF8>(String^ string) {
+            template<> static array<unsigned char>^ encode<E_UTF8>(System::String^ string) {
                 return System::Text::Encoding::UTF8->GetBytes(string);
             }
-            template<> static array<unsigned char>^ encode<E_UTF16>(String^ string) {
+            template<> static array<unsigned char>^ encode<E_UTF16>(System::String^ string) {
                 return System::Text::Encoding::Unicode->GetBytes(string);
             }
 
@@ -191,12 +191,12 @@ namespace clix {
     ///   You have to specify an encoding to use for the conversion, which always applies to the
     ///   native C++ string as .NET always uses UTF-16 for its own strings.
     /// </remarks>
-    /// <param name="string">String to be marshalled to the other side</param>
+    /// <param name="string">System::String to be marshalled to the other side</param>
     /// <returns>The marshaled representation of the string</returns>
     template<Encoding encoding, typename SourceType>
     typename detail::IfManaged<SourceType>::Select::Either<
         typename detail::StringTypeSelector<encoding>::Type,
-        String^
+        System::String^
     >::Type marshalString(SourceType string) {
 
         // Pass on the call to our nifty template routines

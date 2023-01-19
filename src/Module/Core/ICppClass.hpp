@@ -12,6 +12,14 @@ namespace LiteLoader::NET
         {
         public:
             nint_t get();
+            void set(nint_t value);
+        };
+        
+        property bool OwnsNativeInstance
+        {
+        public:
+            bool get();
+            void set(bool value);
         };
 
         void Destruct();

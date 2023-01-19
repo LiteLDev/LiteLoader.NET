@@ -3,8 +3,6 @@
 
 namespace LiteLoader::NET::Std
 {
-    using LiteLoader::NET::Std::Internal::IMoveable;
-
     generic<typename T>
     public value struct move
     {

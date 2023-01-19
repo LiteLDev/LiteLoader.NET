@@ -111,6 +111,17 @@ namespace LiteLoader::NET::Std
         pin_ptr<decltype(_this)> ptr = &_this;
         return nint_t(ptr);
     }
+    GENERIC_HEADER inline void allocator<T>::Intptr::set(nint_t value)
+    {
+        _this = *reinterpret_cast<decltype(_this)*>(value.ToPointer());
+    }
+    GENERIC_HEADER inline bool allocator<T>::OwnsNativeInstance::get()
+    {
+        return true;
+    }
+    GENERIC_HEADER inline void allocator<T>::OwnsNativeInstance::set(bool value)
+    {
+    }
 
     GENERIC_HEADER inline void allocator<T>::Destruct()
     {

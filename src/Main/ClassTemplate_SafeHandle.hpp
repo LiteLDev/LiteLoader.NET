@@ -34,22 +34,25 @@ namespace LiteLoader::NET::Internal
 
         property nint_t Intptr
         {
+        public:
             virtual nint_t get()
             {
                 return handle;
+            }
+            virtual void set(nint_t value)
+            {
+                handle = value;
             }
         }
 
         property bool OwnsNativeInstance
         {
         public:
-            bool get()
+            virtual bool get()
             {
                 return ownsNativeInstance;
             }
-
-        protected:
-            void set(bool value)
+            virtual void set(bool value)
             {
                 ownsNativeInstance = value;
             }
@@ -171,7 +174,8 @@ namespace LiteLoader::NET::Internal
         }
         virtual void SetNativePointer(nint_t ptr, bool ownsInstance)
         {
-            ResetPointer(reinterpret_cast<NATIVECLASS*>(ptr.ToPointer()), ownsInstance);
+            handle = nint_t(ptr);
+            this->ownsNativeInstance = ownsNativeInstance;
         }
         virtual size_t GetClassSize()
         {

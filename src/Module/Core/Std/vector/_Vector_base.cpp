@@ -43,8 +43,8 @@ namespace LiteLoader::NET::Std::Internal
         {
             if (ICppStdClass::isPointer)
             {
-                T ret;
-                ICppStdClass::set_native_pointer__pointer(&ret, static_cast<nint_t>(_this.get()), false);
+                auto ret = T();
+                ICppStdClass::_Tv_fptr.set_native_pointer(&ret, static_cast<nint_t>(_this.get()), false);
                 return ret;
             }
             return Unsafe::Read<T>(_this.get());
@@ -52,9 +52,89 @@ namespace LiteLoader::NET::Std::Internal
         else
         {
             auto ret = gcnew T();
-            ICppStdClass::set_native_pointer(ret, static_cast<nint_t>(_this.get()), false);
+            ICppStdClass::_Tr_fptr.set_native_pointer(ret, static_cast<nint_t>(_this.get()), false);
             return ret;
         }
+    }
+
+    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Copy_Instance(T% val)
+    {
+        if (isValueType)
+        {
+            if (ICppStdClass::isCopyable)
+                return ICppStdClass::_Tv_fptr.ctor_copy(nullptr, val);
+            else
+                return T(val);
+        }
+        else
+        {
+            if (ICppStdClass::isCopyable)
+                return ICppStdClass::_Tr_fptr.ctor_copy(nullptr, val);
+            else
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not a copyable type.");
+        }
+    }
+
+    GENERIC_HEADER inline T _Vector_base<T, TAlloc>::_Move_Instance(T% val)
+    {
+        if (isValueType)
+        {
+            if (ICppStdClass::isMoveable)
+                return ICppStdClass::_Tv_fptr.ctor_move(nullptr, move<T>(val));
+            else
+                return T(val);
+        }
+        else
+        {
+            if (ICppStdClass::isMoveable)
+                return ICppStdClass::_Tr_fptr.ctor_move(nullptr, move<T>(val));
+            else
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not a copyable type.");
+        }
+    }
+
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::_Destruct_Instance(T% val)
+    {
+        if (isValueType)
+        {
+            if (ICppStdClass::isICppClass)
+                ICppStdClass::_Tv_fptr.dtor(&val);
+        }
+        else
+        {
+            ICppStdClass::_Tr_fptr.dtor(val);
+        }
+    }
+
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::_Construct(pointer_t _Dest, T% val, bool byMove)
+    {
+        auto _Temp = byMove ? _Move_Instance(val) : _Copy_Instance(val);
+
+        auto _Ptr = nint_t();
+
+        if (isValueType)
+        {
+            if (ICppStdClass::isICppClass)
+                _Ptr = ICppStdClass::_Tv_fptr.get_intptr(&_Temp);
+            else
+            {
+                Unsafe::Write(_Dest, val);
+                return;
+            }
+        }
+        else
+            _Ptr = ICppStdClass::_Tr_fptr.get_intptr(_Temp);
+
+
+        Unsafe::CopyBlock(_Dest, _Ptr.ToPointer(), static_cast<uint32_t>(type_size));
+
+        if (isValueType)
+        {
+            if (ICppStdClass::isICppClass)
+                ICppStdClass::_Tv_fptr.set_own_instance(&_Temp, false);
+        }
+        else
+            ICppStdClass::_Tr_fptr.set_own_instance(_Temp, false);
     }
 
     GENERIC_HEADER inline TAlloc _Vector_base<T, TAlloc>::_Getal()
@@ -119,22 +199,7 @@ namespace LiteLoader::NET::Std::Internal
 
         try
         {
-            if (isValueType)
-            {
-                Unsafe::Write(_Newvec + (_Whereoff)*type_size, val);
-            }
-            else
-            {
-                auto _Temp = gcnew T();
-                if (byMove)
-                    ICppStdClass::ctor_move(_Temp, move<T>(val));
-                else
-                    ICppStdClass::ctor_copy(_Temp, val);
-
-                auto _Ptr = ICppStdClass::get_intptr(_Temp);
-                Unsafe::CopyBlock(_Newvec + (_Whereoff)*type_size, _Ptr.ToPointer(), static_cast<uint32_t>(type_size));
-                ICppStdClass::set_native_pointer(_Temp, nint_t::Zero, false);
-            }
+            _Construct(_Newvec + (_Whereoff)*type_size, val, byMove);
             _Constructed_first = _Newvec + _Whereoff * type_size;
 
             if (_Whereptr == _Mylast)
@@ -174,38 +239,34 @@ namespace LiteLoader::NET::Std::Internal
                     uintptr_t(_this._Data._Mypair._Myval2._Myend),
                     uintptr_t(_this._Data._Mypair._Myval2._Mylast)));
 
+        _Construct(temp_ptr, val, byMove);
         _this._Data._Mypair._Myval2._Mylast += type_size;
 
-        if (isValueType)
-        {
-            Unsafe::Write(temp_ptr, val);
-            return val;
-        }
-        else
-        {
-            auto _Temp = gcnew T();
-            if (byMove)
-                ICppStdClass::ctor_move(_Temp, move<T>(val));
-            else
-                ICppStdClass::ctor_copy(_Temp, val);
-
-            auto pInstance = ICppStdClass::get_intptr(_Temp);
-            memcpy(temp_ptr, pInstance.ToPointer(), type_size);
-            ICppStdClass::set_native_pointer(val, pInstance, false);
-            return val;
-        }
+        return val;
     }
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::_Destroy_range(pointer_t _First, pointer_t _Last)
     {
         if (isValueType)
-            return;
-
-        auto _Temp = gcnew T();
-        for (auto* ptr = _First; ptr != _Last; ptr += type_size)
         {
-            ICppStdClass::set_native_pointer(_Temp, nint_t(ptr), false);
-            ICppStdClass::dtor(_Temp);
+            if (!ICppStdClass::isICppClass)
+                return;
+
+            auto _Temp = T();
+            for (auto* ptr = _First; ptr != _Last; ptr += type_size)
+            {
+                ICppStdClass::_Tv_fptr.set_native_pointer(&_Temp, nint_t(ptr), false);
+                ICppStdClass::_Tv_fptr.dtor(&_Temp);
+            }
+        }
+        else
+        {
+            auto _Temp = gcnew T();
+            for (auto* ptr = _First; ptr != _Last; ptr += type_size)
+            {
+                ICppStdClass::_Tr_fptr.set_native_pointer(_Temp, nint_t(ptr), false);
+                ICppStdClass::_Tr_fptr.dtor(_Temp);
+            }
         }
     }
 
@@ -238,6 +299,15 @@ namespace LiteLoader::NET::Std::Internal
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(move<_Vector_base^> vec)
     {
         throw gcnew System::NotSupportedException(NotSupportedMessage);
+    }
+
+    GENERIC_HEADER _Vector_base<T, TAlloc>::!_Vector_base()
+    {
+    }
+
+    GENERIC_HEADER _Vector_base<T, TAlloc>::~_Vector_base()
+    {
+        this->!_Vector_base();
     }
 
     GENERIC_HEADER inline size_t _Vector_base<T, TAlloc>::size()
@@ -320,7 +390,7 @@ namespace LiteLoader::NET::Std::Internal
             else
             {
                 auto _temp = gcnew T();
-                ICppStdClass::set_native_pointer(_temp, nint_t(_ptr), false);
+                ICppStdClass::_Tr_fptr.set_native_pointer(_temp, nint_t(_ptr), false);
                 return _temp;
             }
         }
@@ -371,7 +441,7 @@ namespace LiteLoader::NET::Std::Internal
         else
         {
             auto ret = gcnew T();
-            ICppStdClass::set_native_pointer(ret, Unsafe::Read<nint_t>(_this.at(index).get()), false);
+            ICppStdClass::_Tr_fptr.set_native_pointer(ret, Unsafe::Read<nint_t>(_this.at(index).get()), false);
             return ret;
         }
     }
@@ -431,6 +501,18 @@ namespace LiteLoader::NET::Std::Internal
         pin_ptr<decltype(_this)> ptr = &_this;
         return nint_t(ptr);
     }
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::Intptr::set(nint_t value)
+    {
+        _this = *reinterpret_cast<decltype(_this)*>(value.ToPointer());
+    }
+    GENERIC_HEADER inline bool _Vector_base<T, TAlloc>::OwnsNativeInstance::get()
+    {
+        return ownsNativeInstance;
+    }
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::OwnsNativeInstance::set(bool value)
+    {
+        ownsNativeInstance = value;
+    }
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::Destruct()
     {
@@ -446,5 +528,15 @@ namespace LiteLoader::NET::Std::Internal
     GENERIC_HEADER inline size_t _Vector_base<T, TAlloc>::GetClassSize()
     {
         return NativeClassSize;
+    }
+
+    GENERIC_HEADER inline _Vector_base<T, TAlloc>^ _Vector_base<T, TAlloc>::ConstructInstanceByCopy(_Vector_base<T, TAlloc>^ _Right)
+    {
+        return gcnew _Vector_base(_Right);
+    }
+
+    GENERIC_HEADER inline _Vector_base<T, TAlloc>^ _Vector_base<T, TAlloc>::ConstructInstanceByMove(move<_Vector_base<T, TAlloc>^> _Right)
+    {
+        return gcnew _Vector_base(_Right);
     }
 }
