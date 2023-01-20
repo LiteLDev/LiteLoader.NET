@@ -175,7 +175,7 @@ namespace LiteLoader::NET::Internal
         virtual void SetNativePointer(nint_t ptr, bool ownsInstance)
         {
             handle = nint_t(ptr);
-            this->ownsNativeInstance = ownsNativeInstance;
+            this->ownsNativeInstance = ownsInstance;
         }
         virtual size_t GetClassSize()
         {

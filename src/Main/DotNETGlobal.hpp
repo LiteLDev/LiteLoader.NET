@@ -57,6 +57,7 @@ using System::Runtime::InteropServices::DefaultParameterValueAttribute;
 using System::Runtime::CompilerServices::MethodImplAttribute;
 using System::Runtime::CompilerServices::MethodImplOptions;
 using System::Runtime::CompilerServices::Unsafe;
+using System::Runtime::ConstrainedExecution::CriticalFinalizerObject;
 
 using System::Collections::Generic::IEnumerator;
 using System::Collections::Generic::IAsyncEnumerator;

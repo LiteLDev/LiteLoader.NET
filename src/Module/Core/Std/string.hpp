@@ -143,6 +143,14 @@ namespace LiteLoader::NET::Std
         {
             return gcnew string(*a->NativePtr + *b->NativePtr);
         }
+        static operator String ^ (string^ str)
+        {
+            return str->ToString();
+        }
+        static operator string ^ (String^ str)
+        {
+            return gcnew string(str);
+        }
 
         //IMoveable
         virtual string^ ConstructInstanceByMove(move<string^> _Right);

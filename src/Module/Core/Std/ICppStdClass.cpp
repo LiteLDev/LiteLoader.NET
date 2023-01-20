@@ -4,7 +4,7 @@ namespace LiteLoader::NET::Std::Internal
 {
     generic<typename T>
     ICppStdClass<T>::_Value_type_funcptr_def ICppStdClass<T>::_handle_value_type(SystemType^ _Ty)
-     {
+    {
         auto ret = _Value_type_funcptr_def();
 
         type_size = Unsafe::SizeOf<T>();
@@ -85,23 +85,16 @@ namespace LiteLoader::NET::Std::Internal
     {
         auto ret = _Ref_type_funcptr_def();
 
-        using System::Reflection::BindingFlags;
-        auto field = _Ty->GetField(
-            "NativeClassSize", BindingFlags::Public | BindingFlags::Static | BindingFlags::FlattenHierarchy);
-
-
-        if (field != nullptr && field->IsLiteral)
-            type_size = static_cast<size_t>(field->GetValue(nullptr));
-        else
-            throw gcnew LiteLoader::NET::InvalidTypeException(_Ty->FullName + " missing const(literal) field 'NativeClassSize'.");
-
         if (_Ty->IsAssignableTo(typeof(IConstructableCppClass)))
         {
             isICppClass = true;
             isIPointerConstructable = true;
 
-            ret.get_intptr = reinterpret_cast<decltype(ret)::_Get_intptr_fptr>(
-                _get_method_fptr(true, "get_Intptr", PackArray<SystemType^>()));
+            type_size = reinterpret_cast<size_t(__clrcall*)(T)>(
+                _get_method_fptr(true, "GetClassSize", PackArray<SystemType^>()))(T());
+
+                ret.get_intptr = reinterpret_cast<decltype(ret)::_Get_intptr_fptr>(
+                    _get_method_fptr(true, "get_Intptr", PackArray<SystemType^>()));
 
             ret.set_intptr = reinterpret_cast<decltype(ret)::_Set_intptr_fptr>(
                 _get_method_fptr(true, "set_Intptr", PackArray(typeof(nint_t))));

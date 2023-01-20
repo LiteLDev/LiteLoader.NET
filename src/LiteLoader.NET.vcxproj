@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Release|x64">
@@ -236,6 +236,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Module\Core\Std\ICppStdClass.hpp" />
     <ClInclude Include="Module\Core\Std\IMoveable.hpp" />
     <ClInclude Include="Module\Core\Std\move.hpp" />
+    <ClInclude Include="Module\Core\Std\optional.hpp" />
     <ClInclude Include="Module\Core\Std\pointer.hpp" />
     <ClInclude Include="Module\Core\Std\reference.hpp" />
     <ClInclude Include="Module\Core\Std\string.hpp" />
@@ -395,6 +396,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Main\PluginOwnData.cpp" />
     <ClCompile Include="Module\Core\Std\allocator.cpp" />
     <ClCompile Include="Module\Core\Std\ICppStdClass.cpp" />
+    <ClCompile Include="Module\Core\Std\optional.cpp" />
     <ClCompile Include="Module\Core\Std\pointer.cpp" />
     <ClCompile Include="Module\Core\Std\reference.cpp" />
     <ClCompile Include="Module\Core\Std\string.cpp" />

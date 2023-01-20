@@ -135,6 +135,14 @@ namespace LiteLoader::NET::Std
         {
             return gcnew wstring(*a->NativePtr + *b->NativePtr);
         }
+        static operator String ^ (wstring^ str)
+        {
+            return str->ToString();
+        }
+        static operator wstring ^ (String^ str)
+        {
+            return gcnew wstring(str);
+        }
 
         //IMoveable
         virtual wstring^ ConstructInstanceByMove(move<wstring^> _Right);

@@ -576,6 +576,9 @@
     <ClCompile Include="Module\Core\Std\wstring.cpp">
       <Filter>Module\Core\Std</Filter>
     </ClCompile>
+    <ClCompile Include="Module\Core\Std\optional.cpp">
+      <Filter>Module\Core\Std</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -1120,6 +1123,9 @@
     </ClInclude>
     <ClInclude Include="Module\Core\Std\ICopyable.hpp">
       <Filter>Module\Core\Std\InternalImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Core\Std\optional.hpp">
+      <Filter>Module\Core\Std</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

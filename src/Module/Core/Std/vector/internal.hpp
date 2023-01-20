@@ -2,8 +2,6 @@
 #include <src/Main/DotNETGlobal.hpp>
 #include <src/Module/Core/ICppClass.hpp>
 
-#include <vector>
-
 #include <src/Module/Core/Std/move.hpp>
 #include <src/Module/Core/Std/pointer.hpp>
 #include <src/Module/Core/Std/ICppStdClass.hpp>
@@ -19,7 +17,8 @@ namespace LiteLoader::NET::Std::Internal
     using System::Runtime::InteropServices::FieldOffsetAttribute;
 
     [StructLayout(LayoutKind::Explicit, Size = 24)]
-    public value struct _Vector_data {
+    public value struct _Vector_data 
+    {
         [StructLayout(LayoutKind::Explicit, Size = 24)]
         value struct _Compressed_pair
         {

@@ -92,7 +92,7 @@ namespace LiteLoader::NET::Std::Internal
             if (ICppStdClass::isMoveable)
                 return ICppStdClass::_Tr_fptr.ctor_move(nullptr, move<T>(val));
             else
-                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not a copyable type.");
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not a moveable type.");
         }
     }
 
@@ -313,6 +313,7 @@ namespace LiteLoader::NET::Std::Internal
                 ICppStdClass::_Tr_fptr.set_native_pointer(_Temp, nint_t(ptr), false);
                 ICppStdClass::_Tr_fptr.dtor(_Temp);
             }
+            delete _Temp;
         }
     }
 
@@ -674,8 +675,8 @@ namespace LiteLoader::NET::Std::Internal
 
     GENERIC_HEADER inline T _Vector_base<T, TAlloc>::emplace_back(move<T> val)
     {
-        if (!isValueType && !ICppStdClass::isCopyable)
-            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not copyable.");
+        if (!isValueType && !ICppStdClass::isMoveable)
+            throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not moveable.");
 
         auto% _My_data = _this._Data->_Mypair._Myval2;
         auto% _Mylast = _My_data._Mylast;
@@ -726,6 +727,7 @@ namespace LiteLoader::NET::Std::Internal
                 _Temp = gcnew T();
                 ICppStdClass::_Tr_fptr.set_native_pointer(_Temp, nint_t(_Whereptr), false);
                 ICppStdClass::_Tr_fptr.dtor(_Temp);
+                delete _Temp;
             }
         }
         _Move_unchecked(_Whereptr + type_size, _Mylast, _Whereptr);
@@ -771,6 +773,8 @@ namespace LiteLoader::NET::Std::Internal
         else                _Val = gcnew T;
 
         resize(newSize, _Val);
+
+        delete _Val;
     }
 
     GENERIC_HEADER inline void _Vector_base<T, TAlloc>::swap(_Vector_base^ right)
