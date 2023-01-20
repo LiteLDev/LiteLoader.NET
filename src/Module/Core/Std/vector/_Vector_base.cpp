@@ -347,7 +347,7 @@ namespace LiteLoader::NET::Std::Internal
 
         pointer_t _Last = _First + _Count * type_size;
 
-        for (auto ptr = _First; ptr != _Last; _Ptr += type_size)
+        for (auto ptr = _First; ptr != _Last; ptr += type_size)
         {
             Unsafe::CopyBlock(ptr, _Ptr, static_cast<uint32_t>(type_size));
         }
@@ -394,13 +394,26 @@ namespace LiteLoader::NET::Std::Internal
     }
 
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(nint_t ptr)
-        :_this(ptr, type_size)
+        :_this(ptr, type_size), ownsNativeInstance(false)
+    {
+    }
+
+    GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(nint_t ptr, bool ownsInstance)
+        : _this(ptr, type_size), ownsNativeInstance(ownsInstance)
     {
     }
 
     GENERIC_HEADER inline _Vector_base<T, TAlloc>::_Vector_base(_Vector_base^ vec)
     {
-        _Vector_base();
+        this->_this = _value_vector();
+        this->_this._Element_type_size = type_size;
+        this->_this._Constructed_by_managed = true;
+        this->_this._Data = reinterpret_cast<decltype(_this._Data)>(
+            ::operator new(sizeof(_Vector_data)));
+        *this->_this._Data = _Vector_data();
+
+        this->_al = gcnew TAlloc();
+        this->ownsNativeInstance = true;
 
         const auto _Newsize = vec->size();
         const auto _Newcapacity = vec->size();
@@ -722,7 +735,7 @@ namespace LiteLoader::NET::Std::Internal
         return _Make_iterator(_Whereptr);
     }
 
-    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::resize(size_t newSize, T% val)
+    GENERIC_HEADER inline void _Vector_base<T, TAlloc>::resize(size_t newSize, T val)
     {
         auto _Al = _Getal();
         auto% _My_data = _this._Data->_Mypair._Myval2;
@@ -747,7 +760,7 @@ namespace LiteLoader::NET::Std::Internal
             }
 
             const pointer_t _Oldlast = _Mylast;
-            _Uninitialized_fill_n(_Oldlast, newSize - _Oldsize, val);
+            _Mylast = _Uninitialized_fill_n(_Oldlast, newSize - _Oldsize, val);
         }
     }
 

@@ -126,6 +126,7 @@ namespace LiteLoader::NET::Std::Internal
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);
+        _Vector_base(nint_t ptr, bool ownsInstance);
         _Vector_base(_Vector_base^ vec);
         _Vector_base(move<_Vector_base^> vec);
         !_Vector_base();
@@ -160,7 +161,7 @@ namespace LiteLoader::NET::Std::Internal
         T push_back(move<T> val);
         T emplace_back(T val);
         T emplace_back(move<T> val);
-        void resize(size_t newSize, T% val);
+        void resize(size_t newSize, T val);
         void resize(size_t newSize);
         void swap(_Vector_base^ right);
     private:

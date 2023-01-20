@@ -8,7 +8,7 @@ namespace LiteLoader::NET::Std
 
 namespace LiteLoader::NET::Std::Internal
 {
-    generic<typename TSelf> where TSelf: ICppClass
+    generic<typename TSelf>
     public interface class IMoveable
     {
         /// <summary>

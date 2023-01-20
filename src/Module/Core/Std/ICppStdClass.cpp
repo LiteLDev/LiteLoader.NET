@@ -4,7 +4,7 @@ namespace LiteLoader::NET::Std::Internal
 {
     generic<typename T>
     ICppStdClass<T>::_Value_type_funcptr_def ICppStdClass<T>::_handle_value_type(SystemType^ _Ty)
-    {
+     {
         auto ret = _Value_type_funcptr_def();
 
         type_size = Unsafe::SizeOf<T>();
