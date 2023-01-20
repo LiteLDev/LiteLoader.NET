@@ -19,35 +19,35 @@ namespace LiteLoader::NET::Std::Internal
     inline vector::vector(void* stdVectorPtr, size_t elementTypeSize)
         : _Element_type_size(elementTypeSize)
     {
-        _Data = *reinterpret_cast<_Vector_data*>(stdVectorPtr);
+        _Data = reinterpret_cast<_Vector_data*>(stdVectorPtr);
     }
     inline vector::vector(nint_t stdVectorPtr, size_t elementTypeSize)
         : _Element_type_size(elementTypeSize)
     {
-        _Data = *reinterpret_cast<_Vector_data*>((void*)stdVectorPtr);
+        _Data = reinterpret_cast<_Vector_data*>((void*)stdVectorPtr);
     }
     inline size_t vector::size()
     {
-        return (_Data._Mypair._Myval2._Mylast - _Data._Mypair._Myval2._Myfirst) / _Element_type_size;
+        return (_Data->_Mypair._Myval2._Mylast - _Data->_Mypair._Myval2._Myfirst) / _Element_type_size;
     }
     inline vector::iterator vector::begin()
     {
         return iterator(
-            _Vector_iterator_data{ _Data._Mypair._Myval2._Myfirst },
+            _Vector_iterator_data{ _Data->_Mypair._Myval2._Myfirst },
             _Element_type_size
         );
     }
     inline vector::iterator vector::end()
     {
         return iterator(
-            _Vector_iterator_data{ _Data._Mypair._Myval2._Mylast },
+            _Vector_iterator_data{ _Data->_Mypair._Myval2._Mylast },
             _Element_type_size
         );
     }
     inline vector::iterator vector::at(size_t pos)
     {
-        auto ptr = _Data._Mypair._Myval2._Myfirst + pos * _Element_type_size;
-        if (ptr > _Data._Mypair._Myval2._Mylast)
+        auto ptr = _Data->_Mypair._Myval2._Myfirst + pos * _Element_type_size;
+        if (ptr > _Data->_Mypair._Myval2._Mylast)
             throw gcnew System::IndexOutOfRangeException;
 
         return iterator
@@ -58,14 +58,14 @@ namespace LiteLoader::NET::Std::Internal
     }
     inline bool vector::empty()
     {
-        return _Data._Mypair._Myval2._Myfirst == _Data._Mypair._Myval2._Mylast;
+        return _Data->_Mypair._Myval2._Myfirst == _Data->_Mypair._Myval2._Mylast;
     }
     inline size_t vector::capacity()
     {
-        return (_Data._Mypair._Myval2._Myend - _Data._Mypair._Myval2._Myfirst) / _Element_type_size;
+        return (_Data->_Mypair._Myval2._Myend - _Data->_Mypair._Myval2._Myfirst) / _Element_type_size;
     }
     inline void* vector::data()
     {
-        return _Data._Mypair._Myval2._Myfirst;
+        return _Data->_Mypair._Myval2._Myfirst;
     }
 }

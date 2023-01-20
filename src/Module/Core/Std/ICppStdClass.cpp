@@ -9,7 +9,6 @@ namespace LiteLoader::NET::Std::Internal
 
         type_size = Unsafe::SizeOf<T>();
         isValueType = true;
-        isCopyable = true;
 
         if (_Ty->Name == "pointer`1" && _Ty->Namespace == "LiteLoader.NET")
         {
@@ -120,7 +119,7 @@ namespace LiteLoader::NET::Std::Internal
                 _get_method_fptr(true, "SetNativePointer", PackArray(typeof(nint_t), typeof(bool))));
         }
         else
-            throw gcnew LiteLoader::NET::InvalidTypeException(_Ty->FullName  + " missing const(literal) field 'NativeClassSize'.");
+            throw gcnew LiteLoader::NET::InvalidTypeException(_Ty->FullName + " missing const(literal) field 'NativeClassSize'.");
 
 
         if (_Ty->IsAssignableTo(_ICopyable_type->MakeGenericType(_Ty)))
@@ -142,7 +141,7 @@ namespace LiteLoader::NET::Std::Internal
             if (_Ty->GetConstructor(PackArray(_Ty)) != nullptr)
             {
                 ret.ctor_move = reinterpret_cast<decltype(ret)::_Ctor_move_fptr>(
-                    _get_method_fptr(false, "ConstructInstanceByMove", PackArray(_Move_type->MakeGenericType(_Ty))));
+                    _get_method_fptr(true, "ConstructInstanceByMove", PackArray(_Move_type->MakeGenericType(_Ty))));
 
                 if (ret.ctor_move != nullptr)
                     isMoveable = true;
@@ -150,6 +149,9 @@ namespace LiteLoader::NET::Std::Internal
             else
                 throw gcnew LiteLoader::NET::InvalidTypeException(_Ty->FullName + " implements the 'IMoveable' interface but does not have the move ctor.");
         }
+
+        ret.op_equality = reinterpret_cast<decltype(ret)::_Op_equality_fptr>(
+            _get_method_fptr(false, "op_Equality", PackArray(typeof(T), typeof(T))));
 
         return ret;
     }

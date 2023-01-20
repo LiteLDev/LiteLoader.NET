@@ -17,8 +17,6 @@ namespace LiteLoader::NET::Std::Internal
         static size_t type_size = ICppStdClass::type_size;
         static bool isValueType = ICppStdClass::isValueType;
 
-        literal String^ NotSupportedMessage = L"Will support after Allocator finished.";
-
     private:
         using _value_vector = LiteLoader::NET::Std::Internal::vector;
         using pointer_t = ICppStdClass::pointer_t;
@@ -29,6 +27,10 @@ namespace LiteLoader::NET::Std::Internal
             _value_vector::iterator _this;
             _Vector_base^ instance;
             bool isIterSet;
+
+        public:
+            iterator(_value_vector::iterator iter, _Vector_base^ vec)
+                :_this(iter), instance(vec), isIterSet(true) {}
 
         private:
             property Object^ CurrentNonGgeneric
@@ -42,6 +44,57 @@ namespace LiteLoader::NET::Std::Internal
             {
                 virtual T get();
             }
+
+            static bool operator==(iterator _Left, iterator _Right)
+            {
+                return _Left._this == _Right._this;
+            }
+            static bool operator!=(iterator _Left, iterator _Right)
+            {
+                return _Left._this != _Right._this;
+            }
+            static iterator operator++(iterator _Val)
+            {
+                auto _Temp = decltype(_Val._this)::operator++(_Val._this);
+                return iterator(_Temp, _Val.instance);
+            }
+            static iterator operator--(iterator _Val)
+            {
+                auto _Temp = decltype(_Val._this)::operator--(_Val._this);
+                return iterator(_Temp, _Val.instance);
+            }
+            static iterator operator+(iterator _Left, int _Val)
+            {
+                return iterator(_Left._this + _Val, _Left.instance);
+            }
+            static iterator operator-(iterator _Left, int _Val)
+            {
+                return iterator(_Left._this - _Val, _Left.instance);
+            }
+            static bool operator>(iterator a, iterator b)
+            {
+                return a._this > b._this;
+            }
+            static bool operator<(iterator a, iterator b)
+            {
+                return a._this < b._this;
+            }
+            static bool operator>=(iterator a, iterator b)
+            {
+                return a._this >= b._this;
+            }
+            static bool operator<=(iterator a, iterator b)
+            {
+                return a._this <= b._this;
+            }
+            static T operator*(iterator _Val)
+            {
+                return _Val.Current;
+            }
+            property iterator default[int]
+            {
+                iterator get(int index);
+            };
         };
     private:
         using _value_vector = LiteLoader::NET::Std::Internal::vector;
@@ -53,16 +106,23 @@ namespace LiteLoader::NET::Std::Internal
         static T _Copy_Instance(T% val);
         static T _Move_Instance(T% val);
         static void _Destruct_Instance(T% val);
-        static void _Construct(pointer_t _Dest, T% val,bool byMove);
+        static void _Construct(pointer_t _Dest, T% val, bool byMove);
+        static iterator _Make_iterator(pointer_t _Ptr);
     internal:
         TAlloc _Getal();
-        void _Change_array(byte_t* _Newvec, size_t _Newsize, size_t _Newcapacity);
+        void _Change_array(pointer_t _Newvec, size_t _Newsize, size_t _Newcapacity);
         size_t _Calculate_growth(const size_t _Newsize);
-        byte_t* _Emplace_reallocate(byte_t* _Whereptr, bool byMove, T% val);
+        pointer_t _Emplace_reallocate(pointer_t _Whereptr, bool byMove, T% val);
+        void _Resize_reallocate(size_t _Newsize, T% val);
         T% _Emplace_back_with_unused_capacity(bool byMove, T% val);
         void _Destroy_range(pointer_t _First, pointer_t _Last);
         void _Uninitialized_move(pointer_t _First, pointer_t _Last, pointer_t _Dest);
         void _Uninitialized_copy(pointer_t _First, pointer_t _Last, pointer_t _Dest);
+        pointer_t _Uninitialized_fill_n(pointer_t _First, size_t _Count, T% val);
+        pointer_t _Copy_backward_memmove(pointer_t _First, pointer_t _Last, pointer_t _Dest);
+        pointer_t _Copy_memmove(pointer_t _First, pointer_t _Last, pointer_t _Dest);
+        pointer_t _Move_backward_unchecked(pointer_t _First, pointer_t _Last, pointer_t _Dest);
+        pointer_t _Move_unchecked(pointer_t _First, pointer_t _Last, pointer_t _Dest);
     public:
         _Vector_base();
         _Vector_base(nint_t ptr);
@@ -70,19 +130,39 @@ namespace LiteLoader::NET::Std::Internal
         _Vector_base(move<_Vector_base^> vec);
         !_Vector_base();
         virtual ~_Vector_base();
+
         //cpp api
     public:
-        size_t size();
+        //Member functions
+        TAlloc get_allocator();
+        //Element access
+        iterator at(size_t pos);
+        T front();
+        T back();
+        void* data();
+        //Iterators
         iterator begin();
         iterator end();
-        iterator at(size_t pos);
+        //Capacity
         bool empty();
-        size_t capacity();
-        void* data();
-        TAlloc get_allocator();
-        T emplace_back(T val);
-        void resize(size_t newSize);
+        size_t size();
         size_t max_size();
+        void reserve(size_t newCapacity);
+        size_t capacity();
+        //Modifiers
+        void clear();
+        iterator insert(iterator where, T val);
+        iterator insert(iterator where, move<T> val);
+        iterator emplace(iterator where, T val);
+        iterator emplace(iterator where, move<T> val);
+        iterator erase(iterator where);
+        T push_back(T val);
+        T push_back(move<T> val);
+        T emplace_back(T val);
+        T emplace_back(move<T> val);
+        void resize(size_t newSize, T% val);
+        void resize(size_t newSize);
+        void swap(_Vector_base^ right);
     private:
         //IEnumerable
         virtual IEnumeratorNonGgeneric^ GetEnumeratorNonGgeneric() sealed = IEnumerableNonGgeneric::GetEnumerator;

@@ -27,7 +27,6 @@ namespace LiteLoader::NET::Std::Internal
             typedef T(__clrcall* _Ctor_move_fptr)(interior_ptr<T>, move<T>);
             typedef void(__clrcall* _Dtor_fptr)(interior_ptr<T>);
 
-
             static _Get_intptr_fptr get_intptr;
             static _Set_intptr_fptr set_intptr;
 
@@ -55,6 +54,8 @@ namespace LiteLoader::NET::Std::Internal
             typedef T(__clrcall* _Ctor_move_fptr)(Object^, move<T>);
             typedef void(__clrcall* _Dtor_fptr)(Object^);
 
+            typedef bool(__clrcall* _Op_equality_fptr)(Object^, Object^);
+
             static _Get_intptr_fptr get_intptr;
             static _Set_intptr_fptr set_intptr;
 
@@ -66,6 +67,8 @@ namespace LiteLoader::NET::Std::Internal
             static _Ctor_copy_fptr ctor_copy;
             static _Ctor_move_fptr ctor_move;
             static _Dtor_fptr dtor;
+
+            static _Op_equality_fptr op_equality;
         };
 
         using pointer_t = byte_t*;

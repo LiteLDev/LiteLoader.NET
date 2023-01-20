@@ -146,12 +146,13 @@ namespace LiteLoader::NET::Std::Internal
         {
             _Vector_data% get()
             {
-                return _Data;
+                return *_Data;
             }
         }
     internal:
-        _Vector_data _Data;
+        _Vector_data* _Data;
         size_t _Element_type_size;
+        bool _Constructed_by_managed;
     };
 }
 

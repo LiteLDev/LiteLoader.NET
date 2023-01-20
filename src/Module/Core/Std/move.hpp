@@ -6,7 +6,7 @@ namespace LiteLoader::NET::Std
     generic<typename T>
     public value struct move
     {
-    private:
+    internal:
         T instance;
 
     public:
@@ -23,6 +23,11 @@ namespace LiteLoader::NET::Std
         explicit static operator move(T v)
         {
             return move(v);
+        }
+
+        T Get()
+        {
+            return instance;
         }
     };
 }
