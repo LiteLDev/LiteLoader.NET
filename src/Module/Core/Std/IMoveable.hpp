@@ -1,4 +1,6 @@
 #pragma once
+#include <src/Module/Core/ICppClass.hpp>
+
 namespace LiteLoader::NET::Std
 {
     generic<typename T> value struct move;
@@ -6,9 +8,7 @@ namespace LiteLoader::NET::Std
 
 namespace LiteLoader::NET::Std::Internal
 {
-
-
-    generic<typename TSelf>
+    generic<typename TSelf> where TSelf: ICppClass
     public interface class IMoveable
     {
         /// <summary>

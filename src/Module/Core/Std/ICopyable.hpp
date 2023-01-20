@@ -1,8 +1,10 @@
 #pragma once
+#include <src/Module/Core/ICppClass.hpp>
+
 namespace LiteLoader::NET::Std::Internal
 {
-    generic<typename TSelf>
-    public interface class ICopyable
+    generic<typename TSelf> where TSelf: ICppClass
+        public interface class ICopyable
     {
         /// <summary>
         /// static method, just invoke copy_ctor and return the obj.

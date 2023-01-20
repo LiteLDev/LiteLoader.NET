@@ -74,7 +74,7 @@ namespace LiteLoader::NET::Std::Internal
             if (ICppStdClass::isCopyable)
                 return ICppStdClass::_Tr_fptr.ctor_copy(nullptr, val);
             else
-                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not a copyable type.");
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not a copyable type.");
         }
     }
 
@@ -92,7 +92,7 @@ namespace LiteLoader::NET::Std::Internal
             if (ICppStdClass::isMoveable)
                 return ICppStdClass::_Tr_fptr.ctor_move(nullptr, move<T>(val));
             else
-                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + "is not a copyable type.");
+                throw gcnew LiteLoader::NET::InvalidTypeException(typeof(T)->FullName + " is not a copyable type.");
         }
     }
 
