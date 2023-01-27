@@ -1,9 +1,9 @@
 #pragma once
-#include <src/Header/DynamicCommand/DynamicCommand.hpp>
-#include <src/Header/DynamicCommand/DynamicCommandInstance.hpp>
-#include <src/Header/DynamicCommand/DynamicCommandHelper.hpp>
-#include <src/Header/DynamicCommand/DynamicCommandAttributes.hpp>
-#include <src/Header/DynamicCommand/ICommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandInstance.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandHelper.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandAttributes.hpp>
+#include <src/Module/DynamicCommand/ICommand.hpp>
 
 namespace LiteLoader::DynamicCommand {
     using namespace LiteLoader::DynamicCommand::Internal;

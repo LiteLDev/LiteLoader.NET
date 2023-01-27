@@ -1,6 +1,6 @@
 #pragma once
 #include <src/Main/DotNETGlobal.hpp>
-#include <src/Header/DynamicCommand/DynamicCommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommand.hpp>
 
 namespace LiteLoader::DynamicCommand {
     using System::AttributeUsageAttribute;

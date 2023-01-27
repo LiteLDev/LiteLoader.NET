@@ -1,5 +1,5 @@
-#include <src/Header/DynamicCommand/DynamicCommandHelper.hpp>
-#include <src/Header/DynamicCommand/ICommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandHelper.hpp>
+#include <src/Module/DynamicCommand/ICommand.hpp>
 #include <EventAPI.h>
 
 namespace LiteLoader::DynamicCommand::Internal

@@ -1,4 +1,4 @@
-#include <src/Header/DynamicCommand/DynamicCommandInstance.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandInstance.hpp>
 #include <src/Main/PluginOwnData.hpp>
 
 namespace LiteLoader::DynamicCommand

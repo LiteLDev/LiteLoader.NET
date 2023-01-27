@@ -2,7 +2,7 @@
 #include <src/Main/DotNETGlobal.hpp>
 #include <src/Main/ClassTemplate.hpp>
 #include <src/Module/Core/Std/string.hpp>
-#include <src/Header/DynamicCommand/DynamicCommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommand.hpp>
 #include <DynamicCommandAPI.h>
 
 namespace LiteLoader::DynamicCommand {

@@ -1,5 +1,5 @@
-#include <src/Header/DynamicCommand/DynamicCommand.hpp>
-#include <src/Header/DynamicCommand/DynamicCommandInstance.hpp>
+#include <src/Module/DynamicCommand/DynamicCommand.hpp>
+#include <src/Module/DynamicCommand/DynamicCommandInstance.hpp>
 #include <src/Main/PluginOwnData.hpp>
 #include <memory>
 

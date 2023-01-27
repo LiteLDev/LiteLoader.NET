@@ -49,9 +49,6 @@
     <Filter Include="Kernel\Scoreboard">
       <UniqueIdentifier>{9e803160-8fc8-4610-b8c5-0c124b593efa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\DynamicCommand">
-      <UniqueIdentifier>{48fc0746-f917-42c3-b3cd-0895f1347a4f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header\Event">
       <UniqueIdentifier>{1f247153-bd56-4e44-837f-388cd13c1e36}</UniqueIdentifier>
     </Filter>
@@ -81,9 +78,6 @@
     </Filter>
     <Filter Include="Main\Global">
       <UniqueIdentifier>{9b4e8eab-85bc-44b4-b255-fd698085de96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Kernel\DynamicCommand">
-      <UniqueIdentifier>{729c6ed5-2be8-406a-8be7-9510e6059f0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Module">
       <UniqueIdentifier>{0d50ec82-48b2-41c2-b52e-83f888c6cb27}</UniqueIdentifier>
@@ -123,6 +117,21 @@
     </Filter>
     <Filter Include="Module\Core\Std\vector">
       <UniqueIdentifier>{91dced5e-e75c-41d9-bc38-3808a61fcb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Interop">
+      <UniqueIdentifier>{ec74a552-6d03-4aa5-a63f-50df80cb6b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\DynamicCommand">
+      <UniqueIdentifier>{89683d65-526a-491c-bd2d-3a79686584e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Interop\OriginalData">
+      <UniqueIdentifier>{00722887-8abd-473d-ab19-8322abae8375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Interop\OriginalData\Attributes">
+      <UniqueIdentifier>{f05acbd5-4613-46c0-bd81-dccd8cd732e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Interop\OriginalData\Enums">
+      <UniqueIdentifier>{7343f0cd-5873-4918-bda6-ef4400c727bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -453,24 +462,6 @@
     <ClCompile Include="Main\GlobalClass.cpp">
       <Filter>Main\Global</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\DynamicCommand.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandHelper.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\ICommand.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\RegisterCommand.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\ParameterData.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel\DynamicCommand\DynamicCommandInstance.cpp">
-      <Filter>Kernel\DynamicCommand</Filter>
-    </ClCompile>
     <ClCompile Include="Kernel\Event\PlayerEvents.cpp">
       <Filter>Kernel\Event</Filter>
     </ClCompile>
@@ -579,6 +570,43 @@
     <ClCompile Include="Module\Core\Std\optional.cpp">
       <Filter>Module\Core\Std</Filter>
     </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\DynamicCommand.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\DynamicCommandHelper.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\DynamicCommandInstance.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\ICommand.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\ParameterData.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\DynamicCommand\RegisterCommand.cpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\AccessTypeAttribute.cpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\VirtualCppClassAttribute.cpp">
+      <Filter>Module\Interop</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\RVAAttribute.cpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\StorageClassAttribute.cpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\FakeSymbolAttribute.cpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\SymbolAttribute.cpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -830,23 +858,11 @@
     <ClInclude Include="Tools\ClassTemplateHelper.hpp">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\DynamicCommand.hpp">
-      <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\DynamicCommandHelper.hpp">
-      <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Command\CommandMessage.hpp">
       <Filter>Header\Command</Filter>
     </ClInclude>
     <ClInclude Include="Header\Command\CommandItem.hpp">
       <Filter>Header\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\ICommand.hpp">
-      <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\DynamicCommandAttributes.hpp">
-      <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
     <ClInclude Include="Header\MC\BoundingBox.hpp">
       <Filter>Header\MC</Filter>
@@ -976,12 +992,6 @@
     </ClInclude>
     <ClInclude Include="Header\Hook\HookHelper.hpp">
       <Filter>Header\Hook</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\ParameterData.hpp">
-      <Filter>Header\DynamicCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\DynamicCommand\DynamicCommandInstance.hpp">
-      <Filter>Header\DynamicCommand</Filter>
     </ClInclude>
     <ClInclude Include="Header\Event\PlayerEvents.hpp">
       <Filter>Header\Event</Filter>
@@ -1126,6 +1136,55 @@
     </ClInclude>
     <ClInclude Include="Module\Core\Std\optional.hpp">
       <Filter>Module\Core\Std</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\DynamicCommand.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\DynamicCommandAttributes.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\DynamicCommandHelper.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\DynamicCommandInstance.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\ICommand.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\DynamicCommand\ParameterData.hpp">
+      <Filter>Module\DynamicCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\AccessTypeAttribute.hpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Enums\FlagBits.hpp">
+      <Filter>Module\Interop\OriginalData\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\VirtualCppClassAttribute.hpp">
+      <Filter>Module\Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Enums\AccessType.hpp">
+      <Filter>Module\Interop\OriginalData\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\RVAAttribute.hpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\StorageClassAttribute.hpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Enums\StorageType.hpp">
+      <Filter>Module\Interop\OriginalData\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\FakeSymbolAttribute.hpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\SymbolAttribute.hpp">
+      <Filter>Module\Interop\OriginalData\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.hpp" />
+    <ClInclude Include="Module\Interop\OriginalData\Enums\SymbolType.hpp">
+      <Filter>Module\Interop\OriginalData\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

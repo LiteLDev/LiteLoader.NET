@@ -1,0 +1,1 @@
+#include <src/Module/DynamicCommand/ICommand.hpp>

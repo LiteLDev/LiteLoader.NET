@@ -1,4 +1,4 @@
-#include <src/Header/DynamicCommand/ParameterData.hpp>
+#include <src/Module/DynamicCommand/ParameterData.hpp>
 
 inline ::DynamicCommand::ParameterType __ParameterData::GetType()
 {
