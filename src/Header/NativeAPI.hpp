@@ -62,16 +62,5 @@ namespace LiteLoader::Hook
         {
             ::operator delete(p);
         }
-
-        static void* TestVector(...array<String^>^ strs)
-        {
-            auto ret = new std::vector<std::string>;
-
-            for each (auto var in strs)
-            {
-                ret->emplace_back(marshalString(var));
-            }
-            return ret;
-        }
     };
 }

@@ -38,7 +38,6 @@ namespace LiteLoader::RemoteCall::Helper
 #ifdef REMOTECALL_DEBUG
         REMOTECALL_DEBUG_INFO(__FUNCSIG__ + intptr_t(val).ToString());
 #endif // REMOTECALL_DEBUG
-
         return std::get<number_type>(std::get<value>(reinterpret_cast<value_type*>(val)->value)).get<double>();
     }
 

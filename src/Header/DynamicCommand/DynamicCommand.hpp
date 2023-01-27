@@ -113,7 +113,7 @@ namespace LiteLoader::DynamicCommand
             String^ AsRawText();
             String^ AsJsonValue();
             MC::CommandItem^ AsCommandItem();
-            //MC::Block^ AsBlock();
+            VALUE_TUPLE<__int64, String^> AsBlock();
             MC::MobEffect^ AsMobEffect();
             String^ AsEnum();
             String^ AsSoftEnum();
@@ -233,8 +233,8 @@ namespace LiteLoader::DynamicCommand
         generic<typename TCommand>
         where TCommand:ICommand, gcnew()
             static bool RegisterCommand();
-        internal:
-            static bool _registerCommandInternal(System::Type^ cmdType);
+    internal:
+        static bool _registerCommandInternal(System::Type^ cmdType);
     };
 
 } // namespace LiteLoader::DynamicCommand

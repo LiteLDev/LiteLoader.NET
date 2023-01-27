@@ -194,8 +194,6 @@ namespace LiteLoader::Event
 
             for each (auto func in funcs)
             {
-                String^ handlerName = func.Item1.ToString();
-
                 int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (
                     func.Item4 ? IS_INSTANCE : 0);
 
