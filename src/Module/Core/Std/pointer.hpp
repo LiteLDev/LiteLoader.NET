@@ -19,6 +19,18 @@ namespace LiteLoader::NET
         nint_t pInstance;
 
     public:
+        static operator pointer(T val)
+        {
+            auto ret = pointer();
+            ret.pInstance = val->Intptr;
+            return ret;
+        }
+        static operator T(pointer ptr)
+        {
+            return ptr.Dereference();
+        }
+
+    public:
 
         literal size_t NativeClassSize = sizeof(intptr_t);
 
