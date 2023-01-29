@@ -27,6 +27,8 @@ namespace MC
         Vec2(float a, float b)
             :x(a), y(b) {}
 
+        inline Vec2(System::Numerics::Vector2);
+
         inline String^ ToString() override {
             return x.ToString() + "," + y.ToString();
         }
@@ -43,6 +45,11 @@ namespace MC
         inline static Vec2 operator-(Vec2 const a, Vec2 const b)
         {
             return Vec2{ a.x - b.x, a.y - b.y };
+        }
+
+        static explicit operator System::Numerics::Vector2(Vec2 obj)
+        {
+            return System::Numerics::Vector2{ obj.X, obj.Y };
         }
 
     public:

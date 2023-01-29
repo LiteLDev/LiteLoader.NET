@@ -44,6 +44,8 @@ namespace MC {
 
         inline Vec3(BlockPos pos);
 
+        inline Vec3(System::Numerics::Vector3);
+
         Vec3 Abs() {
             pin_ptr<Vec3> p = this;
             return ((::Vec3*)p)->abs();
@@ -222,6 +224,10 @@ namespace MC {
 
         static Vec3 operator-(Vec3 obj, Vec3 b) {
             return Vec3{ obj.x - b.x, obj.y - b.y, obj.z - b.z };
+        }
+
+        static explicit operator System::Numerics::Vector3(Vec3 obj) {
+            return System::Numerics::Vector3{ obj.X, obj.Y, obj.Z };
         }
 
         static float Dot(Vec3 a, Vec3 b) {
