@@ -36,7 +36,7 @@ namespace LiteLoader::Event
     public:
         Property_Ptr(MC, Actor, mActor, Actor);
         Property_ValueType(MC, Vec3, mPos, Pos);
-        Property_Ptr(MC, BlockSource, mDimension, Dimension);
+        Property_Ptr(MC, BlockSource, mDimension, BlockSource);
         Property(float, mRadius, Radius);
         Property(float, mMaxResistance, MaxResistance);
         Property(bool, mBreaking, Breaking);
