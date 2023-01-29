@@ -81,7 +81,7 @@ namespace LiteLoader::Event
 
     public:
         Property_Ptr(MC, WitherBoss, mWitherBoss, WitherBoss);
-        Property_Instance(MC, AABB, mDestroyRange, DestroyRange);
+        Property_ValueType(MC, AABB, mDestroyRange, DestroyRange);
     };
 
     Class EntityRideEvent
