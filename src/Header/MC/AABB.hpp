@@ -18,10 +18,10 @@ namespace MC {
         static operator AABB(::AABB const& obj) { return AABB(obj.min, obj.max); }
         AABB(::AABB&& obj) :min(obj.min), max(obj.max) {}
         AABB(::AABB const& obj) :min(obj.min), max(obj.max) {}
-    public:
         Vec3 min;
         Vec3 max;
 
+    public:
         property Vec3 Min {
             Vec3 get() {
                 return min;

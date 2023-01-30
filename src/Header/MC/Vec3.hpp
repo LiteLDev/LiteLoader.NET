@@ -15,9 +15,9 @@ namespace MC {
         static operator Vec3(::Vec3 const& obj) { return Vec3(obj.x, obj.y, obj.z); }
         Vec3(::Vec3&& vec) :x(vec.x), y(vec.y), z(vec.z) {}
         Vec3(::Vec3 const& vec) :x(vec.x), y(vec.y), z(vec.z) {}
-    public:
         float x, y, z;
 
+    public:
         property float X {
             float get() { return x; }
             void set(float x) { this->x = x; }

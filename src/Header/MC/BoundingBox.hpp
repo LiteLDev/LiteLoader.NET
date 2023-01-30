@@ -12,10 +12,10 @@ namespace MC {
         static operator BoundingBox(::BoundingBox const& obj) { return BoundingBox(obj.min, obj.max); }
         BoundingBox(::BoundingBox&& obj) :min(obj.min), max(obj.max) {}
         BoundingBox(::BoundingBox const& obj) :min(obj.min), max(obj.max) {}
-    public:
         BlockPos min;
         BlockPos max;
 
+    public:
         property BlockPos Min {
             BlockPos get() {
                 return min;

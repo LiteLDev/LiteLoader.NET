@@ -54,12 +54,14 @@ namespace LiteLoader::Logger {
         Logger();
         ~Logger();
 
+    internal:
         OutputStream^ debug;
         OutputStream^ info;
         OutputStream^ warn;
         OutputStream^ error;
         OutputStream^ fatal;
 
+    public:
         property OutputStream^ Debug {OutputStream^ get() { return debug; }};
         property OutputStream^ Info {OutputStream^ get() { return info; }};
         property OutputStream^ Warn {OutputStream^ get() { return warn; }};

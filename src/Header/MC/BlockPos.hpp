@@ -19,9 +19,9 @@ namespace MC
         static operator BlockPos(::BlockPos const& obj) { return BlockPos(obj.x, obj.y, obj.z); }
         BlockPos(::BlockPos&& pos) :x(pos.x), y(pos.y), z(pos.z) {}
         BlockPos(::BlockPos const& pos) :x(pos.x), y(pos.y), z(pos.z) {}
-    public:
         int x, y, z;
 
+    public:
         property int X {int get() { return x; }}
         property int Y {int get() { return y; }}
         property int Z {int get() { return z; }}

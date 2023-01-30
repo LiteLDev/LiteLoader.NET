@@ -12,9 +12,9 @@ namespace MC
         static operator Vec2(::Vec2 const& obj) { return Vec2(obj.x, obj.y); }
         Vec2(::Vec2&& vec) :x(vec.x), y(vec.y) {}
         Vec2(::Vec2 const& vec) :x(vec.x), y(vec.y) {}
-    public:
         float x, y;
 
+    public:
         property float X {
             inline float get() { return x; }
             inline void set(float x) { this->x = x; }
