@@ -83,8 +83,6 @@ std::vector<std::filesystem::path> GetAllAssemblies()
         auto& filePath = file.path();
         if (filePath.extension() == ".dll")
         {
-            if (filePath.filename() == LLNET_LOADER_NAME_WITH_EXTENSION)
-                continue;
             assemblies.emplace_back(filePath);
         }
     }
@@ -229,32 +227,24 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
             logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", iter->filename().string(), marshalString(ex->GetType()->ToString()));
             logger.error(marshalString(ex->ToString()));
         }
-
-
     }
     logger.info("{} .NET plugin(s) loaded", count);
 }
 
-
+// For forward compatibility
 bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
 {
-
-    auto plugin = Asm->GetType(TEXT(LLNET_PLUGIN_ENTRY_CLASS));
+    auto plugin = Asm->GetType("PluginMain.Plugin");
     if (plugin == nullptr)
         return false;
-
-    auto method = plugin->GetMethod(TEXT(LLNET_PLUGIN_ENTRY_METHOD));
+    auto method = plugin->GetMethod("OnPostInit");
     if (method == nullptr)
         return false;
-
     if (method->ReturnType != void::typeid)
         return false;
-
     if (method->GetParameters()->Length > 0)
         return false;
-
     reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
-
     return true;
 }
 
@@ -309,17 +299,18 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
         }
     }
 
-    if (initializer != nullptr)
+    if (initializer == nullptr)
     {
-        initializer->OnInitialize();
-        String^ introduction = initializer->Introduction;
-        auto version = gcnew LiteLoader::Version(
-            initializer->Version->Major,
-            initializer->Version->Minor,
-            initializer->Version->Build
-        );
-        auto others = initializer->MetaData;
-        LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
+        throw gcnew System::EntryPointNotFoundException();
     }
+    initializer->OnInitialize();
+    String^ introduction = initializer->Introduction;
+    auto version = gcnew LiteLoader::Version(
+        initializer->Version->Major,
+        initializer->Version->Minor,
+        initializer->Version->Build
+    );
+    auto others = initializer->MetaData;
+    LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
     return true;
 }

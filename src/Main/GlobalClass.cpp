@@ -10,7 +10,7 @@ inline void GlobalClass::Init()
 
     logger = gcnew LiteLoader::Logger::Logger(LLNET_INFO_LOADER_NAME);
 
-    auto runtimeLibPathDir = DOTNET_RUNTIME_DIR + "/shared/Microsoft.NETCore.App";
+    auto runtimeLibPathDir = Path::Combine(DOTNET_RUNTIME_DIR, "shared", "Microsoft.NETCore.App");
     if (!Directory::Exists(runtimeLibPathDir))
     {
         goto SHARED_LIBRARY_NOT_FOUND_WARNING;
