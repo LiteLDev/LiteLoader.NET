@@ -93,8 +93,8 @@ namespace LiteLoader::NET::Std::Internal
             type_size = reinterpret_cast<size_t(__clrcall*)(T)>(
                 _get_method_fptr(true, "GetClassSize", PackArray<SystemType^>()))(T());
 
-                ret.get_intptr = reinterpret_cast<decltype(ret)::_Get_intptr_fptr>(
-                    _get_method_fptr(true, "get_Intptr", PackArray<SystemType^>()));
+            ret.get_intptr = reinterpret_cast<decltype(ret)::_Get_intptr_fptr>(
+                _get_method_fptr(true, "get_Intptr", PackArray<SystemType^>()));
 
             ret.set_intptr = reinterpret_cast<decltype(ret)::_Set_intptr_fptr>(
                 _get_method_fptr(true, "set_Intptr", PackArray(typeof(nint_t))));
@@ -155,19 +155,20 @@ namespace LiteLoader::NET::Std::Internal
         auto _Fty = typeof(T)->GetMethod(_Name, _Params);
 
         if (_Fty == nullptr)
-            if (_ThrowExc)
-                goto THROW;
+            goto THROW;
 
         auto ret = _Fty->MethodHandle.GetFunctionPointer().ToPointer();
 
         if (ret == nullptr)
-            if (_ThrowExc)
-                goto THROW;
+            goto THROW;
 
         return ret;
 
     THROW:
-        throw gcnew LiteLoader::NET::InvalidTypeException(
-            String::Format("{0} missing Method '{1}'.", typeof(T)->FullName, _Name));
+        if (_ThrowExc)
+            throw gcnew LiteLoader::NET::InvalidTypeException(
+                String::Format("{0} missing Method '{1}'.", typeof(T)->FullName, _Name));
+        else
+            return nullptr;
     }
 }

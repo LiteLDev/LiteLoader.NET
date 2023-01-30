@@ -141,9 +141,25 @@ namespace LiteLoader::NET
         /// </summary>
         T Dereference()
         {
-            auto ret = gcnew T;
-            ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, pInstance, false);
-            return ret;
+            if (ICppStdClass<T>::isValueType)
+            {
+                if (ICppStdClass<T>::isIPointerConstructable)
+                {
+                    auto ret = T();
+                    ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, pInstance, false);
+                    return ret;
+                }
+                else
+                {
+                    return Unsafe::Read<T>(pInstance.ToPointer());
+                }
+            }
+            else
+            {
+                auto ret = gcnew T;
+                ICppStdClass<T>::_Tr_fptr.set_native_pointer(ret, pInstance, false);
+                return ret;
+            }
         }
     };
 }
