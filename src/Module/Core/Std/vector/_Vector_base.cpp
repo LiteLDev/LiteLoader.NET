@@ -42,7 +42,7 @@ namespace LiteLoader::NET::Std::Internal
             if (ICppStdClass::isPointer)
             {
                 auto ret = T();
-                ICppStdClass::_Tv_fptr.set_native_pointer(&ret, static_cast<nint_t>(_this.get()), false);
+                ICppStdClass::_Tv_fptr.set_native_pointer(&ret, Unsafe::Read<nint_t>(_this.get()), false);
                 return ret;
             }
             return Unsafe::Read<T>(_this.get());

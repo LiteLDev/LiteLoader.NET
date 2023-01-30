@@ -79,25 +79,23 @@ namespace LiteLoader::NET
         /// </summary>
         void Delete()
         {
-            auto _Ptr = pInstance.ToPointer();
-
             if (isValueType)
             {
                 if (ICppStdClass<T>::isICppClass)
                 {
                     auto ret = T();
-                    ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, Unsafe::Read<nint_t>(_Ptr), false);
+                    ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, pInstance, false);
                     ret->Destruct();
                 }
             }
             else
             {
                 auto ret = gcnew T;
-                ICppStdClass<T>::_Tr_fptr.set_native_pointer(ret, Unsafe::Read<nint_t>(_Ptr), false);
+                ICppStdClass<T>::_Tr_fptr.set_native_pointer(ret, pInstance, false);
                 ret->Destruct();
             }
 
-            ::operator delete(_Ptr);
+            ::operator delete(pInstance.ToPointer());
         }
 
         /// <summary>
@@ -144,7 +142,7 @@ namespace LiteLoader::NET
         T Dereference()
         {
             auto ret = gcnew T;
-            ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, Unsafe::Read<nint_t>(pInstance.ToPointer()), false);
+            ICppStdClass<T>::_Tv_fptr.set_native_pointer(&ret, pInstance, false);
             return ret;
         }
     };
