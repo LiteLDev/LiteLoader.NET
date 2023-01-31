@@ -35,6 +35,8 @@ namespace LiteLoader::RemoteCall
     {
         //ctor
     public:
+        __ctor_all(Value, ::RemoteCall::Value);
+
         /// <summary>
         /// Copy
         /// </summary>

@@ -43,6 +43,8 @@ namespace LiteLoader::RemoteCall
 
     public:
 
+        __ctor_all(Valuetype, ::RemoteCall::ValueType);
+
         /// <summary>
         /// Initializes a new instance of the RemoteCall.Valuetype class that is empty.
         /// </summary>

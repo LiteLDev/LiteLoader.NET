@@ -3,12 +3,13 @@
 #include <src/Main/ClassTemplate.hpp>
 #include <memory>
 
-#include "move.hpp"
-#include "ICopyable.hpp"
+#using <../Modules/LiteLoader.NET.InteropServices.dll>
 
 namespace LiteLoader::NET::Std
 {
-    using namespace clix;
+    using LiteLoader::NET::InteropServices::IMoveable;
+    using LiteLoader::NET::InteropServices::ICopyable;
+    using LiteLoader::NET::InteropServices::move;
 
     public ref class wstring : ClassTemplate<wstring, std::wstring>,
         IMoveable<wstring^>,

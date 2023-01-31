@@ -5,6 +5,7 @@ namespace MC
 public
 ref class ChunkBlockPos : ClassTemplate<ChunkBlockPos, ::ChunkBlockPos>
 {
+public:
     __ctor_all(ChunkBlockPos, ::ChunkBlockPos);
     __ctor_default(ChunkBlockPos, ::ChunkBlockPos);
 

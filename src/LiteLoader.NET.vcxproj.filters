@@ -106,18 +106,6 @@
     <Filter Include="Module\Core\Std">
       <UniqueIdentifier>{b3713bd0-c142-4834-ae30-852531f108ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module\Core\Std\InternalImpl">
-      <UniqueIdentifier>{ee67e76f-ee5f-4c4f-945d-33f2d9356d82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Module\Core\Interface">
-      <UniqueIdentifier>{b3c44076-3c00-4362-bd2e-25d12f4eda0f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Module\Core\Std\Exceptions">
-      <UniqueIdentifier>{61bc4b9c-cb89-479c-ad05-6f67db63939c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Module\Core\Std\vector">
-      <UniqueIdentifier>{91dced5e-e75c-41d9-bc38-3808a61fcb57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Module\Interop">
       <UniqueIdentifier>{ec74a552-6d03-4aa5-a63f-50df80cb6b87}</UniqueIdentifier>
     </Filter>
@@ -537,37 +525,10 @@
     <ClCompile Include="Module\RemoteCall\RemoteCall_ImportAs_impl.cpp">
       <Filter>Module\RemoteCall</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Core\Std\pointer.cpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\reference.cpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\allocator.cpp">
-      <Filter>Module\Core\Std</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\vector\vector`1.cpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\vector\internal.cpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\vector\_Vector_base.cpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\vector\vector`2.cpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\ICppStdClass.cpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClCompile>
     <ClCompile Include="Module\Core\Std\string.cpp">
       <Filter>Module\Core\Std</Filter>
     </ClCompile>
     <ClCompile Include="Module\Core\Std\wstring.cpp">
-      <Filter>Module\Core\Std</Filter>
-    </ClCompile>
-    <ClCompile Include="Module\Core\Std\optional.cpp">
       <Filter>Module\Core\Std</Filter>
     </ClCompile>
     <ClCompile Include="Module\DynamicCommand\DynamicCommand.cpp">
@@ -606,7 +567,6 @@
     <ClCompile Include="Module\Interop\OriginalData\Attributes\SymbolAttribute.cpp">
       <Filter>Module\Interop\OriginalData\Attributes</Filter>
     </ClCompile>
-    <ClCompile Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -1083,59 +1043,14 @@
     <ClInclude Include="Module\Core\Std\string.hpp">
       <Filter>Module\Core\Std</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Core\Std\IMoveable.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\move.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
     <ClInclude Include="Module\Core\Std\wstring.hpp">
       <Filter>Module\Core\Std</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\pointer.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\reference.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\allocator.hpp">
-      <Filter>Module\Core\Std</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\ICppStdClass.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\Exceptions\exception.hpp">
-      <Filter>Module\Core\Std\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="Module\Core\Exceptions.hpp">
       <Filter>Module\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Core\ICppClass.hpp">
-      <Filter>Module\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Module\Core\SecondaryRankPtr.hpp">
       <Filter>Module\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\Exceptions\bad_alloc.hpp">
-      <Filter>Module\Core\Std\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\vector\vector`1.hpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\vector\internal.hpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\vector\_Vector_base.hpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\vector\vector`2.hpp">
-      <Filter>Module\Core\Std\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\ICopyable.hpp">
-      <Filter>Module\Core\Std\InternalImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="Module\Core\Std\optional.hpp">
-      <Filter>Module\Core\Std</Filter>
     </ClInclude>
     <ClInclude Include="Module\DynamicCommand\DynamicCommand.hpp">
       <Filter>Module\DynamicCommand</Filter>
@@ -1182,7 +1097,6 @@
     <ClInclude Include="Module\Interop\OriginalData\Attributes\SymbolAttribute.hpp">
       <Filter>Module\Interop\OriginalData\Attributes</Filter>
     </ClInclude>
-    <ClInclude Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.hpp" />
     <ClInclude Include="Module\Interop\OriginalData\Enums\SymbolType.hpp">
       <Filter>Module\Interop\OriginalData\Enums</Filter>
     </ClInclude>

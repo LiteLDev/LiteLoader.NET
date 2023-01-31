@@ -165,24 +165,4 @@ namespace LiteLoader::NET
         {
         }
     };
-    
-    public ref class InvalidTypeException
-        :LiteLoaderDotNETException
-    {
-    public:
-        InvalidTypeException(System::String^ message)
-            :LiteLoaderDotNETException(message)
-        {
-        }
-    };
-    
-    public ref class MemoryCorruptedException
-        :LiteLoaderDotNETException
-    {
-    public:
-        MemoryCorruptedException(System::String^ message)
-            :LiteLoaderDotNETException(message)
-        {
-        }
-    };
 }

@@ -18,12 +18,12 @@ namespace LiteLoader::Form
     //////////////////////////////// Simple Form Elements ////////////////////////////////
 
     public
-        ref class SimpleFormElement
+    ref class SimpleFormElement
     {
     };
 
     public
-        ref class Button : public SimpleFormElement
+    ref class Button : public SimpleFormElement
     {
     public:
         delegate void ButtonCallback(MC::Player^);
@@ -48,7 +48,7 @@ namespace LiteLoader::Form
     //////////////////////////////// Custom Form Elements ////////////////////////////////
 
     public
-        ref class CustomFormElement abstract
+    ref class CustomFormElement abstract
     {
     public:
         enum class Type
@@ -77,7 +77,7 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class Label : public CustomFormElement
+    ref class Label : public CustomFormElement
     {
         String^ text;
 
@@ -105,9 +105,9 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class Input : public CustomFormElement
+    ref class Input : public CustomFormElement
     {
-        String ^title, ^placeholder, ^def;
+        String^ title, ^ placeholder, ^ def;
 
     public:
         property String^ Title
@@ -163,7 +163,7 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class Toggle : public CustomFormElement
+    ref class Toggle : public CustomFormElement
     {
         String^ title;
         bool def;
@@ -207,7 +207,7 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class Dropdown : public CustomFormElement
+    ref class Dropdown : public CustomFormElement
     {
         String^ title;
         List<String^>^ options;
@@ -267,7 +267,7 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class Slider : public CustomFormElement
+    ref class Slider : public CustomFormElement
     {
         String^ title;
         double min, max, step, def;
@@ -354,7 +354,7 @@ namespace LiteLoader::Form
     };
 
     public
-        ref class StepSlider : public CustomFormElement
+    ref class StepSlider : public CustomFormElement
     {
         String^ title;
         List<String^>^ options;
@@ -415,15 +415,14 @@ namespace LiteLoader::Form
 
     //////////////////////////////// Forms ////////////////////////////////
 
-    public
-        interface class FormImpl
+    public interface class FormImpl
     {
     };
 
-    public
-        ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
+    public ref class SimpleForm : public ClassTemplate<SimpleForm, ::Form::SimpleForm>, public FormImpl
     {
     public:
+        __ctor_all(SimpleForm, ::Form::SimpleForm);
         __ctor_default(SimpleForm, ::Form::SimpleForm);
 
         delegate void SimpleFormCallback(MC::Player^, int);
@@ -449,10 +448,10 @@ namespace LiteLoader::Form
     };
 
 
-    public
-        ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl
+    public ref class ModalForm : public ClassTemplate<ModalForm, ::Form::ModalForm>, public FormImpl
     {
     public:
+        __ctor_all(ModalForm, ::Form::ModalForm);
         __ctor_default(ModalForm, ::Form::ModalForm);
 
         delegate void ModalFormCallback(MC::Player^ player, bool isConfirm);
@@ -475,13 +474,13 @@ namespace LiteLoader::Form
     };
 
 
-    public
-        ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
+    public ref class CustomForm : public ClassTemplate<CustomForm, ::Form::CustomForm>, public FormImpl
     {
         using kvPair = VALUE_TUPLE<String^, CustomFormElement^>;
         List<kvPair>^ elements = gcnew List<kvPair>;
 
     public:
+        __ctor_all(CustomForm, ::Form::CustomForm);
         __ctor_default(CustomForm, ::Form::CustomForm);
 
         delegate void CustomFormCallback(MC::Player^, Dictionary<String^, CustomFormElement^>^);

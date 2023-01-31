@@ -15,10 +15,8 @@ namespace LiteLoader::RemoteCall
 {
     public ref class BlockPosType : ClassTemplate<BlockPosType, ::RemoteCall::BlockPosType>/*, IValue*/
     {
-    internal:
-        __ctor_copy(BlockPosType, ::RemoteCall::BlockPosType);
-        __ctor_move(BlockPosType, ::RemoteCall::BlockPosType);
     public:
+        __ctor_all(BlockPosType, ::RemoteCall::BlockPosType);
         __ctor_default(BlockPosType, ::RemoteCall::BlockPosType);
     public:
         BlockPosType(MC::BlockPos pos, int dimId);

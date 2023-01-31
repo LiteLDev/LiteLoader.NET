@@ -2,15 +2,13 @@
 #include "DotNETGlobal.hpp"
 #include "ClassTemplateDecl.hpp"
 #include <src/Tools/ClassTemplateHelper.hpp>
-#include <src/Module/Core/ICppClass.hpp>
+
 
 namespace LiteLoader::NET::Internal
 {
-    using System::Runtime::InteropServices::CriticalHandle;
-
     template <typename REFCLASS, typename NATIVECLASS, bool IsAbstract>
     public ref class ClassTemplate<REFCLASS, NATIVECLASS, IsAbstract, true>
-        abstract : CriticalHandle, std::conditional_t<IsAbstract, IAbstractCppClass, IConstructableCppClass>
+        abstract : CriticalHandle, _Select_Interface<REFCLASS, IsAbstract>::type
     {
     protected:
         bool ownsNativeInstance;
@@ -31,7 +29,7 @@ namespace LiteLoader::NET::Internal
             }
         }
 
-        property nint_t Intptr
+        property nint_t NativePointer
         {
         public:
             virtual nint_t get()
