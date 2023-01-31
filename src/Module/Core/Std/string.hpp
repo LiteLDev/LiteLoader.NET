@@ -2,13 +2,12 @@
 #include <src/Tools/clix.hpp>
 #include <src/Main/ClassTemplate.hpp>
 
-#using <../Modules/LiteLoader.NET.InteropServices.dll>
+#include "move.hpp"
+#include "ICopyable.hpp"
 
 namespace LiteLoader::NET::Std
 {
-    using LiteLoader::NET::InteropServices::IMoveable;
-    using LiteLoader::NET::InteropServices::ICopyable;
-    using LiteLoader::NET::InteropServices::move;
+    using namespace clix;
 
     public ref class string : ClassTemplate<string, std::string>,
         IMoveable<string^>,
@@ -121,7 +120,7 @@ namespace LiteLoader::NET::Std
 
         //find_first_of
 
-        property nint_t NativePointer
+        property nint_t Intptr
         {
             virtual nint_t get() override
             {

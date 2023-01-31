@@ -17,8 +17,10 @@ namespace LiteLoader::RemoteCall
 {
     public ref class BlockType : ClassTemplate<BlockType, ::RemoteCall::BlockType>/*, IValue*/
     {
+    internal:
+        __ctor_copy(BlockType, ::RemoteCall::BlockType);
+        __ctor_move(BlockType, ::RemoteCall::BlockType);
     public:
-        __ctor_all(BlockType, ::RemoteCall::BlockType);
         __ctor_default(BlockType, ::RemoteCall::BlockType);
     public:
         BlockType(MC::BlockInstance^ item);

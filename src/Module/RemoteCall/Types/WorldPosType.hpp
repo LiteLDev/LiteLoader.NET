@@ -15,8 +15,10 @@ namespace LiteLoader::RemoteCall
 {
     public ref class WorldPosType : ClassTemplate<WorldPosType, ::RemoteCall::WorldPosType>/*, IValue*/
     {
+    internal:
+        __ctor_copy(WorldPosType, ::RemoteCall::WorldPosType);
+        __ctor_move(WorldPosType, ::RemoteCall::WorldPosType);
     public:
-        __ctor_all(WorldPosType, ::RemoteCall::WorldPosType);
         __ctor_default(WorldPosType, ::RemoteCall::WorldPosType);
     public:
         WorldPosType(MC::Vec3 pos, int dimId);

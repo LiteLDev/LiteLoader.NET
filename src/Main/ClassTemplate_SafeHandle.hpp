@@ -3,12 +3,15 @@
 #include "DotNETGlobal.hpp"
 #include "ClassTemplateDecl.hpp"
 #include <src/Tools/ClassTemplateHelper.hpp>
+#include <src/Module/Core/ICppClass.hpp>
 
 namespace LiteLoader::NET::Internal
 {
+    using System::Runtime::InteropServices::SafeHandle;
+
     template <typename REFCLASS, typename NATIVECLASS, bool IsAbstract>
     public ref class ClassTemplate<REFCLASS, NATIVECLASS, IsAbstract, false>
-        abstract : SafeHandle, _Select_Interface<REFCLASS, IsAbstract>::type
+        abstract : SafeHandle, std::conditional_t<IsAbstract, IAbstractCppClass, IConstructableCppClass>
     {
     protected:
         bool ownsNativeInstance;
@@ -29,7 +32,7 @@ namespace LiteLoader::NET::Internal
             }
         }
 
-        property nint_t NativePointer
+        property nint_t Intptr
         {
         public:
             virtual nint_t get()
@@ -173,13 +176,6 @@ namespace LiteLoader::NET::Internal
         {
             handle = nint_t(ptr);
             this->ownsNativeInstance = ownsInstance;
-        }
-        virtual REFCLASS^ ConstructInstance(nint_t ptr, bool ownsInstance)
-        {
-            if constexpr (IsAbstract)
-                throw gcnew System::InvalidOperationException(String::Format("<{0}> cannot be constructed which is an abstract class."));
-            else
-                return gcnew REFCLASS(ptr, ownsInstance);
         }
         virtual size_t GetClassSize()
         {

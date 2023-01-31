@@ -138,31 +138,3 @@ public:
     {                                                                   \
         ClassTemplate::ResetPointer(p, ownsNativeInstance);             \
     }
-
-#using <../Modules/LiteLoader.NET.InteropServices.dll>
-
-namespace LiteLoader::NET::Internal
-{
-    using System::Runtime::InteropServices::SafeHandle;
-    using System::Runtime::InteropServices::CriticalHandle;
-    using LiteLoader::NET::InteropServices::IConstructableCppClass;
-    using LiteLoader::NET::InteropServices::IAbstractCppClass;
-
-    template<typename _Ref_type, bool _Is_abstract>
-    struct _Selected_interface;
-
-    template<typename _Ref_type>
-    struct _Selected_interface<_Ref_type, false> {
-        using _Interface = IConstructableCppClass<_Ref_type^>;
-    };
-
-    template<typename _Ref_type>
-    struct _Selected_interface<_Ref_type, true> {
-        using _Interface = IAbstractCppClass;
-    };
-
-    template<typename _Ref_type, bool _Is_abstract>
-    struct _Select_Interface {
-        using type = typename _Selected_interface<_Ref_type, _Is_abstract>::_Interface;
-    };
-}

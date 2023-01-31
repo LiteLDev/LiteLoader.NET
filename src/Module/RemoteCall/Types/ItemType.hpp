@@ -17,8 +17,10 @@ namespace LiteLoader::RemoteCall
 {
     public ref class ItemType : ClassTemplate<ItemType, ::RemoteCall::ItemType>/*, IValue*/
     {
+    internal:
+        __ctor_copy(ItemType, ::RemoteCall::ItemType);
+        __ctor_move(ItemType, ::RemoteCall::ItemType);
     public:
-        __ctor_all(ItemType, ::RemoteCall::ItemType);
         __ctor_default(ItemType, ::RemoteCall::ItemType);
     public:
         ItemType(MC::ItemStack^ item);

@@ -17,8 +17,10 @@ namespace LiteLoader::RemoteCall
 {
     public ref class NbtType : ClassTemplate<NbtType, ::RemoteCall::NbtType>/*, IValue*/
     {
+    internal:
+        __ctor_copy(NbtType, ::RemoteCall::NbtType);
+        __ctor_move(NbtType, ::RemoteCall::NbtType);
     public:
-        __ctor_all(NbtType, ::RemoteCall::NbtType);
         __ctor_default(NbtType, ::RemoteCall::NbtType);
     public:
         NbtType(MC::CompoundTag^ tag);

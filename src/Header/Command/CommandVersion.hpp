@@ -7,7 +7,6 @@ namespace MC
 public
 ref class CommandVersion : ClassTemplate<CommandVersion, ::CommandVersion>
 {
-public:
     __ctor_all(CommandVersion, ::CommandVersion);
     __ctor_default(CommandVersion, ::CommandVersion);
 
