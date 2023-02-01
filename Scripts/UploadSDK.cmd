@@ -21,11 +21,11 @@ set LLNET_SDK_REMOTE_PATH=https://github.com/LiteLDev/SDK-dotnet.git
 echo [INFO] Fetching SDK-dotnet to GitHub ...
 echo.
 
-for /f "delims=" %%i in ('git rev-parse --abbrev-ref HEAD') do set LLNET_SDK_NOW_BRANCH=%%i
+for /f "delims=" %%i in ('git rev-parse --abbrev-ref HEAD') do set LLNET_NOW_BRANCH=%%i
 for /f "delims=" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG_LONG=%%i
 for /f "delims=-" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG=%%i
 
-echo LLNET_SDK_NOW_BRANCH %LLNET_SDK_NOW_BRANCH%
+echo LLNET_NOW_BRANCH %LLNET_NOW_BRANCH%
 echo LLNET_NOW_TAG_LONG %LLNET_NOW_TAG_LONG%
 echo LLNET_NOW_TAG %LLNET_NOW_TAG%
 echo.
@@ -38,8 +38,8 @@ if not exist SDK-dotnet/refs/LiteLoader/LiteLoader.NET.dll (
 
 cd SDK-dotnet
 git fetch --all
-git reset --hard origin/%LLNET_SDK_NOW_BRANCH%
-git checkout %LLNET_SDK_NOW_BRANCH%
+git reset --hard origin/%LLNET_NOW_BRANCH%
+git checkout %LLNET_NOW_BRANCH%
 cd ..
 
 echo.
@@ -60,7 +60,7 @@ if "%LLNET_SDK_NOW_STATUS%" neq "" (
     echo [INFO] Modified files found.
     echo.
     git add .
-    if "%LLNET_SDK_NOW_BRANCH%" == "main" (
+    if "%LLNET_NOW_BRANCH%" == "main" (
         git commit -m "From LiteLoader.NET %LLNET_NOW_TAG%"
         if [%2] == [release] (
             git tag %LLNET_NOW_TAG%
@@ -72,11 +72,14 @@ if "%LLNET_SDK_NOW_STATUS%" neq "" (
     echo [INFO] Pushing to origin...
     echo.
     if [%1] neq [action] (
-        git push origin %LLNET_SDK_NOW_BRANCH%
-        git push --tags origin %LLNET_SDK_NOW_BRANCH%
+        git push origin %LLNET_NOW_BRANCH%
+        git push --tags origin %LLNET_NOW_BRANCH%
     ) else (
-        git push https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_SDK_NOW_BRANCH%
-        git push --tags https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_SDK_NOW_BRANCH%
+        git push https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
+        git push --tags https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
+        if [%2] == [release] (
+            git push -f https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git main
+        )
     )
     cd ..
     echo.

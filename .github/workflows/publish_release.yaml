@@ -5,7 +5,7 @@ on:
     inputs:
       tag:
         required: true
-        description: 'tag is going to be released'
+        description: tag is going to be released
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -23,10 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3.1.0
         with:
-          submodules: 'true'
+          submodules: true
           fetch-depth: 0
 
-      - name: Create tag
+      - name: Create tag and update main branch
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         shell: bash
         run: |
@@ -35,6 +35,7 @@ jobs:
           git tag | xargs git tag -d
           git tag ${{ github.event.inputs.tag }}
           git push origin ${{ github.event.inputs.tag }}
+          git push -f origin main
 
       # - name: Get information from Version.h file (TODO)
       #   working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -62,13 +63,13 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1.3
 
       - name: Build
-        working-directory: ${{env.GITHUB_WORKSPACE}}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
         # Add additional options to the MSBuild command line here (like platform or verbosity level).
         # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-        run: msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} -m
+        run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
       - name: Copy dll and pdb files
-        working-directory: ${{env.GITHUB_WORKSPACE}}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
         shell: bash
         run: |
           mkdir output/
@@ -80,8 +81,8 @@ jobs:
           cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader/LiteLoader.NET.runtimeconfig.json
           mkdir output/PDB/
           cp -f x64/Release/*.pdb output/PDB/
-          # mkdir output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
-          # cp -r Data/* output/${{env.PLUGIN_NAME}}/${{env.PLUGIN_NAME}}/
+          # mkdir output/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}/
+          # cp -r Data/* output/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}/
 
       - name: Pack Release
         working-directory: ${{ env.GITHUB_WORKSPACE }}
@@ -94,9 +95,9 @@ jobs:
         id: rel
         shell: bash
         run: |
-            echo ::set-output name=tag::${{github.event.inputs.tag}}
-            mv LiteLoader.NET.zip LiteLoader.NET-${{github.event.inputs.tag}}.zip
-            mv PDB.zip PDB-${{github.event.inputs.tag}}.zip
+          echo ::set-output name=tag::${{ github.event.inputs.tag }}
+          mv LiteLoader.NET.zip LiteLoader.NET-${{ github.event.inputs.tag }}.zip
+          mv PDB.zip PDB-${{ github.event.inputs.tag }}.zip
 
       - name: Create New Release
         uses: ncipollo/release-action@v1.11.2
@@ -110,10 +111,10 @@ jobs:
             ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
             ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
 
-      - name: Update LiteLoaderSDK.NET
+      - name: Update SDK-dotnet
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         env:
-          REPO_KEY: ${{secrets.PUSH_TOKEN}}
+          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
           USERNAME: github-actions[bot]
         run: |
           git config --global user.name "github-actions[bot]"

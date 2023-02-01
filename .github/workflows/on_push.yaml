@@ -11,6 +11,8 @@ on:
       - '**.hh'
       - '**.hxx'
       - '**.h'
+    branches-ignore:
+      - main
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -28,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.1.0
         with:
-          submodules: 'true'
+          submodules: true
           fetch-depth: 0
 
       # - name: Get information from Version.h file (TODO)
@@ -57,15 +59,15 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1.3
 
       - name: Build
-        working-directory: ${{env.GITHUB_WORKSPACE}}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
         # Add additional options to the MSBuild command line here (like platform or verbosity level).
         # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-        run: msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} -m
+        run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
-      - name: Update LiteLoaderSDK.NET
+      - name: Update SDK-dotnet
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         env:
-          REPO_KEY: ${{secrets.PUSH_TOKEN}}
+          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
           USERNAME: github-actions[bot]
         run: |
           git config --global user.name "github-actions[bot]"
