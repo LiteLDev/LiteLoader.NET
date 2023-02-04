@@ -22,7 +22,11 @@ public:
 
     inline static ListTag ^ Create();
     array<Tag ^> ^ Value();
-    inline Tag const ^ operator[](int index);
+    property Tag ^ default[int] {
+        Tag ^ get(int index) {
+            return gcnew Tag(((::Tag*)((*NativePtr)[index])));
+        }
+    };
     inline Tag::Type const GetElementType();
     inline size_t getSize();
     array<Tag ^> ^ Get();
