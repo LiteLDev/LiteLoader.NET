@@ -28,18 +28,17 @@ jobs:
 
       - name: Create tag and update main branch
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        shell: cmd
         run: |
-          for /f "delims=" %%i in ('git rev-parse --abbrev-ref HEAD') do set LLNET_NOW_BRANCH=%%i
-          for /f "delims=" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG_LONG=%%i
+          git rev-parse --abbrev-ref HEAD | Set-Variable -Name LLNET_NOW_BRANCH
+          git log -n1 --format=format:"%H" | Set-Variable -Name LLNET_NOW_HASH
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git tag ${{ github.event.inputs.tag }}
           git push --tags origin ${{ github.event.inputs.tag }}
           git checkout main
-          git reset --hard %LLNET_NOW_TAG_LONG%
+          git reset --hard $LLNET_NOW_HASH
           git push -f origin main
-          git checkout %LLNET_NOW_BRANCH%
+          git checkout $LLNET_NOW_BRANCH
 
       # - name: Get information from Version.h file (TODO)
       #   working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -49,19 +48,17 @@ jobs:
 
       - name: Download Server
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        shell: bash
         run: |
-          mkdir -p SDK/tools/Server
-          ServerLink=$(cat 'scripts/LINK.txt')
-          curl -L -o SDK/tools/Server/server.zip "$ServerLink"
-          unzip SDK/tools/Server/server.zip -d SDK/tools/Server/ > /dev/null
+          New-Item -Path ".\SDK\tools\Server" -ItemType Directory
+          Get-Content -Path ".\scripts\LINK.txt" | Set-Variable -Name ServerLink
+          Start-BitsTransfer -Source $ServerLink -Destination ".\SDK\tools\Server\server.zip"
+          Expand-Archive -Path ".\SDK\tools\Server\server.zip" -DestinationPath ".\SDK\tools\Server"
 
       - name: Build Library
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        shell: cmd
         run: |
-          cd SDK\tools
-          LibraryBuilder.exe -o ..\lib Server
+          Set-Location -Path ".\SDK\tools"
+          .\LibraryBuilder.exe -o "..\lib" "Server"
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.1.3
@@ -74,71 +71,73 @@ jobs:
 
       - name: Copy dll and pdb files
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        shell: bash
         run: |
-          mkdir output/
-          mkdir output/RELEASE/
-          mkdir output/RELEASE/LiteLoader
-          mkdir output/RELEASE/lib
-          cp -f x64/Release/Ijwhost.dll output/RELEASE/lib/Ijwhost.dll
-          cp -f x64/Release/LiteLoader.NET.dll output/RELEASE/LiteLoader/LiteLoader.NET.dll
-          cp -f x64/Release/LiteLoader.NET.runtimeconfig.json output/RELEASE/LiteLoader/LiteLoader.NET.runtimeconfig.json
-          mkdir output/PDB/
-          cp -f x64/Release/*.pdb output/PDB/
+          New-Item -Path ".\output" -ItemType Directory
+          New-Item -Path ".\output\RELEASE" -ItemType Directory
+          New-Item -Path ".\output\RELEASE\LiteLoader" -ItemType Directory
+          New-Item -Path ".\output\RELEASE\lib" -ItemType Directory
+          Copy-Item -Path ".\x64\Release\Ijwhost.dll" -Destination ".\output\RELEASE\lib\Ijwhost.dll" -Force
+          Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\output\RELEASE\LiteLoader\LiteLoader.NET.dll" -Force
+          Copy-Item -Path ".\x64\Release\LiteLoader.NET.runtimeconfig.json" -Destination ".\output\RELEASE\LiteLoader\LiteLoader.NET.runtimeconfig.json" -Force
+          New-Item -Path ".\output\PDB" -ItemType Directory
+          Copy-Item -Path ".\x64\Release\*.pdb" -Destination ".\output\PDB" -Force
           # mkdir output/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}/
           # cp -r Data/* output/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}/
 
       - name: Pack Release
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         run: |
-          Compress-Archive -Path output\RELEASE\* LiteLoader.NET.zip
-          Compress-Archive -Path output\PDB\* PDB.zip
+          Compress-Archive -Path ".\output\RELEASE\*" -DestinationPath ".\LiteLoader.NET.zip"
+          Compress-Archive -Path ".\output\PDB\*" -DestinationPath ".\PDB.zip"
 
       - name: Create tooth pack info
-        shell: cmd
         run: |
-          echo { > output\RELEASE\tooth.json
-          echo     "format_version": 1, > output\RELEASE\tooth.json
-          echo     "tooth": "github.com/Tooth-Hub/LLDotNET", > output\RELEASE\tooth.json
-          echo     "version": "${{ steps.rel.outputs.tag }}", > output\RELEASE\tooth.json
-          echo     "dependencies": {}, > output\RELEASE\tooth.json
-          echo     "information": { > output\RELEASE\tooth.json
-          echo         "name": "LiteLoader.NET", > output\RELEASE\tooth.json
-          echo         "description": "LiteLoader bindings for .NET (WIP)", > output\RELEASE\tooth.json
-          echo         "author": "LiteLoader.NET Developers", > output\RELEASE\tooth.json
-          echo         "license": "LGPL 3.0", > output\RELEASE\tooth.json
-          echo         "homepage": "https://github.com/LiteLDev/LiteLoader.NET" > output\RELEASE\tooth.json
-          echo     }, > output\RELEASE\tooth.json
-          echo     "placement": [ > output\RELEASE\tooth.json
-          echo         { > output\RELEASE\tooth.json
-          echo             "source": "LiteLoader/LiteLoader.NET.dll", > output\RELEASE\tooth.json
-          echo             "destination": "Main assembly of LiteLoader.NET" > output\RELEASE\tooth.json
-          echo         }, > output\RELEASE\tooth.json
-          echo         { > output\RELEASE\tooth.json
-          echo             "source": "LiteLoader/LiteLoader.NET.runtimeconfig.json", > output\RELEASE\tooth.json
-          echo             "destination": "Needed by LiteLoader.NET" > output\RELEASE\tooth.json
-          echo         }, > output\RELEASE\tooth.json
-          echo         { > output\RELEASE\tooth.json
-          echo             "source": "lib/Ijwhost.dll", > output\RELEASE\tooth.json
-          echo             "destination": "Needed by LiteLoader.NET" > output\RELEASE\tooth.json
-          echo         } > output\RELEASE\tooth.json
-          echo     ] > output\RELEASE\tooth.json
-          echo } > output\RELEASE\tooth.json
+          "{" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"format_version`": 1," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"tooth`": `"github.com/Tooth-Hub/LLDotNET`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"version`": `"${{ steps.rel.outputs.tag }}`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"dependencies`": {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        github.com/Tooth-Hub/LiteLoaderBDS": [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "                `"2.9.x`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            ]" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        ]" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    }," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"information`": {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"name`": `"LiteLoader.NET`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"description`": `"LiteLoader bindings for .NET (WIP)`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"author`": `"LiteLoader.NET Developers`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"license`": `"LGPL 3.0`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"homepage`": `"https://github.com/LiteLDev/LiteLoader.NET`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    }," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"placement`": [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"source`": `"LiteLoader/LiteLoader.NET.dll`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"destination`": `"plugins/LiteLoader/LiteLoader.NET.dll`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        }," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"source`": `"LiteLoader/LiteLoader.NET.runtimeconfig.json`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"destination`": `"plugins/LiteLoader/LiteLoader.NET.runtimeconfig.json`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        }," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"source`": `"lib/Ijwhost.dll`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "            `"destination`": `"plugins/lib/Ijwhost.dll`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        }" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    ]," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "    `"possession`": []" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "}" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
 
       - name: Pack tooth pack
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         run: |
-          Compress-Archive -Path output\RELEASE\* LiteLoader.NET.tth
+          Compress-Archive -Path ".\output\RELEASE\*" -DestinationPath ".\LiteLoader.NET.tth"
 
       - name: Prepare for creating Release
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        id: rel
-        shell: bash
         run: |
-          echo ::set-output name=tag::${{ github.event.inputs.tag }}
-          mv LiteLoader.NET.zip LiteLoader.NET-${{ github.event.inputs.tag }}.zip
-          mv LiteLoader.NET.tth LiteLoader.NET-${{ github.event.inputs.tag }}.tth
-          mv PDB.zip PDB-${{ github.event.inputs.tag }}.zip
+          Rename-Item -Path "LiteLoader.NET.zip" -NewName "LiteLoader.NET-${{ github.event.inputs.tag }}.zip"
+          Rename-Item -Path "LiteLoader.NET.tth" -NewName "LiteLoader.NET-${{ github.event.inputs.tag }}.tth"
+          Rename-Item -Path "PDB.zip" -NewName "PDB-${{ github.event.inputs.tag }}.zip"
 
       - name: Create New Release
         uses: ncipollo/release-action@v1.11.2
@@ -149,11 +148,11 @@ jobs:
           tag: ${{ github.event.inputs.tag }}
           # bodyFile: ${{ github.workspace }}\CHANGELOG.md
           artifacts: |
-            ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
-            ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.tth
-            ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
+            ${{ github.workspace }}\LiteLoader.NET-${{ github.event.inputs.tag }}.zip
+            ${{ github.workspace }}\LiteLoader.NET-${{ github.event.inputs.tag }}.tth
+            ${{ github.workspace }}\PDB-${{ github.event.inputs.tag }}.zip
 
-      - name: Update SDK-dotnet
+      - name: Update repos
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         env:
           REPO_KEY: ${{ secrets.PUSH_TOKEN }}
@@ -161,16 +160,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          cd scripts
+          Set-Location -Path "scripts"
           .\UploadSDK.cmd release
-
-      - name: Update tooth pack repo
-        working-directory: ${{ env.GITHUB_WORKSPACE }}
-        env:
-          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
-          USERNAME: github-actions[bot]
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          cd scripts
           .\UploadToothPackage.cmd

@@ -70,7 +70,10 @@ if "%LLNET_SDK_NOW_STATUS%" neq "" (
     git push https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
     git push --tags https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
     if [%2] == [release] (
-        git push -f https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git main
+        for /f "delims=" %%i in ('git log -n1 --format=format:"%H"') do set LLNET_SDK_NOW_HASH=%%i
+        git checkout main
+        git reset --hard %LLNET_SDK_NOW_HASH%
+        git push -f origin main
     )
     cd ..
     echo.
