@@ -30,14 +30,16 @@ jobs:
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         shell: cmd
         run: |
+          for /f "delims=" %%i in ('git rev-parse --abbrev-ref HEAD') do set LLNET_NOW_BRANCH=%%i
           for /f "delims=" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG_LONG=%%i
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git tag ${{ github.event.inputs.tag }}
           git push --tags origin ${{ github.event.inputs.tag }}
           git checkout main
-          git reset --hard LLNET_NOW_TAG_LONG
+          git reset --hard %LLNET_NOW_TAG_LONG%
           git push -f origin main
+          git checkout %LLNET_NOW_BRANCH%
 
       # - name: Get information from Version.h file (TODO)
       #   working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -160,18 +162,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           cd scripts
-          ./UploadSDK.cmd action release
-
-      - name: Update SDK-dotnet
-        working-directory: ${{ env.GITHUB_WORKSPACE }}
-        env:
-          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
-          USERNAME: github-actions[bot]
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          cd scripts
-          ./UploadSDK.cmd action release
+          .\UploadSDK.cmd release
 
       - name: Update tooth pack repo
         working-directory: ${{ env.GITHUB_WORKSPACE }}
@@ -182,4 +173,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           cd scripts
-          ./UploadToothPackage.cmd
+          .\UploadToothPackage.cmd

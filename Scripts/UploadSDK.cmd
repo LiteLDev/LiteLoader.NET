@@ -60,26 +60,17 @@ if "%LLNET_SDK_NOW_STATUS%" neq "" (
     echo [INFO] Modified files found.
     echo.
     git add .
-    if "%LLNET_NOW_BRANCH%" == "main" (
-        git commit -m "From LiteLoader.NET %LLNET_NOW_TAG%"
-        if [%2] == [release] (
-            git tag %LLNET_NOW_TAG%
-        )
-    ) else (
-        git commit -m "From LiteLoader.NET %LLNET_NOW_TAG_LONG%"
+    git commit -m "From LiteLoader.NET %LLNET_NOW_TAG%"
+    if [%2] == [release] (
+        git tag %LLNET_NOW_TAG%
     )
     echo.
     echo [INFO] Pushing to origin...
     echo.
-    if [%1] neq [action] (
-        git push origin %LLNET_NOW_BRANCH%
-        git push --tags origin %LLNET_NOW_BRANCH%
-    ) else (
-        git push https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
-        git push --tags https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
-        if [%2] == [release] (
-            git push -f https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git main
-        )
+    git push https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
+    git push --tags https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git %LLNET_NOW_BRANCH%
+    if [%2] == [release] (
+        git push -f https://%USERNAME%:%REPO_KEY%@github.com/LiteLDev/SDK-dotnet.git main
     )
     cd ..
     echo.
@@ -96,6 +87,3 @@ if "%LLNET_SDK_NOW_STATUS%" neq "" (
 )
 
 :Finish
-if [%1]==[action] goto End
-timeout /t 3 >nul
-:End

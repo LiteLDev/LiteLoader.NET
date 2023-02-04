@@ -73,7 +73,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           cd scripts
-          ./UploadSDK.cmd action
+          ./UploadSDK.cmd
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3.1.1
