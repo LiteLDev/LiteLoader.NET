@@ -90,6 +90,41 @@ jobs:
           Compress-Archive -Path output\RELEASE\* LiteLoader.NET.zip
           Compress-Archive -Path output\PDB\* PDB.zip
 
+      - name: Create tooth pack info
+        run: |
+          echo { > output\RELEASE\tooth.json
+          echo     "format_version": 1, > output\RELEASE\tooth.json
+          echo     "tooth": "github.com/Tooth-Hub/LLDotNET", > output\RELEASE\tooth.json
+          echo     "version": "${{ steps.rel.outputs.tag }}", > output\RELEASE\tooth.json
+          echo     "dependencies": {}, > output\RELEASE\tooth.json
+          echo     "information": { > output\RELEASE\tooth.json
+          echo         "name": "LiteLoader.NET", > output\RELEASE\tooth.json
+          echo         "description": "LiteLoader bindings for .NET (WIP)", > output\RELEASE\tooth.json
+          echo         "author": "LiteLoader.NET Developers", > output\RELEASE\tooth.json
+          echo         "license": "LGPL 3.0", > output\RELEASE\tooth.json
+          echo         "homepage": "https://github.com/LiteLDev/LiteLoader.NET" > output\RELEASE\tooth.json
+          echo     }, > output\RELEASE\tooth.json
+          echo     "placement": [ > output\RELEASE\tooth.json
+          echo         { > output\RELEASE\tooth.json
+          echo             "source": "LiteLoader/LiteLoader.NET.dll", > output\RELEASE\tooth.json
+          echo             "destination": "Main assembly of LiteLoader.NET" > output\RELEASE\tooth.json
+          echo         }, > output\RELEASE\tooth.json
+          echo         { > output\RELEASE\tooth.json
+          echo             "source": "LiteLoader/LiteLoader.NET.runtimeconfig.json", > output\RELEASE\tooth.json
+          echo             "destination": "Needed by LiteLoader.NET" > output\RELEASE\tooth.json
+          echo         }, > output\RELEASE\tooth.json
+          echo         { > output\RELEASE\tooth.json
+          echo             "source": "lib/Ijwhost.dll", > output\RELEASE\tooth.json
+          echo             "destination": "Needed by LiteLoader.NET" > output\RELEASE\tooth.json
+          echo         } > output\RELEASE\tooth.json
+          echo     ] > output\RELEASE\tooth.json
+          echo } > output\RELEASE\tooth.json
+
+      - name: Pack tooth pack
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        run: |
+          Compress-Archive -Path output\RELEASE\* LiteLoader.NET.tth
+
       - name: Prepare for creating Release
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         id: rel
@@ -97,6 +132,7 @@ jobs:
         run: |
           echo ::set-output name=tag::${{ github.event.inputs.tag }}
           mv LiteLoader.NET.zip LiteLoader.NET-${{ github.event.inputs.tag }}.zip
+          mv LiteLoader.NET.tth LiteLoader.NET-${{ github.event.inputs.tag }}.tth
           mv PDB.zip PDB-${{ github.event.inputs.tag }}.zip
 
       - name: Create New Release
@@ -104,11 +140,12 @@ jobs:
         env:
           GITHUB_REPOSITORY: ${{ env.GITHUB_ACTION_REPOSITORY }}
         with:
-          prerelease: ${{ contains(github.ref, 'pre') }}
+          prerelease: contains(github.ref, 'pre')
           tag: ${{ github.event.inputs.tag }}
           # bodyFile: ${{ github.workspace }}\CHANGELOG.md
           artifacts: |
             ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.zip
+            ${{ github.workspace }}\LiteLoader.NET-${{ steps.rel.outputs.tag }}.tth
             ${{ github.workspace }}\PDB-${{ steps.rel.outputs.tag }}.zip
 
       - name: Update SDK-dotnet
@@ -121,3 +158,27 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           cd scripts
           ./UploadSDK.cmd action release
+
+      - name: Update SDK-dotnet
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        env:
+          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
+          USERNAME: github-actions[bot]
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          cd scripts
+          ./UploadSDK.cmd action release
+
+      - name: Update tooth pack repo
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        env:
+          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
+          USERNAME: github-actions[bot]
+        shell: bash
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git clone https://github.com/Tooth-Hub/LLDotNET.git tooth-repo
+          cd scripts
+          ./UploadToothPackage.cmd
