@@ -28,6 +28,7 @@ jobs:
 
       - name: Create tag and update main branch
         working-directory: ${{ env.GITHUB_WORKSPACE }}
+        shell: cmd
         run: |
           for /f "delims=" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG_LONG=%%i
           git config --global user.name "github-actions[bot]"
