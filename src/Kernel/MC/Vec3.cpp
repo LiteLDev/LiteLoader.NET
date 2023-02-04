@@ -5,19 +5,19 @@
 inline MC::Vec3::Vec3(BlockPos pos)
 {
     auto& vec = ::Vec3(::BlockPos(pos));
-    x = vec.x;
-    y = vec.y;
-    z = vec.z;
+    X = vec.x;
+    Y = vec.y;
+    Z = vec.z;
 }
 
 inline MC::Vec3::Vec3(System::Numerics::Vector3 vec3)
 {
-    x = vec3.X;
-    y = vec3.Y;
-    z = vec3.Z;
+    X = vec3.X;
+    Y = vec3.Y;
+    Z = vec3.Z;
 }
 
 MC::BlockPos MC::Vec3::ToBlockPos()
 {
-    return BlockPos(::BlockPos(::Vec3{ x,y,z }));
+    return BlockPos(::BlockPos(::Vec3{ X,Y,Z }));
 }

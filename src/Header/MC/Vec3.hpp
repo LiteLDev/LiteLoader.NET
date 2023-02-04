@@ -11,36 +11,22 @@ namespace MC {
     [StructLayout(LayoutKind::Sequential, Size = sizeof(::Vec3))]
     public value class Vec3 {
     internal:
-        operator ::Vec3() { return { x,y,z }; }
+        operator ::Vec3() { return { X,Y,Z }; }
         static operator Vec3(::Vec3 const& obj) { return Vec3(obj.x, obj.y, obj.z); }
-        Vec3(::Vec3&& vec) :x(vec.x), y(vec.y), z(vec.z) {}
-        Vec3(::Vec3 const& vec) :x(vec.x), y(vec.y), z(vec.z) {}
-        float x, y, z;
+        Vec3(::Vec3&& vec) :X(vec.x), Y(vec.y), Z(vec.z) {}
+        Vec3(::Vec3 const& vec) :X(vec.x), Y(vec.y), Z(vec.z) {}
 
     public:
-        property float X {
-            float get() { return x; }
-            void set(float x) { this->x = x; }
-        }
-
-        property float Y {
-            float get() { return y; }
-            void set(float y) { this->y = y; }
-        }
-
-        property float Z {
-            float get() { return z; }
-            void set(float z) { this->z = z; }
-        }
+        float X, Y, Z;
     public:
         inline Vec3(float x, float y, float z)
-            :x(x), y(y), z(z) {}
+            :X(x), Y(y), Z(z) {}
 
         inline Vec3(double x, double y, double z)
-            : x((float)x), y((float)y), z((float)z) {}
+            : X((float)x), Y((float)y), Z((float)z) {}
 
         inline Vec3(int x, int y, int z)
-            : x((float)x), y((float)y), z((float)z) {}
+            : X((float)x), Y((float)y), Z((float)z) {}
 
         inline Vec3(BlockPos pos);
 
@@ -165,16 +151,16 @@ namespace MC {
         }
 
         String^ ToString() override {
-            return x.ToString() + "," + y.ToString() + "," + z.ToString();
+            return X.ToString() + "," + Y.ToString() + "," + Z.ToString();
         }
 
         inline Vec3 Add(float dx, float dy, float dz) {
-            return Vec3{ x + dx, y + dy, z + dz };
+            return Vec3{ X + dx, Y + dy, Z + dz };
         }
 
         inline Vec3 Normalize() {
             float l = Length;
-            return Vec3{ x / l, y / l, z / l };
+            return Vec3{ X / l, Y / l, Z / l };
         }
 
         property float% default[int]
@@ -187,43 +173,43 @@ namespace MC {
         };
 
         static bool operator==(Vec3 a, Vec3 b) {
-            return a.x == b.x && a.y == b.y && a.z == b.z;
+            return a.X == b.X && a.Y == b.Y && a.Z == b.Z;
         }
 
         static bool operator!=(Vec3 a, Vec3 b) {
-            return a.x != b.x || a.y != b.y || a.z != b.z;
+            return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
         static Vec3 operator*(Vec3 obj, float b) {
-            return Vec3{ obj.x * b, obj.y * b, obj.z * b };
+            return Vec3{ obj.X * b, obj.Y * b, obj.Z * b };
         }
 
         static Vec3 operator/(Vec3 obj, float b) {
-            return Vec3{ obj.x / b, obj.y / b, obj.z / b };
+            return Vec3{ obj.X / b, obj.Y / b, obj.Z / b };
         }
 
         static Vec3 operator+(Vec3 obj, float b) {
-            return Vec3{ obj.x + b, obj.y + b, obj.z + b };
+            return Vec3{ obj.X + b, obj.Y + b, obj.Z + b };
         }
 
         static Vec3 operator-(Vec3 obj, float b) {
-            return Vec3{ obj.x - b, obj.y - b, obj.z - b };
+            return Vec3{ obj.X - b, obj.Y - b, obj.Z - b };
         }
 
         static Vec3 operator*(Vec3 obj, Vec3 b) {
-            return Vec3{ obj.x * b.x, obj.y * b.y, obj.z * b.z };
+            return Vec3{ obj.X * b.X, obj.Y * b.Y, obj.Z * b.Z };
         }
 
         static Vec3 operator/(Vec3 obj, Vec3 b) {
-            return Vec3{ obj.x / b.x, obj.y / b.y, obj.z / b.z };
+            return Vec3{ obj.X / b.X, obj.Y / b.Y, obj.Z / b.Z };
         }
 
         static Vec3 operator+(Vec3 obj, Vec3 b) {
-            return Vec3{ obj.x + b.x, obj.y + b.y, obj.z + b.z };
+            return Vec3{ obj.X + b.X, obj.Y + b.Y, obj.Z + b.Z };
         }
 
         static Vec3 operator-(Vec3 obj, Vec3 b) {
-            return Vec3{ obj.x - b.x, obj.y - b.y, obj.z - b.z };
+            return Vec3{ obj.X - b.X, obj.Y - b.Y, obj.Z - b.Z };
         }
 
         static explicit operator System::Numerics::Vector3(Vec3 obj) {
@@ -231,11 +217,11 @@ namespace MC {
         }
 
         static float Dot(Vec3 a, Vec3 b) {
-            return { a.x * b.x + a.y * b.y + a.z * b.z };
+            return { a.X * b.X + a.Y * b.Y + a.Z * b.Z };
         }
 
         inline Vec3 Cross(Vec3 a, Vec3 b) {
-            return Vec3{ a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x };
+            return Vec3{ a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X };
         }
         /*
         inline static Vec3 Max(Vec3 a, Vec3 b) {

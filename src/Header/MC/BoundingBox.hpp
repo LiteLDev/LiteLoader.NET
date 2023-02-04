@@ -34,7 +34,7 @@ namespace MC {
     public:
         property BlockPos Center {
             BlockPos get() {
-                return BlockPos{ (min.x + max.x) / 2, (min.y + max.y) / 2, (min.z + max.z) / 2 };
+                return BlockPos{ (min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2 };
             }
         }
 
