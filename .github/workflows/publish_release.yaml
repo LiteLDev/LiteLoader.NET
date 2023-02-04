@@ -28,13 +28,14 @@ jobs:
 
       - name: Create tag and update main branch
         working-directory: ${{ env.GITHUB_WORKSPACE }}
-        shell: bash
         run: |
+          for /f "delims=" %%i in ('git describe --tags --always') do set LLNET_NOW_TAG_LONG=%%i
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git tag | xargs git tag -d
           git tag ${{ github.event.inputs.tag }}
-          git push origin ${{ github.event.inputs.tag }}
+          git push --tags origin ${{ github.event.inputs.tag }}
+          git checkout main
+          git reset -h LLNET_NOW_TAG_LONG
           git push -f origin main
 
       # - name: Get information from Version.h file (TODO)
