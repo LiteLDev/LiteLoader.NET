@@ -93,6 +93,7 @@ jobs:
           Compress-Archive -Path output\PDB\* PDB.zip
 
       - name: Create tooth pack info
+        shell: cmd
         run: |
           echo { > output\RELEASE\tooth.json
           echo     "format_version": 1, > output\RELEASE\tooth.json
