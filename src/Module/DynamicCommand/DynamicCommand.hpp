@@ -79,7 +79,7 @@ namespace LiteLoader::DynamicCommand
             Message,          /// CommandMessage
             JsonValue,        /// Json::Value
             Item,             /// CommandItem
-            //Block,            /// Block const*
+            Block,            /// Block const*
             Effect,           /// MobEffect const*
             Enum,             /// ENUM
             SoftEnum,         /// SOFT_ENUM
