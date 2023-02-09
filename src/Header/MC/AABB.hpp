@@ -14,26 +14,16 @@ namespace MC {
     [StructLayout(LayoutKind::Sequential, Size = sizeof(::AABB))]
     public value class AABB {
     internal:
-        operator ::AABB() { return { min.operator ::Vec3(),max.operator ::Vec3() }; }
+        operator ::AABB() { return { Min.operator ::Vec3(),Max.operator ::Vec3() }; }
         static operator AABB(::AABB const& obj) { return AABB(obj.min, obj.max); }
-        AABB(::AABB&& obj) :min(obj.min), max(obj.max) {}
-        AABB(::AABB const& obj) :min(obj.min), max(obj.max) {}
-        Vec3 min;
-        Vec3 max;
+        AABB(::AABB&& obj) :Min(obj.min), Max(obj.max) {}
+        AABB(::AABB const& obj) :Min(obj.min), Max(obj.max) {}
 
+    public: 
+        Vec3 Min;
+        Vec3 Max;
     public:
-        property Vec3 Min {
-            Vec3 get() {
-                return min;
-            }
-        }
-        property Vec3 Max {
-            Vec3 get() {
-                return max;
-            }
-        }
-    public:
-        AABB(Vec3 a, Vec3 b) :min(a), max(b) {}
+        AABB(Vec3 a, Vec3 b) :Min(a), Max(b) {}
         AABB(Vec3 vec, float val) {
             pin_ptr<AABB> p = this;
             (*(::AABB*)p) = ::AABB(vec, val);
