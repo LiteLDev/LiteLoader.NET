@@ -82,6 +82,14 @@ inline TagMemoryChunk const ^ CompoundTag::GetIntArray(String^ key)
 }
 
 // get tag
+inline IntTag const ^ CompoundTag::GetIntTag(String^ key)
+{
+    return gcnew IntTag((::IntTag*)NativePtr->getIntTag(marshalString(key)));
+}
+inline Int64Tag const ^ CompoundTag::GetInt64Tag(String^ key)
+{
+    return gcnew Int64Tag((::Int64Tag*)NativePtr->getInt64Tag(marshalString(key)));
+}
 inline ByteTag const ^ CompoundTag::GetByteTag(String^ key)
 {
     return gcnew ByteTag((::ByteTag*)NativePtr->getByteTag(marshalString(key)));

@@ -48,6 +48,8 @@ public:
     inline TagMemoryChunk const ^ GetIntArray(String^ key);
     // get tag
     inline ByteTag const ^ GetByteTag(String^ key);
+    inline IntTag const ^ GetIntTag(String^ key);
+    inline Int64Tag const ^ GetInt64Tag(String^ key);
     inline ShortTag const ^ GetShortTag(String^ key);
     inline FloatTag const ^ GetFloatTag(String^ key);
     inline DoubleTag const ^ GetDoubleTag(String^ key);
