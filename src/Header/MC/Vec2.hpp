@@ -8,43 +8,35 @@ namespace MC
     public value class Vec2
     {
     internal:
-        operator ::Vec2() { return ::Vec2{ x,y }; }
+        operator ::Vec2() { return ::Vec2{ X,Y }; }
         static operator Vec2(::Vec2 const& obj) { return Vec2(obj.x, obj.y); }
-        Vec2(::Vec2&& vec) :x(vec.x), y(vec.y) {}
-        Vec2(::Vec2 const& vec) :x(vec.x), y(vec.y) {}
-        float x, y;
+        Vec2(::Vec2&& vec) :X(vec.x), Y(vec.y) {}
+        Vec2(::Vec2 const& vec) :X(vec.x), Y(vec.y) {}
 
     public:
-        property float X {
-            inline float get() { return x; }
-            inline void set(float x) { this->x = x; }
-        }
-        property float Y {
-            inline float get() { return y; }
-            inline  void set(float y) { this->y = y; }
-        }
+        float X, Y;
     public:
         Vec2(float a, float b)
-            :x(a), y(b) {}
+            :X(a), Y(b) {}
 
         inline Vec2(System::Numerics::Vector2);
 
         inline String^ ToString() override {
-            return x.ToString() + "," + y.ToString();
+            return X.ToString() + "," + Y.ToString();
         }
 
         inline static Vec2 operator*(Vec2 const obj, float num) {
-            return Vec2{ obj.x * num,obj.y * num };
+            return Vec2{ obj.X * num,obj.Y * num };
         }
 
         inline static Vec2 operator+(Vec2 const a, Vec2 const b)
         {
-            return Vec2{ a.x + b.x, a.y + b.y };
+            return Vec2{ a.X + b.X, a.Y + b.Y };
         }
 
         inline static Vec2 operator-(Vec2 const a, Vec2 const b)
         {
-            return Vec2{ a.x - b.x, a.y - b.y };
+            return Vec2{ a.X - b.X, a.Y - b.Y };
         }
 
         static explicit operator System::Numerics::Vector2(Vec2 obj)

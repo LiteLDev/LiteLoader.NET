@@ -14,12 +14,7 @@ array<Tag ^> ^ ListTag::Value()
     for (int i = 0; i < len; i++)
         list[i] = gcnew Tag(stdvector[i]);
     return list;
-}
-
-inline Tag const ^ ListTag::operator[](int index)
-{
-    return gcnew Tag(((::Tag*)((*NativePtr)[index])));
-}
+} 
 
 inline Tag::Type const ListTag::GetElementType()
 {

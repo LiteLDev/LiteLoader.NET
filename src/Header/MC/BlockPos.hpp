@@ -15,26 +15,23 @@ namespace MC
     [StructLayout(LayoutKind::Sequential, Size = sizeof(::BlockPos))]
     public value class BlockPos {
     internal:
-        operator ::BlockPos() { return { x,y,z }; }
+        operator ::BlockPos() { return { X,Y,Z }; }
         static operator BlockPos(::BlockPos const& obj) { return BlockPos(obj.x, obj.y, obj.z); }
-        BlockPos(::BlockPos&& pos) :x(pos.x), y(pos.y), z(pos.z) {}
-        BlockPos(::BlockPos const& pos) :x(pos.x), y(pos.y), z(pos.z) {}
-        int x, y, z;
+        BlockPos(::BlockPos&& pos) :X(pos.x), Y(pos.y), Z(pos.z) {}
+        BlockPos(::BlockPos const& pos) :X(pos.x), Y(pos.y), Z(pos.z) {}
 
     public:
-        property int X {int get() { return x; }}
-        property int Y {int get() { return y; }}
-        property int Z {int get() { return z; }}
+        int X, Y, Z;
     public:
-        BlockPos(int mx, int my, int mz) :x(mx), y(my), z(mz) {}
+        BlockPos(int mx, int my, int mz) :X(mx), Y(my), Z(mz) {}
 
         BlockPos(Vec3 vec) {
             pin_ptr<BlockPos> p = this;
             (*(::BlockPos*)p) = ::BlockPos(vec);
         }
-        BlockPos(double mx, double my, double mz) :x((int)mx), y((int)my), z((int)mz) {}
+        BlockPos(double mx, double my, double mz) :X((int)mx), Y((int)my), Z((int)mz) {}
 
-        BlockPos(float mx, float my, float mz) :x((int)mx), y((int)my), z((int)mz) {}
+        BlockPos(float mx, float my, float mz) :X((int)mx), Y((int)my), Z((int)mz) {}
 
 
     public:
@@ -67,30 +64,30 @@ namespace MC
         property array<BlockPos>^ Neighbors {
             array<BlockPos>^ get() {
                 auto ret = gcnew array<BlockPos>(6);
-                ret[0] = BlockPos{ x, y - 1, z };
-                ret[1] = BlockPos{ x, y + 1, z };
-                ret[2] = BlockPos{ x, y, z - 1 };
-                ret[3] = BlockPos{ x, y, z + 1 };
-                ret[4] = BlockPos{ x - 1, y, z };
-                ret[5] = BlockPos{ x + 1, y, z };
+                ret[0] = BlockPos{ X, Y - 1, Z };
+                ret[1] = BlockPos{ X, Y + 1, Z };
+                ret[2] = BlockPos{ X, Y, Z - 1 };
+                ret[3] = BlockPos{ X, Y, Z + 1 };
+                ret[4] = BlockPos{ X - 1, Y, Z };
+                ret[5] = BlockPos{ X + 1, Y, Z };
                 return ret;
             }
         };
 
         String^ ToString() override {
-            return x.ToString() + "," + y.ToString() + "," + z.ToString();
+            return X.ToString() + "," + Y.ToString() + "," + Z.ToString();
         }
 
         BlockPos Add(int dx) {
-            return BlockPos{ x + dx ,y ,z };
+            return BlockPos{ X + dx ,Y ,Z };
         }
 
         BlockPos Add(int dx, int dy) {
-            return BlockPos{ x + dx, y + dy, z };
+            return BlockPos{ X + dx, Y + dy, Z };
         }
 
         BlockPos Add(int dx, int dy, int dz) {
-            return BlockPos{ x + dx, y + dy, z + dz };
+            return BlockPos{ X + dx, Y + dy, Z + dz };
         }
 
     public:
@@ -102,61 +99,61 @@ namespace MC
         };
 
         static bool operator==(BlockPos obj, BlockPos b) {
-            return obj.x == b.x && obj.y == b.y && obj.z == b.z;
+            return obj.X == b.X && obj.Y == b.Y && obj.Z == b.Z;
         }
 
         static bool operator!=(BlockPos obj, BlockPos b) {
-            return obj.x != b.x || obj.y != b.y || obj.z != b.z;
+            return obj.X != b.X || obj.Y != b.Y || obj.Z != b.Z;
         }
 
         static BlockPos operator+(BlockPos obj, BlockPos b)
         {
-            return BlockPos{ obj.x + b.x, obj.y + b.y, obj.z + b.z };
+            return BlockPos{ obj.X + b.X, obj.Y + b.Y, obj.Z + b.Z };
         }
 
         static BlockPos operator*(BlockPos obj, BlockPos b)
         {
-            return BlockPos{ obj.x * b.x, obj.y * b.y, obj.z * b.z };
+            return BlockPos{ obj.X * b.X, obj.Y * b.Y, obj.Z * b.Z };
         }
 
         static BlockPos operator/(BlockPos obj, BlockPos b)
         {
-            return BlockPos{ obj.x / b.x, obj.y / b.y, obj.z / b.z };
+            return BlockPos{ obj.X / b.X, obj.Y / b.Y, obj.Z / b.Z };
         }
 
         static BlockPos operator-(BlockPos obj, BlockPos b)
         {
-            return BlockPos{ obj.x - b.x, obj.y - b.y, obj.z - b.z };
+            return BlockPos{ obj.X - b.X, obj.Y - b.Y, obj.Z - b.Z };
         }
 
         static BlockPos operator*(BlockPos obj, int b)
         {
-            return BlockPos{ obj.x * b, obj.y * b, obj.z * b };
+            return BlockPos{ obj.X * b, obj.Y * b, obj.Z * b };
         }
 
         static BlockPos operator/(BlockPos obj, int b)
         {
-            return BlockPos{ obj.x / b, obj.y / b, obj.z / b };
+            return BlockPos{ obj.X / b, obj.Y / b, obj.Z / b };
         }
 
         static BlockPos operator+(BlockPos obj, int b)
         {
-            return BlockPos{ obj.x + b, obj.y + b, obj.z + b };
+            return BlockPos{ obj.X + b, obj.Y + b, obj.Z + b };
         }
 
         static BlockPos operator-(BlockPos obj, int b)
         {
-            return BlockPos{ obj.x - b, obj.y - b, obj.z - b };
+            return BlockPos{ obj.X - b, obj.Y - b, obj.Z - b };
         }
 
     public:
         bool ContainedWithin(BlockPos const% a, BlockPos const% b) {
-            return x >= a.x && y >= a.y && z >= a.z && x <= b.x && y <= b.y && z <= b.z;
+            return X >= a.X && Y >= a.Y && Z >= a.Z && X <= b.X && Y <= b.Y && Z <= b.Z;
         }
 
         property double Length {
             double get() {
-                return System::Math::Sqrt(x * x + y * y + z * z);
+                return System::Math::Sqrt(X * X + Y * Y + Z * Z);
             }
         }
 

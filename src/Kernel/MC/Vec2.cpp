@@ -2,6 +2,6 @@
 
 inline MC::Vec2::Vec2(System::Numerics::Vector2 vec2)
 {
-    x = vec2.X;
-    y = vec2.Y;
+    X = vec2.X;
+    Y = vec2.Y;
 }

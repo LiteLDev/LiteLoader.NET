@@ -204,7 +204,7 @@ namespace MC
 
         inline Color Color::FromVec3(MC::Vec3% k)
         {
-            return Color{ k.x, k.y, k.z, 1.0f };
+            return Color{ k.X, k.Y, k.Z, 1.0f };
         }
 
         inline  MC::BlockPos Color::ToBlockPos() 
@@ -214,7 +214,7 @@ namespace MC
 
         inline Color Color::fromBlockPos(MC::BlockPos% k) 
         {
-            return  Color{ k.x / 255.0f, k.y / 255.0f, k.z / 255.0f, 1.0f };
+            return  Color{ k.X / 255.0f, k.Y / 255.0f, k.Z / 255.0f, 1.0f };
         }
 
         inline bool Color::operator!=(const Color& c) 
