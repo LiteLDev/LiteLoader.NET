@@ -1342,7 +1342,7 @@ namespace MC
 
     void Player::UpdateAi()
     {
-        NativePtr->updateAi();
+        NativePtr->tryUpdateAI();
     }
 
     void Player::ServerAiMobStep()
@@ -1578,10 +1578,10 @@ namespace MC
         NativePtr->deleteContainerManager();
     }
 
-    void Player::SetFieldOfViewModifier(float _0)
-    {
-        NativePtr->setFieldOfViewModifier(_0);
-    }
+    //void Player::SetFieldOfViewModifier(float _0)
+    //{
+    //    NativePtr->setFieldOfViewModifier(_0);
+    //}
 
     bool Player::IsActorRelevant(Actor^ _0)
     {
@@ -1705,10 +1705,10 @@ namespace MC
         NativePtr->resetToDefaultGameMode();
     }
 
-    void Player::SetAllPlayersSleeping()
-    {
-        NativePtr->setAllPlayersSleeping();
-    }
+    //void Player::SetAllPlayersSleeping()
+    //{
+    //    NativePtr->setAllPlayersSleeping();
+    //}
 
     void Player::SetBedRespawnPosition(MC::BlockPos _0)
     {
@@ -1748,7 +1748,7 @@ namespace MC
 
     void Player::SpawnExperienceOrb(Vec3 _0, int _1)
     {
-        NativePtr->spawnExperienceOrb(_0, _1);
+        NativePtr->sendSpawnExperienceOrbPacketToServer(_0, _1);
     }
 
     void Player::StartGliding()

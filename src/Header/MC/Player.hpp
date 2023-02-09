@@ -740,7 +740,7 @@ namespace MC
 
         virtual void DeleteContainerManager();
 
-        virtual void SetFieldOfViewModifier(float _0);
+        //virtual void SetFieldOfViewModifier(float _0);
 
         virtual bool IsActorRelevant(Actor^ _0);
 
@@ -784,7 +784,7 @@ namespace MC
 
         void ResetToDefaultGameMode();
 
-        void SetAllPlayersSleeping();
+        //void SetAllPlayersSleeping();
 
         void SetBedRespawnPosition(MC::BlockPos _0);
 

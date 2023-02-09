@@ -135,15 +135,15 @@ namespace MC {
 
         BlockPos ToBlockPos();
 
-        property float Length {
-            inline float get() {
+        property double Length {
+            inline double get() {
                 pin_ptr<Vec3> p = this;
 
                 return ((::Vec3*)p)->length();
             }
         }
 
-        float DistanceTo(Vec3% obj) {
+        double DistanceTo(Vec3% obj) {
             pin_ptr<Vec3> p = this;
             pin_ptr<Vec3> pobj = &obj;
 
@@ -159,7 +159,7 @@ namespace MC {
         }
 
         inline Vec3 Normalize() {
-            float l = Length;
+            double l = Length;
             return Vec3{ X / l, Y / l, Z / l };
         }
 
