@@ -58,7 +58,11 @@ public:
     inline IntArrayTag const ^ GetIntArrayTag(String^ key);
     inline ListTag const ^ GetListTag(String^ key);
     inline CompoundTag ^ GetCompoundTag(String^ key);
-    inline Tag ^ operator[](String^ key);
+    property Tag^ default[String^] {
+        Tag^ get(String ^ key) {
+            return gcnew Tag(((::Tag*)((*NativePtr)[marshalString(key)])));
+        }
+    };
     // io
     inline void SetItemStack(ItemStack ^ item);
     inline void SetBlock(Block ^ blk);

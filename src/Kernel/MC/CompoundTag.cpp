@@ -125,11 +125,7 @@ inline ListTag const ^ CompoundTag::GetListTag(String^ key)
 inline CompoundTag ^ CompoundTag::GetCompoundTag(String^ key)
 {
     return gcnew CompoundTag((::CompoundTag*)NativePtr->getCompoundTag(marshalString(key)));
-}
-inline Tag ^ CompoundTag::operator[](String^ key)
-{
-    return gcnew Tag((*NativePtr)[marshalString(key)]);
-}
+} 
 
 // io
 inline void CompoundTag::SetItemStack(ItemStack ^ item)
