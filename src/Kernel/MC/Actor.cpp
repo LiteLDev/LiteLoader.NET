@@ -1370,9 +1370,9 @@ bool MC::Actor::Equals(::System::Object^ obj)
     return this == safe_cast<MC::Actor^>(obj);
 }
 
-void MC::Actor::PositionAllPassengers(bool a1)
+void MC::Actor::PositionAllPassengers()
 {
-    NativePtr->positionAllPassengers(a1);
+    NativePtr->positionAllPassengers();
 }
 
 bool MC::Actor::PullInEntity(MC::Actor^ _0)
@@ -1432,15 +1432,15 @@ bool MC::Actor::RemoveTag(::System::String^ _0)
     return __ret;
 }
 
-void MC::Actor::ResetClientAnimations()
-{
-    NativePtr->resetClientAnimations();
-}
+//void MC::Actor::ResetClientAnimations()
+//{
+//    NativePtr->resetClientAnimations();
+//}
 
-void MC::Actor::ResetRegion()
-{
-    NativePtr->resetRegion();
-}
+//void MC::Actor::ResetRegion()
+//{
+//    NativePtr->resetRegion();
+//}
 
 void MC::Actor::SaveEntityFlags(MC::CompoundTag^ _0)
 {
@@ -1471,10 +1471,10 @@ void MC::Actor::SetCanClimb(bool _0)
     NativePtr->setCanClimb(_0);
 }
 
-void MC::Actor::SetCollidableMob(bool _0)
-{
-    NativePtr->setCollidableMob(_0);
-}
+//void MC::Actor::SetCollidableMob(bool _0)
+//{
+//    NativePtr->setCollidableMob(_0);
+//}
 
 void MC::Actor::SetDancing(bool _0)
 {
@@ -3004,11 +3004,11 @@ bool MC::Actor::IsPowered::get()
     return __ret;
 }
 
-bool MC::Actor::IsRegionValid::get()
-{
-    auto __ret = NativePtr->isRegionValid();
-    return __ret;
-}
+//bool MC::Actor::IsRegionValid::get()
+//{
+//    auto __ret = NativePtr->isRegionValid();
+//    return __ret;
+//}
 
 bool MC::Actor::IsRemoved::get()
 {

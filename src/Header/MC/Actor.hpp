@@ -1036,10 +1036,10 @@ namespace MC
             bool get();
         }
 
-        property bool IsRegionValid
-        {
-            bool get();
-        }
+        //property bool IsRegionValid
+        //{
+        //    bool get();
+        //}
 
         property bool IsRemoved
         {
@@ -1514,7 +1514,7 @@ namespace MC
 
         virtual bool Equals(::System::Object^ obj) override;
 
-        void PositionAllPassengers(bool);
+        void PositionAllPassengers();
 
         bool PullInEntity(MC::Actor^ _0);
 
@@ -1536,9 +1536,9 @@ namespace MC
 
         bool RemoveTag(::System::String^ _0);
 
-        void ResetClientAnimations();
+        //void ResetClientAnimations();
 
-        void ResetRegion();
+        //void ResetRegion();
 
         void SaveEntityFlags(MC::CompoundTag^ _0);
 
@@ -1550,7 +1550,7 @@ namespace MC
 
         void SetCanClimb(bool _0);
 
-        void SetCollidableMob(bool _0);
+        //void SetCollidableMob(bool _0);
 
         void SetDancing(bool _0);
 

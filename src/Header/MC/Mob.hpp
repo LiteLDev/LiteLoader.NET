@@ -280,17 +280,17 @@ namespace MC
             MC::Mob^ get();
         }
 
-        property float FlightSpeed
-        {
-            float get();
-            void set(float);
-        }
+        //property float FlightSpeed
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
-        property float FrictionModifier
-        {
-            float get();
-            void set(float);
-        }
+        //property float FrictionModifier
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
         property int GlidingTicks
         {
@@ -323,17 +323,17 @@ namespace MC
             int get();
         }
 
-        property float PassengerLockedBodyRot
-        {
-            float get();
-            void set(float);
-        }
+        //property float PassengerLockedBodyRot
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
-        property float PassengerRotLimit
-        {
-            float get();
-            void set(float);
-        }
+        //property float PassengerRotLimit
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
         property int RollCounter
         {
@@ -352,17 +352,17 @@ namespace MC
             void set(MC::ActorUniqueID);
         }
 
-        property float YRotA
-        {
-            float get();
-            void set(float);
-        }
+        //property float YRotA
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
-        property float Zza
-        {
-            float get();
-            void set(float);
-        }
+        //property float Zza
+        //{
+        //    float get();
+        //    void set(float);
+        //}
 
         property bool HasBoundOrigin
         {
@@ -622,7 +622,7 @@ namespace MC
 
         void ResetNoActionTime();
 
-        void SetJumpVelRedux(bool _0);
+        //void SetJumpVelRedux(bool _0);
 
         void SetJumping(bool _0);
 
@@ -632,9 +632,9 @@ namespace MC
 
         void SetSurfaceMob(bool _0);
 
-        void SetXxa(float _0);
+        //void SetXxa(float _0);
 
-        void SetYya(float _0);
+        //void SetYya(float _0);
 
         void SnapToYBodyRot(float _0);
 

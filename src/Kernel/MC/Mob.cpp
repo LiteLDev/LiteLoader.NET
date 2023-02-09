@@ -524,7 +524,7 @@ void MC::Mob::JumpFromGround()
 
 void MC::Mob::UpdateAi()
 {
-    NativePtr->updateAi();
+    NativePtr->tryUpdateAI();
 }
 
 void MC::Mob::NewServerAiStep()
@@ -617,10 +617,10 @@ void MC::Mob::ResetNoActionTime()
     NativePtr->resetNoActionTime();
 }
 
-void MC::Mob::SetJumpVelRedux(bool _0)
-{
-    NativePtr->setJumpVelRedux(_0);
-}
+//void MC::Mob::SetJumpVelRedux(bool _0)
+//{
+//    NativePtr->setJumpVelRedux(_0);
+//}
 
 void MC::Mob::SetJumping(bool _0)
 {
@@ -642,15 +642,15 @@ void MC::Mob::SetSurfaceMob(bool _0)
     NativePtr->setSurfaceMob(_0);
 }
 
-void MC::Mob::SetXxa(float _0)
-{
-    NativePtr->setXxa(_0);
-}
-
-void MC::Mob::SetYya(float _0)
-{
-    NativePtr->setYya(_0);
-}
+//void MC::Mob::SetXxa(float _0)
+//{
+//    NativePtr->setXxa(_0);
+//}
+//
+//void MC::Mob::SetYya(float _0)
+//{
+//    NativePtr->setYya(_0);
+//}
 
 void MC::Mob::SnapToYBodyRot(float _0)
 {
@@ -1004,27 +1004,27 @@ MC::Mob^ MC::Mob::FirstCaravanHead::get()
     return (__ret == nullptr) ? nullptr : gcnew ::MC::Mob((class ::Mob*)__ret);
 }
 
-float MC::Mob::FlightSpeed::get()
-{
-    auto __ret = NativePtr->getFlightSpeed();
-    return __ret;
-}
+//float MC::Mob::FlightSpeed::get()
+//{
+//    auto __ret = NativePtr->getFlightSpeed();
+//    return __ret;
+//}
+//
+//void MC::Mob::FlightSpeed::set(float _0)
+//{
+//    NativePtr->setFlightSpeed(_0);
+//}
 
-void MC::Mob::FlightSpeed::set(float _0)
-{
-    NativePtr->setFlightSpeed(_0);
-}
-
-float MC::Mob::FrictionModifier::get()
-{
-    auto __ret = NativePtr->getFrictionModifier();
-    return __ret;
-}
-
-void MC::Mob::FrictionModifier::set(float _0)
-{
-    NativePtr->setFrictionModifier(_0);
-}
+//float MC::Mob::FrictionModifier::get()
+//{
+//    auto __ret = NativePtr->getFrictionModifier();
+//    return __ret;
+//}
+//
+//void MC::Mob::FrictionModifier::set(float _0)
+//{
+//    NativePtr->setFrictionModifier(_0);
+//}
 
 int MC::Mob::GlidingTicks::get()
 {
@@ -1068,27 +1068,27 @@ int MC::Mob::NoActionTime::get()
     return __ret;
 }
 
-float MC::Mob::PassengerLockedBodyRot::get()
-{
-    auto __ret = NativePtr->getPassengerLockedBodyRot();
-    return __ret;
-}
+//float MC::Mob::PassengerLockedBodyRot::get()
+//{
+//    auto __ret = NativePtr->getPassengerLockedBodyRot();
+//    return __ret;
+//}
+//
+//void MC::Mob::PassengerLockedBodyRot::set(float _0)
+//{
+//    NativePtr->setPassengerLockedBodyRot(_0);
+//}
 
-void MC::Mob::PassengerLockedBodyRot::set(float _0)
-{
-    NativePtr->setPassengerLockedBodyRot(_0);
-}
-
-float MC::Mob::PassengerRotLimit::get()
-{
-    auto __ret = NativePtr->getPassengerRotLimit();
-    return __ret;
-}
-
-void MC::Mob::PassengerRotLimit::set(float _0)
-{
-    NativePtr->setPassengerRotLimit(_0);
-}
+//float MC::Mob::PassengerRotLimit::get()
+//{
+//    auto __ret = NativePtr->getPassengerRotLimit();
+//    return __ret;
+//}
+//
+//void MC::Mob::PassengerRotLimit::set(float _0)
+//{
+//    NativePtr->setPassengerRotLimit(_0);
+//}
 
 int MC::Mob::RollCounter::get()
 {
@@ -1117,27 +1117,27 @@ void MC::Mob::TargetCaptain::set(MC::ActorUniqueID _0)
     NativePtr->setTargetCaptain(_0);
 }
 
-float MC::Mob::YRotA::get()
-{
-    auto __ret = NativePtr->getYRotA();
-    return __ret;
-}
+//float MC::Mob::YRotA::get()
+//{
+//    auto __ret = NativePtr->getYRotA();
+//    return __ret;
+//}
+//
+//void MC::Mob::YRotA::set(float _0)
+//{
+//    NativePtr->setYRotA(_0);
+//}
 
-void MC::Mob::YRotA::set(float _0)
-{
-    NativePtr->setYRotA(_0);
-}
-
-float MC::Mob::Zza::get()
-{
-    auto __ret = NativePtr->getZza();
-    return __ret;
-}
-
-void MC::Mob::Zza::set(float _0)
-{
-    NativePtr->setZza(_0);
-}
+//float MC::Mob::Zza::get()
+//{
+//    auto __ret = NativePtr->getZza();
+//    return __ret;
+//}
+//
+//void MC::Mob::Zza::set(float _0)
+//{
+//    NativePtr->setZza(_0);
+//}
 
 bool MC::Mob::HasBoundOrigin::get()
 {
