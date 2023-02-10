@@ -6,6 +6,10 @@ on:
       tag:
         required: true
         description: tag is going to be released
+      is-pre:
+        description: is it a pre-release
+        required: true
+        type: boolean
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -83,7 +87,7 @@ jobs:
           "    `"tooth`": `"github.com/Tooth-Hub/LLDotNET`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
           "    `"version`": `"${{ steps.rel.outputs.tag }}`"," | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
           "    `"dependencies`": {" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
-          "        github.com/Tooth-Hub/LiteLoaderBDS": [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
+          "        `"github.com/Tooth-Hub/LiteLoaderBDS`": [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
           "            [" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
           "                `"2.9.x`"" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
           "            ]" | Out-File -FilePath ".\output\RELEASE\tooth.json" -Append
@@ -140,11 +144,11 @@ jobs:
           git checkout $LLNET_NOW_BRANCH
 
       - name: Create New Release
-        uses: ncipollo/release-action@v1.11.2
+        uses: ncipollo/release-action@v1.12.0
         env:
           GITHUB_REPOSITORY: ${{ env.GITHUB_ACTION_REPOSITORY }}
         with:
-          prerelease: contains(github.ref, 'pre')
+          prerelease: ${{ inputs.is-pre }}
           tag: ${{ github.event.inputs.tag }}
           # bodyFile: ${{ github.workspace }}\CHANGELOG.md
           artifacts: |
