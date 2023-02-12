@@ -11,6 +11,7 @@ on:
       - '**.hh'
       - '**.hxx'
       - '**.h'
+      - '**.ps1'
     branches-ignore:
       - main
 
