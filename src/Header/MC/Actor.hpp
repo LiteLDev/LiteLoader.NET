@@ -73,6 +73,7 @@ namespace MC
         property Vec3 CameraPos { Vec3 get(); };
         property Tick^ LastTick { Tick^ get(); };
         property ItemStack^ HandSlot { ItemStack^ get(); void set(ItemStack^); };
+        property ItemStack^ OffhandSlot { ItemStack^ get(); void set(ItemStack^); };
         property MC::Level^ Level { MC::Level^ get(); };
 
         property bool IsSimulatedPlayer

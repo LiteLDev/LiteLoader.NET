@@ -190,6 +190,14 @@ namespace MC
         if (!NativePtr->getHandSlot()->setItem(item->NativePtr))
             throw gcnew LiteLoader::NET::MCException("Failed to set item");
     }
+    inline ItemStack^ Actor::OffhandSlot::get()
+    {
+        return gcnew ItemStack((::ItemStack*)&NativePtr->getOffhandSlot());
+    }
+    inline void Actor::OffhandSlot::set(ItemStack^ item)
+    {
+        NativePtr->setOffhandSlot(*item->NativePtr);
+    }
     inline bool Actor::Rename(String^ name)
     {
         return NativePtr->rename(marshalString(name));
