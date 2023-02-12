@@ -8,8 +8,8 @@ Write-Output -InputObject ""
 git rev-parse --abbrev-ref HEAD | Set-Variable -Name "LLNET_NOW_BRANCH"
 git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG"
 
-Write-Output -InputObject "LLNET_NOW_BRANCH $LLNET_NOW_BRANCH"
-Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
+Write-Output -InputObject "USERNAME $USERNAME"
+Write-Output -InputObject "REPO_KEY $REPO_KEY"
 Write-Output -InputObject ""
 
 if (!(Test-Path -Path ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.dll" -PathType leaf)) {
