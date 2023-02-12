@@ -10,6 +10,8 @@ Write-Output -InputObject "LLNET_NOW_BRANCH $LLNET_NOW_BRANCH"
 Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
 Write-Output -InputObject ""
 
+Set-Location -Path "..\"
+
 if (!(Test-Path -Path ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.dll" -PathType leaf)) {
     Write-Output -InputObject "[WARNING] SDK-dotnet files no found. Pulling from remote..."
     Write-Output -InputObject ""
@@ -28,7 +30,7 @@ Write-Output -InputObject ""
 
 # remove refs directory in SDK-dotnet
 Write-Output -InputObject "[INFO] Removing SDK-dotnet\refs\LiteLoader"
-Remove-Item -Path ".\SDK-dotnet\refs\LiteLoader"
+Remove-Item -Path ".\SDK-dotnet\refs\LiteLoader" -Recurse
 
 # copy all SDK to SDK-dotnet
 Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\SDK-dotnet\refs\LiteLoader"
@@ -47,7 +49,7 @@ if ($LLNET_SDK_NOW_STATUS -ne "") {
     Write-Output -InputObject ""
     Write-Output "[INFO] Pushing to origin..."
     Write-Output -InputObject ""
-    #git push "https://$USERNAME`:$REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" $LLNET_NOW_BRANCH
+    git push "https://$USERNAME`:$REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" $LLNET_NOW_BRANCH
     if ($args[0] -eq "release") {
         git push --tags "https://$USERNAME`:$REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" $LLNET_NOW_BRANCH
         git log -n1 --format=format:"%H" | Set-Variable -Name LLNET_SDK_NOW_HASH
