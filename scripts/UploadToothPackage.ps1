@@ -5,9 +5,11 @@ Set-Variable -Name "LLNET_TOOTH_REMOTE_PATH" -Value "https://github.com/Tooth-Hu
 Write-Output -InputObject "[INFO] Fetching tooth repo to GitHub ..."
 Write-Output -InputObject ""
 
-git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG"
+git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG_LONG"
+$LLNET_NOW_TAG_LONG.Substring(0, $LLNET_NOW_TAG_LONG.LastIndexOf("-")) | Set-Variable -Name "LLNET_NOW_TAG"
 
-Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
+Write-Output -InputObject "USERNAME $env:USERNAME"
+Write-Output -InputObject "REPO_KEY $env:REPO_KEY"
 Write-Output -InputObject ""
 
 git clone $LLNET_TOOTH_REMOTE_PATH
@@ -42,13 +44,13 @@ if ($LLNET_TOOTH_NOW_STATUS -ne "") {
     Write-Output "[INFO] Modified files found."
     Write-Output -InputObject ""
     git add .
-    git commit -m "From LiteLoader.NET $LLNET_NOW_TAG"
+    git commit -m "From LiteLoader.NET $LLNET_NOW_TAG_LONG"
     Write-Output -InputObject ""
     Write-Output "[INFO] Pushing to origin..."
     Write-Output -InputObject ""
-    git push "https://$USERNAME`:$REPO_KEY@github.com/LiteLDev/tooth-repo.git" main
+    git push "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/tooth-repo.git" main
     git tag $LLNET_NOW_TAG
-    git push --tags "https://$USERNAME`:$REPO_KEY@github.com/LiteLDev/tooth-repo.git" main
+    git push --tags "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/tooth-repo.git" main
     Set-Location "..\"
     Write-Output -InputObject ""
     Write-Output -InputObject "[INFO] Upload finished."
