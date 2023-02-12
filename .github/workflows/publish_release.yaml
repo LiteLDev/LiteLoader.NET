@@ -166,4 +166,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           Set-Location -Path "scripts"
           .\UploadSDK.ps1 release
-          .\UploadToothPackage.cmd
+          .\UploadToothPackage.ps1
