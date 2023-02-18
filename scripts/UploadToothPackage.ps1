@@ -8,8 +8,8 @@ Write-Output -InputObject ""
 git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG_LONG"
 $LLNET_NOW_TAG_LONG.Substring(0, $LLNET_NOW_TAG_LONG.LastIndexOf("-")) | Set-Variable -Name "LLNET_NOW_TAG"
 
-Write-Output -InputObject "USERNAME $env:USERNAME"
-Write-Output -InputObject "REPO_KEY $env:REPO_KEY"
+Write-Output -InputObject "LLNET_NOW_TAG_LONG $LLNET_NOW_TAG_LONG"
+Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
 Write-Output -InputObject ""
 
 git clone $LLNET_TOOTH_REMOTE_PATH

@@ -9,8 +9,9 @@ git rev-parse --abbrev-ref HEAD | Set-Variable -Name "LLNET_NOW_BRANCH"
 git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG_LONG"
 $LLNET_NOW_TAG_LONG.Substring(0, $LLNET_NOW_TAG_LONG.LastIndexOf("-")) | Set-Variable -Name "LLNET_NOW_TAG"
 
-Write-Output -InputObject "USERNAME $env:USERNAME"
-Write-Output -InputObject "REPO_KEY $env:REPO_KEY"
+Write-Output -InputObject "LLNET_NOW_BRANCH $LLNET_NOW_BRANCH"
+Write-Output -InputObject "LLNET_NOW_TAG_LONG $LLNET_NOW_TAG_LONG"
+Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
 Write-Output -InputObject ""
 
 if (!(Test-Path -Path ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.dll" -PathType leaf)) {

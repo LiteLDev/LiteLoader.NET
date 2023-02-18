@@ -156,14 +156,25 @@ jobs:
             ${{ github.workspace }}\LiteLoader.NET-${{ github.event.inputs.tag }}.tth
             ${{ github.workspace }}\PDB-${{ github.event.inputs.tag }}.zip
 
-      - name: Update repos
+      - name: Config git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update SDK
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         env:
           REPO_KEY: ${{ secrets.PUSH_TOKEN }}
           USERNAME: github-actions[bot]
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           Set-Location -Path "scripts"
           .\UploadSDK.ps1 release
+
+      - name: Update tooth package
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        env:
+          REPO_KEY: ${{ secrets.PUSH_TOKEN }}
+          USERNAME: github-actions[bot]
+        run: |
+          Set-Location -Path "scripts"
           .\UploadToothPackage.ps1
