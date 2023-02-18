@@ -6,11 +6,9 @@ Write-Output -InputObject "[INFO] Fetching SDK-dotnet to GitHub ..."
 Write-Output -InputObject ""
 
 git rev-parse --abbrev-ref HEAD | Set-Variable -Name "LLNET_NOW_BRANCH"
-git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG_LONG"
-$LLNET_NOW_TAG_LONG.Substring(0, $LLNET_NOW_TAG_LONG.LastIndexOf("-")) | Set-Variable -Name "LLNET_NOW_TAG"
+git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG"
 
 Write-Output -InputObject "LLNET_NOW_BRANCH $LLNET_NOW_BRANCH"
-Write-Output -InputObject "LLNET_NOW_TAG_LONG $LLNET_NOW_TAG_LONG"
 Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
 Write-Output -InputObject ""
 
@@ -44,7 +42,7 @@ if ($LLNET_SDK_NOW_STATUS -ne "") {
     Write-Output "[INFO] Modified files found."
     Write-Output -InputObject ""
     git add .
-    git commit -m "From LiteLoader.NET $LLNET_NOW_TAG_LONG"
+    git commit -m "From LiteLoader.NET $LLNET_NOW_TAG"
     Write-Output -InputObject ""
     Write-Output "[INFO] Pushing to origin..."
     Write-Output -InputObject ""
