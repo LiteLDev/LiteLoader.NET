@@ -31,11 +31,11 @@ Write-Output -InputObject ""
 
 # remove refs directory in SDK-dotnet
 Write-Output -InputObject "[INFO] Removing SDK-dotnet\refs\LiteLoader"
-Remove-Item -Path ".\SDK-dotnet\refs\LiteLoader" -Recurse
+Remove-Item -Path ".\SDK-dotnet\refs\LiteLoader\*" -Recurse
 
 # copy all SDK to SDK-dotnet
-Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\SDK-dotnet\refs\LiteLoader"
-Copy-Item -Path ".\x64\Release\LiteLoader.NET.xml" -Destination ".\SDK-dotnet\refs\LiteLoader"
+Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.dll"
+Copy-Item -Path ".\x64\Release\LiteLoader.NET.xml" -Destination ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.xml"
 
 Set-Location -Path ".\SDK-dotnet"
 git status . -s | Set-Variable -Name "LLNET_SDK_NOW_STATUS"

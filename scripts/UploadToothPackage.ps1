@@ -26,16 +26,16 @@ Write-Output -InputObject ""
 
 # remove refs directory in tooth repo
 Write-Output -InputObject  "[INFO] Removing LiteLoader dir"
-Remove-Item -Path ".\tooth-repo\LiteLoader" -Recurse
+Remove-Item -Path ".\tooth-repo\LiteLoader\*" -Recurse
 Write-Output -InputObject  "[INFO] Removing lib dir"
-Remove-Item -Path ".\tooth-repo\lib" -Recurse
+Remove-Item -Path ".\tooth-repo\lib\*" -Recurse
 eWrite-Output -InputObject "[INFO] Removing tooth.json"
 Remove-Item -Path ".\tooth-repo\tooth.json" -Recurse
 
 # copy all to tooth repo
-Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\tooth-repo\LiteLoader"
-Copy-Item -Path ".\x64\Release\LiteLoader.NET.runtimeconfig.json" -Destination ".\tooth-repo\LiteLoader"
-Copy-Item -Path ".\x64\Release\Ijwhost.json" -Destination ".\tooth-repo\lib"
+Copy-Item -Path ".\x64\Release\LiteLoader.NET.dll" -Destination ".\tooth-repo\LiteLoader\LiteLoader.NET.dll"
+Copy-Item -Path ".\x64\Release\LiteLoader.NET.runtimeconfig.json" -Destination ".\tooth-repo\LiteLoader\LiteLoader.NET.runtimeconfig.json"
+Copy-Item -Path ".\x64\Release\Ijwhost.json" -Destination ".\tooth-repo\lib\Ijwhost.json"
 Copy-Item -Path ".\output\RELEASE\tooth.json" -Destination ".\tooth-repo\tooth.json"
 
 Set-Location -Path ".\tooth-repo"
