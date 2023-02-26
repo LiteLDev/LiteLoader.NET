@@ -89,9 +89,9 @@ namespace LiteLoader::Event
 
     public:
         Property(bool, isMinecart, isMinecart);
-        Property_Instance(MC, BlockInstance, mHopperBlock, HopperBlock);
-        Property_ValueType(MC, Vec3, mMinecartPos, MinecartPos);
         Property(int, mDimensionId, DimensionId);
+        Property_Ptr(MC, ItemStack, mItemStack, ItemStack);
+        Property_ValueType(MC, Vec3, mPos, Pos);
     };
 
     Class HopperPushOutEvent
