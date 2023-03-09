@@ -115,7 +115,7 @@ namespace LiteLoader::Event
     public:
         Property_Ptr(MC, Player, mPlayer, Player);
         Property_Ptr(MC, Actor, mTarget, Target);
-        Property(int, mAttackDamage, AttackDamage);
+        Property(float, mAttackDamage, AttackDamage);
     };
 
     Class PlayerAttackBlockEvent
