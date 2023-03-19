@@ -8,12 +8,6 @@ namespace MC
         OwnsNativeInstance = true;
     }
 
-    AttributeModifier::AttributeModifier(AttributeModifier^ other)
-    {
-        NativePtr = new ::AttributeModifier(*other->NativePtr);
-        OwnsNativeInstance = true;
-    }
-
     AttributeModifier::AttributeModifier(Mce::UUID id, String^ name, float amount, AttributeModifierOperation operation,
                                          AttributeOperands operand, bool isSerializable)
     {

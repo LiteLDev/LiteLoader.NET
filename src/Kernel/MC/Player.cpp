@@ -1248,9 +1248,9 @@ namespace MC
         NativePtr->setSpeed(_0);
     }
 
-    void Player::Travel(float _0, float _1, float _2)
+    void Player::Travel(float _0, float _1, float _2, bool _3)
     {
-        NativePtr->travel(_0, _1, _2);
+        NativePtr->travel(_0, _1, _2, _3);
     }
 
     void Player::AiStep()
@@ -1334,11 +1334,6 @@ namespace MC
     //{
     //    ((class ::Player*)NativePtr)->__unk_vfn_345();
     //}
-
-    void Player::JumpFromGround()
-    {
-        NativePtr->jumpFromGround();
-    }
 
     void Player::UpdateAi()
     {
@@ -1806,11 +1801,6 @@ namespace MC
         return ::Player::DEFAULT_BB_WIDTH;
     }
 
-    float Player::DEFAULT_FLY_SPEED::get()
-    {
-        return ::Player::DEFAULT_FLY_SPEED;
-    }
-
     float Player::DEFAULT_PLAYER_HEIGHT_OFFSET::get()
     {
         return ::Player::DEFAULT_PLAYER_HEIGHT_OFFSET;
@@ -1889,11 +1879,6 @@ namespace MC
     float Player::PLAYER_SLEEPING_WIDTH::get()
     {
         return ::Player::PLAYER_SLEEPING_WIDTH;
-    }
-
-    float Player::PLAYER_SNEAK_OFFSET::get()
-    {
-        return ::Player::PLAYER_SNEAK_OFFSET;
     }
 
     float Player::PLAYER_SWIMMING_CAMERA_OFFSET::get()

@@ -972,11 +972,6 @@ float MC::Actor::GetNextStep(float _0)
     return __ret;
 }
 
-void MC::Actor::InterpolatorTick()
-{
-    NativePtr->interpolatorTick();
-}
-
 bool MC::Actor::ShouldTryMakeStepSound()
 {
     auto __ret = NativePtr->shouldTryMakeStepSound();
@@ -1607,11 +1602,6 @@ void MC::Actor::UpdateAnimationComponentOnServer()
     NativePtr->updateAnimationComponentOnServer();
 }
 
-void MC::Actor::UpdateBBFromDefinition()
-{
-    NativePtr->updateBBFromDefinition();
-}
-
 void MC::Actor::UpdateDescription()
 {
     NativePtr->updateDescription();
@@ -1970,12 +1960,6 @@ void MC::Actor::ScoreTag::set(::System::String^ _0)
 bool MC::Actor::IsInWater::get()
 {
     auto __ret = NativePtr->isInWater();
-    return __ret;
-}
-
-bool MC::Actor::HasEnteredWater::get()
-{
-    auto __ret = NativePtr->hasEnteredWater();
     return __ret;
 }
 

@@ -254,11 +254,6 @@ namespace MC
             int get();
         }
 
-        property bool DiscardFriction
-        {
-            bool get();
-        }
-
         property MC::BlockPos BoundOrigin
         {
             MC::BlockPos get();
@@ -528,7 +523,7 @@ namespace MC
 
         virtual float GetMeleeWeaponDamageBonus(MC::Mob^ _0);
 
-        virtual void Travel(float _0, float _1, float _2);
+        virtual void Travel(float _0, float _1, float _2, bool);
 
         virtual void ApplyFinalFriction(float _0, bool _1);
 
@@ -585,8 +580,6 @@ namespace MC
         virtual void DescendBlockByCrouching();
 
         virtual void DropContainer();
-
-        virtual void JumpFromGround();
 
         virtual void UpdateAi();
 

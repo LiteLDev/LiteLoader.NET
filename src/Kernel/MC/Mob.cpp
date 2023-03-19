@@ -353,9 +353,9 @@ float MC::Mob::GetMeleeWeaponDamageBonus(MC::Mob^ _0)
     return __ret;
 }
 
-void MC::Mob::Travel(float _0, float _1, float _2)
+void MC::Mob::Travel(float _0, float _1, float _2, bool _3)
 {
-    NativePtr->travel(_0, _1, _2);
+    NativePtr->travel(_0, _1, _2, _3);
 }
 
 void MC::Mob::ApplyFinalFriction(float _0, bool _1)
@@ -515,11 +515,6 @@ void MC::Mob::DescendBlockByCrouching()
 void MC::Mob::DropContainer()
 {
     NativePtr->dropContainer();
-}
-
-void MC::Mob::JumpFromGround()
-{
-    NativePtr->jumpFromGround();
 }
 
 void MC::Mob::UpdateAi()
@@ -966,12 +961,6 @@ void MC::Mob::TransitioningSitting::set(bool _0)
 int MC::Mob::AttackTime::get()
 {
     auto __ret = NativePtr->getAttackTime();
-    return __ret;
-}
-
-bool MC::Mob::DiscardFriction::get()
-{
-    auto __ret = NativePtr->discardFriction();
     return __ret;
 }
 

@@ -618,7 +618,7 @@ namespace MC
 
         virtual void SetSpeed(float _0);
 
-        void Travel(float _0, float _1, float _2) override;
+        void Travel(float _0, float _1, float _2, bool) override;
 
         void AiStep() override;
 
@@ -647,8 +647,6 @@ namespace MC
         bool CanExistWhenDisallowMob() override;
 
         //virtual void UnkVfn345() override;
-
-        void JumpFromGround() override;
 
         void UpdateAi() override;
 
@@ -828,11 +826,6 @@ namespace MC
             float get();
         }
 
-        static property float DEFAULT_FLY_SPEED
-        {
-            float get();
-        }
-
         static property float DEFAULT_PLAYER_HEIGHT_OFFSET
         {
             float get();
@@ -909,11 +902,6 @@ namespace MC
         }
 
         static property float PLAYER_SLEEPING_WIDTH
-        {
-            float get();
-        }
-
-        static property float PLAYER_SNEAK_OFFSET
         {
             float get();
         }

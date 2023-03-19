@@ -117,11 +117,6 @@ public:
     //    bool get();
     //}
 
-    property bool IsAuxValueRelevantForPicking
-    {
-        bool get();
-    }
-
     property bool IsBounceBlock
     {
         bool get();

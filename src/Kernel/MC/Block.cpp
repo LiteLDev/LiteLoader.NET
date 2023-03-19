@@ -312,12 +312,6 @@ bool MC::Block::HasComparatorSignal::get()
 //    return __ret;
 //}
 
-bool MC::Block::IsAuxValueRelevantForPicking::get()
-{
-    auto __ret = NativePtr->isAuxValueRelevantForPicking();
-    return __ret;
-}
-
 bool MC::Block::IsBounceBlock::get()
 {
     return NativePtr->isBounceBlock();

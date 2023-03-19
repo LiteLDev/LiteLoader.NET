@@ -321,11 +321,6 @@ namespace MC
             bool get();
         }
 
-        property bool HasEnteredWater
-        {
-            bool get();
-        }
-
         property bool IsInLava
         {
             bool get();
@@ -1383,8 +1378,6 @@ namespace MC
 
         virtual float GetNextStep(float _0);
 
-        virtual void InterpolatorTick();
-
         virtual bool ShouldTryMakeStepSound();
 
         virtual void MarkHurt();
@@ -1596,8 +1589,6 @@ namespace MC
         //bool TryMoveChunks();
 
         void UpdateAnimationComponentOnServer();
-
-        void UpdateBBFromDefinition();
 
         void UpdateDescription();
 

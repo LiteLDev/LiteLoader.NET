@@ -28,7 +28,6 @@ namespace MC
         __ctor(AttributeModifier, ::AttributeModifier);
 
         AttributeModifier();
-        AttributeModifier(AttributeModifier^ attr);
         AttributeModifier(Mce::UUID id, String^ name, float amount, AttributeModifierOperation operation,
                           AttributeOperands operand, bool isSerializable);
 
