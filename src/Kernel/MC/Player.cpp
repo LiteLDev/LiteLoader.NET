@@ -189,9 +189,9 @@ namespace MC
         return NativePtr->giveItem(item->NativePtr);
     }
 
-    inline int Player::ClearItem(String^ typeName)
+    inline int Player::ClearItem(String^ typeName, unsigned int clearCount)
     {
-        return NativePtr->clearItem(marshalString(typeName));
+        return NativePtr->clearItem(marshalString(typeName), clearCount);
     }
 
     inline bool Player::Runcmd(String^ cmd)

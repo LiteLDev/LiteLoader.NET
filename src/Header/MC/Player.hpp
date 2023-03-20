@@ -117,7 +117,7 @@ namespace MC
 
         inline bool TalkAs(String^ msg);
         inline bool GiveItem(ItemStack^ item);
-        inline int ClearItem(String^ typeName);
+        inline int ClearItem(String^ typeName, unsigned int);
         inline bool Runcmd(String^ cmd);
         inline bool TransferServer(String^ address, unsigned short port);
         inline bool SetSidebar(String^ title, System::Collections::Generic::IList<VALUE_TUPLE<String^, int>>^ data, ObjectiveSortOrder sortOrder);
