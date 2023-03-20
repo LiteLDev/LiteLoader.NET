@@ -1,5 +1,6 @@
 # LiteLoader.NET
 ### LiteLoader bindings for .NET
+### This project is refactoring, see [LiteLoader.NET core repo](https://github.com/LiteLDev-NET/Core)
 👉[LiteLoader](https://github.com/LiteLDev/LiteLoaderBDS)👈  
 ✨[Docs](https://docs.litebds.com/en/#/DotNETPluginDevelopment/)✨  
 💡[SDK](https://github.com/LiteLDev/SDK-dotnet)💡  
