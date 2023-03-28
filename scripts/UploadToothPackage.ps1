@@ -47,7 +47,11 @@ if ($LLNET_TOOTH_NOW_STATUS -ne "") {
     Write-Output "[INFO] Pushing to origin..."
     Write-Output -InputObject ""
     git push "https://$env:USERNAME`:$env:REPO_KEY@github.com/Tooth-Hub/LLDotNET.git" main
-    git tag $LLNET_NOW_TAG
+    $LLNET_NOW_TAG_WITH_V = $LLNET_NOW_TAG
+    if (-not ($LLNET_NOW_TAG_WITH_V.StartsWith("v"))) {
+        $LLNET_NOW_TAG_WITH_V = "v" + $LLNET_NOW_TAG_WITH_V
+    }
+    git tag $LLNET_NOW_TAG_WITH_V
     git push --tags "https://$env:USERNAME`:$env:REPO_KEY@github.com/Tooth-Hub/LLDotNET.git" main
     Set-Location "..\"
     Write-Output -InputObject ""
