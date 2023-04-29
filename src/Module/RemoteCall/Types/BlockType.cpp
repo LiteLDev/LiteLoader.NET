@@ -1,6 +1,6 @@
 #include "BlockType.hpp"
 
-#include<src/Header/MC/BlockInstance.hpp>
+#include <src/Header/MC/BlockInstance.hpp>
 
 namespace LiteLoader::RemoteCall
 {
@@ -32,6 +32,6 @@ namespace LiteLoader::RemoteCall
     String^ BlockType::ToString()
     {
         auto& p = NativePtr->get<::BlockInstance>();
-        return String::Format("{0},{1}", marshalString(p.getBlock()->getTypeName()), marshalString(p.getPosition().toString()));
+        return String::Format("{0},{1}", marshalString(p.getBlock()->getName().str), marshalString(p.getPosition().toString()));
     }
 }

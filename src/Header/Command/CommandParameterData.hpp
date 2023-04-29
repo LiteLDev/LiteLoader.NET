@@ -154,7 +154,7 @@ public:
     } inline static CommandParameterData
         ^ Create(typeid_t<CommandRegistry ^> tid, ParseFn parser, String^ describe, CommandParameterDataType type, String^ enumName, int offset, bool optional, int flag_offset) {
               return gcnew CommandParameterData(::CommandParameterData(
-                  ::typeid_t<::CommandRegistry>(tid.value),
+                  Bedrock::typeid_t<::CommandRegistry>(tid.value),
                   *parser.p,
                   marshalString(describe),
                   ::CommandParameterDataType(type),

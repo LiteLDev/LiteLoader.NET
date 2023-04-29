@@ -1,5 +1,6 @@
 #pragma once
 #include <src/Main/ClassTemplate.hpp>
+#include <src/Header/MC/HashedString.hpp>
 
 #include <RemoteCallAPI.h>
 

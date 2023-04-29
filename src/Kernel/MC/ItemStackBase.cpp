@@ -276,12 +276,6 @@ int MC::ItemStackBase::BaseRepairCost::get()
     return __ret;
 }
 
-::String^ MC::ItemStackBase::CategoryName::get()
-{
-    auto __ret = NativePtr->getCategoryName();
-    return clix::marshalString<clix::E_UTF8>(__ret);
-}
-
 MC::Mce::Color MC::ItemStackBase::Color::get()
 {
     return NativePtr->getColor();
@@ -468,12 +462,6 @@ bool MC::ItemStackBase::IsHorseArmorItem::get()
 bool MC::ItemStackBase::IsLiquidClipItem::get()
 {
     auto __ret = NativePtr->isLiquidClipItem();
-    return __ret;
-}
-
-bool MC::ItemStackBase::IsMusicDiscItem::get()
-{
-    auto __ret = NativePtr->isMusicDiscItem();
     return __ret;
 }
 

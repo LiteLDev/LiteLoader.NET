@@ -17,9 +17,9 @@ inline Block ^ Block::Create(CompoundTag ^ nbt)
     return gcnew Block(::Block::create(nbt->NativePtr));
 }
 
-inline String ^ Block::TypeName::get()
+inline HashedString ^ Block::Name::get()
 {
-    return marshalString(NativePtr->getTypeName());
+    return gcnew HashedString((::HashedString &)NativePtr->getName());
 }
 
 inline int Block::Id::get()

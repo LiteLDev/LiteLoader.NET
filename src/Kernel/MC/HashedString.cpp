@@ -1,10 +1,5 @@
 #include <src/Header/MC/HashedString.hpp>
 
-namespace MC
-{
-}
-
-#ifdef INCLUDE_MCAPI
 
 MC::HashedString::HashedString(MC::HashedString ^ _0)
 {
@@ -48,18 +43,6 @@ bool MC::HashedString::operator!=(MC::HashedString ^ __op, MC::HashedString ^ _0
     return __ret;
 }
 
-bool MC::HashedString::operator<(MC::HashedString ^ __op, MC::HashedString ^ _0)
-{
-    if (ReferenceEquals(__op, nullptr))
-        throw gcnew ::System::ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::HashedString*)__op->NativePtr;
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg1 = *(class ::HashedString*)_0->NativePtr;
-    auto __ret = __arg0 < __arg1;
-    return __ret;
-}
-
 bool MC::HashedString::operator==(MC::HashedString ^ __op, MC::HashedString ^ _0)
 {
     bool __opNull = ReferenceEquals(__op, nullptr);
@@ -97,12 +80,6 @@ unsigned long long MC::HashedString::ComputeHash(::String^ _0)
     return (__ret == 0 ? nullptr : clix::marshalString<clix::E_UTF8>(__ret));
 }
 
-bool MC::HashedString::Empty::get()
-{
-    auto __ret = ((class ::HashedString*)NativePtr)->empty();
-    return __ret;
-}
-
 unsigned long long MC::HashedString::Hash::get()
 {
     auto __ret = ((class ::HashedString*)NativePtr)->getHash();
@@ -138,5 +115,3 @@ void MC::HashedString::DefaultErrorValue::set(MC::HashedString ^ value)
         throw gcnew ::System::ArgumentNullException("value", "Cannot be null because it is passed by value.");
     ::HashedString::defaultErrorValue = *(class ::HashedString*)value->NativePtr;
 }
-
-#endif // INCLUDE_MCAPI

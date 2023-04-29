@@ -1,6 +1,6 @@
 #include "NbtType.hpp"
 
-#include<src/Header/MC/CompoundTag.hpp>
+#include <src/Header/MC/CompoundTag.hpp>
 
 namespace LiteLoader::RemoteCall
 {

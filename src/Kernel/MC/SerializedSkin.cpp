@@ -27,11 +27,6 @@ namespace MC
         NativePtr->setIsTrustedSkin(value);
     }
 
-    bool SerializedSkin::UseBlinkingAnimation::get()
-    {
-        return NativePtr->useBlinkingAnimation();
-    }
-
     void SerializedSkin::UpdateGeometryName()
     {
         NativePtr->updateGeometryName();

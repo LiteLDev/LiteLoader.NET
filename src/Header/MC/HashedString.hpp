@@ -10,7 +10,6 @@ public:
     __ctor_all(HashedString, ::HashedString);
     __ctor_default(HashedString, ::HashedString);
 
-#ifdef INCLUDE_MCAPI
 
     HashedString(MC::HashedString ^ _0);
 
@@ -20,11 +19,6 @@ public:
 
     property ::String^ CStr {
         ::String^ get();
-    };
-
-    property bool Empty
-    {
-        bool get();
     };
 
     property unsigned long long Hash
@@ -49,8 +43,6 @@ public:
 
     static bool operator!=(MC::HashedString ^ __op, MC::HashedString ^ _0);
 
-    static bool operator<(MC::HashedString ^ __op, MC::HashedString ^ _0);
-
     static bool operator==(MC::HashedString ^ __op, MC::HashedString ^ _0);
 
     virtual bool Equals(::System::Object ^ obj) override;
@@ -64,6 +56,5 @@ public:
         void set(MC::HashedString ^);
     }
 
-#endif // INCLUDE_MCAPI
 };
 } // namespace MC

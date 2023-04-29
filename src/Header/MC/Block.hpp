@@ -1,6 +1,7 @@
 #pragma once
 #include <mc/Block.hpp>
 #include "Types.hpp"
+#include <src/Header/MC/HashedString.hpp>
 
 namespace MC
 {
@@ -20,7 +21,7 @@ public:
     inline static Block ^ Create(const String ^ str, unsigned short tileData);
     inline static Block ^ Create(CompoundTag ^ nbt);
 
-    property String ^ TypeName { String ^ get(); };
+    property HashedString^ Name { HashedString ^ get(); };
     property CompoundTag ^ Nbt { CompoundTag ^ get(); void set(CompoundTag ^value); };
 
     property int Id

@@ -1826,16 +1826,6 @@ namespace MC
         return ::Player::GLIDE_STOP_DELAY;
     }
 
-    int Player::ITEM_USE_INTERVAL_DURATION::get()
-    {
-        return ::Player::ITEM_USE_INTERVAL_DURATION;
-    }
-
-    int Player::MAX_ITEM_USE_DURATION::get()
-    {
-        return ::Player::MAX_ITEM_USE_DURATION;
-    }
-
     float Player::PLAYER_ALIVE_HEIGHT::get()
     {
         return ::Player::PLAYER_ALIVE_HEIGHT;

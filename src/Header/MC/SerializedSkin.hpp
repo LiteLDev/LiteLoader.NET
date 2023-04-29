@@ -16,7 +16,6 @@ namespace MC
 
         property String^ Name { String^ get(); }
         property bool IsTrustedSkin { bool get(); void set(bool value); }
-        property bool UseBlinkingAnimation { bool get(); }
 
         void UpdateGeometryName();
         bool Read(ReadOnlyBinaryStream^ stream);

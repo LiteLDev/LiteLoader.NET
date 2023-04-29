@@ -33,10 +33,6 @@ namespace MC
     {
         return NativePtr->getPosition(v1,(::CommandOrigin&) co, vec0);
     }
-    void CommandPosition::Load(CompoundTag^ ct)
-    {
-        NativePtr->load(*(ct->NativePtr));
-    }
     CompoundTag^ CommandPosition::Serialize()
     {
         return gcnew CompoundTag(&NativePtr->serialize());

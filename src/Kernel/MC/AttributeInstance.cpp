@@ -8,12 +8,6 @@ namespace MC
         NativePtr = new ::AttributeInstance(*attr->NativePtr);
     }
 
-    AttributeInstance::AttributeInstance()
-    {
-        OwnsNativeInstance = true;
-        NativePtr = new ::AttributeInstance();
-    }
-
     Attribute^ AttributeInstance::Attribute::get()
     {
         return gcnew MC::Attribute(const_cast<::Attribute*>(NativePtr->getAttribute()));
@@ -101,11 +95,6 @@ namespace MC
     bool AttributeInstance::HasModifier(Mce::UUID id)
     {
         return NativePtr->hasModifier(id);
-    }
-
-    void AttributeInstance::Notify(long long _0)
-    {
-        NativePtr->notify(_0);
     }
 
     void AttributeInstance::RecalculateModifiers()
