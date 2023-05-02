@@ -87,6 +87,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Extra\mutex.hpp" />
     <ClInclude Include="Extra\PluginManager.hpp" />
     <ClInclude Include="Header\AllowListAPI.hpp" />
     <ClInclude Include="Header\Command\Command.hpp" />

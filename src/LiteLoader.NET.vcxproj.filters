@@ -846,6 +846,9 @@
     <ClInclude Include="Header\Impl\FormPacketHelper.hpp">
       <Filter>Header\Impl</Filter>
     </ClInclude>
+    <ClInclude Include="Extra\mutex.hpp">
+      <Filter>Extra</Filter>
+    </ClInclude>
     <ClInclude Include="Extra\PluginManager.hpp">
       <Filter>Extra</Filter>
     </ClInclude>
