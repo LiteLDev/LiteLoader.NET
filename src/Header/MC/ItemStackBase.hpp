@@ -45,10 +45,6 @@ namespace MC
             int get();
         };
 
-        property ::System::String^ CategoryName {
-            ::System::String^ get();
-        };
-
         property MC::Mce::Color
             Color {
             MC::Mce::Color get();
@@ -190,11 +186,6 @@ namespace MC
         };
 
         property bool IsLiquidClipItem
-        {
-            bool get();
-        };
-
-        property bool IsMusicDiscItem
         {
             bool get();
         };

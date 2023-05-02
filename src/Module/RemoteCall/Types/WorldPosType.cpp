@@ -1,7 +1,7 @@
 #include "WorldPosType.hpp"
 
-#include<src/Header/MC/Vec3.hpp>
-#include<src/Header/MC/BlockPos.hpp>
+#include <src/Header/MC/Vec3.hpp>
+#include <src/Header/MC/BlockPos.hpp>
 
 namespace LiteLoader::RemoteCall
 {

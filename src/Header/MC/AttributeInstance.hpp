@@ -20,7 +20,6 @@ namespace MC
         __ctor(AttributeInstance, ::AttributeInstance);
 
         AttributeInstance(AttributeInstance^ attr);
-        AttributeInstance();
 
         property Attribute^ Attribute { MC::Attribute^ get(); }
         property float CurrentValue { float get(); void set(float value); }
@@ -41,7 +40,6 @@ namespace MC
         bool HasModifier(AttributeModifier^ modifier);
         bool HasModifier(Mce::UUID id);
         //void InheritFrom(AttributeInstance^, BaseAttributeMap^);
-        void Notify(long long _0);
         void RecalculateModifiers();
         void RegisterListener(AttributeInstance^ attr);
         //void RemoveBuff(AttributeBuff^);

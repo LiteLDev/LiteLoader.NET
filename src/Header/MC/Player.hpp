@@ -851,16 +851,6 @@ namespace MC
             int get();
         }
 
-        static property int ITEM_USE_INTERVAL_DURATION
-        {
-            int get();
-        }
-
-        static property int MAX_ITEM_USE_DURATION
-        {
-            int get();
-        }
-
         static property float PLAYER_ALIVE_HEIGHT
         {
             float get();

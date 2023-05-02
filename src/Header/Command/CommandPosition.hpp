@@ -25,7 +25,6 @@ public:
     BlockPos GetBlockPos(Vec3 vec0, Vec3 vec1);
     Vec3 GetPosition(Vec3 vec0, Vec3 vec1);
     Vec3 GetPosition(int v1,CommandOrigin ^ co, Vec3 vec0);
-    void Load(CompoundTag ^ ct);
     CompoundTag ^ Serialize();
 };
 } // namespace MC

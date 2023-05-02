@@ -63,7 +63,7 @@ namespace LiteLoader::DynamicCommand
         case ::DynamicCommand::ParameterType::JsonValue:
             return marshalString(JsonHelpers::serialize(NativePtr->getRaw<Json::Value>()));
         case ::DynamicCommand::ParameterType::Item:
-            return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
+            return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>(), 0, false);
             //case ::DynamicCommand::ParameterType::Block:
                 //return gcnew MC::Block(const_cast<Block*>(NativePtr->getRaw<Block const*>()));
         case ::DynamicCommand::ParameterType::Effect:
@@ -149,7 +149,7 @@ namespace LiteLoader::DynamicCommand
     inline MC::CommandItem^ DynamicCommand::Result::AsCommandItem() {
         if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Item)
             throw gcnew DynamicCommandInvalidCastException;
-        return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>());
+        return gcnew MC::CommandItem(NativePtr->getRaw<CommandItem>(), 0, false);
     }
     inline VALUE_TUPLE<__int64, String^> DynamicCommand::Result::AsBlock() {
         if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Block)

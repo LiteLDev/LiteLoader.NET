@@ -1,6 +1,6 @@
 #include "ItemType.hpp"
 
-#include<src/Header/MC/ItemStack.hpp>
+#include <src/Header/MC/ItemStack.hpp>
 
 namespace LiteLoader::RemoteCall
 {
