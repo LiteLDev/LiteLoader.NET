@@ -201,6 +201,8 @@ namespace MC
             Survival = 0,
             Creative = 1,
             Adventure = 2,
+            Default = 5,
+            Spectator = 6
         };
 
         virtual property GameType GameMode
