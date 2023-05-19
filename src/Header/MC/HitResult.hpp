@@ -3,11 +3,11 @@
 #include "Types.hpp"
 
 namespace MC {
-    public enum class HitResultType :int {
-        TILE = 0,
-        ENTITY,
-        ENTITY_OUT_OF_RANGE,
-        NO_HIT,
+    public enum class HitResultType : int {
+        Tile = 0,
+        Entity,
+        EntityOutOfRange,
+        NoHit,
     };
     value class Vec3;
     value class BlockPos;

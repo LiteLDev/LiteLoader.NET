@@ -171,13 +171,13 @@ namespace MC
         return NativePtr->crashClient();
     }
 
-    /// <param name="type">:default = TextType::RAW</param>
+    /// <param name="type">:default = TextType::Raw</param>
     inline bool Player::SendText(String^ text, TextType type)
     {
         return NativePtr->sendText(marshalString(text), static_cast<::TextType>(type));
     }
 
-    inline bool Player::SendText(String^ text) { return SendText(text, TextType::RAW); }
+    inline bool Player::SendText(String^ text) { return SendText(text, TextType::Raw); }
 
     inline bool Player::TalkAs(String^ msg)
     {

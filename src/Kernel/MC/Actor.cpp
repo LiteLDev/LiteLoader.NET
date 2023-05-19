@@ -173,9 +173,13 @@ namespace MC
     {
         return NativePtr->hasTag(marshalString(tag));
     }
-    inline bool Actor::HurtEntity(float damage, ActorDamageCause damageCause = ActorDamageCause::Override)
+    inline bool Actor::HurtEntity(float damage)
     {
-        return NativePtr->hurtEntity(damage, damageCause);
+        return NativePtr->hurtEntity(damage);
+    }
+    inline bool Actor::HurtEntity(float damage, ActorDamageCause damageCause)
+    {
+        return NativePtr->hurtEntity(damage, (::ActorDamageCause)damageCause);
     }
     inline bool Actor::Teleport(Vec3 pos, int dimid)
     {

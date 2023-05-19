@@ -51,7 +51,8 @@ namespace MC
         inline bool SetOnFire(int time, bool isEffect);
         inline bool StopFire();
         inline bool HasTag(String^ tag);
-        inline bool HurtEntity(float damage, ActorDamageCause damageCause = ActorDamageCause::Override);
+        inline bool HurtEntity(float damage);
+        inline bool HurtEntity(float damage, ActorDamageCause damageCause);
         inline bool Teleport(Vec3 pos, int dimid);
         inline bool RefreshActorData();
         inline bool AddEffect(MobEffect::EffectType type, int tick, int level, bool ambient, bool showParticles, bool showAnimation);

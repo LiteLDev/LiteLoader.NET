@@ -28,6 +28,6 @@ namespace MC
     public ref class MinecraftPackets __static
     {
     public:
-        static Packet^ CreatePacket(MinecraftPacketId packetId);
+        static Packet^ CreatePacket(MinecraftPacketIds packetId);
     };
 }

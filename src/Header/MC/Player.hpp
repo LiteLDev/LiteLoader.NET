@@ -30,10 +30,10 @@ namespace MC
 
         enum class PositionMode : char
         {
-            NORMAL,
-            RESPAWN,
-            TELEPORT,
-            HEAD_ROTATION,
+            Normal,
+            Respawn,
+            Teleport,
+            HeadRotation,
         };
 
         property String^ Name { String^ get(); };

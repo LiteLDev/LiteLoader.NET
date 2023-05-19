@@ -64,9 +64,9 @@ void MC::Packet::Incompressible::set(unsigned int value)
     NativePtr->incompressible = value;
 }
 
-MC::MinecraftPacketId MC::Packet::Id::get()
+MC::MinecraftPacketIds MC::Packet::Id::get()
 {
-    return static_cast<MinecraftPacketId>(NativePtr->getId());
+    return static_cast<MinecraftPacketIds>(NativePtr->getId());
 }
 
 String^ MC::Packet::Name::get()

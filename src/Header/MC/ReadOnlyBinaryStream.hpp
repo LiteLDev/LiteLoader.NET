@@ -11,6 +11,8 @@ namespace MC
 
     public enum class StreamReadResult
     {
+        Malformed = 0x0,
+        Valid = 0x1,
     };
 
     public ref class ReadOnlyBinaryStream
