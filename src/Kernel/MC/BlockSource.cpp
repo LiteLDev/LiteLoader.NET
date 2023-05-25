@@ -13,6 +13,18 @@ BlockInstance ^ BlockSource::GetBlockInstance(BlockPos pos)
 {
     return gcnew BlockInstance(NativePtr->getBlockInstance(pos));
 }
+Block^ BlockSource::GetBlock(int x, int y, int z)
+{
+    return gcnew Block((::Block*)&(NativePtr->getBlock(x, y, z)));
+}
+Block^ BlockSource::GetBlock(BlockPos pos)
+{
+    return gcnew Block((::Block*)&(NativePtr->getBlock(pos)));
+}
+Block^ BlockSource::GetBlock(BlockPos pos, unsigned int dim)
+{
+    return gcnew Block((::Block*)&(NativePtr->getBlock(pos, dim)));
+}
 AutomaticID<Dimension ^, int> ^ BlockSource::DimensionId::get()
 {
     return gcnew AutomaticID<Dimension ^, int>(NativePtr->getDimensionId());

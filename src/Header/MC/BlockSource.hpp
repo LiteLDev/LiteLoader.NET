@@ -1,6 +1,7 @@
 #pragma once
 #include <mc/BlockSource.hpp>
 #include "Types.hpp"
+#include "Block.hpp"
 
 namespace MC
 {
@@ -21,6 +22,9 @@ public:
     __ctor_default(BlockSource, ::BlockSource);
 
     BlockInstance ^ GetBlockInstance(BlockPos pos);
+    Block^ GetBlock(int, int, int);
+    Block^ GetBlock(BlockPos);
+    Block^ GetBlock(BlockPos, unsigned int);
     property AutomaticID<Dimension^, int>^ DimensionId
     {
         AutomaticID<Dimension^, int>^ get();

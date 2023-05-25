@@ -27,4 +27,8 @@ namespace MC {
 
         return ((::BlockPos*)p)->containedWithin(*(::BoundingBox*)pobj);
     }
+    BlockPos::operator Vec3(BlockPos pos)
+    {
+        return pos.ToVec3();
+    }
 }

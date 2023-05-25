@@ -21,3 +21,13 @@ MC::BlockPos MC::Vec3::ToBlockPos()
 {
     return BlockPos(::BlockPos(::Vec3{ X,Y,Z }));
 }
+
+MC::Vec3::operator MC::BlockPos(Vec3 vec)
+{
+    return vec.ToBlockPos();
+}
+
+MC::Vec3::operator System::Numerics::Vector3(Vec3 vec)
+{
+    return System::Numerics::Vector3(vec.X, vec.Y, vec.Z);
+}

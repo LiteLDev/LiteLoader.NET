@@ -194,5 +194,7 @@ namespace MC
         int GetHashCode() override {
             return (int)HashVal;
         }
+
+        static operator Vec3(BlockPos);
     };
 }

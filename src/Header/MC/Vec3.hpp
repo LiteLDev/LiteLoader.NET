@@ -212,9 +212,7 @@ namespace MC {
             return Vec3{ obj.X - b.X, obj.Y - b.Y, obj.Z - b.Z };
         }
 
-        static explicit operator System::Numerics::Vector3(Vec3 obj) {
-            return System::Numerics::Vector3{ obj.X, obj.Y, obj.Z };
-        }
+        static operator System::Numerics::Vector3(Vec3);
 
         static float Dot(Vec3 a, Vec3 b) {
             return { a.X * b.X + a.Y * b.Y + a.Z * b.Z };
@@ -247,5 +245,7 @@ namespace MC {
         int GetHashCode() override {
             return (int)HashVal;
         }
+
+        explicit static operator MC::BlockPos(Vec3);
     };
 }

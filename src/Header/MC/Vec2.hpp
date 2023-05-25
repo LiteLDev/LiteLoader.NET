@@ -39,10 +39,7 @@ namespace MC
             return Vec2{ a.X - b.X, a.Y - b.Y };
         }
 
-        static explicit operator System::Numerics::Vector2(Vec2 obj)
-        {
-            return System::Numerics::Vector2{ obj.X, obj.Y };
-        }
+        static operator System::Numerics::Vector2(Vec2);
 
     public:
         static initonly Vec2 LOWEST = ::Vec2::LOWEST;

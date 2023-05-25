@@ -26,9 +26,7 @@ public:
         unsigned long long get();
     }
 
-    property ::String^ String {
-        ::String^ get();
-    };
+    ::String^ ToString() override;
 
     property bool IsEmpty
     {
@@ -44,6 +42,12 @@ public:
     static bool operator!=(MC::HashedString ^ __op, MC::HashedString ^ _0);
 
     static bool operator==(MC::HashedString ^ __op, MC::HashedString ^ _0);
+
+    static bool operator!=(MC::HashedString^ __op, String^ _0);
+
+    static bool operator==(MC::HashedString^ __op, String^ _0);
+
+    static operator String^(HashedString);
 
     virtual bool Equals(::System::Object ^ obj) override;
 

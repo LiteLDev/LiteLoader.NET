@@ -55,6 +55,30 @@ bool MC::HashedString::operator==(MC::HashedString ^ __op, MC::HashedString ^ _0
     return __ret;
 }
 
+bool MC::HashedString::operator!=(MC::HashedString^ __op, String^ _0)
+{
+    bool __opNull = ReferenceEquals(__op, nullptr);
+    bool _0Null = ReferenceEquals(_0, nullptr);
+    if (__opNull || _0Null)
+        return !(__opNull && _0Null);
+    auto& __arg0 = *(class ::HashedString*)__op->NativePtr;
+    auto& __arg1 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __ret = __arg0 != __arg1;
+    return __ret;
+}
+
+bool MC::HashedString::operator==(MC::HashedString^ __op, String^ _0)
+{
+    bool __opNull = ReferenceEquals(__op, nullptr);
+    bool _0Null = ReferenceEquals(_0, nullptr);
+    if (__opNull || _0Null)
+        return __opNull && _0Null;
+    auto& __arg0 = *(class ::HashedString*)__op->NativePtr;
+    auto& __arg1 = clix::marshalString<clix::E_UTF8>(_0);
+    auto __ret = __arg0 == __arg1;
+    return __ret;
+}
+
 bool MC::HashedString::Equals(::System::Object ^ obj)
 {
     return this == safe_cast<MC::HashedString ^>(obj);
@@ -86,10 +110,15 @@ unsigned long long MC::HashedString::Hash::get()
     return __ret;
 }
 
-::String^ MC::HashedString::String::get()
+::String^ MC::HashedString::ToString()
 {
     auto& __ret = ((class ::HashedString*)NativePtr)->getString();
     return (::String^)(clix::marshalString<clix::E_UTF8>(__ret));
+}
+
+MC::HashedString::operator String^(HashedString str)
+{
+    return str.ToString();
 }
 
 bool MC::HashedString::IsEmpty::get()
