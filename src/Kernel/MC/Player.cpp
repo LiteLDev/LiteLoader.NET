@@ -487,11 +487,7 @@ namespace MC
 
     inline void NATIVECALLBACK Player::CustomForm_Func(std::string str)
     {
-        try
-        {
-            __func(marshalString(str));
-        }
-        CATCH
+        __func(marshalString(str));
     }
 
     bool Player::SendCustomForm(String^ json,

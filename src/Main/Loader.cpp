@@ -45,7 +45,7 @@ namespace LiteLoader::NET {
 
             Init();
 
-            reinterpret_cast<::Logger*>(pLogger)->info("Loading .NET plugins...");
+            logger.info("Loading .NET plugins...");
 
             LoadPlugins(
                 *reinterpret_cast<std::vector<std::filesystem::path>*>(std_vector_assemblies),
@@ -183,49 +183,36 @@ void LoadPlugins(std::vector<std::filesystem::path> const& assemblyPaths, Logger
 
         auto path = marshalString(iter->string());
 
-        try
+        bool isManagedAssembly = false;
+        auto file = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::ReadWrite);
+        auto reader = gcnew PEReader(file);
+
+        if (reader->HasMetadata)
+            isManagedAssembly = true;
+
+        file->Close();
+
+        if (!isManagedAssembly)
         {
-            bool isManagedAssembly = false;
-            auto file = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::ReadWrite);
-            auto reader = gcnew PEReader(file);
-
-            if (reader->HasMetadata)
-                isManagedAssembly = true;
-
-            file->Close();
-
-            if (!isManagedAssembly)
-            {
-                continue;
-            }
-
-
-            auto Asm = Assembly::LoadFrom(path);
-
-            LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, String::Empty, gcnew LiteLoader::Version(1, 0, 0), nullptr, Asm);
-
-            LiteLoader::NET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
-
-            auto succeed = LoadByDefaultEntry(logger, Asm);
-            if (!succeed)
-                succeed = LoadByCustomEntry(logger, Asm);
-
-
-            if (succeed)
-            {
-                logger.info(".NET plugin <{}> loaded", iter->filename().string());
-                ++count;
-            }
+            continue;
         }
-        catch (System::Reflection::TargetInvocationException^ ex)
+
+
+        auto Asm = Assembly::LoadFrom(path);
+
+        LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, String::Empty, gcnew LiteLoader::Version(1, 0, 0), nullptr, Asm);
+
+        LiteLoader::NET::PluginOwnData::CustomLibPath->Add(Asm, ParsePluginLibraryPath(Asm));
+
+        auto succeed = LoadByDefaultEntry(logger, Asm);
+        if (!succeed)
+            succeed = LoadByCustomEntry(logger, Asm);
+
+
+        if (succeed)
         {
-            logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", iter->filename().string(), marshalString(ex->InnerException->GetType()->ToString()));
-            logger.error(marshalString(ex->InnerException->ToString()));
-        }
-        catch (System::Exception^ ex)
-        {
-            logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", iter->filename().string(), marshalString(ex->GetType()->ToString()));
-            logger.error(marshalString(ex->ToString()));
+            logger.info(".NET plugin <{}> loaded", marshalString(Asm->GetName()->Name));
+            ++count;
         }
     }
     logger.info("{} .NET plugin(s) loaded", count);
@@ -244,7 +231,17 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
         return false;
     if (method->GetParameters()->Length > 0)
         return false;
-    reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
+    try
+    {
+        reinterpret_cast<void(*)()>(method->MethodHandle.GetFunctionPointer().ToPointer())();
+    }
+    catch (System::Exception^ ex)
+    {
+        logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", marshalString(Asm->GetName()->Name), marshalString(ex->GetType()->ToString()));
+        logger.error(marshalString(ex->ToString()));
+        return false;
+    }
+    LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, String::Empty, {}, {}, Asm);
     return true;
 }
 
@@ -299,11 +296,20 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
         }
     }
 
-    if (initializer == nullptr)
+    try
     {
-        throw gcnew System::EntryPointNotFoundException();
+        if (initializer == nullptr)
+        {
+            throw gcnew System::EntryPointNotFoundException();
+        }
+        initializer->OnInitialize();
     }
-    initializer->OnInitialize();
+    catch (System::Exception^ ex)
+    {
+        logger.error(".NET plugin <{}> failed to load: Uncaught {} Detected!", marshalString(pluginName), marshalString(ex->GetType()->ToString()));
+        logger.error(marshalString(ex->ToString()));
+        return false;
+    }
     String^ introduction = initializer->Introduction;
     auto version = gcnew LiteLoader::Version(
         initializer->Version->Major,

@@ -207,30 +207,21 @@ namespace LiteLoader::NET::Std::Internal
         pointer_t _Constructed_last = _Newvec + (_Whereoff + 1) * type_size;
         pointer_t _Constructed_first = _Constructed_last;
 
-        try
-        {
-            _Construct(_Newvec + (_Whereoff)*type_size, val, byMove);
-            _Constructed_first = _Newvec + _Whereoff * type_size;
+        _Construct(_Newvec + (_Whereoff)*type_size, val, byMove);
+        _Constructed_first = _Newvec + _Whereoff * type_size;
 
-            if (_Whereptr == _Mylast)
-            {
-                if (ICppStdClass::isMoveable)
-                    _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
-                else
-                    _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
-            }
-            else
-            {
-                _Uninitialized_move(_Myfirst, _Whereptr, _Newvec);
-                _Constructed_first = _Newvec;
-                _Uninitialized_move(_Whereptr, _Mylast, _Newvec + (_Whereoff + 1) * type_size);
-            }
-        }
-        catch (...)
+        if (_Whereptr == _Mylast)
         {
-            _Destroy_range(_Constructed_first, _Constructed_last);
-            _al->deallocate(_Newvec, _Newcapacity);
-            throw;
+            if (ICppStdClass::isMoveable)
+                _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
+            else
+                _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
+        }
+        else
+        {
+            _Uninitialized_move(_Myfirst, _Whereptr, _Newvec);
+            _Constructed_first = _Newvec;
+            _Uninitialized_move(_Whereptr, _Mylast, _Newvec + (_Whereoff + 1) * type_size);
         }
 
         _Change_array(_Newvec, _Newsize, _Newcapacity);
@@ -255,21 +246,12 @@ namespace LiteLoader::NET::Std::Internal
         const pointer_t _Appended_first = _Newvec + _Oldsize * type_size;
         pointer_t _Appended_last = _Appended_first;
 
-        try
-        {
-            _Appended_last = _Uninitialized_fill_n(_Appended_first, _Newsize - _Oldsize, val);
+        _Appended_last = _Uninitialized_fill_n(_Appended_first, _Newsize - _Oldsize, val);
 
-            if (ICppStdClass::isMoveable || !ICppStdClass::isCopyable)
-                _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
-            else
-                _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
-        }
-        catch (...)
-        {
-            _Destroy_range(_Appended_first, _Appended_last);
-            _Al->deallocate(_Newvec, _Newcapacity);
-            throw;
-        }
+        if (ICppStdClass::isMoveable || !ICppStdClass::isCopyable)
+            _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
+        else
+            _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
         _Change_array(_Newvec, _Newsize, _Newcapacity);
     }
 
@@ -427,19 +409,10 @@ namespace LiteLoader::NET::Std::Internal
         auto _Constructed_first = _Newvec;
         auto _Constructed_last = _Constructed_first;
 
-        try
+        for each (auto var in vec)
         {
-            for each (auto var in vec)
-            {
-                _Construct(_Constructed_last, var, false);
-                _Constructed_last += type_size;
-            }
-        }
-        catch (...)
-        {
-            _Destroy_range(_Constructed_first, _Constructed_last);
-            _Al->deallocate(_Newvec, _Newsize);
-            throw;
+            _Construct(_Constructed_last, var, false);
+            _Constructed_last += type_size;
         }
 
         _Change_array(_Newvec, _Newsize, _Newcapacity);
@@ -806,18 +779,10 @@ namespace LiteLoader::NET::Std::Internal
 
         const pointer_t _Newvec = reinterpret_cast<pointer_t>(_Al->allocate(newCapacity));
 
-        try
-        {
-            if (ICppStdClass::isMoveable || !ICppStdClass::isCopyable)
-                _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
-            else
-                _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
-        }
-        catch (...)
-        {
-            _Al->deallocate(_Newvec, newCapacity);
-            throw;
-        }
+        if (ICppStdClass::isMoveable || !ICppStdClass::isCopyable)
+            _Uninitialized_move(_Myfirst, _Mylast, _Newvec);
+        else
+            _Uninitialized_copy(_Myfirst, _Mylast, _Newvec);
         _Change_array(_Newvec, _Size, newCapacity);
     }
 

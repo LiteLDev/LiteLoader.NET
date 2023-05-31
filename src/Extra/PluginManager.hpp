@@ -1,31 +1,33 @@
 #pragma once
-#include <vector>
+#include "llapi/Global.h"
 #include <string>
-#include <map>
-#include <llapi/LLAPI.h>
+#include <unordered_map>
 
-namespace ll
-{
-class PluginManager
-{
+namespace ll {
+struct Plugin;
+struct Version;
+
+class PluginManager {
+    static bool callEventAtHotLoad(std::string pluginName);
+    static bool callEventAtHotUnload(std::string pluginName);
 
 public:
-    static bool unRegisterPlugin(std::string name);
-    static bool loadPluginPackage(const std::string& dirPath, const std::string& packagePath, bool isHotLoad = false);
+    static LIAPI bool registerPlugin(HMODULE handle, std::string name, std::string desc,
+                                     ll::Version version, std::map<std::string, std::string> others);
 
-    static bool loadPlugin(const std::string& fileOrDirPath, bool isHotLoad = false, bool mustBeCurrectModule = false);
-    static bool unloadPlugin(const std::string& name);
-    static bool reloadPlugin(const std::string& name);
-    static bool reloadAllPlugins();
+    static LIAPI ll::Plugin* getPlugin(HMODULE handle);
+    static LIAPI ll::Plugin* getPlugin(std::string name, bool includeScriptPlugin = true);
+    static LIAPI bool hasPlugin(std::string name, bool includeScriptPlugin = true);
+    static LIAPI std::unordered_map<std::string, ll::Plugin*> getAllPlugins(bool includeScriptPlugin = true);
 
-    static ll::Plugin* getPlugin(std::string name);
-    static std::unordered_map<std::string, ll::Plugin*> getLocalPlugins();
-    static std::unordered_map<std::string, ll::Plugin*> getAllScriptPlugins();
-    static std::unordered_map<std::string, ll::Plugin*> getAllPlugins();
+    static bool loadPlugin(std::string pluginFilePath, bool outputStatus = false, bool isHotLoad = false);
+    static bool unloadPlugin(std::string pluginName, bool outputStatus = false);
+    static bool reloadPlugin(std::string pluginName, bool outputStatus = false);
+    static int reloadAllPlugins(bool outputStatus = false);
 
-    static std::string getPluginBackendType(const std::string &path);
-
-    static bool registerPlugin(std::string filePath, std::string name, std::string desc,
-        ll::Version version, std::map<std::string, std::string> others);
+    static LIAPI bool unRegisterPlugin(std::string name);
 };
-}
+} // namespace ll
+
+LIAPI bool RegisterPlugin(HMODULE handle, std::string name, std::string desc, ll::Version version,
+                          std::map<std::string, std::string> others);

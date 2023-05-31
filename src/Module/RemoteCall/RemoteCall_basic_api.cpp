@@ -18,17 +18,8 @@ namespace LiteLoader::RemoteCall
         {
             arg->Add(gcnew Valuetype(item));
         }
-        try
-        {
-            auto ret = del(arg);
-            return *ret->NativePtr;
-        }
-        catch (System::Exception^ ex)
-        {
-            GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-            GlobalClass::logger->error->WriteLine(ex->Message);
-            return value_type();
-        }
+        auto ret = del(arg);
+        return *ret->NativePtr;
     }
     Valuetype^ _invoke_native_func(void* pfunc, List<Valuetype^>^ list)
     {
@@ -96,7 +87,7 @@ namespace LiteLoader::RemoteCall
         auto& stdfunc = ::RemoteCall::importFunc(marshalString(nameSpace), marshalString(funcName));
         auto pair = basic_api_converter::create<_invoke_native_func_by_std_function>(stdfunc);
 
-        GC::KeepAlive(pair.second);
+        GCHandle::Alloc(pair.second);
         return pair.first;
     }
 

@@ -197,56 +197,47 @@ namespace LiteLoader::Event
                 int callingmode = (func.Item2 ? IS_IGNORECANCELLED : 0) | (func.Item3 ? IS_REF : 0) | (
                     func.Item4 ? IS_INSTANCE : 0);
 
-                try
+                switch (callingmode)
                 {
-                    switch (callingmode)
-                    {
-                    case IS_NORMAL:
-                        if (!ev->IsCancelled)
-                            static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
-                        break;
-
-                    case IS_INSTANCE:
-                        if (!ev->IsCancelled)
-                            static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
-                                System::Activator::CreateInstance(func.Item5), ev);
-                        break;
-
-                    case IS_REF:
-                        if (!ev->IsCancelled)
-                            static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
-                        break;
-
-                    case IS_IGNORECANCELLED:
+                case IS_NORMAL:
+                    if (!ev->IsCancelled)
                         static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
-                        break;
+                    break;
 
-                    case IS_INSTANCE_AND_REF:
-                        if (!ev->IsCancelled)
-                            static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
-                                System::Activator::CreateInstance(func.Item5), ev);
-                        break;
-
-                    case IS_INSTANCE_AND_IGNORECANCELLED:
+                case IS_INSTANCE:
+                    if (!ev->IsCancelled)
                         static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
                             System::Activator::CreateInstance(func.Item5), ev);
-                        break;
+                    break;
 
-                    case IS_REF_AND_IGNORECANCELLED:
+                case IS_REF:
+                    if (!ev->IsCancelled)
                         static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
-                        break;
+                    break;
 
-                    case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+                case IS_IGNORECANCELLED:
+                    static_cast<void(*)(TEvent)>(static_cast<void*>(func.Item1))(ev);
+                    break;
+
+                case IS_INSTANCE_AND_REF:
+                    if (!ev->IsCancelled)
                         static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
                             System::Activator::CreateInstance(func.Item5), ev);
-                        break;
-                    }
-                }
-                catch (Exception^ ex)
-                {
-                    if (logger != nullptr)
-                        logger->error->WriteLine(
-                            "Exception thrown when handling an event:" + System::Environment::NewLine + ex);
+                    break;
+
+                case IS_INSTANCE_AND_IGNORECANCELLED:
+                    static_cast<void(*)(Object^, TEvent)>(static_cast<void*>(func.Item1))(
+                        System::Activator::CreateInstance(func.Item5), ev);
+                    break;
+
+                case IS_REF_AND_IGNORECANCELLED:
+                    static_cast<void(*)(TEvent%)>(static_cast<void*>(func.Item1))(ev);
+                    break;
+
+                case IS_INSTANCE_AND_REF_AND_IGNORECANCELLED:
+                    static_cast<void(*)(Object^, TEvent%)>(static_cast<void*>(func.Item1))(
+                        System::Activator::CreateInstance(func.Item5), ev);
+                    break;
                 }
             }
         }

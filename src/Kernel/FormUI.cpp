@@ -43,11 +43,7 @@ namespace LiteLoader::Form
     {
         auto player = gcnew MC::Player(pl);
 
-        try
-        {
-            delfunc(player);
-        }
-        CATCH
+        delfunc(player);
     }
 
     Button::pButtonCallback Button::ToNativeCallback()
@@ -91,11 +87,7 @@ namespace LiteLoader::Form
     DelegateToNativeHelper(SimpleFormCallbackHelper, SimpleForm::SimpleFormCallback, void, ::Player* pl, int a0)
     {
         auto player = gcnew MC::Player(pl);
-        try
-        {
-            delfunc(player, a0);
-        }
-        CATCH
+        delfunc(player, a0);
     }
 
     bool SimpleForm::SendTo(MC::Player^ player, SimpleFormCallback^ callback)
@@ -159,11 +151,7 @@ namespace LiteLoader::Form
     DelegateToNativeHelper(ModalFormCallbackHelper, ModalForm::ModalFormCallback, void, ::Player* pl, bool isConfirm)
     {
         auto player = gcnew MC::Player(pl);
-        try
-        {
-            delfunc(player, isConfirm);
-        }
-        CATCH
+        delfunc(player, isConfirm);
     }
 
     bool ModalForm::SendTo(MC::Player^ player, ModalFormCallback^ callback)
@@ -427,11 +415,7 @@ namespace LiteLoader::Form
         }
         if (Callback != nullptr)
         {
-            try
-            {
-                Callback(gcnew MC::Player(p), CallbackDictionary);
-            }
-            CATCH
+            Callback(gcnew MC::Player(p), CallbackDictionary);
         }
     }
 

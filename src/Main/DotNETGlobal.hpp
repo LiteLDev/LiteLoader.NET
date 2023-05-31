@@ -5,19 +5,6 @@
 #include "Global.hpp"
 #include <src/Module/Core/Exceptions.hpp>
 
-#define LLNET_DEFAULT_EXCEPTION_MESSAGE "Uncaught {0} detected!"
-
-#define CATCH                                                                                                \
-    catch (System::Exception ^ ex)                                                                           \
-    {                                                                                                        \
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());   \
-        GlobalClass::logger->error->WriteLine(ex->ToString());                                               \
-    }                                                                                                        \
-    catch (...)                                                                                              \
-    {                                                                                                        \
-        GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "exception");                 \
-    }
-
 #define NULL_ARG_CHECK(arg)                                                        \
     if (ReferenceEquals(arg, nullptr))                                             \
         throw gcnew ::System::ArgumentNullException(#arg, "Cannot be null.");

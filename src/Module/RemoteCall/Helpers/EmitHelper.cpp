@@ -1,4 +1,4 @@
-#include <src/Extra/mutex.hpp>
+#include <mutex>
 #include "EmitHelper.hpp"
 
 #include <src/Header/Logger/Logger.hpp>
@@ -24,16 +24,7 @@ namespace LiteLoader::RemoteCall::Helper
     value_type _invoke_managed_func(ConverterCallback^ del, array_type args)
     {
         MemoryHelper::Allocator _ret;
-        try
-        {
-            _ret = del(&args);
-        }
-        catch (Exception^ ex)
-        {
-            GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, ex->GetType()->ToString());
-            GlobalClass::logger->error->WriteLine(ex->Message);
-            return value_type(nullptr);
-        }
+        _ret = del(&args);
 
         value_type ret = *reinterpret_cast<value_type*>(_ret.valueTypeInstancePtr);
         _ret.Free();
@@ -45,17 +36,8 @@ namespace LiteLoader::RemoteCall::Helper
     {
         auto ret = MemoryHelper::Allocator();
 
-        try
-        {
-            auto _ret = (*func)(*reinterpret_cast<array_type*>(array_type_ptr));
-            ret.valueTypeInstancePtr = new value_type(std::move(_ret));
-        }
-        catch (const std::exception& ex)
-        {
-            GlobalClass::logger->error->WriteLine(LLNET_DEFAULT_EXCEPTION_MESSAGE, "std::exception");
-            GlobalClass::logger->error->WriteLine(marshalString(ex.what()));
-            ret.Alloc();
-        }
+        auto _ret = (*func)(*reinterpret_cast<array_type*>(array_type_ptr));
+        ret.valueTypeInstancePtr = new value_type(std::move(_ret));
 
         return ret;
     }

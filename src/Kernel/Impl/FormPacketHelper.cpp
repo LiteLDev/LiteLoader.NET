@@ -10,11 +10,7 @@ unsigned int FormPacketHelper::NewFormId()
 DelegateToNativeHelper(SimpleFormPacketCallback, FormPacketHelper::SimpleFormPacketCallbackHandler, void, ::Player* pl, int a1)
 {
     auto player = gcnew MC::Player(pl);
-    try
-    {
-        delfunc(player, a1);
-    }
-    CATCH
+    delfunc(player, a1);
 }
 
 void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPacketCallbackHandler ^ callback)
@@ -22,17 +18,12 @@ void FormPacketHelper::SetSimpleFormPacketCallback(unsigned formId, SimpleFormPa
     auto % pair = SimpleFormPacketCallback::Create(callback);
     auto pfunc = pair.pCallbackFn;
     ::SetSimpleFormPacketCallback(formId, pfunc);
-    GC::KeepAlive(pair.converter);
 }
 
 DelegateToNativeHelper(ModalFormPacketCallback, FormPacketHelper::ModalFormPacketCallbackHandler, void, ::Player* pl, bool a1)
 {
     auto player = gcnew MC::Player(pl);
-    try
-    {
-        delfunc(player, a1);
-    }
-    CATCH
+    delfunc(player, a1);
 }
 
 void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPacketCallbackHandler ^ callback)
@@ -40,17 +31,12 @@ void FormPacketHelper::SetModalFormPacketCallback(unsigned formId, ModalFormPack
     auto % pair = ModalFormPacketCallback::Create(callback);
     auto pfunc = pair.pCallbackFn;
     ::SetModalFormPacketCallback(formId, pfunc);
-    GC::KeepAlive(pair.converter);
 }
 
 DelegateToNativeHelper(CustomFormPacketCallback, FormPacketHelper::CustomFormPacketCallbackHandler, void, ::Player* pl, std::string a1)
 {
     auto player = gcnew MC::Player(pl);
-    try
-    {
-        delfunc(player, marshalString(a1));
-    }
-    CATCH
+    delfunc(player, marshalString(a1));
 }
 
 void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPacketCallbackHandler ^ callback)
@@ -58,7 +44,7 @@ void FormPacketHelper::SetCustomFormPacketCallback(unsigned formId, CustomFormPa
     auto % pair = CustomFormPacketCallback::Create(callback);
     auto pfunc = pair.pCallbackFn; 
     ::SetCustomFormPacketCallback(formId, pfunc);
-    GC::KeepAlive(pair.converter);
+    GCHandle::Alloc(pair.converter);
 }
 
 /*void FormPacketHelper::SetSimpleFormBuilderData(unsigned formId, Form::SimpleForm^ data)

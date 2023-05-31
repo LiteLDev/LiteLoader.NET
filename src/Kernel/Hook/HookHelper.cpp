@@ -32,9 +32,6 @@ namespace LiteLoader::Hook
                 throw gcnew System::ArgumentNullException("symbol", "Cannot be null");
         }
 
-        GC::KeepAlive(newFunc);
-        GCHandle::Alloc(newFunc);
-
         auto pHook = Marshal::GetFunctionPointerForDelegate(newFunc).ToPointer();
 
         void* pOriginal = nullptr;
@@ -53,6 +50,8 @@ namespace LiteLoader::Hook
 
 
         LiteLoader::NET::PluginOwnData::AddHookedFunction(hmodule, newFunc, nint_t(address), nint_t(pHook), nint_t(pOriginal));
+
+        GCHandle::Alloc(newFunc);
 
         return (TDelegate)Marshal::GetDelegateForFunctionPointer<TDelegate>(nint_t(pOriginal));
     }

@@ -9,11 +9,7 @@
 
 namespace MC {
     DelegateToNativeHelper(ForEachBlockInBoxHelper, BoundingBox::ForEachBlockInBoxHandler, void, ::BlockPos const& pos) {
-        try
-        {
-            delfunc(*((BlockPos*)&pos));
-        }
-        CATCH
+        delfunc(*((BlockPos*)&pos));
     }
 
     inline AABB BoundingBox::ToAABB()

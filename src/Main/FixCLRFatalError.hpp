@@ -1,20 +1,20 @@
 /* 8/15/2022 - LazuliKao
-* it might not be the best solution but currently, I only have done this.
-*
-* without this fix, as long as any function called in managed code will lose
-* native "try catch", and all fatal exceptions will be handled by "coreclr"
-* instead of already written C++ "try catch", which causes a fatal error
-* and terminate the program.
-* the solution is to hook "coreclr.dll" and redirect the `LogInfoForFatalError` function
-* ```
-* PublicSymbol    ?LogInfoForFatalError@@YAXIPEB_W00@Z
-* RelativeVirtualAddress  2480668
-* ```
-* (This method will be called by "coreclr" during a fatal error, after
-*  which the program will be terminated)
-* By throwing a C++ exception directly in this method, you can catch
-* the exception outside, instead of terminating the program.
-*/
+ * it might not be the best solution but currently, I only have done this.
+ *
+ * without this fix, as long as any function called in managed code will lose
+ * native "try catch", and all fatal exceptions will be handled by "coreclr"
+ * instead of already written C++ "try catch", which causes a fatal error
+ * and terminate the program.
+ * the solution is to hook "coreclr.dll" and redirect the `LogInfoForFatalError` function
+ * ```
+ * PublicSymbol    ?LogInfoForFatalError@@YAXIPEB_W00@Z
+ * RelativeVirtualAddress  2480668
+ * ```
+ * (This method will be called by "coreclr" during a fatal error, after
+ *  which the program will be terminated)
+ * By throwing a C++ exception directly in this method, you can catch
+ * the exception outside, instead of terminating the program.
+ */
 
 inline uintptr_t FindSignature(uintptr_t rangeStart, uintptr_t rangeEnd, const char* szSignature)
 {
@@ -80,7 +80,7 @@ void LogInfoForFatalError(UINT exitCode, LPCWSTR pszMessage, LPCWSTR errorSource
 {
     // call old function to print info
     ((LogInfoForFatalErrorType)oldLogInfoForFatalError)(exitCode, pszMessage, errorSource, argExceptionString);
-    // unmanaged is necessary,otherwise it will cause stack overflow
+    // unmanaged is necessary, otherwise it will cause stack overflow
     // do not use other functions outside of this function
     if (oldEEPolicy_LogFatalError == nullptr)
     {
@@ -103,13 +103,13 @@ void LogInfoForFatalError(UINT exitCode, LPCWSTR pszMessage, LPCWSTR errorSource
             std::cout << std::endl;
         }
     }
-    // throw an exception which could be caught outside ,otherwise the program will be terminated by clr
+    // throw an exception which could be caught outside, otherwise the program will be terminated by clr
     throw;
 }
 #pragma unmanaged
 void EEPolicy_LogFatalError(UINT exitCode, UINT_PTR address, LPCWSTR pszMessage, PEXCEPTION_POINTERS pExceptionInfo, LPCWSTR errorSource, LPCWSTR argExceptionString)
 {
-    // unmanaged is necessary,otherwise it will cause stack overflow
+    // unmanaged is necessary, otherwise it will cause stack overflow
     // do not use other functions outside of this function
     // call original
     std::cout << "[FixCLRFatalError] CLR Fatal Error." << std::endl;
@@ -153,7 +153,7 @@ inline void FixCLRFatalError(Logger& logger)
         {
             void* baseAddress = mod->BaseAddress.ToPointer();
             int size = mod->ModuleMemorySize;
-            // To update signature please use this : https://github.com/LiteLDev-NET/CoreClrPatch/blob/main/build.fsx
+            // To update signature please use this: https://github.com/LiteLDev-NET/CoreClrPatch/blob/main/build.fsx
 
             // ?LogInfoForFatalError@@YAXIPEB_W00@Z
             // https://github.com/dotnet/runtime/blob/43c9f6bf1c1a4c6e118bbee68a8aa213a8ba644e/src/coreclr/vm/eepolicy.cpp#L324

@@ -192,24 +192,16 @@ namespace LiteLoader::Event
             {
                 auto _ev = EventTemplate::cast_event(ev);
                 bool ret;
-                try
-                {
-                    ret = delfunc(_ev);
-                }
-                CATCH
-                    return ret;
+                ret = delfunc(_ev);
+                return ret;
             }
 
             bool NATIVECALLBACK call_ref(const NATIVEEVENT& ev)
             {
                 auto _ev = EventTemplate::cast_event_ref(ev);
                 bool ret;
-                try
-                {
-                    ret = delfunc(_ev);
-                }
-                CATCH
-                    return ret;
+                ret = delfunc(_ev);
+                return ret;
             }
 
         private:
@@ -271,7 +263,7 @@ namespace LiteLoader::Event
         static __EventListener<NATIVEEVENT>^ subscribe(Assembly^ plugin, EventHandler^ callback)
         {
             auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, false);
-            GC::KeepAlive(callbackInstance);
+            GCHandle::Alloc(callbackInstance);
 
             auto module = (nint_t)GET_MODULE(plugin);
 
@@ -283,7 +275,7 @@ namespace LiteLoader::Event
         static __EventListener<NATIVEEVENT>^ subscribe_ref(Assembly^ plugin, EventHandler^ callback)
         {
             auto callbackInstance = gcnew EventCallBack(plugin->GetName()->FullName, callback, true);
-            GC::KeepAlive(callbackInstance);
+            GCHandle::Alloc(callbackInstance);
 
             auto module = (nint_t)GET_MODULE(plugin);
 

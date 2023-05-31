@@ -150,17 +150,10 @@ namespace LiteLoader::Logger {
         {
             strbulider->Append("{" + i.ToString() + "}");
         }
-        try
-        {
-            os->WriteLine(strbulider->ToString(), os->buffer->ToArray());
-        }
-        CATCH
-            finally
-        {
-            delete strbulider;
-            delete os->buffer;
-            os->buffer = gcnew List<System::Object^>;
-        }
+        os->WriteLine(strbulider->ToString(), os->buffer->ToArray());
+        delete strbulider;
+        delete os->buffer;
+        os->buffer = gcnew List<System::Object^>;
         return os;
     }
 
