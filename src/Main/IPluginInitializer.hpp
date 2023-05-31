@@ -5,10 +5,6 @@ namespace LiteLoader::NET
     public interface class IPluginInitializer
     {
     public:
-        property System::Version^ Version
-        {
-            System::Version^ get();
-        }
         property System::String^ Introduction
         {
             System::String^ get();

@@ -241,7 +241,6 @@ bool LoadByDefaultEntry(Logger& logger, Assembly^ Asm)
         logger.error(marshalString(ex->ToString()));
         return false;
     }
-    LiteLoader::NET::PluginManager::registerPlugin(Asm->GetName()->Name, String::Empty, {}, {}, Asm);
     return true;
 }
 
@@ -273,7 +272,8 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
     using LibPathAttribute = LiteLoader::NET::LibPathAttribute;
 
     auto types = Asm->GetExportedTypes();
-    System::String^ pluginName = Asm->GetName()->Name;
+    auto name = Asm->GetName();
+    System::String^ pluginName = name->Name;
     IPluginInitializer^ initializer = nullptr;
     for each (auto type in types)
     {
@@ -312,9 +312,9 @@ bool LoadByCustomEntry(Logger& logger, Assembly^ Asm)
     }
     String^ introduction = initializer->Introduction;
     auto version = gcnew LiteLoader::Version(
-        initializer->Version->Major,
-        initializer->Version->Minor,
-        initializer->Version->Build
+        name->Version->Major,
+        name->Version->Minor,
+        name->Version->Build
     );
     auto others = initializer->MetaData;
     LiteLoader::NET::PluginManager::registerPlugin(pluginName, introduction, version, others, Asm);
