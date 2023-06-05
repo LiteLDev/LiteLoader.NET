@@ -67,6 +67,7 @@ namespace MC
         property BlockPos BlockPos { MC::BlockPos get(); };
         property BlockInstance^ BlockStandingOn { BlockInstance^ get(); };
         property String^ TypeName { String^ get(); };
+        property String^ EntityLocName { String^ get(); };
         property Vec3 Position { Vec3 get(); };
         property BlockSource^ Blocksource { BlockSource^ get(); };
         property Vec2 Direction { Vec2 get(); };

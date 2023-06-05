@@ -87,6 +87,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Extra\mutex.hpp" />
     <ClInclude Include="Extra\PluginManager.hpp" />
     <ClInclude Include="Header\AllowListAPI.hpp" />
     <ClInclude Include="Header\Command\Command.hpp" />
@@ -162,6 +163,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClInclude Include="Header\MC\FloatTag.hpp" />
     <ClInclude Include="Header\MC\HashedString.hpp" />
     <ClInclude Include="Header\MC\HitResult.hpp" />
+    <ClInclude Include="Header\MC\I18n.hpp" />
     <ClInclude Include="Header\MC\IdentityDefinition.hpp" />
     <ClInclude Include="Header\MC\Int64Tag.hpp" />
     <ClInclude Include="Header\MC\IntArrayTag.hpp" />
@@ -309,7 +311,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Kernel\Hook\Shook.cpp" />
     <ClCompile Include="Kernel\Hook\Thook.cpp" />
     <ClCompile Include="Kernel\Hook\THookRegister.cpp" />
-    <ClCompile Include="Kernel\I18n.cpp" />
+    <ClCompile Include="Kernel\I18nAPI.cpp" />
     <ClCompile Include="Kernel\Impl\FormPacketHelper.cpp" />
     <ClCompile Include="Kernel\IsManagedAssemblyAPI.cpp" />
     <ClCompile Include="Kernel\LLAPI.cpp" />
@@ -346,6 +348,7 @@ copy /Y "$(TargetPath)" "$(LocalDebuggerWorkingDirectory)\plugins\LiteLoader\"
     <ClCompile Include="Kernel\MC\FloatTag.cpp" />
     <ClCompile Include="Kernel\MC\HashedString.cpp" />
     <ClCompile Include="Kernel\MC\HitResult.cpp" />
+    <ClCompile Include="Kernel\MC\I18n.cpp" />
     <ClCompile Include="Kernel\MC\IdentityDefinition.cpp" />
     <ClCompile Include="Kernel\MC\Int64Tag.cpp" />
     <ClCompile Include="Kernel\MC\IntArrayTag.cpp" />

@@ -444,7 +444,7 @@
     <ClCompile Include="Kernel\Hook\Shook.cpp">
       <Filter>Kernel\Hook</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel\I18n.cpp">
+    <ClCompile Include="Kernel\I18nAPI.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="Main\PluginManager.cpp">
@@ -607,6 +607,9 @@
       <Filter>Module\Interop\OriginalData\Attributes</Filter>
     </ClCompile>
     <ClCompile Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.cpp" />
+    <ClCompile Include="Kernel\MC\I18n.cpp">
+      <Filter>Kernel\MC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MC\ActorDamageSource.hpp">
@@ -1185,6 +1188,9 @@
     <ClInclude Include="Module\Interop\OriginalData\Attributes\SymbolTypeAttribute.hpp" />
     <ClInclude Include="Module\Interop\OriginalData\Enums\SymbolType.hpp">
       <Filter>Module\Interop\OriginalData\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\MC\I18n.hpp">
+      <Filter>Header\MC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,11 @@ namespace MC
         return marshalString(NativePtr->getTypeName());
     }
 
+    String^ Actor::EntityLocName::get()
+    {
+        return marshalString(NativePtr->getEntityLocNameString());
+    }
+
     inline Vec3 Actor::Position::get()
     {
         return ::Vec3(NativePtr->getPosition());
