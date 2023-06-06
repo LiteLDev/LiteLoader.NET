@@ -491,7 +491,10 @@ namespace MC
         Freezing = 0x1B,
         Stalactite = 0x1C,
         Stalagmite = 0x1D,
-        All = 0x1F,
+        // Unknown 30
+        UnknownThirty = 0x1E,
+        SonicBoom = 0x1F,
+        All
     };
 
     public enum class ObjectiveSortOrder : char
