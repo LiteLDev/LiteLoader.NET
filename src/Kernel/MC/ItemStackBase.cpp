@@ -190,14 +190,14 @@ bool MC::ItemStackBase::SameItem(int _0, int _1)
     return __ret;
 }
 
-bool MC::ItemStackBase::SameItem(MC::ItemStackBase ^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
-    auto __ret = NativePtr->sameItem(__arg0);
-    return __ret;
-}
+//bool MC::ItemStackBase::SameItem(MC::ItemStackBase ^ _0)
+//{
+//    if (ReferenceEquals(_0, nullptr))
+//        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+//    auto& __arg0 = *(class ::ItemStackBase*)_0->NativePtr;
+//    auto __ret = NativePtr->sameItem(__arg0);
+//    return __ret;
+//}
 
 bool MC::ItemStackBase::SameItemAndAux(MC::ItemStackBase ^ _0)
 {

@@ -153,10 +153,10 @@ public:
         bool get();
     }
 
-    property bool IsHeavy
-    {
-        bool get();
-    }
+    //property bool IsHeavy
+    //{
+    //    bool get();
+    //}
 
     property bool IsInteractiveBlock
     {

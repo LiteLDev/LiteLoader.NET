@@ -797,11 +797,11 @@ namespace MC
         return __ret;
     }
 
-    bool Player::IsInCreativeMode::get()
-    {
-        auto __ret = NativePtr->isInCreativeMode();
-        return __ret;
-    }
+    //bool Player::IsInCreativeMode::get()
+    //{
+    //    auto __ret = NativePtr->isInCreativeMode();
+    //    return __ret;
+    //}
 
     bool Player::IsInRaid::get()
     {

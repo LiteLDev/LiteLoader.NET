@@ -323,10 +323,10 @@ namespace MC
             bool get();
         }
 
-        property bool IsInLava
-        {
-            bool get();
-        }
+        //property bool IsInLava
+        //{
+        //    bool get();
+        //}
 
         property bool IsOverWater
         {
@@ -1488,7 +1488,7 @@ namespace MC
 
         void LerpTo(MC::Vec3 _0, MC::Vec2 _1, float _2, int _3);
 
-        void LerpToRotation(MC::Vec2 _0, int _1);
+        //void LerpToRotation(MC::Vec2 _0, int _1);
 
         void MigrateUniqueID(MC::ActorUniqueID _0);
 
@@ -1502,7 +1502,7 @@ namespace MC
 
         bool OnClimbableBlock();
 
-        bool OnHoverableBlock();
+        //bool OnHoverableBlock();
 
         void OnOnewayCollision(MC::AABB _0);
 
@@ -1562,7 +1562,7 @@ namespace MC
 
         void SetPosDirectLegacy(MC::Vec3 _0);
 
-        void SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1);
+        //void SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1);
 
         void SetSaddle(bool _0);
 

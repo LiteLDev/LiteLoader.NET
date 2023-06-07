@@ -1318,10 +1318,10 @@ void MC::Actor::LerpTo(MC::Vec3 _0, MC::Vec2 _1, float _2, int _3)
     NativePtr->lerpTo(_0, _1, _2, _3);
 }
 
-void MC::Actor::LerpToRotation(MC::Vec2 _0, int _1)
-{
-    NativePtr->lerpToRotation(_0, _1);
-}
+//void MC::Actor::LerpToRotation(MC::Vec2 _0, int _1)
+//{
+//    NativePtr->lerpToRotation(_0, _1);
+//}
 
 void MC::Actor::MigrateUniqueID(MC::ActorUniqueID _0)
 {
@@ -1354,11 +1354,11 @@ bool MC::Actor::OnClimbableBlock()
     return __ret;
 }
 
-bool MC::Actor::OnHoverableBlock()
-{
-    auto __ret = NativePtr->onHoverableBlock();
-    return __ret;
-}
+//bool MC::Actor::OnHoverableBlock()
+//{
+//    auto __ret = NativePtr->onHoverableBlock();
+//    return __ret;
+//}
 
 void MC::Actor::OnOnewayCollision(MC::AABB _0)
 {
@@ -1524,10 +1524,10 @@ void MC::Actor::SetPosDirectLegacy(MC::Vec3 _0)
     NativePtr->setPosDirectLegacy(_0);
 }
 
-void MC::Actor::SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1)
-{
-    NativePtr->setPreviousPosRot(_0, _1);
-}
+//void MC::Actor::SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1)
+//{
+//    NativePtr->setPreviousPosRot(_0, _1);
+//}
 
 void MC::Actor::SetSaddle(bool _0)
 {
@@ -1972,11 +1972,11 @@ bool MC::Actor::IsInWater::get()
     return __ret;
 }
 
-bool MC::Actor::IsInLava::get()
-{
-    auto __ret = NativePtr->isInLava();
-    return __ret;
-}
+//bool MC::Actor::IsInLava::get()
+//{
+//    auto __ret = NativePtr->isInLava();
+//    return __ret;
+//}
 
 bool MC::Actor::IsOverWater::get()
 {

@@ -435,10 +435,10 @@ namespace MC
             bool get();
         }
 
-        property bool IsInCreativeMode
-        {
-            bool get();
-        }
+        //property bool IsInCreativeMode
+        //{
+        //    bool get();
+        //}
 
         property bool IsInRaid
         {

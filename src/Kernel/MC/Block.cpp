@@ -347,11 +347,11 @@ bool MC::Block::IsFenceGateBlock::get()
     return NativePtr->isFenceGateBlock();
 }
 
-bool MC::Block::IsHeavy::get()
-{
-    auto __ret = NativePtr->isHeavy();
-    return __ret;
-}
+//bool MC::Block::IsHeavy::get()
+//{
+//    auto __ret = NativePtr->isHeavy();
+//    return __ret;
+//}
 
 bool MC::Block::IsInteractiveBlock::get()
 {
