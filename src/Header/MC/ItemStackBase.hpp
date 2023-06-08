@@ -264,7 +264,7 @@ namespace MC
 
         bool SameItem(int _0, int _1);
 
-        //bool SameItem(MC::ItemStackBase^ _0);
+        bool SameItem(MC::ItemStackBase^ _0);
 
         bool SameItemAndAux(MC::ItemStackBase^ _0);
 

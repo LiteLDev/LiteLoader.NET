@@ -1562,7 +1562,7 @@ namespace MC
 
         void SetPosDirectLegacy(MC::Vec3 _0);
 
-        //void SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1);
+        void SetPreviousPosRot();
 
         void SetSaddle(bool _0);
 

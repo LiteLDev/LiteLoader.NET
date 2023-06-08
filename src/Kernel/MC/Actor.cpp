@@ -1524,10 +1524,10 @@ void MC::Actor::SetPosDirectLegacy(MC::Vec3 _0)
     NativePtr->setPosDirectLegacy(_0);
 }
 
-//void MC::Actor::SetPreviousPosRot(MC::Vec3 _0, MC::Vec2 _1)
-//{
-//    NativePtr->setPreviousPosRot(_0, _1);
-//}
+void MC::Actor::SetPreviousPosRot()
+{
+    NativePtr->setPreviousPosRot();
+}
 
 void MC::Actor::SetSaddle(bool _0)
 {

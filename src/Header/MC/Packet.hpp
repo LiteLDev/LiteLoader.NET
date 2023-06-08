@@ -66,7 +66,7 @@ namespace MC
         };
 
         void Write([Out]BinaryStream^ resultStream);
-        StreamReadResult Read(ReadOnlyBinaryStream^ stream);
+        //StreamReadResult Read(ReadOnlyBinaryStream^ stream);
         bool DisallowBatching();
 
 #endif // INCLUDE_MCAPI

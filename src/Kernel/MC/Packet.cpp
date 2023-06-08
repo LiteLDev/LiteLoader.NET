@@ -86,9 +86,9 @@ void MC::Packet::Write([Out]BinaryStream^ resultStream)
     resultStream = gcnew BinaryStream(&stream);
 }
 
-MC::StreamReadResult MC::Packet::Read(ReadOnlyBinaryStream^ stream)
-{
-    return static_cast<StreamReadResult>(NativePtr->read(*stream->NativePtr));
-}
+//MC::StreamReadResult MC::Packet::Read(ReadOnlyBinaryStream^ stream)
+//{
+//    return static_cast<StreamReadResult>(NativePtr->read(*stream->NativePtr));
+//}
 
 #endif // INCLUDE_MCAPI
