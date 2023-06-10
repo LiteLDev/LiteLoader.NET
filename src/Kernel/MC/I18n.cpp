@@ -1,5 +1,5 @@
-#include <src/Header/MC/I18n.hpp>
 #include <src/Extra/mutex.hpp>
+#include <src/Header/MC/I18n.hpp>
 
 namespace MC {
 	String^ I18n::Get(String^ str)
