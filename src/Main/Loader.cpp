@@ -71,7 +71,26 @@ void LoadMain()
 
     logger.consoleLevel = 5;
 
+    System::AppDomain::CurrentDomain->UnhandledException += gcnew System::UnhandledExceptionEventHandler(OnUnhandledException);
+
     __entry(&logger, &GetAllAssemblies());
+}
+
+void OnUnhandledException(System::Object^ sender, System::UnhandledExceptionEventArgs^ e)
+{
+    if (!System::IO::Directory::Exists("logs"))
+    {
+        System::IO::Directory::CreateDirectory("logs");
+    }
+    if (!System::IO::Directory::Exists("logs/crash"))
+    {
+        System::IO::Directory::CreateDirectory("logs/crash");
+    }
+    if (!System::IO::Directory::Exists("logs/crash/LiteLoader.NET"))
+    {
+        System::IO::Directory::CreateDirectory("logs/crash/LiteLoader.NET");
+    }
+    System::IO::File::WriteAllText("logs/crash/LiteLoader.NET/" + System::DateTime::Now.ToString("trace_yyyy-MM-dd_HH-mm-ss") + ".log", ((System::Exception^)e->ExceptionObject)->ToString());
 }
 
 std::vector<std::filesystem::path> GetAllAssemblies()
