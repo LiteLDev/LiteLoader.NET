@@ -71,8 +71,6 @@ void LoadMain()
 
     logger.consoleLevel = 5;
 
-    System::AppDomain::CurrentDomain->UnhandledException += gcnew System::UnhandledExceptionEventHandler(OnUnhandledException);
-
     __entry(&logger, &GetAllAssemblies());
 }
 
@@ -117,6 +115,7 @@ void Init()
     System::AppDomain::CurrentDomain->AssemblyResolve += gcnew System::ResolveEventHandler(&OnAssemblyResolve);
     auto LLNET_Asm = Assembly::GetExecutingAssembly();
     LiteLoader::NET::PluginOwnData::ManagedAssemblyHandle->TryAdd(LLNET_Asm, nint_t(::ll::getPlugin(LLNET_INFO_LOADER_NAME)->handle));
+    System::AppDomain::CurrentDomain->UnhandledException += gcnew System::UnhandledExceptionEventHandler(OnUnhandledException);
 }
 
 
