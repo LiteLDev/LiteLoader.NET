@@ -132,19 +132,18 @@ jobs:
           Rename-Item -Path "LiteLoader.NET.tth" -NewName "LiteLoader.NET-${{ github.event.inputs.tag }}.tth"
           Rename-Item -Path "PDB.zip" -NewName "PDB-${{ github.event.inputs.tag }}.zip"
 
-      - name: Create tag and update main branch
+      - name: Config git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create tag and update branch
         working-directory: ${{ env.GITHUB_WORKSPACE }}
         run: |
           git rev-parse --abbrev-ref HEAD | Set-Variable -Name LLNET_NOW_BRANCH
           git log -n1 --format=format:"%H" | Set-Variable -Name LLNET_NOW_HASH
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git tag ${{ github.event.inputs.tag }}
           git push --tags origin ${{ github.event.inputs.tag }}
-          git checkout main
-          git reset --hard $LLNET_NOW_HASH
-          git push -f origin main
-          git checkout $LLNET_NOW_BRANCH
 
       - name: Create New Release
         uses: ncipollo/release-action@v1.12.0
@@ -158,11 +157,6 @@ jobs:
             ${{ github.workspace }}\LiteLoader.NET-${{ github.event.inputs.tag }}.zip
             ${{ github.workspace }}\LiteLoader.NET-${{ github.event.inputs.tag }}.tth
             ${{ github.workspace }}\PDB-${{ github.event.inputs.tag }}.zip
-
-      - name: Config git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Update SDK
         working-directory: ${{ env.GITHUB_WORKSPACE }}

@@ -5,10 +5,8 @@ Set-Variable -Name "LLNET_SDK_REMOTE_PATH" -Value "https://github.com/LiteLDev/S
 Write-Output -InputObject "[INFO] Fetching SDK-dotnet to GitHub ..."
 Write-Output -InputObject ""
 
-git rev-parse --abbrev-ref HEAD | Set-Variable -Name "LLNET_NOW_BRANCH"
 git describe --tags --always | Set-Variable -Name "LLNET_NOW_TAG"
 
-Write-Output -InputObject "LLNET_NOW_BRANCH $LLNET_NOW_BRANCH"
 Write-Output -InputObject "LLNET_NOW_TAG $LLNET_NOW_TAG"
 Write-Output -InputObject ""
 
@@ -20,8 +18,8 @@ if (!(Test-Path -Path ".\SDK-dotnet\refs\LiteLoader\LiteLoader.NET.dll" -PathTyp
 
 Set-Location -Path ".\SDK-dotnet"
 git fetch --all
-git reset --hard origin/$LLNET_NOW_BRANCH
-git checkout $LLNET_NOW_BRANCH
+git reset --hard origin/dev
+git checkout dev
 Set-Location -Path "..\"
 
 Write-Output -InputObject ""
@@ -46,10 +44,10 @@ if ($LLNET_SDK_NOW_STATUS -ne "") {
     Write-Output -InputObject ""
     Write-Output "[INFO] Pushing to origin..."
     Write-Output -InputObject ""
-    git push "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" $LLNET_NOW_BRANCH
+    git push "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" dev
     if ($args[0] -eq "release") {
         git tag $LLNET_NOW_TAG
-        git push --tags "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" $LLNET_NOW_BRANCH
+        git push --tags "https://$env:USERNAME`:$env:REPO_KEY@github.com/LiteLDev/SDK-dotnet.git" dev
         git log -n1 --format=format:"%H" | Set-Variable -Name "LLNET_SDK_NOW_HASH"
         git checkout main
         git reset --hard $LLNET_SDK_NOW_HASH
