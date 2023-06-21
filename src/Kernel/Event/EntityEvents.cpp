@@ -13,7 +13,6 @@ void InitEntityEvents()
     REGISTER_NATIVE_EVENT(WitherBossDestroyEvent);
     REGISTER_NATIVE_EVENT(EntityRideEvent);
     REGISTER_NATIVE_EVENT(EntityStepOnPressurePlateEvent);
-    REGISTER_NATIVE_EVENT(NpcCmdEvent);
     REGISTER_NATIVE_EVENT(ProjectileSpawnEvent);
     REGISTER_NATIVE_EVENT(ProjectileCreatedEvent);
     REGISTER_NATIVE_EVENT(ArmorStandChangeEvent);

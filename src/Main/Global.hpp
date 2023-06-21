@@ -1,6 +1,6 @@
 #pragma once
 #include "Config.hpp"
-#include <src/Extra/mutex.hpp>
+#include <mutex>
 
 #include <Windows.h>
 __declspec(selectany) HMODULE MODULE = nullptr;

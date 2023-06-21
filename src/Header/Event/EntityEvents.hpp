@@ -104,17 +104,6 @@ namespace LiteLoader::Event
         Property_Instance(MC, BlockInstance, mBlockInstance, BlockInstance);
     };
 
-    Class NpcCmdEvent
-        : public EventTemplate<NpcCmdEvent, ::Event::NpcCmdEvent>
-    {
-        EventAPIs(NpcCmdEvent, 59);
-
-    public:
-        Property_Ptr(MC, Actor, mNpc, Npc);
-        Property_String(mCommand, Command);
-        Property_Ptr(MC, Player, mPlayer, Player);
-    };
-
     Class ProjectileSpawnEvent
         : public EventTemplate<ProjectileSpawnEvent, ::Event::ProjectileSpawnEvent>
     {
