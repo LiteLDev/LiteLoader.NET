@@ -164,10 +164,10 @@ namespace MC
             int get();
         }
 
-        property bool IsLookingAtAnEntity
+      /*  property bool IsLookingAtAnEntity
         {
             bool get();
-        }
+        }*/
 
         property int ItemUseDuration
         {

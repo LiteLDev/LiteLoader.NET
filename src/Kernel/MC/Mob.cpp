@@ -845,11 +845,11 @@ int MC::Mob::MeleeKnockbackBonus::get()
     return __ret;
 }
 
-bool MC::Mob::IsLookingAtAnEntity::get()
-{
-    auto __ret = NativePtr->isLookingAtAnEntity();
-    return __ret;
-}
+//bool MC::Mob::IsLookingAtAnEntity::get()
+//{
+//    auto __ret = NativePtr->isLookingAtAnEntity();
+//    return __ret;
+//}
 
 int MC::Mob::ItemUseDuration::get()
 {
