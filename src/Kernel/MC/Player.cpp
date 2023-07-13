@@ -906,11 +906,11 @@ namespace MC
     //    ((class ::Player*)NativePtr)->__unk_vfn_68();
     //}
 
-    float Player::GetCameraOffset()
-    {
-        auto __ret = NativePtr->getCameraOffset();
-        return __ret;
-    }
+   /* float Player::GetCameraOffset()
+	{
+		auto __ret = NativePtr->getCameraOffset();
+		return __ret;
+	}*/
 
     //void MC::Player::UnkVfn82()
     //{
