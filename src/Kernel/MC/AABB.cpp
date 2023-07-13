@@ -119,11 +119,11 @@ namespace MC {
         return AABB(((::AABB*)p)->set(v1, v2));
     }
 
-    AABB AABB::Shrink(Vec3 vec)
-    {
-        pin_ptr<AABB> p = this;
-        return AABB(((::AABB*)p)->shrink(vec));
-    }
+	/*AABB AABB::Shrink(Vec3 vec)
+	{
+		pin_ptr<AABB> p = this;
+		return AABB(((::AABB*)p)->shrink(vec));
+	}*/
 
     AABB AABB::TranslateCenterTo(Vec3 vec)
     {

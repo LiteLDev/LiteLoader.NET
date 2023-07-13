@@ -67,7 +67,7 @@ namespace MC {
         AABB Set(float f1, float f2, float f3, float f4, float f5, float f6);
         AABB Set(AABB aabb);
         AABB Set(Vec3 v1, Vec3 v2);
-        AABB Shrink(Vec3 vec);
+        //AABB Shrink(Vec3 vec);
         AABB TranslateCenterTo(Vec3 vec);
     public:
         static bool operator!=(AABB a, AABB b);
