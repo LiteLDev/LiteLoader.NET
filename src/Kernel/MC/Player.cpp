@@ -1023,10 +1023,10 @@ namespace MC
         return __ret;
     }
 
-    void Player::VehicleLanded(Vec3 _0, Vec3 _1)
-    {
-        NativePtr->vehicleLanded(_0, _0);
-    }
+	/* void Player::VehicleLanded(Vec3 _0, Vec3 _1)
+	 {
+		 NativePtr->vehicleLanded(_0, _0);
+	 }*/
 
     void Player::Feed(int _0)
     {
@@ -1244,10 +1244,10 @@ namespace MC
         NativePtr->setSpeed(_0);
     }
 
-    void Player::Travel(float _0, float _1, float _2, bool _3)
-    {
-        NativePtr->travel(_0, _1, _2, _3);
-    }
+	/*  void Player::Travel(float _0, float _1, float _2, bool _3)
+	  {
+		  NativePtr->travel(_0, _1, _2, _3);
+	  }*/
 
     void Player::AiStep()
     {
@@ -1609,11 +1609,11 @@ namespace MC
         NativePtr->onMovePlayerPacketNormal(_0, _1, _2);
     }
 
-    void Player::ApplyExhaustion(Vec3 _0)
-    {
-        NativePtr->applyExhaustion(_0);
-    }
-
+	/* void Player::ApplyExhaustion(Vec3 _0)
+	 {
+		   NativePtr->ApplyExhaustion(_0);
+	 }*/
+     
     bool Player::CanBeSeenOnMap()
     {
         auto __ret = NativePtr->canBeSeenOnMap();
@@ -1847,15 +1847,15 @@ namespace MC
         return ::Player::PLAYER_DOWN_SWIM_SPEED;
     }
 
-    float Player::PLAYER_GLIDING_CAMERA_OFFSET::get()
-    {
-        return ::Player::PLAYER_GLIDING_CAMERA_OFFSET;
-    }
+	/* float Player::PLAYER_GLIDING_CAMERA_OFFSET::get()
+	 {
+		 return ::Player::PLAYER_GLIDING_CAMERA_OFFSET;
+	 }
 
-    float Player::PLAYER_SLEEPING_CAMERA_OFFSET::get()
-    {
-        return ::Player::PLAYER_SLEEPING_CAMERA_OFFSET;
-    }
+	 float Player::PLAYER_SLEEPING_CAMERA_OFFSET::get()
+	 {
+		 return ::Player::PLAYER_SLEEPING_CAMERA_OFFSET;
+	 }*/
 
     float Player::PLAYER_SLEEPING_HEIGHT::get()
     {
