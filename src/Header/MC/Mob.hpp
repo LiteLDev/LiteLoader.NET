@@ -33,10 +33,6 @@ namespace MC
             float get();
         }
 
-        property float CameraOffset
-        {
-            float get();
-        }
 
         property bool IsImmobile
         {
@@ -463,7 +459,7 @@ namespace MC
 
         virtual bool canPowerJump();
 
-        virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1) override;
+        //virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1) override;
 
         virtual void AnimateHurt() override;
 

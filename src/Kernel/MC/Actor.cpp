@@ -419,10 +419,10 @@ void MC::Actor::OnFailedTame()
     NativePtr->onFailedTame();
 }
 
-void MC::Actor::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
-{
-    NativePtr->vehicleLanded(_0, _1);
-}
+//void MC::Actor::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
+//{
+//    NativePtr->exitVehicle(_0, _1);
+//}
 
 void MC::Actor::AnimateHurt()
 {
@@ -614,15 +614,15 @@ MC::Vec3 MC::Actor::GetInterpolatedRidingOffset(float _0, int _1)
     return NativePtr->getInterpolatedRidingOffset(_0, _1);
 }
 
-void MC::Actor::UpdateEntityInside()
-{
-    NativePtr->updateEntityInside();
-}
-
-void MC::Actor::UpdateEntityInside(MC::AABB _0)
-{
-    NativePtr->updateEntityInside(_0);
-}
+//void MC::Actor::UpdateEntityInside()
+//{
+//    NativePtr->updateEntityInside();
+//}
+//
+//void MC::Actor::UpdateEntityInside(MC::AABB _0)
+//{
+//    NativePtr->updateEntityInside(_0);
+//}
 
 bool MC::Actor::CanDisableShield()
 {
@@ -650,13 +650,7 @@ void MC::Actor::PositionPassenger(MC::Actor^ _0, float _1)
     NativePtr->positionPassenger(_0, _1);
 }
 
-void MC::Actor::FlagPassengerToRemove(MC::Actor^ _0)
-{
-    if (ReferenceEquals(_0, nullptr))
-        throw gcnew ::System::ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
-    auto& __arg0 = *(class ::Actor*)_0->NativePtr;
-    NativePtr->flagPassengerToRemove(__arg0);
-}
+ 
 
 bool MC::Actor::Intersects(MC::Vec3 _0, MC::Vec3 _1)
 {
@@ -674,10 +668,10 @@ void MC::Actor::SetNameTagVisible(bool _0)
     NativePtr->setNameTagVisible(_0);
 }
 
-void MC::Actor::ResetBlockMovementSlowdownMultiplier()
-{
-    NativePtr->resetBlockMovementSlowdownMultiplier();
-}
+//void MC::Actor::ResetBlockMovementSlowdownMultiplier()
+//{
+//    NativePtr->resetBlockMovementSlowdownMultiplier();
+//}
 
 MC::Vec3 MC::Actor::GetHeadLookVector(float _0)
 {
@@ -710,15 +704,15 @@ float MC::Actor::GetBrightness(float _0)
     return __ret;
 }
 
-void MC::Actor::OnAboveBubbleColumn(bool _0)
-{
-    NativePtr->onAboveBubbleColumn(_0);
-}
+//void MC::Actor::OnAboveBubbleColumn(bool _0)
+//{
+//    NativePtr->onAboveBubbleColumn(_0);
+//}
 
-void MC::Actor::OnInsideBubbleColumn(bool _0)
-{
-    NativePtr->onInsideBubbleColumn(_0);
-}
+//void MC::Actor::OnInsideBubbleColumn(bool _0)
+//{
+//    NativePtr->onInsideBubbleColumn(_0);
+//}
 
 bool MC::Actor::CanAttack(MC::Actor^ _0, bool _1)
 {
@@ -992,11 +986,7 @@ void MC::Actor::MarkHurt()
     NativePtr->markHurt();
 }
 
-void MC::Actor::CheckInsideBlocks(float _0)
-{
-    NativePtr->checkInsideBlocks(_0);
-}
-
+ 
 void MC::Actor::PushOutOfBlocks(MC::Vec3 _0)
 {
     NativePtr->pushOutOfBlocks(_0);
@@ -1066,10 +1056,7 @@ void MC::Actor::Burn(int _0, bool _1)
     NativePtr->burn(_0, _1);
 }
 
-void MC::Actor::CacheComponentData()
-{
-    NativePtr->cacheComponentData();
-}
+ 
 
 float MC::Actor::CalculateAttackDamage(MC::Actor^ _0)
 {
@@ -1328,10 +1315,10 @@ void MC::Actor::MigrateUniqueID(MC::ActorUniqueID _0)
     NativePtr->migrateUniqueID(_0);
 }
 
-void MC::Actor::MoveBBs(MC::Vec3 _0)
-{
-    NativePtr->moveBBs(_0);
-}
+//void MC::Actor::MoveBBs(MC::Vec3 _0)
+//{
+//    NativePtr->moveBBs(_0);
+//}
 
 void MC::Actor::MoveRelative(float _0, float _1, float _2, float _3)
 {
@@ -1683,11 +1670,6 @@ float MC::Actor::YawSpeedInDegreesPerSecond::get()
     return __ret;
 }
 
-float MC::Actor::CameraOffset::get()
-{
-    auto __ret = NativePtr->getCameraOffset();
-    return __ret;
-}
 
 bool MC::Actor::IsImmobile::get()
 {
@@ -2141,11 +2123,11 @@ void MC::Actor::DamageNearbyMobs::set(bool _0)
     NativePtr->setDamageNearbyMobs(_0);
 }
 
-bool MC::Actor::UpdateWaterState::get()
-{
-    auto __ret = NativePtr->updateWaterState();
-    return __ret;
-}
+//bool MC::Actor::UpdateWaterState::get()
+//{
+//    auto __ret = NativePtr->updateWaterState();
+//    return __ret;
+//}
 
 MC::Vec3 MC::Actor::PosOld::get()
 {
@@ -2580,7 +2562,7 @@ void MC::Actor::TradingPlayer::set(MC::Player^ _0)
 
 MC::ActorUniqueID MC::Actor::UniqueID::get()
 {
-    return NativePtr->getUniqueID();
+    return NativePtr->getActorUniqueId();
 }
 
 void MC::Actor::UniqueID::set(MC::ActorUniqueID _0)
@@ -3028,11 +3010,7 @@ void MC::Actor::Resting::set(bool _0)
     NativePtr->setResting(_0);
 }
 
-bool MC::Actor::IsSafeToSleepNear::get()
-{
-    auto __ret = NativePtr->isSafeToSleepNear();
-    return __ret;
-}
+
 
 bool MC::Actor::IsSheared::get()
 {

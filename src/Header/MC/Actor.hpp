@@ -122,10 +122,6 @@ namespace MC
             float get();
         }
 
-        property float CameraOffset
-        {
-            float get();
-        }
 
         property bool IsImmobile
         {
@@ -448,10 +444,10 @@ namespace MC
             void set(bool);
         }
 
-        property bool UpdateWaterState
+     /*   property bool UpdateWaterState
         {
             bool get();
-        }
+        }*/
 
         property MC::Vec3 PosOld
         {
@@ -1050,10 +1046,7 @@ namespace MC
             void set(bool);
         }
 
-        property bool IsSafeToSleepNear
-        {
-            bool get();
-        }
+        
 
         property bool IsSheared
         {
@@ -1188,7 +1181,7 @@ namespace MC
 
         virtual void OnFailedTame();
 
-        virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1);
+        //virtual void VehicleLanded(MC::Vec3 _0, MC::Vec3 _1);
 
         virtual void AnimateHurt();
 
@@ -1260,9 +1253,9 @@ namespace MC
 
         virtual MC::Vec3 GetInterpolatedRidingOffset(float _0, int _1);
 
-        virtual void UpdateEntityInside();
+        //virtual void UpdateEntityInside();
 
-        virtual void UpdateEntityInside(MC::AABB _0);
+        //virtual void UpdateEntityInside(MC::AABB _0);
 
         virtual bool CanDisableShield();
 
@@ -1274,7 +1267,6 @@ namespace MC
 
         virtual void PositionPassenger(MC::Actor^ _0, float _1);
 
-        virtual void FlagPassengerToRemove(MC::Actor^ _0);
 
         virtual bool Intersects(MC::Vec3 _0, MC::Vec3 _1);
 
@@ -1282,7 +1274,7 @@ namespace MC
 
         virtual void SetNameTagVisible(bool _0);
 
-        virtual void ResetBlockMovementSlowdownMultiplier();
+        //virtual void ResetBlockMovementSlowdownMultiplier();
 
         virtual MC::Vec3 GetHeadLookVector(float _0);
 
@@ -1294,9 +1286,9 @@ namespace MC
 
         virtual float GetBrightness(float _0);
 
-        virtual void OnAboveBubbleColumn(bool _0);
+        //virtual void OnAboveBubbleColumn(bool _0);
 
-        virtual void OnInsideBubbleColumn(bool _0);
+        //virtual void OnInsideBubbleColumn(bool _0);
 
         virtual bool CanAttack(MC::Actor^ _0, bool _1);
 
@@ -1384,8 +1376,6 @@ namespace MC
 
         virtual void MarkHurt();
 
-        virtual void CheckInsideBlocks(float _0);
-
         virtual void PushOutOfBlocks(MC::Vec3 _0);
 
         virtual void DoWaterSplashEffect();
@@ -1409,8 +1399,6 @@ namespace MC
         MC::Vec3 BuildForward();
 
         void Burn(int _0, bool _1);
-
-        void CacheComponentData();
 
         float CalculateAttackDamage(MC::Actor^ _0);
 
@@ -1492,7 +1480,7 @@ namespace MC
 
         void MigrateUniqueID(MC::ActorUniqueID _0);
 
-        void MoveBBs(MC::Vec3 _0);
+        //void MoveBBs(MC::Vec3 _0);
 
         void MoveRelative(float _0, float _1, float _2, float _3);
 

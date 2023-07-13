@@ -83,17 +83,17 @@ public:
             NativePtr->desc = (char const*)p.ToPointer();
         }
     }
-    property int Unk56
-    {
-        int get()
-        {
-            return NativePtr->unk56;
-        }
-        void set(int val)
-        {
-            NativePtr->unk56 = val;
-        }
-    }
+	/*  property int Unk56
+	  {
+		  int get()
+		  {
+			  return NativePtr->unk56;
+		  }
+		  void set(int val)
+		  {
+			  NativePtr->unk56 = val;
+		  }
+	  }*/
     property CommandParameterDataType Type
     {
         CommandParameterDataType get()
@@ -116,7 +116,7 @@ public:
             NativePtr->offset = val;
         }
     }
-    property int Flag_offset
+   /* property int Flag_offset
     {
         int get()
         {
@@ -126,8 +126,8 @@ public:
         {
             NativePtr->flag_offset = val;
         }
-    }
-    property bool Mand
+    }*/
+   /* property bool Mand
     {
         bool get()
         {
@@ -137,7 +137,7 @@ public:
         {
             NativePtr->mand = val;
         }
-    }
+    }*/
     property unsigned char Options
     {
         unsigned char get()

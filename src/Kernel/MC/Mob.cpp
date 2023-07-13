@@ -187,10 +187,10 @@ bool MC::Mob::canPowerJump()
     return __ret;
 }
 
-void MC::Mob::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
-{
-    NativePtr->vehicleLanded(_0, _1);
-}
+//void MC::Mob::VehicleLanded(MC::Vec3 _0, MC::Vec3 _1)
+//{
+//    NativePtr->vehicleLanded(_0, _1);
+//}
 
 void MC::Mob::AnimateHurt()
 {
@@ -666,12 +666,6 @@ bool MC::Mob::IsRuntimePredictedMovementEnabled::get()
 float MC::Mob::YawSpeedInDegreesPerSecond::get()
 {
     auto __ret = NativePtr->getYawSpeedInDegreesPerSecond();
-    return __ret;
-}
-
-float MC::Mob::CameraOffset::get()
-{
-    auto __ret = NativePtr->getCameraOffset();
     return __ret;
 }
 
