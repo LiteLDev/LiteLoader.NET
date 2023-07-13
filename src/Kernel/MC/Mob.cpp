@@ -353,15 +353,15 @@ float MC::Mob::GetMeleeWeaponDamageBonus(MC::Mob^ _0)
     return __ret;
 }
 
-void MC::Mob::Travel(float _0, float _1, float _2, bool _3)
-{
-    NativePtr->travel(_0, _1, _2, _3);
-}
+//void MC::Mob::Travel(float _0, float _1, float _2, bool _3)
+//{
+//    NativePtr->travel(_0, _1, _2, _3);
+//}
 
-void MC::Mob::ApplyFinalFriction(float _0, bool _1)
-{
-    NativePtr->applyFinalFriction(_0, _1);
-}
+//void MC::Mob::ApplyFinalFriction(float _0, bool _1)
+//{
+//    NativePtr->applyFinalFriction(_0, _1);
+//}
 
 void MC::Mob::AiStep()
 {
@@ -497,10 +497,10 @@ bool MC::Mob::CanExistWhenDisallowMob()
 //    NativePtr->__unk_vfn_345();
 //}
 
-void MC::Mob::AscendLadder()
-{
-    NativePtr->ascendLadder();
-}
+//void MC::Mob::AscendLadder()
+//{
+//    NativePtr->ascendLadder();
+//}
 
 void MC::Mob::AscendBlockByJumping()
 {

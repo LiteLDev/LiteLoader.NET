@@ -519,9 +519,9 @@ namespace MC
 
         virtual float GetMeleeWeaponDamageBonus(MC::Mob^ _0);
 
-        virtual void Travel(float _0, float _1, float _2, bool);
+        //virtual void Travel(float _0, float _1, float _2, bool);
 
-        virtual void ApplyFinalFriction(float _0, bool _1);
+        //virtual void ApplyFinalFriction(float _0, bool _1);
 
         virtual void AiStep();
 
@@ -569,7 +569,7 @@ namespace MC
 
         //virtual void UnkVfn345();
 
-        virtual void AscendLadder();
+        //virtual void AscendLadder();
 
         virtual void AscendBlockByJumping();
 

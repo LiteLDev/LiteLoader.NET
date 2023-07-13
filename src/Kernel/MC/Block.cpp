@@ -117,9 +117,9 @@ void MC::Block::GetDebugText(::System::Collections::Generic::IList<::String^> ^ 
     NativePtr->getDebugText(__arg0, _1);
 }
 
-MC::AABB MC::Block::GetVisualShape(MC::AABB _0, bool _1)
+MC::AABB MC::Block::GetVisualShape(MC::AABB _0)
 {
-    return NativePtr->getVisualShape((::AABB)_0, _1);
+    return NativePtr->getVisualShape((::AABB)_0);
 }
 
 bool MC::Block::HasTag(unsigned long long _0)
