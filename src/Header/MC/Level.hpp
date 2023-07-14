@@ -70,8 +70,6 @@ public:
     inline static BlockActor ^ GetBlockEntity(BlockPos pos, int dimId);
     inline static BlockActor ^ GetBlockEntity(BlockPos pos, BlockSource ^ blockSource);
     inline static bool SetBlock(BlockPos pos, int dim, Block ^ block);
-    inline static bool SetBlock(BlockPos pos, int dim, String ^ name, unsigned short tileData);
-    inline static bool SetBlock(BlockPos pos, int dim, CompoundTag ^ nbt);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos pos);
     inline static bool BreakBlockNaturally(BlockSource ^ bs, BlockPos pos, ItemStack ^ tool);
     inline /*static*/ bool DestroyBlock(BlockSource ^ bs, BlockPos pos, bool a2);

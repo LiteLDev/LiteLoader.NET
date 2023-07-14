@@ -25,35 +25,6 @@ namespace MC
         __ctor_all(BlockInstance, ::BlockInstance);
         __ctor_default(BlockInstance, ::BlockInstance);
 
-        inline static BlockInstance^ CreateBlockinstance(Block^ block, BlockPos pos, int dimId);
-
-
-        /// <summary>
-        /// Create a instance of the MC.BlockInstance class from block, position, and dimension id.
-        /// </summary>
-        /// <param name="block">-Block</param>
-        /// <param name="pos">-Position</param>
-        /// <param name="dimid">
-        /// -Dimension id
-        /// <para>　</para>
-        /// <para>dimid:</para>
-        /// <para>　　0 : OverWorld</para>
-        /// <para>　　1 : The Nether</para>
-        /// <para>　　2 : The End</para>
-        /// </param>
-        /// <returns>A instance of the MC.BlockInstance</returns>
-        static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos, int dimid);
-
-
-        /// <summary>
-        /// Create a instance of the MC.BlockInstance class from block and block position with default dimension id.
-        /// </summary>
-        /// <param name="block">-Block</param>
-        /// <param name="pos">-Block Position</param>
-        /// <returns>A instance of the MC.BlockInstance</returns>
-        static BlockInstance^ Create(MC::Block^ block, MC::BlockPos pos);
-
-
         /// <summary>
         /// Create a instance of the MC.BlockInstance class that is empty
         /// </summary>

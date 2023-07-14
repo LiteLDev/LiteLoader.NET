@@ -125,15 +125,15 @@ inline Actor^ Level::CloneMob(Vec3 pos, int dimid, Actor^ ac)
 }
 inline Block ^ Level::GetBlock(BlockPos pos, int dimId)
 {
-    return gcnew Block(::Level::getBlock(pos, dimId));
+    return gcnew Block((::Block*)::Level::getBlock(pos, dimId));
 }
 inline Block ^ Level::GetBlock(BlockPos pos, BlockSource ^ blockSource)
 {
-    return gcnew Block(::Level::getBlock(pos, blockSource));
+    return gcnew Block((::Block*)::Level::getBlock(pos, blockSource));
 }
 inline Block ^ Level::GetBlockEx(BlockPos pos, int dimId)
 {
-    return gcnew Block(::Level::getBlockEx(pos, dimId));
+    return gcnew Block((::Block*)::Level::getBlockEx(pos, dimId));
 }
 inline BlockInstance ^ Level::GetBlockInstance(BlockPos pos, int dimId)
 {
@@ -154,14 +154,6 @@ inline BlockActor ^ Level::GetBlockEntity(BlockPos pos, BlockSource ^ blockSourc
 inline bool Level::SetBlock(BlockPos pos, int dim, Block ^ block)
 {
     return ::Level::setBlock(pos, dim, block);
-}
-inline bool Level::SetBlock(BlockPos pos, int dim, String^ name, unsigned short tileData)
-{
-    return ::Level::setBlock(pos, dim, marshalString(name), tileData);
-}
-inline bool Level::SetBlock(BlockPos pos, int dim, CompoundTag ^ nbt)
-{
-    return ::Level::setBlock((::BlockPos&)pos, dim, nbt->NativePtr);
 }
 inline bool Level::BreakBlockNaturally(BlockSource ^ bs, BlockPos pos)
 {

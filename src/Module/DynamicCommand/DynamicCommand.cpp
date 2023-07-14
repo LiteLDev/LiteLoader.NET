@@ -156,7 +156,7 @@ namespace LiteLoader::DynamicCommand
             throw gcnew DynamicCommandInvalidCastException;
         auto& ret = NativePtr->getRaw<::CommandBlockName>();
 
-        return VALUE_TUPLE<__int64, String^>(ret.id, marshalString(ret.getDescriptionId()));
+        return VALUE_TUPLE<__int64, String^>(ret.hash, marshalString(ret.getDescriptionId()));
     }
     inline MC::MobEffect^ DynamicCommand::Result::AsMobEffect() {
         if (!NativePtr->isSet || NativePtr->type != ::DynamicCommand::ParameterType::Effect)
