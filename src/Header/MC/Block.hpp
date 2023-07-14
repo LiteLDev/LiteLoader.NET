@@ -273,8 +273,6 @@ public:
 
     void GetDebugText(::System::Collections::Generic::IList<::String^> ^ _0, MC::BlockPos _1);
 
-    MC::AABB GetVisualShape(MC::AABB _0);
-
     bool HasTag(unsigned long long _0);
 
     bool IgnoreEntitiesOnPistonMove();

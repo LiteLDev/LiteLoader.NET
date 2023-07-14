@@ -72,14 +72,12 @@ namespace MC
         System::Byte GetByte();
         double GetDouble();
         float GetFloat();
-        StreamReadResult GetReadCompleteResult();
         int GetSignedBigEndianInt();
         int GetSignedInt();
         __int64 GetSignedInt64();
         short GetSignedShort();
         int GetVarInt();
         __int64 GetVarInt64();
-        String^ GetString();
         bool GetString([Out] String^% str);
         unsigned int GetUnsignedInt();
         unsigned __int64 GetUnsignedInt64();

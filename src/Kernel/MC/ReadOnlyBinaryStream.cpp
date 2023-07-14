@@ -1,5 +1,6 @@
 #include <src/Header/MC/ReadOnlyBinaryStream.hpp>
 #include <src/Header/MC/Vec3.hpp>
+#include <mc/Bedrock.hpp>
 
 namespace MC
 {
@@ -25,53 +26,106 @@ namespace MC
 
     inline bool ReadOnlyBinaryStream::CanReadBool() { return NativePtr->canReadBool(); }
 
-    inline bool ReadOnlyBinaryStream::GetBool() { return NativePtr->getBool(); }
-
-    inline System::Byte ReadOnlyBinaryStream::GetByte() { return NativePtr->getByte(); }
-
-    inline double ReadOnlyBinaryStream::GetDouble() { return NativePtr->getDouble(); }
-
-    inline float ReadOnlyBinaryStream::GetFloat() { return NativePtr->getFloat(); }
-
-    inline StreamReadResult ReadOnlyBinaryStream::GetReadCompleteResult()
+    inline bool ReadOnlyBinaryStream::GetBool()
     {
-        return static_cast<StreamReadResult>(NativePtr->getReadCompleteResult());
+        auto result = NativePtr->getBool();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
     }
 
-    inline int ReadOnlyBinaryStream::GetSignedBigEndianInt() { return NativePtr->getSignedBigEndianInt(); }
+    inline System::Byte ReadOnlyBinaryStream::GetByte()
+    {
+        auto result = NativePtr->getByte();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline int ReadOnlyBinaryStream::GetSignedInt() { return NativePtr->getSignedInt(); }
+    inline double ReadOnlyBinaryStream::GetDouble()
+    {
+        auto result = NativePtr->getDouble();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline __int64 ReadOnlyBinaryStream::GetSignedInt64() { return NativePtr->getSignedInt64(); }
+    inline float ReadOnlyBinaryStream::GetFloat()
+    {
+        auto result = NativePtr->getFloat();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline short ReadOnlyBinaryStream::GetSignedShort() { return NativePtr->getSignedShort(); }
+    inline int ReadOnlyBinaryStream::GetSignedBigEndianInt()
+    {
+        auto result = NativePtr->getSignedBigEndianInt();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline String^ ReadOnlyBinaryStream::GetString() { return marshalString(NativePtr->getString()); }
+    inline int ReadOnlyBinaryStream::GetSignedInt()
+    {
+        auto result = NativePtr->getSignedInt();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
+
+    inline __int64 ReadOnlyBinaryStream::GetSignedInt64()
+    {
+        auto result = NativePtr->getSignedInt64();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
+
+    inline short ReadOnlyBinaryStream::GetSignedShort()
+    {
+        auto result = NativePtr->getSignedShort();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
     inline bool ReadOnlyBinaryStream::GetString([Out] String^% str)
     {
         str = nullptr;
         std::string __str;
         auto ret = NativePtr->getString(__str);
-        if (!ret)
+        if (!ret.has_value())
             return false;
         str = marshalString(__str);
         return true;
     }
 
-    inline unsigned int ReadOnlyBinaryStream::GetUnsignedInt() { return NativePtr->getUnsignedInt(); }
+    inline unsigned int ReadOnlyBinaryStream::GetUnsignedInt()
+    {
+        auto result = NativePtr->getUnsignedInt();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline unsigned __int64 ReadOnlyBinaryStream::GetUnsignedInt64() { return NativePtr->getUnsignedInt64(); }
+    inline unsigned __int64 ReadOnlyBinaryStream::GetUnsignedInt64()
+    {
+        auto result = NativePtr->getUnsignedInt64();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline unsigned short ReadOnlyBinaryStream::GetUnsignedShort() { return NativePtr->getUnsignedShort(); }
+    inline unsigned short ReadOnlyBinaryStream::GetUnsignedShort()
+    {
+        auto result = NativePtr->getUnsignedShort();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline unsigned int ReadOnlyBinaryStream::GetUnsignedVarInt() { return NativePtr->getUnsignedVarInt(); }
+    inline unsigned int ReadOnlyBinaryStream::GetUnsignedVarInt()
+    {
+        auto result = NativePtr->getUnsignedVarInt();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline unsigned __int64 ReadOnlyBinaryStream::GetUnsignedVarInt64() { return NativePtr->getUnsignedVarInt64(); }
+    inline unsigned __int64 ReadOnlyBinaryStream::GetUnsignedVarInt64()
+    {
+        auto result = NativePtr->getUnsignedVarInt64();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline int ReadOnlyBinaryStream::GetVarInt() { return NativePtr->getVarInt(); }
+    inline int ReadOnlyBinaryStream::GetVarInt()
+    {
+        auto result = NativePtr->getVarInt();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
-    inline __int64 ReadOnlyBinaryStream::GetVarInt64() { return NativePtr->getVarInt64(); }
+    inline __int64 ReadOnlyBinaryStream::GetVarInt64()
+    {
+        auto result = NativePtr->getVarInt64();
+        return result.has_value() ? result.value() : throw gcnew System::NullReferenceException();
+    }
 
     Mce::UUID ReadOnlyBinaryStream::GetUUID()
     {

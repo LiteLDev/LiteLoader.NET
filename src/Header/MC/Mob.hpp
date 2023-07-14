@@ -33,7 +33,6 @@ namespace MC
             float get();
         }
 
-
         property bool IsImmobile
         {
             bool get();

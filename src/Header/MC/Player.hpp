@@ -496,8 +496,6 @@ namespace MC
 
         //virtual void UnkVfn68() override;
 
-        virtual float GetCameraOffset();
-
         //virtual void UnkVfn82() override;
 
         //bool CanInteractWithOtherEntitiesInGame() override;

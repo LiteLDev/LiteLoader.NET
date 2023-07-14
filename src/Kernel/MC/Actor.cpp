@@ -650,8 +650,6 @@ void MC::Actor::PositionPassenger(MC::Actor^ _0, float _1)
     NativePtr->positionPassenger(_0, _1);
 }
 
- 
-
 bool MC::Actor::Intersects(MC::Vec3 _0, MC::Vec3 _1)
 {
     return NativePtr->intersects(_0, _1);
@@ -986,7 +984,6 @@ void MC::Actor::MarkHurt()
     NativePtr->markHurt();
 }
 
- 
 void MC::Actor::PushOutOfBlocks(MC::Vec3 _0)
 {
     NativePtr->pushOutOfBlocks(_0);
@@ -1055,8 +1052,6 @@ void MC::Actor::Burn(int _0, bool _1)
 {
     NativePtr->burn(_0, _1);
 }
-
- 
 
 float MC::Actor::CalculateAttackDamage(MC::Actor^ _0)
 {
@@ -1670,7 +1665,6 @@ float MC::Actor::YawSpeedInDegreesPerSecond::get()
     return __ret;
 }
 
-
 bool MC::Actor::IsImmobile::get()
 {
     auto __ret = NativePtr->isImmobile();
@@ -2123,11 +2117,10 @@ void MC::Actor::DamageNearbyMobs::set(bool _0)
     NativePtr->setDamageNearbyMobs(_0);
 }
 
-//bool MC::Actor::UpdateWaterState::get()
-//{
-//    auto __ret = NativePtr->updateWaterState();
-//    return __ret;
-//}
+void MC::Actor::UpdateWaterState()
+{
+    NativePtr->updateWaterState();
+}
 
 MC::Vec3 MC::Actor::PosOld::get()
 {
@@ -2558,11 +2551,6 @@ void MC::Actor::TradingPlayer::set(MC::Player^ _0)
 {
     auto __arg0 = (class ::Player*)_0->NativePtr;
     NativePtr->setTradingPlayer(__arg0);
-}
-
-MC::ActorUniqueID MC::Actor::UniqueID::get()
-{
-    return NativePtr->getActorUniqueId();
 }
 
 void MC::Actor::UniqueID::set(MC::ActorUniqueID _0)
@@ -3009,8 +2997,6 @@ void MC::Actor::Resting::set(bool _0)
 {
     NativePtr->setResting(_0);
 }
-
-
 
 bool MC::Actor::IsSheared::get()
 {

@@ -122,7 +122,6 @@ namespace MC
             float get();
         }
 
-
         property bool IsImmobile
         {
             bool get();
@@ -444,10 +443,7 @@ namespace MC
             void set(bool);
         }
 
-     /*   property bool UpdateWaterState
-        {
-            bool get();
-        }*/
+        void UpdateWaterState();
 
         property MC::Vec3 PosOld
         {
@@ -719,7 +715,6 @@ namespace MC
 
         property MC::ActorUniqueID UniqueID
         {
-            MC::ActorUniqueID get();
             void set(MC::ActorUniqueID);
         }
 
@@ -1046,8 +1041,6 @@ namespace MC
             void set(bool);
         }
 
-        
-
         property bool IsSheared
         {
             bool get();
@@ -1266,7 +1259,6 @@ namespace MC
         virtual void LerpMotion(MC::Vec3 _0);
 
         virtual void PositionPassenger(MC::Actor^ _0, float _1);
-
 
         virtual bool Intersects(MC::Vec3 _0, MC::Vec3 _1);
 
