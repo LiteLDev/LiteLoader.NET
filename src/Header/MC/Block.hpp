@@ -22,7 +22,7 @@ public:
     inline static Block ^ Create(CompoundTag ^ nbt);
 
     property HashedString^ Name { HashedString ^ get(); };
-    property CompoundTag ^ Nbt { CompoundTag ^ get(); void set(CompoundTag ^value); };
+    property CompoundTag ^ Nbt { CompoundTag ^ get(); };
 
     property int Id
     {

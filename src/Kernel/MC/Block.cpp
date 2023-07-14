@@ -36,11 +36,6 @@ inline CompoundTag ^ Block::Nbt::get()
 {
     return gcnew CompoundTag(NativePtr->getNbt().release(), true);
 }
-
-inline void Block::Nbt::set(CompoundTag ^ nbt)
-{
-    NativePtr->setNbt(nbt->NativePtr);
-}
 } // namespace MC
 
 
